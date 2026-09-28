@@ -1,0 +1,248 @@
+{
+  "resolve_cases": [
+    {
+      "name": "not_claiming",
+      "output": {
+        "status": null,
+        "current_year_benefit_nominal": 0.0,
+        "first_year_fraction": 0.0,
+        "newly_claimed": false,
+        "validation_codes": [],
+        "eventual_factor": null,
+        "initial_payable_factor": null,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "claim_now_january_whole_year",
+      "output": {
+        "status": {
+          "claim_age_months": 804,
+          "full_annual_benefit_nominal": 31200.0,
+          "pending_drc_annual_benefit_nominal": null,
+          "pending_drc_effective_age_months": null
+        },
+        "current_year_benefit_nominal": 31200.0,
+        "first_year_fraction": 1.0,
+        "newly_claimed": true,
+        "validation_codes": [],
+        "eventual_factor": 1.0,
+        "initial_payable_factor": 1.0,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "claim_now_midyear_before_fra",
+      "output": {
+        "status": {
+          "claim_age_months": 785,
+          "full_annual_benefit_nominal": 22500.0,
+          "pending_drc_annual_benefit_nominal": null,
+          "pending_drc_effective_age_months": null
+        },
+        "current_year_benefit_nominal": 13125.0,
+        "first_year_fraction": 0.5833333333333334,
+        "newly_claimed": true,
+        "validation_codes": [],
+        "eventual_factor": 0.8944444444444445,
+        "initial_payable_factor": 0.8944444444444445,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "claim_now_midyear_after_fra_pending_drc",
+      "output": {
+        "status": {
+          "claim_age_months": 820,
+          "full_annual_benefit_nominal": 40987.951807228914,
+          "pending_drc_annual_benefit_nominal": 42000.0,
+          "pending_drc_effective_age_months": 828
+        },
+        "current_year_benefit_nominal": 27325.301204819276,
+        "first_year_fraction": 0.6666666666666666,
+        "newly_claimed": true,
+        "validation_codes": [],
+        "eventual_factor": 1.1066666666666667,
+        "initial_payable_factor": 1.08,
+        "pending_drc_effective_age_months": 828
+      }
+    },
+    {
+      "name": "claim_now_at_maximum_age",
+      "output": {
+        "status": {
+          "claim_age_months": 840,
+          "full_annual_benefit_nominal": 60000.0,
+          "pending_drc_annual_benefit_nominal": null,
+          "pending_drc_effective_age_months": null
+        },
+        "current_year_benefit_nominal": 60000.0,
+        "first_year_fraction": 1.0,
+        "newly_claimed": true,
+        "validation_codes": [],
+        "eventual_factor": 1.24,
+        "initial_payable_factor": 1.24,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "prior_status_drc_not_yet_effective",
+      "output": {
+        "status": {
+          "claim_age_months": 820,
+          "full_annual_benefit_nominal": 28000.0,
+          "pending_drc_annual_benefit_nominal": 32000.0,
+          "pending_drc_effective_age_months": 828
+        },
+        "current_year_benefit_nominal": 28000.0,
+        "first_year_fraction": 1.0,
+        "newly_claimed": false,
+        "validation_codes": [],
+        "eventual_factor": null,
+        "initial_payable_factor": null,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "prior_status_drc_effective_exact_month",
+      "output": {
+        "status": {
+          "claim_age_months": 820,
+          "full_annual_benefit_nominal": 32000.0,
+          "pending_drc_annual_benefit_nominal": null,
+          "pending_drc_effective_age_months": null
+        },
+        "current_year_benefit_nominal": 32000.0,
+        "first_year_fraction": 1.0,
+        "newly_claimed": false,
+        "validation_codes": [],
+        "eventual_factor": null,
+        "initial_payable_factor": null,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "prior_status_drc_effective_past",
+      "output": {
+        "status": {
+          "claim_age_months": 820,
+          "full_annual_benefit_nominal": 32000.0,
+          "pending_drc_annual_benefit_nominal": null,
+          "pending_drc_effective_age_months": null
+        },
+        "current_year_benefit_nominal": 32000.0,
+        "first_year_fraction": 1.0,
+        "newly_claimed": false,
+        "validation_codes": [],
+        "eventual_factor": null,
+        "initial_payable_factor": null,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "prior_status_no_pending_drc",
+      "output": {
+        "status": {
+          "claim_age_months": 780,
+          "full_annual_benefit_nominal": 20000.0,
+          "pending_drc_annual_benefit_nominal": null,
+          "pending_drc_effective_age_months": null
+        },
+        "current_year_benefit_nominal": 20000.0,
+        "first_year_fraction": 1.0,
+        "newly_claimed": false,
+        "validation_codes": [],
+        "eventual_factor": null,
+        "initial_payable_factor": null,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "error_nonpositive_inflation_factor",
+      "expect_error": "Social Security cash-flow inflation factor must be positive"
+    },
+    {
+      "name": "error_claim_now_missing_month",
+      "expect_error": "A claim-now decision requires a selected claim month"
+    },
+    {
+      "name": "error_claim_month_outside_cycle_before",
+      "expect_error": "Claim-now month must fall within the current annual cycle"
+    },
+    {
+      "name": "error_claim_month_outside_cycle_after",
+      "expect_error": "Claim-now month must fall within the current annual cycle"
+    },
+    {
+      "name": "validation_code_fraction_mismatch_and_nonpositive_benefit",
+      "output": {
+        "status": {
+          "claim_age_months": 807,
+          "full_annual_benefit_nominal": 0.0,
+          "pending_drc_annual_benefit_nominal": 0.0,
+          "pending_drc_effective_age_months": 816
+        },
+        "current_year_benefit_nominal": 0.0,
+        "first_year_fraction": 0.75,
+        "newly_claimed": true,
+        "validation_codes": [
+          "SS_FIRST_YEAR_FRACTION_MISMATCH",
+          "SS_CLAIM_BENEFIT_NONPOSITIVE"
+        ],
+        "eventual_factor": 1.02,
+        "initial_payable_factor": 1.0,
+        "pending_drc_effective_age_months": 816
+      }
+    }
+  ],
+  "standalone_cases": [
+    {
+      "name": "activate_pending_not_yet",
+      "output": {
+        "claim_age_months": 820,
+        "full_annual_benefit_nominal": 28000.0,
+        "pending_drc_annual_benefit_nominal": 32000.0,
+        "pending_drc_effective_age_months": 828
+      }
+    },
+    {
+      "name": "activate_pending_now",
+      "output": {
+        "claim_age_months": 820,
+        "full_annual_benefit_nominal": 32000.0,
+        "pending_drc_annual_benefit_nominal": null,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "activate_pending_none_status",
+      "output": null
+    },
+    {
+      "name": "apply_cola_normal",
+      "output": {
+        "claim_age_months": 820,
+        "full_annual_benefit_nominal": 28840.0,
+        "pending_drc_annual_benefit_nominal": 32960.0,
+        "pending_drc_effective_age_months": 828
+      }
+    },
+    {
+      "name": "apply_cola_floored",
+      "output": {
+        "claim_age_months": 780,
+        "full_annual_benefit_nominal": 20000.0,
+        "pending_drc_annual_benefit_nominal": null,
+        "pending_drc_effective_age_months": null
+      }
+    },
+    {
+      "name": "apply_cola_error_below_negative_one",
+      "expect_error": "Social Security COLA cannot reduce benefits below zero"
+    },
+    {
+      "name": "apply_cola_none_status",
+      "output": null
+    }
+  ]
+}

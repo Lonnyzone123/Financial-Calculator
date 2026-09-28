@@ -1,0 +1,305 @@
+{
+  "fraction_cases": [
+    {
+      "name": "factor_exactly_zero_at_age_48",
+      "input": {
+        "claim_age_months": 576,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": 0,
+        "denominator": 1,
+        "float": 0.0,
+        "months_float": 0.0
+      }
+    },
+    {
+      "name": "factor_one_month_above_zero",
+      "input": {
+        "claim_age_months": 577,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": 1,
+        "denominator": 240,
+        "float": 0.004166666666666667,
+        "months_float": 0.004166666666666667
+      }
+    },
+    {
+      "name": "factor_one_month_below_zero_goes_negative",
+      "input": {
+        "claim_age_months": 575,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": -1,
+        "denominator": 240,
+        "float": -0.004166666666666667,
+        "months_float": -0.004166666666666667
+      }
+    },
+    {
+      "name": "negative_gcd_15_560",
+      "input": {
+        "claim_age_months": 560,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": -1,
+        "denominator": 15,
+        "float": -0.06666666666666667,
+        "months_float": -0.06666666666666667
+      }
+    },
+    {
+      "name": "negative_gcd_12_300",
+      "input": {
+        "claim_age_months": 300,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": -23,
+        "denominator": 20,
+        "float": -1.15,
+        "months_float": -1.15
+      }
+    },
+    {
+      "name": "negative_age_one_12",
+      "input": {
+        "claim_age_months": 12,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": -47,
+        "denominator": 20,
+        "float": -2.35,
+        "months_float": -2.35
+      }
+    },
+    {
+      "name": "negative_age_zero_0",
+      "input": {
+        "claim_age_months": 0,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": -12,
+        "denominator": 5,
+        "float": -2.4,
+        "months_float": -2.4
+      }
+    },
+    {
+      "name": "reduction_tier_boundary_exactly_36",
+      "input": {
+        "claim_age_months": 768,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": 4,
+        "denominator": 5,
+        "float": 0.8,
+        "months_float": 0.8
+      }
+    },
+    {
+      "name": "reduction_tier_boundary_37",
+      "input": {
+        "claim_age_months": 767,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": 191,
+        "denominator": 240,
+        "float": 0.7958333333333333,
+        "months_float": 0.7958333333333333
+      }
+    },
+    {
+      "name": "drc_cap_exactly_36",
+      "input": {
+        "claim_age_months": 840,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": 31,
+        "denominator": 25,
+        "float": 1.24,
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "drc_cap_one_past",
+      "input": {
+        "claim_age_months": 841,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": 31,
+        "denominator": 25,
+        "float": 1.24,
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "drc_far_past_cap",
+      "input": {
+        "claim_age_months": 1404,
+        "fra_age_months": 804
+      },
+      "output": {
+        "numerator": 31,
+        "denominator": 25,
+        "float": 1.24,
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "error_negative_claim_age",
+      "input": {
+        "claim_age_months": -1,
+        "fra_age_months": 804
+      },
+      "expect_error": "Claim age and FRA months must be positive"
+    },
+    {
+      "name": "error_zero_fra",
+      "input": {
+        "claim_age_months": 780,
+        "fra_age_months": 0
+      },
+      "expect_error": "Claim age and FRA months must be positive"
+    },
+    {
+      "name": "error_negative_fra",
+      "input": {
+        "claim_age_months": 780,
+        "fra_age_months": -12
+      },
+      "expect_error": "Claim age and FRA months must be positive"
+    },
+    {
+      "name": "huge_fra_deep_reduction",
+      "input": {
+        "claim_age_months": 744,
+        "fra_age_months": 1200
+      },
+      "output": {
+        "numerator": -19,
+        "denominator": 20,
+        "float": -0.95,
+        "months_float": -0.95
+      }
+    }
+  ],
+  "schedule_cases": [
+    {
+      "name": "schedule_at_zero_factor_age_48",
+      "input": {
+        "claim_age_months": 576,
+        "fra_age_months": 804,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 1
+      },
+      "output": {
+        "eventual_numerator": 0,
+        "eventual_denominator": 1,
+        "initial_numerator": 0,
+        "initial_denominator": 1,
+        "eventual": 0.0,
+        "initial_payable": 0.0,
+        "pending_effective_age_months": null,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "schedule_in_negative_region",
+      "input": {
+        "claim_age_months": 500,
+        "fra_age_months": 804,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 1
+      },
+      "output": {
+        "eventual_numerator": -19,
+        "eventual_denominator": 60,
+        "initial_numerator": -19,
+        "initial_denominator": 60,
+        "eventual": -0.31666666666666665,
+        "initial_payable": -0.31666666666666665,
+        "pending_effective_age_months": null,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "schedule_claim_exactly_at_maximum",
+      "input": {
+        "claim_age_months": 840,
+        "fra_age_months": 804,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 1
+      },
+      "output": {
+        "eventual_numerator": 31,
+        "eventual_denominator": 25,
+        "initial_numerator": 31,
+        "initial_denominator": 25,
+        "eventual": 1.24,
+        "initial_payable": 1.24,
+        "pending_effective_age_months": null,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "schedule_claim_one_month_past_maximum",
+      "input": {
+        "claim_age_months": 841,
+        "fra_age_months": 804,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 1
+      },
+      "expect_error": "Claim age exceeds the configured maximum"
+    },
+    {
+      "name": "schedule_non_january_cycle_rejected",
+      "input": {
+        "claim_age_months": 810,
+        "fra_age_months": 804,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 2
+      },
+      "expect_error": "Only January-aligned annual claim cycles are supported"
+    },
+    {
+      "name": "schedule_non_integer_fra_rejected",
+      "input": {
+        "claim_age_months": 810,
+        "fra_age_months": 805,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 1
+      },
+      "expect_error": "Annual January-aligned DRC timing currently requires an integer FRA age"
+    },
+    {
+      "name": "schedule_fra66_midyear_pending_drc",
+      "input": {
+        "claim_age_months": 811,
+        "fra_age_months": 792,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 1
+      },
+      "output": {
+        "eventual_numerator": 169,
+        "eventual_denominator": 150,
+        "initial_numerator": 27,
+        "initial_denominator": 25,
+        "eventual": 1.1266666666666667,
+        "initial_payable": 1.08,
+        "pending_effective_age_months": 816,
+        "has_pending_credit": true
+      }
+    }
+  ]
+}

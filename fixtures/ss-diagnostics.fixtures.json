@@ -1,0 +1,4560 @@
+{
+  "economic_close_call_fraction": 0.01,
+  "cases": [
+    {
+      "name": "clear_winner_robust",
+      "compact_record": {
+        "schema": "social_security_decision_v2_1_2",
+        "input_fingerprint": "abf848c871595e75b3dbc386908af5f97e6a54436451d5feabbe4a579aa59089",
+        "decision_year": 2025,
+        "decision_age_months": 780,
+        "action": "CLAIM_LATER",
+        "winner_age_months": 840,
+        "runner_up_age_months": 804,
+        "economic_margin_real": 2075.411315492529,
+        "economic_margin_direction": "winner_higher",
+        "scenario_acceptability_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "candidate_count": 3,
+        "valid_candidate_count": 3,
+        "invalid_candidate_count": 0,
+        "winner": {
+          "claim_age_months": 840,
+          "claim_factor": 1.24,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 218483.90117098825,
+          "after_tax_benefit_pv_real": 199634.3956725879,
+          "benefit_tax_pv_real": 18849.505498400362,
+          "bridge_cost_pv_real": 5.4569682106375694e-12,
+          "net_economic_value_real": 199634.3956725879,
+          "bridge": {
+            "opportunity_cost_pv_real": 5.4569682106375694e-12,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 65274.90236341464,
+            "terminal_assets_real": 954837.8112627867,
+            "source_withdrawals_real": {
+              "tbills": 60926.37198641896,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.4193199999999999,
+            "age90_coverage": 0.4193199999999999,
+            "age95_coverage": 0.41931999999999997,
+            "minimum_checkpoint_coverage": 0.4193199999999999,
+            "conditional_shortfall_pv_real": 61472.80305823433,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 44390.672622406186,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2507925.259584889
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "runner_up": {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "sensitivity": {
+          "higher_return": {
+            "winner_age_months": 840,
+            "delta_months": 0,
+            "flipped": false
+          },
+          "lower_return": {
+            "winner_age_months": 840,
+            "delta_months": 0,
+            "flipped": false
+          }
+        },
+        "sensitivity_flip_count": 0,
+        "future_market_data_used": false,
+        "state_boundary_categories": [
+          "decision_identity",
+          "current_portfolio_balances_and_basis",
+          "current_spending_and_floor",
+          "prior_known_tax_income",
+          "current_reserve_and_drawdown",
+          "trailing_past_only_summaries",
+          "current_scheduled_social_security_benefit",
+          "current_claim_status"
+        ],
+        "accessed_input_categories": [
+          "planning_state",
+          "tax_policy",
+          "social_security_policy",
+          "mortality_cohort",
+          "no_hindsight_planning_scenarios"
+        ]
+      },
+      "detailed_candidates": [
+        {
+          "claim_age_months": 780,
+          "claim_factor": 0.8666666666666667,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 212360.68978786634,
+          "after_tax_benefit_pv_real": 194613.22098868413,
+          "benefit_tax_pv_real": 17747.46879918192,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 194613.22098868413,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 0.0,
+            "terminal_assets_real": 850000.0,
+            "source_withdrawals_real": {
+              "tbills": 0.0,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.29359999999999997,
+            "age90_coverage": 0.29359999999999997,
+            "age95_coverage": 0.29359999999999997,
+            "minimum_checkpoint_coverage": 0.29359999999999997,
+            "conditional_shortfall_pv_real": 74781.95922080442,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 31081.51645983605,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2195403.637946516
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 436772.03454500256,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 1873326.7332539433,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 4598189.050733174,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 874218.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 874218.8546995,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 550256.8330596562,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 888708.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 888708.8546995,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 1996353.7937793208,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 903338.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 903338.8546995,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 4718741.357025062,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 840,
+          "claim_factor": 1.24,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 218483.90117098825,
+          "after_tax_benefit_pv_real": 199634.3956725879,
+          "benefit_tax_pv_real": 18849.505498400362,
+          "bridge_cost_pv_real": 5.4569682106375694e-12,
+          "net_economic_value_real": 199634.3956725879,
+          "bridge": {
+            "opportunity_cost_pv_real": 5.4569682106375694e-12,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 65274.90236341464,
+            "terminal_assets_real": 954837.8112627867,
+            "source_withdrawals_real": {
+              "tbills": 60926.37198641896,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.4193199999999999,
+            "age90_coverage": 0.4193199999999999,
+            "age95_coverage": 0.41931999999999997,
+            "minimum_checkpoint_coverage": 0.4193199999999999,
+            "conditional_shortfall_pv_real": 61472.80305823433,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 44390.672622406186,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2507925.259584889
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 914278.9109927866,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 914278.9109927866,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 734692.4084792752,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 954444.0906627869,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 954444.0906627869,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 2193536.2978504314,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 996184.1527327867,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 996184.1527327867,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 4909936.034159416,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        }
+      ],
+      "trace_reasons": []
+    },
+    {
+      "name": "no_runner_up",
+      "compact_record": {
+        "schema": "social_security_decision_v2_1_2",
+        "input_fingerprint": "abf848c871595e75b3dbc386908af5f97e6a54436451d5feabbe4a579aa59089",
+        "decision_year": 2025,
+        "decision_age_months": 780,
+        "action": "WAIT",
+        "winner_age_months": 804,
+        "runner_up_age_months": null,
+        "economic_margin_real": 0.0,
+        "economic_margin_direction": "tied",
+        "scenario_acceptability_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "candidate_count": 1,
+        "valid_candidate_count": 1,
+        "invalid_candidate_count": 0,
+        "winner": {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "runner_up": null,
+        "sensitivity": {},
+        "sensitivity_flip_count": 0,
+        "future_market_data_used": false,
+        "state_boundary_categories": [
+          "decision_identity",
+          "current_portfolio_balances_and_basis",
+          "current_spending_and_floor",
+          "prior_known_tax_income",
+          "current_reserve_and_drawdown",
+          "trailing_past_only_summaries",
+          "current_scheduled_social_security_benefit",
+          "current_claim_status"
+        ],
+        "accessed_input_categories": [
+          "planning_state",
+          "tax_policy",
+          "social_security_policy",
+          "mortality_cohort",
+          "no_hindsight_planning_scenarios"
+        ]
+      },
+      "detailed_candidates": [
+        {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 874218.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 874218.8546995,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 550256.8330596562,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 888708.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 888708.8546995,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 1996353.7937793208,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 903338.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 903338.8546995,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 4718741.357025062,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        }
+      ],
+      "trace_reasons": []
+    },
+    {
+      "name": "sensitivity_flip_present",
+      "compact_record": {
+        "schema": "social_security_decision_v2_1_2",
+        "input_fingerprint": "abf848c871595e75b3dbc386908af5f97e6a54436451d5feabbe4a579aa59089",
+        "decision_year": 2025,
+        "decision_age_months": 780,
+        "action": "CLAIM_NOW",
+        "winner_age_months": 804,
+        "runner_up_age_months": 780,
+        "economic_margin_real": 2945.7633684112516,
+        "economic_margin_direction": "winner_higher",
+        "scenario_acceptability_rate": 0.5,
+        "robustness_class": "SENSITIVE",
+        "candidate_count": 3,
+        "valid_candidate_count": 3,
+        "invalid_candidate_count": 0,
+        "winner": {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "runner_up": {
+          "claim_age_months": 780,
+          "claim_factor": 0.8666666666666667,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 212360.68978786634,
+          "after_tax_benefit_pv_real": 194613.22098868413,
+          "benefit_tax_pv_real": 17747.46879918192,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 194613.22098868413,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 0.0,
+            "terminal_assets_real": 850000.0,
+            "source_withdrawals_real": {
+              "tbills": 0.0,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.29359999999999997,
+            "age90_coverage": 0.29359999999999997,
+            "age95_coverage": 0.29359999999999997,
+            "minimum_checkpoint_coverage": 0.29359999999999997,
+            "conditional_shortfall_pv_real": 74781.95922080442,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 31081.51645983605,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2195403.637946516
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "sensitivity": {
+          "higher_return": {
+            "winner_age_months": 840,
+            "delta_months": 36,
+            "flipped": true
+          },
+          "lower_return": {
+            "winner_age_months": 780,
+            "delta_months": -24,
+            "flipped": true
+          }
+        },
+        "sensitivity_flip_count": 2,
+        "future_market_data_used": false,
+        "state_boundary_categories": [
+          "decision_identity",
+          "current_portfolio_balances_and_basis",
+          "current_spending_and_floor",
+          "prior_known_tax_income",
+          "current_reserve_and_drawdown",
+          "trailing_past_only_summaries",
+          "current_scheduled_social_security_benefit",
+          "current_claim_status"
+        ],
+        "accessed_input_categories": [
+          "planning_state",
+          "tax_policy",
+          "social_security_policy",
+          "mortality_cohort",
+          "no_hindsight_planning_scenarios"
+        ]
+      },
+      "detailed_candidates": [
+        {
+          "claim_age_months": 780,
+          "claim_factor": 0.8666666666666667,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 212360.68978786634,
+          "after_tax_benefit_pv_real": 194613.22098868413,
+          "benefit_tax_pv_real": 17747.46879918192,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 194613.22098868413,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 0.0,
+            "terminal_assets_real": 850000.0,
+            "source_withdrawals_real": {
+              "tbills": 0.0,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.29359999999999997,
+            "age90_coverage": 0.29359999999999997,
+            "age95_coverage": 0.29359999999999997,
+            "minimum_checkpoint_coverage": 0.29359999999999997,
+            "conditional_shortfall_pv_real": 74781.95922080442,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 31081.51645983605,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2195403.637946516
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 436772.03454500256,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 1873326.7332539433,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 4598189.050733174,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 874218.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 874218.8546995,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 550256.8330596562,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 888708.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 888708.8546995,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 1996353.7937793208,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 903338.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 903338.8546995,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 4718741.357025062,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 840,
+          "claim_factor": 1.24,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 218483.90117098825,
+          "after_tax_benefit_pv_real": 199634.3956725879,
+          "benefit_tax_pv_real": 18849.505498400362,
+          "bridge_cost_pv_real": 5.4569682106375694e-12,
+          "net_economic_value_real": 199634.3956725879,
+          "bridge": {
+            "opportunity_cost_pv_real": 5.4569682106375694e-12,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 65274.90236341464,
+            "terminal_assets_real": 954837.8112627867,
+            "source_withdrawals_real": {
+              "tbills": 60926.37198641896,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.4193199999999999,
+            "age90_coverage": 0.4193199999999999,
+            "age95_coverage": 0.41931999999999997,
+            "minimum_checkpoint_coverage": 0.4193199999999999,
+            "conditional_shortfall_pv_real": 61472.80305823433,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 44390.672622406186,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2507925.259584889
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 914278.9109927866,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 914278.9109927866,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 734692.4084792752,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 954444.0906627869,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 954444.0906627869,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 2193536.2978504314,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 996184.1527327867,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 996184.1527327867,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 4909936.034159416,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        }
+      ],
+      "trace_reasons": [
+        "ROBUSTNESS_SENSITIVE",
+        "SENSITIVITY_FLIP"
+      ]
+    },
+    {
+      "name": "negative_margin_tiebreak",
+      "compact_record": {
+        "schema": "social_security_decision_v2_1_2",
+        "input_fingerprint": "abf848c871595e75b3dbc386908af5f97e6a54436451d5feabbe4a579aa59089",
+        "decision_year": 2025,
+        "decision_age_months": 780,
+        "action": "CLAIM_NOW",
+        "winner_age_months": 780,
+        "runner_up_age_months": 804,
+        "economic_margin_real": -500.0,
+        "economic_margin_direction": "winner_lower_for_higher_priority_tiebreak",
+        "scenario_acceptability_rate": 0.6,
+        "robustness_class": "FRAGILE",
+        "candidate_count": 2,
+        "valid_candidate_count": 2,
+        "invalid_candidate_count": 0,
+        "winner": {
+          "claim_age_months": 780,
+          "claim_factor": 0.8666666666666667,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 212360.68978786634,
+          "after_tax_benefit_pv_real": 194613.22098868413,
+          "benefit_tax_pv_real": 17747.46879918192,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 194613.22098868413,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 0.0,
+            "terminal_assets_real": 850000.0,
+            "source_withdrawals_real": {
+              "tbills": 0.0,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.29359999999999997,
+            "age90_coverage": 0.29359999999999997,
+            "age95_coverage": 0.29359999999999997,
+            "minimum_checkpoint_coverage": 0.29359999999999997,
+            "conditional_shortfall_pv_real": 74781.95922080442,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 31081.51645983605,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2195403.637946516
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "runner_up": {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "sensitivity": {
+          "lower_return": {
+            "winner_age_months": 780,
+            "delta_months": 0,
+            "flipped": false
+          }
+        },
+        "sensitivity_flip_count": 0,
+        "future_market_data_used": false,
+        "state_boundary_categories": [
+          "decision_identity",
+          "current_portfolio_balances_and_basis",
+          "current_spending_and_floor",
+          "prior_known_tax_income",
+          "current_reserve_and_drawdown",
+          "trailing_past_only_summaries",
+          "current_scheduled_social_security_benefit",
+          "current_claim_status"
+        ],
+        "accessed_input_categories": [
+          "planning_state",
+          "tax_policy",
+          "social_security_policy",
+          "mortality_cohort",
+          "no_hindsight_planning_scenarios"
+        ]
+      },
+      "detailed_candidates": [
+        {
+          "claim_age_months": 780,
+          "claim_factor": 0.8666666666666667,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 212360.68978786634,
+          "after_tax_benefit_pv_real": 194613.22098868413,
+          "benefit_tax_pv_real": 17747.46879918192,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 194613.22098868413,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 0.0,
+            "terminal_assets_real": 850000.0,
+            "source_withdrawals_real": {
+              "tbills": 0.0,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.29359999999999997,
+            "age90_coverage": 0.29359999999999997,
+            "age95_coverage": 0.29359999999999997,
+            "minimum_checkpoint_coverage": 0.29359999999999997,
+            "conditional_shortfall_pv_real": 74781.95922080442,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 31081.51645983605,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2195403.637946516
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 436772.03454500256,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 1873326.7332539433,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 4598189.050733174,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 874218.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 874218.8546995,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 550256.8330596562,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 888708.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 888708.8546995,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 1996353.7937793208,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 903338.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 903338.8546995,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 4718741.357025062,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        }
+      ],
+      "trace_reasons": [
+        "ECONOMIC_CLOSE_CALL",
+        "ROBUSTNESS_FRAGILE"
+      ]
+    },
+    {
+      "name": "exact_tie",
+      "compact_record": {
+        "schema": "social_security_decision_v2_1_2",
+        "input_fingerprint": "abf848c871595e75b3dbc386908af5f97e6a54436451d5feabbe4a579aa59089",
+        "decision_year": 2025,
+        "decision_age_months": 780,
+        "action": "WAIT",
+        "winner_age_months": 804,
+        "runner_up_age_months": 840,
+        "economic_margin_real": 0.0,
+        "economic_margin_direction": "tied",
+        "scenario_acceptability_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "candidate_count": 2,
+        "valid_candidate_count": 2,
+        "invalid_candidate_count": 0,
+        "winner": {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "runner_up": {
+          "claim_age_months": 840,
+          "claim_factor": 1.24,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 218483.90117098825,
+          "after_tax_benefit_pv_real": 199634.3956725879,
+          "benefit_tax_pv_real": 18849.505498400362,
+          "bridge_cost_pv_real": 5.4569682106375694e-12,
+          "net_economic_value_real": 199634.3956725879,
+          "bridge": {
+            "opportunity_cost_pv_real": 5.4569682106375694e-12,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 65274.90236341464,
+            "terminal_assets_real": 954837.8112627867,
+            "source_withdrawals_real": {
+              "tbills": 60926.37198641896,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.4193199999999999,
+            "age90_coverage": 0.4193199999999999,
+            "age95_coverage": 0.41931999999999997,
+            "minimum_checkpoint_coverage": 0.4193199999999999,
+            "conditional_shortfall_pv_real": 61472.80305823433,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 44390.672622406186,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2507925.259584889
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "sensitivity": {},
+        "sensitivity_flip_count": 0,
+        "future_market_data_used": false,
+        "state_boundary_categories": [
+          "decision_identity",
+          "current_portfolio_balances_and_basis",
+          "current_spending_and_floor",
+          "prior_known_tax_income",
+          "current_reserve_and_drawdown",
+          "trailing_past_only_summaries",
+          "current_scheduled_social_security_benefit",
+          "current_claim_status"
+        ],
+        "accessed_input_categories": [
+          "planning_state",
+          "tax_policy",
+          "social_security_policy",
+          "mortality_cohort",
+          "no_hindsight_planning_scenarios"
+        ]
+      },
+      "detailed_candidates": [
+        {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 874218.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 874218.8546995,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 550256.8330596562,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 888708.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 888708.8546995,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 1996353.7937793208,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 903338.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 903338.8546995,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 4718741.357025062,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 840,
+          "claim_factor": 1.24,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 218483.90117098825,
+          "after_tax_benefit_pv_real": 199634.3956725879,
+          "benefit_tax_pv_real": 18849.505498400362,
+          "bridge_cost_pv_real": 5.4569682106375694e-12,
+          "net_economic_value_real": 199634.3956725879,
+          "bridge": {
+            "opportunity_cost_pv_real": 5.4569682106375694e-12,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 65274.90236341464,
+            "terminal_assets_real": 954837.8112627867,
+            "source_withdrawals_real": {
+              "tbills": 60926.37198641896,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.4193199999999999,
+            "age90_coverage": 0.4193199999999999,
+            "age95_coverage": 0.41931999999999997,
+            "minimum_checkpoint_coverage": 0.4193199999999999,
+            "conditional_shortfall_pv_real": 61472.80305823433,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 44390.672622406186,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2507925.259584889
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 914278.9109927866,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 914278.9109927866,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 734692.4084792752,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 954444.0906627869,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 954444.0906627869,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 2193536.2978504314,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 996184.1527327867,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 996184.1527327867,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 4909936.034159416,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        }
+      ],
+      "trace_reasons": [
+        "ECONOMIC_CLOSE_CALL"
+      ]
+    },
+    {
+      "name": "invalid_candidate_present",
+      "compact_record": {
+        "schema": "social_security_decision_v2_1_2",
+        "input_fingerprint": "abf848c871595e75b3dbc386908af5f97e6a54436451d5feabbe4a579aa59089",
+        "decision_year": 2025,
+        "decision_age_months": 780,
+        "action": "CLAIM_LATER",
+        "winner_age_months": 840,
+        "runner_up_age_months": 804,
+        "economic_margin_real": 1000.0,
+        "economic_margin_direction": "winner_higher",
+        "scenario_acceptability_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "candidate_count": 3,
+        "valid_candidate_count": 2,
+        "invalid_candidate_count": 1,
+        "winner": {
+          "claim_age_months": 840,
+          "claim_factor": 1.24,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 218483.90117098825,
+          "after_tax_benefit_pv_real": 199634.3956725879,
+          "benefit_tax_pv_real": 18849.505498400362,
+          "bridge_cost_pv_real": 5.4569682106375694e-12,
+          "net_economic_value_real": 199634.3956725879,
+          "bridge": {
+            "opportunity_cost_pv_real": 5.4569682106375694e-12,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 65274.90236341464,
+            "terminal_assets_real": 954837.8112627867,
+            "source_withdrawals_real": {
+              "tbills": 60926.37198641896,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.4193199999999999,
+            "age90_coverage": 0.4193199999999999,
+            "age95_coverage": 0.41931999999999997,
+            "minimum_checkpoint_coverage": 0.4193199999999999,
+            "conditional_shortfall_pv_real": 61472.80305823433,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 44390.672622406186,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2507925.259584889
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "runner_up": {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": []
+        },
+        "sensitivity": {},
+        "sensitivity_flip_count": 0,
+        "future_market_data_used": false,
+        "state_boundary_categories": [
+          "decision_identity",
+          "current_portfolio_balances_and_basis",
+          "current_spending_and_floor",
+          "prior_known_tax_income",
+          "current_reserve_and_drawdown",
+          "trailing_past_only_summaries",
+          "current_scheduled_social_security_benefit",
+          "current_claim_status"
+        ],
+        "accessed_input_categories": [
+          "planning_state",
+          "tax_policy",
+          "social_security_policy",
+          "mortality_cohort",
+          "no_hindsight_planning_scenarios"
+        ]
+      },
+      "detailed_candidates": [
+        {
+          "claim_age_months": 780,
+          "claim_factor": 0.8666666666666667,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 212360.68978786634,
+          "after_tax_benefit_pv_real": 194613.22098868413,
+          "benefit_tax_pv_real": 17747.46879918192,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 194613.22098868413,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 0.0,
+            "terminal_assets_real": 850000.0,
+            "source_withdrawals_real": {
+              "tbills": 0.0,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.29359999999999997,
+            "age90_coverage": 0.29359999999999997,
+            "age95_coverage": 0.29359999999999997,
+            "minimum_checkpoint_coverage": 0.29359999999999997,
+            "conditional_shortfall_pv_real": 74781.95922080442,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 31081.51645983605,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2195403.637946516
+          },
+          "feasible": false,
+          "validation_codes": [
+            "SS_BRIDGE_INFEASIBLE"
+          ],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 436772.03454500256,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 1873326.7332539433,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 212360.68978786634,
+              "after_tax_benefit_pv_real": 194613.22098868413,
+              "tax_pv_real": 17747.46879918192,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 0.0,
+                "terminal_assets_real": 850000.0,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 0.0,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 194613.22098868413,
+              "terminal_assets_real": 850000.0,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.29359999999999997,
+                "age90_coverage": 0.29359999999999997,
+                "age95_coverage": 0.29359999999999997,
+                "conditional_shortfall_pv": 74781.95922080442,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 31081.51645983605,
+                "floor_terminal_assets_real": 4598189.050733174,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 804,
+          "claim_factor": 1.0,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 216008.48699323396,
+          "after_tax_benefit_pv_real": 197558.98435709538,
+          "benefit_tax_pv_real": 18449.502636138557,
+          "bridge_cost_pv_real": 0.0,
+          "net_economic_value_real": 197558.98435709538,
+          "bridge": {
+            "opportunity_cost_pv_real": 0.0,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 25390.495300499955,
+            "terminal_assets_real": 888743.8546995,
+            "source_withdrawals_real": {
+              "tbills": 24536.8125,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.3385,
+            "age90_coverage": 0.3385,
+            "age95_coverage": 0.3385,
+            "minimum_checkpoint_coverage": 0.3385,
+            "conditional_shortfall_pv_real": 70028.68916274364,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 35834.78651789684,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2315426.44441084
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 874218.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 874218.8546995,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 550256.8330596562,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 888708.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 888708.8546995,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 1996353.7937793208,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 216008.48699323396,
+              "after_tax_benefit_pv_real": 197558.98435709538,
+              "tax_pv_real": 18449.502636138557,
+              "bridge": {
+                "opportunity_cost_pv": 0.0,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 25390.495300499955,
+                "terminal_assets_real": 903338.8546995,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 24536.8125,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12869.167112999998,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12521.3281875,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 197558.98435709538,
+              "terminal_assets_real": 903338.8546995,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.3385,
+                "age90_coverage": 0.3385,
+                "age95_coverage": 0.3385,
+                "conditional_shortfall_pv": 70028.68916274364,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 35834.78651789684,
+                "floor_terminal_assets_real": 4718741.357025062,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        },
+        {
+          "claim_age_months": 840,
+          "claim_factor": 1.24,
+          "first_year_fraction": 1.0,
+          "gross_benefit_pv_real": 218483.90117098825,
+          "after_tax_benefit_pv_real": 199634.3956725879,
+          "benefit_tax_pv_real": 18849.505498400362,
+          "bridge_cost_pv_real": 5.4569682106375694e-12,
+          "net_economic_value_real": 199634.3956725879,
+          "bridge": {
+            "opportunity_cost_pv_real": 5.4569682106375694e-12,
+            "incremental_tax_pv_real": 0.0,
+            "terminal_asset_difference_real": 65274.90236341464,
+            "terminal_assets_real": 954837.8112627867,
+            "source_withdrawals_real": {
+              "tbills": 60926.37198641896,
+              "voo": 0.0,
+              "roth": 0.0,
+              "schd": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "longevity": {
+            "age85_coverage": 0.4193199999999999,
+            "age90_coverage": 0.4193199999999999,
+            "age95_coverage": 0.41931999999999997,
+            "minimum_checkpoint_coverage": 0.4193199999999999,
+            "conditional_shortfall_pv_real": 61472.80305823433,
+            "depletion_protection": 1.0,
+            "reserve_equivalent_real": 44390.672622406186,
+            "floor_depletion_scenario_rate": 0,
+            "survival_weighted_depletion_risk": 0.0,
+            "earliest_depletion_age_months": null,
+            "expected_floor_terminal_assets_real": 2507925.259584889
+          },
+          "feasible": true,
+          "validation_codes": [],
+          "scenarios": [
+            {
+              "name": "lower_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 914278.9109927866,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 914278.9109927866,
+              "longevity": {
+                "scenario": "lower_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 734692.4084792752,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "central",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 954444.0906627869,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 954444.0906627869,
+              "longevity": {
+                "scenario": "central",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 2193536.2978504314,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            {
+              "name": "higher_return",
+              "gross_benefit_pv_real": 218483.90117098825,
+              "after_tax_benefit_pv_real": 199634.3956725879,
+              "tax_pv_real": 18849.505498400362,
+              "bridge": {
+                "opportunity_cost_pv": 5.4569682106375694e-12,
+                "incremental_tax_pv": 0.0,
+                "terminal_asset_difference": 65274.90236341464,
+                "terminal_assets_real": 996184.1527327867,
+                "feasible": true,
+                "source_withdrawals_real": {
+                  "tbills": 60926.37198641896,
+                  "voo": 0.0,
+                  "roth": 0.0,
+                  "schd": 0.0
+                },
+                "annual_records": [
+                  {
+                    "projection_year": 0,
+                    "months": 12,
+                    "survival": 1.0,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 703.0,
+                    "required_net_real": 12297.0,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12297.0,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13777.719591161587,
+                    "excess_opportunity_cost_pv": 0.0
+                  },
+                  {
+                    "projection_year": 1,
+                    "months": 12,
+                    "survival": 0.9882339999999997,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 760.1874999999995,
+                    "required_net_real": 12239.8125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12239.8125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13405.323527271115,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 2,
+                    "months": 12,
+                    "survival": 0.9758632867879995,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 816.0346679687497,
+                    "required_net_real": 12183.96533203125,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12183.96533203125,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 13044.143135229531,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 3,
+                    "months": 12,
+                    "survival": 0.9629906741719784,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 870.5729179382321,
+                    "required_net_real": 12129.427082061768,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12129.427082061768,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12693.797194763018,
+                    "excess_opportunity_cost_pv": 1.8189894035458565e-12
+                  },
+                  {
+                    "projection_year": 4,
+                    "months": 12,
+                    "survival": 0.949626289595819,
+                    "claim_now_gross_real": 13000.0,
+                    "claim_now_incremental_tax_real": 923.8329276740561,
+                    "required_net_real": 12076.167072325943,
+                    "sale_incremental_tax_real": 0.0,
+                    "allocation_real": {
+                      "tbills": 12076.167072325943,
+                      "voo": 0.0,
+                      "roth": 0.0,
+                      "schd": 0.0
+                    },
+                    "terminal_loss_real": 12353.91891498944,
+                    "excess_opportunity_cost_pv": 0.0
+                  }
+                ],
+                "validation_codes": []
+              },
+              "net_economic_value_real": 199634.3956725879,
+              "terminal_assets_real": 996184.1527327867,
+              "longevity": {
+                "scenario": "higher_return",
+                "age85_coverage": 0.4193199999999999,
+                "age90_coverage": 0.4193199999999999,
+                "age95_coverage": 0.41931999999999997,
+                "conditional_shortfall_pv": 61472.80305823433,
+                "depletion_protection": 1.0,
+                "reserve_equivalent_real": 44390.672622406186,
+                "floor_terminal_assets_real": 4909936.034159416,
+                "projected_depletion_age_months": null,
+                "survival_at_depletion": 0.0,
+                "validation_codes": []
+              },
+              "feasible": true,
+              "validation_codes": []
+            }
+          ]
+        }
+      ],
+      "trace_reasons": [
+        "ECONOMIC_CLOSE_CALL",
+        "INVALID_CANDIDATE"
+      ]
+    }
+  ]
+}

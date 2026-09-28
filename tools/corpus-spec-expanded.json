@@ -1,0 +1,553 @@
+{
+  "formatVersion": 1,
+  "about": "The REVIEWED spec of the EXPANDED composition (S4 task 4): every control scenario, unchanged, then every member tests/lib/corpus-expansion.js declares. Hand-maintained like tools/corpus-spec.json, and never read from tools/capture-baseline.js. Expansion members are built outside the capture tool, so tools/corpus-invariant.js rebuilds them itself and their INPUTS and ROUND-TRIP are checked independently. A member added, removed or changed arrives as a reviewed diff here, with fingerprints re-pinned by node tools/corpus-invariant.js pin-inputs --write --spec tools/corpus-spec-expanded.json. The control scenarios repeated here must match tools/corpus-spec.json exactly; a test holds them together.",
+  "reviewedAt": "f90abab",
+  "reviewedAtMeans": "The HEAD of the working tree the review was carried out on: a starting point, NOT the commit whose corpus this file describes. A corpus change lands in the same commit as its reviewed spec, and a file cannot name the commit that contains it, so the corpus described here need not exist at reviewedAt. For this file it does not: expansion:monte-carlo-sensitive-band was added in the commit after f90abab. What the spec describes is enforced, not labelled -- tests/corpus-composition.test.js holds it to the corpus at every commit that contains it. Recorded by S4 task 5.3's provenance sweep; no scenario or fingerprint changed.",
+  "composition": "expanded",
+  "scenarios": [
+    {
+      "name": "golden:baseline",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "603c937c60d35e06e5ffcdfe74f3fd08e08add82676fb32ce7cc9237d844d8b4"
+    },
+    {
+      "name": "golden:monte-carlo-fixed-seed",
+      "source": "golden",
+      "mode": "monteCarlo",
+      "status": "ok",
+      "inputFingerprint": "fcfd1a2942fdca184cd044dbb4be479ae2c90da63f46f4d6e2bbb0fd019f2c58"
+    },
+    {
+      "name": "golden:rmd-and-roth-conversion",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "a747940acdb4f8ce6dacd3381ba803fd5eddc31342dc792c83336641d898356e"
+    },
+    {
+      "name": "golden:reserve-and-bond-tent",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "503db1c13e1c2ee2b2632c0a60fc7090b5640d216af98815a0ae69f7bb10dafd"
+    },
+    {
+      "name": "golden:guardrails-withdrawal-strategy",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "7e8197bf408fa20f1303cd75363055710a52421ef4294cd5683b77c1da96bf05"
+    },
+    {
+      "name": "seed:1",
+      "source": "seed",
+      "seed": 1,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "4a7ae212b591b3fb5707a8ac8d13ad0ab36cb9e50736336fa0e656c952bff103"
+    },
+    {
+      "name": "seed:2",
+      "source": "seed",
+      "seed": 2,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "1ead81f081c4e411dcc1f3a84f613cf5c6417da357444673537355ad2dae7636"
+    },
+    {
+      "name": "seed:3",
+      "source": "seed",
+      "seed": 3,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "fe0d6160cc374a108eaefb099149833b54a075e158a374ad6cb1860f45804669"
+    },
+    {
+      "name": "seed:4",
+      "source": "seed",
+      "seed": 4,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "a2e3c6dc80dd78f0d6ebc45575ba5779e3e95781a9a40a92356ef4a669fbf226"
+    },
+    {
+      "name": "seed:5",
+      "source": "seed",
+      "seed": 5,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "40eb98f2a2cd3b001db7d38cea4cb0b72d5072141467c76d6e9f4a144fec6134"
+    },
+    {
+      "name": "seed:6",
+      "source": "seed",
+      "seed": 6,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "3f7a3dffa3d84c0389ee52d71fb21ada4fd90e3226da308fd36b504e20a24c62"
+    },
+    {
+      "name": "seed:7",
+      "source": "seed",
+      "seed": 7,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "778ceecd5a5850a792973552e553e1da6325e5bfb7edafca47902bc5083eb67b"
+    },
+    {
+      "name": "seed:8",
+      "source": "seed",
+      "seed": 8,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "1942198a8c0d8794b9a93a2973b482ec2f154ccdf887c09d6e79287f23785bae"
+    },
+    {
+      "name": "seed:9",
+      "source": "seed",
+      "seed": 9,
+      "mode": "monteCarlo",
+      "status": "ok",
+      "inputFingerprint": "ffca5723e973adb985b030f970025da87f4cc3077ec6df62937701dec899852f"
+    },
+    {
+      "name": "seed:10",
+      "source": "seed",
+      "seed": 10,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "b638b942747b20fd52c76a1300f7c95bdacd7e88817e32380d5504a3f3dbfcec"
+    },
+    {
+      "name": "seed:11",
+      "source": "seed",
+      "seed": 11,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "f14f314b1e968f94166adbda286b1f57dad21d5e2b8bcb34ba55b06f92483585"
+    },
+    {
+      "name": "seed:12",
+      "source": "seed",
+      "seed": 12,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "aac08cc35444c379c02f5c93575684ed971600f34d3ce68fc5d5555b0436592f"
+    },
+    {
+      "name": "seed:13",
+      "source": "seed",
+      "seed": 13,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "4b567115ea4fba0e47d554ab68dc41069f9fb5cc00086f50a67fe0c461330df8"
+    },
+    {
+      "name": "seed:14",
+      "source": "seed",
+      "seed": 14,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "2d53ea8aa7e31bcb11277a010b1cac92037297d773e180a55f9baff2e41dd134"
+    },
+    {
+      "name": "seed:15",
+      "source": "seed",
+      "seed": 15,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "4f91b2f7cbbae542967e77d3f51ffca228aceeb725aa0884328138b32d742731"
+    },
+    {
+      "name": "seed:16",
+      "source": "seed",
+      "seed": 16,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "bdbe2f5d54f7aedf509f52546333683b03e769fc9553c30c465037df251d2f7c"
+    },
+    {
+      "name": "seed:17",
+      "source": "seed",
+      "seed": 17,
+      "mode": "monteCarlo",
+      "status": "ok",
+      "inputFingerprint": "505c293f0c6c5942814b1105da65a4761d25f74607034b3d2042dbf4c4a3a3b4"
+    },
+    {
+      "name": "seed:18",
+      "source": "seed",
+      "seed": 18,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "450c2b8d6966424a2c18a2ee3606c4b2224a28acf523a91dd3c73df25e3ffabf"
+    },
+    {
+      "name": "seed:19",
+      "source": "seed",
+      "seed": 19,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "1aa628dbc95c75078e4d1e05527cda58c4ee27b4f55177e068cc5a4949ceae3a"
+    },
+    {
+      "name": "seed:20",
+      "source": "seed",
+      "seed": 20,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "e3723764661ea5c033d5f089eb6f3c4a8cedfc6db9d5fe47de6d676981b0af02"
+    },
+    {
+      "name": "targeted:historical-spouse-ss",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:spouse-cola-income",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:historical-1929",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:historical-1966",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:historical-2000",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:arm-flag-on",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:collision-household-cash",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:explicit-cash-holding",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:funded-qcd",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:survivor-stateful",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:collision-rmd-retained-cash",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "expansion:other-asset-draw-growth-0",
+      "source": "expansion",
+      "family": "other-asset-draws",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "02ccd1bb7769cb058694bde1be382ac46b7df98fd36b18fd13bb15236d7fa884"
+    },
+    {
+      "name": "expansion:other-asset-draw-growth-4",
+      "source": "expansion",
+      "family": "other-asset-draws",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "edba525f167b83d725c24971919134cc517ed2de0534a938771493de38817b9d"
+    },
+    {
+      "name": "expansion:other-asset-draw-historical",
+      "source": "expansion",
+      "family": "other-asset-draws",
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "035ac90c5490d827e26e2b41a97b71fb8b481a8ebe619ac0a4d379cb5fc93d9e"
+    },
+    {
+      "name": "expansion:other-asset-two-assets-late-access",
+      "source": "expansion",
+      "family": "other-asset-draws",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "cf1306b40b1b6b5556f63fcf0ee42183f9e225ecdf272a79bf95c6b63efb04c0"
+    },
+    {
+      "name": "expansion:debt-ordinary-amortizing-15y",
+      "source": "expansion",
+      "family": "debts-ordinary",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "2c8d54c59eb8267c02b36604695a1f0ba2d06b5c525939e668777aa80732a818"
+    },
+    {
+      "name": "expansion:debt-ordinary-amortizing-5y",
+      "source": "expansion",
+      "family": "debts-ordinary",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "c5dc508e81cb87f6bd4c9954ecea27d25e91a08e205b85577d1eddee1bc6df64"
+    },
+    {
+      "name": "expansion:debt-ordinary-zero-interest",
+      "source": "expansion",
+      "family": "debts-ordinary",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "cd5746ba1977884fe05a9f1a5b354d46e446045beb71160c2dac37f8a0bd383a"
+    },
+    {
+      "name": "expansion:debt-ordinary-zero-balance",
+      "source": "expansion",
+      "family": "debts-ordinary",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "837d29bf61fed88d5d1eeaf77b77fcbd419f8bda18fc45871f40d89e0fd0ef75"
+    },
+    {
+      "name": "expansion:debt-ordinary-payoff",
+      "source": "expansion",
+      "family": "debts-ordinary",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "b1db96fc6b4f1e98d50530d23f6dc8319ae790a834ea387c1a7dd4a8ab5b95df"
+    },
+    {
+      "name": "expansion:debt-adversarial-q54-worst",
+      "source": "expansion",
+      "family": "debts-adversarial",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "18ca0659161dbe7f4ea8cc4ba83ace53a8c7786c68f0e60578878f63e3a73726"
+    },
+    {
+      "name": "expansion:debt-adversarial-interest-only",
+      "source": "expansion",
+      "family": "debts-adversarial",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "59d48db41452838032f9d2cb49bab77e1596c0d66f5c3c34673b3150a025d554"
+    },
+    {
+      "name": "expansion:debt-adversarial-a-cent-below",
+      "source": "expansion",
+      "family": "debts-adversarial",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "c39cd1c69fc8f5a859a681e074ae88a502112123381d2e25ce312ea4ea7bce95"
+    },
+    {
+      "name": "expansion:monte-carlo-sensitive-band",
+      "source": "expansion",
+      "family": "monte-carlo-sensitive-band",
+      "mode": "monteCarlo",
+      "status": "ok",
+      "inputFingerprint": "e4f92135d799589bad9bfc542b27c3c28a127df8b3fcee9e4742baf2ef019610"
+    },
+    {
+      "name": "expansion:s5aa-gap-working-household",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "438e76cecf6e971c57fdcfe2b3381e68a6cbbff965f77da0ccc1c0fcd9e1654f"
+    },
+    {
+      "name": "expansion:s5aa-gap-retired-couple",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "6220ef21c657a7fe9ca542ae3c009da39b456f7181f65d742c524ad71daf776b"
+    },
+    {
+      "name": "expansion:s5aa-gap-early-retiree",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "7c999d9ee5ffdf1431719b112a8abd8b46e6349d10a1db2f72a3ce344be2c1de"
+    },
+    {
+      "name": "expansion:s5aa-gap-widowed-before-fra",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "73e5607a987f776ebd7260ffe088ea66c1aa816415ad7f62a7de2280dbdc1e52"
+    },
+    {
+      "name": "expansion:s5aa-gap-death-while-working",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "dbe7ce17dad3d55a95b80f798c8ed016e7b98585b85cc8b79b23f4a7eb94f2ef"
+    },
+    {
+      "name": "expansion:s5aa-r6-gap-survivor-health-roth",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "a007ec455fc293bcd57cce04a9311be777643849aac87f2277c335fe51234cc4"
+    },
+    {
+      "name": "expansion:s5aa-r6-gap-basis-conversion",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "8f734cf2c63eb95224c7c29e12e7a25bc085453cd7a210fae00c591630fa9c6c"
+    },
+    {
+      "name": "expansion:s5aa-r6-gap-basis-one-owner-draw",
+      "source": "expansion",
+      "family": "s5aa-instrument-gaps",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "f2b812534e64a86b2eb827484093a5093dd9d7095bc2162f7b935c942d3cdf2c"
+    },
+    {
+      "name": "expansion:s5aa-r14-rmd-conversion-under-loss",
+      "source": "expansion",
+      "family": "s5aa-rmd-repairs",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "6b0f9c8aeb00e138964975c8af8cbb1ece3e2c1dea22622dc31f5c94f56bf3fb"
+    },
+    {
+      "name": "expansion:s5aa-r14-rmd-two-iras-distinct-returns",
+      "source": "expansion",
+      "family": "s5aa-rmd-repairs",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "18a7831d8a6f4c2ea23ec243359a22c943b68bd67295e031f1ec19203861abd4"
+    },
+    {
+      "name": "expansion:s5aa-r14-rmd-prototype-ids",
+      "source": "expansion",
+      "family": "s5aa-rmd-repairs",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "502531a9d04ed0477f7dced49e15ec1148a2ba64dec88d7f0e12a45bfef2f6a2"
+    },
+    {
+      "name": "expansion:s5aa-r15-rmd-transfer-to-taxable",
+      "source": "expansion",
+      "family": "s5aa-rmd-repairs",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "38c6b62ddfe3cf9995e931f79d8814f3876dc8e9f7be13dc9f5f36334d0f9ecd"
+    },
+    {
+      "name": "expansion:s5aa-sa18-loss-under-deduction",
+      "source": "expansion",
+      "family": "s5aa-capital-loss",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "ba1c4ffb0a0b6c5564cb8e7278b183c1e35c9009eaf61725260e8676b5fcb15c"
+    },
+    {
+      "name": "expansion:s5aa-sa18-decedent-loss",
+      "source": "expansion",
+      "family": "s5aa-capital-loss",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "f348d50ed2cf0f30da85b55c8f9325df29974b0220a1c7f23f4cea4fd4bf4860"
+    },
+    {
+      "name": "expansion:s5aa-r19-ira-contribution-conversion-same-year",
+      "source": "expansion",
+      "family": "s5aa-ira-settlement",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "ac55124a003cebe66900dd0677f4579882efe0d186b63b0e225268246a89b5c7"
+    },
+    {
+      "name": "expansion:s5aa-r19-ira-conversion-and-qcd",
+      "source": "expansion",
+      "family": "s5aa-ira-settlement",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "69295a966df395958aea3d070d1aa5e96257834fa60a1a3f061c7f3b09cf6ab4"
+    },
+    {
+      "name": "expansion:s5aa-r19-ira-charity-then-rollover",
+      "source": "expansion",
+      "family": "s5aa-ira-settlement",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "e260d519cdf96f22b4a1d8f91233f52c0b08af74344187fd2f7e374eb64da2ee"
+    },
+    {
+      "name": "expansion:s5aa-r19-ira-qcd-offset",
+      "source": "expansion",
+      "family": "s5aa-ira-settlement",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "c02e018623314ac692e0ff89030a9393bece2940660d60dc3d979e0f5e83cb47"
+    },
+    {
+      "name": "expansion:s5aa-r20-spouse-owner-early-tax",
+      "source": "expansion",
+      "family": "s5aa-r20-full-model",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "ac5315fa9141a42425fad024f6b5d250c5b214f60e85c7a37deed99d499d7d21"
+    },
+    {
+      "name": "expansion:s5aa-r20-rule55-ira-ranking",
+      "source": "expansion",
+      "family": "s5aa-r20-full-model",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "23c03b2f8e472b837b07766fd509e9a38ecbcb044b4fb07ddbdcc8fc18d4a6d2"
+    },
+    {
+      "name": "expansion:s5aa-r20-all-stock-glide",
+      "source": "expansion",
+      "family": "s5aa-r20-full-model",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "f722e037d2c4af58346ee573af64f4ed8733f41b16e506a07f2a5a50112072af"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+ "formatVersion": 1,
+ "about": "S5 2s.2: the corpus paths that are configured in the expanded composition but executed by no scenario in it, pinned on the owner's answer (ii) of 2026-09-14 so that a NEW gap fails tests/corpus-configured-paths.test.js loudly. What a path is, and what executing means, are stated in that test. The list only shrinks. It is corpus record content, like tools/control-corpus.json: a corpus change that makes a gap execute removes the gap here, in that corpus commit. Adding a name needs the test's frozen copy of the list edited too, which is an instrument change.",
+ "pinnedAt": "e582db0",
+ "pinnedAtMeans": "The commit whose corpus was measured when the list was pinned. A file cannot name the commit that contains it.",
+ "composition": "expanded",
+ "gaps": [
+  "retirement.guytonSkipInflation"
+ ],
+ "why": {
+  "retirement.guytonSkipInflation": "Set in 40 scenarios and executed in none. The corpus holds one guyton plan, and no negative prior-year return reaches its decision."
+ },
+ "shrunk": [
+  {
+   "removed": [
+    "advanced.rule55",
+    "advanced.transferOn: preTax -> taxable"
+   ],
+   "in": "S5 2s.1's corpus commit (Q73 / U4, under Q77 (a))",
+   "why": "The repaired stage draw revives the plans that never reached these branches: seed:1 is no longer $0 from its first row, so its preTax -> taxable transfer runs, and a revived plan takes rule 55. tests/corpus-configured-paths.test.js measures both executing in the repaired corpus."
+  },
+  {
+   "removed": [
+    "retirement.preserveRoth"
+   ],
+   "in": "S5AA task 2.1's corpus commit (Q108)",
+   "why": "The carried spending base is now the unadjusted amount, so a stage adjusts the year it applies to instead of compounding into every later year. Staged fixedReal plans no longer collapse toward zero spending, so they reach the withdrawal-ordering branch this path controls. The same cause removed advanced.rule55 and the preTax -> taxable transfer in S5 2s.1's corpus commit: a spending defect was suppressing corpus coverage of real code, and repairing it restores the coverage rather than reducing it. tests/corpus-configured-paths.test.js measures it executing in the repaired corpus."
+  }
+ ]
+}

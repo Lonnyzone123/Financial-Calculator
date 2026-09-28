@@ -1,0 +1,120 @@
+{
+ "formatVersion": 1,
+ "about": "S4 task 8.7 / S4-IR-02: the handwritten scheduling for every open item the closeout check assembles. Joined by id onto the generated items in tools/requirements-register.json (open) and tools/test-classification.json (coupledOnly), so rebuilding either register erases no assignment. Entries with origin \"handwritten\" are items no generator discovers. Every entry cites its basis; fields eb proposed say so in their basis. The owner reviewed and approved this schedule and its task map on 2026-09-13 (tools/closeout-task-map.json review). Edited by hand: run node tools/closeout-check.js after any change.",
+ "entries": [
+  {
+   "id": "COUPLED-ONLY-CQ-6",
+   "severity": "medium",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is not coupled at test level (medium)."
+  },
+  {
+   "id": "COUPLED-ONLY-CR2-06",
+   "severity": "high",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is coupled at test level (high)."
+  },
+  {
+   "id": "COUPLED-ONLY-IDENTITY-HOUSEHOLD",
+   "severity": "high",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is coupled at test level (high)."
+  },
+  {
+   "id": "COUPLED-ONLY-IDENTITY-PORTFOLIO",
+   "severity": "high",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is coupled at test level (high)."
+  },
+  {
+   "id": "COUPLED-ONLY-R2V-002",
+   "severity": "medium",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is not coupled at test level (medium)."
+  },
+  {
+   "id": "COUPLED-ONLY-S3-15",
+   "severity": "high",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is coupled at test level (high)."
+  },
+  {
+   "id": "COUPLED-ONLY-S3-16",
+   "severity": "high",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is coupled at test level (high)."
+  },
+  {
+   "id": "COUPLED-ONLY-T02",
+   "severity": "medium",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is not coupled at test level (medium)."
+  },
+  {
+   "id": "COUPLED-ONLY-UI-002",
+   "severity": "medium",
+   "owner": "S5 session (S5 block 2r)",
+   "downstreamTask": "S5 task 2r",
+   "deadline": "S5b task 3.4",
+   "blockingConsumer": "rebuild",
+   "basis": "the owner, 2026-09-13, round 1 decision 1: rebuild-proof tests for task 9.4's list are written during S5, with S5b task 3.4 as deadline and re-check; the 18 test-level coupled items are high severity, the other 39 medium. Recorded as S5 block 2r at 7a64f32. This item is not coupled at test level (medium)."
+  },
+  {
+   "id": "S4-CLOSEOUT-11-ONE-MACHINE",
+   "origin": "handwritten",
+   "kind": "execution-path-limitation",
+   "severity": "medium",
+   "owner": "the owner (a second machine)",
+   "downstreamTask": "S5b task 4",
+   "deadline": "S5b task 4",
+   "blockingConsumer": "s6-preconditions",
+   "basis": "S4 close-out 11: only one machine was available. The owner, 2026-09-13, round 4 decision 15: recorded as a limitation. S6's precondition requires a fresh clone on a second machine to build and test green (noted there at 7a64f32). Proposed by eb and approved by the owner on 2026-09-13: deadline S5b task 4, whose definitive baseline must be reproducible elsewhere, and severity medium."
+  },
+  {
+   "id": "S4-IPHONE-UNMEASURED",
+   "origin": "handwritten",
+   "kind": "execution-path-limitation",
+   "severity": "medium",
+   "owner": "the owner",
+   "downstreamTask": "S6 task 2",
+   "deadline": "S6 task 2",
+   "blockingConsumer": "S6 task 5",
+   "basis": "S4 task 10.6 has no iPhone measurement. The owner, 2026-09-13, round 3 decision 12: record the iPhone as unmeasured; S6 task 5 carries the iPhone memory figures as an unmeasured risk (S6 2.2, recorded at 7a64f32). Proposed by eb and approved by the owner on 2026-09-13: severity medium."
+  },
+  {
+   "id": "S4-ANDROID-UNMEASURED",
+   "origin": "handwritten",
+   "kind": "execution-path-limitation",
+   "severity": "high",
+   "owner": "the owner (measures the rebuilt engine, S6 7.3b; this engine is recorded as unmeasured in S6 task 2)",
+   "downstreamTask": "S6 task 2",
+   "deadline": "S6 task 2",
+   "blockingConsumer": "S6 task 5",
+   "basis": "S4 task 10.5 is open, for the owner. A page for this engine was built from c4d2a93 with a 5 s stall limit (the owner, 2026-09-13, round 5 decision 17). The owner then decided the same day not to benchmark this engine on Android: the rebuilt engine will be measured instead. So S6 task 2 records Android as unmeasured for this engine, task 5 carries it as a risk beside the iPhone, and the device measurement moves to the rebuilt engine (S6_TASK_CHECKLIST.md 7.3b). Proposed by eb and approved by the owner on 2026-09-13: severity high, because Android is the primary device and the budget rests on it."
+  }
+ ]
+}

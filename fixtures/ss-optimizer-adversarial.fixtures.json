@@ -1,0 +1,130 @@
+{
+  "economic_close_call_fraction": 0.01,
+  "minimum_robust_win_rate": 0.6,
+  "cases": [
+    {
+      "name": "full_tie_except_claim_age_picks_highest_age",
+      "output": {
+        "winner_claim_age_months": 816,
+        "runner_up_claim_age_months": 792,
+        "economic_margin": 0.0,
+        "scenario_win_rate": 1.0,
+        "robustness_class": "SENSITIVE",
+        "sensitivity_flip_ages": {
+          "lower_return": 816,
+          "central": 816,
+          "higher_return": 816
+        }
+      }
+    },
+    {
+      "name": "genuine_full_tie_same_claim_age",
+      "output": {
+        "winner_claim_age_months": 804,
+        "runner_up_claim_age_months": 804,
+        "economic_margin": 0.0,
+        "scenario_win_rate": 2.0,
+        "robustness_class": "SENSITIVE",
+        "sensitivity_flip_ages": {
+          "lower_return": 804,
+          "central": 804,
+          "higher_return": 804
+        }
+      }
+    },
+    {
+      "name": "no_depletion_beats_higher_value_with_depletion",
+      "output": {
+        "winner_claim_age_months": 780,
+        "runner_up_claim_age_months": 804,
+        "economic_margin": -40000.0,
+        "scenario_win_rate": 0.0,
+        "robustness_class": "FRAGILE",
+        "sensitivity_flip_ages": {
+          "lower_return": 804,
+          "central": 804,
+          "higher_return": 804
+        }
+      }
+    },
+    {
+      "name": "all_depleted_narrows_by_rate_then_shortfall_boundary",
+      "output": {
+        "winner_claim_age_months": 792,
+        "runner_up_claim_age_months": 804,
+        "economic_margin": 20000.0,
+        "scenario_win_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "sensitivity_flip_ages": {
+          "lower_return": 792,
+          "central": 792,
+          "higher_return": 792
+        }
+      }
+    },
+    {
+      "name": "robust_candidate_beats_higher_value_fragile_one",
+      "output": {
+        "winner_claim_age_months": 792,
+        "runner_up_claim_age_months": 816,
+        "economic_margin": -110000.0,
+        "scenario_win_rate": 0.6666666666666666,
+        "robustness_class": "SENSITIVE",
+        "sensitivity_flip_ages": {
+          "lower_return": 792,
+          "central": 816,
+          "higher_return": 792
+        }
+      }
+    },
+    {
+      "name": "exact_close_tolerance_boundary_both_in_pool",
+      "output": {
+        "winner_claim_age_months": 780,
+        "runner_up_claim_age_months": 804,
+        "economic_margin": -1000.0,
+        "scenario_win_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "sensitivity_flip_ages": {
+          "lower_return": 804,
+          "central": 804,
+          "higher_return": 804
+        }
+      }
+    },
+    {
+      "name": "just_past_close_tolerance_boundary_excluded",
+      "output": {
+        "winner_claim_age_months": 804,
+        "runner_up_claim_age_months": 780,
+        "economic_margin": 1001.0,
+        "scenario_win_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "sensitivity_flip_ages": {
+          "lower_return": 804,
+          "central": 804,
+          "higher_return": 804
+        }
+      }
+    },
+    {
+      "name": "single_candidate_no_runner_up",
+      "output": {
+        "winner_claim_age_months": 804,
+        "runner_up_claim_age_months": null,
+        "economic_margin": 0.0,
+        "scenario_win_rate": 1.0,
+        "robustness_class": "ROBUST",
+        "sensitivity_flip_ages": {
+          "lower_return": 804,
+          "central": 804,
+          "higher_return": 804
+        }
+      }
+    },
+    {
+      "name": "no_valid_candidates_raises",
+      "expect_error": "No valid Social Security claim candidate"
+    }
+  ]
+}

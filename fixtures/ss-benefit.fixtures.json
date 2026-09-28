@@ -1,0 +1,2407 @@
+{
+  "fraction_cases": [
+    {
+      "name": "months_744",
+      "input": {
+        "name": "months_744",
+        "claim_age_months": 744,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 7,
+          "denominator": 10,
+          "float": 0.7
+        },
+        "months_float": 0.7
+      }
+    },
+    {
+      "name": "months_745",
+      "input": {
+        "name": "months_745",
+        "claim_age_months": 745,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 169,
+          "denominator": 240,
+          "float": 0.7041666666666667
+        },
+        "months_float": 0.7041666666666667
+      }
+    },
+    {
+      "name": "months_746",
+      "input": {
+        "name": "months_746",
+        "claim_age_months": 746,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 17,
+          "denominator": 24,
+          "float": 0.7083333333333334
+        },
+        "months_float": 0.7083333333333334
+      }
+    },
+    {
+      "name": "months_747",
+      "input": {
+        "name": "months_747",
+        "claim_age_months": 747,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 57,
+          "denominator": 80,
+          "float": 0.7125
+        },
+        "months_float": 0.7125
+      }
+    },
+    {
+      "name": "months_748",
+      "input": {
+        "name": "months_748",
+        "claim_age_months": 748,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 43,
+          "denominator": 60,
+          "float": 0.7166666666666667
+        },
+        "months_float": 0.7166666666666667
+      }
+    },
+    {
+      "name": "months_749",
+      "input": {
+        "name": "months_749",
+        "claim_age_months": 749,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 173,
+          "denominator": 240,
+          "float": 0.7208333333333333
+        },
+        "months_float": 0.7208333333333333
+      }
+    },
+    {
+      "name": "months_750",
+      "input": {
+        "name": "months_750",
+        "claim_age_months": 750,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 29,
+          "denominator": 40,
+          "float": 0.725
+        },
+        "months_float": 0.725
+      }
+    },
+    {
+      "name": "months_751",
+      "input": {
+        "name": "months_751",
+        "claim_age_months": 751,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 35,
+          "denominator": 48,
+          "float": 0.7291666666666666
+        },
+        "months_float": 0.7291666666666666
+      }
+    },
+    {
+      "name": "months_752",
+      "input": {
+        "name": "months_752",
+        "claim_age_months": 752,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 11,
+          "denominator": 15,
+          "float": 0.7333333333333333
+        },
+        "months_float": 0.7333333333333333
+      }
+    },
+    {
+      "name": "months_753",
+      "input": {
+        "name": "months_753",
+        "claim_age_months": 753,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 59,
+          "denominator": 80,
+          "float": 0.7375
+        },
+        "months_float": 0.7375
+      }
+    },
+    {
+      "name": "months_754",
+      "input": {
+        "name": "months_754",
+        "claim_age_months": 754,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 89,
+          "denominator": 120,
+          "float": 0.7416666666666667
+        },
+        "months_float": 0.7416666666666667
+      }
+    },
+    {
+      "name": "months_755",
+      "input": {
+        "name": "months_755",
+        "claim_age_months": 755,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 179,
+          "denominator": 240,
+          "float": 0.7458333333333333
+        },
+        "months_float": 0.7458333333333333
+      }
+    },
+    {
+      "name": "months_756",
+      "input": {
+        "name": "months_756",
+        "claim_age_months": 756,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 3,
+          "denominator": 4,
+          "float": 0.75
+        },
+        "months_float": 0.75
+      }
+    },
+    {
+      "name": "months_757",
+      "input": {
+        "name": "months_757",
+        "claim_age_months": 757,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 181,
+          "denominator": 240,
+          "float": 0.7541666666666667
+        },
+        "months_float": 0.7541666666666667
+      }
+    },
+    {
+      "name": "months_758",
+      "input": {
+        "name": "months_758",
+        "claim_age_months": 758,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 91,
+          "denominator": 120,
+          "float": 0.7583333333333333
+        },
+        "months_float": 0.7583333333333333
+      }
+    },
+    {
+      "name": "months_759",
+      "input": {
+        "name": "months_759",
+        "claim_age_months": 759,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 61,
+          "denominator": 80,
+          "float": 0.7625
+        },
+        "months_float": 0.7625
+      }
+    },
+    {
+      "name": "months_760",
+      "input": {
+        "name": "months_760",
+        "claim_age_months": 760,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 23,
+          "denominator": 30,
+          "float": 0.7666666666666667
+        },
+        "months_float": 0.7666666666666667
+      }
+    },
+    {
+      "name": "months_761",
+      "input": {
+        "name": "months_761",
+        "claim_age_months": 761,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 37,
+          "denominator": 48,
+          "float": 0.7708333333333334
+        },
+        "months_float": 0.7708333333333334
+      }
+    },
+    {
+      "name": "months_762",
+      "input": {
+        "name": "months_762",
+        "claim_age_months": 762,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 40,
+          "float": 0.775
+        },
+        "months_float": 0.775
+      }
+    },
+    {
+      "name": "months_763",
+      "input": {
+        "name": "months_763",
+        "claim_age_months": 763,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 187,
+          "denominator": 240,
+          "float": 0.7791666666666667
+        },
+        "months_float": 0.7791666666666667
+      }
+    },
+    {
+      "name": "months_764",
+      "input": {
+        "name": "months_764",
+        "claim_age_months": 764,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 47,
+          "denominator": 60,
+          "float": 0.7833333333333333
+        },
+        "months_float": 0.7833333333333333
+      }
+    },
+    {
+      "name": "months_765",
+      "input": {
+        "name": "months_765",
+        "claim_age_months": 765,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 63,
+          "denominator": 80,
+          "float": 0.7875
+        },
+        "months_float": 0.7875
+      }
+    },
+    {
+      "name": "months_766",
+      "input": {
+        "name": "months_766",
+        "claim_age_months": 766,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 19,
+          "denominator": 24,
+          "float": 0.7916666666666666
+        },
+        "months_float": 0.7916666666666666
+      }
+    },
+    {
+      "name": "months_767",
+      "input": {
+        "name": "months_767",
+        "claim_age_months": 767,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 191,
+          "denominator": 240,
+          "float": 0.7958333333333333
+        },
+        "months_float": 0.7958333333333333
+      }
+    },
+    {
+      "name": "months_768",
+      "input": {
+        "name": "months_768",
+        "claim_age_months": 768,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 4,
+          "denominator": 5,
+          "float": 0.8
+        },
+        "months_float": 0.8
+      }
+    },
+    {
+      "name": "months_769",
+      "input": {
+        "name": "months_769",
+        "claim_age_months": 769,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 29,
+          "denominator": 36,
+          "float": 0.8055555555555556
+        },
+        "months_float": 0.8055555555555556
+      }
+    },
+    {
+      "name": "months_770",
+      "input": {
+        "name": "months_770",
+        "claim_age_months": 770,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 73,
+          "denominator": 90,
+          "float": 0.8111111111111111
+        },
+        "months_float": 0.8111111111111111
+      }
+    },
+    {
+      "name": "months_771",
+      "input": {
+        "name": "months_771",
+        "claim_age_months": 771,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 49,
+          "denominator": 60,
+          "float": 0.8166666666666667
+        },
+        "months_float": 0.8166666666666667
+      }
+    },
+    {
+      "name": "months_772",
+      "input": {
+        "name": "months_772",
+        "claim_age_months": 772,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 37,
+          "denominator": 45,
+          "float": 0.8222222222222222
+        },
+        "months_float": 0.8222222222222222
+      }
+    },
+    {
+      "name": "months_773",
+      "input": {
+        "name": "months_773",
+        "claim_age_months": 773,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 149,
+          "denominator": 180,
+          "float": 0.8277777777777777
+        },
+        "months_float": 0.8277777777777777
+      }
+    },
+    {
+      "name": "months_774",
+      "input": {
+        "name": "months_774",
+        "claim_age_months": 774,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 5,
+          "denominator": 6,
+          "float": 0.8333333333333334
+        },
+        "months_float": 0.8333333333333334
+      }
+    },
+    {
+      "name": "months_775",
+      "input": {
+        "name": "months_775",
+        "claim_age_months": 775,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 151,
+          "denominator": 180,
+          "float": 0.8388888888888889
+        },
+        "months_float": 0.8388888888888889
+      }
+    },
+    {
+      "name": "months_776",
+      "input": {
+        "name": "months_776",
+        "claim_age_months": 776,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 38,
+          "denominator": 45,
+          "float": 0.8444444444444444
+        },
+        "months_float": 0.8444444444444444
+      }
+    },
+    {
+      "name": "months_777",
+      "input": {
+        "name": "months_777",
+        "claim_age_months": 777,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 17,
+          "denominator": 20,
+          "float": 0.85
+        },
+        "months_float": 0.85
+      }
+    },
+    {
+      "name": "months_778",
+      "input": {
+        "name": "months_778",
+        "claim_age_months": 778,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 77,
+          "denominator": 90,
+          "float": 0.8555555555555555
+        },
+        "months_float": 0.8555555555555555
+      }
+    },
+    {
+      "name": "months_779",
+      "input": {
+        "name": "months_779",
+        "claim_age_months": 779,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 36,
+          "float": 0.8611111111111112
+        },
+        "months_float": 0.8611111111111112
+      }
+    },
+    {
+      "name": "months_780",
+      "input": {
+        "name": "months_780",
+        "claim_age_months": 780,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 13,
+          "denominator": 15,
+          "float": 0.8666666666666667
+        },
+        "months_float": 0.8666666666666667
+      }
+    },
+    {
+      "name": "months_781",
+      "input": {
+        "name": "months_781",
+        "claim_age_months": 781,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 157,
+          "denominator": 180,
+          "float": 0.8722222222222222
+        },
+        "months_float": 0.8722222222222222
+      }
+    },
+    {
+      "name": "months_782",
+      "input": {
+        "name": "months_782",
+        "claim_age_months": 782,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 79,
+          "denominator": 90,
+          "float": 0.8777777777777778
+        },
+        "months_float": 0.8777777777777778
+      }
+    },
+    {
+      "name": "months_783",
+      "input": {
+        "name": "months_783",
+        "claim_age_months": 783,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 53,
+          "denominator": 60,
+          "float": 0.8833333333333333
+        },
+        "months_float": 0.8833333333333333
+      }
+    },
+    {
+      "name": "months_784",
+      "input": {
+        "name": "months_784",
+        "claim_age_months": 784,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 8,
+          "denominator": 9,
+          "float": 0.8888888888888888
+        },
+        "months_float": 0.8888888888888888
+      }
+    },
+    {
+      "name": "months_785",
+      "input": {
+        "name": "months_785",
+        "claim_age_months": 785,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 161,
+          "denominator": 180,
+          "float": 0.8944444444444445
+        },
+        "months_float": 0.8944444444444445
+      }
+    },
+    {
+      "name": "months_786",
+      "input": {
+        "name": "months_786",
+        "claim_age_months": 786,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 9,
+          "denominator": 10,
+          "float": 0.9
+        },
+        "months_float": 0.9
+      }
+    },
+    {
+      "name": "months_787",
+      "input": {
+        "name": "months_787",
+        "claim_age_months": 787,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 163,
+          "denominator": 180,
+          "float": 0.9055555555555556
+        },
+        "months_float": 0.9055555555555556
+      }
+    },
+    {
+      "name": "months_788",
+      "input": {
+        "name": "months_788",
+        "claim_age_months": 788,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 41,
+          "denominator": 45,
+          "float": 0.9111111111111111
+        },
+        "months_float": 0.9111111111111111
+      }
+    },
+    {
+      "name": "months_789",
+      "input": {
+        "name": "months_789",
+        "claim_age_months": 789,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 11,
+          "denominator": 12,
+          "float": 0.9166666666666666
+        },
+        "months_float": 0.9166666666666666
+      }
+    },
+    {
+      "name": "months_790",
+      "input": {
+        "name": "months_790",
+        "claim_age_months": 790,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 83,
+          "denominator": 90,
+          "float": 0.9222222222222223
+        },
+        "months_float": 0.9222222222222223
+      }
+    },
+    {
+      "name": "months_791",
+      "input": {
+        "name": "months_791",
+        "claim_age_months": 791,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 167,
+          "denominator": 180,
+          "float": 0.9277777777777778
+        },
+        "months_float": 0.9277777777777778
+      }
+    },
+    {
+      "name": "months_792",
+      "input": {
+        "name": "months_792",
+        "claim_age_months": 792,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 14,
+          "denominator": 15,
+          "float": 0.9333333333333333
+        },
+        "months_float": 0.9333333333333333
+      }
+    },
+    {
+      "name": "months_793",
+      "input": {
+        "name": "months_793",
+        "claim_age_months": 793,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 169,
+          "denominator": 180,
+          "float": 0.9388888888888889
+        },
+        "months_float": 0.9388888888888889
+      }
+    },
+    {
+      "name": "months_794",
+      "input": {
+        "name": "months_794",
+        "claim_age_months": 794,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 17,
+          "denominator": 18,
+          "float": 0.9444444444444444
+        },
+        "months_float": 0.9444444444444444
+      }
+    },
+    {
+      "name": "months_795",
+      "input": {
+        "name": "months_795",
+        "claim_age_months": 795,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 19,
+          "denominator": 20,
+          "float": 0.95
+        },
+        "months_float": 0.95
+      }
+    },
+    {
+      "name": "months_796",
+      "input": {
+        "name": "months_796",
+        "claim_age_months": 796,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 43,
+          "denominator": 45,
+          "float": 0.9555555555555556
+        },
+        "months_float": 0.9555555555555556
+      }
+    },
+    {
+      "name": "months_797",
+      "input": {
+        "name": "months_797",
+        "claim_age_months": 797,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 173,
+          "denominator": 180,
+          "float": 0.9611111111111111
+        },
+        "months_float": 0.9611111111111111
+      }
+    },
+    {
+      "name": "months_798",
+      "input": {
+        "name": "months_798",
+        "claim_age_months": 798,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 29,
+          "denominator": 30,
+          "float": 0.9666666666666667
+        },
+        "months_float": 0.9666666666666667
+      }
+    },
+    {
+      "name": "months_799",
+      "input": {
+        "name": "months_799",
+        "claim_age_months": 799,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 35,
+          "denominator": 36,
+          "float": 0.9722222222222222
+        },
+        "months_float": 0.9722222222222222
+      }
+    },
+    {
+      "name": "months_800",
+      "input": {
+        "name": "months_800",
+        "claim_age_months": 800,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 44,
+          "denominator": 45,
+          "float": 0.9777777777777777
+        },
+        "months_float": 0.9777777777777777
+      }
+    },
+    {
+      "name": "months_801",
+      "input": {
+        "name": "months_801",
+        "claim_age_months": 801,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 59,
+          "denominator": 60,
+          "float": 0.9833333333333333
+        },
+        "months_float": 0.9833333333333333
+      }
+    },
+    {
+      "name": "months_802",
+      "input": {
+        "name": "months_802",
+        "claim_age_months": 802,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 89,
+          "denominator": 90,
+          "float": 0.9888888888888889
+        },
+        "months_float": 0.9888888888888889
+      }
+    },
+    {
+      "name": "months_803",
+      "input": {
+        "name": "months_803",
+        "claim_age_months": 803,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 179,
+          "denominator": 180,
+          "float": 0.9944444444444445
+        },
+        "months_float": 0.9944444444444445
+      }
+    },
+    {
+      "name": "months_804",
+      "input": {
+        "name": "months_804",
+        "claim_age_months": 804,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "months_float": 1.0
+      }
+    },
+    {
+      "name": "months_805",
+      "input": {
+        "name": "months_805",
+        "claim_age_months": 805,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 151,
+          "denominator": 150,
+          "float": 1.0066666666666666
+        },
+        "months_float": 1.0066666666666666
+      }
+    },
+    {
+      "name": "months_806",
+      "input": {
+        "name": "months_806",
+        "claim_age_months": 806,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 76,
+          "denominator": 75,
+          "float": 1.0133333333333334
+        },
+        "months_float": 1.0133333333333334
+      }
+    },
+    {
+      "name": "months_807",
+      "input": {
+        "name": "months_807",
+        "claim_age_months": 807,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 51,
+          "denominator": 50,
+          "float": 1.02
+        },
+        "months_float": 1.02
+      }
+    },
+    {
+      "name": "months_808",
+      "input": {
+        "name": "months_808",
+        "claim_age_months": 808,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 77,
+          "denominator": 75,
+          "float": 1.0266666666666666
+        },
+        "months_float": 1.0266666666666666
+      }
+    },
+    {
+      "name": "months_809",
+      "input": {
+        "name": "months_809",
+        "claim_age_months": 809,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 30,
+          "float": 1.0333333333333334
+        },
+        "months_float": 1.0333333333333334
+      }
+    },
+    {
+      "name": "months_810",
+      "input": {
+        "name": "months_810",
+        "claim_age_months": 810,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 26,
+          "denominator": 25,
+          "float": 1.04
+        },
+        "months_float": 1.04
+      }
+    },
+    {
+      "name": "months_811",
+      "input": {
+        "name": "months_811",
+        "claim_age_months": 811,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 157,
+          "denominator": 150,
+          "float": 1.0466666666666666
+        },
+        "months_float": 1.0466666666666666
+      }
+    },
+    {
+      "name": "months_812",
+      "input": {
+        "name": "months_812",
+        "claim_age_months": 812,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 79,
+          "denominator": 75,
+          "float": 1.0533333333333332
+        },
+        "months_float": 1.0533333333333332
+      }
+    },
+    {
+      "name": "months_813",
+      "input": {
+        "name": "months_813",
+        "claim_age_months": 813,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 53,
+          "denominator": 50,
+          "float": 1.06
+        },
+        "months_float": 1.06
+      }
+    },
+    {
+      "name": "months_814",
+      "input": {
+        "name": "months_814",
+        "claim_age_months": 814,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 16,
+          "denominator": 15,
+          "float": 1.0666666666666667
+        },
+        "months_float": 1.0666666666666667
+      }
+    },
+    {
+      "name": "months_815",
+      "input": {
+        "name": "months_815",
+        "claim_age_months": 815,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 161,
+          "denominator": 150,
+          "float": 1.0733333333333333
+        },
+        "months_float": 1.0733333333333333
+      }
+    },
+    {
+      "name": "months_816",
+      "input": {
+        "name": "months_816",
+        "claim_age_months": 816,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 27,
+          "denominator": 25,
+          "float": 1.08
+        },
+        "months_float": 1.08
+      }
+    },
+    {
+      "name": "months_817",
+      "input": {
+        "name": "months_817",
+        "claim_age_months": 817,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 163,
+          "denominator": 150,
+          "float": 1.0866666666666667
+        },
+        "months_float": 1.0866666666666667
+      }
+    },
+    {
+      "name": "months_818",
+      "input": {
+        "name": "months_818",
+        "claim_age_months": 818,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 82,
+          "denominator": 75,
+          "float": 1.0933333333333333
+        },
+        "months_float": 1.0933333333333333
+      }
+    },
+    {
+      "name": "months_819",
+      "input": {
+        "name": "months_819",
+        "claim_age_months": 819,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 11,
+          "denominator": 10,
+          "float": 1.1
+        },
+        "months_float": 1.1
+      }
+    },
+    {
+      "name": "months_820",
+      "input": {
+        "name": "months_820",
+        "claim_age_months": 820,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 83,
+          "denominator": 75,
+          "float": 1.1066666666666667
+        },
+        "months_float": 1.1066666666666667
+      }
+    },
+    {
+      "name": "months_821",
+      "input": {
+        "name": "months_821",
+        "claim_age_months": 821,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 167,
+          "denominator": 150,
+          "float": 1.1133333333333333
+        },
+        "months_float": 1.1133333333333333
+      }
+    },
+    {
+      "name": "months_822",
+      "input": {
+        "name": "months_822",
+        "claim_age_months": 822,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 28,
+          "denominator": 25,
+          "float": 1.12
+        },
+        "months_float": 1.12
+      }
+    },
+    {
+      "name": "months_823",
+      "input": {
+        "name": "months_823",
+        "claim_age_months": 823,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 169,
+          "denominator": 150,
+          "float": 1.1266666666666667
+        },
+        "months_float": 1.1266666666666667
+      }
+    },
+    {
+      "name": "months_824",
+      "input": {
+        "name": "months_824",
+        "claim_age_months": 824,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 17,
+          "denominator": 15,
+          "float": 1.1333333333333333
+        },
+        "months_float": 1.1333333333333333
+      }
+    },
+    {
+      "name": "months_825",
+      "input": {
+        "name": "months_825",
+        "claim_age_months": 825,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 57,
+          "denominator": 50,
+          "float": 1.14
+        },
+        "months_float": 1.14
+      }
+    },
+    {
+      "name": "months_826",
+      "input": {
+        "name": "months_826",
+        "claim_age_months": 826,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 86,
+          "denominator": 75,
+          "float": 1.1466666666666667
+        },
+        "months_float": 1.1466666666666667
+      }
+    },
+    {
+      "name": "months_827",
+      "input": {
+        "name": "months_827",
+        "claim_age_months": 827,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 173,
+          "denominator": 150,
+          "float": 1.1533333333333333
+        },
+        "months_float": 1.1533333333333333
+      }
+    },
+    {
+      "name": "months_828",
+      "input": {
+        "name": "months_828",
+        "claim_age_months": 828,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 29,
+          "denominator": 25,
+          "float": 1.16
+        },
+        "months_float": 1.16
+      }
+    },
+    {
+      "name": "months_829",
+      "input": {
+        "name": "months_829",
+        "claim_age_months": 829,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 7,
+          "denominator": 6,
+          "float": 1.1666666666666667
+        },
+        "months_float": 1.1666666666666667
+      }
+    },
+    {
+      "name": "months_830",
+      "input": {
+        "name": "months_830",
+        "claim_age_months": 830,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 88,
+          "denominator": 75,
+          "float": 1.1733333333333333
+        },
+        "months_float": 1.1733333333333333
+      }
+    },
+    {
+      "name": "months_831",
+      "input": {
+        "name": "months_831",
+        "claim_age_months": 831,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 59,
+          "denominator": 50,
+          "float": 1.18
+        },
+        "months_float": 1.18
+      }
+    },
+    {
+      "name": "months_832",
+      "input": {
+        "name": "months_832",
+        "claim_age_months": 832,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 89,
+          "denominator": 75,
+          "float": 1.1866666666666668
+        },
+        "months_float": 1.1866666666666668
+      }
+    },
+    {
+      "name": "months_833",
+      "input": {
+        "name": "months_833",
+        "claim_age_months": 833,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 179,
+          "denominator": 150,
+          "float": 1.1933333333333334
+        },
+        "months_float": 1.1933333333333334
+      }
+    },
+    {
+      "name": "months_834",
+      "input": {
+        "name": "months_834",
+        "claim_age_months": 834,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 6,
+          "denominator": 5,
+          "float": 1.2
+        },
+        "months_float": 1.2
+      }
+    },
+    {
+      "name": "months_835",
+      "input": {
+        "name": "months_835",
+        "claim_age_months": 835,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 181,
+          "denominator": 150,
+          "float": 1.2066666666666668
+        },
+        "months_float": 1.2066666666666668
+      }
+    },
+    {
+      "name": "months_836",
+      "input": {
+        "name": "months_836",
+        "claim_age_months": 836,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 91,
+          "denominator": 75,
+          "float": 1.2133333333333334
+        },
+        "months_float": 1.2133333333333334
+      }
+    },
+    {
+      "name": "months_837",
+      "input": {
+        "name": "months_837",
+        "claim_age_months": 837,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 61,
+          "denominator": 50,
+          "float": 1.22
+        },
+        "months_float": 1.22
+      }
+    },
+    {
+      "name": "months_838",
+      "input": {
+        "name": "months_838",
+        "claim_age_months": 838,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 92,
+          "denominator": 75,
+          "float": 1.2266666666666666
+        },
+        "months_float": 1.2266666666666666
+      }
+    },
+    {
+      "name": "months_839",
+      "input": {
+        "name": "months_839",
+        "claim_age_months": 839,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 37,
+          "denominator": 30,
+          "float": 1.2333333333333334
+        },
+        "months_float": 1.2333333333333334
+      }
+    },
+    {
+      "name": "months_840",
+      "input": {
+        "name": "months_840",
+        "claim_age_months": 840,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_841",
+      "input": {
+        "name": "months_841",
+        "claim_age_months": 841,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_842",
+      "input": {
+        "name": "months_842",
+        "claim_age_months": 842,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_843",
+      "input": {
+        "name": "months_843",
+        "claim_age_months": 843,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_844",
+      "input": {
+        "name": "months_844",
+        "claim_age_months": 844,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_845",
+      "input": {
+        "name": "months_845",
+        "claim_age_months": 845,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_846",
+      "input": {
+        "name": "months_846",
+        "claim_age_months": 846,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_847",
+      "input": {
+        "name": "months_847",
+        "claim_age_months": 847,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_848",
+      "input": {
+        "name": "months_848",
+        "claim_age_months": 848,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_849",
+      "input": {
+        "name": "months_849",
+        "claim_age_months": 849,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_850",
+      "input": {
+        "name": "months_850",
+        "claim_age_months": 850,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_851",
+      "input": {
+        "name": "months_851",
+        "claim_age_months": 851,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "months_852",
+      "input": {
+        "name": "months_852",
+        "claim_age_months": 852,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "boundary_767",
+      "input": {
+        "name": "boundary_767",
+        "claim_age_months": 767,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 191,
+          "denominator": 240,
+          "float": 0.7958333333333333
+        },
+        "months_float": 0.7958333333333333
+      }
+    },
+    {
+      "name": "boundary_768",
+      "input": {
+        "name": "boundary_768",
+        "claim_age_months": 768,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 4,
+          "denominator": 5,
+          "float": 0.8
+        },
+        "months_float": 0.8
+      }
+    },
+    {
+      "name": "boundary_769",
+      "input": {
+        "name": "boundary_769",
+        "claim_age_months": 769,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 29,
+          "denominator": 36,
+          "float": 0.8055555555555556
+        },
+        "months_float": 0.8055555555555556
+      }
+    },
+    {
+      "name": "boundary_803",
+      "input": {
+        "name": "boundary_803",
+        "claim_age_months": 803,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 179,
+          "denominator": 180,
+          "float": 0.9944444444444445
+        },
+        "months_float": 0.9944444444444445
+      }
+    },
+    {
+      "name": "boundary_804",
+      "input": {
+        "name": "boundary_804",
+        "claim_age_months": 804,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "months_float": 1.0
+      }
+    },
+    {
+      "name": "boundary_805",
+      "input": {
+        "name": "boundary_805",
+        "claim_age_months": 805,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 151,
+          "denominator": 150,
+          "float": 1.0066666666666666
+        },
+        "months_float": 1.0066666666666666
+      }
+    },
+    {
+      "name": "boundary_839",
+      "input": {
+        "name": "boundary_839",
+        "claim_age_months": 839,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 37,
+          "denominator": 30,
+          "float": 1.2333333333333334
+        },
+        "months_float": 1.2333333333333334
+      }
+    },
+    {
+      "name": "boundary_840",
+      "input": {
+        "name": "boundary_840",
+        "claim_age_months": 840,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "boundary_841",
+      "input": {
+        "name": "boundary_841",
+        "claim_age_months": 841,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "boundary_852",
+      "input": {
+        "name": "boundary_852",
+        "claim_age_months": 852,
+        "fra_age_months": 804
+      },
+      "output": {
+        "fraction": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "months_float": 1.24
+      }
+    },
+    {
+      "name": "fra66_768",
+      "input": {
+        "name": "fra66_768",
+        "claim_age_months": 768,
+        "fra_age_months": 792
+      },
+      "output": {
+        "fraction": {
+          "numerator": 13,
+          "denominator": 15,
+          "float": 0.8666666666666667
+        },
+        "months_float": 0.8666666666666667
+      }
+    },
+    {
+      "name": "fra66_792",
+      "input": {
+        "name": "fra66_792",
+        "claim_age_months": 792,
+        "fra_age_months": 792
+      },
+      "output": {
+        "fraction": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "months_float": 1.0
+      }
+    },
+    {
+      "name": "fra66_816",
+      "input": {
+        "name": "fra66_816",
+        "claim_age_months": 816,
+        "fra_age_months": 792
+      },
+      "output": {
+        "fraction": {
+          "numerator": 29,
+          "denominator": 25,
+          "float": 1.16
+        },
+        "months_float": 1.16
+      }
+    },
+    {
+      "name": "negative_claim_age",
+      "input": {
+        "name": "negative_claim_age",
+        "claim_age_months": -1,
+        "fra_age_months": 804
+      },
+      "expect_error": "Claim age and FRA months must be positive"
+    },
+    {
+      "name": "zero_fra",
+      "input": {
+        "name": "zero_fra",
+        "claim_age_months": 780,
+        "fra_age_months": 0
+      },
+      "expect_error": "Claim age and FRA months must be positive"
+    }
+  ],
+  "schedule_cases": [
+    {
+      "name": "sched_744",
+      "input": {
+        "name": "sched_744",
+        "claim_age_months": 744,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 7,
+          "denominator": 10,
+          "float": 0.7
+        },
+        "initial_payable_factor": {
+          "numerator": 7,
+          "denominator": 10,
+          "float": 0.7
+        },
+        "pending_effective_age_months": null,
+        "eventual": 0.7,
+        "initial_payable": 0.7,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "sched_780",
+      "input": {
+        "name": "sched_780",
+        "claim_age_months": 780,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 13,
+          "denominator": 15,
+          "float": 0.8666666666666667
+        },
+        "initial_payable_factor": {
+          "numerator": 13,
+          "denominator": 15,
+          "float": 0.8666666666666667
+        },
+        "pending_effective_age_months": null,
+        "eventual": 0.8666666666666667,
+        "initial_payable": 0.8666666666666667,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "sched_804",
+      "input": {
+        "name": "sched_804",
+        "claim_age_months": 804,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "initial_payable_factor": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "pending_effective_age_months": null,
+        "eventual": 1.0,
+        "initial_payable": 1.0,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "sched_840",
+      "input": {
+        "name": "sched_840",
+        "claim_age_months": 840,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "initial_payable_factor": {
+          "numerator": 31,
+          "denominator": 25,
+          "float": 1.24
+        },
+        "pending_effective_age_months": null,
+        "eventual": 1.24,
+        "initial_payable": 1.24,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "sched_805",
+      "input": {
+        "name": "sched_805",
+        "claim_age_months": 805,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 151,
+          "denominator": 150,
+          "float": 1.0066666666666666
+        },
+        "initial_payable_factor": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "pending_effective_age_months": 816,
+        "eventual": 1.0066666666666666,
+        "initial_payable": 1.0,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_810",
+      "input": {
+        "name": "sched_810",
+        "claim_age_months": 810,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 26,
+          "denominator": 25,
+          "float": 1.04
+        },
+        "initial_payable_factor": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "pending_effective_age_months": 816,
+        "eventual": 1.04,
+        "initial_payable": 1.0,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_815",
+      "input": {
+        "name": "sched_815",
+        "claim_age_months": 815,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 161,
+          "denominator": 150,
+          "float": 1.0733333333333333
+        },
+        "initial_payable_factor": {
+          "numerator": 1,
+          "denominator": 1,
+          "float": 1.0
+        },
+        "pending_effective_age_months": 816,
+        "eventual": 1.0733333333333333,
+        "initial_payable": 1.0,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_817",
+      "input": {
+        "name": "sched_817",
+        "claim_age_months": 817,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 163,
+          "denominator": 150,
+          "float": 1.0866666666666667
+        },
+        "initial_payable_factor": {
+          "numerator": 27,
+          "denominator": 25,
+          "float": 1.08
+        },
+        "pending_effective_age_months": 828,
+        "eventual": 1.0866666666666667,
+        "initial_payable": 1.08,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_822",
+      "input": {
+        "name": "sched_822",
+        "claim_age_months": 822,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 28,
+          "denominator": 25,
+          "float": 1.12
+        },
+        "initial_payable_factor": {
+          "numerator": 27,
+          "denominator": 25,
+          "float": 1.08
+        },
+        "pending_effective_age_months": 828,
+        "eventual": 1.12,
+        "initial_payable": 1.08,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_827",
+      "input": {
+        "name": "sched_827",
+        "claim_age_months": 827,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 173,
+          "denominator": 150,
+          "float": 1.1533333333333333
+        },
+        "initial_payable_factor": {
+          "numerator": 27,
+          "denominator": 25,
+          "float": 1.08
+        },
+        "pending_effective_age_months": 828,
+        "eventual": 1.1533333333333333,
+        "initial_payable": 1.08,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_829",
+      "input": {
+        "name": "sched_829",
+        "claim_age_months": 829,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 7,
+          "denominator": 6,
+          "float": 1.1666666666666667
+        },
+        "initial_payable_factor": {
+          "numerator": 29,
+          "denominator": 25,
+          "float": 1.16
+        },
+        "pending_effective_age_months": 840,
+        "eventual": 1.1666666666666667,
+        "initial_payable": 1.16,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_839",
+      "input": {
+        "name": "sched_839",
+        "claim_age_months": 839,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 37,
+          "denominator": 30,
+          "float": 1.2333333333333334
+        },
+        "initial_payable_factor": {
+          "numerator": 29,
+          "denominator": 25,
+          "float": 1.16
+        },
+        "pending_effective_age_months": 840,
+        "eventual": 1.2333333333333334,
+        "initial_payable": 1.16,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_803",
+      "input": {
+        "name": "sched_803",
+        "claim_age_months": 803,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 179,
+          "denominator": 180,
+          "float": 0.9944444444444445
+        },
+        "initial_payable_factor": {
+          "numerator": 179,
+          "denominator": 180,
+          "float": 0.9944444444444445
+        },
+        "pending_effective_age_months": null,
+        "eventual": 0.9944444444444445,
+        "initial_payable": 0.9944444444444445,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "sched_798",
+      "input": {
+        "name": "sched_798",
+        "claim_age_months": 798,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 29,
+          "denominator": 30,
+          "float": 0.9666666666666667
+        },
+        "initial_payable_factor": {
+          "numerator": 29,
+          "denominator": 30,
+          "float": 0.9666666666666667
+        },
+        "pending_effective_age_months": null,
+        "eventual": 0.9666666666666667,
+        "initial_payable": 0.9666666666666667,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "sched_747",
+      "input": {
+        "name": "sched_747",
+        "claim_age_months": 747,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 57,
+          "denominator": 80,
+          "float": 0.7125
+        },
+        "initial_payable_factor": {
+          "numerator": 57,
+          "denominator": 80,
+          "float": 0.7125
+        },
+        "pending_effective_age_months": null,
+        "eventual": 0.7125,
+        "initial_payable": 0.7125,
+        "has_pending_credit": false
+      }
+    },
+    {
+      "name": "sched_839",
+      "input": {
+        "name": "sched_839",
+        "claim_age_months": 839,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "output": {
+        "eventual_factor": {
+          "numerator": 37,
+          "denominator": 30,
+          "float": 1.2333333333333334
+        },
+        "initial_payable_factor": {
+          "numerator": 29,
+          "denominator": 25,
+          "float": 1.16
+        },
+        "pending_effective_age_months": 840,
+        "eventual": 1.2333333333333334,
+        "initial_payable": 1.16,
+        "has_pending_credit": true
+      }
+    },
+    {
+      "name": "sched_bad_cycle_start",
+      "input": {
+        "name": "sched_bad_cycle_start",
+        "claim_age_months": 810,
+        "fra_age_months": 804,
+        "maximum_age_months": 840,
+        "claim_cycle_start_calendar_month": 4
+      },
+      "expect_error": "Only January-aligned annual claim cycles are supported"
+    },
+    {
+      "name": "sched_non_integer_fra",
+      "input": {
+        "name": "sched_non_integer_fra",
+        "claim_age_months": 810,
+        "fra_age_months": 809,
+        "maximum_age_months": 840
+      },
+      "expect_error": "Annual January-aligned DRC timing currently requires an integer FRA age"
+    },
+    {
+      "name": "sched_exceeds_max",
+      "input": {
+        "name": "sched_exceeds_max",
+        "claim_age_months": 852,
+        "fra_age_months": 804,
+        "maximum_age_months": 840
+      },
+      "expect_error": "Claim age exceeds the configured maximum"
+    }
+  ]
+}

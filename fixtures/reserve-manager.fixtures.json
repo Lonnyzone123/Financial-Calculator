@@ -1,0 +1,958 @@
+{
+  "config": {
+    "first_fixed_years": 5,
+    "first_fixed_target_real": 240000.0,
+    "sequence_sensitive_years": 12,
+    "target_years": 3.0,
+    "trailing_average_years": 5,
+    "include_taxes_after_sequence_period": true,
+    "protected_final_months": 2.0,
+    "soft_protection_starts_months": 10.0,
+    "deliberate_refill_cap_real": 400000.0,
+    "annual_refill_cap_spending_years": 1.0,
+    "material_drawdown": 0.15,
+    "recovery_drawdown": 0.1,
+    "emergency_liquidity_months": 6.0,
+    "normal_draw_fraction": 0.0,
+    "drawdown_draw_multiplier": 2.5,
+    "sequence_draw_multiplier": 1.25,
+    "refill_score_threshold": 0.35,
+    "same_year_deliberate_refill_after_draw": false,
+    "refill_sources_before_roth_access": [
+      "voo",
+      "schd"
+    ],
+    "refill_sources_after_roth_access": [
+      "voo",
+      "roth",
+      "schd"
+    ],
+    "refill_score_weights": {
+      "target_gap": 0.45,
+      "market_recovery": 0.25,
+      "liquidity": 0.2,
+      "long_real_trend": 0.1
+    }
+  },
+  "target_cases": [
+    {
+      "name": "target_fixed_years_1_5",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 3,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 240000.0,
+        "deliberate_funding_target_real": 240000.0,
+        "protected_floor_real": 11666.666666666666,
+        "annual_need_basis_real": 70000.0,
+        "phase": "fixed_years_1_5"
+      }
+    },
+    {
+      "name": "target_fixed_years_boundary",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 5,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 240000.0,
+        "deliberate_funding_target_real": 240000.0,
+        "protected_floor_real": 11666.666666666666,
+        "annual_need_basis_real": 70000.0,
+        "phase": "fixed_years_1_5"
+      }
+    },
+    {
+      "name": "target_lifestyle_only_6_12",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 8,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 210000.0,
+        "deliberate_funding_target_real": 210000.0,
+        "protected_floor_real": 11666.666666666666,
+        "annual_need_basis_real": 70000.0,
+        "phase": "lifestyle_only_years_6_12"
+      }
+    },
+    {
+      "name": "target_lifestyle_only_boundary",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 12,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 210000.0,
+        "deliberate_funding_target_real": 210000.0,
+        "protected_floor_real": 11666.666666666666,
+        "annual_need_basis_real": 70000.0,
+        "phase": "lifestyle_only_years_6_12"
+      }
+    },
+    {
+      "name": "target_lifestyle_plus_tax_13_plus",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 13,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 210000.0,
+        "deliberate_funding_target_real": 210000.0,
+        "protected_floor_real": 11666.666666666666,
+        "annual_need_basis_real": 70000.0,
+        "phase": "lifestyle_plus_tax_year_13_plus"
+      }
+    },
+    {
+      "name": "target_lifestyle_plus_tax_late",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 25,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 210000.0,
+        "deliberate_funding_target_real": 210000.0,
+        "protected_floor_real": 11666.666666666666,
+        "annual_need_basis_real": 70000.0,
+        "phase": "lifestyle_plus_tax_year_13_plus"
+      }
+    },
+    {
+      "name": "target_with_trailing_spending_history",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [
+            65000.0,
+            68000.0,
+            72000.0,
+            70000.0,
+            71000.0
+          ],
+          "trailing_tax_real": [
+            8000.0,
+            8500.0,
+            9000.0,
+            8800.0,
+            9100.0
+          ],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 233640.0,
+        "deliberate_funding_target_real": 233640.0,
+        "protected_floor_real": 12980.0,
+        "annual_need_basis_real": 77880.0,
+        "phase": "lifestyle_plus_tax_year_13_plus"
+      }
+    },
+    {
+      "name": "target_raw_exceeds_refill_cap",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 200000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "raw_target_real": 600000.0,
+        "deliberate_funding_target_real": 400000.0,
+        "protected_floor_real": 33333.333333333336,
+        "annual_need_basis_real": 200000.0,
+        "phase": "lifestyle_plus_tax_year_13_plus"
+      }
+    }
+  ],
+  "draw_cases": [
+    {
+      "name": "draw_normal_no_drawdown",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 50000.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 0.0,
+        "maximum_draw_real": 0.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.0,
+        "emergency": false,
+        "reason": "normal countercyclical reserve participation"
+      }
+    },
+    {
+      "name": "draw_with_equity_drawdown",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.2,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 50000.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 25000.0,
+        "maximum_draw_real": 25000.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.5,
+        "emergency": false,
+        "reason": "material equity decline shifts more of the cash burden to T-bills"
+      }
+    },
+    {
+      "name": "draw_material_drawdown_reason",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.16,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 50000.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 20000.0,
+        "maximum_draw_real": 20000.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.4,
+        "emergency": false,
+        "reason": "material equity decline shifts more of the cash burden to T-bills"
+      }
+    },
+    {
+      "name": "draw_sequence_sensitive_period",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 8,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.1,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 50000.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 15625.0,
+        "maximum_draw_real": 15625.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.3125,
+        "emergency": false,
+        "reason": "normal countercyclical reserve participation"
+      }
+    },
+    {
+      "name": "draw_soft_protection_zone",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 6.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 50000.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 0.0,
+        "maximum_draw_real": 0.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.0,
+        "emergency": false,
+        "reason": "normal countercyclical reserve participation"
+      }
+    },
+    {
+      "name": "draw_at_protected_floor",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 2.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 50000.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 0.0,
+        "maximum_draw_real": 0.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.0,
+        "emergency": false,
+        "reason": "normal countercyclical reserve participation"
+      }
+    },
+    {
+      "name": "draw_emergency_override",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 1.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 200000.0,
+        "emergency": true
+      },
+      "output": {
+        "recommended_draw_real": 150000.0,
+        "maximum_draw_real": 150000.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 1.0,
+        "emergency": true,
+        "reason": "genuine cash emergency permits use of the protected final months"
+      }
+    },
+    {
+      "name": "draw_accessible_exhausted",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 5000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 50000.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 0.0,
+        "maximum_draw_real": 0.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.0,
+        "emergency": false,
+        "reason": "protected reserve floor blocks further discretionary draw"
+      }
+    },
+    {
+      "name": "draw_zero_need",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 150000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "cash_need_real": 0.0,
+        "emergency": false
+      },
+      "output": {
+        "recommended_draw_real": 0.0,
+        "maximum_draw_real": 0.0,
+        "protected_floor_real": 11666.666666666666,
+        "draw_share": 0.0,
+        "emergency": false,
+        "reason": "normal countercyclical reserve participation"
+      }
+    }
+  ],
+  "refill_cases": [
+    {
+      "name": "refill_already_at_target",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 400000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 100000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 0.0,
+        "target_real": 210000.0,
+        "gap_real": 0.0,
+        "refill_score": 1.0,
+        "allowed": false,
+        "reason": "reserve already meets its deliberate-funding target",
+        "score_components": {}
+      }
+    },
+    {
+      "name": "refill_blocked_same_year_after_draw",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 100000.0,
+        "reserve_draw_real": 5000.0
+      },
+      "output": {
+        "refill_real": 0.0,
+        "target_real": 210000.0,
+        "gap_real": 110000.0,
+        "refill_score": 0.0,
+        "allowed": false,
+        "reason": "same-year deliberate refill is deferred after a reserve draw",
+        "score_components": {
+          "same_year_draw": 1.0
+        }
+      }
+    },
+    {
+      "name": "refill_blocked_material_drawdown",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1200000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.15,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 100000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 0.0,
+        "target_real": 210000.0,
+        "gap_real": 110000.0,
+        "refill_score": 0.0,
+        "allowed": false,
+        "reason": "refill deferred during a material equity drawdown",
+        "score_components": {
+          "market_recovery": 0.0
+        }
+      }
+    },
+    {
+      "name": "refill_allowed_full_recovery",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1500000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 50000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 100000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 70000.0,
+        "target_real": 210000.0,
+        "gap_real": 160000.0,
+        "refill_score": 0.8428571428571429,
+        "allowed": true,
+        "reason": "reserve gap and recovered-market conditions support a controlled refill",
+        "score_components": {
+          "target_gap": 0.7619047619047619,
+          "market_recovery": 1.0,
+          "liquidity": 1.0,
+          "long_real_trend": 0.5
+        }
+      }
+    },
+    {
+      "name": "refill_partial_recovery_low_score",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 800000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 50000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.08,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 100000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 70000.0,
+        "target_real": 210000.0,
+        "gap_real": 160000.0,
+        "refill_score": 0.5,
+        "allowed": true,
+        "reason": "reserve gap and recovered-market conditions support a controlled refill",
+        "score_components": {
+          "target_gap": 0.7619047619047619,
+          "market_recovery": 0.20000000000000007,
+          "liquidity": 0.28571428571428575,
+          "long_real_trend": 0.5
+        }
+      }
+    },
+    {
+      "name": "refill_capacity_constrained",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 2000000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 50000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 5000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 5000.0,
+        "target_real": 210000.0,
+        "gap_real": 160000.0,
+        "refill_score": 0.8428571428571429,
+        "allowed": true,
+        "reason": "reserve gap and recovered-market conditions support a controlled refill",
+        "score_components": {
+          "target_gap": 0.7619047619047619,
+          "market_recovery": 1.0,
+          "liquidity": 1.0,
+          "long_real_trend": 0.5
+        }
+      }
+    },
+    {
+      "name": "refill_annual_cap_constrained",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 50000.0,
+          "portfolio_real": 2000000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 10000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 500000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 50000.0,
+        "target_real": 150000.0,
+        "gap_real": 140000.0,
+        "refill_score": 0.92,
+        "allowed": true,
+        "reason": "reserve gap and recovered-market conditions support a controlled refill",
+        "score_components": {
+          "target_gap": 0.9333333333333333,
+          "market_recovery": 1.0,
+          "liquidity": 1.0,
+          "long_real_trend": 0.5
+        }
+      }
+    },
+    {
+      "name": "refill_with_positive_15y_trend",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1500000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 50000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": 0.05,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 100000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 70000.0,
+        "target_real": 210000.0,
+        "gap_real": 160000.0,
+        "refill_score": 0.8928571428571429,
+        "allowed": true,
+        "reason": "reserve gap and recovered-market conditions support a controlled refill",
+        "score_components": {
+          "target_gap": 0.7619047619047619,
+          "market_recovery": 1.0,
+          "liquidity": 1.0,
+          "long_real_trend": 1.0
+        }
+      }
+    },
+    {
+      "name": "refill_with_negative_15y_trend",
+      "input": {
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 15,
+          "inflation_factor": 1.3,
+          "spending_real": 70000.0,
+          "portfolio_real": 1500000.0,
+          "taxable_value_real": 700000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 50000.0,
+          "reserve_months": 24.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": -0.04,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        },
+        "available_capacity_real": 100000.0,
+        "reserve_draw_real": 0.0
+      },
+      "output": {
+        "refill_real": 70000.0,
+        "target_real": 210000.0,
+        "gap_real": 160000.0,
+        "refill_score": 0.7928571428571429,
+        "allowed": true,
+        "reason": "reserve gap and recovered-market conditions support a controlled refill",
+        "score_components": {
+          "target_gap": 0.7619047619047619,
+          "market_recovery": 1.0,
+          "liquidity": 1.0,
+          "long_real_trend": 0.0
+        }
+      }
+    }
+  ]
+}

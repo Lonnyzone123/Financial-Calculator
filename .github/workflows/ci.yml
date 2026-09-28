@@ -1,0 +1,90 @@
+# The required check for every pull request into main.
+#
+# Not on push to main (the owner, 2026-09-26, to save Actions minutes): every change reaches main through a pull request that
+# this job has already gated, so the run on the merge repeated it at the full cost of a Windows run (41 of September's 91
+# runs). Run it on main by hand (workflow_dispatch) whenever a merged state should be re-checked, for example after two
+# pull requests gated on different bases are both merged.
+#
+# ONE job, ONE command: `npm test`, which is tools/verify-test-gate.js -- the project's own gate. It runs every
+# registered test file (structural, unit, mathematical-oracle, reconciliation, adversarial, golden/regression, and the
+# control and historical replays) and then checks the run itself: nothing skipped, every todo authorised by name in
+# tools/test-exception-registry.json, the counts agreeing with themselves. GATE PASSED is the only passing result.
+# On the reference machine (Windows 11, Node 24.17.0) it takes about 80 seconds.
+#
+# Windows, because Windows 11 + Node 24.17.0 is the supported envelope. Node is pinned to that exact version rather
+# than a range, since no `engines` field or .nvmrc pins it elsewhere.
+#
+# The expanded-corpus replay is NOT in this job; see l7-expanded-corpus.yml.
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    # A stable name: branch protection or a ruleset refers to this check by it.
+    name: gate (windows, node 24.17.0)
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Git settings for this runner
+        run: git config --global core.longpaths true
+
+      - name: Check out (full history)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Tests read older commits (baseline provenance, capture boundaries, the requirements register, historical
+          # replay). A shallow clone would fail them for a reason unrelated to the change under test.
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node 24.17.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24.17.0
+          cache: npm
+
+      - name: Install declared dependencies (package-lock.json)
+        run: npm ci
+
+      - name: Record the environment
+        shell: pwsh
+        run: |
+          "commit : $(git rev-parse HEAD)" | Tee-Object -FilePath gate.log
+          "node   : $(node --version)"     | Tee-Object -FilePath gate.log -Append
+          "npm    : $(npm --version)"      | Tee-Object -FilePath gate.log -Append
+          "os     : $([System.Environment]::OSVersion.VersionString)" | Tee-Object -FilePath gate.log -Append
+
+      - name: npm test (the gate)
+        id: gate
+        shell: pwsh
+        run: |
+          npm test *>&1 | Tee-Object -FilePath gate.log -Append
+          exit $LASTEXITCODE
+
+      # The gate prints counts, not the names of failing tests (its event stream is a temporary file). Only when it
+      # fails, re-run the same registered files with the TAP reporter and print each failure with its diagnostic.
+      # Exits 0 always: a diagnostic, never a second verdict.
+      - name: Name the failing tests (only when the gate failed)
+        if: failure() && steps.gate.outcome == 'failure'
+        run: node tools/ci-name-failures.js
+
+      - name: Keep the gate log
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: gate-log-${{ github.sha }}
+          path: |
+            gate.log
+            failures.tap
+          if-no-files-found: warn
+          retention-days: 30

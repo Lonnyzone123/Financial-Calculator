@@ -1,0 +1,1021 @@
+{
+  "ss_config": {
+    "fra_age": 67,
+    "claim_min_age": 62,
+    "claim_max_age": 70,
+    "birth_year": 1997,
+    "sex": "male",
+    "claim_min_age_months": 744,
+    "claim_max_age_months": 840,
+    "claim_step_months": 1,
+    "claim_cycle_start_calendar_month": 1,
+    "fra_monthly_real": 1250.0,
+    "decision_real_return": 0.04,
+    "planning_end_age": 99,
+    "planning_terminal_age": 120,
+    "scheduled_benefit_fraction": 1.0,
+    "cola_floor": 0.0,
+    "lookahead_allowed": false,
+    "reevaluate_annually_until_claimed": true,
+    "mortality_source_year": 2026,
+    "mortality_central_alternative": "II",
+    "mortality_sensitivity_alternatives": [
+      "I",
+      "III"
+    ],
+    "safe_real_discount_rate": 0.023,
+    "safe_real_discount_rate_sensitivities": [
+      0.018,
+      0.028
+    ],
+    "portfolio_planning_real_return": 0.04,
+    "planning_inflation_rate": 0.024,
+    "planning_scenarios": [
+      {
+        "name": "lower_return",
+        "real_portfolio_return": 0.03,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.25
+      },
+      {
+        "name": "central",
+        "real_portfolio_return": 0.04,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.5
+      },
+      {
+        "name": "higher_return",
+        "real_portfolio_return": 0.05,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.25
+      }
+    ],
+    "economic_close_call_fraction": 0.01,
+    "minimum_robust_win_rate": 0.6,
+    "longevity_start_age": 85,
+    "longevity_checkpoint_ages": [
+      85,
+      90,
+      95
+    ],
+    "detailed_trace_on_trigger": true,
+    "survival_adjustment_weight": 1.0,
+    "fragility_bridge_years": 5,
+    "reserve_fragility_months": 12.0,
+    "candidate_claim_ages": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70
+    ]
+  },
+  "optimizer_config": {
+    "coarse_mix_step": 0.1,
+    "fine_mix_step": 0.025,
+    "tax_convergence_nominal": 1.0,
+    "tax_convergence_relative": 1e-05,
+    "max_tax_iterations": 30,
+    "planning_horizon_years": 25,
+    "future_real_return": 0.04,
+    "future_real_taxable_gain_rate": 0.025,
+    "roth_shadow_cost": 0.075,
+    "source_expected_real_returns": {
+      "tbills": 0.01,
+      "voo": 0.04,
+      "roth": 0.04,
+      "schd": 0.04
+    },
+    "terminal_tax_drag": {
+      "tbills": 0.0,
+      "voo": 0.15,
+      "roth": 0.0,
+      "schd": 0.15
+    },
+    "schd_principal_penalty": 0.2,
+    "candidate_sources": [
+      "tbills",
+      "voo",
+      "roth",
+      "schd"
+    ],
+    "max_refinement_candidates": 1500,
+    "sequence_penalty_multiplier": 4.0,
+    "reserve_shortfall_penalty": 1.5,
+    "tax_weight": 1.0,
+    "terminal_value_weight": 0.15
+  },
+  "reserve_config": {
+    "first_fixed_years": 5,
+    "first_fixed_target_real": 240000.0,
+    "sequence_sensitive_years": 12,
+    "target_years": 3.0,
+    "trailing_average_years": 5,
+    "include_taxes_after_sequence_period": true,
+    "protected_final_months": 2.0,
+    "soft_protection_starts_months": 10.0,
+    "deliberate_refill_cap_real": 400000.0,
+    "annual_refill_cap_spending_years": 1.0,
+    "material_drawdown": 0.15,
+    "recovery_drawdown": 0.1,
+    "emergency_liquidity_months": 6.0,
+    "normal_draw_fraction": 0.0,
+    "drawdown_draw_multiplier": 2.5,
+    "sequence_draw_multiplier": 1.25,
+    "refill_score_threshold": 0.35,
+    "same_year_deliberate_refill_after_draw": false,
+    "refill_sources_before_roth_access": [
+      "voo",
+      "schd"
+    ],
+    "refill_sources_after_roth_access": [
+      "voo",
+      "roth",
+      "schd"
+    ],
+    "refill_score_weights": {
+      "target_gap": 0.45,
+      "market_recovery": 0.25,
+      "liquidity": 0.2,
+      "long_real_trend": 0.1
+    }
+  },
+  "tax_config": {
+    "base_year": 2026,
+    "filing_status": "single",
+    "standard_deduction": 16100.0,
+    "ordinary_brackets": [
+      [
+        12400.0,
+        0.1
+      ],
+      [
+        50400.0,
+        0.12
+      ],
+      [
+        105700.0,
+        0.22
+      ],
+      [
+        201775.0,
+        0.24
+      ],
+      [
+        256225.0,
+        0.32
+      ],
+      [
+        640600.0,
+        0.35
+      ],
+      [
+        null,
+        0.37
+      ]
+    ],
+    "ltcg_brackets": [
+      [
+        49450.0,
+        0.0
+      ],
+      [
+        545500.0,
+        0.15
+      ],
+      [
+        null,
+        0.2
+      ]
+    ],
+    "niit_rate": 0.038,
+    "niit_threshold_nominal": 200000.0,
+    "ss_combined_income_thresholds_nominal": [
+      25000.0,
+      34000.0
+    ],
+    "capital_loss_ordinary_limit_nominal": 3000.0,
+    "arizona_rate": 0.025,
+    "arizona_standard_deduction": 16100.0,
+    "arizona_ltcg_subtraction": 0.25,
+    "qdi_fraction": {
+      "voo": 0.9716,
+      "schd": 0.9848
+    },
+    "roth_conversions_allowed": false,
+    "gratuitous_gain_harvesting_allowed": false,
+    "medicare_irmaa_enabled": false
+  },
+  "cases": [
+    {
+      "name": "standard_wait_or_claim",
+      "output": {
+        "eligible": true,
+        "claim_now": false,
+        "selected_claim_age": 70,
+        "annual_benefit_real_if_claimed": 0.0,
+        "reason": "wait one year and reevaluate; current no-hindsight target is 70:00",
+        "action": "WAIT",
+        "selected_claim_age_months": 840,
+        "selected_claim_month": 0,
+        "first_year_benefit_fraction": 0.0,
+        "candidate_count": 61,
+        "comparison": {
+          "winner_claim_age_months": 840,
+          "runner_up_claim_age_months": 839,
+          "economic_margin": -56.94230406152201,
+          "scenario_win_rate": 1.0,
+          "robustness_class": "SENSITIVE",
+          "sensitivity_flip_ages": {
+            "portfolio_return.lower_return": 840,
+            "portfolio_return.central": 840,
+            "portfolio_return.higher_return": 840,
+            "mortality.II": 840,
+            "mortality.I": 834,
+            "mortality.III": 840,
+            "safe_rate.0.023000": 840,
+            "safe_rate.0.018000": 840,
+            "safe_rate.0.028000": 840
+          },
+          "candidate_count": 61
+        },
+        "diagnostic_summary": {
+          "schema": "social_security_decision_v2_1_2",
+          "input_fingerprint": "abf848c871595e75b3dbc386908af5f97e6a54436451d5feabbe4a579aa59089",
+          "decision_year": 2025,
+          "decision_age_months": 780,
+          "action": "WAIT",
+          "winner_age_months": 840,
+          "runner_up_age_months": 839,
+          "economic_margin_real": -56.94230406152201,
+          "economic_margin_direction": "winner_lower_for_higher_priority_tiebreak",
+          "scenario_acceptability_rate": 1.0,
+          "robustness_class": "SENSITIVE",
+          "candidate_count": 61,
+          "valid_candidate_count": 61,
+          "invalid_candidate_count": 0,
+          "winner": {
+            "claim_age_months": 840,
+            "claim_factor": 1.24,
+            "first_year_fraction": 1.0,
+            "gross_benefit_pv_real": 218483.90117098825,
+            "after_tax_benefit_pv_real": 199634.3956725879,
+            "benefit_tax_pv_real": 18849.505498400362,
+            "bridge_cost_pv_real": 5.4569682106375694e-12,
+            "net_economic_value_real": 199634.3956725879,
+            "bridge": {
+              "opportunity_cost_pv_real": 5.4569682106375694e-12,
+              "incremental_tax_pv_real": 0.0,
+              "terminal_asset_difference_real": 65274.90236341464,
+              "terminal_assets_real": 954837.8112627867,
+              "source_withdrawals_real": {
+                "tbills": 60926.37198641896,
+                "voo": 0.0,
+                "roth": 0.0,
+                "schd": 0.0
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            "longevity": {
+              "age85_coverage": 0.4193199999999999,
+              "age90_coverage": 0.4193199999999999,
+              "age95_coverage": 0.41931999999999997,
+              "minimum_checkpoint_coverage": 0.4193199999999999,
+              "conditional_shortfall_pv_real": 61472.80305823433,
+              "depletion_protection": 1.0,
+              "reserve_equivalent_real": 44390.672622406186,
+              "floor_depletion_scenario_rate": 0,
+              "survival_weighted_depletion_risk": 0.0,
+              "earliest_depletion_age_months": null,
+              "expected_floor_terminal_assets_real": 2507925.259584889
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "runner_up": {
+            "claim_age_months": 839,
+            "claim_factor": 1.2333333333333334,
+            "first_year_fraction": 0.08333333333333333,
+            "gross_benefit_pv_real": 218524.00664338275,
+            "after_tax_benefit_pv_real": 199691.33797664943,
+            "benefit_tax_pv_real": 18832.668666733105,
+            "bridge_cost_pv_real": 1.8189894035458565e-12,
+            "net_economic_value_real": 199691.33797664943,
+            "bridge": {
+              "opportunity_cost_pv_real": 1.8189894035458565e-12,
+              "incremental_tax_pv_real": 0.0,
+              "terminal_asset_difference_real": 64101.58818157553,
+              "terminal_assets_real": 952898.0849942834,
+              "source_withdrawals_real": {
+                "tbills": 59898.28865308563,
+                "voo": 0.0,
+                "roth": 0.0,
+                "schd": 0.0
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            "longevity": {
+              "age85_coverage": 0.417075,
+              "age90_coverage": 0.417075,
+              "age95_coverage": 0.4170750000000001,
+              "minimum_checkpoint_coverage": 0.417075,
+              "conditional_shortfall_pv_real": 61710.46656113737,
+              "depletion_protection": 1.0,
+              "reserve_equivalent_real": 44153.009119503135,
+              "floor_depletion_scenario_rate": 0,
+              "survival_weighted_depletion_risk": 0.0,
+              "earliest_depletion_age_months": null,
+              "expected_floor_terminal_assets_real": 2503540.7329974063
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "sensitivity": {
+            "mortality.I": {
+              "winner_age_months": 834,
+              "delta_months": -6,
+              "flipped": true
+            },
+            "mortality.II": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "mortality.III": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.central": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.higher_return": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.lower_return": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.018000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.023000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.028000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            }
+          },
+          "sensitivity_flip_count": 1,
+          "future_market_data_used": false,
+          "state_boundary_categories": [
+            "decision_identity",
+            "current_portfolio_balances_and_basis",
+            "current_spending_and_floor",
+            "prior_known_tax_income",
+            "current_reserve_and_drawdown",
+            "trailing_past_only_summaries",
+            "current_scheduled_social_security_benefit",
+            "current_claim_status"
+          ],
+          "accessed_input_categories": [
+            "planning_state",
+            "tax_policy",
+            "social_security_policy",
+            "mortality_cohort",
+            "no_hindsight_planning_scenarios"
+          ]
+        }
+      }
+    },
+    {
+      "name": "already_claimed",
+      "output": {
+        "eligible": true,
+        "claim_now": false,
+        "selected_claim_age": 66,
+        "annual_benefit_real_if_claimed": 14250.0,
+        "reason": "already claimed",
+        "action": "ALREADY_CLAIMED",
+        "selected_claim_age_months": 795,
+        "selected_claim_month": 3,
+        "first_year_benefit_fraction": 1.0,
+        "candidate_count": 0,
+        "comparison": null,
+        "diagnostic_summary": {
+          "future_market_data_used": false
+        }
+      }
+    },
+    {
+      "name": "not_eligible_too_young",
+      "output": {
+        "eligible": false,
+        "claim_now": false,
+        "selected_claim_age": null,
+        "annual_benefit_real_if_claimed": 0.0,
+        "reason": "not eligible until age 62",
+        "action": "NOT_ELIGIBLE",
+        "selected_claim_age_months": null,
+        "selected_claim_month": null,
+        "first_year_benefit_fraction": 0.0,
+        "candidate_count": 0,
+        "comparison": null,
+        "diagnostic_summary": {
+          "future_market_data_used": false
+        }
+      }
+    },
+    {
+      "name": "forced_claim_at_maximum",
+      "output": {
+        "eligible": true,
+        "claim_now": true,
+        "selected_claim_age": 70,
+        "annual_benefit_real_if_claimed": 18600.0,
+        "reason": "maximum claim age reached; claim is mandatory",
+        "action": "FORCED_CLAIM",
+        "selected_claim_age_months": 840,
+        "selected_claim_month": 0,
+        "first_year_benefit_fraction": 1.0,
+        "candidate_count": 1,
+        "comparison": {
+          "winner_claim_age_months": 840,
+          "runner_up_claim_age_months": null,
+          "economic_margin": 0.0,
+          "scenario_win_rate": 1.0,
+          "robustness_class": "ROBUST",
+          "sensitivity_flip_ages": {
+            "portfolio_return.lower_return": 840,
+            "portfolio_return.central": 840,
+            "portfolio_return.higher_return": 840,
+            "mortality.II": 840,
+            "mortality.I": 840,
+            "mortality.III": 840,
+            "safe_rate.0.023000": 840,
+            "safe_rate.0.018000": 840,
+            "safe_rate.0.028000": 840
+          },
+          "candidate_count": 1
+        },
+        "diagnostic_summary": {
+          "schema": "social_security_decision_v2_1_2",
+          "input_fingerprint": "082a946011c1d054ca428708f4ce838dd82bf39b4ad69fd2c72824b0d8e9a09a",
+          "decision_year": 2025,
+          "decision_age_months": 840,
+          "action": "FORCED_CLAIM",
+          "winner_age_months": 840,
+          "runner_up_age_months": null,
+          "economic_margin_real": 0.0,
+          "economic_margin_direction": "tied",
+          "scenario_acceptability_rate": 1.0,
+          "robustness_class": "ROBUST",
+          "candidate_count": 1,
+          "valid_candidate_count": 1,
+          "invalid_candidate_count": 0,
+          "winner": {
+            "claim_age_months": 840,
+            "claim_factor": 1.24,
+            "first_year_fraction": 1.0,
+            "gross_benefit_pv_real": 261612.13573273786,
+            "after_tax_benefit_pv_real": 241686.8978619164,
+            "benefit_tax_pv_real": 19925.237870821722,
+            "bridge_cost_pv_real": 0.0,
+            "net_economic_value_real": 241686.8978619164,
+            "bridge": {
+              "opportunity_cost_pv_real": 0.0,
+              "incremental_tax_pv_real": 0.0,
+              "terminal_asset_difference_real": 0.0,
+              "terminal_assets_real": 850000.0,
+              "source_withdrawals_real": {
+                "tbills": 0.0,
+                "voo": 0.0,
+                "roth": 0.0,
+                "schd": 0.0
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            "longevity": {
+              "age85_coverage": 0.42202460316190693,
+              "age90_coverage": 0.4193199999999999,
+              "age95_coverage": 0.4193199999999999,
+              "minimum_checkpoint_coverage": 0.4193199999999999,
+              "conditional_shortfall_pv_real": 73523.16418622342,
+              "depletion_protection": 1.0,
+              "reserve_equivalent_real": 53237.525367871196,
+              "floor_depletion_scenario_rate": 0,
+              "survival_weighted_depletion_risk": 0.0,
+              "earliest_depletion_age_months": null,
+              "expected_floor_terminal_assets_real": 2720172.8777769366
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "runner_up": null,
+          "sensitivity": {
+            "mortality.I": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "mortality.II": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "mortality.III": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.central": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.higher_return": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.lower_return": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.018000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.023000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.028000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            }
+          },
+          "sensitivity_flip_count": 0,
+          "future_market_data_used": false,
+          "state_boundary_categories": [
+            "decision_identity",
+            "current_portfolio_balances_and_basis",
+            "current_spending_and_floor",
+            "prior_known_tax_income",
+            "current_reserve_and_drawdown",
+            "trailing_past_only_summaries",
+            "current_scheduled_social_security_benefit",
+            "current_claim_status"
+          ],
+          "accessed_input_categories": [
+            "planning_state",
+            "tax_policy",
+            "social_security_policy",
+            "mortality_cohort",
+            "no_hindsight_planning_scenarios"
+          ]
+        }
+      }
+    },
+    {
+      "name": "thin_portfolio_depletion_risk",
+      "output": {
+        "eligible": true,
+        "claim_now": false,
+        "selected_claim_age": 69,
+        "annual_benefit_real_if_claimed": 0.0,
+        "reason": "wait one year and reevaluate; current no-hindsight target is 69:04",
+        "action": "WAIT",
+        "selected_claim_age_months": 832,
+        "selected_claim_month": 4,
+        "first_year_benefit_fraction": 0.0,
+        "candidate_count": 61,
+        "comparison": {
+          "winner_claim_age_months": 832,
+          "runner_up_claim_age_months": 831,
+          "economic_margin": -146.3944360507885,
+          "scenario_win_rate": 1.0,
+          "robustness_class": "SENSITIVE",
+          "sensitivity_flip_ages": {
+            "portfolio_return.lower_return": 832,
+            "portfolio_return.central": 832,
+            "portfolio_return.higher_return": 834,
+            "mortality.II": 832,
+            "mortality.I": 832,
+            "mortality.III": 832,
+            "safe_rate.0.023000": 832,
+            "safe_rate.0.018000": 832,
+            "safe_rate.0.028000": 832
+          },
+          "candidate_count": 61
+        },
+        "diagnostic_summary": {
+          "schema": "social_security_decision_v2_1_2",
+          "input_fingerprint": "4459b373ca79f91d9f577adb8a56a16663081c518c51aa5f4f5f8b1959ae9a86",
+          "decision_year": 2025,
+          "decision_age_months": 780,
+          "action": "WAIT",
+          "winner_age_months": 832,
+          "runner_up_age_months": 831,
+          "economic_margin_real": -146.3944360507885,
+          "economic_margin_direction": "winner_lower_for_higher_priority_tiebreak",
+          "scenario_acceptability_rate": 1.0,
+          "robustness_class": "SENSITIVE",
+          "candidate_count": 61,
+          "valid_candidate_count": 53,
+          "invalid_candidate_count": 8,
+          "winner": {
+            "claim_age_months": 832,
+            "claim_factor": 1.1866666666666668,
+            "first_year_fraction": 0.6666666666666666,
+            "gross_benefit_pv_real": 218911.88805444917,
+            "after_tax_benefit_pv_real": 199966.34291675573,
+            "benefit_tax_pv_real": 18945.545137693196,
+            "bridge_cost_pv_real": 1780.6967670739443,
+            "net_economic_value_real": 198185.6461496818,
+            "bridge": {
+              "opportunity_cost_pv_real": 1780.6967670739443,
+              "incremental_tax_pv_real": 247.40961233220656,
+              "terminal_asset_difference_real": 58155.72112174376,
+              "terminal_assets_real": 11341.357857741285,
+              "source_withdrawals_real": {
+                "tbills": 10920.0,
+                "voo": 31990.609705875093,
+                "roth": 10199.768216446073,
+                "schd": 0.0
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            "longevity": {
+              "age85_coverage": 0.3567644444444445,
+              "age90_coverage": 0.3567644444444445,
+              "age95_coverage": 0.3567644444444445,
+              "minimum_checkpoint_coverage": 0.3567644444444445,
+              "conditional_shortfall_pv_real": 76607.04554153877,
+              "depletion_protection": 0.3085224258923679,
+              "reserve_equivalent_real": 42489.364599181805,
+              "floor_depletion_scenario_rate": 1.0,
+              "survival_weighted_depletion_risk": 0.9840931019737466,
+              "earliest_depletion_age_months": 796,
+              "expected_floor_terminal_assets_real": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "runner_up": {
+            "claim_age_months": 831,
+            "claim_factor": 1.18,
+            "first_year_fraction": 0.75,
+            "gross_benefit_pv_real": 218982.75003494418,
+            "after_tax_benefit_pv_real": 200053.23058647374,
+            "benefit_tax_pv_real": 18929.51944847062,
+            "bridge_cost_pv_real": 1720.9040233284825,
+            "net_economic_value_real": 198332.32656314527,
+            "bridge": {
+              "opportunity_cost_pv_real": 1720.9040233284825,
+              "incremental_tax_pv_real": 247.40961233220656,
+              "terminal_asset_difference_real": 56989.26161395646,
+              "terminal_assets_real": 12310.589218625459,
+              "source_withdrawals_real": {
+                "tbills": 10920.0,
+                "voo": 31990.609705875093,
+                "roth": 9216.643216446073,
+                "schd": 0.0
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            "longevity": {
+              "age85_coverage": 0.3547688888888889,
+              "age90_coverage": 0.3547688888888889,
+              "age95_coverage": 0.3547688888888889,
+              "minimum_checkpoint_coverage": 0.3547688888888889,
+              "conditional_shortfall_pv_real": 76844.70904444164,
+              "depletion_protection": 0.30825805826224245,
+              "reserve_equivalent_real": 42251.70109627885,
+              "floor_depletion_scenario_rate": 1.0,
+              "survival_weighted_depletion_risk": 0.9840931019737466,
+              "earliest_depletion_age_months": 796,
+              "expected_floor_terminal_assets_real": 0.0
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "sensitivity": {
+            "mortality.I": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "mortality.II": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "mortality.III": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.central": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.higher_return": {
+              "winner_age_months": 834,
+              "delta_months": 2,
+              "flipped": true
+            },
+            "portfolio_return.lower_return": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.018000": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.023000": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.028000": {
+              "winner_age_months": 832,
+              "delta_months": 0,
+              "flipped": false
+            }
+          },
+          "sensitivity_flip_count": 1,
+          "future_market_data_used": false,
+          "state_boundary_categories": [
+            "decision_identity",
+            "current_portfolio_balances_and_basis",
+            "current_spending_and_floor",
+            "prior_known_tax_income",
+            "current_reserve_and_drawdown",
+            "trailing_past_only_summaries",
+            "current_scheduled_social_security_benefit",
+            "current_claim_status"
+          ],
+          "accessed_input_categories": [
+            "planning_state",
+            "tax_policy",
+            "social_security_policy",
+            "mortality_cohort",
+            "no_hindsight_planning_scenarios"
+          ]
+        }
+      }
+    },
+    {
+      "name": "near_maximum_age_schedule_or_forced",
+      "output": {
+        "eligible": true,
+        "claim_now": true,
+        "selected_claim_age": 70,
+        "annual_benefit_real_if_claimed": 18600.0,
+        "reason": "schedule claim in 1 month(s)",
+        "action": "SCHEDULE",
+        "selected_claim_age_months": 840,
+        "selected_claim_month": 0,
+        "first_year_benefit_fraction": 1.0,
+        "candidate_count": 2,
+        "comparison": {
+          "winner_claim_age_months": 840,
+          "runner_up_claim_age_months": 839,
+          "economic_margin": -55.59171769890236,
+          "scenario_win_rate": 1.0,
+          "robustness_class": "SENSITIVE",
+          "sensitivity_flip_ages": {
+            "portfolio_return.lower_return": 840,
+            "portfolio_return.central": 840,
+            "portfolio_return.higher_return": 840,
+            "mortality.II": 840,
+            "mortality.I": 840,
+            "mortality.III": 840,
+            "safe_rate.0.023000": 840,
+            "safe_rate.0.018000": 840,
+            "safe_rate.0.028000": 840
+          },
+          "candidate_count": 2
+        },
+        "diagnostic_summary": {
+          "schema": "social_security_decision_v2_1_2",
+          "input_fingerprint": "ba748cd60f8ec6aa50db25483708930137bd7a8da3c9120fbf71c96370431414",
+          "decision_year": 2025,
+          "decision_age_months": 839,
+          "action": "SCHEDULE",
+          "winner_age_months": 840,
+          "runner_up_age_months": 839,
+          "economic_margin_real": -55.59171769890236,
+          "economic_margin_direction": "winner_lower_for_higher_priority_tiebreak",
+          "scenario_acceptability_rate": 1.0,
+          "robustness_class": "SENSITIVE",
+          "candidate_count": 2,
+          "valid_candidate_count": 2,
+          "invalid_candidate_count": 0,
+          "winner": {
+            "claim_age_months": 840,
+            "claim_factor": 1.24,
+            "first_year_fraction": 1.0,
+            "gross_benefit_pv_real": 260795.7439856726,
+            "after_tax_benefit_pv_real": 240881.9374010467,
+            "benefit_tax_pv_real": 19913.806584625574,
+            "bridge_cost_pv_real": 0.0,
+            "net_economic_value_real": 240881.9374010467,
+            "bridge": {
+              "opportunity_cost_pv_real": 0.0,
+              "incremental_tax_pv_real": 0.0,
+              "terminal_asset_difference_real": 1467.3612873561215,
+              "terminal_assets_real": 851107.5295807404,
+              "source_withdrawals_real": {
+                "tbills": 1464.5833333333335,
+                "voo": 0.0,
+                "roth": 0.0,
+                "schd": 0.0
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            "longevity": {
+              "age85_coverage": 0.4219411273744813,
+              "age90_coverage": 0.41931999999999997,
+              "age95_coverage": 0.41931999999999997,
+              "minimum_checkpoint_coverage": 0.41931999999999997,
+              "conditional_shortfall_pv_real": 73297.16334097132,
+              "depletion_protection": 1.0,
+              "reserve_equivalent_real": 53067.95442317386,
+              "floor_depletion_scenario_rate": 0,
+              "survival_weighted_depletion_risk": 0.0,
+              "earliest_depletion_age_months": null,
+              "expected_floor_terminal_assets_real": 2716854.140969396
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "runner_up": {
+            "claim_age_months": 839,
+            "claim_factor": 1.2333333333333334,
+            "first_year_fraction": 0.08333333333333333,
+            "gross_benefit_pv_real": 260843.61632983564,
+            "after_tax_benefit_pv_real": 240937.52911874562,
+            "benefit_tax_pv_real": 19906.087211090067,
+            "bridge_cost_pv_real": 0.0,
+            "net_economic_value_real": 240937.52911874562,
+            "bridge": {
+              "opportunity_cost_pv_real": 0.0,
+              "incremental_tax_pv_real": 0.0,
+              "terminal_asset_difference_real": 0.0,
+              "terminal_assets_real": 850000.0,
+              "source_withdrawals_real": {
+                "tbills": 0.0,
+                "voo": 0.0,
+                "roth": 0.0,
+                "schd": 0.0
+              },
+              "feasible": true,
+              "validation_codes": []
+            },
+            "longevity": {
+              "age85_coverage": 0.41956862737448136,
+              "age90_coverage": 0.417075,
+              "age95_coverage": 0.417075,
+              "minimum_checkpoint_coverage": 0.417075,
+              "conditional_shortfall_pv_real": 73586.74415011324,
+              "depletion_protection": 1.0,
+              "reserve_equivalent_real": 52778.373614031865,
+              "floor_depletion_scenario_rate": 0,
+              "survival_weighted_depletion_risk": 0.0,
+              "earliest_depletion_age_months": null,
+              "expected_floor_terminal_assets_real": 2712358.2793722283
+            },
+            "feasible": true,
+            "validation_codes": []
+          },
+          "sensitivity": {
+            "mortality.I": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "mortality.II": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "mortality.III": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.central": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.higher_return": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "portfolio_return.lower_return": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.018000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.023000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            },
+            "safe_rate.0.028000": {
+              "winner_age_months": 840,
+              "delta_months": 0,
+              "flipped": false
+            }
+          },
+          "sensitivity_flip_count": 0,
+          "future_market_data_used": false,
+          "state_boundary_categories": [
+            "decision_identity",
+            "current_portfolio_balances_and_basis",
+            "current_spending_and_floor",
+            "prior_known_tax_income",
+            "current_reserve_and_drawdown",
+            "trailing_past_only_summaries",
+            "current_scheduled_social_security_benefit",
+            "current_claim_status"
+          ],
+          "accessed_input_categories": [
+            "planning_state",
+            "tax_policy",
+            "social_security_policy",
+            "mortality_cohort",
+            "no_hindsight_planning_scenarios"
+          ]
+        }
+      }
+    }
+  ],
+  "standalone": {
+    "benefit_real_for_months_fra_exact": 1250.0,
+    "benefit_real_for_months_custom_fra_monthly": 1660.0,
+    "annual_benefit_real_age_62": 10500.0,
+    "annual_benefit_real_age_70": 18600.0
+  },
+  "cache_case": {
+    "first_count": 61,
+    "second_count": 61,
+    "first_net_values": [
+      194613.22098868413,
+      194839.49854373996,
+      195056.36039898975,
+      195265.02328929323,
+      195463.5975857359
+    ],
+    "second_net_values": [
+      194613.22098868413,
+      194839.49854373996,
+      195056.36039898975,
+      195265.02328929323,
+      195463.5975857359
+    ]
+  }
+}

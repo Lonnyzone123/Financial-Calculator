@@ -1,0 +1,350 @@
+{
+  "cases": [
+    {
+      "name": "no_claim_age",
+      "output": {
+        "decision_year": 2040,
+        "decision_age_months": 780,
+        "retirement_year": 1,
+        "inflation_factor": 1.3,
+        "spending_real": 60000.0,
+        "spending_floor_real": 40000.0,
+        "voo_real": 307692.3076923077,
+        "voo_basis_real": 184615.3846153846,
+        "schd_real": 230769.23076923075,
+        "schd_basis_real": 138461.53846153847,
+        "tbills_real": 76923.07692307692,
+        "roth_real": 153846.15384615384,
+        "reserve_months": 20.0,
+        "equity_drawdown": 0.0,
+        "base_income_nominal": {
+          "ordinary_income": 20000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 15000.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "trailing_spending_real": [
+          58000.0,
+          59000.0
+        ],
+        "trailing_tax_real": [
+          8000.0,
+          8500.0
+        ],
+        "trailing_real_returns": [
+          0.05,
+          -0.02,
+          0.08
+        ],
+        "trend_15y_real": 0.04,
+        "ss_claim_age_months": null,
+        "fra_monthly_benefit_real": 1538.4615384615383
+      },
+      "fingerprint": "d5db4fc2d46185d4718adbed0dbc558184b968158db09080a61c81596f2d5351",
+      "portfolio_real_property": 769230.7692307692
+    },
+    {
+      "name": "precise_only",
+      "output": {
+        "decision_year": 2040,
+        "decision_age_months": 780,
+        "retirement_year": 1,
+        "inflation_factor": 1.3,
+        "spending_real": 60000.0,
+        "spending_floor_real": 40000.0,
+        "voo_real": 307692.3076923077,
+        "voo_basis_real": 184615.3846153846,
+        "schd_real": 230769.23076923075,
+        "schd_basis_real": 138461.53846153847,
+        "tbills_real": 76923.07692307692,
+        "roth_real": 153846.15384615384,
+        "reserve_months": 20.0,
+        "equity_drawdown": 0.0,
+        "base_income_nominal": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "trailing_spending_real": [
+          58000.0,
+          59000.0
+        ],
+        "trailing_tax_real": [
+          8000.0,
+          8500.0
+        ],
+        "trailing_real_returns": [
+          0.05,
+          -0.02,
+          0.08
+        ],
+        "trend_15y_real": 0.04,
+        "ss_claim_age_months": 807,
+        "fra_monthly_benefit_real": 1538.4615384615383
+      },
+      "fingerprint": "8dc633f297c36933e89c01083b498c24665ef60ddd4b9bf5c5bbb1464d8d2a91",
+      "portfolio_real_property": 769230.7692307692
+    },
+    {
+      "name": "legacy_only",
+      "output": {
+        "decision_year": 2040,
+        "decision_age_months": 780,
+        "retirement_year": 1,
+        "inflation_factor": 1.3,
+        "spending_real": 60000.0,
+        "spending_floor_real": 40000.0,
+        "voo_real": 307692.3076923077,
+        "voo_basis_real": 184615.3846153846,
+        "schd_real": 230769.23076923075,
+        "schd_basis_real": 138461.53846153847,
+        "tbills_real": 76923.07692307692,
+        "roth_real": 153846.15384615384,
+        "reserve_months": 20.0,
+        "equity_drawdown": 0.0,
+        "base_income_nominal": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "trailing_spending_real": [
+          58000.0,
+          59000.0
+        ],
+        "trailing_tax_real": [
+          8000.0,
+          8500.0
+        ],
+        "trailing_real_returns": [
+          0.05,
+          -0.02,
+          0.08
+        ],
+        "trend_15y_real": 0.04,
+        "ss_claim_age_months": 816,
+        "fra_monthly_benefit_real": 1538.4615384615383
+      },
+      "fingerprint": "6c9b5e5d7ba4065d1c01f7bb595db95fe22a3c3e77e6ab4c0a5b9b4ada1627fb",
+      "portfolio_real_property": 769230.7692307692
+    },
+    {
+      "name": "both_consistent",
+      "output": {
+        "decision_year": 2040,
+        "decision_age_months": 780,
+        "retirement_year": 1,
+        "inflation_factor": 1.3,
+        "spending_real": 60000.0,
+        "spending_floor_real": 40000.0,
+        "voo_real": 307692.3076923077,
+        "voo_basis_real": 184615.3846153846,
+        "schd_real": 230769.23076923075,
+        "schd_basis_real": 138461.53846153847,
+        "tbills_real": 76923.07692307692,
+        "roth_real": 153846.15384615384,
+        "reserve_months": 20.0,
+        "equity_drawdown": 0.0,
+        "base_income_nominal": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "trailing_spending_real": [
+          58000.0,
+          59000.0
+        ],
+        "trailing_tax_real": [
+          8000.0,
+          8500.0
+        ],
+        "trailing_real_returns": [
+          0.05,
+          -0.02,
+          0.08
+        ],
+        "trend_15y_real": 0.04,
+        "ss_claim_age_months": 810,
+        "fra_monthly_benefit_real": 1538.4615384615383
+      },
+      "fingerprint": "b58b9cb7b088a72ba23b93e57e1870e52504a5d5d42bb0d50ab5dd102518f966",
+      "portfolio_real_property": 769230.7692307692
+    },
+    {
+      "name": "both_precise_consistent",
+      "output": {
+        "decision_year": 2040,
+        "decision_age_months": 780,
+        "retirement_year": 1,
+        "inflation_factor": 1.3,
+        "spending_real": 60000.0,
+        "spending_floor_real": 40000.0,
+        "voo_real": 307692.3076923077,
+        "voo_basis_real": 184615.3846153846,
+        "schd_real": 230769.23076923075,
+        "schd_basis_real": 138461.53846153847,
+        "tbills_real": 76923.07692307692,
+        "roth_real": 153846.15384615384,
+        "reserve_months": 20.0,
+        "equity_drawdown": 0.0,
+        "base_income_nominal": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "trailing_spending_real": [
+          58000.0,
+          59000.0
+        ],
+        "trailing_tax_real": [
+          8000.0,
+          8500.0
+        ],
+        "trailing_real_returns": [
+          0.05,
+          -0.02,
+          0.08
+        ],
+        "trend_15y_real": 0.04,
+        "ss_claim_age_months": 810,
+        "fra_monthly_benefit_real": 1538.4615384615383
+      },
+      "fingerprint": "b58b9cb7b088a72ba23b93e57e1870e52504a5d5d42bb0d50ab5dd102518f966",
+      "portfolio_real_property": 769230.7692307692
+    },
+    {
+      "name": "precise_candidates_disagree",
+      "expect_error": "Social Security claim-age state fields disagree"
+    },
+    {
+      "name": "legacy_precise_disagree",
+      "expect_error": "Social Security claim-age state fields disagree"
+    },
+    {
+      "name": "legacy_precise_boundary_consistent",
+      "output": {
+        "decision_year": 2040,
+        "decision_age_months": 780,
+        "retirement_year": 1,
+        "inflation_factor": 1.3,
+        "spending_real": 60000.0,
+        "spending_floor_real": 40000.0,
+        "voo_real": 307692.3076923077,
+        "voo_basis_real": 184615.3846153846,
+        "schd_real": 230769.23076923075,
+        "schd_basis_real": 138461.53846153847,
+        "tbills_real": 76923.07692307692,
+        "roth_real": 153846.15384615384,
+        "reserve_months": 20.0,
+        "equity_drawdown": 0.0,
+        "base_income_nominal": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "trailing_spending_real": [
+          58000.0,
+          59000.0
+        ],
+        "trailing_tax_real": [
+          8000.0,
+          8500.0
+        ],
+        "trailing_real_returns": [
+          0.05,
+          -0.02,
+          0.08
+        ],
+        "trend_15y_real": 0.04,
+        "ss_claim_age_months": 815,
+        "fra_monthly_benefit_real": 1538.4615384615383
+      },
+      "fingerprint": "2e7c28d863d6f11b2dbe876dbdaf338ed42a1d568af26d55db6580a57276d501",
+      "portfolio_real_property": 769230.7692307692
+    },
+    {
+      "name": "error_zero_inflation_factor",
+      "expect_error": "Social Security planning inflation factor must be positive"
+    },
+    {
+      "name": "error_negative_spending",
+      "expect_error": "Social Security spending and floor inputs are invalid"
+    },
+    {
+      "name": "error_zero_floor",
+      "expect_error": "Social Security spending and floor inputs are invalid"
+    },
+    {
+      "name": "error_negative_fra_benefit",
+      "expect_error": "Scheduled FRA benefit must be positive"
+    },
+    {
+      "name": "full_income_copy",
+      "output": {
+        "decision_year": 2040,
+        "decision_age_months": 780,
+        "retirement_year": 1,
+        "inflation_factor": 1.3,
+        "spending_real": 55000.0,
+        "spending_floor_real": 42000.0,
+        "voo_real": 94966.75384615384,
+        "voo_basis_real": 56980.052307692305,
+        "schd_real": 759.7307692307692,
+        "schd_basis_real": 455.83846153846144,
+        "tbills_real": 3846.153846153846,
+        "roth_real": 19230.76923076923,
+        "reserve_months": 20.0,
+        "equity_drawdown": 0.0,
+        "base_income_nominal": {
+          "ordinary_income": 45000.0,
+          "qualified_dividends": 2000.0,
+          "nonqualified_dividends": 500.0,
+          "long_term_gains": 3000.0,
+          "treasury_interest": 100.0,
+          "social_security": 18000.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "trailing_spending_real": [
+          58000.0,
+          59000.0
+        ],
+        "trailing_tax_real": [
+          8000.0,
+          8500.0
+        ],
+        "trailing_real_returns": [
+          0.05,
+          -0.02,
+          0.08
+        ],
+        "trend_15y_real": 0.04,
+        "ss_claim_age_months": 820,
+        "fra_monthly_benefit_real": 1923.0769230769229
+      },
+      "fingerprint": "8ba38069f42b890bc68ddaa730c37958bbccbcc507282aa5225a920297ddc3f8",
+      "portfolio_real_property": 118803.40769230768
+    }
+  ]
+}

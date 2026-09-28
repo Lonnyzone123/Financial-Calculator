@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "about": "Every test the release gate (tools/verify-test-gate.js) may see marked todo, BY IDENTITY. The gate fails if the run's todo set differs from this list in either direction, if an authorized todo starts passing, or if any other test is skipped. Added in S4 task 2b.2g (S4-PA-07). The gate must never learn this list from the run it polices: edit it by hand, in the same commit as the change that justifies it.",
+  "kinds": {
+    "revival-contract": "An assertion against a module excluded under decision register P19. It MUST stay todo while the module is excluded; if the module is reintroduced, the test must pass as an ordinary test and its entry leaves this file in that commit.",
+    "carried-residual": "A reproduced defect carried to a named owner. It MUST LEAVE todo when repaired: remove the todo marker and this entry in the repair's commit."
+  },
+  "entries": [
+    {
+      "file": "tests/audit-rb-findings.test.js",
+      "name": "RB-03: lumpSumRecast must write scheduled P&I, not the all-in outlay",
+      "kind": "revival-contract",
+      "findingId": "RB-03",
+      "module": "src/mortgage-vs-investing.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/mortgage-vs-investing.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/audit-rb-findings.test.js",
+      "name": "RB-04: the interest objective must use the entered payment, not a re-derived one",
+      "kind": "revival-contract",
+      "findingId": "RB-04",
+      "module": "src/mortgage-vs-investing.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/mortgage-vs-investing.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/audit-rb-findings.test.js",
+      "name": "RB-05: an invalid scenario must never yield a numeric objective or a winner",
+      "kind": "revival-contract",
+      "findingId": "RB-05",
+      "module": "src/mortgage-vs-investing.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/mortgage-vs-investing.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/audit-rb-findings.test.js",
+      "name": "RB-06: $500/month must add $6,000 a year regardless of contribution mode",
+      "kind": "revival-contract",
+      "findingId": "RB-06",
+      "module": "src/mortgage-vs-investing.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/mortgage-vs-investing.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/audit-rb-findings.test.js",
+      "name": "RB-07: endingNetWorth must include debt, or refuse when net-worth accounting is off",
+      "kind": "revival-contract",
+      "findingId": "RB-07",
+      "module": "src/mortgage-vs-investing.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/mortgage-vs-investing.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/audit-rb-findings.test.js",
+      "name": "RB-08: a horizon landing exactly on a row must select that row",
+      "kind": "revival-contract",
+      "findingId": "RB-08",
+      "module": "src/mortgage-vs-investing.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/mortgage-vs-investing.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/audit-rc-findings.test.js",
+      "name": "RC-03: a $50k cash investment must add $50k of basis",
+      "kind": "revival-contract",
+      "findingId": "RC-03",
+      "module": "src/mortgage-vs-investing.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/mortgage-vs-investing.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/audit-rc-findings.test.js",
+      "name": "RC-04: a debt that never amortizes must have no finite debt-free month",
+      "kind": "revival-contract",
+      "findingId": "RC-04",
+      "module": "src/debt-strategy-adapter.js",
+      "owner": "decision register P19; revival governed by P13/P14/P15/P17",
+      "lifecycle": "stays todo while src/debt-strategy-adapter.js is excluded",
+      "releaseCondition": "module reintroduced under its revival contract and this test passes"
+    },
+    {
+      "file": "tests/spec-vectors-2026.test.js",
+      "name": "spec vector ACCOUNT-17-8 (ACCOUNT §17, Test 8): an unrelated solo 401(k) deferral is 402(g) excess, and 415(c) is tested per employer group",
+      "kind": "carried-residual",
+      "findingId": "ACCOUNT-17-8",
+      "owner": "carried from S5 task 5 (spec vectors) to the plan owner, who names the repairing task",
+      "lifecycle": "stays todo until a section 415(c) employer-group test exists beside the 402(g) audit",
+      "releaseCondition": "the test passes: remove its todo marker and this entry in that commit"
+    }
+  ]
+}

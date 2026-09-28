@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "about": "S5 task 4: the ONE authority-status vocabulary, chosen before the field exists. Decided 2026-09-14 by the owner, SPRINT_QUESTIONS.md Q79 answer (a): TAX_RULES_ENGINE_REFERENCE_2026.md section 1.2's six parameter-status values, plus PROPOSED_REGULATION, the one value mapping ACCOUNT_RULES_ENGINE_REFERENCE_2026.md section 2.2 onto those six genuinely loses. Every typed authority status that S5 tasks 5, 8, 11 and 12 write, and that S5b and S6 inherit, is one of these seven. tests/authority-status-vocabulary.test.js holds this file to both specifications and refuses any other status, or a retired name, in src, tests and tools.",
+  "decision": "SPRINT_QUESTIONS.md Q79, answer (a), decided 2026-09-14 (the owner)",
+  "values": [
+    {
+      "status": "ENACTED",
+      "source": "TAX section 1.2",
+      "meaning": "Amount or rule is in enacted law",
+      "treatment": "May ship, subject to later technical corrections"
+    },
+    {
+      "status": "OFFICIAL_2026",
+      "source": "TAX section 1.2",
+      "meaning": "Published in 2026 IRS, SSA, or state guidance",
+      "treatment": "Preferred operational value"
+    },
+    {
+      "status": "INFERRED",
+      "source": "TAX section 1.2",
+      "meaning": "Directly derived from enacted text but not yet printed on the final return form",
+      "treatment": "May ship with a visible provenance flag and a reconciliation test"
+    },
+    {
+      "status": "FORM_PENDING",
+      "source": "TAX section 1.2",
+      "meaning": "Final form or instructions could resolve mechanics or ambiguity",
+      "treatment": "Do not silently claim return-grade precision"
+    },
+    {
+      "status": "MODEL_ASSUMPTION",
+      "source": "TAX section 1.2",
+      "meaning": "Projection convention, not tax law",
+      "treatment": "Expose to users and scenarios"
+    },
+    {
+      "status": "UNSUPPORTED",
+      "source": "TAX section 1.2",
+      "meaning": "Engine does not have inputs needed for a reliable calculation",
+      "treatment": "Stop, route, or return a bounded estimate with a warning"
+    },
+    {
+      "status": "PROPOSED_REGULATION",
+      "source": "ACCOUNT section 2.2, proposed_regulation",
+      "meaning": "A rule whose authority is proposed regulations that final regulations have not settled; ACCOUNT section 2.2's worked example is the 1959 RMD birth cohort, authority_refs REG-103529-23",
+      "treatment": "Carry the rule's warning code and a review point, as ACCOUNT section 2.2's example does: warning_code PROPOSED_RULE_USED, review_after final_regulation_or_annual_refresh"
+    }
+  ],
+  "retired": {
+    "UNREPRESENTABLE": {
+      "replacedBy": "UNSUPPORTED",
+      "why": "S5 task 5.7's name for a vector the engine has no input for, which is TAX section 1.2's UNSUPPORTED under another name (Q79). Retired so one status has one name."
+    }
+  },
+  "accountMapping": {
+    "statute_enacted": "ENACTED",
+    "final_regulation": "OFFICIAL_2026",
+    "official_guidance": "OFFICIAL_2026",
+    "official_publication": "OFFICIAL_2026",
+    "proposed_regulation": "PROPOSED_REGULATION",
+    "interpretive_inference": "INFERRED",
+    "plan_specific": null,
+    "state_conformity_pending": null
+  },
+  "accountMappingNotes": {
+    "final_regulation": "Mapped with official_guidance and official_publication onto OFFICIAL_2026, which loses the regulation-versus-publication tier (Q79). S5 task 5.6b's invariant 10 turns on that tier only for the 1959 cohort, which PROPOSED_REGULATION carries.",
+    "plan_specific": "Unmapped, as Q79 records: an employer plan's own document is neither law nor a projection convention, and none of the seven says so.",
+    "state_conformity_pending": "Unmapped, as Q79 records: FORM_PENDING is the closest value, but it is about forms, not state conformity."
+  }
+}

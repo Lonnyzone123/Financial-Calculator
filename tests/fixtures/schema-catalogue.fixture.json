@@ -1,0 +1,1889 @@
+{
+  "note": "DERIVED, not hand-written. Regenerate with: node tests/lib/schema-catalogue.js --write",
+  "scenario": {
+    "shape": {
+      "kind": "object",
+      "fields": {
+        "accounts": {
+          "kind": "array",
+          "element": {
+            "kind": "object",
+            "fields": {
+              "allocation": {
+                "kind": "object",
+                "fields": {
+                  "bonds": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "cash": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "stocks": {
+                    "kind": "number",
+                    "optional": true
+                  }
+                }
+              },
+              "annualChange": {
+                "kind": "number"
+              },
+              "annualChangeMode": {
+                "kind": "string"
+              },
+              "balance": {
+                "kind": "number"
+              },
+              "basisPct": {
+                "kind": "number"
+              },
+              "cashHolding": {
+                "kind": "boolean",
+                "optional": true
+              },
+              "changeTiming": {
+                "kind": "string"
+              },
+              "contribution": {
+                "kind": "number"
+              },
+              "contributionMode": {
+                "kind": "string"
+              },
+              "frequency": {
+                "kind": "number"
+              },
+              "futureChanges": {
+                "kind": "array",
+                "element": {
+                  "kind": "object",
+                  "fields": {
+                    "age": {
+                      "kind": "number"
+                    },
+                    "mode": {
+                      "kind": "string"
+                    },
+                    "value": {
+                      "kind": "number"
+                    }
+                  }
+                }
+              },
+              "id": {
+                "kind": "string"
+              },
+              "matchCap": {
+                "kind": "number"
+              },
+              "matchOn": {
+                "kind": "boolean"
+              },
+              "matchRate": {
+                "kind": "number"
+              },
+              "name": {
+                "kind": "string"
+              },
+              "owner": {
+                "kind": "string"
+              },
+              "priority": {
+                "kind": "number"
+              },
+              "profitShare": {
+                "kind": "number"
+              },
+              "taxClass": {
+                "kind": "string"
+              },
+              "type": {
+                "kind": "string"
+              },
+              "vesting": {
+                "kind": "number"
+              }
+            }
+          }
+        },
+        "advanced": {
+          "kind": "object",
+          "fields": {
+            "armRecastOnReset": {
+              "kind": "boolean"
+            },
+            "assetClasses": {
+              "kind": "array",
+              "element": {
+                "kind": "object",
+                "fields": {
+                  "id": {
+                    "kind": "string"
+                  },
+                  "name": {
+                    "kind": "string"
+                  },
+                  "returnRate": {
+                    "kind": "number"
+                  },
+                  "volatility": {
+                    "kind": "number"
+                  }
+                }
+              }
+            },
+            "assetsOn": {
+              "kind": "boolean"
+            },
+            "bondTent": {
+              "kind": "number"
+            },
+            "bondTentOn": {
+              "kind": "boolean"
+            },
+            "conversionAmount": {
+              "kind": "number"
+            },
+            "conversionOn": {
+              "kind": "boolean"
+            },
+            "correlation": {
+              "kind": "number"
+            },
+            "debt": {
+              "kind": "number"
+            },
+            "debts": {
+              "kind": "array",
+              "element": {
+                "kind": "object",
+                "fields": {
+                  "annualInsurance": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "annualPropertyTax": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "balance": {
+                    "kind": "number"
+                  },
+                  "extraPrincipalMonthly": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "hoaMonthly": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "id": {
+                    "kind": "string"
+                  },
+                  "includeHousingCosts": {
+                    "kind": "boolean",
+                    "optional": true
+                  },
+                  "includePayment": {
+                    "kind": "boolean"
+                  },
+                  "loanTermYears": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "mortgageType": {
+                    "kind": "string",
+                    "optional": true
+                  },
+                  "name": {
+                    "kind": "string"
+                  },
+                  "nextRateResetAge": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "originalAmount": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "owner": {
+                    "kind": "string",
+                    "optional": true
+                  },
+                  "paymentMonthly": {
+                    "kind": "number"
+                  },
+                  "payoffAge": {
+                    "kind": "number"
+                  },
+                  "pmiMonthly": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "propertyValue": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "rate": {
+                    "kind": "number"
+                  },
+                  "rateType": {
+                    "kind": "string"
+                  },
+                  "remainingTermYears": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "resetRate": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "taxDeductible": {
+                    "kind": "boolean",
+                    "optional": true
+                  },
+                  "type": {
+                    "kind": "string",
+                    "optional": true
+                  }
+                }
+              }
+            },
+            "glideOn": {
+              "kind": "boolean"
+            },
+            "healthCost": {
+              "kind": "number"
+            },
+            "healthInflation": {
+              "kind": "number"
+            },
+            "healthOn": {
+              "kind": "boolean"
+            },
+            "home": {
+              "kind": "number"
+            },
+            "homeGrowth": {
+              "kind": "number"
+            },
+            "insurance": {
+              "kind": "number"
+            },
+            "legacy": {
+              "kind": "number"
+            },
+            "ltcCost": {
+              "kind": "number"
+            },
+            "ltcInsurance": {
+              "kind": "number"
+            },
+            "ltcOn": {
+              "kind": "boolean"
+            },
+            "ltcProbability": {
+              "kind": "number"
+            },
+            "ltcYears": {
+              "kind": "number"
+            },
+            "networthOn": {
+              "kind": "boolean"
+            },
+            "otherAssets": {
+              "kind": "array",
+              "element": {
+                "kind": "object",
+                "fields": {
+                  "accessPct": {
+                    "kind": "number"
+                  },
+                  "availableAge": {
+                    "kind": "number"
+                  },
+                  "id": {
+                    "kind": "string"
+                  },
+                  "liquidity": {
+                    "kind": "string"
+                  },
+                  "name": {
+                    "kind": "string"
+                  },
+                  "value": {
+                    "kind": "number"
+                  }
+                }
+              }
+            },
+            "penaltyException": {
+              "kind": "boolean"
+            },
+            "qcd": {
+              "kind": "number"
+            },
+            "reserveOn": {
+              "kind": "boolean"
+            },
+            "reserveYears": {
+              "kind": "number"
+            },
+            "retainedCashOrder": {
+              "kind": "string"
+            },
+            "retirementStock": {
+              "kind": "number"
+            },
+            "rmdOn": {
+              "kind": "boolean"
+            },
+            "rule55": {
+              "kind": "boolean"
+            },
+            "surplusPolicy": {
+              "kind": "string"
+            },
+            "surplusPolicyBySource": {
+              "kind": "object",
+              "fields": {
+                "rmd": {
+                  "kind": "string"
+                }
+              }
+            },
+            "transferAge": {
+              "kind": "number"
+            },
+            "transferAmount": {
+              "kind": "number"
+            },
+            "transferFrom": {
+              "kind": "string"
+            },
+            "transferOn": {
+              "kind": "boolean"
+            },
+            "transferTo": {
+              "kind": "string"
+            }
+          }
+        },
+        "assumptions": {
+          "kind": "object",
+          "fields": {
+            "fee": {
+              "kind": "number"
+            },
+            "historyStart": {
+              "kind": "number"
+            },
+            "inflation": {
+              "kind": "number"
+            },
+            "method": {
+              "kind": "string"
+            },
+            "returnPreset": {
+              "kind": "string"
+            },
+            "returnRate": {
+              "kind": "number"
+            },
+            "rollingHistory": {
+              "kind": "boolean"
+            },
+            "runs": {
+              "kind": "number"
+            },
+            "seed": {
+              "kind": "number"
+            },
+            "volatility": {
+              "kind": "number"
+            },
+            "withdrawalTiming": {
+              "kind": "string"
+            }
+          }
+        },
+        "employment": {
+          "kind": "object",
+          "fields": {
+            "contributionStop": {
+              "kind": "number"
+            },
+            "growth": {
+              "kind": "number"
+            },
+            "salary": {
+              "kind": "number"
+            },
+            "spouseSalary": {
+              "kind": "number"
+            }
+          }
+        },
+        "id": {
+          "kind": "null"
+        },
+        "limitPolicy": {
+          "kind": "string"
+        },
+        "name": {
+          "kind": "string"
+        },
+        "profile": {
+          "kind": "object",
+          "fields": {
+            "age": {
+              "kind": "number"
+            },
+            "endAge": {
+              "kind": "number"
+            },
+            "filing": {
+              "kind": "string"
+            },
+            "retireAge": {
+              "kind": "number"
+            },
+            "spouseAge": {
+              "kind": "number"
+            },
+            "spouseOn": {
+              "kind": "boolean"
+            },
+            "state": {
+              "kind": "string"
+            }
+          }
+        },
+        "retirement": {
+          "kind": "object",
+          "fields": {
+            "adjustment": {
+              "kind": "number"
+            },
+            "aime": {
+              "kind": "number"
+            },
+            "ceiling": {
+              "kind": "number"
+            },
+            "dividendGrowth": {
+              "kind": "number"
+            },
+            "dividendOn": {
+              "kind": "boolean"
+            },
+            "dividendQualified": {
+              "kind": "number"
+            },
+            "dividendStart": {
+              "kind": "number"
+            },
+            "dividendYield": {
+              "kind": "number"
+            },
+            "expenses": {
+              "kind": "array",
+              "element": {
+                "kind": "object",
+                "fields": {
+                  "age": {
+                    "kind": "number"
+                  },
+                  "amount": {
+                    "kind": "number"
+                  },
+                  "kind": {
+                    "kind": "string"
+                  },
+                  "name": {
+                    "kind": "string"
+                  }
+                }
+              }
+            },
+            "flexibility": {
+              "kind": "number"
+            },
+            "floor": {
+              "kind": "number"
+            },
+            "guytonSkipInflation": {
+              "kind": "boolean"
+            },
+            "homeEquityFallback": {
+              "kind": "boolean"
+            },
+            "incomeOffset": {
+              "kind": "boolean"
+            },
+            "irmaaGuard": {
+              "kind": "boolean"
+            },
+            "lowerGuardrail": {
+              "kind": "number"
+            },
+            "manualOrder": {
+              "kind": "string"
+            },
+            "optimizationGoal": {
+              "kind": "string"
+            },
+            "otherIncomes": {
+              "kind": "array",
+              "element": {
+                "kind": "object",
+                "fields": {
+                  "amount": {
+                    "kind": "number"
+                  },
+                  "end": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "growth": {
+                    "kind": "number"
+                  },
+                  "growthMode": {
+                    "kind": "string"
+                  },
+                  "name": {
+                    "kind": "string",
+                    "optional": true
+                  },
+                  "owner": {
+                    "kind": "string"
+                  },
+                  "start": {
+                    "kind": "number"
+                  },
+                  "type": {
+                    "kind": "string"
+                  }
+                }
+              }
+            },
+            "pension": {
+              "kind": "number"
+            },
+            "pensionCola": {
+              "kind": "number"
+            },
+            "preserveRoth": {
+              "kind": "boolean"
+            },
+            "rmdFloor": {
+              "kind": "number"
+            },
+            "rmdMultiplier": {
+              "kind": "number"
+            },
+            "rmdSmoothing": {
+              "kind": "boolean"
+            },
+            "selfLife": {
+              "kind": "number"
+            },
+            "spending": {
+              "kind": "number"
+            },
+            "spouseClaim": {
+              "kind": "number"
+            },
+            "spouseLife": {
+              "kind": "number"
+            },
+            "spouseSS": {
+              "kind": "number"
+            },
+            "ssAdvanced": {
+              "kind": "boolean"
+            },
+            "ssBenefit": {
+              "kind": "number"
+            },
+            "ssClaim": {
+              "kind": "number"
+            },
+            "ssCola": {
+              "kind": "number"
+            },
+            "ssFra": {
+              "kind": "number"
+            },
+            "stages": {
+              "kind": "array",
+              "element": {
+                "kind": "object",
+                "fields": {
+                  "annualChange": {
+                    "kind": "number"
+                  },
+                  "end": {
+                    "kind": "number"
+                  },
+                  "growthMode": {
+                    "kind": "string"
+                  },
+                  "mode": {
+                    "kind": "string"
+                  },
+                  "name": {
+                    "kind": "string"
+                  },
+                  "start": {
+                    "kind": "number"
+                  },
+                  "value": {
+                    "kind": "number"
+                  }
+                }
+              }
+            },
+            "strategy": {
+              "kind": "string"
+            },
+            "survivor": {
+              "kind": "boolean"
+            },
+            "survivorSpendingReduction": {
+              "kind": "number"
+            },
+            "upperGuardrail": {
+              "kind": "number"
+            },
+            "vpwMaxRate": {
+              "kind": "number"
+            },
+            "vpwMinRate": {
+              "kind": "number"
+            },
+            "withdrawalOrder": {
+              "kind": "string"
+            },
+            "withdrawalRate": {
+              "kind": "number"
+            }
+          }
+        },
+        "scenarioSchemaVersion": {
+          "kind": "number"
+        },
+        "setupComplete": {
+          "kind": "boolean"
+        }
+      }
+    },
+    "leaves": [
+      "accounts[].allocation.bonds (optional) : number",
+      "accounts[].allocation.cash (optional) : number",
+      "accounts[].allocation.stocks (optional) : number",
+      "accounts[].annualChange : number",
+      "accounts[].annualChangeMode : string",
+      "accounts[].balance : number",
+      "accounts[].basisPct : number",
+      "accounts[].cashHolding (optional) : boolean",
+      "accounts[].changeTiming : string",
+      "accounts[].contribution : number",
+      "accounts[].contributionMode : string",
+      "accounts[].frequency : number",
+      "accounts[].futureChanges[].age : number",
+      "accounts[].futureChanges[].mode : string",
+      "accounts[].futureChanges[].value : number",
+      "accounts[].id : string",
+      "accounts[].matchCap : number",
+      "accounts[].matchOn : boolean",
+      "accounts[].matchRate : number",
+      "accounts[].name : string",
+      "accounts[].owner : string",
+      "accounts[].priority : number",
+      "accounts[].profitShare : number",
+      "accounts[].taxClass : string",
+      "accounts[].type : string",
+      "accounts[].vesting : number",
+      "advanced.armRecastOnReset : boolean",
+      "advanced.assetClasses[].id : string",
+      "advanced.assetClasses[].name : string",
+      "advanced.assetClasses[].returnRate : number",
+      "advanced.assetClasses[].volatility : number",
+      "advanced.assetsOn : boolean",
+      "advanced.bondTent : number",
+      "advanced.bondTentOn : boolean",
+      "advanced.conversionAmount : number",
+      "advanced.conversionOn : boolean",
+      "advanced.correlation : number",
+      "advanced.debt : number",
+      "advanced.debts[].annualInsurance (optional) : number",
+      "advanced.debts[].annualPropertyTax (optional) : number",
+      "advanced.debts[].balance : number",
+      "advanced.debts[].extraPrincipalMonthly (optional) : number",
+      "advanced.debts[].hoaMonthly (optional) : number",
+      "advanced.debts[].id : string",
+      "advanced.debts[].includeHousingCosts (optional) : boolean",
+      "advanced.debts[].includePayment : boolean",
+      "advanced.debts[].loanTermYears (optional) : number",
+      "advanced.debts[].mortgageType (optional) : string",
+      "advanced.debts[].name : string",
+      "advanced.debts[].nextRateResetAge (optional) : number",
+      "advanced.debts[].originalAmount (optional) : number",
+      "advanced.debts[].owner (optional) : string",
+      "advanced.debts[].paymentMonthly : number",
+      "advanced.debts[].payoffAge : number",
+      "advanced.debts[].pmiMonthly (optional) : number",
+      "advanced.debts[].propertyValue (optional) : number",
+      "advanced.debts[].rate : number",
+      "advanced.debts[].rateType : string",
+      "advanced.debts[].remainingTermYears (optional) : number",
+      "advanced.debts[].resetRate (optional) : number",
+      "advanced.debts[].taxDeductible (optional) : boolean",
+      "advanced.debts[].type (optional) : string",
+      "advanced.glideOn : boolean",
+      "advanced.healthCost : number",
+      "advanced.healthInflation : number",
+      "advanced.healthOn : boolean",
+      "advanced.home : number",
+      "advanced.homeGrowth : number",
+      "advanced.insurance : number",
+      "advanced.legacy : number",
+      "advanced.ltcCost : number",
+      "advanced.ltcInsurance : number",
+      "advanced.ltcOn : boolean",
+      "advanced.ltcProbability : number",
+      "advanced.ltcYears : number",
+      "advanced.networthOn : boolean",
+      "advanced.otherAssets[].accessPct : number",
+      "advanced.otherAssets[].availableAge : number",
+      "advanced.otherAssets[].id : string",
+      "advanced.otherAssets[].liquidity : string",
+      "advanced.otherAssets[].name : string",
+      "advanced.otherAssets[].value : number",
+      "advanced.penaltyException : boolean",
+      "advanced.qcd : number",
+      "advanced.reserveOn : boolean",
+      "advanced.reserveYears : number",
+      "advanced.retainedCashOrder : string",
+      "advanced.retirementStock : number",
+      "advanced.rmdOn : boolean",
+      "advanced.rule55 : boolean",
+      "advanced.surplusPolicy : string",
+      "advanced.surplusPolicyBySource.rmd : string",
+      "advanced.transferAge : number",
+      "advanced.transferAmount : number",
+      "advanced.transferFrom : string",
+      "advanced.transferOn : boolean",
+      "advanced.transferTo : string",
+      "assumptions.fee : number",
+      "assumptions.historyStart : number",
+      "assumptions.inflation : number",
+      "assumptions.method : string",
+      "assumptions.returnPreset : string",
+      "assumptions.returnRate : number",
+      "assumptions.rollingHistory : boolean",
+      "assumptions.runs : number",
+      "assumptions.seed : number",
+      "assumptions.volatility : number",
+      "assumptions.withdrawalTiming : string",
+      "employment.contributionStop : number",
+      "employment.growth : number",
+      "employment.salary : number",
+      "employment.spouseSalary : number",
+      "id : null",
+      "limitPolicy : string",
+      "name : string",
+      "profile.age : number",
+      "profile.endAge : number",
+      "profile.filing : string",
+      "profile.retireAge : number",
+      "profile.spouseAge : number",
+      "profile.spouseOn : boolean",
+      "profile.state : string",
+      "retirement.adjustment : number",
+      "retirement.aime : number",
+      "retirement.ceiling : number",
+      "retirement.dividendGrowth : number",
+      "retirement.dividendOn : boolean",
+      "retirement.dividendQualified : number",
+      "retirement.dividendStart : number",
+      "retirement.dividendYield : number",
+      "retirement.expenses[].age : number",
+      "retirement.expenses[].amount : number",
+      "retirement.expenses[].kind : string",
+      "retirement.expenses[].name : string",
+      "retirement.flexibility : number",
+      "retirement.floor : number",
+      "retirement.guytonSkipInflation : boolean",
+      "retirement.homeEquityFallback : boolean",
+      "retirement.incomeOffset : boolean",
+      "retirement.irmaaGuard : boolean",
+      "retirement.lowerGuardrail : number",
+      "retirement.manualOrder : string",
+      "retirement.optimizationGoal : string",
+      "retirement.otherIncomes[].amount : number",
+      "retirement.otherIncomes[].end (optional) : number",
+      "retirement.otherIncomes[].growth : number",
+      "retirement.otherIncomes[].growthMode : string",
+      "retirement.otherIncomes[].name (optional) : string",
+      "retirement.otherIncomes[].owner : string",
+      "retirement.otherIncomes[].start : number",
+      "retirement.otherIncomes[].type : string",
+      "retirement.pension : number",
+      "retirement.pensionCola : number",
+      "retirement.preserveRoth : boolean",
+      "retirement.rmdFloor : number",
+      "retirement.rmdMultiplier : number",
+      "retirement.rmdSmoothing : boolean",
+      "retirement.selfLife : number",
+      "retirement.spending : number",
+      "retirement.spouseClaim : number",
+      "retirement.spouseLife : number",
+      "retirement.spouseSS : number",
+      "retirement.ssAdvanced : boolean",
+      "retirement.ssBenefit : number",
+      "retirement.ssClaim : number",
+      "retirement.ssCola : number",
+      "retirement.ssFra : number",
+      "retirement.stages[].annualChange : number",
+      "retirement.stages[].end : number",
+      "retirement.stages[].growthMode : string",
+      "retirement.stages[].mode : string",
+      "retirement.stages[].name : string",
+      "retirement.stages[].start : number",
+      "retirement.stages[].value : number",
+      "retirement.strategy : string",
+      "retirement.survivor : boolean",
+      "retirement.survivorSpendingReduction : number",
+      "retirement.upperGuardrail : number",
+      "retirement.vpwMaxRate : number",
+      "retirement.vpwMinRate : number",
+      "retirement.withdrawalOrder : string",
+      "retirement.withdrawalRate : number",
+      "scenarioSchemaVersion : number",
+      "setupComplete : boolean"
+    ],
+    "leafCount": 184
+  },
+  "result": {
+    "historical": {
+      "topLevel": {
+        "calculationError": {
+          "kind": "boolean"
+        },
+        "calculationErrorAge": {
+          "kind": "null"
+        },
+        "calculationErrorCode": {
+          "kind": "null"
+        },
+        "failed": {
+          "kind": "boolean"
+        },
+        "failureAge": {
+          "kind": "null"
+        },
+        "firstShortfallAge": {
+          "kind": "null"
+        },
+        "issues": {
+          "kind": "array",
+          "element": null
+        },
+        "lifetimeContributions": {
+          "kind": "number"
+        },
+        "lifetimeContributionsReal": {
+          "kind": "number"
+        },
+        "lifetimeTaxes": {
+          "kind": "number"
+        },
+        "limitWarnings": {
+          "kind": "array",
+          "element": null
+        },
+        "mode": {
+          "kind": "string"
+        },
+        "rows": {
+          "kind": "array",
+          "element": null
+        },
+        "status": {
+          "kind": "string"
+        },
+        "successRate": {
+          "kind": "number"
+        },
+        "sustainedFailureAge": {
+          "kind": "null"
+        }
+      },
+      "topLevelCount": 16,
+      "row": {
+        "kind": "object",
+        "fields": {
+          "age": {
+            "kind": "number"
+          },
+          "contributions": {
+            "kind": "number"
+          },
+          "debtBalance": {
+            "kind": "number"
+          },
+          "debtHousing": {
+            "kind": "number"
+          },
+          "debtInterest": {
+            "kind": "number"
+          },
+          "debtPayments": {
+            "kind": "number"
+          },
+          "debtPaymentsTotal": {
+            "kind": "number"
+          },
+          "debtPrincipal": {
+            "kind": "number"
+          },
+          "dividends": {
+            "kind": "number"
+          },
+          "federalAgi": {
+            "kind": "number"
+          },
+          "hsa": {
+            "kind": "number"
+          },
+          "income": {
+            "kind": "number"
+          },
+          "inflationFactor": {
+            "kind": "number"
+          },
+          "irmaaMagi": {
+            "kind": "number"
+          },
+          "magi": {
+            "kind": "number"
+          },
+          "networth": {
+            "kind": "number"
+          },
+          "niitMagi": {
+            "kind": "number"
+          },
+          "nonPortfolioDraw": {
+            "kind": "number"
+          },
+          "otherAssets": {
+            "kind": "number"
+          },
+          "preTax": {
+            "kind": "number"
+          },
+          "realTotal": {
+            "kind": "number"
+          },
+          "rmd": {
+            "kind": "number"
+          },
+          "rmdDistributed": {
+            "kind": "number"
+          },
+          "rmdUnmet": {
+            "kind": "number"
+          },
+          "roth": {
+            "kind": "number"
+          },
+          "seniorDeductionMagi": {
+            "kind": "number"
+          },
+          "shortfall": {
+            "kind": "number"
+          },
+          "spending": {
+            "kind": "number"
+          },
+          "ssProvisionalIncome": {
+            "kind": "number"
+          },
+          "taxOutstanding": {
+            "kind": "number"
+          },
+          "taxSettled": {
+            "kind": "number"
+          },
+          "taxTrueUpPaid": {
+            "kind": "number"
+          },
+          "taxable": {
+            "kind": "number"
+          },
+          "taxes": {
+            "kind": "number"
+          },
+          "total": {
+            "kind": "number"
+          },
+          "withdrawals": {
+            "kind": "number"
+          }
+        }
+      },
+      "rowCount": 36,
+      "ordinaryRow": {
+        "kind": "object",
+        "fields": {
+          "age": {
+            "kind": "number"
+          },
+          "calculationError": {
+            "kind": "boolean"
+          },
+          "calculationErrorCode": {
+            "kind": "null"
+          },
+          "contributions": {
+            "kind": "number"
+          },
+          "debtBalance": {
+            "kind": "number"
+          },
+          "debtHousing": {
+            "kind": "number"
+          },
+          "debtInterest": {
+            "kind": "number"
+          },
+          "debtPayments": {
+            "kind": "number"
+          },
+          "debtPaymentsTotal": {
+            "kind": "number"
+          },
+          "debtPrincipal": {
+            "kind": "number"
+          },
+          "dividends": {
+            "kind": "number"
+          },
+          "federalAgi": {
+            "kind": "number"
+          },
+          "hsa": {
+            "kind": "number"
+          },
+          "income": {
+            "kind": "number"
+          },
+          "inflationFactor": {
+            "kind": "number"
+          },
+          "irmaaMagi": {
+            "kind": "number"
+          },
+          "magi": {
+            "kind": "number"
+          },
+          "networth": {
+            "kind": "number"
+          },
+          "niitMagi": {
+            "kind": "number"
+          },
+          "nonPortfolioDraw": {
+            "kind": "number"
+          },
+          "otherAssets": {
+            "kind": "number"
+          },
+          "preTax": {
+            "kind": "number"
+          },
+          "realTotal": {
+            "kind": "number"
+          },
+          "rmd": {
+            "kind": "number"
+          },
+          "rmdDistributed": {
+            "kind": "number"
+          },
+          "rmdUnmet": {
+            "kind": "number"
+          },
+          "roth": {
+            "kind": "number"
+          },
+          "seniorDeductionMagi": {
+            "kind": "number"
+          },
+          "shortfall": {
+            "kind": "number"
+          },
+          "spending": {
+            "kind": "number"
+          },
+          "ssProvisionalIncome": {
+            "kind": "number"
+          },
+          "taxOutstanding": {
+            "kind": "number"
+          },
+          "taxSettled": {
+            "kind": "number"
+          },
+          "taxTrueUpPaid": {
+            "kind": "number"
+          },
+          "taxable": {
+            "kind": "number"
+          },
+          "taxes": {
+            "kind": "number"
+          },
+          "total": {
+            "kind": "number"
+          },
+          "withdrawals": {
+            "kind": "number"
+          }
+        }
+      },
+      "ordinaryRowCount": 38
+    },
+    "monteCarlo": {
+      "topLevel": {
+        "calculationError": {
+          "kind": "boolean"
+        },
+        "calculationErrorCode": {
+          "kind": "null"
+        },
+        "calculationErrorPaths": {
+          "kind": "number"
+        },
+        "failed": {
+          "kind": "boolean"
+        },
+        "failureAge": {
+          "kind": "null"
+        },
+        "firstShortfallAge": {
+          "kind": "null"
+        },
+        "issues": {
+          "kind": "array",
+          "element": {
+            "kind": "object",
+            "fields": {
+              "code": {
+                "kind": "string"
+              },
+              "message": {
+                "kind": "string"
+              },
+              "severity": {
+                "kind": "string"
+              },
+              "state": {
+                "kind": "object",
+                "fields": {
+                  "carriedTo": {
+                    "kind": "string",
+                    "optional": true
+                  },
+                  "exclusion": {
+                    "kind": "string",
+                    "optional": true
+                  },
+                  "firstDrawOwnerAge": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "horizonEndAge": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "lastRowAge": {
+                    "kind": "number",
+                    "optional": true
+                  },
+                  "notModelled": {
+                    "kind": "array",
+                    "element": {
+                      "kind": "string"
+                    },
+                    "optional": true
+                  },
+                  "outsideSupportedDomain": {
+                    "kind": "boolean",
+                    "optional": true
+                  },
+                  "path": {
+                    "kind": "string"
+                  },
+                  "stoppedAtRowOpening": {
+                    "kind": "number",
+                    "optional": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "lifetimeContributions": {
+          "kind": "number"
+        },
+        "lifetimeContributionsReal": {
+          "kind": "number"
+        },
+        "lifetimeTaxes": {
+          "kind": "number"
+        },
+        "limitWarnings": {
+          "kind": "array",
+          "element": null
+        },
+        "mode": {
+          "kind": "string"
+        },
+        "requestedPathCount": {
+          "kind": "number"
+        },
+        "rows": {
+          "kind": "array",
+          "element": null
+        },
+        "status": {
+          "kind": "string"
+        },
+        "successRate": {
+          "kind": "number"
+        },
+        "sustainedFailureAge": {
+          "kind": "null"
+        },
+        "validPathCount": {
+          "kind": "number"
+        }
+      },
+      "topLevelCount": 18,
+      "row": {
+        "kind": "object",
+        "fields": {
+          "age": {
+            "kind": "number"
+          },
+          "calculationError": {
+            "kind": "boolean"
+          },
+          "contributions": {
+            "kind": "number"
+          },
+          "debtBalance": {
+            "kind": "number"
+          },
+          "debtPayments": {
+            "kind": "number"
+          },
+          "dividends": {
+            "kind": "number"
+          },
+          "federalAgi": {
+            "kind": "number"
+          },
+          "hsa": {
+            "kind": "number"
+          },
+          "income": {
+            "kind": "number"
+          },
+          "inflationFactor": {
+            "kind": "number"
+          },
+          "irmaaMagi": {
+            "kind": "number"
+          },
+          "magi": {
+            "kind": "number"
+          },
+          "networth": {
+            "kind": "number"
+          },
+          "niitMagi": {
+            "kind": "number"
+          },
+          "nonPortfolioDraw": {
+            "kind": "number"
+          },
+          "otherAssets": {
+            "kind": "number"
+          },
+          "preTax": {
+            "kind": "number"
+          },
+          "q10": {
+            "kind": "number"
+          },
+          "q90": {
+            "kind": "number"
+          },
+          "realTotal": {
+            "kind": "number"
+          },
+          "rmd": {
+            "kind": "number"
+          },
+          "roth": {
+            "kind": "number"
+          },
+          "seniorDeductionMagi": {
+            "kind": "number"
+          },
+          "shortfall": {
+            "kind": "number"
+          },
+          "spending": {
+            "kind": "number"
+          },
+          "ssProvisionalIncome": {
+            "kind": "number"
+          },
+          "taxable": {
+            "kind": "number"
+          },
+          "taxes": {
+            "kind": "number"
+          },
+          "total": {
+            "kind": "number"
+          },
+          "withdrawals": {
+            "kind": "number"
+          }
+        }
+      },
+      "rowCount": 30,
+      "ordinaryRow": {
+        "kind": "object",
+        "fields": {
+          "age": {
+            "kind": "number"
+          },
+          "calculationError": {
+            "kind": "boolean"
+          },
+          "contributions": {
+            "kind": "number"
+          },
+          "debtBalance": {
+            "kind": "number"
+          },
+          "debtPayments": {
+            "kind": "number"
+          },
+          "dividends": {
+            "kind": "number"
+          },
+          "federalAgi": {
+            "kind": "number"
+          },
+          "hsa": {
+            "kind": "number"
+          },
+          "income": {
+            "kind": "number"
+          },
+          "inflationFactor": {
+            "kind": "number"
+          },
+          "irmaaMagi": {
+            "kind": "number"
+          },
+          "magi": {
+            "kind": "number"
+          },
+          "networth": {
+            "kind": "number"
+          },
+          "niitMagi": {
+            "kind": "number"
+          },
+          "nonPortfolioDraw": {
+            "kind": "number"
+          },
+          "otherAssets": {
+            "kind": "number"
+          },
+          "preTax": {
+            "kind": "number"
+          },
+          "q10": {
+            "kind": "number"
+          },
+          "q90": {
+            "kind": "number"
+          },
+          "realTotal": {
+            "kind": "number"
+          },
+          "rmd": {
+            "kind": "number"
+          },
+          "roth": {
+            "kind": "number"
+          },
+          "seniorDeductionMagi": {
+            "kind": "number"
+          },
+          "shortfall": {
+            "kind": "number"
+          },
+          "spending": {
+            "kind": "number"
+          },
+          "ssProvisionalIncome": {
+            "kind": "number"
+          },
+          "taxable": {
+            "kind": "number"
+          },
+          "taxes": {
+            "kind": "number"
+          },
+          "total": {
+            "kind": "number"
+          },
+          "withdrawals": {
+            "kind": "number"
+          }
+        }
+      },
+      "ordinaryRowCount": 30
+    },
+    "simple": {
+      "topLevel": {
+        "calculationError": {
+          "kind": "boolean"
+        },
+        "calculationErrorAge": {
+          "kind": "null"
+        },
+        "calculationErrorCode": {
+          "kind": "null"
+        },
+        "failed": {
+          "kind": "boolean"
+        },
+        "failureAge": {
+          "kind": "null"
+        },
+        "firstShortfallAge": {
+          "kind": "null"
+        },
+        "issues": {
+          "kind": "array",
+          "element": {
+            "kind": "object",
+            "fields": {
+              "code": {
+                "kind": "string"
+              },
+              "message": {
+                "kind": "string"
+              },
+              "severity": {
+                "kind": "string"
+              },
+              "state": {
+                "kind": "object",
+                "fields": {
+                  "horizonEndAge": {
+                    "kind": "number"
+                  },
+                  "lastRowAge": {
+                    "kind": "number"
+                  },
+                  "notModelled": {
+                    "kind": "array",
+                    "element": {
+                      "kind": "string"
+                    }
+                  },
+                  "path": {
+                    "kind": "string"
+                  },
+                  "stoppedAtRowOpening": {
+                    "kind": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "lifetimeContributions": {
+          "kind": "number"
+        },
+        "lifetimeContributionsReal": {
+          "kind": "number"
+        },
+        "lifetimeTaxes": {
+          "kind": "number"
+        },
+        "limitWarnings": {
+          "kind": "array",
+          "element": null
+        },
+        "mode": {
+          "kind": "string"
+        },
+        "rows": {
+          "kind": "array",
+          "element": null
+        },
+        "status": {
+          "kind": "string"
+        },
+        "successRate": {
+          "kind": "number"
+        },
+        "sustainedFailureAge": {
+          "kind": "null"
+        }
+      },
+      "topLevelCount": 16,
+      "row": {
+        "kind": "object",
+        "fields": {
+          "age": {
+            "kind": "number"
+          },
+          "contributions": {
+            "kind": "number"
+          },
+          "debtBalance": {
+            "kind": "number"
+          },
+          "debtHousing": {
+            "kind": "number"
+          },
+          "debtInterest": {
+            "kind": "number"
+          },
+          "debtPayments": {
+            "kind": "number"
+          },
+          "debtPaymentsTotal": {
+            "kind": "number"
+          },
+          "debtPrincipal": {
+            "kind": "number"
+          },
+          "dividends": {
+            "kind": "number"
+          },
+          "federalAgi": {
+            "kind": "number"
+          },
+          "hsa": {
+            "kind": "number"
+          },
+          "income": {
+            "kind": "number"
+          },
+          "inflationFactor": {
+            "kind": "number"
+          },
+          "irmaaMagi": {
+            "kind": "number"
+          },
+          "magi": {
+            "kind": "number"
+          },
+          "networth": {
+            "kind": "number"
+          },
+          "niitMagi": {
+            "kind": "number"
+          },
+          "nonPortfolioDraw": {
+            "kind": "number"
+          },
+          "otherAssets": {
+            "kind": "number"
+          },
+          "preTax": {
+            "kind": "number"
+          },
+          "realTotal": {
+            "kind": "number"
+          },
+          "rmd": {
+            "kind": "number"
+          },
+          "rmdDistributed": {
+            "kind": "number"
+          },
+          "rmdUnmet": {
+            "kind": "number"
+          },
+          "roth": {
+            "kind": "number"
+          },
+          "seniorDeductionMagi": {
+            "kind": "number"
+          },
+          "shortfall": {
+            "kind": "number"
+          },
+          "spending": {
+            "kind": "number"
+          },
+          "ssProvisionalIncome": {
+            "kind": "number"
+          },
+          "taxOutstanding": {
+            "kind": "number"
+          },
+          "taxSettled": {
+            "kind": "number"
+          },
+          "taxTrueUpPaid": {
+            "kind": "number"
+          },
+          "taxable": {
+            "kind": "number"
+          },
+          "taxes": {
+            "kind": "number"
+          },
+          "total": {
+            "kind": "number"
+          },
+          "withdrawals": {
+            "kind": "number"
+          }
+        }
+      },
+      "rowCount": 36,
+      "ordinaryRow": {
+        "kind": "object",
+        "fields": {
+          "age": {
+            "kind": "number"
+          },
+          "calculationError": {
+            "kind": "boolean"
+          },
+          "calculationErrorCode": {
+            "kind": "null"
+          },
+          "contributions": {
+            "kind": "number"
+          },
+          "debtBalance": {
+            "kind": "number"
+          },
+          "debtHousing": {
+            "kind": "number"
+          },
+          "debtInterest": {
+            "kind": "number"
+          },
+          "debtPayments": {
+            "kind": "number"
+          },
+          "debtPaymentsTotal": {
+            "kind": "number"
+          },
+          "debtPrincipal": {
+            "kind": "number"
+          },
+          "dividends": {
+            "kind": "number"
+          },
+          "federalAgi": {
+            "kind": "number"
+          },
+          "hsa": {
+            "kind": "number"
+          },
+          "income": {
+            "kind": "number"
+          },
+          "inflationFactor": {
+            "kind": "number"
+          },
+          "irmaaMagi": {
+            "kind": "number"
+          },
+          "magi": {
+            "kind": "number"
+          },
+          "networth": {
+            "kind": "number"
+          },
+          "niitMagi": {
+            "kind": "number"
+          },
+          "nonPortfolioDraw": {
+            "kind": "number"
+          },
+          "otherAssets": {
+            "kind": "number"
+          },
+          "preTax": {
+            "kind": "number"
+          },
+          "realTotal": {
+            "kind": "number"
+          },
+          "rmd": {
+            "kind": "number"
+          },
+          "rmdDistributed": {
+            "kind": "number"
+          },
+          "rmdUnmet": {
+            "kind": "number"
+          },
+          "roth": {
+            "kind": "number"
+          },
+          "seniorDeductionMagi": {
+            "kind": "number"
+          },
+          "shortfall": {
+            "kind": "number"
+          },
+          "spending": {
+            "kind": "number"
+          },
+          "ssProvisionalIncome": {
+            "kind": "number"
+          },
+          "taxOutstanding": {
+            "kind": "number"
+          },
+          "taxSettled": {
+            "kind": "number"
+          },
+          "taxTrueUpPaid": {
+            "kind": "number"
+          },
+          "taxable": {
+            "kind": "number"
+          },
+          "taxes": {
+            "kind": "number"
+          },
+          "total": {
+            "kind": "number"
+          },
+          "withdrawals": {
+            "kind": "number"
+          }
+        }
+      },
+      "ordinaryRowCount": 38
+    },
+    "__invalid": {
+      "topLevel": {
+        "calculationError": {
+          "kind": "boolean"
+        },
+        "calculationErrorAge": {
+          "kind": "null"
+        },
+        "calculationErrorCode": {
+          "kind": "string"
+        },
+        "failed": {
+          "kind": "null"
+        },
+        "failureAge": {
+          "kind": "null"
+        },
+        "firstShortfallAge": {
+          "kind": "null"
+        },
+        "issues": {
+          "kind": "array",
+          "element": {
+            "kind": "object",
+            "fields": {
+              "code": {
+                "kind": "string"
+              },
+              "message": {
+                "kind": "string"
+              },
+              "severity": {
+                "kind": "string"
+              },
+              "state": {
+                "kind": "object",
+                "fields": {}
+              }
+            }
+          }
+        },
+        "lifetimeContributions": {
+          "kind": "null"
+        },
+        "lifetimeContributionsReal": {
+          "kind": "null"
+        },
+        "lifetimeTaxes": {
+          "kind": "null"
+        },
+        "limitWarnings": {
+          "kind": "array",
+          "element": null
+        },
+        "mode": {
+          "kind": "string"
+        },
+        "partialDiagnostics": {
+          "kind": "object",
+          "fields": {
+            "calculationErrorCode": {
+              "kind": "string"
+            },
+            "label": {
+              "kind": "string"
+            },
+            "rows": {
+              "kind": "null"
+            }
+          }
+        },
+        "rows": {
+          "kind": "array",
+          "element": null
+        },
+        "status": {
+          "kind": "string"
+        },
+        "successRate": {
+          "kind": "null"
+        },
+        "sustainedFailureAge": {
+          "kind": "null"
+        }
+      },
+      "topLevelCount": 17,
+      "row": null,
+      "rowCount": 0,
+      "ordinaryRow": null,
+      "ordinaryRowCount": 0
+    }
+  }
+}

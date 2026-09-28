@@ -1,0 +1,903 @@
+{
+  "tax_config": {
+    "base_year": 2026,
+    "filing_status": "single",
+    "standard_deduction": 16100.0,
+    "ordinary_brackets": [
+      [
+        12400.0,
+        0.1
+      ],
+      [
+        50400.0,
+        0.12
+      ],
+      [
+        105700.0,
+        0.22
+      ],
+      [
+        201775.0,
+        0.24
+      ],
+      [
+        256225.0,
+        0.32
+      ],
+      [
+        640600.0,
+        0.35
+      ],
+      [
+        null,
+        0.37
+      ]
+    ],
+    "ltcg_brackets": [
+      [
+        49450.0,
+        0.0
+      ],
+      [
+        545500.0,
+        0.15
+      ],
+      [
+        null,
+        0.2
+      ]
+    ],
+    "niit_rate": 0.038,
+    "niit_threshold_nominal": 200000.0,
+    "ss_combined_income_thresholds_nominal": [
+      25000.0,
+      34000.0
+    ],
+    "capital_loss_ordinary_limit_nominal": 3000.0,
+    "arizona_rate": 0.025,
+    "arizona_standard_deduction": 16100.0,
+    "arizona_ltcg_subtraction": 0.25,
+    "qdi_fraction": {
+      "voo": 0.9716,
+      "schd": 0.9848
+    },
+    "roth_conversions_allowed": false,
+    "gratuitous_gain_harvesting_allowed": false,
+    "medicare_irmaa_enabled": false
+  },
+  "optimizer_config": {
+    "coarse_mix_step": 0.1,
+    "fine_mix_step": 0.025,
+    "tax_convergence_nominal": 1.0,
+    "tax_convergence_relative": 1e-05,
+    "max_tax_iterations": 30,
+    "planning_horizon_years": 25,
+    "future_real_return": 0.04,
+    "future_real_taxable_gain_rate": 0.025,
+    "roth_shadow_cost": 0.075,
+    "source_expected_real_returns": {
+      "tbills": 0.01,
+      "voo": 0.04,
+      "roth": 0.04,
+      "schd": 0.04
+    },
+    "terminal_tax_drag": {
+      "tbills": 0.0,
+      "voo": 0.15,
+      "roth": 0.0,
+      "schd": 0.15
+    },
+    "schd_principal_penalty": 0.2,
+    "candidate_sources": [
+      "tbills",
+      "voo",
+      "roth",
+      "schd"
+    ],
+    "max_refinement_candidates": 1500,
+    "sequence_penalty_multiplier": 4.0,
+    "reserve_shortfall_penalty": 1.5,
+    "tax_weight": 1.0,
+    "terminal_value_weight": 0.15
+  },
+  "cases": [
+    {
+      "name": "balanced_all_sources_available",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 400000,
+            "basis": 240000.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 300000,
+            "basis": 180000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 100000,
+            "basis": 100000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 200000,
+            "basis": 200000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 30000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 28000.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 45000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 1,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 45000.0,
+        "from_tbills": 47552.75,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 2552.75,
+        "realized_gain": 0.0,
+        "iterations": 1,
+        "objective": 11700.225207658365,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 2552.75,
+          "lost_terminal_value": 9147.475207658365,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "only_tbills_and_roth_available",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 0,
+            "basis": 0.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 0,
+            "basis": 0.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 50000,
+            "basis": 50000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 200000,
+            "basis": 200000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 10000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 30000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 1,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 30000.0,
+        "from_tbills": 30000.0,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 0.0,
+        "realized_gain": 0.0,
+        "iterations": 1,
+        "objective": 5770.943977577552,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 0.0,
+          "lost_terminal_value": 5770.943977577552,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "shortfall_exceeds_all_available",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 5000,
+            "basis": 3000.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 5000,
+            "basis": 3000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 2000,
+            "basis": 2000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 3000,
+            "basis": 3000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 200000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 1,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 200000.0,
+        "from_tbills": 2000.0,
+        "from_voo": 5000.0,
+        "from_roth": 3000.0,
+        "from_schd": 5000.0,
+        "tax": 0.0,
+        "realized_gain": 4000.0,
+        "iterations": 1,
+        "objective": "Infinity",
+        "feasible": false,
+        "reasons": [
+          "available sources cannot fund gross cash requirement"
+        ],
+        "score_components": {
+          "infeasible": 1.0
+        }
+      }
+    },
+    {
+      "name": "zero_shortfall",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 400000,
+            "basis": 240000.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 300000,
+            "basis": 180000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 100000,
+            "basis": 100000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 200000,
+            "basis": 200000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 80000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 0.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 1,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 0.0,
+        "from_tbills": 8242.75,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 8242.75,
+        "realized_gain": 0.0,
+        "iterations": 1,
+        "objective": 9828.364949039245,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 8242.75,
+          "lost_terminal_value": 1585.6149490392456,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "large_embedded_gains_in_voo",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 500000,
+            "basis": 50000,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 100000,
+            "basis": 60000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 50000,
+            "basis": 50000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 100000,
+            "basis": 100000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 40000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 80000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 1,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 80000.0,
+        "from_tbills": 50000.0,
+        "from_voo": 32999.60771469158,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 2999.6183801854195,
+        "realized_gain": 29699.64694322242,
+        "iterations": 11,
+        "objective": 24576.72254565406,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 2999.6183801854195,
+          "lost_terminal_value": 21577.104165468638,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "early_retirement_sequence_risk_penalty",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 300000,
+            "basis": 180000.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 200000,
+            "basis": 120000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 80000,
+            "basis": 80000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 150000,
+            "basis": 150000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 20000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 60000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 3,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.25,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 60000.0,
+        "from_tbills": 60000.0,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 0.0,
+        "realized_gain": 0.0,
+        "iterations": 1,
+        "objective": 11541.887955155104,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 0.0,
+          "lost_terminal_value": 11541.887955155104,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "no_sequence_penalty_after_year_12",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 300000,
+            "basis": 180000.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 200000,
+            "basis": 120000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 80000,
+            "basis": 80000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 150000,
+            "basis": 150000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 20000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 60000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 13,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.25,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 60000.0,
+        "from_tbills": 60000.0,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 0.0,
+        "realized_gain": 0.0,
+        "iterations": 1,
+        "objective": 11541.887955155104,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 0.0,
+          "lost_terminal_value": 11541.887955155104,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "only_schd_available",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 0,
+            "basis": 0.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 150000,
+            "basis": 90000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 0,
+            "basis": 0,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 0,
+            "basis": 0,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 15000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 20000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 1,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 20000.0,
+        "from_tbills": 0.0,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 20001.7565625,
+        "tax": 1.7631742187500095,
+        "realized_gain": 8000.702625,
+        "iterations": 2,
+        "objective": 11250.633699954631,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 1.7631742187500095,
+          "lost_terminal_value": 7248.519213235882,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 4000.3513125,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "high_shortfall_near_niit_threshold",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 800000,
+            "basis": 480000.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 400000,
+            "basis": 240000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 200000,
+            "basis": 200000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 300000,
+            "basis": 300000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 150000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 120000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 1,
+          "inflation_factor": 1.3,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 120000.0,
+        "from_tbills": 144747.75,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 24747.75,
+        "realized_gain": 0.0,
+        "iterations": 1,
+        "objective": 52592.12187101337,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 24747.75,
+          "lost_terminal_value": 27844.371871013373,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    },
+    {
+      "name": "inflation_factor_1.0_early_years",
+      "input": {
+        "portfolio": {
+          "voo": {
+            "name": "voo",
+            "value": 200000,
+            "basis": 120000.0,
+            "taxable": true
+          },
+          "schd": {
+            "name": "schd",
+            "value": 150000,
+            "basis": 90000.0,
+            "taxable": true
+          },
+          "tbills": {
+            "name": "tbills",
+            "value": 50000,
+            "basis": 50000,
+            "taxable": false
+          },
+          "roth": {
+            "name": "roth",
+            "value": 100000,
+            "basis": 100000,
+            "taxable": false
+          }
+        },
+        "base_income": {
+          "ordinary_income": 50000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "pre_tax_cash_shortfall": 25000.0,
+        "state": {
+          "decision_year": 2040,
+          "age": 65,
+          "retirement_year": 0,
+          "inflation_factor": 1.0,
+          "spending_real": 60000.0,
+          "portfolio_real": 1000000.0,
+          "taxable_value_real": 600000.0,
+          "roth_value_real": 200000.0,
+          "reserve_real": 100000.0,
+          "reserve_months": 20.0,
+          "equity_drawdown": 0.0,
+          "trailing_spending_real": [],
+          "trailing_tax_real": [],
+          "trailing_real_returns": [],
+          "trend_15y_real": null,
+          "ss_claim_age": null,
+          "ss_claim_age_months": null
+        }
+      },
+      "output": {
+        "required_cash": 25000.0,
+        "from_tbills": 29667.5,
+        "from_voo": 0.0,
+        "from_roth": 0.0,
+        "from_schd": 0.0,
+        "tax": 4667.5,
+        "realized_gain": 0.0,
+        "iterations": 1,
+        "objective": 10374.482681826066,
+        "feasible": true,
+        "reasons": [],
+        "score_components": {
+          "current_tax": 4667.5,
+          "lost_terminal_value": 5706.982681826067,
+          "roth_shadow": 0.0,
+          "schd_principal_penalty": 0.0,
+          "sequence_equity_penalty": 0.0
+        }
+      }
+    }
+  ]
+}

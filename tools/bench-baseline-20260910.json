@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-09-10T01:46:13.251Z",
+  "caveat": "THIS MEASURES V8 ON A DESKTOP. The constraint that governs the tier table is\nJavaScriptCore on an iPhone 15 Pro (ROADMAP_EXTERNAL_REVIEW.md sections 1 and 6).\nThe two do not have comparable heap accounting, and A NODE BYTES-PER-PATH FIGURE\nDOES NOT TRANSFER TO iOS. Do not derive an iOS tier from anything printed below.\n\nThese numbers are valid for exactly one purpose: a RELATIVE before/after\ncomparison across a code change, on identical hardware, at the same path counts.",
+  "scenario": "baseline",
+  "seed": 123456,
+  "reps": 3,
+  "node": "v24.17.0",
+  "platform": "win32/x64",
+  "engineVersion": "1.0.0",
+  "results": [
+    {
+      "pathCount": 500,
+      "rowsPerPath": 72,
+      "simMs": 235.74850000000004,
+      "aggregateMs": 57.456500000000005,
+      "peakHeapBytes": 31855584,
+      "retainedBytes": 16828872,
+      "retainedAfterAggregateBytes": 20364752,
+      "bytesPerPath": 33657.744,
+      "bytesPerRow": 467.46866666666665,
+      "microsecondsPerPath": 471.49700000000007,
+      "perPathCostVsSmallest": 1
+    },
+    {
+      "pathCount": 1000,
+      "rowsPerPath": 72,
+      "simMs": 447.10390000000007,
+      "aggregateMs": 126.53409999999985,
+      "peakHeapBytes": 63714048,
+      "retainedBytes": 33624816,
+      "retainedAfterAggregateBytes": 49220680,
+      "bytesPerPath": 33624.816,
+      "bytesPerRow": 467.0113333333333,
+      "microsecondsPerPath": 447.10390000000007,
+      "perPathCostVsSmallest": 0.9482645700821002
+    },
+    {
+      "pathCount": 2500,
+      "rowsPerPath": 72,
+      "simMs": 1142.6266999999998,
+      "aggregateMs": 373.15140000000065,
+      "peakHeapBytes": 146270296,
+      "retainedBytes": 84014824,
+      "retainedAfterAggregateBytes": 87989576,
+      "bytesPerPath": 33605.9296,
+      "bytesPerRow": 466.7490222222222,
+      "microsecondsPerPath": 457.0506799999999,
+      "perPathCostVsSmallest": 0.9693607382443574
+    },
+    {
+      "pathCount": 5000,
+      "rowsPerPath": 72,
+      "simMs": 2207.9051999999992,
+      "aggregateMs": 811.3855999999996,
+      "peakHeapBytes": 225522024,
+      "retainedBytes": 167973344,
+      "retainedAfterAggregateBytes": 225528464,
+      "bytesPerPath": 33594.6688,
+      "bytesPerRow": 466.59262222222225,
+      "microsecondsPerPath": 441.58103999999986,
+      "perPathCostVsSmallest": 0.9365511127324242
+    },
+    {
+      "pathCount": 10000,
+      "rowsPerPath": 72,
+      "simMs": 4444.0324999999975,
+      "aggregateMs": 1719.8107000000018,
+      "peakHeapBytes": 391298152,
+      "retainedBytes": 335891432,
+      "retainedAfterAggregateBytes": 353928224,
+      "bytesPerPath": 33589.1432,
+      "bytesPerRow": 466.5158777777778,
+      "microsecondsPerPath": 444.40324999999973,
+      "perPathCostVsSmallest": 0.942536749968716
+    }
+  ]
+}

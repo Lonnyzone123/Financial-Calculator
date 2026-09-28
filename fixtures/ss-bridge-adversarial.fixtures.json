@@ -1,0 +1,24 @@
+{
+  "all_tied": {
+    "ranked_sources": [
+      "roth",
+      "schd",
+      "tbills",
+      "voo"
+    ],
+    "ranked_costs": [
+      1.0609,
+      1.0609,
+      1.0609,
+      1.0609
+    ]
+  },
+  "partial_tie_schd_penalized": {
+    "ranked_sources": [
+      "roth",
+      "tbills",
+      "voo",
+      "schd"
+    ]
+  }
+}

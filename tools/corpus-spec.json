@@ -1,0 +1,281 @@
+{
+  "formatVersion": 1,
+  "about": "The REVIEWED corpus that tools/corpus-invariant.js checks a capture against: S4 task 3.7's corpus specification. It is hand-maintained on purpose and never read from tools/capture-baseline.js. Its names are the corpus as reviewed at 5803067: the 5 golden scenarios, seeds 1-20, and the 11 targeted fixtures whose reasons are recorded at their construction sites. Each entry carries its mode and status, and golden and seed entries also carry a fingerprint of the plan under the invariant's own encoding. A change to any of this is a change to what the corpus means, and must arrive as a reviewed diff to this file: add or remove names deliberately, and regenerate fingerprints with `node tools/corpus-invariant.js pin-inputs --write`, reading the diff before committing. This file is the CONTROL composition's spec (S4 task 4.7, tools/control-corpus.json), so it does not change when task 4 adds scenarios: additions arrive as the expanded composition, under new names, with their own spec.",
+  "reviewedAt": "5803067",
+  "reviewedAtMeans": "The HEAD of the working tree the review was carried out on: a starting point, NOT a provenance claim. A corpus change lands in the same commit as its reviewed spec, and a file cannot name the commit that contains it, so in general the corpus a spec describes need not exist at its reviewedAt (tools/corpus-spec-expanded.json is such a case). For this control spec it does: the control corpus is unchanged from 5803067 on, which tools/control-corpus.json records and tests/control-corpus.test.js holds by input hash. What the spec describes is enforced, not labelled -- tests/corpus-invariant.test.js holds it to the corpus at every commit that contains it. Recorded by S4 task 5.3's provenance sweep; no scenario or fingerprint changed.",
+  "composition": "control",
+  "scenarios": [
+    {
+      "name": "golden:baseline",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "603c937c60d35e06e5ffcdfe74f3fd08e08add82676fb32ce7cc9237d844d8b4"
+    },
+    {
+      "name": "golden:monte-carlo-fixed-seed",
+      "source": "golden",
+      "mode": "monteCarlo",
+      "status": "ok",
+      "inputFingerprint": "fcfd1a2942fdca184cd044dbb4be479ae2c90da63f46f4d6e2bbb0fd019f2c58"
+    },
+    {
+      "name": "golden:rmd-and-roth-conversion",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "a747940acdb4f8ce6dacd3381ba803fd5eddc31342dc792c83336641d898356e"
+    },
+    {
+      "name": "golden:reserve-and-bond-tent",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "503db1c13e1c2ee2b2632c0a60fc7090b5640d216af98815a0ae69f7bb10dafd"
+    },
+    {
+      "name": "golden:guardrails-withdrawal-strategy",
+      "source": "golden",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "7e8197bf408fa20f1303cd75363055710a52421ef4294cd5683b77c1da96bf05"
+    },
+    {
+      "name": "seed:1",
+      "source": "seed",
+      "seed": 1,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "4a7ae212b591b3fb5707a8ac8d13ad0ab36cb9e50736336fa0e656c952bff103"
+    },
+    {
+      "name": "seed:2",
+      "source": "seed",
+      "seed": 2,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "1ead81f081c4e411dcc1f3a84f613cf5c6417da357444673537355ad2dae7636"
+    },
+    {
+      "name": "seed:3",
+      "source": "seed",
+      "seed": 3,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "fe0d6160cc374a108eaefb099149833b54a075e158a374ad6cb1860f45804669"
+    },
+    {
+      "name": "seed:4",
+      "source": "seed",
+      "seed": 4,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "a2e3c6dc80dd78f0d6ebc45575ba5779e3e95781a9a40a92356ef4a669fbf226"
+    },
+    {
+      "name": "seed:5",
+      "source": "seed",
+      "seed": 5,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "40eb98f2a2cd3b001db7d38cea4cb0b72d5072141467c76d6e9f4a144fec6134"
+    },
+    {
+      "name": "seed:6",
+      "source": "seed",
+      "seed": 6,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "3f7a3dffa3d84c0389ee52d71fb21ada4fd90e3226da308fd36b504e20a24c62"
+    },
+    {
+      "name": "seed:7",
+      "source": "seed",
+      "seed": 7,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "778ceecd5a5850a792973552e553e1da6325e5bfb7edafca47902bc5083eb67b"
+    },
+    {
+      "name": "seed:8",
+      "source": "seed",
+      "seed": 8,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "1942198a8c0d8794b9a93a2973b482ec2f154ccdf887c09d6e79287f23785bae"
+    },
+    {
+      "name": "seed:9",
+      "source": "seed",
+      "seed": 9,
+      "mode": "monteCarlo",
+      "status": "ok",
+      "inputFingerprint": "ffca5723e973adb985b030f970025da87f4cc3077ec6df62937701dec899852f"
+    },
+    {
+      "name": "seed:10",
+      "source": "seed",
+      "seed": 10,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "b638b942747b20fd52c76a1300f7c95bdacd7e88817e32380d5504a3f3dbfcec"
+    },
+    {
+      "name": "seed:11",
+      "source": "seed",
+      "seed": 11,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "f14f314b1e968f94166adbda286b1f57dad21d5e2b8bcb34ba55b06f92483585"
+    },
+    {
+      "name": "seed:12",
+      "source": "seed",
+      "seed": 12,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "aac08cc35444c379c02f5c93575684ed971600f34d3ce68fc5d5555b0436592f"
+    },
+    {
+      "name": "seed:13",
+      "source": "seed",
+      "seed": 13,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "4b567115ea4fba0e47d554ab68dc41069f9fb5cc00086f50a67fe0c461330df8"
+    },
+    {
+      "name": "seed:14",
+      "source": "seed",
+      "seed": 14,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "2d53ea8aa7e31bcb11277a010b1cac92037297d773e180a55f9baff2e41dd134"
+    },
+    {
+      "name": "seed:15",
+      "source": "seed",
+      "seed": 15,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "4f91b2f7cbbae542967e77d3f51ffca228aceeb725aa0884328138b32d742731"
+    },
+    {
+      "name": "seed:16",
+      "source": "seed",
+      "seed": 16,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "bdbe2f5d54f7aedf509f52546333683b03e769fc9553c30c465037df251d2f7c"
+    },
+    {
+      "name": "seed:17",
+      "source": "seed",
+      "seed": 17,
+      "mode": "monteCarlo",
+      "status": "ok",
+      "inputFingerprint": "505c293f0c6c5942814b1105da65a4761d25f74607034b3d2042dbf4c4a3a3b4"
+    },
+    {
+      "name": "seed:18",
+      "source": "seed",
+      "seed": 18,
+      "mode": "historical",
+      "status": "ok",
+      "inputFingerprint": "450c2b8d6966424a2c18a2ee3606c4b2224a28acf523a91dd3c73df25e3ffabf"
+    },
+    {
+      "name": "seed:19",
+      "source": "seed",
+      "seed": 19,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "1aa628dbc95c75078e4d1e05527cda58c4ee27b4f55177e068cc5a4949ceae3a"
+    },
+    {
+      "name": "seed:20",
+      "source": "seed",
+      "seed": 20,
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "e3723764661ea5c033d5f089eb6f3c4a8cedfc6db9d5fe47de6d676981b0af02"
+    },
+    {
+      "name": "targeted:historical-spouse-ss",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:spouse-cola-income",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:historical-1929",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:historical-1966",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:historical-2000",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "historical",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:arm-flag-on",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:collision-household-cash",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:explicit-cash-holding",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:funded-qcd",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:survivor-stateful",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    },
+    {
+      "name": "targeted:collision-rmd-retained-cash",
+      "source": "targeted",
+      "inputsNote": "built only inside tools/capture-baseline.js targetedAdditions() and corpusWithDiagnostics(), so not independently reproducible here",
+      "mode": "simple",
+      "status": "ok"
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+{
+  "ss_config": {
+    "fra_age": 67,
+    "claim_min_age": 62,
+    "claim_max_age": 70,
+    "birth_year": 1997,
+    "sex": "male",
+    "claim_min_age_months": 744,
+    "claim_max_age_months": 840,
+    "claim_step_months": 1,
+    "claim_cycle_start_calendar_month": 1,
+    "fra_monthly_real": 1250.0,
+    "decision_real_return": 0.04,
+    "planning_end_age": 99,
+    "planning_terminal_age": 120,
+    "scheduled_benefit_fraction": 1.0,
+    "cola_floor": 0.0,
+    "lookahead_allowed": false,
+    "reevaluate_annually_until_claimed": true,
+    "mortality_source_year": 2026,
+    "mortality_central_alternative": "II",
+    "mortality_sensitivity_alternatives": [
+      "I",
+      "III"
+    ],
+    "safe_real_discount_rate": 0.023,
+    "safe_real_discount_rate_sensitivities": [
+      0.018,
+      0.028
+    ],
+    "portfolio_planning_real_return": 0.04,
+    "planning_inflation_rate": 0.024,
+    "planning_scenarios": [
+      {
+        "name": "lower_return",
+        "real_portfolio_return": 0.03,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.25
+      },
+      {
+        "name": "central",
+        "real_portfolio_return": 0.04,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.5
+      },
+      {
+        "name": "higher_return",
+        "real_portfolio_return": 0.05,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.25
+      }
+    ],
+    "economic_close_call_fraction": 0.01,
+    "minimum_robust_win_rate": 0.6,
+    "longevity_start_age": 85,
+    "longevity_checkpoint_ages": [
+      85,
+      90,
+      95
+    ],
+    "detailed_trace_on_trigger": true,
+    "survival_adjustment_weight": 1.0,
+    "fragility_bridge_years": 5,
+    "reserve_fragility_months": 12.0,
+    "candidate_claim_ages": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70
+    ]
+  },
+  "floor": 40000.0,
+  "cases": [
+    {
+      "name": "decision_age_past_longevity_start",
+      "output": {
+        "scenario": "late_decision",
+        "age85_coverage": 0.0,
+        "age90_coverage": 1.0,
+        "age95_coverage": 1.0,
+        "conditional_shortfall_pv": 0.0,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 186570.49839312184,
+        "floor_terminal_assets_real": 1213631.2355948696,
+        "projected_depletion_age_months": null,
+        "survival_at_depletion": 0.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "coverage_exactly_one",
+      "output": {
+        "scenario": "exact_coverage",
+        "age85_coverage": 1.0,
+        "age90_coverage": 1.0,
+        "age95_coverage": 1.0,
+        "conditional_shortfall_pv": 0.0,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 106813.39512420529,
+        "floor_terminal_assets_real": 4065718.8733241158,
+        "projected_depletion_age_months": null,
+        "survival_at_depletion": 0.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "coverage_just_below_one",
+      "output": {
+        "scenario": "just_below",
+        "age85_coverage": 0.9999969999999999,
+        "age90_coverage": 0.9999969999999999,
+        "age95_coverage": 0.9999969999999999,
+        "conditional_shortfall_pv": 0.32044018537961044,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 106813.07468402002,
+        "floor_terminal_assets_real": 4065702.321409889,
+        "projected_depletion_age_months": null,
+        "survival_at_depletion": 0.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "zero_portfolio_return",
+      "output": {
+        "scenario": "no_growth",
+        "age85_coverage": 0.375,
+        "age90_coverage": 0.375,
+        "age95_coverage": 0.375,
+        "conditional_shortfall_pv": 66758.37195262838,
+        "depletion_protection": 0.37500000000000033,
+        "reserve_equivalent_real": 40055.02317157703,
+        "floor_terminal_assets_real": 0.0,
+        "projected_depletion_age_months": 1163,
+        "survival_at_depletion": 0.07462702253687732,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "zero_safe_return_no_discounting",
+      "output": {
+        "scenario": "no_discount",
+        "age85_coverage": 0.375,
+        "age90_coverage": 0.375,
+        "age95_coverage": 0.375,
+        "conditional_shortfall_pv": 85511.94471275892,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 51307.166827655325,
+        "floor_terminal_assets_real": 617403.3937603353,
+        "projected_depletion_age_months": null,
+        "survival_at_depletion": 0.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "negative_safe_return_amplifies_shortfall",
+      "output": {
+        "scenario": "negative_discount",
+        "age85_coverage": 0.375,
+        "age90_coverage": 0.375,
+        "age95_coverage": 0.375,
+        "conditional_shortfall_pv": 142042.71873999407,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 85225.63124399669,
+        "floor_terminal_assets_real": 617403.3937603353,
+        "projected_depletion_age_months": null,
+        "survival_at_depletion": 0.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "never_depletes_huge_portfolio",
+      "output": {
+        "scenario": "rich",
+        "age85_coverage": 0.0,
+        "age90_coverage": 0.0,
+        "age95_coverage": 0.0,
+        "conditional_shortfall_pv": 106813.39512420529,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 0.0,
+        "floor_terminal_assets_real": 248590124.81545416,
+        "projected_depletion_age_months": null,
+        "survival_at_depletion": 0.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "depletes_in_first_month",
+      "output": {
+        "scenario": "broke",
+        "age85_coverage": 0.0,
+        "age90_coverage": 0.0,
+        "age95_coverage": 0.0,
+        "conditional_shortfall_pv": 106813.39512420529,
+        "depletion_protection": 0.0,
+        "reserve_equivalent_real": 0.0,
+        "floor_terminal_assets_real": 0.0,
+        "projected_depletion_age_months": 780,
+        "survival_at_depletion": 1.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "zero_portfolio_but_benefit_exactly_covers_floor",
+      "output": {
+        "scenario": "exact_cover",
+        "age85_coverage": 1.0,
+        "age90_coverage": 1.0,
+        "age95_coverage": 1.0,
+        "conditional_shortfall_pv": 0.0,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 106813.39512420529,
+        "floor_terminal_assets_real": 0.0,
+        "projected_depletion_age_months": null,
+        "survival_at_depletion": 0.0,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "zero_portfolio_benefit_one_cent_short",
+      "output": {
+        "scenario": "one_cent_short",
+        "age85_coverage": 0.9999969999999999,
+        "age90_coverage": 0.9999969999999999,
+        "age95_coverage": 0.9999969999999999,
+        "conditional_shortfall_pv": 0.32044018537961044,
+        "depletion_protection": 0.9999969999999986,
+        "reserve_equivalent_real": 106813.07468402002,
+        "floor_terminal_assets_real": 0.0,
+        "projected_depletion_age_months": 780,
+        "survival_at_depletion": 1.0,
+        "validation_codes": []
+      }
+    }
+  ],
+  "aggregate_cases": [
+    {
+      "name": "aggregate_single_scenario_weight_one",
+      "source_case": "decision_age_past_longevity_start",
+      "weights": [
+        1.0
+      ],
+      "output": {
+        "age85_coverage": 0.0,
+        "age90_coverage": 1.0,
+        "age95_coverage": 1.0,
+        "conditional_shortfall_pv": 0.0,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 186570.49839312184,
+        "floor_depletion_scenario_rate": 0,
+        "survival_weighted_depletion_risk": 0.0,
+        "earliest_depletion_age_months": null,
+        "expected_floor_terminal_assets_real": 1213631.2355948696,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "aggregate_unnormalized_weights",
+      "source_cases": [
+        "decision_age_past_longevity_start",
+        "coverage_exactly_one"
+      ],
+      "weights": [
+        3.0,
+        7.0
+      ],
+      "output": {
+        "age85_coverage": 0.7,
+        "age90_coverage": 1.0,
+        "age95_coverage": 1.0,
+        "conditional_shortfall_pv": 0.0,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 130740.52610488023,
+        "floor_depletion_scenario_rate": 0,
+        "survival_weighted_depletion_risk": 0.0,
+        "earliest_depletion_age_months": null,
+        "expected_floor_terminal_assets_real": 3210092.5820053415,
+        "validation_codes": []
+      }
+    },
+    {
+      "name": "aggregate_inexact_thirds",
+      "source_cases": [
+        "decision_age_past_longevity_start",
+        "coverage_exactly_one",
+        "coverage_just_below_one"
+      ],
+      "weights": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "output": {
+        "age85_coverage": 0.6666656666666666,
+        "age90_coverage": 0.9999989999999999,
+        "age95_coverage": 0.9999989999999999,
+        "conditional_shortfall_pv": 0.10681339512653681,
+        "depletion_protection": 1.0,
+        "reserve_equivalent_real": 133398.98940044903,
+        "floor_depletion_scenario_rate": 0,
+        "survival_weighted_depletion_risk": 0.0,
+        "earliest_depletion_age_months": null,
+        "expected_floor_terminal_assets_real": 3115017.476776291,
+        "validation_codes": []
+      }
+    }
+  ]
+}

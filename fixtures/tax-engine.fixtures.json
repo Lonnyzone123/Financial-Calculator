@@ -1,0 +1,698 @@
+{
+  "config": {
+    "base_year": 2026,
+    "filing_status": "single",
+    "standard_deduction": 16100.0,
+    "ordinary_brackets": [
+      [
+        12400.0,
+        0.1
+      ],
+      [
+        50400.0,
+        0.12
+      ],
+      [
+        105700.0,
+        0.22
+      ],
+      [
+        201775.0,
+        0.24
+      ],
+      [
+        256225.0,
+        0.32
+      ],
+      [
+        640600.0,
+        0.35
+      ],
+      [
+        null,
+        0.37
+      ]
+    ],
+    "ltcg_brackets": [
+      [
+        49450.0,
+        0.0
+      ],
+      [
+        545500.0,
+        0.15
+      ],
+      [
+        null,
+        0.2
+      ]
+    ],
+    "niit_rate": 0.038,
+    "niit_threshold_nominal": 200000.0,
+    "ss_combined_income_thresholds_nominal": [
+      25000.0,
+      34000.0
+    ],
+    "capital_loss_ordinary_limit_nominal": 3000.0,
+    "arizona_rate": 0.025,
+    "arizona_standard_deduction": 16100.0,
+    "arizona_ltcg_subtraction": 0.25,
+    "qdi_fraction": {
+      "voo": 0.9716,
+      "schd": 0.9848
+    },
+    "roth_conversions_allowed": false,
+    "gratuitous_gain_harvesting_allowed": false,
+    "medicare_irmaa_enabled": false
+  },
+  "calculate_cases": [
+    {
+      "name": "all_zero",
+      "input": {
+        "income": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 0.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 0.0,
+        "total": 0.0,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 0.0,
+        "taxable_preferential": 0.0,
+        "magi": 0.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "ordinary_only_low",
+      "input": {
+        "income": {
+          "ordinary_income": 20000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 390.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 97.5,
+        "total": 487.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 3900.0,
+        "taxable_preferential": 0.0,
+        "magi": 20000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "ordinary_only_mid_bracket",
+      "input": {
+        "income": {
+          "ordinary_income": 90000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 10970.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 1847.5,
+        "total": 12817.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 73900.0,
+        "taxable_preferential": 0.0,
+        "magi": 90000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "ordinary_only_top_bracket",
+      "input": {
+        "income": {
+          "ordinary_income": 800000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 246000.25,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 19597.5,
+        "total": 265597.75,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 783900.0,
+        "taxable_preferential": 0.0,
+        "magi": 800000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "qualified_dividends_only",
+      "input": {
+        "income": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 40000.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 0.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 597.5,
+        "total": 597.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 0.0,
+        "taxable_preferential": 23900.0,
+        "magi": 40000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "ltcg_only_large",
+      "input": {
+        "income": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 600000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 0.0,
+        "federal_preferential": 82087.5,
+        "niit": 15200.0,
+        "arizona": 10847.5,
+        "total": 108135.0,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 0.0,
+        "taxable_preferential": 583900.0,
+        "magi": 600000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "mixed_ordinary_and_ltcg",
+      "input": {
+        "income": {
+          "ordinary_income": 150000.0,
+          "qualified_dividends": 5000.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 80000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 24734.0,
+        "federal_preferential": 12750.0,
+        "niit": 1330.0,
+        "arizona": 4972.5,
+        "total": 43786.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 133900.0,
+        "taxable_preferential": 85000.0,
+        "magi": 235000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "social_security_low_combined",
+      "input": {
+        "income": {
+          "ordinary_income": 5000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 24000.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 0.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 0.0,
+        "total": 0.0,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 0.0,
+        "taxable_preferential": 0.0,
+        "magi": 5000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "social_security_mid_band",
+      "input": {
+        "income": {
+          "ordinary_income": 20000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 24000.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 740.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 97.5,
+        "total": 837.5,
+        "taxable_social_security": 3500.0,
+        "taxable_ordinary": 7400.0,
+        "taxable_preferential": 0.0,
+        "magi": 23500.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 3500.0
+    },
+    {
+      "name": "social_security_top_band",
+      "input": {
+        "income": {
+          "ordinary_income": 80000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 30000.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 14380.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 1597.5,
+        "total": 15977.5,
+        "taxable_social_security": 25500.0,
+        "taxable_ordinary": 89400.0,
+        "taxable_preferential": 0.0,
+        "magi": 105500.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 25500.0
+    },
+    {
+      "name": "capital_loss_within_limit",
+      "input": {
+        "income": {
+          "ordinary_income": 60000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": -2000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 4780.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 1047.5,
+        "total": 5827.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 41900.0,
+        "taxable_preferential": 0.0,
+        "magi": 58000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "capital_loss_exceeds_limit_carryforward",
+      "input": {
+        "income": {
+          "ordinary_income": 60000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": -10000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 4660.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 1022.5,
+        "total": 5682.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 40900.0,
+        "taxable_preferential": 0.0,
+        "magi": 57000.0,
+        "ending_loss_carryforward": 7000.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "capital_loss_offsets_carryforward_gain",
+      "input": {
+        "income": {
+          "ordinary_income": 60000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 5000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 8000.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 4660.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 1022.5,
+        "total": 5682.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 40900.0,
+        "taxable_preferential": 0.0,
+        "magi": 57000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "niit_triggered",
+      "input": {
+        "income": {
+          "ordinary_income": 220000.0,
+          "qualified_dividends": 10000.0,
+          "nonqualified_dividends": 5000.0,
+          "long_term_gains": 50000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 43304.0,
+        "federal_preferential": 9000.0,
+        "niit": 2470.0,
+        "arizona": 6410.0,
+        "total": 61184.0,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 208900.0,
+        "taxable_preferential": 60000.0,
+        "magi": 285000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "deduction_exceeds_ordinary_shifts_to_preferential",
+      "input": {
+        "income": {
+          "ordinary_income": 5000.0,
+          "qualified_dividends": 40000.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 0.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 722.5,
+        "total": 722.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 0.0,
+        "taxable_preferential": 28900.0,
+        "magi": 45000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "everything_at_once",
+      "input": {
+        "income": {
+          "ordinary_income": 180000.0,
+          "qualified_dividends": 20000.0,
+          "nonqualified_dividends": 8000.0,
+          "long_term_gains": 60000.0,
+          "treasury_interest": 4000.0,
+          "social_security": 36000.0,
+          "capital_loss_carryforward": 1500.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 42536.0,
+        "federal_preferential": 11775.0,
+        "niit": 3439.0,
+        "arizona": 5894.375,
+        "total": 63644.375,
+        "taxable_social_security": 30600.0,
+        "taxable_ordinary": 206500.0,
+        "taxable_preferential": 78500.0,
+        "magi": 301100.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 30600.0
+    },
+    {
+      "name": "inflation_factor_1.2",
+      "input": {
+        "income": {
+          "ordinary_income": 90000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 40000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.2
+      },
+      "output": {
+        "federal_ordinary": 9204.0,
+        "federal_preferential": 6000.0,
+        "niit": 0.0,
+        "arizona": 2517.0,
+        "total": 17721.0,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 70680.0,
+        "taxable_preferential": 40000.0,
+        "magi": 130000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "inflation_factor_1.5_high_bracket_edge",
+      "input": {
+        "income": {
+          "ordinary_income": 300000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.5
+      },
+      "output": {
+        "federal_ordinary": 55101.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 6896.25,
+        "total": 61997.25,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 275850.0,
+        "taxable_preferential": 0.0,
+        "magi": 300000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "zero_income_with_treasury_interest",
+      "input": {
+        "income": {
+          "ordinary_income": 0.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 12000.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 0.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 0.0,
+        "total": 0.0,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 0.0,
+        "taxable_preferential": 0.0,
+        "magi": 12000.0,
+        "ending_loss_carryforward": 0.0
+      },
+      "taxable_social_security_direct": 0.0
+    },
+    {
+      "name": "large_negative_ltcg_no_carryforward_room",
+      "input": {
+        "income": {
+          "ordinary_income": 40000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": -50000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0
+      },
+      "output": {
+        "federal_ordinary": 2260.0,
+        "federal_preferential": 0.0,
+        "niit": 0.0,
+        "arizona": 522.5,
+        "total": 2782.5,
+        "taxable_social_security": 0.0,
+        "taxable_ordinary": 20900.0,
+        "taxable_preferential": 0.0,
+        "magi": 37000.0,
+        "ending_loss_carryforward": 47000.0
+      },
+      "taxable_social_security_direct": 0.0
+    }
+  ],
+  "incremental_cases": [
+    {
+      "name": "incremental_ordinary_delta",
+      "input": {
+        "base": {
+          "ordinary_income": 90000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 20000.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0,
+        "deltas": {
+          "ordinary_delta": 15000.0
+        }
+      },
+      "output": {
+        "incremental_tax": 3675.0
+      }
+    },
+    {
+      "name": "incremental_ltcg_delta_near_0pct_boundary",
+      "input": {
+        "base": {
+          "ordinary_income": 30000.0,
+          "qualified_dividends": 0.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.0,
+        "deltas": {
+          "long_term_gain_delta": 25000.0
+        }
+      },
+      "output": {
+        "incremental_tax": 468.75
+      }
+    },
+    {
+      "name": "incremental_multi_delta",
+      "input": {
+        "base": {
+          "ordinary_income": 150000.0,
+          "qualified_dividends": 5000.0,
+          "nonqualified_dividends": 0.0,
+          "long_term_gains": 0.0,
+          "treasury_interest": 0.0,
+          "social_security": 0.0,
+          "capital_loss_carryforward": 0.0
+        },
+        "inflation_factor": 1.1,
+        "deltas": {
+          "ordinary_delta": 10000.0,
+          "qualified_dividend_delta": 2000.0,
+          "nonqualified_dividend_delta": 1000.0,
+          "long_term_gain_delta": 5000.0
+        }
+      },
+      "output": {
+        "incremental_tax": 4108.75
+      }
+    }
+  ]
+}

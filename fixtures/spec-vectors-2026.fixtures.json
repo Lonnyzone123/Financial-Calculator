@@ -1,0 +1,507 @@
+{
+  "formatVersion": 1,
+  "about": "S5 task 5: the specification vectors, imported verbatim as a failing fixture suite. Nothing here is fixed; each vector is categorised PASS, FAIL or UNSUPPORTED against today's engine by tests/spec-vectors-2026.test.js. The category vocabulary's UNSUPPORTED is src/authority-status-vocabulary.json's (S5 task 4, Q79): it retires the name task 5's text used. Verbatim fields are copied character for character from the cited section; every derived field says what it was derived from.",
+  "sources": {
+    "TAX": "Resource Documents/TAX_RULES_ENGINE_REFERENCE_2026.md",
+    "ACCOUNT": "Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md"
+  },
+  "categories": [
+    "PASS",
+    "FAIL",
+    "UNSUPPORTED"
+  ],
+  "deferredPointers": [
+    {
+      "id": "TASK5-10-CG-CHARACTER",
+      "citation": "TAX §2.2",
+      "pointer": "S5 task 10's deferral of capital-gain character buckets",
+      "specText": "Ordinary dividends, qualified dividends, short-term gain or loss, long-term gain or loss, collectibles gain, unrecaptured section 1250 gain, section 1202 gain, and capital-loss carryovers."
+    },
+    {
+      "id": "TASK5-10-CORRELATION",
+      "citation": "MARKET, P1 priority table",
+      "pointer": "S5 2d.3's decision on Q45 (defer to a calibrated matrix, S103)",
+      "specText": "| P1 | Correlated Monte Carlo | Calibrated matrix is positive semidefinite and reproducible |"
+    },
+    {
+      "id": "TASK5-10-WITHHOLDING",
+      "citation": "TAX §7.1",
+      "pointer": "S5's withholding deferral",
+      "specText": "Withholding and estimates reduce the balance due but do not reduce the underlying tax cost. If they were already deducted from gross cash receipts, do not subtract them again from spendable cash."
+    }
+  ],
+  "taxGolden": [
+    {
+      "id": "F-ORD-01",
+      "citation": "TAX §9.1",
+      "inputs": "Single, $40,000 ordinary taxable income",
+      "expected": "Federal ordinary tax $4,552.00"
+    },
+    {
+      "id": "F-CG-01",
+      "citation": "TAX §9.1",
+      "inputs": "Single, $80,000 taxable income; $40,000 ordinary; $40,000 qualified dividend/eligible LTCG",
+      "expected": "$9,450 gain at 0%, $30,550 at 15%; regular income tax $9,134.50"
+    },
+    {
+      "id": "F-SS-01",
+      "citation": "TAX §9.1",
+      "inputs": "Single; $30,000 benefits; provisional income $35,000",
+      "expected": "Taxable Social Security $5,350"
+    },
+    {
+      "id": "F-SEN-01",
+      "citation": "TAX §9.1",
+      "inputs": "Single, eligible, senior MAGI $125,000",
+      "expected": "Enhanced senior deduction $3,000"
+    },
+    {
+      "id": "F-SEN-02",
+      "citation": "TAX §9.1",
+      "inputs": "MFJ, both eligible, senior MAGI $200,000",
+      "expected": "Enhanced senior deduction $6,000 total"
+    },
+    {
+      "id": "F-AMT-01",
+      "citation": "TAX §9.1",
+      "inputs": "Single, AMTI $550,000 before exemption",
+      "expected": "AMT exemption $65,100",
+      "skipped": "S5 task 5.3: recorded as skipped, not imported as a test (see S5 task 13 and the AMT note)"
+    },
+    {
+      "id": "F-NIIT-01",
+      "citation": "TAX §9.1",
+      "inputs": "Single, NIIT MAGI $210,000, NII $50,000",
+      "expected": "NIIT $380"
+    },
+    {
+      "id": "F-SALT-01",
+      "citation": "TAX §9.1",
+      "inputs": "MFJ, SALT MAGI $555,000",
+      "expected": "2026 SALT cap $25,400",
+      "skipped": "S5 task 5.3: recorded as skipped, not imported as a test (see S5 task 13)"
+    },
+    {
+      "id": "F-SE-01",
+      "citation": "TAX §9.1",
+      "inputs": "No wages; adjusted SE profit $100,000",
+      "expected": "Net earnings $92,350; SS part $11,451.40; Medicare part $2,678.15; total SE tax $14,129.55 before form rounding"
+    },
+    {
+      "id": "AZ-01",
+      "citation": "TAX §9.1",
+      "inputs": "Single; federal AGI $100,000 includes $20,000 taxable SS, $40,000 eligible post-2011 net LTCG, and $5,000 U.S. obligation interest; no additions/credits",
+      "expected": "AZ AGI $65,000; with inferred $16,100 standard deduction and no exemptions, taxable income $48,900 and tax $1,222.50"
+    }
+  ],
+  "taxInvariants": [
+    {
+      "id": "TAX-9.3-1",
+      "citation": "TAX §9.3",
+      "text": "0 <= taxable_ss <= 0.85 * benefits"
+    },
+    {
+      "id": "TAX-9.3-2",
+      "citation": "TAX §9.3",
+      "text": "0 <= senior_deduction <= 6,000 * eligible_person_count"
+    },
+    {
+      "id": "TAX-9.3-3",
+      "citation": "TAX §9.3",
+      "text": "niit >= 0 and niit <= 0.038 * max(0, NII)"
+    },
+    {
+      "id": "TAX-9.3-4",
+      "citation": "TAX §9.3",
+      "text": "Employee Social Security tax never exceeds 6.2% of the wage base per person."
+    },
+    {
+      "id": "TAX-9.3-5",
+      "citation": "TAX §9.3",
+      "text": "Ordinary bracket tax is continuous and nondecreasing."
+    },
+    {
+      "id": "TAX-9.3-6",
+      "citation": "TAX §9.3",
+      "text": "Preferential-income tax is continuous at the 0% and 15% thresholds."
+    },
+    {
+      "id": "TAX-9.3-7",
+      "citation": "TAX §9.3",
+      "text": "Arizona taxable income and each jurisdiction's liability do not fall below zero except where a separately modeled refundable credit creates a refund."
+    },
+    {
+      "id": "TAX-9.3-8",
+      "citation": "TAX §9.3",
+      "text": "Withholding changes balance due, not pre-credit tax liability."
+    },
+    {
+      "id": "TAX-9.3-9",
+      "citation": "TAX §9.3",
+      "text": "A QCD can reduce taxable IRA income without reducing the amount credited toward RMD satisfaction."
+    },
+    {
+      "id": "TAX-9.3-10",
+      "citation": "TAX §9.3",
+      "text": "A fixed-point tax-funding solution reconciles after-tax proceeds to the spending gap within tolerance."
+    }
+  ],
+  "accountVectors": [
+    {
+      "id": "ACCOUNT-17-1",
+      "citation": "ACCOUNT §17, Test 1",
+      "title": "Traditional IRA deduction phaseout",
+      "facts": {
+        "tax_year": 2026,
+        "filing_status": "single",
+        "age": 40,
+        "modified_agi": 86000,
+        "workplace_plan_covered": true,
+        "ira_contribution": 7500
+      },
+      "expect": {
+        "contribution_allowed_subject_to_compensation": true,
+        "deduction": "partially_allowed",
+        "phaseout_range": [
+          81000,
+          91000
+        ],
+        "nondeductible_basis_created": "contribution_minus_deduction"
+      }
+    },
+    {
+      "id": "ACCOUNT-17-2",
+      "citation": "ACCOUNT §17, Test 2",
+      "title": "Roth catch-up transition state",
+      "facts": {
+        "tax_year": 2026,
+        "age": 55,
+        "prior_year_fica_wages_from_sponsoring_employer": 175000,
+        "plan_type": "401k",
+        "plan_offers_roth": true
+      },
+      "expect": {
+        "catchup_roth_rule_statutorily_effective": true,
+        "final_regulations_mandatorily_applicable": false,
+        "reasonable_good_faith_operation": true,
+        "wage_threshold": 150000
+      }
+    },
+    {
+      "id": "ACCOUNT-17-3",
+      "citation": "ACCOUNT §17, Test 3",
+      "title": "1959 RMD cohort",
+      "facts": {
+        "owner_birth_date": "1959-08-12"
+      },
+      "expect": {
+        "projected_rmd_age": 73,
+        "authority_status": "proposed_regulation",
+        "warning": "PROPOSED_RULE_USED"
+      }
+    },
+    {
+      "id": "ACCOUNT-17-4",
+      "citation": "ACCOUNT §17, Test 4",
+      "title": "Owner born before July 1949",
+      "facts": {
+        "owner_birth_date": "1949-03-01"
+      },
+      "expect": {
+        "rmd_age": 70.5,
+        "authority_status": "final_regulation"
+      }
+    },
+    {
+      "id": "ACCOUNT-17-5",
+      "citation": "ACCOUNT §17, Test 5",
+      "title": "Inherited account after required beginning date",
+      "facts": {
+        "owner_death_year": 2026,
+        "owner_died_after_required_beginning_date": true,
+        "beneficiary_type": "noneligible_designated_beneficiary"
+      },
+      "expect": {
+        "annual_rmds_years_1_through_9": true,
+        "empty_by_end_of_year_10": true,
+        "decedent_year_rmd_checked_separately": true
+      }
+    },
+    {
+      "id": "ACCOUNT-17-6",
+      "citation": "ACCOUNT §17, Test 6",
+      "title": "Spouse under age 59½",
+      "facts": {
+        "spouse_age": 54,
+        "sole_beneficiary": true,
+        "immediate_cash_need": true
+      },
+      "expect": {
+        "compare_inherited_status_and_own_ira": true,
+        "inherited_death_exception_available": true,
+        "own_ira_premature_distribution_risk": true,
+        "automatic_treat_as_own": false
+      }
+    },
+    {
+      "id": "ACCOUNT-17-7",
+      "citation": "ACCOUNT §17, Test 7",
+      "title": "Backdoor Roth with existing SEP-IRA",
+      "facts": {
+        "form_8606_basis_before_transaction": 7500,
+        "roth_conversion": 7500,
+        "december_31_traditional_ira_value": 0,
+        "december_31_sep_ira_value": 92500,
+        "december_31_simple_ira_value": 0
+      },
+      "expect": {
+        "aggregate_ira_value_used": 92500,
+        "denominator_includes_conversion": true,
+        "nontaxable_fraction_approx": 0.075,
+        "fully_tax_free_conversion": false
+      }
+    },
+    {
+      "id": "ACCOUNT-17-8",
+      "citation": "ACCOUNT §17, Test 8",
+      "title": "Separate employer plans",
+      "facts": {
+        "day_job_401k_employee_deferral": 24500,
+        "unrelated_solo_401k_employee_deferral": 10000,
+        "solo_401k_employer_contribution": 15000
+      },
+      "expect": {
+        "excess_402g_deferral": 10000,
+        "solo_employer_contribution_not_automatically_excess": true,
+        "separate_415c_employer_group_test": true
+      }
+    },
+    {
+      "id": "ACCOUNT-17-9",
+      "citation": "ACCOUNT §17, Test 9",
+      "title": "Mega backdoor room",
+      "facts": {
+        "section_415c_limit": 72000,
+        "ordinary_employee_deferral": 24500,
+        "catchup_contribution": 8000,
+        "employer_match": 10000,
+        "other_annual_additions": 0,
+        "plan_allows_after_tax": true
+      },
+      "expect": {
+        "after_tax_room_before_plan_specific_cap": 37500,
+        "catchup_reduces_415c_room": false
+      }
+    },
+    {
+      "id": "ACCOUNT-17-10",
+      "citation": "ACCOUNT §17, Test 10",
+      "title": "SIMPLE two-year clock",
+      "facts": {
+        "age": 42,
+        "simple_first_participation_date": "2025-07-01",
+        "distribution_date": "2026-06-15",
+        "taxable_distribution": 10000,
+        "exception": "none"
+      },
+      "expect": {
+        "additional_tax_rate": 0.25,
+        "additional_tax": 2500
+      }
+    },
+    {
+      "id": "ACCOUNT-17-11",
+      "citation": "ACCOUNT §17, Test 11",
+      "title": "HSA last-month failure",
+      "facts": {
+        "tax_year": 2026,
+        "eligible_on_december_1": true,
+        "last_month_rule_used": true,
+        "contribution_above_monthly_proration": 3300,
+        "eligibility_lost_during_testing_period": true,
+        "loss_reason": "voluntary_non_hdph_switch"
+      },
+      "expect": {
+        "failure_year_income_inclusion": 3300,
+        "additional_tax": 330
+      }
+    },
+    {
+      "id": "ACCOUNT-17-12",
+      "citation": "ACCOUNT §17, Test 12",
+      "title": "Federal 529 K–12 aggregation",
+      "facts": {
+        "tax_year": 2026,
+        "beneficiary": "A",
+        "account_1_k12_qualified_distribution": 13000,
+        "account_2_k12_qualified_distribution": 9000
+      },
+      "expect": {
+        "annual_federal_k12_cap": 20000,
+        "excess_over_category_cap": 2000,
+        "compute_taxable_earnings_pro_rata": true
+      }
+    },
+    {
+      "id": "ACCOUNT-17-13",
+      "citation": "ACCOUNT §17, Test 13",
+      "title": "Arizona 529 contribution",
+      "facts": {
+        "filing_status": "married_filing_jointly",
+        "beneficiary_A_contributions": 5500,
+        "beneficiary_B_contributions": 3000
+      },
+      "expect": {
+        "az_subtraction_A": 4000,
+        "az_subtraction_B": 3000,
+        "total_az_subtraction": 7000
+      }
+    },
+    {
+      "id": "ACCOUNT-17-14",
+      "citation": "ACCOUNT §17, Test 14",
+      "title": "Arizona capital gain",
+      "facts": {
+        "net_ltcg_in_federal_agi": 40000,
+        "qualifying_post_2011_asset_gain": 30000,
+        "pre_2012_asset_gain": 10000
+      },
+      "expect": {
+        "az_ltcg_subtraction": 7500
+      }
+    },
+    {
+      "id": "ACCOUNT-17-15",
+      "citation": "ACCOUNT §17, Test 15",
+      "title": "NUA and NIIT",
+      "facts": {
+        "employer_stock_basis": 20000,
+        "fair_market_value_at_distribution": 80000,
+        "sale_price": 90000,
+        "qualifying_nua_distribution": true
+      },
+      "expect": {
+        "distribution_year_ordinary_income_basis": 20000,
+        "nua_ltcg_on_sale": 60000,
+        "post_distribution_gain": 10000,
+        "niit_excludes_nua_component": 60000,
+        "post_distribution_gain_potentially_in_nii": 10000
+      }
+    },
+    {
+      "id": "ACCOUNT-17-16",
+      "citation": "ACCOUNT §17, Test 16",
+      "title": "Retirement distribution indirectly raises NIIT",
+      "facts": {
+        "filing_status": "single",
+        "pre_conversion_magi": 190000,
+        "roth_conversion": 50000,
+        "net_investment_income": 30000
+      },
+      "expect": {
+        "conversion_in_nii": 0,
+        "post_conversion_magi": 240000,
+        "niit_magi_excess": 40000,
+        "niit_base": 30000,
+        "niit": 1140
+      }
+    },
+    {
+      "id": "ACCOUNT-17-17",
+      "citation": "ACCOUNT §17, Test 17",
+      "title": "Arizona conformity gate",
+      "facts": {
+        "tax_year": 2026,
+        "federal_rule_enacted": "2025-07-04",
+        "stored_az_irc_conformity_date": "2025-01-01",
+        "explicit_az_adoption": false
+      },
+      "expect": {
+        "automatic_state_conformity": false,
+        "warning": "AZ_CONFORMITY_UNRESOLVED"
+      }
+    }
+  ],
+  "accountInvariants": [
+    {
+      "id": "ACCOUNT-18-1",
+      "citation": "ACCOUNT §18",
+      "text": "The sum of taxable and nontaxable portions of a distribution equals the gross distribution, before withholding."
+    },
+    {
+      "id": "ACCOUNT-18-2",
+      "citation": "ACCOUNT §18",
+      "text": "A taxpayer's IRA basis never becomes negative."
+    },
+    {
+      "id": "ACCOUNT-18-3",
+      "citation": "ACCOUNT §18",
+      "text": "Roth IRA ordering never allocates earnings while regular-contribution basis remains."
+    },
+    {
+      "id": "ACCOUNT-18-4",
+      "citation": "ACCOUNT §18",
+      "text": "Catch-up contributions never consume section 415(c) room."
+    },
+    {
+      "id": "ACCOUNT-18-5",
+      "citation": "ACCOUNT §18",
+      "text": "Employee deferrals cannot evade section 402(g) through unrelated employers."
+    },
+    {
+      "id": "ACCOUNT-18-6",
+      "citation": "ACCOUNT §18",
+      "text": "Governmental 457 contributions do not consume section 402(g), but do consume the section 457 limit."
+    },
+    {
+      "id": "ACCOUNT-18-7",
+      "citation": "ACCOUNT §18",
+      "text": "An RMD amount is never classified as rollover-eligible."
+    },
+    {
+      "id": "ACCOUNT-18-8",
+      "citation": "ACCOUNT §18",
+      "text": "IRA RMD aggregation never satisfies a 401(k), 457(b), or unrelated-plan RMD."
+    },
+    {
+      "id": "ACCOUNT-18-9",
+      "citation": "ACCOUNT §18",
+      "text": "A beneficiary under the post-RBD ten-year rule cannot have both `annual_rmd_required = false` and `authority_status = final_regulation`."
+    },
+    {
+      "id": "ACCOUNT-18-10",
+      "citation": "ACCOUNT §18",
+      "text": "A 1959 owner cannot receive `authority_status = final_regulation` for the proposed age-73 row."
+    },
+    {
+      "id": "ACCOUNT-18-11",
+      "citation": "ACCOUNT §18",
+      "text": "529 K–12 distributions aggregate across accounts by beneficiary."
+    },
+    {
+      "id": "ACCOUNT-18-12",
+      "citation": "ACCOUNT §18",
+      "text": "Arizona 529 contribution deductions aggregate by beneficiary and filing unit."
+    },
+    {
+      "id": "ACCOUNT-18-13",
+      "citation": "ACCOUNT §18",
+      "text": "NIIT never includes a retirement-plan distribution itself, although the taxable amount changes MAGI."
+    },
+    {
+      "id": "ACCOUNT-18-14",
+      "citation": "ACCOUNT §18",
+      "text": "The NUA component and post-distribution appreciation are stored separately."
+    },
+    {
+      "id": "ACCOUNT-18-15",
+      "citation": "ACCOUNT §18",
+      "text": "A non-governmental 457(b) cannot inherit the governmental rollover or creditor-protection defaults."
+    },
+    {
+      "id": "ACCOUNT-18-16",
+      "citation": "ACCOUNT §18",
+      "text": "A rule enacted after the stored Arizona conformity date cannot flow through without explicit state adoption or a warning."
+    }
+  ]
+}

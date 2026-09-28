@@ -1,0 +1,377 @@
+{
+  "ss_config": {
+    "fra_age": 67,
+    "claim_min_age": 62,
+    "claim_max_age": 70,
+    "birth_year": 1997,
+    "sex": "male",
+    "claim_min_age_months": 744,
+    "claim_max_age_months": 840,
+    "claim_step_months": 1,
+    "claim_cycle_start_calendar_month": 1,
+    "fra_monthly_real": 1250.0,
+    "decision_real_return": 0.04,
+    "planning_end_age": 99,
+    "planning_terminal_age": 120,
+    "scheduled_benefit_fraction": 1.0,
+    "cola_floor": 0.0,
+    "lookahead_allowed": false,
+    "reevaluate_annually_until_claimed": true,
+    "mortality_source_year": 2026,
+    "mortality_central_alternative": "II",
+    "mortality_sensitivity_alternatives": [
+      "I",
+      "III"
+    ],
+    "safe_real_discount_rate": 0.023,
+    "safe_real_discount_rate_sensitivities": [
+      0.018,
+      0.028
+    ],
+    "portfolio_planning_real_return": 0.04,
+    "planning_inflation_rate": 0.024,
+    "planning_scenarios": [
+      {
+        "name": "lower_return",
+        "real_portfolio_return": 0.03,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.25
+      },
+      {
+        "name": "central",
+        "real_portfolio_return": 0.04,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.5
+      },
+      {
+        "name": "higher_return",
+        "real_portfolio_return": 0.05,
+        "real_safe_return": 0.023,
+        "inflation_rate": 0.024,
+        "tax_income_real_growth": 0.0,
+        "weight": 0.25
+      }
+    ],
+    "economic_close_call_fraction": 0.01,
+    "minimum_robust_win_rate": 0.6,
+    "longevity_start_age": 85,
+    "longevity_checkpoint_ages": [
+      85,
+      90,
+      95
+    ],
+    "detailed_trace_on_trigger": true,
+    "survival_adjustment_weight": 1.0,
+    "fragility_bridge_years": 5,
+    "reserve_fragility_months": 12.0,
+    "candidate_claim_ages": [
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70
+    ]
+  },
+  "tax_config": {
+    "base_year": 2026,
+    "filing_status": "single",
+    "standard_deduction": 16100.0,
+    "ordinary_brackets": [
+      [
+        12400.0,
+        0.1
+      ],
+      [
+        50400.0,
+        0.12
+      ],
+      [
+        105700.0,
+        0.22
+      ],
+      [
+        201775.0,
+        0.24
+      ],
+      [
+        256225.0,
+        0.32
+      ],
+      [
+        640600.0,
+        0.35
+      ],
+      [
+        null,
+        0.37
+      ]
+    ],
+    "ltcg_brackets": [
+      [
+        49450.0,
+        0.0
+      ],
+      [
+        545500.0,
+        0.15
+      ],
+      [
+        null,
+        0.2
+      ]
+    ],
+    "niit_rate": 0.038,
+    "niit_threshold_nominal": 200000.0,
+    "ss_combined_income_thresholds_nominal": [
+      25000.0,
+      34000.0
+    ],
+    "capital_loss_ordinary_limit_nominal": 3000.0,
+    "arizona_rate": 0.025,
+    "arizona_standard_deduction": 16100.0,
+    "arizona_ltcg_subtraction": 0.25,
+    "qdi_fraction": {
+      "voo": 0.9716,
+      "schd": 0.9848
+    },
+    "roth_conversions_allowed": false,
+    "gratuitous_gain_harvesting_allowed": false,
+    "medicare_irmaa_enabled": false
+  },
+  "zero_benefit_scheduled_fraction": 0.0,
+  "tiny_benefit_scheduled_fraction": 1e-09,
+  "cases": [
+    {
+      "name": "safe_rate_exactly_zero",
+      "output": {
+        "claim_age_months": 804,
+        "factor": 1.0,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 292005.3153338977,
+        "after_tax_benefit_pv": 266506.0451905618,
+        "tax_pv": 25499.270143335158,
+        "net_economic_value": 266506.0451905618,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          292005.3153338977
+        ],
+        "scenario_after_tax_pv": [
+          266506.0451905618
+        ]
+      }
+    },
+    {
+      "name": "negative_safe_rate_amplifies_pv",
+      "output": {
+        "claim_age_months": 804,
+        "factor": 1.0,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 393025.61147710844,
+        "after_tax_benefit_pv": 358051.5182426218,
+        "tax_pv": 34974.0932344864,
+        "net_economic_value": 358051.5182426218,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          393025.61147710844
+        ],
+        "scenario_after_tax_pv": [
+          358051.5182426218
+        ]
+      }
+    },
+    {
+      "name": "zero_scheduled_benefit_fraction_hits_denominator_guard",
+      "output": {
+        "claim_age_months": 804,
+        "factor": 1.0,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 0.0,
+        "after_tax_benefit_pv": 0.0,
+        "tax_pv": 0.0,
+        "net_economic_value": 0.0,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          0.0
+        ],
+        "scenario_after_tax_pv": [
+          0.0
+        ]
+      }
+    },
+    {
+      "name": "tiny_scheduled_benefit_fraction",
+      "output": {
+        "claim_age_months": 804,
+        "factor": 1.0,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 0.00021600848699323383,
+        "after_tax_benefit_pv": 0.00019947199879615668,
+        "tax_pv": 1.6536488197077005e-05,
+        "net_economic_value": 0.00019947199879615668,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          0.00021600848699323383
+        ],
+        "scenario_after_tax_pv": [
+          0.00019947199879615668
+        ]
+      }
+    },
+    {
+      "name": "midyear_claim_after_fra_pending_drc",
+      "output": {
+        "claim_age_months": 821,
+        "factor": 1.1133333333333333,
+        "first_year_fraction": 0.5833333333333334,
+        "gross_benefit_pv": 218694.41699902512,
+        "after_tax_benefit_pv": 199810.1928128897,
+        "tax_pv": 18884.224186135358,
+        "net_economic_value": 199810.1928128897,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          218694.41699902512
+        ],
+        "scenario_after_tax_pv": [
+          199810.1928128897
+        ]
+      }
+    },
+    {
+      "name": "midyear_claim_at_drc_cap_boundary",
+      "output": {
+        "claim_age_months": 839,
+        "factor": 1.2333333333333334,
+        "first_year_fraction": 0.08333333333333333,
+        "gross_benefit_pv": 218524.00664338275,
+        "after_tax_benefit_pv": 199691.33797664943,
+        "tax_pv": 18832.668666733105,
+        "net_economic_value": 199691.33797664943,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          218524.00664338275
+        ],
+        "scenario_after_tax_pv": [
+          199691.33797664943
+        ]
+      }
+    },
+    {
+      "name": "claim_at_maximum_age_no_pending_drc",
+      "output": {
+        "claim_age_months": 840,
+        "factor": 1.24,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 218483.90117098825,
+        "after_tax_benefit_pv": 199634.3956725879,
+        "tax_pv": 18849.505498400362,
+        "net_economic_value": 199634.3956725879,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          218483.90117098825
+        ],
+        "scenario_after_tax_pv": [
+          199634.3956725879
+        ]
+      }
+    },
+    {
+      "name": "claim_at_decision_date_offset_zero",
+      "output": {
+        "claim_age_months": 780,
+        "factor": 0.8666666666666667,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 212360.68978786634,
+        "after_tax_benefit_pv": 194613.22098868413,
+        "tax_pv": 17747.46879918192,
+        "net_economic_value": 194613.22098868413,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          212360.68978786634
+        ],
+        "scenario_after_tax_pv": [
+          194613.22098868413
+        ]
+      }
+    },
+    {
+      "name": "high_base_income_maximum_ss_taxation",
+      "output": {
+        "claim_age_months": 804,
+        "factor": 1.0,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 216008.48699323396,
+        "after_tax_benefit_pv": 151745.96211274655,
+        "tax_pv": 64262.52488048716,
+        "net_economic_value": 151745.96211274655,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          216008.48699323396
+        ],
+        "scenario_after_tax_pv": [
+          151745.96211274655
+        ]
+      }
+    },
+    {
+      "name": "zero_base_income_untaxed_benefit",
+      "output": {
+        "claim_age_months": 804,
+        "factor": 1.0,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 216008.48699323396,
+        "after_tax_benefit_pv": 216008.48699323396,
+        "tax_pv": 0.0,
+        "net_economic_value": 216008.48699323396,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          216008.48699323396
+        ],
+        "scenario_after_tax_pv": [
+          216008.48699323396
+        ]
+      }
+    },
+    {
+      "name": "three_scenarios_inexact_thirds_weights",
+      "output": {
+        "claim_age_months": 804,
+        "factor": 1.0,
+        "first_year_fraction": 1.0,
+        "gross_benefit_pv": 216008.48699323396,
+        "after_tax_benefit_pv": 197558.98435709535,
+        "tax_pv": 18449.502636138557,
+        "net_economic_value": 197558.98435709535,
+        "feasible": true,
+        "validation_codes": [],
+        "scenario_gross_pv": [
+          216008.48699323396,
+          216008.48699323396,
+          216008.48699323396
+        ],
+        "scenario_after_tax_pv": [
+          197558.98435709538,
+          197558.98435709538,
+          197558.98435709538
+        ]
+      }
+    }
+  ]
+}

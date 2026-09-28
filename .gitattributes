@@ -1,0 +1,34 @@
+# Line-ending and binary policy — S4 task 1 (Q27, Q39, decision register P5).
+#
+# WHY. core.autocrlf=true with no .gitattributes made git write CRLF into
+# every working tree, so a fresh clone could not build (Q27) and 25 tests
+# failed on an ordinary `git checkout -- src/` (Q39). This file makes the
+# checkout bytes a property of the repository instead of the machine.
+#
+# TEXT. Every text file is stored LF and checked out LF on every platform.
+# At the commit that added this file no tracked text blob contained CR, so
+# renormalisation changed no stored bytes; what changes is what checkout
+# writes on a CRLF-configured machine.
+* text=auto eol=lf
+
+# FIXTURES get the same policy as all text, on purpose. No committed fixture
+# carries CR (nothing tests CRLF input from a fixture file), and fixture
+# generators run on Windows can emit CRLF — normalising on add keeps a
+# regenerated fixture's blob stable instead of flipping every line. A fixture
+# that must preserve CR bytes deliberately would need its own `-text` line.
+
+# BINARY. Never converted, never diffed as text. Declared explicitly rather
+# than left to auto-detection, so a binary type added later cannot be
+# misread as text and corrupted by a line-ending conversion.
+*.zip   binary
+*.xlsx  binary
+*.xls   binary
+*.docx  binary
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary

@@ -1,0 +1,792 @@
+# Model assumptions
+
+**What this is.** The modelling choices your results depend on that are **not
+derivable from tax law or arithmetic** — places where more than one defensible
+answer exists and this engine picked one.
+
+It is not a list of features, and not a list of known defects. Those live in
+[`FEATURES.md`](FEATURES.md) and [`SPRINT_QUESTIONS.md`](SPRINT_QUESTIONS.md).
+Everything here is a **decision**, recorded so it can be challenged without
+excavating the code.
+
+Created 2026-09-10 to discharge decision-register items P3 and P4, which the
+re-audit asked to be "recorded in the eventual public model assumptions".
+
+---
+
+## 1. Tax funded from several cash pools is allocated pro-rata
+
+**The situation.** One tax bill can be funded from more than one pool at once —
+proceeds from a required minimum distribution, and each source of outside
+income. Which pool pays changes how much of each is left to direct under its
+own policy, so the split is a real choice.
+
+**The choice.** The surviving fraction is applied uniformly. That is the
+pro-rata split, and it conserves exactly: the per-source residuals sum to the
+pooled residual.
+
+**Why.** It is order-independent, so results do not depend on an arbitrary
+sequence. The same rule is reused to attribute outside surplus back to pension,
+Social Security, other income and dividends, which means one rule to audit
+rather than two.
+
+**What was rejected, and it is defensible.** "RMD proceeds are spent first" and
+"outside income is spent first" are both reasonable models of a real household.
+If you believe a household spends its forced distributions before touching a
+pension, this engine will differ from you in mixed cases. Nothing in any audit
+requires pro-rata.
+
+*Decision register P3. Recorded at `SPRINT_QUESTIONS.md` Q19(a).*
+
+---
+
+## 2. An account the engine creates mid-year uses the expected return, not a draw
+
+**The situation.** Some settlement paths create a destination account partway
+through a projected year — a retained-cash holding, for instance. It has no
+entry in the index-aligned array of period returns that every pre-existing
+account draws from.
+
+**The choice.** Under Monte Carlo it receives the **expectation** for that
+period rather than consuming a random draw.
+
+**Why.** Computing a draw the normal way would advance the shared random stream,
+shifting the returns of every later period of every run — moving results far
+outside the change that created the account, and making a run non-reproducible
+against its own seed.
+
+**Scope, stated precisely.** Under `simple` and `historical` this is *exactly*
+what an equivalent pre-existing account receives, because neither method draws
+at all. The divergence exists in **one method, for one period, for an account
+that did not exist when the period opened**.
+
+**What was rejected.** Consuming the draw and accepting the stream shift. That
+is defensible if you think distributional fidelity in that single period matters
+more than reproducibility across the run.
+
+*Decision register P4. Recorded at `SPRINT_QUESTIONS.md` Q19(b).*
+
+---
+
+## 3. Outside income always reduces portfolio withdrawals
+
+**The situation.** A household with a pension, Social Security or other income
+can be modelled two ways: the income reduces what must be sold from the
+portfolio, or the portfolio funds spending regardless.
+
+**The choice.** Outside income **always** offsets the draw. There is no toggle.
+
+**Why.** There used to be one, labelled *"Use outside income before portfolio
+withdrawals"*. Switching it off did not merely change sequencing — the household
+sold assets for its full spending, received the income, and the income then had
+nowhere to go, so it ceased to exist. Portfolio bookkeeping stayed internally
+consistent, which is why nothing flagged it.
+
+Both readings of the flag were considered. Neither survived: the setting
+duplicated something the app can already express, since a household that wants
+its portfolio stressed as though the income were absent can set that income to
+zero and get exactly that.
+
+**If you have a saved plan with the setting off**, it is migrated on load and
+your projected balances will be **higher** than that plan previously showed.
+
+*Decision register P2. Closes `SPRINT_QUESTIONS.md` Q18 and Q26.*
+
+---
+
+## 4. A benefit claimed before the projection opens indexes at the assumed COLA
+
+**The situation.** If Social Security was claimed before the first projected
+year, the entered figure is an FRA-referenced amount that still needs bringing
+to the present. The COLA actually awarded in those past years is not available
+to the model.
+
+**The choice, and it is explicitly interim.** Those pre-projection years index
+at the **configured COLA assumption** — the same rate `simple` and `monteCarlo`
+use for every year.
+
+**What it replaced.** In historical mode those years were previously grown on
+the projection's *own first history years* — borrowing later calendar years to
+reconstruct earlier ones.
+
+**What was rejected.** Not growing at all. The entered figure needs indexing
+from the claim forward or a legitimate year of it is silently lost.
+
+**The successor, and why it is blocked.** The correct answer is the real
+historical COLA for the calendar years the claim implies. This engine carries
+**no calendar anchor at all** — no start year — and its history setting is a
+*sequence* start deliberately decoupled from real dates. Supplying one is a
+feature with migration consequences, not a repair.
+
+*Decision register P1. Closes `SPRINT_QUESTIONS.md` Q16 with a named successor.*
+
+---
+
+## 5. Turning dividends OFF does not mean no dividends
+
+**Read this one before interpreting any tax figure.**
+
+With dividend modelling **disabled**, the engine charges an imputed **1.5% of
+eligible taxable balances** as qualified dividends. With it **enabled** and the
+yield set to zero, it charges nothing.
+
+So the feature switched *on* at a 0% yield produces **less** dividend income
+than the same plan with it switched *off*. In one measured scenario the two
+differ by **$568.20** of tax.
+
+The imputation is deliberate: a taxable brokerage account realistically throws
+off dividends whether or not you have chosen to model them explicitly. Retained
+cash holdings are excluded from the imputed base, because cash pinned to a zero
+return cannot produce dividend income.
+
+The naming is the trap, not the arithmetic. It is recorded here rather than
+repaired because changing it would move every projection that relies on the
+default.
+
+---
+
+## 6. Where the debt ledger stops
+
+Each projected year reports debt payments split into **interest**, **principal
+reduction** and **housing costs** (property tax, insurance, HOA, PMI), and they
+reconcile exactly against total payments.
+
+Two boundaries:
+
+- **Principal reduction can be negative.** A loan whose payment is smaller than
+  its monthly interest grows, and the honest figure is negative principal —
+  capitalized interest — rather than zero.
+- **Monte Carlo carries no breakdown.** Its rows are percentile aggregates
+  across runs, and the median of a component need not come from the same run as
+  the median of the total, so an aggregated split would not reconcile. Q40
+  named three choices: aggregate each component and state that the identity
+  fails across percentiles; carry one run's whole breakdown at each percentile
+  of the total, which reconciles but is a sample, not a quantile; or keep no
+  breakdown. **Decided 2026-09-13: one run's whole breakdown at each
+  percentile of the total**, labelled as a sample. It is built with the
+  household cash-flow ledger in S103; until then these rows carry no breakdown.
+
+**Exactly which modes, as measured on 2026-09-13 (S4 task 5.2).** The breakdown is on every row in `simple` and `historical`, and on no row in `monteCarlo`.
+Two things follow for `monteCarlo`:
+
+- **No check can run on the rows it reports.** That covers the debt ledger and
+  any household cash-flow check built on it. Such a check has to run on
+  individual paths, before aggregation, and that instrumentation does not exist
+  yet.
+- **It is unqualified for the household-ledger exit criterion (S4 E4).** That
+  criterion can be claimed for `simple` and `historical` only.
+
+**Repair deadline: S103 task 9.7, decided 2026-09-13.** No S5 task holds Q40,
+by decision: the ledger that inherits the choice is built in S103
+(`S103_TASK_CHECKLIST.md` task 9), and the breakdown is built with it.
+
+`tests/debt-ledger-mode-coverage.test.js` holds these mode lists to the engine.
+If any mode gains or loses the breakdown, the test fails until the lists are
+corrected.
+
+*Decision register P9. `SPRINT_QUESTIONS.md` Q35 (partial) and Q40.*
+
+---
+
+## 7. What this document does not yet cover
+
+A full household cash-flow ledger — wages, spending, contributions, external
+income, debt principal and interest, taxes, transfers and residual destinations
+reconciling as actual sources and uses — is **not part of any result**. The
+identity every result is checked against reconstructs net worth from
+portfolio, assets and debt, and **that cannot establish that a contribution or
+a tax payment was actually funded**.
+
+Two findings in the September 2026 re-audit hid behind exactly that gap.
+
+*(Updated 2026-09-13, S4 task 6.)* That ledger now exists **as a test
+instrument**, not as a result field. It is defined in `HOUSEHOLD_LEDGER.md`
+and checked by `tests/household-ledger.test.js`. Each row either closes
+exactly or falls into a named class.
+
+- **Scope:** every row in `simple` and `historical`, and each path of a
+  50-path sample in `monteCarlo`, before aggregation. See section 6 for why the
+  reported Monte Carlo rows cannot be checked.
+- **What it proves:** it goes red on injected unfunded movements.
+- **What it does not prove:** working-year rows are bounded, not conserved,
+  because the engine models no spending before retirement.
+- **What it found:** Q59. Before retirement a plan can make contributions and
+  off-budget debt payments that no income funds, and nothing in a result shows
+  it.
+
+**The pre-retirement budget boundary (Q59, decided 2026-09-13).** The engine
+models no household budget before retirement. Planned contributions, and the
+payments of a debt excluded from spending, are treated as funded from outside
+the model: nothing in a result shows whether wages covered them. This is a
+documented boundary, not a modelled constraint, and no engine output changes
+because of it. Two validator warnings will make the common cases visible when
+a plan is checked — planned contributions above wages (earned income, for IRA
+and Roth), and a debt whose payments are excluded from spending
+(`S5_TASK_CHECKLIST.md` block 2q). The ledger's two diagnostic classes stay as
+they are.
+
+---
+
+## 8. Insurance will count in net worth from the first year, even for a plan that starts past `selfLife` — **decided, not yet built**
+
+**Added 2026-09-13, on a decision that was made the same day and belonged here.**
+`RESULT_CONTRACT.md`'s written rule (L4b) has always said insurance counts in
+`networth` once age ≥ `selfLife`. The engine's opening row disagreed: it
+omitted insurance from `networth` whenever a plan's projection **starts**
+past `selfLife`, rather than crossing it partway through — a conflict between
+the written rule and the code, carried as **C6** and pinned by a
+characterization test rather than resolved, since S2.
+
+**Decided 2026-09-13 (the owner): the written rule stands.** Insurance will count in
+`networth` from the first row a plan's age is ≥ `selfLife`, including a plan
+whose projection opens there. **Today the engine still does not do this** —
+the conflict is unrepaired, and this section records the decided direction,
+not a landed fix, per this document's own scope (§0: not a list of known
+defects — the defect itself is `SPRINT_QUESTIONS.md`'s C6/S2 record; this is
+only the assumption C6 will resolve to). The engine is to be aligned to this
+in `S5_TASK_CHECKLIST.md` task 2o, which has **not landed**;
+`tests/result-contract.test.js`'s C6 characterization test becomes a
+conformance assertion in the same commit. `RESULT_CONTRACT.md`'s own C6 row
+already carries this correctly: "carried here only until 2o lands."
+
+**What this moves.** Only the opening row's `networth`, and only for plans
+with net-worth accounting on, insurance configured, and a start age at or
+past `selfLife`. Every other row and every other plan shape is unaffected —
+the conflict was specifically about the **first** row of a **late-starting**
+plan.
+
+*`S2_CARRIED_WORK_REGISTER.md` §4 (C6); `RESULT_CONTRACT.md` §6 (C6);
+`S5_TASK_CHECKLIST.md` task 2o.*
+
+*(Corrected 2026-09-13, later the same day, on a report from
+`investment-calculator-84`: the "Two findings..." sentence used to close this
+section. It was written at `66a1be0` directly after §7's household-ledger
+paragraph and refers to that gap, not to C6 — two later additions to §7, and
+then this whole §8, pushed it away from its subject until it read as §8's own
+closing line. Moved back to §7, where it was written.)*
+
+---
+
+## 9. Three debt and expense fields are accepted and change nothing — **declared inert until S103**
+
+**Added 2026-09-14 (`S5_TASK_CHECKLIST.md` block 2e), on a decision made 2026-09-13.**
+Three fields can be set in the app and pass validation, but the engine does not
+read them. Changing any of them leaves every figure in a projection exactly as
+it was:
+
+- **`debt.taxDeductible`.** Marking a mortgage or HELOC tax-deductible (the app
+  ticks it by default for both) produces no mortgage-interest deduction. The
+  engine has no itemized-deduction path at all. The app's debt page already
+  says so: deductibility is stored as a planning classification, and
+  itemized-interest deductions are not applied.
+- **`expenses[].kind`.** An entry marked "Other withdrawal" is handled exactly
+  like one marked "Expense".
+- **`debt.owner`.** Marking a debt as your spouse's rather than your own
+  changes nothing.
+
+**Decided 2026-09-13 (the owner): all three are to be implemented in S103, not in
+S5.** They are features, not corrections, and S5 repairs defects only. Until
+then they stay in the scenario shape, so nothing a user has entered is
+discarded, and they are declared here rather than left silent.
+
+**Where they land is not yet written into a plan.** No S103 task names these
+fields yet. `debt.taxDeductible` needs an itemized-deduction path, the same
+missing machinery that keeps the federal SALT cap unbuilt
+(`S5_TASK_CHECKLIST.md` task 13), and no sprint plan builds one yet.
+
+**Two fields that do nothing by design.**
+
+- **`assumptions.returnPreset`** is a picker in the app that fills in the
+  return fields the engine does read. The engine never reads the preset's
+  name.
+- **`advanced.glideOn`** moves an account's stock share toward
+  `advanced.retirementStock` only while asset classes are on
+  (`advanced.assetsOn`). With asset classes off, returns come from the single
+  assumed rate, and the glide path has nothing to act on.
+
+**Held to the engine.** `tests/inert-scenario-fields.test.js` runs a plan each
+way through `runPlan()` and requires identical results, beside a control on the
+same object that must move them. If a field starts to matter, the test fails
+until this section is updated. If this section stops naming a field that still
+does nothing, it fails too.
+
+*`S5_TASK_CHECKLIST.md` block 2e; `SIMULATION_LOG.md` Batches 7–10.*
+
+---
+
+## 10. A household-owned income is timed by the self member's ages
+
+**The situation.** `otherIncomeFor()` decides whose age an other-income
+entry's start/end ages are measured against with `i.owner === "spouse"`. An
+entry owned by `"self"` or by `"household"` takes the same branch — both are
+timed against the self member, not just `"self"` explicitly.
+
+**The choice.** This is accepted as correct, not a defect. A household-owned
+income (one belonging to the household as a whole, not to either named
+person specifically) is timed by the self member's ages.
+
+**Why.** The self member's ages are always present and always the plan's own
+reference clock; a household-scoped income has no natural third clock to use
+instead, and timing it against self keeps one consistent convention rather
+than inventing a special case for the one ownership value that names no
+person.
+
+**What this does not cover.** An **absent** `owner` (as distinct from an
+explicit `"household"`) used to reach this same branch silently — that case
+is a different question, resolved separately: `Q69` now refuses an other
+income with no owner at the input gate rather than timing it against
+anyone.
+
+*Decided 2026-09-14, night (the owner). `SPRINT_QUESTIONS.md` Q32 (the
+household-owned sub-case); `S5_TASK_CHECKLIST.md` block 2.6.*
+
+---
+
+## 11. No IRMAA surcharge in a plan's first two years, because pre-plan income is assumed below the first tier
+
+**The situation.** IRMAA looks back two years for the MAGI that sets the
+current year's surcharge. A plan's own projection carries no history before
+it starts, so years 0 and 1 have nothing real to look back to.
+
+**The choice.** Both pre-plan years are assumed to have had MAGI below the
+first IRMAA tier — no surcharge applies in plan years 0 or 1, however high
+the plan's own income is once it starts. `runPlan()` records one
+`IRMAA_PRE_PLAN_MAGI_ASSUMED` warning when health costs are on and IRMAA
+would otherwise apply in one of those two years.
+
+**Why.** The alternative the engine used to do by accident — clamping the
+lookback to year 0's own MAGI once two years of history do not yet exist —
+silently charged the plan's first-year income twice: once at a one-year lag
+in year 1, and again correctly in year 2. That is a wrong answer under this
+sprint's own wrong-answer-versus-not-modelled test. Assuming a low pre-plan
+MAGI is a genuine assumption, not a repair claiming certainty the model
+doesn't have — which is why it is disclosed with a warning rather than
+applied silently.
+
+**What was rejected.** Reusing year 0's own MAGI as a stand-in for the
+missing pre-plan years, which is what produced the double charge. A
+three-year lag was also considered and rejected — it doesn't match how
+IRMAA actually works.
+
+*Decided 2026-09-14, night (the owner), the S5 run's question 3, answer (A)
+(the run's own session-local numbering, not a `SPRINT_QUESTIONS.md` entry).
+`S5_TASK_CHECKLIST.md` block 6.6a.*
+
+---
+
+## 12. RMD start age reads a whole age, not a birth date — 1949 is treated as "before July"
+
+**The situation.** The RMD start age depends on exactly when someone was
+born: 70½ before July 1949, 72 from July 1949 through 1950, and later ages
+for 1951 onward (with 1959 itself carrying its own disputed authority
+status — see the rules block's `birth1959AuthorityStatus`). The engine does
+not store a birth date, only a whole age.
+
+**The choice.** A birth year is derived as `2026 − age`, and that derived
+year is always read as **before July** when the month matters (the
+1949-only band). Every owner this affects is at least 76 in 2026, already
+past every RMD-start age in question, so the choice never moves a result
+today — it only affects how those historical rows are labelled.
+
+**Why.** The engine has no finer-grained input to read, and choosing
+"before July" versus "July or later" for a birth year the model cannot
+actually distinguish needs to default to something; the choice is recorded
+here so it is visible rather than an invisible default buried in a
+comparison.
+
+*Decided 2026-09-14, night (the owner). `S5_TASK_CHECKLIST.md` task 5a.*
+
+---
+
+## 13. A pre-tax 401(k)'s Roth catch-up is still modelled as pre-tax, even when the rule requires Roth
+
+**The situation.** High earners' catch-up contributions are required to be
+Roth once the statutory wage threshold applies (`ACCOUNT §7.4`). A
+workplace account in this engine is either pre-tax or Roth as a whole — it
+has no way to hold a designated-Roth *portion* inside an otherwise pre-tax
+account.
+
+**The choice.** When a pre-tax workplace account's catch-up room is used
+and the rule requires Roth (the wage threshold is met, or the wages needed
+to check it are missing), the engine still models that catch-up as pre-tax
+money. The contribution audit warns when this happens — the warning reaches
+the app's contribution check, not a `runPlan()` result field, so no
+projected balance moves because of it.
+
+**Why.** Modelling a split account is a real feature (a new account shape,
+or a synthetic paired holding) that this sprint's defects-only scope does
+not build. Warning rather than silently proceeding keeps the gap visible to
+whoever configures the plan, consistent with this sprint's "flag, don't
+guess" discipline elsewhere (Q43/Q44/Q45's family).
+
+**What was rejected.** Silently proceeding with no warning — the same
+"confident wrong number" shape those other findings share. Refusing the
+contribution outright was also considered and rejected: the rule is about
+tax treatment, not eligibility, so a refusal would be stricter than the law.
+
+*Decided/repaired 2026-09-14, night (the owner), the S5 run's question 6, answer
+(A) (the run's own session-local numbering, not a `SPRINT_QUESTIONS.md`
+entry). `S5_TASK_CHECKLIST.md` task 11.*
+
+---
+
+## 14. A QCD's exclusion belongs to the IRA's owner, is paid from that owner's own IRAs first, and its annual cap is never prorated
+
+> **Corrected 2026-09-24 (UTC−7), from the S5AA session's combined relay, checked against the engine at `fab88f0` by reading the code that executes. Three statements below are superseded; they are kept as history, and §18 ("QCDs and required distributions") holds the active wording.** (1) The *Situation* says a QCD is requested "against the combined household RMD": a QCD is now paid from age 70½ whether or not a required distribution is due, per person. (2) The *Choice* says a QCD "counts toward the household RMD" and that the rest of the RMD is withdrawn "in the household's ordinary withdrawal order": it counts toward that owner's own IRA obligation only, never a 401(k) or the other owner, and the rest of each obligation is paid from that obligation's own accounts. (3) The *Choice* says that when the owners' shares exceed the household RMD "they are scaled down together, proportionally (provisional)": **there is no scaling**, and a QCD above the RMD is paid in full (the owner, 2026-09-21, the R9 round's Q3, not the verdict's Q3; see §18's citation note). What stays true: the $111,000 per-person cap and the limit by the owner's own IRAs, the exclusion being what was paid, the non-prorated annual cap with `QCD_OPENING_YEAR_CAP_ASSUMED`, and the mid-year-birthday note.
+
+**The situation.** A household can hold more than one traditional IRA, owned
+separately by each spouse, and can request a qualified charitable
+distribution against the combined household RMD. The statutory exclusion
+(26 USC 408(d)(8); IRS Notice 2025-67) is per taxpayer, against that
+taxpayer's own IRA distributions — it has no household-pooled form.
+
+**The choice.**
+- Each eligible owner (70½ or older) gets a share of the household's QCD
+  request: their share of the eligible owners' traditional-IRA balances,
+  capped at $111,000 and by their own IRA balance. A spouse with no
+  traditional IRA adds no exclusion.
+- That share is paid first from the owner's own traditional IRAs, and
+  counts toward the household RMD. The rest of the RMD is withdrawn in the
+  household's ordinary withdrawal order.
+- The exclusion recorded is what was actually paid this way — not the
+  requested amount.
+- When the owners' shares together exceed the household RMD, they are
+  scaled down together, proportionally **(provisional — see §7.2 of the
+  2026-09-16 close-out handover)**.
+- The annual cap is not prorated by row length. A partial opening row
+  assumes no QCD was taken earlier that same calendar year, so the full
+  annual cap is available; this is disclosed with warning
+  `QCD_OPENING_YEAR_CAP_ASSUMED`.
+- Projection rows follow ages, not calendar years. A row that spans a
+  mid-year birthday crosses two tax years but applies one annual cap to it,
+  rather than splitting the cap across the two years it touches.
+
+**Why.** Pooling the cap and ignoring which spouse's IRA actually funded
+the distribution let a household exclude more than either spouse could
+individually, and let the exclusion survive even when a 401(k) or the
+other spouse's IRA paid the RMD instead of the IRA the exclusion was
+attributed to — a "confident wrong number" in the same family as Q43/Q44/Q45.
+Funding from the owner's own IRA first, before the household's general
+order, is what makes the per-owner exclusion actually true of the money
+that moved.
+
+*Decided 2026-09-16 (the owner): Q83/Q84 answer 2 (A) and answer 4 (A)
+(`SPRINT_QUESTIONS.md`); S5RR-01 (the re-audit's residual), answer 2 (A) of
+the third set. `a2d5d00` (the per-owner cap and the non-prorated annual
+cap), `9190ed4` (funding from the owner's own IRA first).*
+
+---
+
+## 15. A recurring income stops the instant its owner reaches its end age, prorated within the row
+
+**The situation.** A recurring income (pension, rental, employment,
+investment, Social Security, tax-free, other, self-employment) can carry an
+end age. A projection row can span that end age partway through.
+
+**The choice.** The income pays only for the portion of the row before its
+owner reaches the end age, prorated within the row — matching the "End
+age" label's plain meaning. An income with no end age set is never stopped
+by this rule.
+
+**Why.** Paying the income for the row's full duration regardless of where
+the end age fell inside it silently overpaid every income whose end age
+landed mid-row — the same class of defect as an unbounded percent-mode
+spending stage (Q74): a control the UI presents as exact, quietly not
+enforced by the engine.
+
+*Decided 2026-09-16 (the owner), Q85 answer 3 (A). `9818a1f`.*
+
+---
+
+## 16. Arizona's return models only the basic standard deduction, the age-65 exemption, and the Social Security subtraction
+
+**The situation.** Arizona's 2026 Form 140 is not yet final (Chapter 140 /
+HB 4168), and the full return has provisions this engine does not model:
+itemized deductions, the charitable cap for head of household, and others
+named in `TAX §5.3`.
+
+**The choice.** Arizona taxable income is computed as: federal AGI, less
+federally taxable Social Security (`ENACTED`), less the 2026 basic standard
+deduction (`INFERRED` until the final Form 140 — by filing status), less
+$2,100 for each person 65 or older (`ENACTED`), never below zero. No other
+Arizona subtraction, exemption, or itemization is modelled; what is not
+built is named in the disclosure rather than silently omitted.
+
+**Why.** This is the scope the owner chose from the four candidates task 8
+presented, not the full return — narrower than "build all of Arizona," and
+recorded here so the boundary is visible rather than discovered later by a
+figure that should have moved and didn't.
+
+*Decided 2026-09-14, night (the owner), question 5, answer (C) (the S5 run's own
+session-local numbering). Held on question 10 (implemented 2026-09-16,
+answer (A), `231ddf7`); task 8 itself landed at `917bfa7`.
+`S5_TASK_CHECKLIST.md` task 8.*
+
+---
+
+## 17. Result-contract version 3: five named measures on every row, and `magi` as an alias
+
+**The situation.** Downstream consumers (S6, the frozen corpus captures)
+need to read specific tax measures off a projection row without depending
+on the engine's internal variable names, and without silently accepting a
+row shaped for a different contract version than the one they expect.
+
+**The choice.**
+- Every row carries five named measures at contract version 3:
+  `federal_agi`, `ss_provisional_income`, `senior_deduction_magi`,
+  `niit_magi`, `irmaa_magi`. They read 0 on an opening row and the median
+  across paths on a Monte Carlo row.
+- `magi` is an alias of `irmaa_magi`, not a sixth independent measure.
+- **(R10, provisional — see §7.2 of the 2026-09-16 close-out handover.)**
+  A capture may declare an older contract version than its producer's only
+  when it is a recognised legacy capture of that version; `tools/result-
+  contract.js`'s SHAPE check now also reports keys a declared version does
+  not define, rather than passing a row with extra, unexplained fields.
+
+**Why.** An un-versioned or silently-accepted-any-version row shape is
+exactly how a captured control and today's engine can disagree without
+either side raising it — the same failure family the differential harness
+exists to catch, applied to row shape instead of row values.
+
+*Decided 2026-09-16 (the owner), Q2 answer (A) (the S5 run's own session-local
+numbering). `628bd36` (the five measures at version 3); `c3d8726` (R10's
+legacy-version and extra-key checks, provisional).*
+
+---
+
+## 18. What S5AA (R5 to R21) settled about deaths, survivors, basis, settlement, RMDs, dividends and Monte Carlo
+
+**Provenance and how to read this.** Written 2026-09-24 (UTC−7) from the S5AA session's combined relay
+(`Handover temp/S5AA_RELAY_TO_EB_20260924_COMBINED_R5_TO_R21.md`, §3), **after a plan-owner check of every
+behavioural claim against the engine at `fab88f0`** (`src/engine.js`, `src/app-shell.html`,
+`src/scenario-validator.js`): read from the code that executes, not from comments or commit messages. Where the
+relay's wording was wider or narrower than the code, the wording below follows the code and says so. The figures
+in 18.6 are the S5AA session's; the mechanism was checked, the numbers were not re-derived. S5AA is **NO-GO** (the owner,
+2026-09-21) and not closed; these are the engine's behaviours as of `fab88f0`, some of them disclosed assumptions
+the owner chose to keep.
+
+**Citing the owner's answers.** *(Updated 2026-09-24, later the same day: on the owner's instruction the answers are now registered as `SPRINT_QUESTIONS.md` **Q115 to Q134**; cite those numbers. The verdict's Q3, Q4 and Q5 are Q115, Q116 and Q117, the R9 round's Q3, Q4 and Q5 are Q125, Q126 and Q127, and the engine's comments that say "Q3 (the owner, 2026-09-21)" mean Q115. The paragraph below describes how they were first recorded and is kept as history.)* They were given in conversation, not as registered `SPRINT_QUESTIONS.md` entries. **Two
+sets of questions dated 2026-09-21 both use the numbers Q1 to Q8**, so cite them with their set: *the verdict's
+Q1–Q8* (Q3 wages end at a death, Q4 the spousal rollover, Q5 beneficiaries not modelled, Q7 and Q8 the S5b
+carries) and *the R9 round's Q3–Q5* (Q3 QCDs from 70½ per owner with no scaling, Q4 dividends, Q5 a tax-free
+one-time income type). Neither set is a `SPRINT_QUESTIONS.md` number; the highest real entry is Q114 (checked at `fab88f0`; Q109 to Q114 are dated 2026-09-19), so the next free number is Q115. The D-1 to
+D-12 answers are listed in `audit/S5AA/R06/S5AA_R6_EXTERNAL_AUDIT_REPAIR_REPORT_20260921.md` §8 (with D-11 and D-12
+added at R8).
+
+### 18.1 Deaths and survivors
+
+- When one spouse dies inside the projection, that person's wages and contributions end at the death, prorated
+  within the year, as they end at retirement, and so do employment and self-employment income streams in their
+  name. Rental, investment and other streams continue.
+- The year of the death is filed jointly; the survivor files as single from the next year. This applies to a
+  married-filing-jointly plan; other entered statuses are left as entered. Qualifying surviving spouse and head of
+  household status are not modelled.
+- Survivor spending reductions start the year after a death, as the filing status does, **and only when the
+  "include simplified survivor benefit" switch is on** (the relay stated this unconditionally; the code does not).
+- The projection stops at the last death: the final year is the year the last person dies, and its balances are
+  what the household leaves. A one-person plan stops at that person's death. Beneficiaries, inherited accounts and
+  estate taxes are not modelled. A plan in which nobody is alive at the start is refused (`NOBODY_ALIVE_AT_START`,
+  a `runPlan` refusal).
+- Medicare costs after a death count only the living, from the year after the death. The Roth IRA income limit
+  follows the survivor's filing status: joint in the year of death, single after. The HSA family contribution limit
+  after a death is a matter of health coverage, not filing status; with no coverage input, the plan keeps the limit
+  the entered status implies.
+- The pension is assumed to continue in full to a surviving spouse (a 100% joint-and-survivor annuity), disclosed
+  by `PENSION_AFTER_DEATH_ASSUMED`. In the year of a death it is paid as in any year the person lived in.
+- **What passes to a surviving spouse** (the owner, 2026-09-21; disclosed as assumptions). The survivor takes the
+  deceased's IRAs, Roth IRAs, 401(k)s and Roth 401(k)s as their own from the year after the death (the spousal
+  election, Treas. Reg. 1.408-8(c); IRC 402(c)(9)), with any nondeductible IRA basis. A required distribution the
+  deceased had not taken in the year of death is still due on their schedule. Keeping an account as an inherited IRA
+  instead is not modelled. An HSA passes as the survivor's own, which is right only if the survivor is its
+  designated beneficiary. A taxable account, including a joint one, passes with the decedent's cost basis: no
+  step-up (or step-down) at death is applied, because how much is stepped up depends on titling and state law the
+  plan does not record, so the survivor's capital gains are overstated. Custom accounts pass like an IRA of their
+  tax class.
+- An IRA, workplace plan or HSA belongs to one person. The validator refuses any other owner (joint is allowed only
+  on taxable and custom accounts).
+
+### 18.2 Cost basis and capital gains
+
+Replaces any percentage-basis description of the model.
+
+- A taxable account's cost basis is tracked in dollars. It starts at the entered basis percentage of the opening
+  balance (`basisPct` is now only that opening input). Growth does not add basis; contributions and reinvested
+  dividends do. A sale is taxed on its share of the gain, or realises its share of the loss. All gains are treated
+  as long-term. (S5AA workstream B, `235eb5f`.)
+- A net capital loss offsets up to $3,000 of other income a year, and the rest carries forward. A year uses only as
+  much of the loss as its taxable income can absorb; the rest still carries (`8566c9c`). The deduction is taken
+  whatever the other income, so it can lower taxable Social Security, and adjusted gross income can be negative, as
+  on Form 1040. Qualified dividends and net gains keep their lower rates up to taxable income. Net investment income
+  for the 3.8% tax includes the deductible loss.
+- A loss belongs to the owner of the account that realised it (a joint account's to both). When a spouse dies, their
+  unused loss ends with their final return and does not pass to the survivor (`dbf2f5d`).
+- **Retired limitation:** "net investment income is reduced only by the part of the loss taken against qualified
+  dividends" is no longer true. Any place that states it should be read as superseded.
+
+### 18.3 IRA basis, the annual settlement, QCDs and required distributions
+
+- **Form 8606 basis** is kept per person and does not cross between spouses **while both live; at a death the
+  survivor takes the decedent's basis with the account (18.1)**. Each IRA distribution is taxed when it happens at
+  the owner's basis over their IRA balance then. At the year's end each owner's year is settled as Form 8606 does
+  it: the year's nondeductible contributions count as basis for that year, including for a conversion, and the
+  fraction uses the December 31 value plus the year's distributions and conversions. Any difference in tax is paid,
+  or refunded, the next year. A 401(k) is not part of it. A refund from the settlement is treated as other income
+  for the surplus policy. (S5AA workstream A, `31a7895`; result-contract version 5.)
+- **QCDs** (this supersedes the superseded parts of §14). A qualified charitable distribution is paid from each
+  eligible person's own traditional IRAs from age 70½, whether or not a required distribution is due; it counts
+  toward that owner's IRA obligation once one is due (never a 401(k) or the other owner), and is capped per person
+  per year. It comes from the taxable part of an IRA first and uses no basis. **It is never scaled down**: a QCD
+  above the required distribution is paid in full. Deductible IRA contributions made at 70½ or older reduce the part
+  of later QCDs that is excluded from income, tracked per owner and ending at their death. In the year of a death, a
+  QCD may be paid from the decedent's IRA on the decedent's age.
+- **Not modelled:** Publication 590-B Worksheet 1-1's order for a partly deductible contribution in a year with a
+  distribution (the deduction is figured before the settlement); re-figuring the 10% early-distribution tax after
+  the settlement; and the tax ledger for Monte Carlo results.
+- **Required distributions.** When a Roth conversion or a transfer draws on an owner's IRAs or a workplace plan in a
+  year a required distribution is due, the required amount is treated as taken out first, as the law requires, so
+  the year's return does not change it. Where an owner has more than one account it can come from, it is taken from
+  the accounts in the same order the distribution itself is paid. The money it is owed from is reserved obligation by
+  obligation (an owner's IRAs together, each employer plan on its own), so one person's balance never frees
+  another's.
+- A transfer from a pre-tax account to a taxable account is a distribution, and counts toward that account's required
+  distribution for the year (for an IRA, toward the owner's IRAs together); only what is still owed after it is
+  withdrawn (`4b5aff1`, with `dcd7247`; S2 carried item U1).
+- If an account cannot pay its required distribution (for example, after a deep loss), the shortfall is shown as
+  unmet. The IRS excise tax on a missed RMD is not modelled. A projection is refused only when the model promised to
+  protect a distribution and failed to.
+- **The 10% early-withdrawal tax** applies only to the taxable part of an IRA withdrawal; nondeductible basis bears
+  none. It and the Rule of 55 depend on the age of the account's owner, not the primary person's. The Rule of 55
+  applies only to workplace plans, never to IRAs. After a death the survivor treats the decedent's IRA as their own,
+  so a survivor under 59½ owes the 10% on it.
+- **Age 59½ inside a projection year** (the owner, 2026-09-24: "Keep it and disclose it"; S5AA R24, `0acc073`). Projection
+  years follow ages, and a year's spending, one-time expenses and tax funding are drawn as one amount with no date
+  inside the year. That draw is judged at the age the year opened at. So in a year that opens before 59½ and ends
+  after it, the whole draw owes the 10% additional tax on its pre-tax part, and a Roth draw in it is flagged as
+  outside the supported domain. Part of that draw may in fact fall after 59½, so this errs toward more tax and more
+  flagging. A scheduled transfer has a date and is judged at it. The engine's own comment and the flag's message say
+  the same (read in the code 2026-09-25). *Reported by the S5AA session, not re-measured here:* on r15, 3 of 70 members
+  pay more 10% than a split year would charge, and `expansion:s5aa-gap-early-retiree` pays $8,820 more lifetime tax.
+  The alternatives not chosen (Q137) can be decided with the engine rebuild.
+- **Conversions and transfers.** A conversion goes only into a Roth-class account of the same owner. A traditional
+  IRA converts into a Roth IRA (or a custom Roth account); a 401(k) may convert into a Roth-class account of the same
+  owner, including its own Roth 401(k). A manual transfer from a pre-tax account into a Roth account is a Roth
+  conversion and follows the same rule. (The relay described this more narrowly than the code allows.)
+
+### 18.4 Dividends, income, health costs and strategies
+
+- With the dividend option on, the dividend is taxed every year: reinvested (and taxed) before its payout age, then
+  paid as cash. With it off, the return assumptions already include reinvested dividends, so an **imputed 1.5% yield
+  is taxed each year from the start of the projection, as qualified dividends, and added to cost basis** (the owner,
+  2026-09-22: keep it, because it is the tax on reinvested dividends). `dividendStart` means when modelled dividend
+  cash starts being paid out to spend (S5AA 12.9 (b): no output change). *(Corrected 2026-09-24 (UTC−7), on ChatGPT's R22-02 finding, relayed by the S5AA session and checked against the R9 witness `tests/audit-s5aa-r9-dividends-taxed-every-year.test.js` and commit `823666b`. This paragraph first ended with a "Known gap, carried to S5b task 1", saying that with the option on the engine taxes nothing on dividends before retirement. **That was wrong, and contradicted this bullet's own first sentence:** it was repaired at `823666b` on 2026-09-21. Both paths now tax dividends from the first year: with the option on, the entered yield, reinvested before its payout age; with it off, the imputed 1.5%. The S5b task 1 note that describes a gap predates that repair and no longer applies; it is S5b plan text and waits for the owner's S5b go.)*
+- A one-time income can be entered as tax-free (a gift or an inheritance).
+- Health costs are priced per living person: each person under 65 carries an equal share of the entered pre-Medicare
+  cost, and each person 65 or over is charged Medicare.
+- VPW and the RMD-style strategy divide by the years the projection models (to the last death or the projection's
+  ending age, whichever comes first), and a final part-year is a fraction of a year. The VPW maximum annual rate still
+  applies, so at a 100% cap a final part-year cannot draw the whole balance.
+
+### 18.5 The tax ledger, the glide path and allocation keys
+
+- "Taxes" in a year is the tax paid that year: the year's own tax plus any settlement from the year before. Lifetime
+  tax is the tax assessed: the sum of each year's settled tax. A tax still owed at the plan's end comes off the
+  ending net worth. If the money left cannot pay it, the plan fails in its last year.
+- With asset classes on, the glide path moves an account's stock share toward the retirement target, and the rest of
+  the account scales with it. Both the expected return and the Monte Carlo volatility use that same moving
+  allocation. An account that holds only stocks glides into bonds **when the plan defines a bonds class**; with no
+  bonds class, it keeps its allocation. The optimized order's down-year ranking of accounts still uses each
+  account's starting allocation.
+- Every weight in an account's allocation must belong to one of the plan's asset classes. A backup whose account
+  names a class the plan does not define is refused on import (`UNKNOWN_ALLOCATION_CLASS`, an ERROR). A plan already
+  saved in the browser is not re-checked when the app opens.
+
+### 18.6 Monte Carlo: each account's return is drawn independently (the owner, 2026-09-23: disclose now, change in the engine rebuild)
+
+In Monte Carlo, each account's return is drawn independently. Splitting the same investments across more accounts
+therefore makes the portfolio look less volatile than it is: the S5AA session measured that with ten equal accounts,
+a 20% volatility behaves like about 6.3%, and that in one tested retirement example the success rate rose from 35.9%
+to 48.3% with no economic change (its figures, one example; the mechanism is confirmed in the engine, the numbers were
+not re-derived here). Monte Carlo percentiles and success rates overstate diversification for households with several
+accounts. This is to be replaced by shared market shocks in the CPU engine rebuild. It relates to Q45's correlation
+calibration and Q66's per-account reserve; it is carried as row U6 of `S2_CARRIED_WORK_REGISTER.md`.
+
+*Decided 2026-09-21 to 2026-09-23 (the owner), in the S5AA session's chat, as itemised in the relay's §6 (the verdict's
+Q3–Q5 and Q7–Q8, the D-1 to D-12 answers, the R9 round's Q3–Q5, and the 2026-09-22 and 2026-09-23 decisions); none
+was a `SPRINT_QUESTIONS.md` entry when this section was first written; they are now Q115 to Q134. Landing commits named above; the rounds are indexed in `audit/S5AA/README.md`.*
+
+
+---
+
+## 19. Spending stages, debt payoffs and scheduled transfers are dated inside a projection year (S5AA R25)
+
+**Provenance.** Written 2026-09-26 (UTC−7) from the S5AA session's relay (`audit/S5AA/R25/S5AA_RELAY_TO_EB_20260925_R25.md` §2)
+and its R25 response (`audit/S5AA/R25/S5AA_R25_EXTERNAL_AUDIT_RESPONSE_20260925.md` §3 to §5), after ChatGPT's R24F
+audit found four priority-2 findings. The owner's answers were given to the S5AA session and are **as reported by it**. The
+statements were checked against the R25 witness tests named below and the engine on `main` at `ea8f155`; the worked
+dollar figures are the S5AA session's and were not re-run here. S5AA is NO-GO and not closed.
+
+- **A spending stage's end age is the last year it covers** (the owner, 2026-09-25; `9a40562`, R24F-01). A whole-year stage
+  from 65 to 66 covers the years opening at 65 and at 66, so ages 65 up to 67, in continuous age `[start, end + 1)`.
+  A stage whose start or end falls inside a projection year applies to that part of the year, prorated by time (the
+  year spends the time-weighted average). The other reading, "the moment the stage ends", would have made every
+  existing whole-year stage lose its last year (all 17 in the corpus, golden scenarios among them), so it was not
+  chosen. A year that no boundary splits is evaluated directly, so whole-year figures are unchanged. Witness:
+  `tests/audit-s5aa-r25-stage-prorated-by-age.test.js`.
+- **A debt's payoff age takes effect in its month** (the owner, 2026-09-25; `aeba9a0`, R24F-03). A debt with a payoff age
+  inside a projection year is paid off in that month, with interest only to then, and its balance is settled there. A
+  payoff at a year boundary, or before the year began, runs as before. Witness:
+  `tests/audit-s5aa-r25-debt-payoff-at-its-month.test.js`.
+- **A scheduled transfer moves on its date** (the owner, 2026-09-25; `4b7d516`, R24F-02). The moved dollars earn the source
+  account's return until the transfer date and the destination's after it. The transfer's tax and its RMD credit are
+  still computed in its year, as before, and a transfer's age tests use its own age (§18.3, S5AA R24), so a transfer
+  is dated throughout. Witness: `tests/audit-s5aa-r25-transfer-growth-at-its-date.test.js`.
+  *(Refined 2026-09-26 by S5AA R27: a transfer is also capped at what its source holds on its date, and the loss the
+  moved dollars took before the date is borne by the destination; see §20, `5f48505` and `73e24c7`.)*
+- **The engine refuses a plan value the validator rejects as not a number** (the owner, 2026-09-25; `95bf5d0`, R24F-04):
+  `SCENARIO_NONNUMBER_PLAN_VALUE`, an ERROR that names the field and returns no rows (`RESULT_CONTRACT.md`). A NaN
+  Monte Carlo seed is now refused; an absent seed still means 0.
+
+*Decided 2026-09-25 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q138 to Q142.*
+
+
+---
+
+## 20. IRA contributions are limited by compensation; an IRA deduction has one rule; a mid-year transfer is capped at what its source holds; PMI is charged while the mortgage has a balance (S5AA R26 and R27)
+
+**Provenance.** Written 2026-09-26 (UTC−7) from the S5AA session's R26 and R27 relays (`audit/S5AA/R26/S5AA_RELAY_TO_EB_20260926_R26.md`,
+`audit/S5AA/R27/S5AA_RELAY_TO_EB_20260926_R27.md`). The owner's answers were given to that session and are **as reported by
+it**. Checked by the plan owner: the commits exist on `main`; the r17 baseline differs from r16 in exactly the four
+members named; the compensation rule and its Publication 590-A citation are in `src/engine.js` (line 118); and the R27
+known-gap witness was run on `main` and reproduces the negative destination balance. The dollar figures and the
+Publication 590-A reading are the S5AA session's and were not re-derived, and IRS citations remain unchecked (S5AA task
+8.6). S5AA is NO-GO and not closed.
+
+- **IRA contributions and compensation** (the owner, 2026-09-26: "Enforce it"; `5a928d5`). Traditional and Roth IRA
+  contributions together are limited to the owner's taxable compensation (IRS Publication 590-A). Compensation is
+  salary, plus employment and self-employment income, less the owner's pre-tax workplace and HSA contributions. On a
+  joint return the couple shares their combined compensation (the spousal IRA). An amount over the limit is handled as
+  a dollar-limit excess is: under the default redirect policy it goes to a taxable account. Self-employment income is
+  counted in full, without subtracting the deductible half of self-employment tax. It moved 4 of 70 corpus members
+  (`seed:2`, `seed:10`, `seed:14`, `seed:17`), each of which had contributed to a Roth IRA on a $0 salary; baseline r17.
+  Witness: `tests/audit-s5aa-r26-ira-compensation-limit.test.js`.
+- **An IRA deduction larger than ordinary income** (the owner, 2026-09-26: "Same rule in both"; `0b90445`). It reduces AGI,
+  and with it the dividends and gains taxed at the preferential rates (IRC 62(a)(7), 1(h)(1)). The tax-funding quote and
+  the final tax now use the same figure. No corpus figure moves. Witness:
+  `tests/audit-s5aa-r26-ira-deduction-one-rule.test.js`.
+- **A mid-year transfer moves at most what its source holds on its date** (the owner, 2026-09-26: "Move what's there";
+  `5f48505`, follow-up `73e24c7`). This refines §19: a transfer "moves on its date" and is now capped. It moves its
+  opening balance at the year's return for the part of the year before the date. If the year's withdrawals draw on the
+  source too, the loss the moved dollars took before the date is borne by the destination (`73e24c7`); a transfer's
+  source drawn by the year's withdrawals ends at zero, not below. Witness:
+  `tests/audit-s5aa-r27-transfer-capped-at-date.test.js`.
+- **Known limit, kept by the owner's decision** (2026-09-26: "Keep R27, record the gap"). If the household runs out of money
+  in the transfer's year, no account is left to bear that loss: an account ends negative (`NEGATIVE_ACCOUNT_BALANCE`),
+  and a Monte Carlo run with such a path is refused. Alternatives not chosen: move the money physically at the engine's
+  withdrawal point, or go back to moving it at the year's opening. Witness (run here on `main`; the destination ends at
+  −$2,565.84): `audit/S5AA/R27/S5AA_R27_KNOWN_GAP_WITNESS.js`. Registered as Q148.
+- **Mortgage PMI is charged only for the months the mortgage has a balance**, including after a payoff inside the
+  year (the owner, 2026-09-26: "PMI while owed"; `7318d89`). Witness: `tests/audit-s5aa-r27-pmi-while-owed.test.js`. (Q113,
+  that PMI never cancels at an LTV threshold, is a separate, still open item.)
+
+*Decided 2026-09-26 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q144 to Q148 (and Q143's
+repair).*

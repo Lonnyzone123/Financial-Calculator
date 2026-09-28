@@ -1,0 +1,70 @@
+# L7, run by hand: capture the EXPANDED composition at this commit and hold it to the registered baseline.
+#
+# `npm test` already replays the CONTROL corpus (test 4.7) against its declared differences. The expanded corpus
+# (tests/lib/corpus-expansion.js, 70 members at r17) is captured separately, because it is S5b's baseline and a
+# capture is a deliberate, reviewed event. This job answers one question for a chosen commit: does today's engine
+# still produce the registered baseline, entry for entry? If not, it fails and uploads the capture, so the difference
+# can be reviewed and, if intended, re-captured and registered in its own commit (tools/baseline-registry.json).
+#
+# Steps:
+#   1. capture at this commit (tools/capture-baseline.js);
+#   2. hold the capture to the reviewed spec (tools/corpus-invariant.js, tools/corpus-spec-expanded.json);
+#   3. compare it with the baseline (tools/capture-baseline.js diff: exit 0 identical, 1 different).
+# The capture's corpus hash is printed; r17's is 4ea4bc9328b5eaad437e7c26e4409f8b1d730003f289ccd0ce11bb0a65ba3707.
+name: l7-expanded-corpus
+
+on:
+  workflow_dispatch:
+    inputs:
+      baseline:
+        description: Registered expanded capture to compare against
+        required: true
+        default: tools/baseline-20260926-s5aa-expanded-r17.json
+
+permissions:
+  contents: read
+
+jobs:
+  expanded-corpus:
+    name: l7 expanded corpus (windows, node 24.17.0)
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - name: Git settings for this runner
+        run: git config --global core.longpaths true
+
+      - name: Check out (full history)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Node 24.17.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24.17.0
+          cache: npm
+
+      - name: Install declared dependencies (package-lock.json)
+        run: npm ci
+
+      - name: Capture the expanded composition at this commit
+        run: node tools/capture-baseline.js capture capture-expanded.json --composition expanded
+
+      - name: Hold it to the reviewed spec
+        run: node tools/corpus-invariant.js check capture-expanded.json --spec tools/corpus-spec-expanded.json
+
+      - name: Compare with the registered baseline
+        # The input reaches the shell through an environment variable, never pasted into the script text.
+        env:
+          BASELINE: ${{ inputs.baseline }}
+        shell: pwsh
+        run: node tools/capture-baseline.js diff "$env:BASELINE" capture-expanded.json
+
+      - name: Keep the capture
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: expanded-capture-${{ github.sha }}
+          path: capture-expanded.json
+          retention-days: 90

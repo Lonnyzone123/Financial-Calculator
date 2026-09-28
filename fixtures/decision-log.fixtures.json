@@ -1,0 +1,287 @@
+{
+  "cases": [
+    {
+      "name": "candidate_summary_level_drops_detail",
+      "events": [
+        {
+          "run_id": "run-a",
+          "sequence": 1,
+          "module": "tax_optimizer",
+          "event": "candidate_summary",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "count": 5
+          }
+        },
+        {
+          "run_id": "run-a",
+          "sequence": 2,
+          "module": "tax_optimizer",
+          "event": "selected",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "weights": {
+              "voo": 1.0
+            }
+          }
+        }
+      ],
+      "summary": {
+        "run_id": "run-a",
+        "events": 2,
+        "by_module": {
+          "tax_optimizer": 2
+        },
+        "by_event": {
+          "tax_optimizer.candidate_summary": 1,
+          "tax_optimizer.selected": 1
+        }
+      }
+    },
+    {
+      "name": "full_candidates_level_keeps_detail",
+      "events": [
+        {
+          "run_id": "run-b",
+          "sequence": 1,
+          "module": "tax_optimizer",
+          "event": "candidate_summary",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "count": 5
+          }
+        },
+        {
+          "run_id": "run-b",
+          "sequence": 2,
+          "module": "tax_optimizer",
+          "event": "candidate",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "weights": {
+              "voo": 0.5
+            }
+          }
+        }
+      ],
+      "summary": {
+        "run_id": "run-b",
+        "events": 2,
+        "by_module": {
+          "tax_optimizer": 2
+        },
+        "by_event": {
+          "tax_optimizer.candidate_summary": 1,
+          "tax_optimizer.candidate": 1
+        }
+      }
+    },
+    {
+      "name": "triggered_detail_bypasses_level_gate",
+      "events": [
+        {
+          "run_id": "run-c",
+          "sequence": 1,
+          "module": "reserve",
+          "event": "draw",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "amount": 100.0
+          }
+        }
+      ],
+      "summary": {
+        "run_id": "run-c",
+        "events": 1,
+        "by_module": {
+          "reserve": 1
+        },
+        "by_event": {
+          "reserve.draw": 1
+        }
+      }
+    },
+    {
+      "name": "float_rounding_and_dataclass_flattening",
+      "events": [
+        {
+          "run_id": "run-d",
+          "sequence": 1,
+          "module": "tax_optimizer",
+          "event": "selected",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "pi_like": 3.14159265,
+            "nested": {
+              "a": 1.0,
+              "b": [
+                1.12345678,
+                2.98765432
+              ]
+            },
+            "plan": {
+              "name": "test",
+              "amount": 1234.56789123,
+              "tags": [
+                "x",
+                "y",
+                "z"
+              ]
+            },
+            "tuple_field": [
+              1.1,
+              2.2,
+              3.3
+            ],
+            "path_like": "some\\relative\\path.json"
+          }
+        }
+      ],
+      "summary": {
+        "run_id": "run-d",
+        "events": 1,
+        "by_module": {
+          "tax_optimizer": 1
+        },
+        "by_event": {
+          "tax_optimizer.selected": 1
+        }
+      }
+    },
+    {
+      "name": "no_year_or_age_empty_payload",
+      "events": [
+        {
+          "run_id": "run-e",
+          "sequence": 1,
+          "module": "misc",
+          "event": "note",
+          "decision_year": null,
+          "age": null,
+          "payload": {}
+        }
+      ],
+      "summary": {
+        "run_id": "run-e",
+        "events": 1,
+        "by_module": {
+          "misc": 1
+        },
+        "by_event": {
+          "misc.note": 1
+        }
+      }
+    },
+    {
+      "name": "sequence_and_summary_aggregation",
+      "events": [
+        {
+          "run_id": "run-f",
+          "sequence": 1,
+          "module": "moduleA",
+          "event": "eventX",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "i": 0
+          }
+        },
+        {
+          "run_id": "run-f",
+          "sequence": 2,
+          "module": "moduleA",
+          "event": "eventX",
+          "decision_year": 2041,
+          "age": 66,
+          "payload": {
+            "i": 1
+          }
+        },
+        {
+          "run_id": "run-f",
+          "sequence": 3,
+          "module": "moduleA",
+          "event": "eventX",
+          "decision_year": 2042,
+          "age": 67,
+          "payload": {
+            "i": 2
+          }
+        },
+        {
+          "run_id": "run-f",
+          "sequence": 4,
+          "module": "moduleA",
+          "event": "eventX",
+          "decision_year": 2043,
+          "age": 68,
+          "payload": {
+            "i": 3
+          }
+        },
+        {
+          "run_id": "run-f",
+          "sequence": 5,
+          "module": "moduleA",
+          "event": "eventX",
+          "decision_year": 2044,
+          "age": 69,
+          "payload": {
+            "i": 4
+          }
+        },
+        {
+          "run_id": "run-f",
+          "sequence": 6,
+          "module": "moduleB",
+          "event": "eventY",
+          "decision_year": 2040,
+          "age": 65,
+          "payload": {
+            "i": 0
+          }
+        },
+        {
+          "run_id": "run-f",
+          "sequence": 7,
+          "module": "moduleB",
+          "event": "eventY",
+          "decision_year": 2041,
+          "age": 66,
+          "payload": {
+            "i": 1
+          }
+        },
+        {
+          "run_id": "run-f",
+          "sequence": 8,
+          "module": "moduleB",
+          "event": "eventY",
+          "decision_year": 2042,
+          "age": 67,
+          "payload": {
+            "i": 2
+          }
+        }
+      ],
+      "summary": {
+        "run_id": "run-f",
+        "events": 8,
+        "by_module": {
+          "moduleA": 5,
+          "moduleB": 3
+        },
+        "by_event": {
+          "moduleA.eventX": 5,
+          "moduleB.eventY": 3
+        }
+      }
+    }
+  ]
+}
