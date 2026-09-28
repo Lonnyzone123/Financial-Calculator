@@ -6,7 +6,7 @@ private archive. Documents here that cite them name the private commits and path
 
 | round | folder | what it holds |
 |---|---|---|
-| the move | (to follow) | the migration audit of this copy against its source, findings PC-NN |
+| the move | [`PC/`](PC/) | the migration audit of this copy against its source: the handover, `pc_compare.js`, and the report, findings PC-NN |
 | R29 on | `audit/S5AA/RNN/` | each round's cover note, response, self-audit, handover and evidence |
 
 The working rules for ChatGPT and Claude are in [`WORKING_RULES.md`](WORKING_RULES.md).
