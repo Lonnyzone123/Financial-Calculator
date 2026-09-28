@@ -116,3 +116,13 @@ test('PCF-02 CONTROL: a same-kind move is not a contribution -- Roth IRA to Roth
   near(x.row.roth, 50000, 'the Roth IRAs');
   assert.equal(warnsTransfer(x.warnings), false);
 });
+
+test('R29 SELF-AUDIT: the warning reports what actually moved -- a source holding $2,000 asked for $50,000 into an HSA with $5,400 of room moves $2,000, and says so', () => {
+  /* The first wording was composed from the room before the transfer met its source, and said "only $5,400 was moved" when
+     the source held less -- in the corpus, seed:13's taxable account is empty by its transfer's year and $0 moved. */
+  const p = run({ from: 'taxable', to: 'hsa', amount: 50000, pension: 20000 });
+  near(p.row.hsa, 5400, 'CONTROL: a source that holds enough moves the room');
+  const x = run({ from: 'taxable', to: 'hsa', amount: 50000, pension: 20000, fromExtra: { balance: 2000 } });
+  near(x.row.hsa, 2000, 'the HSA receives what the source held');
+  assert.ok(x.warnings.some((w) => w.includes('asked for $50,000') && w.includes('$5,400') && w.includes('$2,000 moved')), JSON.stringify(x.warnings));
+});
