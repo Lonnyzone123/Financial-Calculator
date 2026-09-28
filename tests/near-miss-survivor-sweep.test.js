@@ -79,6 +79,7 @@ const validate = (p) => validateScenario(clone(p));
 const accepts = (p) => validate(p).valid;
 
 // --- Fixed seed and fixed case count, both named (criterion 4) --------------
+const { isDecidedRefusal, decidedSeedsIn } = require('./lib/decided-refusals.js');
 const SWEEP_START_SEED = 100000;
 const SWEEP_SEED_COUNT = 60;
 
@@ -475,6 +476,8 @@ function runSweep() {
   for (let i = 0; i < SWEEP_SEED_COUNT; i++) {
     const seed = SWEEP_START_SEED + i;
     const complete = gen.generateScenario(defaultPlan, seed);
+    /* S5AA R29: a seed a later decision refuses has no valid baseline to omit fields from (tests/lib/decided-refusals.js). */
+    if (isDecidedRefusal(seed, validate(complete))) continue;
     const baseline = engine.runPlan(clone(complete));
 
     optionalSites(complete).forEach((site) => {
@@ -558,10 +561,13 @@ test('near-miss: EVERY required-field omission site is rejected, and the check h
   let survivors = [];
   const kinds = new Set();
   let completeValid = 0;
+  /* S5AA R29: seeds a later decision refuses are not complete VALID records; skipped only for exactly that refusal. */
+  const decided = [];
 
   for (let i = 0; i < SWEEP_SEED_COUNT; i++) {
     const seed = SWEEP_START_SEED + i;
     const complete = gen.generateScenario(defaultPlan, seed);
+    if (isDecidedRefusal(seed, validate(complete))) { decided.push(seed); continue; }
 
     /* CONTROL A (ground rule 24): the COMPLETE record must validate. Without
        this, "every omission was rejected" could just mean generated scenarios
@@ -588,8 +594,9 @@ test('near-miss: EVERY required-field omission site is rejected, and the check h
     });
   }
 
-  assert.equal(completeValid, SWEEP_SEED_COUNT,
-    'CONTROL A failed: only ' + completeValid + '/' + SWEEP_SEED_COUNT + ' complete records validate, ' +
+  assert.deepEqual(decided, decidedSeedsIn(SWEEP_START_SEED, SWEEP_SEED_COUNT), 'every listed decided refusal in range still occurs');
+  assert.equal(completeValid, SWEEP_SEED_COUNT - decided.length,
+    'CONTROL A failed: only ' + completeValid + '/' + (SWEEP_SEED_COUNT - decided.length) + ' complete records validate, ' +
     'so this test cannot distinguish "omissions are caught" from "nothing validates"');
   assert.ok(sites > 500, 'expected the enumeration to reach every site, not one per seed; got ' + sites);
   assert.ok(kinds.size >= 13, 'expected every site KIND to be exercised; got ' + kinds.size);

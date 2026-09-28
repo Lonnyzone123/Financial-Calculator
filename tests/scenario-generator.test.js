@@ -40,6 +40,7 @@ const rulesMatch = shell.match(/<script type="application\/json" id="v2b-rules-2
 global.RULES = JSON.parse(rulesMatch[1]);
 
 const { validateScenario, validateRawContainers } = require('../src/scenario-validator.js');
+const { isDecidedRefusal, decidedSeedsIn, DECIDED_CODES } = require('./lib/decided-refusals.js');
 const { extractDefaultPlan } = require('./lib/golden-scenario-defs');
 const {
   generateScenario, generateScenarios, generateNearMissScenarios,
@@ -80,13 +81,17 @@ test('makeRng: the PRNG itself is seed-determined and does not drift between ins
 test('generateScenarios: every generated scenario passes validateScenario with no ERROR issues', () => {
   const batch = generateScenarios(defaultPlan, { count: 120, startSeed: 1 });
   const failures = [];
+  /* S5AA R29: seeds a later decision refuses, skipped only for exactly that refusal (tests/lib/decided-refusals.js). */
+  const decided = [];
   for (const { seed, plan } of batch) {
     const result = validateScenario(plan);
     if (!result.valid) {
+      if (isDecidedRefusal(seed, result)) { decided.push(seed); continue; }
       failures.push({ seed, issues: result.issues.filter((i) => i.severity === 'ERROR') });
     }
   }
   assert.deepEqual(failures, [], 'generated scenarios must be valid by construction');
+  assert.deepEqual(decided, decidedSeedsIn(1, 120), 'every listed decided refusal in range still occurs');
 });
 
 test('generateScenarios: every generated scenario also passes the pre-normalization import gate', () => {
@@ -108,7 +113,9 @@ test('generateScenarios: generated scenarios raise no WARNING-level issues eithe
   const warned = [];
   const exemptSeen = new Set();
   for (const { seed, plan } of batch) {
-    const all = validateScenario(plan).issues;
+    const checked = validateScenario(plan);
+    /* S5AA R29: a decided refusal's own error is not a warning this test is about (tests/lib/decided-refusals.js). */
+    const all = isDecidedRefusal(seed, checked) ? checked.issues.filter((i) => !DECIDED_CODES.includes(i.code)) : checked.issues;
     all.filter((i) => EXEMPT.includes(i.code)).forEach((i) => exemptSeen.add(i.code));
     const issues = all.filter((i) => !EXEMPT.includes(i.code));
     if (issues.length) warned.push({ seed, issues: issues.map((i) => i.code + '@' + i.path) });
