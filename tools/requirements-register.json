@@ -10,12 +10,12 @@
   "src/debt-recast.js"
  ],
  "counts": {
-  "commentBlocksWithIds": 323,
-  "requirements": 158,
-  "GUARDED_BY_TEST_NAME": 143,
+  "commentBlocksWithIds": 324,
+  "requirements": 159,
+  "GUARDED_BY_TEST_NAME": 144,
   "CITED_IN_TEST_FILE": 15,
   "UNGUARDED": 0,
-  "carriedForward": 158,
+  "carriedForward": 159,
   "needsDecision": 0,
   "superseded": 0
  },
@@ -1076,6 +1076,7 @@
      "tests/audit-ra04-baseline-integrity.test.js",
      "tests/audit-rb-findings.test.js",
      "tests/audit-rc-findings.test.js",
+     "tests/audit-s5aa-r29-held-dollars-prototype-ids.test.js",
      "tests/scenario-generator.test.js"
     ],
     "onlyTodo": false
@@ -1116,6 +1117,29 @@
    },
    "disposition": "carried-forward",
    "dispositionBasis": "a decision-register entry: settled"
+  },
+  {
+   "id": "PCF-03",
+   "family": "PCF",
+   "sites": [
+    "src/engine.js:3455"
+   ],
+   "summary": "S5AA R29 (PCF-03, the owner 2026-09-28: \"Repair\"): keyed by account id, so no prototype -- a plain object took an id of \"__proto__\" as its prototype, the own-key reads below missed it, and that accoun",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r29-held-dollars-prototype-ids.test.js :: PCF-03: a taxable DESTINATION receiving $300,000 at 60.5 is paid half a year of 10% -- $15,000 under every accepted id (was $30,000 for \"__proto__\")",
+     "tests/audit-s5aa-r29-held-dollars-prototype-ids.test.js :: PCF-03: a taxable SOURCE sending $300,000 at 60.75, after the draw, is paid the three quarters it held -- $22,500 under every accepted id",
+     "tests/audit-s5aa-r29-held-dollars-prototype-ids.test.js :: PCF-03: REINVESTED dividends follow the same split -- a destination at 60.5 with dividends paid from 65 is taxed on $15,000 reinvested under every accepted id",
+     "tests/audit-s5aa-r29-held-dollars-prototype-ids.test.js :: PCF-03 CONTROL: a transfer at the year\\'s opening pays the whole year, $30,000, under every accepted id"
+    ],
+    "files": [
+     "tests/audit-s5aa-r29-held-dollars-prototype-ids.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
   },
   {
    "id": "Q100",
@@ -4683,6 +4707,10 @@
   },
   {
    "family": "P",
+   "reachableFromCommittedDocument": true
+  },
+  {
+   "family": "PCF",
    "reachableFromCommittedDocument": true
   },
   {

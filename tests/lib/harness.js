@@ -536,7 +536,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (public copy: "the owner" lower-cased mid-sentence (src/engine.js comments)), so the
 // tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 82b68329658572e747b92e5aa25a8ac6b5ea0b8b12faaba4f1e2743fdb387c02, described the previous rebuild.
-const EXPECTED_SHA256 = '3b4a98ac7e1bd40acd0aaaa3ec4b9550b0225562cbc91bca86a1876c2f5d5fee';
+//
+// Changed again 2026-09-28 (S5AA R29 PCF-03: the held-dollar maps have no prototype (src/engine.js)), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 3b4a98ac7e1bd40acd0aaaa3ec4b9550b0225562cbc91bca86a1876c2f5d5fee, described the previous rebuild.
+const EXPECTED_SHA256 = '76009e63b0103555f6dbadf3ba8ceb8ca143841bf260c9055e2f4698f875f36e';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
