@@ -561,7 +561,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (S5AA R29: a traditional IRA to its owner's HSA is a qualified HSA funding distribution
 // (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 685372c5d401ae3d574402596bf9c54b05ddad7d000c6be5f5c4ec3ebdb0351f, described the previous rebuild.
-const EXPECTED_SHA256 = 'a0386ba9dcbba5450610984c56054423e154f4adb9182249953d18fc96bae4a4';
+//
+// Changed again 2026-09-28 (S5AA R29: money leaving a taxable account for a non-taxable one realises its gain
+// (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// a0386ba9dcbba5450610984c56054423e154f4adb9182249953d18fc96bae4a4, described the previous rebuild.
+const EXPECTED_SHA256 = 'ff201637ca5ff66122f28a34e5a172072c886fee27c2632d16b159a03628d96d';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
