@@ -293,6 +293,12 @@
       "why": "IRS Publication 590-A limits an IRA contribution to taxable compensation (W-2 box 1 wages and self-employment earnings; combined on a joint return). seed:2, seed:10, seed:14 and seed:17 contributed to a Roth IRA with a salary of $0; the contribution is now refused and, under the redirect policy, deposited in a taxable account (the owner, 2026-09-26).",
       "differences": 668,
       "replacedDeclarations": 344
+    },
+    {
+      "change": "S5AA R29: a transfer into a 401(k) from a different kind of account is refused",
+      "why": "Money reaches a workplace plan through payroll, a rollover of the same tax character, or a conversion to the owner's own Roth account (the owner, 2026-09-28: \"Refuse it\"). seed:9 moved $23,350.60 from an HSA into a traditional 401(k) at 59, three years after retiring; the engine now moves nothing and records TRANSFER_INTO_WORKPLACE_REFUSED, so the HSA keeps the money and the 401(k) does not receive it.",
+      "differences": 4,
+      "replacedDeclarations": 4
     }
   ],
   "differences": [
@@ -17345,18 +17351,11 @@
       "candidate": 3010131.1710662968
     },
     {
-      "declared": {
-        "scenario": "seed:9",
-        "kind": "VALUE",
-        "path": "rows[29].q90",
-        "reference": 6527957.271481174,
-        "candidate": 6500593.525843808
-      },
       "scenario": "seed:9",
       "kind": "VALUE",
       "path": "rows[29].q90",
       "reference": 6527957.271481174,
-      "candidate": 5171791.232356192
+      "candidate": 5177718.5401113555
     },
     {
       "declared": {
@@ -17531,18 +17530,11 @@
       "candidate": 3331251.139600948
     },
     {
-      "declared": {
-        "scenario": "seed:9",
-        "kind": "VALUE",
-        "path": "rows[30].q10",
-        "reference": 2023706.0339478357,
-        "candidate": 2008804.7855776711
-      },
       "scenario": "seed:9",
       "kind": "VALUE",
       "path": "rows[30].q10",
       "reference": 2023706.0339478357,
-      "candidate": 2477125.652959763
+      "candidate": 2478553.856079893
     },
     {
       "declared": {
@@ -143165,7 +143157,7 @@
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 2
+      "candidate": 3
     },
     {
       "scenario": "seed:10",
@@ -181535,7 +181527,7 @@
       "kind": "VALUE",
       "path": "rows[26].q90",
       "reference": 9689694.084660303,
-      "candidate": 8934814.062804703
+      "candidate": 8934732.917018045
     },
     {
       "scenario": "seed:9",

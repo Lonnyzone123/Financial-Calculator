@@ -544,7 +544,12 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (S5AA R29: the rules page writes rule data as text; renderRulesLegacy() removed
 // (src/app-shell.html)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
 // before it, 76009e63b0103555f6dbadf3ba8ceb8ca143841bf260c9055e2f4698f875f36e, described the previous rebuild.
-const EXPECTED_SHA256 = '50067f84fcae9e8c120824fb6e09f92bffb14cf04bc57a68e63313185f9f39a6';
+//
+// Changed again 2026-09-28 (S5AA R29: a transfer into a 401(k) from a different kind of account is refused
+// (src/engine.js, src/scenario-validator.js)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, 50067f84fcae9e8c120824fb6e09f92bffb14cf04bc57a68e63313185f9f39a6, described the previous
+// rebuild.
+const EXPECTED_SHA256 = 'a193154815d971d279ea01d986fcc38b18c32c08d55ef7b3edbd0ebfe7b56c2a';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

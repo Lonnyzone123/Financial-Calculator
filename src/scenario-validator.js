@@ -42,6 +42,9 @@ const TAX_CLASSES = ['taxable', 'preTax', 'roth', 'hsa'];
  * account may also be "joint". An absent owner stays accepted (normalizeAccount() fills "self"). */
 const ACCOUNT_OWNERS = ['self', 'spouse'];
 const JOINT_OWNER_ACCOUNT_TYPES = ['taxable', 'customTaxable', 'customTraditional', 'customRoth'];
+/* S5AA R29: the workplace-plan account types -- the engine's accountType(...).limitGroup === 'workplace' (a test pins the two
+   together). A transfer into one from a different tax class has no lawful route (the owner, 2026-09-28: "Refuse it"). */
+const WORKPLACE_PLAN_TYPES = ['traditional401k', 'roth401k'];
 const FILING_STATUSES = ['single', 'mfj', 'hoh'];
 const METHODS = ['simple', 'historical', 'monteCarlo'];
 const WITHDRAWAL_ORDERS = ['manual', 'optimized'];
@@ -962,6 +965,18 @@ function validateAllocationClasses(c, plan) {
   });
 }
 
+/* S5AA R29: a transfer into a workplace plan must be a same-character rollover or a pre-tax to Roth conversion. Only while the
+   transfer is on, and only when both endpoints resolve (their ids are checked elsewhere). */
+function validateTransferEndpoints(c, plan) {
+  const a = plan && plan.advanced;
+  if (!a || a.transferOn !== true || !Array.isArray(plan.accounts)) return;
+  const from = plan.accounts.find((x) => x && x.id === a.transferFrom), to = plan.accounts.find((x) => x && x.id === a.transferTo);
+  if (!from || !to || from === to || !WORKPLACE_PLAN_TYPES.includes(to.type)) return;
+  if (from.taxClass === to.taxClass || (from.taxClass === 'preTax' && to.taxClass === 'roth')) return;
+  c.error('TRANSFER_INTO_WORKPLACE_PLAN', 'advanced.transferTo', 'A 401(k) can only receive payroll contributions, a rollover of the ' +
+    'same tax character, or a conversion to its owner\'s own Roth account. A transfer into it from a ' + from.taxClass + ' account is not allowed.');
+}
+
 function validateScenario(plan) {
   const c = makeCollector();
 
@@ -996,6 +1011,7 @@ function validateScenario(plan) {
   validateAllocationClasses(c, plan); // R20-01 (S5AA R21)
   validateBooleanFlags(c, plan); // Q53 (S5 2l)
   validatePlannedContributions(c, plan); // Q59 (S5 2q)
+  validateTransferEndpoints(c, plan); // S5AA R29
   validateNestedRecords(c, plan); // R2-006
 
   const valid = !c.issues.some((i) => i.severity === 'ERROR');
