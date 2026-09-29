@@ -7,7 +7,8 @@
  * Each case below is refused by BOTH: the validator reports an ERROR at the field, and runPlan() returns the documented refusal
  * shape with a code that names the input, instead of running on a replaced value or failing later under an unrelated code.
  * - runs above 10,000: runPlan() already refused (SCENARIO_INVALID_RUN_COUNT); the validator accepted it.
- * - historyStart after the last year of return data, on the historical method: the sequence silently started in 1928.
+ * - historyStart after the last year of return data, on the historical method: the sequence silently started in 1928. The
+ *   validator's copy of that year is held to the engine's through runPlan(): the year runs, and the year after is refused.
  * - inflation or fee that is not a number: "x" failed later under an unrelated code; "1" ran as text.
  * - a debt's extra principal, PMI, property tax, insurance or HOA that is negative or not a number, and a payment that is not a
  *   number: Math.max(0, Number(x) || 0) made each one zero. (A NEGATIVE payment stays the validator's decided NEGATIVE_PAYMENT
@@ -65,17 +66,19 @@ test('R37 SA32F-51: runs above 10,000 is an ERROR in the validator, as runPlan()
 });
 
 test('R37 SA32F-51: a historical start after the return data is refused, not replaced by 1928', () => {
-  const last = engine.HIST_RETURNS[engine.HIST_RETURNS.length - 1][0];
-  const after = planWith((p) => { p.assumptions.method = 'historical'; p.assumptions.historyStart = last + 5; });
+  /* The validator's own copy of the last data year. Through the public route, the engine runs that year and refuses the next,
+     so the two copies cannot drift apart without this test failing. */
+  const last = require(path.join(ROOT, 'src', 'scenario-validator.js')).LAST_HISTORY_YEAR;
+  const after = planWith((p) => { p.assumptions.method = 'historical'; p.assumptions.historyStart = last + 1; });
   assert.strictEqual(errorsAt(after, 'assumptions.historyStart').length, 1, 'the validator accepted it');
   assert.strictEqual(refusal(after), 'SCENARIO_HISTORY_START_AFTER_DATA', 'the sequence silently started in the first data year');
-  /* CONTROLS: the last data year runs; on a method that reads no history the field is inert and is not refused. */
-  assert.strictEqual(refusal(planWith((p) => { p.assumptions.method = 'historical'; p.assumptions.historyStart = last; })), 'ok');
+  /* CONTROLS: the last data year runs and is valid; on a method that reads no history the field is inert and is not refused. */
+  const lastYear = planWith((p) => { p.assumptions.method = 'historical'; p.assumptions.historyStart = last; });
+  assert.strictEqual(errorsAt(lastYear, 'assumptions.historyStart').length, 0);
+  assert.strictEqual(refusal(lastYear), 'ok');
   const inert = planWith((p) => { p.assumptions.historyStart = last + 5; });
   assert.strictEqual(errorsAt(inert, 'assumptions.historyStart').length, 0);
   assert.strictEqual(refusal(inert), 'ok');
-  /* The validator's own copy of the last data year is the engine's. */
-  assert.strictEqual(require(path.join(ROOT, 'src', 'scenario-validator.js')).LAST_HISTORY_YEAR, last);
 });
 
 test('R37 SA32F-51: an inflation, fee or history start that is not a number is refused by name', () => {
