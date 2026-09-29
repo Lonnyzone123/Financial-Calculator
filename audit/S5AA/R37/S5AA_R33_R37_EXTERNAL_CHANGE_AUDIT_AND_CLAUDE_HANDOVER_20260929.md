@@ -1,0 +1,41 @@
+# S5AA R33–R37 external change audit and handover
+
+2026-09-29. Report-only review for the owner. This review tests the tagged source changes; it does not amend the engine, tests, tags, or the owner's policy decisions.
+
+## Scope and disposition
+
+| Round | Compared commits | Disposition on the change |
+| --- | --- | --- |
+| R33 | `66854d0` → `f4e8294238ce39dde101dd2c15609e7801dc8a50` (`s5aa-r33-source`) | No new blocker found in the tested tax and contribution changes. Qualified by the stated MAGI proxy and limits below. |
+| R34 | `f4e8294238ce39dde101dd2c15609e7801dc8a50` → `7b61b88bcdad735fa03b27d5e929336c810c7c8f` (`s5aa-r34-source`) | No new blocker found in the tested Social Security changes. Birth-month and claim-date approximations remain. |
+| R35 | `7b61b88bcdad735fa03b27d5e929336c810c7c8f` → `26ef26d6ae02c96a1c60171355badd841b8ef25e` (`s5aa-r35-source`) | **NO-GO: R35-01, P1**, a reachable retirement-balance overstatement. |
+| R36 | `26ef26d6ae02c96a1c60171355badd841b8ef25e` → `cf643a848aacd1e8ac9466a3b8159b0deccbc823` (`s5aa-r36-source`) | No new blocker found in the tested indexing changes. Projected indices and the post-2028 senior deduction are explicit assumptions. |
+| R37 | `cf643a848aacd1e8ac9466a3b8159b0deccbc823` → `4a9a15ea0ac2761bff46f2eee93b4df5a2fd42b2` (`s5aa-r37-source`) | No new blocker found in the tested guardrails and presentation changes. **R35-01 remains present.** |
+
+Overall: **NO-GO for an unqualified full-model acceptance of R33–R37**, because R35-01 survives through the R37 tag. “No new blocker found” is a bounded change-audit conclusion, not a claim that all prior model limits have disappeared. Main at review time was `d7ea4c639e84790d6a859305d8388aaf904455ef`; its post-R37 changes were confined to the R37 audit records, `audit/S5AA/README.md`, `tests/capture-boundary.test.js`, and `tools/capture-baseline.js`, not `src/engine.js` or `src/scenario-validator.js`. All behavioral reproductions below used the exact source tags.
+
+## R35-01 — P1 — separation-year employer match escapes vesting forfeiture
+
+**Trigger and reach.** A 401(k) with an employer match or profit share, an unvested employee, and retirement during a projection row. The form permits fractional retirement ages, and the engine prorates that row's wages and contributions. The R35 repair promises to track employer money and forfeit its unvested share at modeled separation; the [IRS vesting guidance](https://www.irs.gov/retirement-plans/plan-participant-employee/retirement-topics-vesting) likewise ties the participant's ownership of employer money to the vesting schedule. The issue here is the implementation's order, independent of any employer-specific service-credit convention.
+
+**Exact tagged witness.** Run the adjacent `S5AA_R33_R37_EXTERNAL_REPRO_20260929.js` with the R35 or R37 tagged checkout as its argument. It calls the public `runPlan()` route with a 45-year-old, $100,000 salary, $6,000/year elective deferral, 100% match up to 6%, zero return/spending/fees, an entered 20% vested interest interpreted by R35 as two completed service years, and retirement at 45.5. The half-year earns $3,000 employee deferral and $3,000 employer match. Service is still two completed years under the engine's own `employerVestedShare()` rule, so the account should hold **$3,000 + 20% × $3,000 = $3,600** after separation. It instead holds **$6,000**, an excess of **$2,400** (66.7% of the expected closing balance). At retirement 46.5, three completed years mean 40% vested: $9,000 deferral + 40% × $9,000 match = **$12,600**; the engine reports **$14,400**, $1,800 high. Whole-row retirement at 46 is the useful control: expected and actual are both $8,400.
+
+**Mechanism.** In R35 `src/engine.js` line 3550 (R37 line 3643), the row's forfeiture loop executes **before** `audit.items` credits that row's employee contributions and employer match. The match is added later at R35 line 3585 (R37 line 3678), after the separation event has passed. A later row cannot revisit it because the separation predicate is no longer true. The result has `status: ok`; the unvested match remains in spendable pretax wealth and can affect subsequent withdrawals, tax, and net worth. R35's existing vesting test uses retirement on a row boundary, which books the prior year's match before the following row's forfeiture, so it does not cover this case.
+
+**Repair.** Account for all employer money earned up to separation before applying the vested percentage, or split the row at separation and settle contributions, match, growth, and forfeiture in chronological order. Preserve the negative employer-contribution accounting entry so the portfolio identity still reconciles. Add public-route regressions for retirement at 45.5 and 46.5 alongside the 46 control, with match and profit share, and include spouse-owned and Roth-match destinations. The owner should repair and rerun the gate before accepting R35 and the stacked later rounds.
+
+## Verification and bounded coverage
+
+- Windows 11, Node 24.17.0. At their **own frozen tags**, the round-targeted suites passed: R33 26/26, R34 12/12, R35 35/35, R36 8/8, R37 36/36. These are regression checks of the source author's claims, not an independent proof of the whole model.
+- The R33 tax sweep, rerun against the final R37 tag, checked 13,815 isolated returns against its separate reference and reported zero mismatches. The R34 Social Security reference runner checked 25 cases on the R37 tag with zero mismatches. Their reference assumptions are documented in their own files; passing them does not erase the new R35 witness.
+- The independent public-route witness reproduced R35-01 on **both** R35 and R37. It also includes a whole-year control with no difference. Hand arithmetic and the source ordering, rather than a fixture generated from the engine, supply the expected result.
+- The R37 full repository gate **passed** on the frozen tag with local `jsdom` and an unmodified environment: 3,089 tests, 3,080 passed, 0 failed, 9 authorized todo. A preliminary run with `NODE_PATH` had one environment-induced harness self-test failure because it made `jsdom` visible in a test that intentionally removes it; the clean rerun resolved that setup problem.
+
+The change audit examined the engine and validator diffs, relevant form/result behavior, the per-round handovers, and boundary-focused tests. It did not run a new Monte Carlo statistical calibration, rederive every future tax table from official releases, or certify every existing account/tax path. The 2026-base future-year indices remain declared proxies, not actual later-year published thresholds. The owner has expressly selected continuation of the enhanced senior deduction after 2028; [current IRS guidance](https://www.irs.gov/newsroom/check-your-eligibility-for-the-new-enhanced-deduction-for-seniors) states the statutory deduction is effective for 2025–2028, so that choice must be read as a planning assumption in projections beyond 2028.
+
+Other disclosed constraints still matter when interpreting results: R33 uses salary as a Roth MAGI proxy and warns rather than computes an IRA excess-contribution excise tax; R34 has no birth month or separate survivor application date; R35 reads inherited taxable basis at the first post-death row, assumes a spouse is sole beneficiary unless specified, excludes surplus spouse wages from saving, and leaves the main pension's 100% survivor convention; R36 uses plan inflation/salary growth as price/wage-index proxies and keeps 2026 Medicare premiums; R37 uses an opening-age HSA penalty convention and withholds Monte Carlo shortfall amounts/cuts because its displayed rows are medians across all paths. These are **qualifications or owner decisions, not additional newly confirmed round findings**. They should remain visible in any approval decision.
+
+## Handover
+
+R33, R34, R36, and R37 generated no separately numbered new finding within the coverage above. **R35-01 is the only new confirmed finding**, and it persists at the R37 tag. The report and adjacent witness are the entire proposed PR; there is no source, test, generated-artifact, rule-package, tag, or release change in it. The owner should retain the NO-GO disposition until R35-01 is fixed and independently rechecked.
+
