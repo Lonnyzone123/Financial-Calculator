@@ -1,0 +1,20 @@
+# Dependabot version updates. Security updates are enabled separately in the repository settings.
+# Each update arrives as a pull request, and the `protect main` ruleset holds it until the full gate passes.
+version: 2
+updates:
+  # The one npm dependency: jsdom (dev), which the DOM tests need.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: deps
+  # The workflows' actions are pinned to full commit SHAs (a repository rule requires it); this keeps those pins current.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: ci
