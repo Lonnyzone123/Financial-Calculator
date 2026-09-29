@@ -39,7 +39,9 @@ function expect(fromT, toT, { age, amount, wages, policy, q }) {
   const f = TYPES[fromT], t = TYPES[toT];
   const conversion = f.cls === 'preTax' && t.cls === 'roth';
   if (conversion) return { conversion: true };
-  const intoWorkplace = t.group === 'workplace' && f.cls !== t.cls;
+  /* S5AA R32 (R30A-02; the owner 2026-09-28: "Refuse it"): a Roth IRA cannot roll into a 401(k) either (Publication 590-A). R29's
+     rule allowed it as a same-class rollover; the sweep now holds the engine to the rule as decided since. */
+  const intoWorkplace = t.group === 'workplace' && (f.cls !== t.cls || fromT === 'rothIRA');
   if (intoWorkplace) return { moved: 0, agi: wages, refused: true };
   const asked = Math.min(amount, BALANCE);
   const contribution = (t.group === 'ira' || t.group === 'hsa') && f.cls !== t.cls;
