@@ -38,4 +38,3 @@ Other disclosed constraints still matter when interpreting results: R33 uses sal
 ## Handover
 
 R33, R34, R36, and R37 generated no separately numbered new finding within the coverage above. **R35-01 is the only new confirmed finding**, and it persists at the R37 tag. The report and adjacent witness are the entire proposed PR; there is no source, test, generated-artifact, rule-package, tag, or release change in it. The owner should retain the NO-GO disposition until R35-01 is fixed and independently rechecked.
-

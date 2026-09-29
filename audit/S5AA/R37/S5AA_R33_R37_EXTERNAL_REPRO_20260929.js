@@ -29,4 +29,3 @@ for (const [retireAge, expected] of [[45.5, 3600], [46, 8400], [46.5, 12600]]) {
   console.log(JSON.stringify({ retireAge, expected, actual, excess: actual - expected,
     rows: result.rows.map(r => ({ age: r.age, preTax: r.preTax, contributions: r.contributions })) }));
 }
-
