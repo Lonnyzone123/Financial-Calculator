@@ -12,6 +12,7 @@ private archive. Documents here that cite them name the private commits and path
 | R31 | [`R31/`](R31/) | R30-01, a funding distribution's basis measured on its date: the change handover, self-audit and its sweep, the cover note and the relay to eb; source `s5aa-r31-source` (`8afe16d`); ChatGPT's R31 change audit (NO-GO, R31-01) and its repro |
 | R32 | [`R32/`](R32/) | R30A-01 to R30A-03, R31-01 and the catch-up age: the change handover, self-audit and its sweep, the cover note and the relay to eb; source `s5aa-r32-source` (`3017351`). Also R32F, Claude's full-model audit of that source (SA32F-NN; `SA32F/` holds the eight area reports and scripts) with the owner's decisions of 2026-09-29, and its cover note |
 | R33 | [`R33/`](R33/) | 16 items from R32F and R32V (tax and contributions) and R32V-02: the change handover, self-audit and its tax sweep and corrected reference, the cover note and the relay to eb; source `s5aa-r33-source` (`f4e8294`). The R32F relay to eb is in `R32/` |
-| R34 on | `audit/S5AA/RNN/` | each round's cover note, response, self-audit, handover and evidence |
+| R34 | [`R34/`](R34/) | 11 Social Security items from R32F and R32V (SA32F-01 to -07, -18, -25; R32V-03): the change handover, self-audit and its reference over all 25 R32F Social Security cases, the cover note and the relay to eb; source `s5aa-r34-source` (`7b61b88`) |
+| R35 on | `audit/S5AA/RNN/` | each round's cover note, response, self-audit, handover and evidence |
 
 The working rules for ChatGPT and Claude are in [`WORKING_RULES.md`](WORKING_RULES.md).

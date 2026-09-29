@@ -37,8 +37,10 @@ const BAND = [50, 85];
    85.6%, and step 25 is the first in band (tests/lib/corpus-expansion.js, family version 2). The rule and the band are
    unchanged.
    S5AA R18 round, workstream B (taxable basis in dollars): the rule re-applied again -- step 24 fell to 84.8% and step 23
-   is 85.6%, so step 24 is the first in band (family version 3). The rule and the band are unchanged. */
-const DECLARED_STEP = 24;
+   is 85.6%, so step 24 is the first in band (family version 3). The rule and the band are unchanged.
+   S5AA R34 (Social Security by law; the today's-dollar COLA up to the claim raises income): step 24 rose to 86.6% and step 25
+   is 85.8%, so step 26 (84.8%) is the first in band (family version 4). The rule and the band are unchanged. */
+const DECLARED_STEP = 26;
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
 const goldenPlan = () => {

@@ -645,7 +645,12 @@ function artifactFor(lane) {
 // includes its threshold (SA32F-09, SA32F-23)), so the tracked file was rebuilt, again installed only after two builds
 // agreed. The pin before it, ebddc637353ff98afae988f8eefa62bbdefbdd70e3c77f1edc364763cd12d65a, described the previous
 // rebuild.
-const EXPECTED_SHA256 = 'a1488b882ee1ddf640ba43925f86aeb5918c5f5dea3e175b5bd22b003b1416d7';
+//
+// Changed again 2026-09-29 (S5AA R34: Social Security by law -- full retirement age by birth year, today's dollars, SSA's
+// rounding, the spouse's and survivor's benefits, the earnings test; the survivor disclosure and the read-only
+// full-retirement-age field), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, a1488b882ee1ddf640ba43925f86aeb5918c5f5dea3e175b5bd22b003b1416d7, described the previous rebuild.
+const EXPECTED_SHA256 = 'eede3253c8fa7c0d3e955ca0690f27f9732021fa3c5c44696a8c544440178039';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

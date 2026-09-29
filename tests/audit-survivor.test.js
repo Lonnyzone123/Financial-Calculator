@@ -25,6 +25,18 @@ const rulesMatch = shell.match(/<script type="application\/json" id="v2b-rules-2
 global.RULES = JSON.parse(rulesMatch[1]);
 
 const engine = require('../src/engine.js');
+const SSA = require('./lib/ssa-reference.js');
+
+/* RE-FIXTURED BY INTENT at S5AA R34 (the owner 2026-09-29: "Follow law everywhere"). Three law changes reach these fixtures:
+ *   - SA32F-03: while both are alive and have filed, the lower earner also receives the spouse's benefit on the other's record --
+ *     half the higher PIA less their own (20 CFR 404.330, 404.332). Here: half of 3,000 less 1,000, 500 a month, 6,000 a year,
+ *     unreduced once the lower earner is past full retirement age. It ends at the higher earner's death, where the survivor
+ *     benefit takes over.
+ *   - SA32F-05 / SA32F-25: full retirement age comes from the birth year; the plan's `ssFra` no longer decides it. A 60-year-old
+ *     plan (born 1966) has 67; a 70-year-old one (born 1956) has 66 and 4 months.
+ *   - R32V-03: each monthly benefit is rounded down to the dollar.
+ * Expectations are worked by hand and with tests/lib/ssa-reference.js. */
+const SPOUSAL_EXCESS = (3000 / 2 - 1000) * 12;   /* 6,000 */
 
 /** Builds a plan claiming exactly at FRA (factor=1) with zero COLA, so the
  *  monthly amounts given are exactly what's paid, with no growth or
@@ -72,7 +84,7 @@ test('AUD-002: equal benefits -- the survivor amount equals either spouse\'s own
 test('AUD-002: both alive -- normal sum, survivor logic never triggers, unaffected by the fix', () => {
   const p = ssPlan({});
   const ss = engine.householdSocialSecurityForPeriod(p, 70, 71, 70, 0);
-  assert.ok(Math.abs(ss - 48000) < 0.01, `expected $36,000 + $12,000 = $48,000 with both alive, got ${ss}`);
+  assert.ok(Math.abs(ss - (48000 + SPOUSAL_EXCESS)) < 0.01, `expected $36,000 + $12,000 + the spouse's $6,000 = $54,000 with both alive, got ${ss}`);
 });
 
 test('AUD-002: both dead -- zero, no crash, no phantom survivor payment', () => {
@@ -84,9 +96,9 @@ test('AUD-002: both dead -- zero, no crash, no phantom survivor payment', () => 
 test('AUD-002: a death exactly mid-row correctly splits pre/post-death household payments, not one flat amount for the whole row', () => {
   const p = ssPlan({ retirement: { selfLife: 80.5 } }); // self dies exactly halfway through the 80-81 row
   const ss = engine.householdSocialSecurityForPeriod(p, 80, 81, 80, 0);
-  // First half: both alive, $48,000/yr rate * 0.5yr = $24,000.
+  // First half: both alive, $54,000/yr rate (with the spouse's 6,000) * 0.5yr = $27,000.
   // Second half: self dead, spouse survivor gets the larger $36,000/yr rate * 0.5yr = $18,000.
-  const expected = 48000 * 0.5 + 36000 * 0.5;
+  const expected = (48000 + SPOUSAL_EXCESS) * 0.5 + 36000 * 0.5;
   assert.ok(Math.abs(ss - expected) < 0.01, `expected $${expected} (split pre/post-death), got ${ss}`);
 });
 
@@ -99,22 +111,28 @@ test('AUD-002: survivor mode OFF -- each spouse is paid independently even after
 test('AUD-002: no spouse at all -- self is paid their own amount alone, no crash from spouse-shaped math', () => {
   const p = ssPlan({ profile: { age: 70, spouseAge: 70, spouseOn: false } });
   const ss = engine.householdSocialSecurityForPeriod(p, 70, 71, 70, 0);
-  assert.ok(Math.abs(ss - 36000) < 0.01, `expected self's own $36,000 with no spouse, got ${ss}`);
+  /* R34: at 70 the self was born 1956, full retirement age 66 and 4 months; a claim at 67 earns 8 months of credit: 3,160 a month. */
+  const expected = SSA.floorDollar(3000 * SSA.claimFactor(67, SSA.fra(70))) * 12;
+  assert.ok(Math.abs(ss - expected) < 0.01, `expected self's own ${expected} (37,920) with no spouse, got ${ss}`);
 });
 
 test('AUD-002: a claim occurring mid-row is also split correctly (not a death, but the same segmentation machinery)', () => {
-  // ssFra matches ssClaim so claiming exactly at this age applies no early/delayed
-  // factor -- isolates the segmentation behavior from the claim-age-factor formula.
-  // ssFra is shared between self and spouse in this simplified model, so spouse's
-  // claim age is set to the SAME 66.5 (also unreduced) but spouse's passed-in
+  // (Before S5AA R34 ssFra matched ssClaim so the claim applied no factor; since R34
+  // the birth year sets full retirement age, and the factor is worked out below.)
+  // The spouse's claim age is the same 66.5, but the spouse's passed-in
   // current age (70, the function's 4th argument below) puts that crossing well
   // in the past -- spouse is already fully in payment for the whole row, and the
   // only crossing inside this row is self's own claim.
   const p = ssPlan({ retirement: { ssClaim: 66.5, ssFra: 66.5, spouseClaim: 66.5 } });
   const ss = engine.householdSocialSecurityForPeriod(p, 66, 67, 70, 0); // self claims halfway through a 66-67 row
-  // First half: self not yet claimed ($0 self) + spouse's $12,000/yr rate * 0.5 = $6,000.
-  // Second half: self claimed, both alive, $48,000/yr rate * 0.5 = $24,000.
-  const expected = 12000 * 0.5 + 48000 * 0.5;
+  /* R34: `ssFra` no longer sets full retirement age; the plan's 60-year-olds were born 1966, so it is 67 for both, and a claim at
+     66.5 is 6 months early: 5/9 of 1% a month, 3.33% off -- 2,900 and 966 a month (rounded to the dollar). The spouse's benefit on
+     the self's record starts when the self files, with the spouse (passed in at 70) past full retirement age: 500 a month.
+     First half: self not yet claimed + the spouse's 966 x 6 = 5,796.
+     Second half: (2,900 + 966 + 500) x 6 = 26,196. The segmentation is what is tested: one flat rate gives neither. */
+  const early = SSA.claimFactor(66.5, 67);
+  const selfM = SSA.floorDollar(3000 * early), spouseM = SSA.floorDollar(1000 * early);
+  const expected = spouseM * 6 + (selfM + spouseM + 500) * 6;
   assert.ok(Math.abs(ss - expected) < 0.01, `expected $${expected}, got ${ss}`);
 });
 

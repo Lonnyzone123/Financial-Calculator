@@ -21,7 +21,11 @@ require(path.join(ROOT, 'tools', 'capture-baseline.js')).installDebtModules();
 const engine = require(path.join(ROOT, 'src', 'engine.js'));
 const defaultPlan = eval('(' + shell.match(/var defaultPlan=(\{.*?\});/)[1] + ')');
 
-const DECEASED_ANNUAL = 36000;      /* $3,000 a month, claimed at their own full retirement age */
+/* RE-FIXTURED BY INTENT at S5AA R34 (the owner 2026-09-29: "Follow law everywhere"). Full retirement age comes from the birth year
+   (SA32F-05): the spouse at 67 was born 1959, full retirement age 66 and 10 months, so a claim at 67 carries two months of delayed
+   credit -- 3,040 a month, not 3,000 -- and that is the benefit the survivor inherits. Benefits round down to the dollar (R32V-03):
+   71.5% of 3,040 is 2,173.60, paid as 2,173. The deceased early-claim cap is applied now (SA32F-01), and the disclosure says so. */
+const DECEASED_ANNUAL = 3040 * 12;  /* 36,480: $3,000 a month claimed at 67, two months past full retirement age */
 const FLOOR = 0.715;                /* SSA: "Payments start at 71.5%" */
 
 /* A household whose spouse claims at 67 and then dies, leaving a survivor with no benefit of their own
@@ -64,7 +68,7 @@ test('Q92 public route: a widow of 60 is paid, where before she was paid nothing
   /* The auditor's case. The survivor's own retirement claim age is 67, and that is what used to gate
      this to zero for seven years. */
   const paid = paidAt(widow(59, 63, 67, 68), 60);
-  assert.equal(paid.toFixed(2), (DECEASED_ANNUAL * FLOOR).toFixed(2));
+  assert.equal(paid.toFixed(2), (Math.floor(3040 * FLOOR) * 12).toFixed(2));
 });
 
 test('Q92 public route: a widow of 50 is still paid nothing', () => {
@@ -96,12 +100,12 @@ test('Q92 public route: a household widowed past full retirement age is paid the
   assert.equal(paidAt(widow(67, 70, 67, 68), 68).toFixed(2), DECEASED_ANNUAL.toFixed(2));
 });
 
-test('Q92 public route: the result says the figure is an approximation, and why', () => {
+test('Q92 public route: the result says what the figure does not model, and that the cap is applied', () => {
   const r = engine.runPlan(widow(59, 65, 67, 68));
   const said = (r.issues || []).find((i) => i.code === 'SURVIVOR_BENEFIT_APPROXIMATED');
   assert.ok(said, 'a household paid a survivor benefit is told what the figure does not include');
   assert.equal(said.state.approximation, true);
-  assert.equal(said.state.capApplied, false);
+  assert.equal(said.state.capApplied, true, 'R34 (SA32F-01): the deceased early-claim cap is applied');
   assert.ok(Array.isArray(said.state.notModelled) && said.state.notModelled.length >= 3,
     'and what is not modelled is a list, not only a sentence');
 });

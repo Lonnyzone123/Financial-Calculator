@@ -54,6 +54,21 @@ global.RULES = JSON.parse(rulesMatch[1]);
 const engine = require('../src/engine.js');
 const { extractDefaultPlan } = require('./lib/golden-scenario-defs');
 const defaultPlan = extractDefaultPlan(shell);
+const SSA = require('./lib/ssa-reference.js');
+
+/* RE-FIXTURED BY INTENT at S5AA R34 (the owner 2026-09-29: "Follow law everywhere"). What moved, and why:
+ *   - SA32F-05: full retirement age comes from the birth year. The self at 68 was born 1958 (66 and 8 months); at 72, 1954 (66).
+ *     A survivor reads the year two later (20 CFR 404.409): born 1958, 66 and 4 months.
+ *   - R32V-03: the PIA is rounded to the dime and each monthly benefit to the dollar (404.212(c), 404.304(f)).
+ *   - SA32F-03: a partner who has filed receives the spouse's benefit, half the other's PIA less their own, once the other has filed
+ *     too (404.330); the R2-004 fixtures' zero-benefit partner therefore draws $500 a month from the later of the two filings.
+ *   - SA32F-02 (with SA32F-01): a survivor's benefit does not require the deceased to have filed. It is the deceased's PIA plus the delayed credits
+ *     they had earned by the death (404.338, 404.313(e)), so R2-003(b)'s "no posthumous claim" premise was the defect, and it is
+ *     inverted below with its probes kept.
+ * Every expectation is worked with tests/lib/ssa-reference.js, never read back from the engine. */
+const SELF68_OWN = SSA.floorDollar(1000 * SSA.claimFactor(67.5, SSA.fra(68))) * 12;   /* 10 months of credit: 1,066 a month, 12,792 */
+const SPOUSAL_EXCESS = 500 * 12;                                                     /* half of a 1,000 PIA, past full retirement age */
+const SELF68_ONE_COLA = SSA.floorDollar(SSA.colaPia(1000, 0.10, 1) * SSA.claimFactor(67.5, SSA.fra(68))) * 12; /* 1,173 a month */
 
 function planFor(overrides) {
   overrides = overrides || {};
@@ -84,20 +99,23 @@ function colaIsolationPlan(spouseClaim) {
 test('R2-004: a spouse claim date OUTSIDE the row and one INSIDE it produce the same self benefit -- $12,480 either way, on the preserved row clock', () => {
   // 69.5 falls outside the 68-69 row, so no split occurs; 68.5 falls
   // inside it and splits the row. Neither can affect the self's benefit.
+  /* The spouse's claim at 68.5 now starts the spouse's benefit on the self's record for the half row left -- 3,000 -- and nothing
+     else: the self's own 12,792 is unmoved, where a COLA tick would have added (1,173 - 1,066) x 12 x 0.5 more. */
   const outside = engine.householdSocialSecurityForPeriod(colaIsolationPlan(69.5), 68, 69, 68, 0);
   const inside = engine.householdSocialSecurityForPeriod(colaIsolationPlan(68.5), 68, 69, 68, 0);
-  assert.equal(outside, 12480, 'the unsplit control must be the audit\'s $12,480, got ' + outside);
-  assert.equal(inside, 12480,
-    'an unrelated spouse event accelerated the self\'s COLA: expected 12480, got ' + inside +
-    ' (a $' + (inside - 12480) + ' unexplained increase)');
+  assert.equal(outside, SELF68_OWN, 'the unsplit control must be the self\'s own 12,792, got ' + outside);
+  assert.ok(Math.abs(inside - (SELF68_OWN + SPOUSAL_EXCESS * 0.5)) < 1e-6,
+    'an unrelated spouse event accelerated the self\'s COLA: expected ' + (SELF68_OWN + SPOUSAL_EXCESS * 0.5) + ', got ' + inside);
 });
 
 test('R2-004: the self\'s benefit is invariant across EVERY placement of the unrelated spouse claim inside the row, not just the audit\'s one example', () => {
   const control = engine.householdSocialSecurityForPeriod(colaIsolationPlan(69.5), 68, 69, 68, 0);
+  assert.equal(control, SELF68_OWN);
   for (const spouseClaim of [68.1, 68.25, 68.5, 68.75, 68.9]) {
     const actual = engine.householdSocialSecurityForPeriod(colaIsolationPlan(spouseClaim), 68, 69, 68, 0);
-    assert.equal(actual, control,
-      'spouse claim at ' + spouseClaim + ' moved the self benefit to ' + actual + ' (control ' + control + ')');
+    const expected = SELF68_OWN + SPOUSAL_EXCESS * (69 - spouseClaim);   // the self's part never moves; the spouse's runs from the claim
+    assert.ok(Math.abs(actual - expected) < 1e-6,
+      'spouse claim at ' + spouseClaim + ' gave ' + actual + ', expected ' + expected + ' -- anything else moved the self\'s benefit');
   }
 });
 
@@ -113,9 +131,9 @@ test('R2-004 (symmetry): the reversed case must hold too -- an unrelated SELF cl
   }
   const outside = engine.householdSocialSecurityForPeriod(reversed(69.5), 68, 69, 68, 0);
   const inside = engine.householdSocialSecurityForPeriod(reversed(68.5), 68, 69, 68, 0);
-  assert.equal(outside, 12480, 'the reversed unsplit control must also be $12,480, got ' + outside);
-  assert.equal(inside, outside,
-    'an unrelated self event accelerated the spouse\'s COLA: ' + inside + ' vs control ' + outside);
+  assert.equal(outside, SELF68_OWN, 'the reversed unsplit control must also be 12,792, got ' + outside);
+  assert.ok(Math.abs(inside - (outside + SPOUSAL_EXCESS * 0.5)) < 1e-6,
+    'an unrelated self event accelerated the spouse\'s COLA: ' + inside + ' vs control ' + outside + ' plus the self\'s half-row spouse\'s benefit');
 });
 
 test('R2-004 (zero-COLA control): with COLA switched off the two variants were already equal -- this proves the defect is specifically the COLA clock', () => {
@@ -126,8 +144,8 @@ test('R2-004 (zero-COLA control): with COLA switched off the two variants were a
   }
   const outside = engine.householdSocialSecurityForPeriod(zeroCola(69.5), 68, 69, 68, 0);
   const inside = engine.householdSocialSecurityForPeriod(zeroCola(68.5), 68, 69, 68, 0);
-  assert.equal(outside, 12480);
-  assert.equal(inside, 12480);
+  assert.equal(outside, SELF68_OWN);
+  assert.ok(Math.abs(inside - (SELF68_OWN + SPOUSAL_EXCESS * 0.5)) < 1e-6);
 });
 
 test('R2-004 (no-spouse control): a single-person household is unaffected in either direction', () => {
@@ -135,7 +153,7 @@ test('R2-004 (no-spouse control): a single-person household is unaffected in eit
     profile: { age: 68, spouseAge: 68, spouseOn: false },
     retirement: { ssClaim: 67.5, ssFra: 67, ssBenefit: 1000, ssCola: 10, survivor: false, selfLife: 95 },
   });
-  assert.equal(engine.householdSocialSecurityForPeriod(p, 68, 69, 68, 0), 12480);
+  assert.equal(engine.householdSocialSecurityForPeriod(p, 68, 69, 68, 0), SELF68_OWN);
 });
 
 test('R2-004: COLA still accrues normally across rows -- isolating it from segmentation must not freeze it', () => {
@@ -143,9 +161,11 @@ test('R2-004: COLA still accrues normally across rows -- isolating it from segme
   // Row 68-69 sits 0 whole years past the 67.5 claim; row 69-70 sits 1.
   const first = engine.householdSocialSecurityForPeriod(p, 68, 69, 68, 0);
   const second = engine.householdSocialSecurityForPeriod(p, 69, 70, 69, 0);
-  assert.equal(first, 12480);
-  assert.ok(Math.abs(second - 12480 * 1.10) < 1e-9,
-    'the second row should carry exactly one 10% COLA step (' + (12480 * 1.10) + '), got ' + second);
+  assert.equal(first, SELF68_OWN);
+  /* The spouse files at 69.5, inside this row: half of the COLA-increased 1,100 PIA, 550 a month, for the half row left. */
+  const expected = SELF68_ONE_COLA + SSA.floorDollar(SSA.colaPia(1000, 0.10, 1) / 2) * 12 * 0.5;
+  assert.ok(Math.abs(second - expected) < 1e-9,
+    'the second row should carry exactly one 10% COLA step (' + expected + ': the PIA to 1,100.00, 1,173 a month, and the spouse\'s 3,300), got ' + second);
 });
 
 // =====================================================================
@@ -159,9 +179,15 @@ test('R2-004: COLA still accrues normally across rows -- isolating it from segme
    widow their survivor at spouseAge - 2 (the self is 72 and died at 70). The factor is
    1 - 0.285 * (months before survivor full retirement age) / 84. Written out, not read back from the
    engine, so each remains an independent assertion. */
-const REDUCED_FROM_66 = 36000 * (1 - 0.285 * 12 / 84);   /* 34534.285714285714 */
-const REDUCED_FROM_65 = 36000 * (1 - 0.285 * 24 / 84);   /* 33068.571428571428 */
-const REDUCED_FROM_64 = 36000 * (1 - 0.285 * 36 / 84);   /* 31602.857142857145 */
+/* R34: the self at 72 was born 1954 (full retirement age 66) and filed at 67 -- 12 months of credit, 3,240 a month; that is the
+   benefit the survivor inherits. A survivor's full retirement age is read two birth years on, so it depends on the survivor's age. */
+const DECEASED_BENEFIT = SSA.floorDollar(3000 * SSA.claimFactor(67, SSA.fra(72)));   /* 3,240 */
+const survivorAnnual = (survivorAgeNow, widowedAt, original) =>
+  SSA.floorDollar((original || DECEASED_BENEFIT) * SSA.survivorFactor(Math.max(60, widowedAt), SSA.survivorFra(survivorAgeNow))) * 12;
+const REDUCED_FROM_66 = survivorAnnual(68, 66);   /* 66 and 4 months: 4 of 76 months early, 3,191 a month -- 38,292 */
+const REDUCED_FROM_65 = survivorAnnual(67, 65);   /* 66 and 6 months: 18 of 78 months early, 3,026 -- 36,312 */
+const REDUCED_FROM_64 = survivorAnnual(66, 64);   /* 66 and 8 months: 32 of 80 months early, 2,870 -- 34,440 */
+const SPOUSE68_OWN = SSA.floorDollar(1000 * SSA.claimFactor(67, SSA.fra(68))) * 12;   /* 4 months of credit: 1,026 a month, 12,312 */
 
 function survivorPlan(spouseAgeNow, overrides) {
   return planFor({
@@ -194,10 +220,14 @@ test('R2-003: a ZERO-own-benefit survivor already past their selected claim age 
     + 'reduced for having been widowed at 66; got ' + paid);
 });
 
-test('R2-003(b): a person who died BEFORE their scheduled claim age acquires no posthumous claim -- the survivor gets their own $12,000, not the deceased\'s never-established $36,000', () => {
+test('R2-003(b) (superseded by S5AA R34, SA32F-02): a person who died BEFORE filing still leaves a survivor benefit -- on their PIA', () => {
+  /* THIS TEST'S PREMISE WAS THE DEFECT. A widow(er)'s benefit is payable on the record of a worker who died fully insured
+     (20 CFR 404.335); it does not ask whether the worker filed. The self died at 65, before full retirement age 66, so there
+     are no delayed credits: the original benefit is the PIA, 3,000. The spouse was widowed at 61, which starts the benefit, 64 of
+     76 months before their survivor full retirement age: 24% off, 2,280 a month, above their own 1,026. */
   const paid = engine.householdSocialSecurityForPeriod(survivorPlan(68, { retirement: { selfLife: 65 } }), 72, 73, 68, 0);
-  assert.equal(paid, 12000,
-    'a claim was manufactured for someone who died at 65 with a claim age of 67: expected the survivor\'s own 12000, got ' + paid);
+  assert.equal(paid, survivorAnnual(68, 61, 3000), 'expected 27,360, got ' + paid);
+  assert.ok(paid > SPOUSE68_OWN, 'and it is more than the survivor\'s own benefit');
 });
 
 test('R2-003 (reversed owners): the same two holes must be closed when it is the SPOUSE who died', () => {
@@ -220,30 +250,33 @@ test('R2-003 (reversed owners): the same two holes must be closed when it is the
     - REDUCED_FROM_66) < 1e-6,
     'the reversed both-claimed survivor must still receive the larger benefit');
   // (b) spouse died at 65 with a claim age of 67 -> no posthumous claim.
-  assert.equal(engine.householdSocialSecurityForPeriod(reversedSurvivor(68, 67, 65), 68, 69, 72, 0), 12000,
-    'the reversed posthumous-claim hole must also be closed');
+  assert.equal(engine.householdSocialSecurityForPeriod(reversedSurvivor(68, 67, 65), 68, 69, 72, 0), survivorAnnual(68, 61, 3000),
+    'the reversed case: a spouse who died before filing leaves the same survivor benefit on their PIA (R34, SA32F-02)');
 });
 
 test('R2-003 (both alive): ordinary both-alive payment is unchanged -- each person is simply paid their own benefit', () => {
   const p = survivorPlan(68, { retirement: { selfLife: 95 } });
   const paid = engine.householdSocialSecurityForPeriod(p, 72, 73, 68, 0);
-  assert.equal(paid, 48000, 'both alive and claimed should pay 36000 + 12000; got ' + paid);
+  /* R34: 38,880 + 12,312, and the spouse's benefit on the self's record -- half of 3,000 less the spouse's own 1,000 PIA, 500 a month,
+     unreduced past full retirement age (SA32F-03). */
+  assert.equal(paid, DECEASED_BENEFIT * 12 + SPOUSE68_OWN + 6000, 'both alive and claimed should pay 38,880 + 12,312 + 6,000; got ' + paid);
 });
 
 test('R2-003 (survivor off): with survivor mode disabled a deceased person simply stops being paid -- no survivor transfer at all', () => {
   const p = survivorPlan(68, { retirement: { survivor: false } });
   const paid = engine.householdSocialSecurityForPeriod(p, 72, 73, 68, 0);
-  assert.equal(paid, 12000, 'only the living spouse\'s own benefit should be paid; got ' + paid);
+  assert.equal(paid, SPOUSE68_OWN, 'only the living spouse\'s own benefit should be paid; got ' + paid);
 });
 
 test('R2-003 (mid-row death segmentation preserved): a death partway through a row still pays the pre-death amounts before it and the survivor amount after', () => {
   // Self dies at 72.5, mid-row. Both are past their claim ages.
   const p = survivorPlan(68, { retirement: { selfLife: 72.5 } });
   const paid = engine.householdSocialSecurityForPeriod(p, 72, 73, 68, 0);
-  // First half: both alive and claimed -> (36000 + 12000) * 0.5 = 24000.
-  // Second half: survivor, both past claim age -> 36000 * 0.5 = 18000.
-  assert.equal(paid, 42000,
-    'the accepted mid-death segmentation fix must be preserved: expected 42000, got ' + paid);
+  // First half: both alive and claimed -> (38,880 + 12,312 + 6,000) * 0.5 = 28,596.
+  // Second half: widowed at 68.5, past their survivor full retirement age 66 and 4 months -> 38,880 * 0.5 = 19,440.
+  const expected = (DECEASED_BENEFIT * 12 + SPOUSE68_OWN + 6000) * 0.5 + survivorAnnual(68, 68.5) * 0.5;
+  assert.equal(paid, expected,
+    'the accepted mid-death segmentation fix must be preserved: expected ' + expected + ', got ' + paid);
 });
 
 test('R2-003 (superseded by S5AA 4.7): the survivor benefit no longer waits for the survivor\'s OWN claim age', () => {
@@ -260,7 +293,8 @@ test('R2-003 (superseded by S5AA 4.7): the survivor benefit no longer waits for 
     'widowed at 65, paid for the whole row at 65\'s reduction; got ' + at);
 
   const justInside = engine.householdSocialSecurityForPeriod(survivorPlan(66.999), 72, 73, 66.999, 0);
-  assert.ok(Math.abs(justInside - 36000 * (1 - 0.285 * (2.001 * 12) / 84)) < 1e-6,
+  /* R34: 66.999 is a 1960 birth, survivor full retirement age 66 and 8 months. */
+  assert.ok(Math.abs(justInside - survivorAnnual(66.999, 64.999)) < 1e-6,
     'widowed at 64.999 -- a thousandth of a year younger, a thousandth more reduced, and STILL the '
     + 'whole row: the own-claim-age sliver that used to cost 0.1% of the year costs nothing now, '
     + 'because it never governed this benefit. got ' + justInside);
@@ -274,8 +308,9 @@ test('R2-003 (superseded by S5AA 4.7): the survivor benefit no longer waits for 
   assert.ok(notYet > 0, 'and above all, not nothing');
 });
 
-test('R2-003 (claim/death coincide): a person whose claim age equals their death age established no claim', () => {
+test('R2-003 (claim/death coincide) (superseded by S5AA R34, SA32F-02): a person who dies at their claim age leaves their benefit with the credits earned', () => {
+  /* The old premise (nothing to pass on) was the defect. Dying at 67 unfiled, the self had earned 12 months of delayed credit past
+     full retirement age 66 (404.313(e)): 3,240, the same as filing. Widowed at 63: 40 of 76 months early, 15% off, 2,754 a month. */
   const paid = engine.householdSocialSecurityForPeriod(survivorPlan(68, { retirement: { selfLife: 67 } }), 72, 73, 68, 0);
-  assert.equal(paid, 12000,
-    'dying at the very moment of claiming establishes no benefit to pass on; got ' + paid);
+  assert.equal(paid, survivorAnnual(68, 63), 'expected 33,048, got ' + paid);
 });

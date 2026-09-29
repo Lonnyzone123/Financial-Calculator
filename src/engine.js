@@ -1963,16 +1963,19 @@ function ssClaimStartAge(claim){return Math.max(62,claim)}
    month to place the cohort boundaries (20 CFR 404.409 runs them from January 2). Said out loud in the
    rule record rather than left for someone to discover. S5AA R9 round, DeepSeek audit finding 4d/02: this
    read "up to two months early for the 1960-61 cohorts", which was wrong in size and in direction. */
-function survivorFullRetirementAge(p){return ssFullRetirementAge(p)}
+/* S5AA R34 (the owner 2026-09-29: "Follow law everywhere"): the survivor table is the retirement table two years behind -- SSA's
+   Normal Retirement Age page: widows and widowers "should add 2 years to the year of birth shown in the table" (20 CFR 404.409).
+   It was approximated by the retirement figure, up to four months late for the 1960-61 cohorts. */
+function survivorFullRetirementAge(p,owner){return ssFraForBirthYear(ssBirthYear(p,owner)-2)}
 function survivorRecord(id){
   return RULES.socialSecurity.survivor.records.filter(function(r){return r.provision_id===id})[0].value;
 }
 /* Q92: the factor for a benefit that STARTS at `startAge`. Linear in months, floored at 71.5% and
    capped at 100%. */
-function survivorReductionFactor(p,startAge){
+function survivorReductionFactor(p,startAge,owner){
   var earliest=survivorRecord("survivor_earliest_claim_age"),
       floorFactor=survivorRecord("survivor_minimum_factor"),
-      full=survivorFullRetirementAge(p),
+      full=survivorFullRetirementAge(p,owner==="spouse"?"spouse":"self"),
       span=Math.max(1e-9,(full-earliest)*12),
       early=Math.max(0,Math.min((full-Number(startAge))*12,span));
   return 1-(1-floorFactor)*(early/span);
@@ -1985,9 +1988,15 @@ function survivorReductionFactor(p,startAge){
 function survivorStartAge(p,ownerAgeAtOtherDeath){
   return Math.max(survivorRecord("survivor_earliest_claim_age"),Number(ownerAgeAtOtherDeath));
 }
-function ssFullRetirementAge(p){
-  return Number(p&&p.retirement&&p.retirement.ssFra)||RULES.socialSecurity.fullRetirementAgeFor1960Plus;
-}
+/* S5AA R34 (SA32F-05, SA32F-25): EACH PERSON'S FULL RETIREMENT AGE COMES FROM THEIR BIRTH YEAR -- SSA, Normal Retirement Age
+   (ssa.gov/oact/progdata/nra.html): 65 for 1937 and before, then two months a year to 65 and 10 months for 1942; 66 for 1943-54;
+   66 and 2 months for 1955, rising two months a year to 66 and 10 months for 1959; 67 for 1960 and later. The engine read one
+   entered figure, retirement.ssFra, for both people, and nothing checked it (60 or 75 was paid from); that field now decides
+   nothing. The birth year is the plan's whole-age reading, 2026 - floor(age at the plan's start), as rmdStartAge() reads it
+   (MODEL_ASSUMPTIONS section 12): the birth month is not an input. A caller that names no owner means the self. */
+function ssBirthYear(p,owner){var pr=p&&p.profile||{},a=owner==="spouse"?Number(pr.spouseAge):Number(pr.age);return 2026-Math.floor(Number.isFinite(a)?a:0)}
+function ssFraForBirthYear(y){if(y<=1937)return 65;if(y<=1942)return 65+(y-1937)*2/12;if(y<=1954)return 66;if(y<=1959)return 66+(y-1954)*2/12;return RULES.socialSecurity.fullRetirementAgeFor1960Plus}
+function ssFullRetirementAge(p,owner){return ssFraForBirthYear(ssBirthYear(p,owner==="spouse"?"spouse":"self"))}
 /* Q91 (F5): THE RETIREMENT EARNINGS TEST. All four figures have been in the rules package since it
    was written -- $24,480, $65,160, and the 2-for-1 and 3-for-1 ratios -- and NOTHING READ THEM. A
    household claiming at 62 while earning $100,000 was paid its benefit in full.
@@ -2005,8 +2014,8 @@ function ssFullRetirementAge(p){
    half-year's earnings against a whole year's exemption would withhold far too little. In the row
    that crosses full retirement age, only the part of the row BEFORE that age is tested, which is
    what "months prior to such attainment" means expressed in this engine's clock. */
-function ssEarningsTestBand(p,ownerAgeStart,ownerAgeEnd){
-  var fra=ssFullRetirementAge(p),et=RULES.socialSecurity.earningsTest;
+function ssEarningsTestBand(p,ownerAgeStart,ownerAgeEnd,owner){
+  var fra=ssFullRetirementAge(p,owner),et=RULES.socialSecurity.earningsTest;
   if(!(ownerAgeStart<fra-1e-9))return null;
   var span=Math.max(1e-9,ownerAgeEnd-ownerAgeStart);
   if(ownerAgeEnd>fra-1e-9)
@@ -2020,15 +2029,17 @@ function ssEarningsTestBand(p,ownerAgeStart,ownerAgeEnd){
    MONTHS, not dollars: a month in which a tenth of the benefit was withheld is a whole crediting
    month, exactly like one in which all of it was. Crediting the dollar-equivalent number of whole
    months is the obvious implementation and it understates the lifetime benefit. Hence Math.ceil. */
-function ssEarningsTestWithholding(p,ownerAgeStart,ownerAgeEnd,earnings,annualBenefit,monthsEntitled){
-  var band=ssEarningsTestBand(p,ownerAgeStart,ownerAgeEnd),
+/* S5AA R34 (SA32F-07): `cap`, when given, is the most that may be withheld -- in the grace year, the benefits for SERVICE months (20 CFR 404.435:
+   no reduction "for any month in which ... you had a non-service month in your grace year"). */
+function ssEarningsTestWithholding(p,ownerAgeStart,ownerAgeEnd,earnings,annualBenefit,monthsEntitled,owner,cap){
+  var band=ssEarningsTestBand(p,ownerAgeStart,ownerAgeEnd,owner),
       duration=Math.max(0,ownerAgeEnd-ownerAgeStart),
       payable=Math.max(0,annualBenefit);
   if(!band||payable<=0||monthsEntitled<=0)return {withheld:0,creditMonths:0};
   var tested=Math.max(0,Number(earnings)||0)*band.testedFraction,
       exempt=band.exempt*duration*band.testedFraction,
       excess=Math.max(0,tested-exempt),
-      withheld=Math.min(payable,excess/band.ratio),
+      withheld=Math.min(payable,excess/band.ratio,Number.isFinite(Number(cap))?Math.max(0,Number(cap)):Infinity),
       monthly=payable/monthsEntitled;
   if(withheld<=1e-9)return {withheld:0,creditMonths:0};
   return {withheld:withheld,creditMonths:Math.min(monthsEntitled,Math.ceil(withheld/monthly-1e-9))};
@@ -2041,7 +2052,37 @@ function ssEarningsTestWithholding(p,ownerAgeStart,ownerAgeEnd,earnings,annualBe
    it is permanently raised from then on. `ownerAgeNow` is what makes it effective AT full retirement
    age and not before: withheld months buy nothing until then. Both arguments are optional, and
    omitting them is the unadjusted benefit every existing caller already means. */
-function ssaBenefitAtClaim(p,owner,creditedMonths,ownerAgeNow){var r=p.retirement,base=owner==="spouse"?r.spouseSS:r.ssBenefit,claim=ssCreditedClaimAge(owner==="spouse"?r.spouseClaim:r.ssClaim),fra=ssFullRetirementAge(p);if(owner!=="spouse"&&r.ssAdvanced&&r.aime>0){var a=r.aime,b1=RULES.socialSecurity.pia.bend1,b2=RULES.socialSecurity.pia.bend2;base=.9*Math.min(a,b1)+.32*Math.max(0,Math.min(a,b2)-b1)+.15*Math.max(0,a-b2)}var months=Math.round(Math.abs(claim-fra)*12),factor=1;if(claim<fra){/* Q91: the credited months come off here, and only once the owner has reached full retirement age. */if(ownerAgeNow!==undefined&&ownerAgeNow>=fra-1e-9)months=Math.max(0,months-(Number(creditedMonths)||0));var first=Math.min(36,months),later=Math.max(0,months-36);factor=1-first*RULES.socialSecurity.earlyReduction.first36MonthlyPercent-later*RULES.socialSecurity.earlyReduction.laterMonthlyPercent}else factor=1+(claim-fra)*RULES.socialSecurity.delayedCreditAnnual;return Math.max(0,base*factor*12)}
+/* S5AA R34 (R32V-03; 20 CFR 404.212(c), 404.275(c), 404.304(f)): SSA's ROUNDING -- a PIA, and each COLA-increased PIA, to the next lower
+   $0.10; the monthly benefit, after every reduction, to the next lower $1. The engine carried unrounded figures throughout. */
+function ssFloorDime(x){return Math.floor(x*10+1e-6)/10}
+function ssFloorDollar(x){return Math.floor(x+1e-6)}
+/* The monthly PIA before any COLA: the entered full-retirement-age benefit, or the bend-point formula on the entered AIME. */
+function ssPiaBase(p,owner){var r=p.retirement,base=owner==="spouse"?r.spouseSS:r.ssBenefit;if(owner!=="spouse"&&r.ssAdvanced&&r.aime>0){var a=r.aime,b1=RULES.socialSecurity.pia.bend1,b2=RULES.socialSecurity.pia.bend2;base=.9*Math.min(a,b1)+.32*Math.max(0,Math.min(a,b2)-b1)+.15*Math.max(0,a-b2)}return ssFloorDime(Math.max(0,Number(base)||0))}
+/* The early-claim reduction or delayed credit on the owner's own benefit, at the owner's own full retirement age (unchanged arithmetic). */
+function ssClaimFactor(p,owner,creditedMonths,ownerAgeNow){var r=p.retirement,claim=ssCreditedClaimAge(owner==="spouse"?r.spouseClaim:r.ssClaim),fra=ssFullRetirementAge(p,owner);var months=Math.round(Math.abs(claim-fra)*12),factor=1;if(claim<fra){/* Q91: the credited months come off here, and only once the owner has reached full retirement age. */if(ownerAgeNow!==undefined&&ownerAgeNow>=fra-1e-9)months=Math.max(0,months-(Number(creditedMonths)||0));var first=Math.min(36,months),later=Math.max(0,months-36);/* S5AA R34: the EXACT fractions of 20 CFR 404.410 -- 5/9 of 1% a month for 36 months, 5/12 of 1% beyond -- and 404.313's 2/3 of 1% a month of
+     delayed credit, counted in whole months. The rules package stores the first two as rounded decimals (0.0055555556), which put a benefit that is
+     exactly a whole dollar a hair below it, and SSA's round-down (404.304(f)) then lost the dollar. */factor=1-first*5/900-later*5/1200}else factor=1+Math.min(months,Math.round((RULES.socialSecurity.latestClaimAge-fra)*12))*2/300;return factor}
+/* S5AA R34 (SA32F-04; the owner's decision 3, 2026-09-29: "Today's dollars"): THE PIA AT AN AGE. The entered benefit is in TODAY'S dollars,
+   so it takes the COLA from the plan's start to the claim and every COLA after it; the earnings-based PIA takes its COLAs from eligibility at
+   62 (20 CFR 404.271: "beginning with December of the year they become eligible"). A benefit claimed before the plan opens is indexed from
+   its claim (MODEL_ASSUMPTIONS section 4). Each COLA step is rounded to the dime (404.275(c)). The engine applied no COLA before the claim. */
+function ssPiaAt(p,owner,ownerAge,startHistory){var r=p.retirement,pr=p.profile,start=Number(owner==="spouse"?pr.spouseAge:pr.age),claim=ssClaimStartAge(owner==="spouse"?r.spouseClaim:r.ssClaim),aime=owner!=="spouse"&&r.ssAdvanced&&r.aime>0,anchor=aime?62:(claim<start?claim:start),pia=ssPiaBase(p,owner),h=startHistory||0,rates=ownerAge>claim?ssColaRates(p,anchor,claim,h,start).concat(ssColaRates(p,claim,ownerAge,h,start)):ssColaRates(p,anchor,ownerAge,h,start);for(var i=0;i<rates.length;i++)pia=ssFloorDime(pia*(1+rates[i]));return pia}
+/* The annual own benefit AT THE CLAIM, before any COLA, SSA-rounded. Kept for its callers. */
+function ssaBenefitAtClaim(p,owner,creditedMonths,ownerAgeNow){return Math.max(0,ssFloorDollar(ssPiaBase(p,owner)*ssClaimFactor(p,owner,creditedMonths,ownerAgeNow))*12)}
+/* S5AA R34 (SA32F-03; decision 2, "Build it"): THE SPOUSE'S BENEFIT. Up to half the worker's PIA, less the recipient's own PIA -- the
+   "excess" a dually entitled spouse is paid on top of their own benefit (20 CFR 404.333) -- reduced by 25/36 of 1% a month for the first 36
+   months before the recipient's full retirement age and 5/12 of 1% beyond (20 CFR 404.410; SSA's table: 35% at 62 when FRA is 67), with no
+   delayed credits. Deemed filing (born January 2, 1954 or later) makes a claim for one a claim for both, so the excess starts at the later
+   of the recipient's own claim and the worker's. The family maximum (at least 150% of the worker's PIA) cannot bind a worker and a spouse.
+   This returns the reduction factor for an excess that starts at `startAge` on the recipient's clock. */
+function ssSpousalFactor(p,owner,startAge){var fra=ssFullRetirementAge(p,owner),months=Math.max(0,Math.round((fra-Number(startAge))*12));if(!(months>0))return 1;return Math.max(0,1-Math.min(36,months)*(25/36)/100-Math.max(0,months-36)*(5/12)/100)}
+/* S5AA R34 (SA32F-01, SA32F-02; decision 1, "Pay by law"): THE SURVIVOR BENEFIT. It rests on the deceased's PIA -- the "original benefit" is
+   100% of the death PIA, or more with the delayed credits the deceased earned (POMS RS 00615.301; 20 CFR 404.338) -- whether or not the
+   deceased had filed (404.335 needs only that they "died fully insured"; a worker who never claimed earns delayed credits up to the death,
+   capped at 70). It is reduced for the survivor's age when it starts (survivorReductionFactor), and if the deceased received a REDUCED
+   benefit it is limited to the larger of that benefit and 82.5% of the PIA, applied after the age reduction (POMS RS 00615.320, RIB-LIM).
+   The engine multiplied the deceased's already-reduced benefit by the survivor factor, and paid nothing on a worker who died before claiming. */
+function ssSurvivorMonthly(p,deceased,piaNow,claimedBeforeDeath,survivorFactor){var r=p.retirement,fra=ssFullRetirementAge(p,deceased),death=Number(deceased==="spouse"?r.spouseLife:r.selfLife),own=claimedBeforeDeath?ssClaimFactor(p,deceased):1,ob=claimedBeforeDeath?Math.max(1,own):(death>fra?1+Math.round((Math.min(death,RULES.socialSecurity.latestClaimAge)-fra)*12)*2/300:1),amount=piaNow*ob*survivorFactor;if(claimedBeforeDeath&&own<1)amount=Math.min(amount,Math.max(piaNow*own,.825*piaNow));return ssFloorDollar(Math.max(0,amount))}
 /* S5AA R33 (SA32F-23): CMS's 2026 table puts "Greater than or equal to $500,000" ($750,000 joint) in the top tier; every lower tier
    starts "greater than" its threshold. */
 function irmaaMonthly(magi,filing){var m=RULES.medicare.irmaa,thresholds=filing==="mfj"?m.jointThresholds:m.singleThresholds,index=0;while(index<thresholds.length&&(index===thresholds.length-1?magi>=thresholds[index]:magi>thresholds[index]))index++;return m.partBMonthly[index]+m.partDMonthlySurcharge[index]}
@@ -2854,7 +2895,9 @@ function historyIndex(p,offset){var i=HIST_RETURNS.findIndex(function(x){return 
    Post-start years are untouched: when the claim falls at or after the
    projection opens, preStart is 0 and the index arithmetic is exactly what it
    was. */
-function growthFromCola(p,startAge,currentAge,startHistoryIndex,ownerStartAge){var origin=Number.isFinite(Number(ownerStartAge))?Number(ownerStartAge):p.profile.age,years=Math.max(0,Math.floor(currentAge-startAge)),factor=1,offsetRaw=Math.floor(startAge-origin),preStart=Math.max(0,-offsetRaw);for(var i=0;i<years;i++){var rate=Number(p.retirement.ssCola)/100;if(!Number.isFinite(rate))rate=RULES.socialSecurity.cola;if(p.assumptions.method==="historical"&&i>=preStart){var idx=(startHistoryIndex+Math.max(0,offsetRaw)+(i-preStart))%HIST_RETURNS.length,year=HIST_RETURNS[idx][0];if(HIST_COLA[year]!==undefined)rate=HIST_COLA[year]}factor*=1+rate}return factor}
+/* S5AA R34: the SAME annual sequence as ssColaRates(), multiplied out -- kept for every caller that wants the factor. */
+function growthFromCola(p,startAge,currentAge,startHistoryIndex,ownerStartAge){var r=ssColaRates(p,startAge,currentAge,startHistoryIndex,ownerStartAge),factor=1;for(var i=0;i<r.length;i++)factor*=1+r[i];return factor}
+function ssColaRates(p,startAge,currentAge,startHistoryIndex,ownerStartAge){var origin=Number.isFinite(Number(ownerStartAge))?Number(ownerStartAge):p.profile.age,years=Math.max(0,Math.floor(currentAge-startAge)),rates=[],offsetRaw=Math.floor(startAge-origin),preStart=Math.max(0,-offsetRaw);for(var i=0;i<years;i++){var rate=Number(p.retirement.ssCola)/100;if(!Number.isFinite(rate))rate=RULES.socialSecurity.cola;if(p.assumptions.method==="historical"&&i>=preStart){var idx=(startHistoryIndex+Math.max(0,offsetRaw)+(i-preStart))%HIST_RETURNS.length,year=HIST_RETURNS[idx][0];if(HIST_COLA[year]!==undefined)rate=HIST_COLA[year]}rates.push(rate)}return rates}
 /* Audit finding AUD-002 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md,
  * task T04): the previous inline computation conflated "this person's
  * benefit ENTITLEMENT amount" with "does this person's own benefit
@@ -2905,7 +2948,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       spouseSurvivorStartAtSelfAge=survivorOn
         ?age+(survivorStartAge(p,spouseAge+(selfDeath-age))-spouseAge)
         :Infinity;
-  [selfClaim,selfDeath].concat(spouseOn?[spouseClaimAtSelfAge,spouseDeathAtSelfAge]:[])
+  /* S5AA R34 (SA32F-07): each owner's retirement is a boundary too, so the grace year can tell service months from non-service ones. */
+  var selfRetireAge=Number(p.profile.retireAge),spouseRetireAtSelfAge=age+(Number(p.profile.retireAge)-spouseAge);
+  [selfClaim,selfDeath,selfRetireAge].concat(spouseOn?[spouseClaimAtSelfAge,spouseDeathAtSelfAge,spouseRetireAtSelfAge]:[])
     .concat(survivorOn?[selfSurvivorStart,spouseSurvivorStartAtSelfAge]:[]).forEach(function(x){
     if(isFinite(x)&&x>age+1e-9&&x<rowAge-1e-9)points.push(x)
   });
@@ -2934,8 +2979,17 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
          age, because the adjustment of the reduction factor is effective at their own full retirement
          age and not the household's. Omitted, both are undefined and the amount is the unadjusted one
          every existing caller already means. */
-      var selfRowAmount=ssaBenefitAtClaim(p,"self",credited&&credited.self,age)*growthFromCola(p,selfClaim,Math.max(age,selfClaim),startHistory,p.profile.age),
-      spouseRowAmount=spouseOn?ssaBenefitAtClaim(p,"spouse",credited&&credited.spouse,spouseAge)*growthFromCola(p,ssClaimStartAge(p.retirement.spouseClaim),Math.max(spouseAge,ssClaimStartAge(p.retirement.spouseClaim)),startHistory,p.profile.spouseAge):0,
+      /* S5AA R34: each person's MONTHLY figures for the row, SSA-rounded -- own, own plus the spouse's excess, and the survivor amount on the
+         other's record -- from ssPiaAt() (today's dollars, COLAs to the claim and after, dime-rounded), ssClaimFactor(), ssSpousalFactor() and
+         ssSurvivorMonthly(). Row-constant, as the amounts always were (R2-004): a segment decides who is paid and for how long, not how much. */
+      var selfPia=ssPiaAt(p,"self",age,startHistory),spousePia=spouseOn?ssPiaAt(p,"spouse",spouseAge,startHistory):0,
+      selfOwnM=ssFloorDollar(selfPia*ssClaimFactor(p,"self",credited&&credited.self,age)),
+      spouseOwnM=spouseOn?ssFloorDollar(spousePia*ssClaimFactor(p,"spouse",credited&&credited.spouse,spouseAge)):0,
+      selfSpousalStart=spouseOn?Math.max(selfClaim,spouseClaimAtSelfAge):Infinity,
+      selfPlusSpousalM=spouseOn?ssFloorDollar(selfPia*ssClaimFactor(p,"self",credited&&credited.self,age)+Math.max(0,.5*spousePia-selfPia)*ssSpousalFactor(p,"self",selfSpousalStart)):selfOwnM,
+      spousePlusSpousalM=spouseOn?ssFloorDollar(spousePia*ssClaimFactor(p,"spouse",credited&&credited.spouse,spouseAge)+Math.max(0,.5*selfPia-spousePia)*ssSpousalFactor(p,"spouse",spouseAge+(selfSpousalStart-age))):0,
+      selfSurvivorM=survivorOn?ssSurvivorMonthly(p,"spouse",spousePia,spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,survivorReductionFactor(p,selfSurvivorStart,"self")):0,
+      spouseSurvivorM=survivorOn?ssSurvivorMonthly(p,"self",selfPia,selfClaim<selfDeath-1e-9,survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age)),"spouse")):0,
       /* R2-003(b) fix (R2-T03): a benefit amount exists only if the person
          actually reached their claim age while still alive. Entitlement was
          being tested by comparing an ADVANCING segment age against a claim
@@ -2945,21 +2999,21 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
          person who is alive at a segment they have already claimed in, this
          is necessarily true and nothing changes; it only bites for the
          dead. Claim age exactly equal to death age establishes nothing. */
-      selfClaimEstablished=selfClaim<selfDeath-1e-9,
-      spouseClaimEstablished=spouseOn&&spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,
+      /* S5AA R34 (decision 1): the R2-003(b) "claim established" gate is gone. A survivor's benefit rests on the deceased's PIA, which does not
+         need a claim (20 CFR 404.335); an own benefit still needs its owner alive and claimed, which the segment loop tests. */
       /* Q91: the gross paid to each person and the months each was entitled in, accumulated beside the
          household total so the earnings test can be applied PER PERSON to THEIR OWN earnings. */
-      selfGross=0,spouseGross=0,selfMonths=0,spouseMonths=0,
+      selfGross=0,spouseGross=0,selfMonths=0,spouseMonths=0,selfServiceGross=0,spouseServiceGross=0,
       total=0;
   for(var i=0;i<points.length-1;i++){
     var segStart=points[i],segDuration=points[i+1]-segStart;
     if(segDuration<=1e-9)continue;
     var selfAliveHere=segStart<selfDeath-1e-9,
         selfClaimedHere=segStart>=selfClaim-1e-9,
-        selfAmount=selfClaimedHere&&selfClaimEstablished?selfRowAmount:0,
+        selfAmount=selfClaimedHere?12*(spouseOn&&segStart<spouseDeathAtSelfAge-1e-9&&segStart>=selfSpousalStart-1e-9?selfPlusSpousalM:selfOwnM):0,
         spouseAliveHere=spouseOn&&segStart<spouseDeathAtSelfAge-1e-9,
         spouseClaimedHere=spouseOn&&segStart>=spouseClaimAtSelfAge-1e-9,
-        spouseAmount=spouseClaimedHere&&spouseClaimEstablished?spouseRowAmount:0,
+        spouseAmount=spouseClaimedHere?12*(segStart<selfDeath-1e-9&&segStart>=selfSpousalStart-1e-9?spousePlusSpousalM:spouseOwnM):0,
         selfPay=0,spousePay=0;
     if(survivorOn&&selfAliveHere!==spouseAliveHere){
       /* R2-003(a) fix (R2-T03): restore the RECIPIENT's own claim gate.
@@ -2983,14 +3037,12 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
          prior repair settled -- a survivor with no benefit of their own still receives the larger --
          while no longer paying a 60-year-old nothing because their own claim age is 67. */
       if(selfAliveHere){
-        var selfOwn=selfClaimedHere?selfAmount:0,
-            selfFromDeceased=segStart>=selfSurvivorStart-1e-9
-              ?spouseAmount*survivorReductionFactor(p,selfSurvivorStart):0;
+        var selfOwn=selfClaimedHere?12*selfOwnM:0,
+            selfFromDeceased=segStart>=selfSurvivorStart-1e-9?12*selfSurvivorM:0;
         selfPay=Math.max(selfOwn,selfFromDeceased);
       }else{
-        var spouseOwn=spouseClaimedHere?spouseAmount:0,
-            spouseFromDeceased=segStart>=spouseSurvivorStartAtSelfAge-1e-9
-              ?selfAmount*survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age))):0;
+        var spouseOwn=spouseClaimedHere?12*spouseOwnM:0,
+            spouseFromDeceased=segStart>=spouseSurvivorStartAtSelfAge-1e-9?12*spouseSurvivorM:0;
         spousePay=Math.max(spouseOwn,spouseFromDeceased);
       }
     }else{
@@ -2999,6 +3051,8 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
     }
     total+=(selfPay+spousePay)*segDuration;
     selfGross+=selfPay*segDuration;spouseGross+=spousePay*segDuration;
+    if(segStart<selfRetireAge-1e-9)selfServiceGross+=selfPay*segDuration;
+    if(segStart<spouseRetireAtSelfAge-1e-9)spouseServiceGross+=spousePay*segDuration;
     if(selfPay>0)selfMonths+=segDuration*12;
     if(spousePay>0)spouseMonths+=segDuration*12;
   }
@@ -3009,9 +3063,13 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
      identical. Task 4.1 recorded what happens otherwise: re-deriving a total from new parts
      reassociates the floating-point arithmetic and moves values in their last bits for no
      behavioural reason. */
-  var selfTest=ssEarningsTestWithholding(p,age,rowAge,earnings&&earnings.self,selfGross,selfMonths),
+  /* S5AA R34 (SA32F-07): the GRACE YEAR is the row an owner stops working in (with no employment-stream or self-employment income going on):
+     benefits for the months after the stop are not withheld, whatever the year's earnings. */
+  var selfGrace=selfRetireAge>age+1e-9&&selfRetireAge<=rowAge+1e-9&&!(earnings&&earnings.streamSelf>0),
+      spouseGrace=spouseOn&&spouseRetireAtSelfAge>age+1e-9&&spouseRetireAtSelfAge<=rowAge+1e-9&&!(earnings&&earnings.streamSpouse>0);
+  var selfTest=ssEarningsTestWithholding(p,age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined),
       spouseTest=spouseOn
-        ?ssEarningsTestWithholding(p,spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths)
+        ?ssEarningsTestWithholding(p,spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined)
         :{withheld:0,creditMonths:0};
   if(selfTest.withheld>0||spouseTest.withheld>0)total-=selfTest.withheld+spouseTest.withheld;
   return {total:total,withheld:selfTest.withheld+spouseTest.withheld,
@@ -3210,7 +3268,8 @@ function otherIncomeFor(p,periodStart,periodEnd,inflationFactor,startHistoryInde
    person they are entered under. A lifespan that is not a finite number ends nothing.
    DeepSeek audit, finding 2d/02: a stream with NO end age, or a non-numeric one, has Number(i.end) NaN, and
    Math.min(NaN, lifespan) is NaN -- the death bound switched itself off. The lifespan alone bounds it. */
-var streamEnd=Number(i.end);if(i.type==="employment"||i.type==="selfEmployment"){var ownerLife=Number(spouse?p.retirement.spouseLife:p.retirement.selfLife);if(Number.isFinite(ownerLife))streamEnd=Number.isFinite(streamEnd)?Math.min(streamEnd,ownerLife):ownerLife}
+/* S5AA R34 (SA32F-18): a `socialSecurity` stream is its owner's benefit and ends at their death too (42 USC 402(a): "ending with the month
+   preceding the month in which he dies"); it paid on. A pension stream's survivor share is a separate decision (R35). */var streamEnd=Number(i.end);if(i.type==="employment"||i.type==="selfEmployment"||i.type==="socialSecurity"){var ownerLife=Number(spouse?p.retirement.spouseLife:p.retirement.selfLife);if(Number.isFinite(ownerLife))streamEnd=Number.isFinite(streamEnd)?Math.min(streamEnd,ownerLife):ownerLife}
 if(ownerEnd<=i.start||ownerAge>streamEnd)return;var activeAge=Math.max(ownerAge,i.start),activeEnd=ownerEnd>streamEnd?streamEnd:ownerEnd,activeDuration=Math.max(0,activeEnd-activeAge),years=Math.max(0,activeAge-i.start),factor=1;if(i.growthMode==="inflation")factor=inflationFactor;else if(i.growthMode==="cola")factor=growthFromCola(p,i.start,activeAge,startHistoryIndex,spouse?p.profile.spouseAge:p.profile.age);/* FM-01: the stream's start age is on its OWNER's scale, so the calendar origin must be too */else factor=Math.pow(1+(Number(i.growth)||0)/100,years);var amount=(Number(i.amount)||0)*factor*activeDuration;cash+=amount;if(i.type==="socialSecurity")ss+=amount;else if(i.type!=="taxFree")ordinary+=amount;if(i.type==="rental"||i.type==="investment")nii+=amount;if(i.type==="selfEmployment"){if(spouse)seSpouse+=amount;else seSelf+=amount}/* Q98 (G4): an `employment` stream IS wages -- it bears Social Security and Medicare payroll tax like
      any other wages. It is kept PER OWNER because the OASDI wage base is a per-person cap: crediting a
      spouse's job to the self pushes both onto one cap and UNDERCHARGES a two-earner household, which is
@@ -3618,8 +3677,11 @@ var earlyRates=null;if(p.advanced.transferOn&&p.advanced.transferAge>age+1e-9&&p
            made owner-aware are part of them. Reading the benefit before those streams exist would have
            tested half the earnings and withheld too little. */
         var ssDetail=householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,
-              {self:salary*selfWorkDuration+(other.wageSelf||0)+(other.seSelf||0),
-               spouse:spouseSalary*spouseWorkDuration+(other.wageSpouse||0)+(other.seSpouse||0)},
+              /* S5AA R34 (SA32F-06): self-employment counts as NET EARNINGS from self-employment (20 CFR 404.429; SS Act 211(a)(12): profit
+                 less the 7.65% deduction, profit x 0.9235); gross profit was tested. The stream parts are passed too, for the grace year. */
+              {self:salary*selfWorkDuration+(other.wageSelf||0)+(other.seSelf||0)*0.9235,
+               spouse:spouseSalary*spouseWorkDuration+(other.wageSpouse||0)+(other.seSpouse||0)*0.9235,
+               streamSelf:(other.wageSelf||0)+(other.seSelf||0),streamSpouse:(other.wageSpouse||0)+(other.seSpouse||0)},
               ssCreditedMonths),
             ss=ssDetail.total;
         var dividendCash=0,dividendReinvested=0,dividendDuration=Math.max(0,rowAge-Math.max(age,p.profile.retireAge,p.retirement.dividendStart));/* S5AA R9 ROUND, the owner's decision Q4, the dividends-ON half (known item 5.2): THE ENTERED YIELD IS TAXED IN EVERY
@@ -4430,7 +4492,10 @@ function runPlan(p,givenGate,gateToken){
    PIA or the reduced retirement benefit the deceased would have had, and it needs a PIA this engine
    does not have for a household that entered a monthly figure. Where it would bite, the figure here
    is an OVER-estimate. `approximation: true` is the flag; `capApplied: false` is the boundary; the
-   prose names remarriage, disability and children because none of them is modelled either. *//* Q88 (F-02): A FILING-STATUS TRANSITION IS A MODELLING CHOICE, so the household is told what was
+   prose names remarriage, disability and children because none of them is modelled either.
+   S5AA R34 (SA32F-01, SA32F-02, SA32F-05): the engine now holds the deceased's PIA and applies that cap (ssSurvivorMonthly), and survivor
+   full retirement age is read from its own table, so `capApplied` is true and neither is named as missing; what remains
+   unmodelled -- remarriage, disability, children -- is still said, and `approximation` stays true for it. *//* Q88 (F-02): A FILING-STATUS TRANSITION IS A MODELLING CHOICE, so the household is told what was
    chosen AND what was left out -- and the part left out runs the OTHER way, which is the reason to
    say it rather than let a reader assume the model is conservative in one direction.
    Modelled: the row containing a death still files jointly (IRC 6013(a)(3)); every later row files
@@ -4468,7 +4533,7 @@ if(issues&&filingDeathAges.length){recordIssue(issues,"SURVIVOR_FILING_STATUS_MO
 "and remarriage are not modelled either. The Roth IRA income limit follows the same transition. The HSA "+
 "family contribution limit is a question of health coverage, not of filing status; the plan has no coverage "+
 "input, so it keeps the limit the entered status implies, which may overstate a survivor's room.",{path:"profile.filing",approximation:true,entered:p.profile.filing,taxedAsAfterDeath:"single",deaths:filingDeathAges,notModelled:["qualifying surviving spouse","head of household","remarriage","the HSA family limit after the death"]/* FOURTH AUDIT (A4-4): "contribution room" became false for the Roth limit at EA-03 */});}
-if(p.retirement&&p.retirement.survivor&&p.profile&&p.profile.spouseOn){recordIssue(issues,"SURVIVOR_BENEFIT_APPROXIMATED","WARNING","A survivor benefit is paid from age "+survivorRecord("survivor_earliest_claim_age")+", reduced for age: "+Math.round(survivorRecord("survivor_minimum_factor")*1000)/10+"% at that age, rising to 100% at the survivor's full retirement age, and fixed at the age the benefit starts. THIS FIGURE IS AN APPROXIMATION. Where the person who died had claimed their own benefit early, Social Security caps the survivor benefit at the larger of 82.5% of their full benefit amount and what they were themselves receiving; that cap needs a figure this plan does not hold, so it is NOT applied here and an affected result is too high. Survivor full retirement age is its own table between 66 and 67 and is approximated by the retirement figure. Remarriage, disability and benefits for children are not modelled.",{path:"retirement.survivor",approximation:true,capApplied:false,earliestAge:survivorRecord("survivor_earliest_claim_age"),minimumFactor:survivorRecord("survivor_minimum_factor"),deceasedEarlyClaimCap:survivorRecord("survivor_deceased_early_claim_cap"),notModelled:["remarriage","disability","children","the deceased early-claim cap"]});}/* Q94 (F8): AN ADJUSTABLE LOAN RE-AMORTISES, AND THE HOUSEHOLD IS TOLD SO. Until S5AA task 5.1 this
+if(p.retirement&&p.retirement.survivor&&p.profile&&p.profile.spouseOn){recordIssue(issues,"SURVIVOR_BENEFIT_APPROXIMATED","WARNING","A survivor benefit is paid from age "+survivorRecord("survivor_earliest_claim_age")+", reduced for age: "+Math.round(survivorRecord("survivor_minimum_factor")*1000)/10+"% at that age, rising to 100% at the survivor's full retirement age (its own table, by birth year), and fixed at the age the benefit starts. It is the deceased's benefit with any delayed credits they had earned by the death; where they had claimed their own benefit early, it is capped at the larger of 82.5% of their full benefit amount and what they were themselves receiving. Remarriage, disability and benefits for children are not modelled.",{path:"retirement.survivor",approximation:true,capApplied:true,earliestAge:survivorRecord("survivor_earliest_claim_age"),minimumFactor:survivorRecord("survivor_minimum_factor"),deceasedEarlyClaimCap:survivorRecord("survivor_deceased_early_claim_cap"),notModelled:["remarriage","disability","children"]});}/* Q94 (F8): AN ADJUSTABLE LOAN RE-AMORTISES, AND THE HOUSEHOLD IS TOLD SO. Until S5AA task 5.1 this
    depended on a switch that occurred ONCE in the whole shipped page -- inside the default plan, with no
    control to set it -- so every modelled ARM kept its entered payment across its reset. The switch is
    retired and the behaviour is unconditional, which means a plan saved before this change projects a
@@ -4905,6 +4970,14 @@ if (typeof module !== 'undefined' && module.exports) {
     verifyCommittedCashSettlement,
     quoteTaxFunding,
     ssaBenefitAtClaim,
+    ssColaRates,
+    ssFloorDime,
+    ssFloorDollar,
+    ssPiaBase,
+    ssClaimFactor,
+    ssPiaAt,
+    ssSpousalFactor,
+    ssSurvivorMonthly,
     irmaaMonthly,
     rng,
     normal,
@@ -4931,6 +5004,8 @@ if (typeof module !== 'undefined' && module.exports) {
     survivorReductionFactor,
     survivorStartAge,
     ssFullRetirementAge,
+    ssBirthYear,
+    ssFraForBirthYear,
     ssEarningsTestBand,
     ssEarningsTestWithholding,
     applyStage,

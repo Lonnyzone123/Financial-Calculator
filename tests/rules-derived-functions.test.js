@@ -22,6 +22,7 @@ const rulesMatch = shell.match(/<script type="application\/json" id="v2b-rules-2
 global.RULES = JSON.parse(rulesMatch[1]);
 const RULES = global.RULES;
 
+const SSA = require('./lib/ssa-reference.js');
 const engine = require('../src/engine.js');
 
 // ---------------------------------------------------------------------------
@@ -93,16 +94,16 @@ test('ssaBenefitAtClaim: claiming exactly at FRA applies no adjustment', () => {
 
 test('ssaBenefitAtClaim: early claim within 36 months uses only the first-tier monthly reduction', () => {
   const p = { retirement: { ssBenefit: 3000, ssClaim: 64, ssFra: 67, ssAdvanced: false, aime: 0, spouseSS: 0, spouseClaim: 67 } };
-  const months = 36; // exactly 3 years early
-  const factor = 1 - months * RULES.socialSecurity.earlyReduction.first36MonthlyPercent;
-  assert.ok(Math.abs(engine.ssaBenefitAtClaim(p, 'self') - 3000 * factor * 12) < 1e-6);
+  /* RE-FIXTURED BY INTENT at S5AA R34 (R32V-03; 20 CFR 404.410, 404.212(c), 404.304(f)): the reduction is the regulation's exact
+     fraction (5/9 and 5/12 of 1% a month), the PIA is rounded to the dime and the monthly benefit to the dollar (tests/lib/ssa-reference.js). */
+  assert.equal(engine.ssaBenefitAtClaim(p, 'self'), SSA.floorDollar(3000 * SSA.claimFactor(64, 67)) * 12); // 3 years early: 20% off, 2,400
 });
 
 test('ssaBenefitAtClaim: early claim beyond 36 months blends both reduction tiers', () => {
   const p = { retirement: { ssBenefit: 3000, ssClaim: 62, ssFra: 67, ssAdvanced: false, aime: 0, spouseSS: 0, spouseClaim: 67 } };
-  const months = 60; // 5 years early
-  const factor = 1 - 36 * RULES.socialSecurity.earlyReduction.first36MonthlyPercent - 24 * RULES.socialSecurity.earlyReduction.laterMonthlyPercent;
-  assert.ok(Math.abs(engine.ssaBenefitAtClaim(p, 'self') - 3000 * factor * 12) < 1e-6);
+  /* RE-FIXTURED BY INTENT at S5AA R34 (R32V-03; 20 CFR 404.410, 404.212(c), 404.304(f)): the reduction is the regulation's exact
+     fraction (5/9 and 5/12 of 1% a month), the PIA is rounded to the dime and the monthly benefit to the dollar (tests/lib/ssa-reference.js). */
+  assert.equal(engine.ssaBenefitAtClaim(p, 'self'), SSA.floorDollar(3000 * SSA.claimFactor(62, 67)) * 12); // 5 years early: 30% off, 2,100
 });
 
 test('ssaBenefitAtClaim: delayed claim applies the annual delayed-credit rate', () => {
@@ -120,8 +121,10 @@ test('ssaBenefitAtClaim: the advanced PIA/AIME path applies all three bend-point
   const bend1 = RULES.socialSecurity.pia.bend1, bend2 = RULES.socialSecurity.pia.bend2;
   const aime = bend2 + 1000; // above both bend points, so all three tiers contribute
   const p = { retirement: { ssBenefit: 1, ssClaim: 67, ssFra: 67, ssAdvanced: true, aime, spouseSS: 0, spouseClaim: 67 } };
-  const base = 0.9 * bend1 + 0.32 * (bend2 - bend1) + 0.15 * (aime - bend2);
-  assert.ok(Math.abs(engine.ssaBenefitAtClaim(p, 'self') - base * 12) < 1e-6, 'must use the PIA formula, not ssBenefit, when ssAdvanced and aime>0');
+  /* RE-FIXTURED BY INTENT at S5AA R34 (R32V-03; 20 CFR 404.410, 404.212(c), 404.304(f)): the reduction is the regulation's exact
+     fraction (5/9 and 5/12 of 1% a month), the PIA is rounded to the dime and the monthly benefit to the dollar (tests/lib/ssa-reference.js). */
+  const base = SSA.floorDime(0.9 * bend1 + 0.32 * (bend2 - bend1) + 0.15 * (aime - bend2));
+  assert.equal(engine.ssaBenefitAtClaim(p, 'self'), SSA.floorDollar(base) * 12, 'must use the PIA formula, not ssBenefit, when ssAdvanced and aime>0');
 });
 
 // ---------------------------------------------------------------------------

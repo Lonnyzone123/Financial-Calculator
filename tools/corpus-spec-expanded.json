@@ -379,7 +379,7 @@
       "family": "monte-carlo-sensitive-band",
       "mode": "monteCarlo",
       "status": "ok",
-      "inputFingerprint": "e4f92135d799589bad9bfc542b27c3c28a127df8b3fcee9e4742baf2ef019610"
+      "inputFingerprint": "a6d2986ef3ad7272eb892b5f955dfa1eb051887c5046eefe5e61902784024c20"
     },
     {
       "name": "expansion:s5aa-gap-working-household",
