@@ -748,14 +748,15 @@ const LOSS_FAMILY = {
     {
       name: 'expansion:s5aa-sa18-loss-under-deduction',
       reaches: 'SA18-01. A single retiree at 70 with a $20,000 pension realises a $50,000 loss while under the standard ' +
-        'deduction, and at 71 a one-time $58,000 expense sells a $60,000 gain. The worksheet keeps all $50,000: AGI at 71 is ' +
-        '30,166.20. MEASURED: 33,208.45 at 6e8f31e, which carried only 47,000.',
+        'deduction, and at 71 a one-time $58,000 expense sells a $60,000 gain. IRC 1212(b)(2)(B) adds back the 1211(b) amount and ' +
+        'the section 151 senior deduction, so the year uses 1,850 and 48,150 carries (restated at S5AA R33, SA32F-34): AGI at 71 is ' +
+        'that of a 31,850 pre-tax base. MEASURED: 33,208.45 at 6e8f31e, which carried only 47,000; 30,166.20 before R33, which carried 50,000.',
       build: (plan) => lossHousehold(plan, {
         profile: { age: 70, retireAge: 60, endAge: 72, spouseOn: false, spouseAge: 70, filing: 'single' },
         retirement: { spending: 70000, pension: 20000, pensionAge: 60, pensionCola: 0, selfLife: 99,
           expenses: [{ name: 'Once', age: 71, amount: 58000 }] },
       }),
-      check: (result) => result.status === 'ok' && Math.abs(Number(((result.rows || [])[2] || {}).federalAgi) - lossRowAgi(30000)) < 0.005,
+      check: (result) => result.status === 'ok' && Math.abs(Number(((result.rows || [])[2] || {}).federalAgi) - lossRowAgi(31850)) < 0.005,
     },
     {
       name: 'expansion:s5aa-sa18-decedent-loss',

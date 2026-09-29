@@ -636,7 +636,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R33 commit 6: the capital-gains worksheet's line 25, the smaller of the preferential
 // and the regular tax (SA32F-32)), so the tracked file was rebuilt, again installed only after two builds agreed. The
 // pin before it, 2ae978d5ec3335c566ab2915098413ee0e2fd58b7be6468a94d7d37c9635b6aa, described the previous rebuild.
-const EXPECTED_SHA256 = '9e90e6a0dd6a9e56a1fad125989b8890c5a3e50247d7cfb4f77b06d533614ce0';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 7: the capital-loss carryover adds back the section 151 deduction
+// (SA32F-34)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 9e90e6a0dd6a9e56a1fad125989b8890c5a3e50247d7cfb4f77b06d533614ce0, described the previous rebuild.
+const EXPECTED_SHA256 = 'ebddc637353ff98afae988f8eefa62bbdefbdd70e3c77f1edc364763cd12d65a';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
