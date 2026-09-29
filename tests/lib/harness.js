@@ -739,7 +739,12 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R37: a joint account's percent of salary is the household's salary in the form,
 // validator and engine (SA32F-45)), so the tracked file was rebuilt, again installed only after two builds agreed. The
 // pin before it, 4a8dab10c94d64040cb5f17819d54b0d5e5b348212655a27ed284ddd17e3937d, described the previous rebuild.
-const EXPECTED_SHA256 = 'f8c57e2ccd49c09bba275dcaf0b2700fe0a5aa699f560934ca88063803d1af75';
+//
+// Changed again 2026-09-29 (S5AA R37: a new future change starts at today's dollars; percent strategies say the
+// percentage sets spending (SA32F-46, -49)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, f8c57e2ccd49c09bba275dcaf0b2700fe0a5aa699f560934ca88063803d1af75, described the previous
+// rebuild.
+const EXPECTED_SHA256 = '48f67c398e156244225fa8d5e13d2522e72a03bd51991b3ffb8530e7c618a156';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
