@@ -10,12 +10,12 @@
   "src/debt-recast.js"
  ],
  "counts": {
-  "commentBlocksWithIds": 400,
-  "requirements": 213,
-  "GUARDED_BY_TEST_NAME": 194,
+  "commentBlocksWithIds": 403,
+  "requirements": 216,
+  "GUARDED_BY_TEST_NAME": 197,
   "CITED_IN_TEST_FILE": 19,
   "UNGUARDED": 0,
-  "carriedForward": 213,
+  "carriedForward": 216,
   "needsDecision": 0,
   "superseded": 0
  },
@@ -1966,7 +1966,8 @@
    "family": "Q",
    "sites": [
     "src/engine.js:188",
-    "src/engine.js:1380"
+    "src/engine.js:1380",
+    "src/engine.js:4851"
    ],
    "summary": "Q68: the filing-status tables are parsed JSON, so each inherits Object.prototype, and a bracket read by a prototype name returned an inherited member. For \"constructor\" that is the Object function: tr",
    "guard": {
@@ -1982,6 +1983,7 @@
     "files": [
      "tests/audit-q68-filing-status-refusal.test.js",
      "tests/audit-q68-filing-table-own-keys.test.js",
+     "tests/audit-s5aa-r37-plan-warnings.test.js",
      "tests/audit-s5aa-r9-unknown-method.test.js"
     ],
     "onlyTodo": false
@@ -5410,6 +5412,26 @@
    "dispositionBasis": "no closure or open decision recorded against it"
   },
   {
+   "id": "SA32F-27",
+   "family": "SA32F",
+   "sites": [
+    "src/engine.js:4851"
+   ],
+   "summary": "S5AA R37 (SA32F-27; R32V: \"asymmetric authority disclosure\"): the warning read only the primary person's birth year, so a spouse born in 1959 used the same proposed age-73 record with no warning. Each",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r37-plan-warnings.test.js :: R37 SA32F-27: a spouse born in 1959 gets the proposed-rule warning, as the primary person does"
+    ],
+    "files": [
+     "tests/audit-s5aa-r37-plan-warnings.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
    "id": "SA32F-28",
    "family": "SA32F",
    "sites": [
@@ -5563,6 +5585,27 @@
    "dispositionBasis": "no closure or open decision recorded against it"
   },
   {
+   "id": "SA32F-35",
+   "family": "SA32F",
+   "sites": [
+    "src/engine.js:4851"
+   ],
+   "summary": "S5AA R37 (SA32F-35; R32V: \"do not reject all spouseOff/MFJ plans ... Improve explanation/consistency checks\"; the recommendation of record is a warning): a married couple files jointly or separately, ",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r37-plan-warnings.test.js :: R37 SA32F-35: a filing status that does not fit the household is reported, and the plan still runs"
+    ],
+    "files": [
+     "tests/audit-s5aa-r33-married-on-a-non-joint-return.test.js",
+     "tests/audit-s5aa-r37-plan-warnings.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
    "id": "SA32F-36",
    "family": "SA32F",
    "sites": [
@@ -5599,6 +5642,26 @@
     ],
     "files": [
      "tests/audit-s5aa-r35-portfolio-return-signals.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "SA32F-38",
+   "family": "SA32F",
+   "sites": [
+    "src/engine.js:4851"
+   ],
+   "summary": "S5AA R37 (SA32F-38; R32V: \"The accepted but ineffective input needs a clear horizon warning\"): each row charges the expenses in [its start, its end), so one at or after the end age falls in no row and",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r37-plan-warnings.test.js :: R37 SA32F-38: an expense at or after the plan end age is reported as never charged"
+    ],
+    "files": [
+     "tests/audit-s5aa-r37-plan-warnings.test.js"
     ],
     "onlyTodo": false
    },

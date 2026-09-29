@@ -718,7 +718,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R37: the validator and runPlan() agree on six input gaps (SA32F-51)), so the tracked
 // file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 32f9c0d0b4c98c793d932ac302aa64c757e0c77c1ea5b9d63e0258fc3a21e71c, described the previous rebuild.
-const EXPECTED_SHA256 = '4e850ae62942e795d33c340d842f72f4d4949899bd000ee32ebfc232655a87be';
+//
+// Changed again 2026-09-29 (S5AA R37: plan warnings for a 1959 spouse, filing vs household, an expense at the end
+// (SA32F-27, -35, -38)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, 4e850ae62942e795d33c340d842f72f4d4949899bd000ee32ebfc232655a87be, described the previous rebuild.
+const EXPECTED_SHA256 = '62e9e4f4f15f15dd55f9df1e826a6fff7057785b424f8a0be325a2d22dcf9666';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
