@@ -117,6 +117,26 @@ The R32F repros' own "hand" figures read every full retirement age as the entere
 from the law, the reference says so case by case. One of them is **an error in the R32F record:** SOCSEC-08's second case and
 LIFE-D gave a 70-year-old 36 months of credit, but a 1956 birth has 44.
 
+**Your external repros at `7b61b88`:**
+
+| repro | result |
+|---|---|
+| R29 | 3 mismatches, the same as at R33: the basis plan (SA32F-11, AGI 199,000, net worth 181,987) |
+| R30 | 0 |
+| R30A | 2 mismatches, the same basis plan |
+| R31 | every plan passes |
+| R32 | 266 runs, 0 mismatches |
+| R32V | stops at its line 50 |
+
+- **Why R32V stops at line 50:** it asserts that the engine's R32V-02 carryover equals the old R32F reference's. Since R33 fixed
+  SA32F-34, the engine gives the correct 8,150 and the old reference 10,000, so the assertion has failed since R33.
+- **Read past that line** (in a local copy, not committed), R32V-03's two witnesses give 31,728 where they expect 31,317.60 and
+  31,308.
+  - The witness is 67 and claims at 67 with `ssFra` 67.
+  - Born 1959, the full retirement age is 66 and 10 months, so the claim earns 2 months of credit.
+  - floor(2,609.80 × 1.013333) = 2,644 a month, which is 31,728: the PIA rounding the witness asks for, and then the birth-year
+    factor.
+
 **The survivor disclosure.** It said the widow(er)'s limit was "NOT applied", and that survivor full retirement age was approximated
 by the retirement figure. Both are built now. The message, `state.capApplied` (now `true`), `notModelled`, and the rules package's
 note on the survivor record are all corrected.
