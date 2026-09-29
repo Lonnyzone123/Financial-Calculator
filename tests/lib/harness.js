@@ -640,7 +640,12 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R33 commit 7: the capital-loss carryover adds back the section 151 deduction
 // (SA32F-34)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 9e90e6a0dd6a9e56a1fad125989b8890c5a3e50247d7cfb4f77b06d533614ce0, described the previous rebuild.
-const EXPECTED_SHA256 = 'ebddc637353ff98afae988f8eefa62bbdefbdd70e3c77f1edc364763cd12d65a';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 8: IRMAA reads the lookback year's own filing status, and its top tier
+// includes its threshold (SA32F-09, SA32F-23)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, ebddc637353ff98afae988f8eefa62bbdefbdd70e3c77f1edc364763cd12d65a, described the previous
+// rebuild.
+const EXPECTED_SHA256 = 'a1488b882ee1ddf640ba43925f86aeb5918c5f5dea3e175b5bd22b003b1416d7';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
