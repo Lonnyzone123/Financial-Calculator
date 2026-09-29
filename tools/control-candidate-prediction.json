@@ -360,6 +360,12 @@
       "why": "Traced against commit 1, first moved row by first moved row. Each moved seed has a younger spouse still on salary after the primary's retirement age, and every move begins in the first retired row the spouse still works: seed:3 (spouse 50, $173,874 salary; row 59-60 withdrawals 184,631.80 -> 51,637.82), seed:4 (spouse 59 works to 75 on the self's clock; from row 75-76), seed:16 (spouse 52; from row 57-58, 61,464.77 -> 31,635.00), seed:17 (Monte Carlo; spouse 50 at $165,395 to 61; success 4.17% -> 8.33%), seed:18 (spouse 40 at $59,427; from row 58-59). The portfolio's incremental tax is still drawn; the net pay after the wage-only tax and the pay-funded contributions offsets spending, capped at the spending.",
       "differences": 973,
       "replacedDeclarations": 930
+    },
+    {
+      "change": "S5AA R35 commit 3 (SA32F-36, decision 6): fixed-nominal spending is today's dollars grown to the retirement date, then held",
+      "why": "Traced against commit 2. The two control plans on fixedNominal with a deferred retirement move from their first retired row. seed:16 (54, retiring 57, inflation 3.43%): the base grows by the three years to 57 (spending 26,722.24 -> 28,749.01 in row 57-58). seed:20 (59, retiring 69, inflation 5.3%): the base grows by ten years, 34,244.87 -> 57,396 (x1.676), and its 61.56% percent stage (69-76) takes 35,333 of it every row; with the stage removed the old engine spends a flat 34,245 and the new 57,396, measured. Its old rows varied (21,673; 26,521; 29,348) because surplusPolicy 'spend' spent outside-income surplus on top of the small staged amount; the larger base now absorbs that surplus and the portfolio pays the incremental tax.",
+      "differences": 638,
+      "replacedDeclarations": 627
     }
   ],
   "differences": [
@@ -18198,675 +18204,675 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[6].federalAgi",
-      "candidate": 157695.54075689532
+      "candidate": 158731.0947519865
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[6].irmaaMagi",
-      "candidate": 157695.54075689532
+      "candidate": 158731.0947519865
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[6].niitMagi",
-      "candidate": 157695.54075689532
+      "candidate": 158731.0947519865
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[6].seniorDeductionMagi",
-      "candidate": 157695.54075689532
+      "candidate": 158731.0947519865
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[6].ssProvisionalIncome",
-      "candidate": 157695.54075689532
+      "candidate": 158731.0947519865
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[7].federalAgi",
-      "candidate": 164439.34900398052
+      "candidate": 165368.2817118875
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[7].irmaaMagi",
-      "candidate": 164439.34900398052
+      "candidate": 165368.2817118875
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[7].niitMagi",
-      "candidate": 164439.34900398052
+      "candidate": 165368.2817118875
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[7].seniorDeductionMagi",
-      "candidate": 164439.34900398052
+      "candidate": 165368.2817118875
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[7].ssProvisionalIncome",
-      "candidate": 164439.34900398052
+      "candidate": 165368.2817118875
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[8].federalAgi",
-      "candidate": 171716.56163799897
+      "candidate": 172537.824692227
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[8].irmaaMagi",
-      "candidate": 171716.56163799897
+      "candidate": 172537.824692227
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[8].niitMagi",
-      "candidate": 171716.56163799897
+      "candidate": 172537.824692227
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[8].seniorDeductionMagi",
-      "candidate": 171716.56163799897
+      "candidate": 172537.824692227
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[8].ssProvisionalIncome",
-      "candidate": 171716.56163799897
+      "candidate": 172537.824692227
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[9].federalAgi",
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[9].irmaaMagi",
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[9].niitMagi",
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[9].seniorDeductionMagi",
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[9].ssProvisionalIncome",
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[10].federalAgi",
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[10].irmaaMagi",
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[10].niitMagi",
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[10].seniorDeductionMagi",
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[10].ssProvisionalIncome",
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].federalAgi",
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].irmaaMagi",
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].niitMagi",
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].seniorDeductionMagi",
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].ssProvisionalIncome",
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].federalAgi",
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].irmaaMagi",
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].niitMagi",
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].seniorDeductionMagi",
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].ssProvisionalIncome",
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].federalAgi",
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].irmaaMagi",
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].niitMagi",
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].seniorDeductionMagi",
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].ssProvisionalIncome",
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].federalAgi",
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].irmaaMagi",
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].niitMagi",
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].seniorDeductionMagi",
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].ssProvisionalIncome",
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].federalAgi",
-      "candidate": 214913.51837059148
+      "candidate": 214609.75969941134
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].irmaaMagi",
-      "candidate": 214913.51837059148
+      "candidate": 214609.75969941134
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].niitMagi",
-      "candidate": 214913.51837059148
+      "candidate": 214609.75969941134
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].seniorDeductionMagi",
-      "candidate": 214913.51837059148
+      "candidate": 214609.75969941134
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].ssProvisionalIncome",
-      "candidate": 209478.7183705915
+      "candidate": 209174.95969941135
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].federalAgi",
-      "candidate": 241093.1953198176
+      "candidate": 240779.32471334402
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].irmaaMagi",
-      "candidate": 241093.1953198176
+      "candidate": 240779.32471334402
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].niitMagi",
-      "candidate": 241093.1953198176
+      "candidate": 240779.32471334402
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].seniorDeductionMagi",
-      "candidate": 241093.1953198176
+      "candidate": 240779.32471334402
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].ssProvisionalIncome",
-      "candidate": 228627.5953198176
+      "candidate": 228313.724713344
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].federalAgi",
-      "candidate": 248771.4126576265
+      "candidate": 248447.343388889
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].irmaaMagi",
-      "candidate": 248771.4126576265
+      "candidate": 248447.343388889
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].niitMagi",
-      "candidate": 248771.4126576265
+      "candidate": 248447.343388889
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].seniorDeductionMagi",
-      "candidate": 248771.4126576265
+      "candidate": 248447.343388889
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].ssProvisionalIncome",
-      "candidate": 236179.8126576265
+      "candidate": 235855.743388889
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].federalAgi",
-      "candidate": 256546.97203432157
+      "candidate": 256212.63628448045
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].irmaaMagi",
-      "candidate": 256546.97203432157
+      "candidate": 256212.63628448045
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].niitMagi",
-      "candidate": 256546.97203432157
+      "candidate": 256212.63628448045
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].seniorDeductionMagi",
-      "candidate": 256546.97203432157
+      "candidate": 256212.63628448045
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].ssProvisionalIncome",
-      "candidate": 243825.1720343216
+      "candidate": 243490.83628448047
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].federalAgi",
-      "candidate": 264407.514883266
+      "candidate": 264062.86472026556
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].irmaaMagi",
-      "candidate": 264407.514883266
+      "candidate": 264062.86472026556
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].niitMagi",
-      "candidate": 264407.514883266
+      "candidate": 264062.86472026556
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].seniorDeductionMagi",
-      "candidate": 264407.514883266
+      "candidate": 264062.86472026556
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].ssProvisionalIncome",
-      "candidate": 251551.314883266
+      "candidate": 251206.66472026554
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].federalAgi",
-      "candidate": 272329.4320574379
+      "candidate": 271974.4408051037
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].irmaaMagi",
-      "candidate": 272329.4320574379
+      "candidate": 271974.4408051037
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].niitMagi",
-      "candidate": 272329.4320574379
+      "candidate": 271974.4408051037
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].seniorDeductionMagi",
-      "candidate": 272329.4320574379
+      "candidate": 271974.4408051037
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].ssProvisionalIncome",
-      "candidate": 259338.83205743792
+      "candidate": 258983.8408051037
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].federalAgi",
-      "candidate": 280298.2523563881
+      "candidate": 279932.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].irmaaMagi",
-      "candidate": 280298.2523563881
+      "candidate": 279932.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].niitMagi",
-      "candidate": 280298.2523563881
+      "candidate": 279932.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].seniorDeductionMagi",
-      "candidate": 280298.2523563881
+      "candidate": 279932.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].ssProvisionalIncome",
-      "candidate": 267173.2523563881
+      "candidate": 266807.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].federalAgi",
-      "candidate": 303993.47678340005
+      "candidate": 303617.8151417817
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].irmaaMagi",
-      "candidate": 303993.47678340005
+      "candidate": 303617.8151417817
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].niitMagi",
-      "candidate": 303993.47678340005
+      "candidate": 303617.8151417817
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].seniorDeductionMagi",
-      "candidate": 303993.47678340005
+      "candidate": 303617.8151417817
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].ssProvisionalIncome",
-      "candidate": 290734.0767834
+      "candidate": 290358.4151417817
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].federalAgi",
-      "candidate": 321286.54752527195
+      "candidate": 320900.60583196016
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].irmaaMagi",
-      "candidate": 321286.54752527195
+      "candidate": 320900.60583196016
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].niitMagi",
-      "candidate": 321286.54752527195
+      "candidate": 320900.60583196016
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].seniorDeductionMagi",
-      "candidate": 321286.54752527195
+      "candidate": 320900.60583196016
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].ssProvisionalIncome",
-      "candidate": 307892.74752527196
+      "candidate": 307506.80583196017
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].federalAgi",
-      "candidate": 329578.7026868345
+      "candidate": 329182.5527002136
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].irmaaMagi",
-      "candidate": 329578.7026868345
+      "candidate": 329182.5527002136
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].niitMagi",
-      "candidate": 329578.7026868345
+      "candidate": 329182.5527002136
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].seniorDeductionMagi",
-      "candidate": 329578.7026868345
+      "candidate": 329182.5527002136
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].ssProvisionalIncome",
-      "candidate": 316042.1026868345
+      "candidate": 315645.95270021365
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].federalAgi",
-      "candidate": 337841.7399308814
+      "candidate": 337435.4812145487
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].irmaaMagi",
-      "candidate": 337841.7399308814
+      "candidate": 337435.4812145487
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].niitMagi",
-      "candidate": 337841.7399308814
+      "candidate": 337435.4812145487
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].seniorDeductionMagi",
-      "candidate": 337841.7399308814
+      "candidate": 337435.4812145487
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].ssProvisionalIncome",
-      "candidate": 324166.5399308814
+      "candidate": 323760.2812145487
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].income",
       "reference": 354533.3170662289,
-      "candidate": 335640.1445558888
+      "candidate": 335223.90565671923
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].magi",
       "reference": 349075.61181351746,
-      "candidate": 329718.14455588884
+      "candidate": 329301.90565671923
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].federalAgi",
-      "candidate": 329718.14455588884
+      "candidate": 329301.90565671923
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].irmaaMagi",
-      "candidate": 329718.14455588884
+      "candidate": 329301.90565671923
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].niitMagi",
-      "candidate": 329718.14455588884
+      "candidate": 329301.90565671923
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].seniorDeductionMagi",
-      "candidate": 329718.14455588884
+      "candidate": 329301.90565671923
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].ssProvisionalIncome",
-      "candidate": 315900.14455588884
+      "candidate": 315483.90565671923
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].federalAgi",
-      "candidate": 337723.31601405394
+      "candidate": 337297.25556929567
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].irmaaMagi",
-      "candidate": 337723.31601405394
+      "candidate": 337297.25556929567
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].niitMagi",
-      "candidate": 337723.31601405394
+      "candidate": 337297.25556929567
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].seniorDeductionMagi",
-      "candidate": 337723.31601405394
+      "candidate": 337297.25556929567
     },
     {
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].ssProvisionalIncome",
-      "candidate": 323762.51601405395
+      "candidate": 323336.4555692957
     },
     {
       "scenario": "seed:17",
@@ -51799,231 +51805,231 @@
       "kind": "VALUE",
       "path": "lifetimeTaxes",
       "reference": 961216.6687978962,
-      "candidate": 1096614.4983060106
+      "candidate": 1095608.6373953316
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].spending",
       "reference": 174550.97318600354,
-      "candidate": 169981.63476218155
+      "candidate": 169766.18627867906
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].taxes",
       "reference": 12613.114836901725,
-      "candidate": 10777.442543392941
+      "candidate": 10718.78354152331
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].spending",
       "reference": 180180.9378951085,
-      "candidate": 176776.05220477778
+      "candidate": 176557.19438501092
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].taxes",
       "reference": 14145.955101212749,
-      "candidate": 10845.286582223236
+      "candidate": 10780.28211954281
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].spending",
       "reference": 186615.5624688202,
-      "candidate": 182163.77913151775
+      "candidate": 181937.2972313417
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].taxes",
       "reference": 14974.012717717022,
-      "candidate": 12445.532323109685
+      "candidate": 12378.263379996437
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].spending",
       "reference": 203222.05059211384,
-      "candidate": 199474.38386372608
+      "candidate": 199240.18592824615
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].taxes",
       "reference": 20124.812660195446,
-      "candidate": 17768.334506865456
+      "candidate": 17698.7737711652
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].spending",
       "reference": 224002.93891852847,
-      "candidate": 221411.2702652767
+      "candidate": 221171.53589605217
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].taxes",
       "reference": 27053.183877219715,
-      "candidate": 25024.325054540917
+      "candidate": 24950.188817291855
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].spending",
       "reference": 229997.86910285166,
-      "candidate": 227309.6354678951
+      "candidate": 227062.11136043342
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].taxes",
       "reference": 28945.49920130089,
-      "candidate": 26858.17718973138
+      "candidate": 26781.632028455584
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].spending",
       "reference": 236000.10539169866,
-      "candidate": 233246.81223642261
+      "candidate": 232993.3188708931
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].taxes",
       "reference": 30868.78574732424,
-      "candidate": 28752.359797898956
+      "candidate": 28671.517413587382
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].spending",
       "reference": 242015.49406390951,
-      "candidate": 239242.66814449226
+      "candidate": 238981.3543909053
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].taxes",
       "reference": 32796.361340555115,
-      "candidate": 30674.646738773714
+      "candidate": 30591.31032936021
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].spending",
       "reference": 248026.9009317293,
-      "candidate": 245285.05806594942
+      "candidate": 245015.9036984297
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].taxes",
       "reference": 34722.76264569607,
-      "candidate": 32611.77399148849
+      "candidate": 32525.93710667408
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].spending",
       "reference": 254015.82773743523,
-      "candidate": 251363.00993661344
+      "candidate": 251086.0118782288
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].taxes",
       "reference": 36642.091317739745,
-      "candidate": 34560.242419774644
+      "candidate": 34471.90407828504
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].spending",
       "reference": 270430.9800103561,
-      "candidate": 267933.3337691739
+      "candidate": 267648.5071124988
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].taxes",
       "reference": 43774.45472461172,
-      "candidate": 41742.74301422613
+      "candidate": 41651.9080292828
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].spending",
       "reference": 282502.394417644,
-      "candidate": 280234.767014122
+      "candidate": 279942.146022253
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].taxes",
       "reference": 48749.78382245063,
-      "candidate": 46791.98051114995
+      "candidate": 46698.659809707184
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].spending",
       "reference": 288472.16545071173,
-      "candidate": 286536.4343468395
+      "candidate": 286236.07342698355
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].taxes",
       "reference": 50694.53970465233,
-      "candidate": 48843.668339995
+      "candidate": 48747.879273230064
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].spending",
       "reference": 294333.2455979386,
-      "candidate": 292814.65337436856
+      "candidate": 292506.6280156451
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].taxes",
       "reference": 52605.05816381817,
-      "candidate": 50887.88655651284
+      "candidate": 50789.65319890359
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].spending",
       "reference": 300060.1127717214,
-      "candidate": 288161.27215277223
+      "candidate": 287845.67981942184
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].taxes",
       "reference": 54473.20429450747,
-      "candidate": 47478.872403116584
+      "candidate": 47378.22583729738
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].spending",
       "reference": 294601.4457634066,
-      "candidate": 294260.11714367825
+      "candidate": 293937.07811446243
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].taxes",
       "reference": 50786.461270660104,
-      "candidate": 49446.39887037573
+      "candidate": 49343.377454833186
     },
     {
       "scenario": "seed:17",
@@ -53816,7 +53822,7 @@
       "kind": "VALUE",
       "path": "lifetimeTaxes",
       "reference": 4905578.259628577,
-      "candidate": 4778801.209378671
+      "candidate": 4844870.167320134
     },
     {
       "scenario": "seed:20",
@@ -53858,358 +53864,358 @@
       "kind": "VALUE",
       "path": "rows[11].magi",
       "reference": 503349.3243734056,
-      "candidate": 502494.7072646881
+      "candidate": 506395.7341444411
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[11].networth",
       "reference": 27812147.47452587,
-      "candidate": 27780949.314224333
+      "candidate": 27765943.99516716
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[11].realTotal",
       "reference": 15758774.481857061,
-      "candidate": 15741097.14238189
+      "candidate": 15732594.906469798
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[11].taxable",
       "reference": 22414279.125083204,
-      "candidate": 22381948.33075835
+      "candidate": 22366943.011701178
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[11].taxes",
       "reference": 96533.2648085382,
-      "candidate": 95730.94976247312
+      "candidate": 96561.86848786048
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[11].total",
       "reference": 27812147.47452587,
-      "candidate": 27780949.314224333
+      "candidate": 27765943.99516716
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[11].withdrawals",
       "reference": 5218.686521099359,
-      "candidate": 0
+      "candidate": 14490.953398705904
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].federalAgi",
-      "candidate": 502494.7072646881
+      "candidate": 506395.7341444411
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].irmaaMagi",
-      "candidate": 502494.7072646881
+      "candidate": 506395.7341444411
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].niitMagi",
-      "candidate": 502494.7072646881
+      "candidate": 506395.7341444411
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].seniorDeductionMagi",
-      "candidate": 502494.7072646881
+      "candidate": 506395.7341444411
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].ssProvisionalIncome",
-      "candidate": 488151.7072646881
+      "candidate": 492052.7341444411
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].magi",
       "reference": 533950.9045539543,
-      "candidate": 538010.2357143835
+      "candidate": 540619.7480231748
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].networth",
       "reference": 29811363.753022462,
-      "candidate": 29788177.591797985
+      "candidate": 29762387.98235125
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].realTotal",
       "reference": 16041367.541366257,
-      "candidate": 16028891.167015972
+      "candidate": 16015013.888293982
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].taxable",
       "reference": 24023471.382464103,
-      "candidate": 23999071.392714586
+      "candidate": 23973281.783267852
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].taxes",
       "reference": 103299.98563544349,
-      "candidate": 103965.56002562333
+      "candidate": 104521.38614739585
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].total",
       "reference": 29811363.753022462,
-      "candidate": 29788177.591797985
+      "candidate": 29762387.98235125
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].withdrawals",
       "reference": 9914.81132420803,
-      "candidate": 0
+      "candidate": 9367.627847080694
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].federalAgi",
-      "candidate": 538010.2357143835
+      "candidate": 540619.7480231748
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].irmaaMagi",
-      "candidate": 538010.2357143835
+      "candidate": 540619.7480231748
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].niitMagi",
-      "candidate": 538010.2357143835
+      "candidate": 540619.7480231748
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].seniorDeductionMagi",
-      "candidate": 538010.2357143835
+      "candidate": 540619.7480231748
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].ssProvisionalIncome",
-      "candidate": 519421.8811782561
+      "candidate": 522031.39348704735
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].magi",
       "reference": 566594.1269422638,
-      "candidate": 573429.1910702524
+      "candidate": 575159.2503975978
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].networth",
       "reference": 31949759.87482945,
-      "candidate": 31940434.0086499
+      "candidate": 31906202.728375934
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].realTotal",
       "reference": 16326713.545666663,
-      "candidate": 16321947.915305896
+      "candidate": 16304455.317254327
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].taxable",
       "reference": 25743660.277749605,
-      "candidate": 25733033.567998458
+      "candidate": 25698802.28772449
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].taxes",
       "reference": 110505.61239548576,
-      "candidate": 112100.7729052581
+      "candidate": 112469.27554198266
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].total",
       "reference": 31949759.87482945,
-      "candidate": 31940434.0086499
+      "candidate": 31906202.728375934
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].withdrawals",
       "reference": 15003.645037765466,
-      "candidate": 0
+      "candidate": 6352.841907539158
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].federalAgi",
-      "candidate": 573429.1910702524
+      "candidate": 575159.2503975978
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].irmaaMagi",
-      "candidate": 573429.1910702524
+      "candidate": 575159.2503975978
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].niitMagi",
-      "candidate": 573429.1910702524
+      "candidate": 575159.2503975978
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].seniorDeductionMagi",
-      "candidate": 573429.1910702524
+      "candidate": 575159.2503975978
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].ssProvisionalIncome",
-      "candidate": 551341.3910702525
+      "candidate": 553071.4503975977
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].magi",
       "reference": 601417.6315289489,
-      "candidate": 603869.9854333114
+      "candidate": 607173.8388111731
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].networth",
       "reference": 34236956.12005652,
-      "candidate": 34248197.41451965
+      "candidate": 34200616.49560481
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].realTotal",
       "reference": 16614908.335741764,
-      "candidate": 16620363.641885953
+      "candidate": 16597273.020058235
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].taxable",
       "reference": 27582429.426988594,
-      "candidate": 27592276.625034608
+      "candidate": 27544695.706119772
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].taxes",
       "reference": 118179.75330561452,
-      "candidate": 118871.65847954559
+      "candidate": 119575.37924903011
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].total",
       "reference": 34236956.12005652,
-      "candidate": 34248197.41451965
+      "candidate": 34200616.49560481
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].withdrawals",
       "reference": 20513.558652417156,
-      "candidate": 0
+      "candidate": 10503.556442218372
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].federalAgi",
-      "candidate": 603869.9854333114
+      "candidate": 607173.8388111731
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].irmaaMagi",
-      "candidate": 603869.9854333114
+      "candidate": 607173.8388111731
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].niitMagi",
-      "candidate": 603869.9854333114
+      "candidate": 607173.8388111731
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].seniorDeductionMagi",
-      "candidate": 603869.9854333114
+      "candidate": 607173.8388111731
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].ssProvisionalIncome",
-      "candidate": 581089.1854333114
+      "candidate": 584393.038811173
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[15].magi",
       "reference": 534443.8580357364,
-      "candidate": 555046.860335463
+      "candidate": 554307.8128245366
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[15].networth",
       "reference": 36707958.864146024,
-      "candidate": 36722703.8071586
+      "candidate": 36671685.10882665
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[15].realTotal",
       "reference": 16917440.923019774,
-      "candidate": 16924236.362211905
+      "candidate": 16900723.591638245
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[15].taxable",
       "reference": 29572601.351525858,
-      "candidate": 29585852.2603112
+      "candidate": 29534833.56197926
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[15].taxes",
       "reference": 91077.45557597776,
-      "candidate": 96648.85165720042
+      "candidate": 96491.4345373731
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[15].total",
       "reference": 36707958.864146024,
-      "candidate": 36722703.8071586
+      "candidate": 36671685.10882665
     },
     {
       "scenario": "seed:20",
@@ -54222,73 +54228,73 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].federalAgi",
-      "candidate": 555046.860335463
+      "candidate": 554307.8128245366
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].irmaaMagi",
-      "candidate": 555046.860335463
+      "candidate": 554307.8128245366
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].niitMagi",
-      "candidate": 555046.860335463
+      "candidate": 554307.8128245366
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].seniorDeductionMagi",
-      "candidate": 555046.860335463
+      "candidate": 554307.8128245366
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].ssProvisionalIncome",
-      "candidate": 531547.860335463
+      "candidate": 530808.8128245366
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[16].magi",
       "reference": 573366.2343377458,
-      "candidate": 588556.6918833959
+      "candidate": 587764.2472885278
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[16].networth",
       "reference": 39350801.68280869,
-      "candidate": 39376001.04070308
+      "candidate": 39321296.179198734
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[16].realTotal",
       "reference": 17222636.900041953,
-      "candidate": 17233665.88477847
+      "candidate": 17209723.247625843
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[16].taxable",
       "reference": 31699867.94475516,
-      "candidate": 31723466.166426327
+      "candidate": 31668761.30492198
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[16].taxes",
       "reference": 99560.00938455935,
-      "candidate": 104046.93558329219
+      "candidate": 103878.14488458527
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[16].total",
       "reference": 39350801.68280869,
-      "candidate": 39376001.04070308
+      "candidate": 39321296.179198734
     },
     {
       "scenario": "seed:20",
@@ -54301,1235 +54307,1235 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].federalAgi",
-      "candidate": 588556.6918833959
+      "candidate": 587764.2472885278
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].irmaaMagi",
-      "candidate": 588556.6918833959
+      "candidate": 587764.2472885278
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].niitMagi",
-      "candidate": 588556.6918833959
+      "candidate": 587764.2472885278
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].seniorDeductionMagi",
-      "candidate": 588556.6918833959
+      "candidate": 587764.2472885278
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].ssProvisionalIncome",
-      "candidate": 564318.4918833959
+      "candidate": 563526.0472885278
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].magi",
       "reference": 618778.6472798139,
-      "candidate": 624383.2835746122
+      "candidate": 630072.2023147725
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].networth",
       "reference": 42174137.05583955,
-      "candidate": 42221007.48710099
+      "candidate": 42155581.205151364
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].preTax",
       "reference": 8183914.993700279,
-      "candidate": 8205482.202996492
+      "candidate": 8198713.27550814
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].realTotal",
       "reference": 17529272.6020111,
-      "candidate": 17548753.84392644
+      "candidate": 17521560.041949827
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].taxable",
       "reference": 33990222.06213927,
-      "candidate": 34015525.284104496
+      "candidate": 33956867.92964322
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].taxes",
       "reference": 111730.23354737983,
-      "candidate": 111946.24383461224
+      "candidate": 113563.65580206305
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].total",
       "reference": 42174137.05583955,
-      "candidate": 42221007.48710099
+      "candidate": 42155581.205151364
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].withdrawals",
       "reference": 19175.86389105446,
-      "candidate": 0
+      "candidate": 6538.618423403548
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].federalAgi",
-      "candidate": 624383.2835746122
+      "candidate": 630072.2023147725
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].irmaaMagi",
-      "candidate": 624383.2835746122
+      "candidate": 630072.2023147725
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].niitMagi",
-      "candidate": 624383.2835746122
+      "candidate": 630072.2023147725
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].seniorDeductionMagi",
-      "candidate": 624383.2835746122
+      "candidate": 630072.2023147725
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].ssProvisionalIncome",
-      "candidate": 599376.4835746122
+      "candidate": 605065.4023147725
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].magi",
       "reference": 666069.3056136047,
-      "candidate": 662657.7679625535
+      "candidate": 677615.5320779113
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].networth",
       "reference": 45191327.471782595,
-      "candidate": 45271574.93623032
+      "candidate": 45184997.54590853
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].preTax",
       "reference": 8745270.414163431,
-      "candidate": 8798386.46800136
+      "candidate": 8774704.497534035
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].realTotal",
       "reference": 17837928.440479822,
-      "candidate": 17869603.73325015
+      "candidate": 17835429.891065765
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].taxable",
       "reference": 36446057.05761916,
-      "candidate": 36473188.46822896
+      "candidate": 36410293.0483745
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].taxes",
       "reference": 123647.99524940345,
-      "candidate": 121044.69953445022
+      "candidate": 125903.71907458364
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].total",
       "reference": 45191327.471782595,
-      "candidate": 45271574.93623032
+      "candidate": 45184997.54590853
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].withdrawals",
       "reference": 28981.94025651628,
-      "candidate": 0
+      "candidate": 15868.85563693434
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].federalAgi",
-      "candidate": 662657.7679625535
+      "candidate": 677615.5320779113
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].irmaaMagi",
-      "candidate": 662657.7679625535
+      "candidate": 677615.5320779113
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].niitMagi",
-      "candidate": 662657.7679625535
+      "candidate": 677615.5320779113
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].seniorDeductionMagi",
-      "candidate": 662657.7679625535
+      "candidate": 677615.5320779113
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].ssProvisionalIncome",
-      "candidate": 636865.5679625536
+      "candidate": 651823.3320779114
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].magi",
       "reference": 819565.5012522673,
-      "candidate": 810718.4101960482
+      "candidate": 809356.289258356
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].networth",
       "reference": 48309146.67361532,
-      "candidate": 48431637.65067728
+      "candidate": 48339217.08326809
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].preTax",
       "reference": 9229817.547172116,
-      "candidate": 9323216.836120635
+      "candidate": 9298235.959352132
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].realTotal",
       "reference": 18108826.746779528,
-      "candidate": 18154742.852411553
+      "candidate": 18120098.72892166
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].taxable",
       "reference": 39079329.1264432,
-      "candidate": 39108420.81455664
+      "candidate": 39040981.12391596
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].taxes",
       "reference": 172128.1201832733,
-      "candidate": 167441.84159525574
+      "candidate": 167056.63965266102
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].total",
       "reference": 48309146.67361532,
-      "candidate": 48431637.65067728
+      "candidate": 48339217.08326809
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[19].withdrawals",
       "reference": 142378.92670781742,
-      "candidate": 107144.4525936807
+      "candidate": 106759.25065108598
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].federalAgi",
-      "candidate": 810718.4101960482
+      "candidate": 809356.289258356
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].irmaaMagi",
-      "candidate": 810718.4101960482
+      "candidate": 809356.289258356
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].niitMagi",
-      "candidate": 810718.4101960482
+      "candidate": 809356.289258356
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].seniorDeductionMagi",
-      "candidate": 810718.4101960482
+      "candidate": 809356.289258356
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].ssProvisionalIncome",
-      "candidate": 784115.6101960482
+      "candidate": 782753.4892583559
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].magi",
       "reference": 882633.4416315067,
-      "candidate": 873829.3781645142
+      "candidate": 872379.6957564885
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].networth",
       "reference": 51631447.10984227,
-      "candidate": 51800049.76651831
+      "candidate": 51701382.15483783
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].preTax",
       "reference": 9728588.796295097,
-      "candidate": 9865997.85491382
+      "candidate": 9839642.533766333
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].realTotal",
       "reference": 18380057.84201024,
-      "candidate": 18440077.980036385
+      "candidate": 18404953.719312835
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].taxable",
       "reference": 41902858.31354718,
-      "candidate": 41934051.91160449
+      "candidate": 41861739.621071495
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].taxes",
       "reference": 189837.2331850162,
-      "candidate": 185308.7367279762
+      "candidate": 184906.5569038088
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].total",
       "reference": 51631447.10984227,
-      "candidate": 51800049.76651831
+      "candidate": 51701382.15483783
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[20].withdrawals",
       "reference": 162546.0974194953,
-      "candidate": 126501.38927726336
+      "candidate": 126099.20945309594
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].federalAgi",
-      "candidate": 873829.3781645142
+      "candidate": 872379.6957564885
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].irmaaMagi",
-      "candidate": 873829.3781645142
+      "candidate": 872379.6957564885
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].niitMagi",
-      "candidate": 873829.3781645142
+      "candidate": 872379.6957564885
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].seniorDeductionMagi",
-      "candidate": 873829.3781645142
+      "candidate": 872379.6957564885
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].ssProvisionalIncome",
-      "candidate": 846386.5781645142
+      "candidate": 844936.8957564884
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].magi",
       "reference": 950141.3906213032,
-      "candidate": 941133.7826066038
+      "candidate": 939579.3588766931
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].networth",
       "reference": 55171532.74228145,
-      "candidate": 55390673.818970986
+      "candidate": 55285338.66419836
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].preTax",
       "reference": 10241141.814533759,
-      "candidate": 10426835.517665371
+      "candidate": 10399037.30460247
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].realTotal",
       "reference": 18651735.776390992,
-      "candidate": 18725820.385917068
+      "candidate": 18690209.92927158
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].taxable",
       "reference": 44930390.9277477,
-      "candidate": 44963838.301305614
+      "candidate": 44886301.359595895
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].taxes",
       "reference": 208790.32224013185,
-      "candidate": 204174.8697568738
+      "candidate": 203743.63194994707
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].total",
       "reference": 55171532.74228145,
-      "candidate": 55390673.818970986
+      "candidate": 55285338.66419836
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[21].withdrawals",
       "reference": 184151.3285907662,
-      "candidate": 147024.7557542326
+      "candidate": 146593.51794730593
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].federalAgi",
-      "candidate": 941133.7826066038
+      "candidate": 939579.3588766931
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].irmaaMagi",
-      "candidate": 941133.7826066038
+      "candidate": 939579.3588766931
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].niitMagi",
-      "candidate": 941133.7826066038
+      "candidate": 939579.3588766931
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].seniorDeductionMagi",
-      "candidate": 941133.7826066038
+      "candidate": 939579.3588766931
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].ssProvisionalIncome",
-      "candidate": 912825.7826066038
+      "candidate": 911271.3588766931
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].magi",
       "reference": 1022403.644069137,
-      "candidate": 1013192.3881003158
+      "candidate": 1011525.6553602803
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].networth",
       "reference": 58943567.96815726,
-      "candidate": 59218006.03148168
+      "candidate": 59105554.66532546
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].preTax",
       "reference": 10766901.502720125,
-      "candidate": 11005475.578957582
+      "candidate": 10976163.293106848
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].realTotal",
       "reference": 18923970.175159607,
-      "candidate": 19012079.156415805
+      "candidate": 18975976.38265013
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].taxable",
       "reference": 48176666.465437144,
-      "candidate": 48212530.4525241
+      "candidate": 48129391.37221862
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].taxes",
       "reference": 229075.25763733484,
-      "candidate": 224372.40762307332
+      "candidate": 223910.01235869643
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].total",
       "reference": 58943567.96815726,
-      "candidate": 59218006.03148168
+      "candidate": 59105554.66532546
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[22].withdrawals",
       "reference": 207294.1034076369,
-      "candidate": 169071.7527489717
+      "candidate": 168609.35748459472
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].federalAgi",
-      "candidate": 1013192.3881003158
+      "candidate": 1011525.6553602803
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].irmaaMagi",
-      "candidate": 1013192.3881003158
+      "candidate": 1011525.6553602803
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].niitMagi",
-      "candidate": 1013192.3881003158
+      "candidate": 1011525.6553602803
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].seniorDeductionMagi",
-      "candidate": 1013192.3881003158
+      "candidate": 1011525.6553602803
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].ssProvisionalIncome",
-      "candidate": 983998.1881003159
+      "candidate": 982331.4553602803
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].magi",
       "reference": 1099756.8516904789,
-      "candidate": 1090330.446636148
+      "candidate": 1088543.2904230442
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].networth",
       "reference": 62962632.873539805,
-      "candidate": 63297535.033014484
+      "candidate": 63177488.74101024
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].preTax",
       "reference": 11305143.50394254,
-      "candidate": 11601590.459526658
+      "candidate": 11570690.147769101
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].realTotal",
       "reference": 19196866.429884892,
-      "candidate": 19298975.756148744
+      "candidate": 19262374.481268182
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].taxable",
       "reference": 51657489.36959726,
-      "candidate": 51695944.573487826
+      "candidate": 51606798.59324114
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].taxes",
       "reference": 250786.14799835643,
-      "candidate": 245990.87094755363
+      "candidate": 245495.0670614288
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].total",
       "reference": 62962632.873539805,
-      "candidate": 63297535.033014484
+      "candidate": 63177488.74101024
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[23].withdrawals",
       "reference": 232080.79327315267,
-      "candidate": 192697.6293076474
+      "candidate": 192201.8254215226
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].federalAgi",
-      "candidate": 1090330.446636148
+      "candidate": 1088543.2904230442
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].irmaaMagi",
-      "candidate": 1090330.446636148
+      "candidate": 1088543.2904230442
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].niitMagi",
-      "candidate": 1090330.446636148
+      "candidate": 1088543.2904230442
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].seniorDeductionMagi",
-      "candidate": 1090330.446636148
+      "candidate": 1088543.2904230442
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].ssProvisionalIncome",
-      "candidate": 1060212.246636148
+      "candidate": 1058425.0904230443
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].magi",
       "reference": 1182561.6130691,
-      "candidate": 1172918.188656311
+      "candidate": 1171001.908227352
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].networth",
       "reference": 67244782.00145668,
-      "candidate": 67645710.4140929
+      "candidate": 67517558.4346747
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].preTax",
       "reference": 11854976.027967736,
-      "candidate": 12214670.801335715
+      "candidate": 12182105.707951631
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].realTotal",
       "reference": 19470525.879866134,
-      "candidate": 19586613.50483662
+      "candidate": 19549507.481773537
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].taxable",
       "reference": 55389805.973488934,
-      "candidate": 55431039.612757176
+      "candidate": 55335452.72672306
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].taxes",
       "reference": 274023.7850292883,
-      "candidate": 269134.87278018077
+      "candidate": 268603.2464586446
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].total",
       "reference": 67244782.00145668,
-      "candidate": 67645710.4140929
+      "candidate": 67517558.4346747
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[24].withdrawals",
       "reference": 258625.1380064847,
-      "candidate": 218057.45840486154
+      "candidate": 217525.8320833254
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].federalAgi",
-      "candidate": 1172918.188656311
+      "candidate": 1171001.908227352
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].irmaaMagi",
-      "candidate": 1172918.188656311
+      "candidate": 1171001.908227352
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].niitMagi",
-      "candidate": 1172918.188656311
+      "candidate": 1171001.908227352
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].seniorDeductionMagi",
-      "candidate": 1172918.188656311
+      "candidate": 1171001.908227352
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].ssProvisionalIncome",
-      "candidate": 1141850.788656311
+      "candidate": 1139934.508227352
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].magi",
       "reference": 1145746.8564525438,
-      "candidate": 1135882.203445036
+      "candidate": 1167624.2777688557
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].networth",
       "reference": 71936983.15721288,
-      "candidate": 72409935.1654543
+      "candidate": 72238145.32688367
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].preTax",
       "reference": 12545196.153595498,
-      "candidate": 12973935.341846602
+      "candidate": 12904638.658395432
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].realTotal",
       "reference": 19780758.515376355,
-      "candidate": 19910807.748104677
+      "candidate": 19863570.108117264
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].taxable",
       "reference": 59391787.00361739,
-      "candidate": 59435999.82360769
+      "candidate": 59333506.66848824
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].taxes",
       "reference": 259377.06066386573,
-      "candidate": 254392.33623000473
+      "candidate": 264468.2938888828
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].total",
       "reference": 71936983.15721288,
-      "candidate": 72409935.1654543
+      "candidate": 72238145.32688367
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[25].withdrawals",
       "reference": 161591.42826866882,
-      "candidate": 119804.12131068799
+      "candidate": 153030.89268979465
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].federalAgi",
-      "candidate": 1135882.203445036
+      "candidate": 1167624.2777688557
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].irmaaMagi",
-      "candidate": 1135882.203445036
+      "candidate": 1167624.2777688557
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].niitMagi",
-      "candidate": 1135882.203445036
+      "candidate": 1167624.2777688557
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].seniorDeductionMagi",
-      "candidate": 1135882.203445036
+      "candidate": 1167624.2777688557
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].ssProvisionalIncome",
-      "candidate": 1103836.203445036
+      "candidate": 1135578.2777688557
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].magi",
       "reference": 1231342.1558725582,
-      "candidate": 1221252.7579442593
+      "candidate": 1252846.375228864
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].networth",
       "reference": 76946491.71978629,
-      "candidate": 77497929.14079903
+      "candidate": 77279411.93631172
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].preTax",
       "reference": 13263575.67614898,
-      "candidate": 13767605.847009063
+      "candidate": 13658987.053090233
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].realTotal",
       "reference": 20093295.568388548,
-      "candidate": 20237294.272426017
+      "candidate": 20180232.141607486
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].taxable",
       "reference": 63682916.043637305,
-      "candidate": 63730323.293789975
+      "candidate": 63620424.88322149
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].taxes",
       "reference": 283070.5802879871,
-      "candidate": 277988.10820605507
+      "candidate": 288022.8799985686
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].total",
       "reference": 76946491.71978629,
-      "candidate": 77497929.14079903
+      "candidate": 77279411.93631172
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[26].withdrawals",
       "reference": 182725.5399251713,
-      "candidate": 139685.34396960976
+      "candidate": 172870.9294823518
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].federalAgi",
-      "candidate": 1221252.7579442593
+      "candidate": 1252846.375228864
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].irmaaMagi",
-      "candidate": 1221252.7579442593
+      "candidate": 1252846.375228864
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].niitMagi",
-      "candidate": 1221252.7579442593
+      "candidate": 1252846.375228864
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].seniorDeductionMagi",
-      "candidate": 1221252.7579442593
+      "candidate": 1252846.375228864
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].ssProvisionalIncome",
-      "candidate": 1188198.7579442593
+      "candidate": 1219792.375228864
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].magi",
       "reference": 1323139.3925835534,
-      "candidate": 1312822.4599945329
+      "candidate": 1344256.8940377934
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].networth",
       "reference": 82294544.45746131,
-      "candidate": 82931424.90888794
+      "candidate": 82662872.1547022
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].preTax",
       "reference": 14010460.067578461,
-      "candidate": 14596508.037215155
+      "candidate": 14445793.987783935
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].realTotal",
       "reference": 20408215.123065606,
-      "candidate": 20566155.03689681
+      "candidate": 20499556.66861558
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].taxable",
       "reference": 68284084.38988285,
-      "candidate": 68334916.87167278
+      "candidate": 68217078.16691826
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].taxes",
       "reference": 308483.0146088366,
-      "candidate": 303301.11183392635
+      "candidate": 313291.7220310038
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].total",
       "reference": 82294544.45746131,
-      "candidate": 82931424.90888794
+      "candidate": 82662872.1547022
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[27].withdrawals",
       "reference": 205515.22009828658,
-      "candidate": 161190.78514772744
+      "candidate": 194332.20906503338
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].federalAgi",
-      "candidate": 1312822.4599945329
+      "candidate": 1344256.8940377934
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].irmaaMagi",
-      "candidate": 1312822.4599945329
+      "candidate": 1344256.8940377934
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].niitMagi",
-      "candidate": 1312822.4599945329
+      "candidate": 1344256.8940377934
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].seniorDeductionMagi",
-      "candidate": 1312822.4599945329
+      "candidate": 1344256.8940377934
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].ssProvisionalIncome",
-      "candidate": 1278731.059994533
+      "candidate": 1310165.4940377935
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].magi",
       "reference": 1421587.2176526275,
-      "candidate": 1411034.722841966
+      "candidate": 1442298.4724605698
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].networth",
       "reference": 88003788.36810829,
-      "candidate": 88733626.10394274
+      "candidate": 88411495.46529372
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].preTax",
       "reference": 14786095.607782746,
-      "candidate": 15461428.15302711
+      "candidate": 15265650.209256865
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].realTotal",
       "reference": 20725593.446412824,
-      "candidate": 20897476.049142197
+      "candidate": 20821611.716741566
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].taxable",
       "reference": 73217692.76032555,
-      "candidate": 73272197.95091563
+      "candidate": 73145845.25603686
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].taxes",
       "reference": 335738.77872328507,
-      "candidate": 330453.62610489136
+      "candidate": 340396.8839774069
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].total",
       "reference": 88003788.36810829,
-      "candidate": 88733626.10394274
+      "candidate": 88411495.46529372
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[28].withdrawals",
       "reference": 230083.07505205699,
-      "candidate": 184418.6264944815
+      "candidate": 217512.69808722555
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[28].federalAgi",
-      "candidate": 1411034.722841966
+      "candidate": 1442298.4724605698
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[28].irmaaMagi",
-      "candidate": 1411034.722841966
+      "candidate": 1442298.4724605698
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[28].niitMagi",
-      "candidate": 1411034.722841966
+      "candidate": 1442298.4724605698
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[28].seniorDeductionMagi",
-      "candidate": 1411034.722841966
+      "candidate": 1442298.4724605698
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[28].ssProvisionalIncome",
-      "candidate": 1375868.1228419659
+      "candidate": 1407131.8724605697
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].magi",
       "reference": 1527166.715169948,
-      "candidate": 1516374.4303877628
+      "candidate": 1547455.1634238767
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].networth",
       "reference": 94098373.58619323,
-      "candidate": 94929263.63124241
+      "candidate": 94549762.05375293
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].preTax",
       "reference": 15590613.234064922,
-      "candidate": 16363060.02203414
+      "candidate": 16119040.275717087
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].realTotal",
       "reference": 21045505.063514803,
-      "candidate": 21231337.187746886
+      "candidate": 21146460.03135958
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].taxable",
       "reference": 78507760.35212831,
-      "candidate": 78566203.60920827
+      "candidate": 78430721.77803585
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].taxes",
       "reference": 364971.28384521214,
-      "candidate": 359580.5382193899
+      "candidate": 369473.0225041472
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].total",
       "reference": 94098373.58619323,
-      "candidate": 94929263.63124241
+      "candidate": 94549762.05375293
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[29].withdrawals",
       "reference": 256560.65220427586,
-      "candidate": 209515.65681718764
+      "candidate": 242558.95482217337
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[29].federalAgi",
-      "candidate": 1516374.4303877628
+      "candidate": 1547455.1634238767
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[29].irmaaMagi",
-      "candidate": 1516374.4303877628
+      "candidate": 1547455.1634238767
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[29].niitMagi",
-      "candidate": 1516374.4303877628
+      "candidate": 1547455.1634238767
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[29].seniorDeductionMagi",
-      "candidate": 1516374.4303877628
+      "candidate": 1547455.1634238767
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[29].ssProvisionalIncome",
-      "candidate": 1480099.030387763
+      "candidate": 1511179.7634238768
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].magi",
       "reference": 1640393.746123465,
-      "candidate": 1629358.283232656
+      "candidate": 1660635.8635106697
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].networth",
       "reference": 100604052.35598505,
-      "candidate": 101544709.96530259
+      "candidate": 101103369.00161621
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].preTax",
       "reference": 16424010.577244297,
-      "candidate": 17302002.33288558
+      "candidate": 17005931.92789558
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].realTotal",
       "reference": 21368022.82873237,
-      "candidate": 21567815.906637374
+      "candidate": 21474076.305036284
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].taxable",
       "reference": 84180041.77874076,
-      "candidate": 84242707.63241701
+      "candidate": 84097437.07372063
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].taxes",
       "reference": 396323.5875056291,
-      "candidate": 390825.1944411271
+      "candidate": 401056.323680157
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].total",
       "reference": 100604052.35598505,
-      "candidate": 101544709.96530259
+      "candidate": 101103369.00161621
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[30].withdrawals",
       "reference": 285089.08861702884,
-      "candidate": 236625.12292378102
+      "candidate": 270007.06588303956
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[30].federalAgi",
-      "candidate": 1629358.283232656
+      "candidate": 1660635.8635106697
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[30].irmaaMagi",
-      "candidate": 1629358.283232656
+      "candidate": 1660635.8635106697
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[30].niitMagi",
-      "candidate": 1629358.283232656
+      "candidate": 1660635.8635106697
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[30].seniorDeductionMagi",
-      "candidate": 1629358.283232656
+      "candidate": 1660635.8635106697
     },
     {
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[30].ssProvisionalIncome",
-      "candidate": 1591940.483232656
+      "candidate": 1623218.0635106696
     },
     {
       "scenario": "targeted:historical-1929",
@@ -79025,7 +79031,7 @@
       "kind": "VALUE",
       "path": "rows[15].spending",
       "reference": 21081.141972,
-      "candidate": 39893.77672402297
+      "candidate": 40051.193843850284
     },
     {
       "scenario": "seed:20",
@@ -79039,7 +79045,7 @@
       "kind": "VALUE",
       "path": "rows[16].spending",
       "reference": 21081.141972,
-      "candidate": 35357.241184448394
+      "candidate": 35526.0318831553
     },
     {
       "scenario": "seed:20",
@@ -81685,21 +81691,21 @@
       "kind": "VALUE",
       "path": "rows[6].magi",
       "reference": 16815.459908323788,
-      "candidate": 157695.54075689532
+      "candidate": 158731.0947519865
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[6].networth",
       "reference": 6139981.588924728,
-      "candidate": 6011348.7586822165
+      "candidate": 6009100.567993293
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[6].realTotal",
       "reference": 5015196.119343793,
-      "candidate": 4910127.584249793
+      "candidate": 4908291.240434206
     },
     {
       "scenario": "seed:16",
@@ -81713,1232 +81719,1232 @@
       "kind": "VALUE",
       "path": "rows[6].taxable",
       "reference": 4349198.908640948,
-      "candidate": 4220592.6465808945
+      "candidate": 4218344.455891971
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[6].taxes",
       "reference": 0,
-      "candidate": 7295.251443723997
+      "candidate": 7476.473392864955
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[6].total",
       "reference": 6139981.588924728,
-      "candidate": 6011348.7586822165
+      "candidate": 6009100.567993293
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[6].withdrawals",
       "reference": 27900.21554392532,
-      "candidate": 35195.46698764931
+      "candidate": 37403.46572110592
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].magi",
       "reference": 17210.260697932703,
-      "candidate": 164439.34900398052
+      "candidate": 165368.2817118875
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].networth",
       "reference": 6408255.61770648,
-      "candidate": 6264270.089327295
+      "candidate": 6259678.86062558
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].realTotal",
       "reference": 5060741.497457233,
-      "candidate": 4947032.934320571
+      "candidate": 4943407.139252271
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].roth",
       "reference": 1858686.3350367176,
-      "candidate": 1858649.1345220387
+      "candidate": 1858648.962638007
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].taxable",
       "reference": 4549569.282669763,
-      "candidate": 4405620.954805257
+      "candidate": 4401029.8979875725
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].taxes",
       "reference": 0,
-      "candidate": 8622.541717595637
+      "candidate": 8783.223628928898
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].total",
       "reference": 6408255.61770648,
-      "candidate": 6264270.089327295
+      "candidate": 6259678.86062558
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[7].withdrawals",
       "reference": 28555.269118853,
-      "candidate": 37177.81083644864
+      "candidate": 39365.26953209753
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].magi",
       "reference": 17634.237265893717,
-      "candidate": 171716.56163799897
+      "candidate": 172537.824692227
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].networth",
       "reference": 6695654.0433749575,
-      "candidate": 6533895.445413191
+      "candidate": 6526856.242379662
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].realTotal",
       "reference": 5112352.706436,
-      "candidate": 4988844.681570621
+      "candidate": 4983470.017878845
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].roth",
       "reference": 1929392.1468547161,
-      "candidate": 1929343.1048010958
+      "candidate": 1929342.5860242625
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].taxable",
       "reference": 4766261.896520241,
-      "candidate": 4604552.340612095
+      "candidate": 4597513.6563554
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].taxes",
       "reference": 0,
-      "candidate": 10054.197669226483
+      "candidate": 10194.074094297943
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].total",
       "reference": 6695654.0433749575,
-      "candidate": 6533895.445413191
+      "candidate": 6526856.242379662
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[8].withdrawals",
       "reference": 29258.73115296784,
-      "candidate": 39312.92882219432
+      "candidate": 41479.58203158142
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].dividends",
       "reference": 166642.23305561073,
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].income",
       "reference": 166642.23305561073,
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].magi",
       "reference": 166642.23305561073,
-      "candidate": 160995.75103409754
+      "candidate": 160749.97958215364
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].networth",
       "reference": 6864477.057612917,
-      "candidate": 6699659.146431532
+      "candidate": 6692494.096051512
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].realTotal",
       "reference": 5067441.4059127355,
-      "candidate": 4945770.796404276
+      "candidate": 4940481.468074321
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].roth",
       "reference": 2003023.8714398916,
-      "candidate": 2002961.6458355924
+      "candidate": 2002960.602274013
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].spending",
       "reference": 157170.4286775442,
-      "candidate": 152647.59657831214
+      "candidate": 152450.73364530507
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].taxable",
       "reference": 4861453.1861730255,
-      "candidate": 4696697.500595939
+      "candidate": 4689533.4937774995
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].taxes",
       "reference": 9471.804378066536,
-      "candidate": 8348.15445578541
+      "candidate": 8299.245936848576
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[9].total",
       "reference": 6864477.057612917,
-      "candidate": 6699659.146431532
+      "candidate": 6692494.096051512
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].dividends",
       "reference": 173315.72194887573,
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].income",
       "reference": 173315.72194887573,
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].magi",
       "reference": 173315.72194887573,
-      "candidate": 167440.23465585458
+      "candidate": 167185.18391782607
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].networth",
       "reference": 7035270.708235315,
-      "candidate": 6866986.785869002
+      "candidate": 6859698.611867639
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].realTotal",
       "reference": 5021293.028894814,
-      "candidate": 4901183.52333394
+      "candidate": 4895981.7253045365
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].roth",
       "reference": 2079477.282772627,
-      "candidate": 2079401.2994470994
+      "candidate": 2079399.7085121432
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].spending",
       "reference": 162515.89328104944,
-      "candidate": 157809.6279593395
+      "candidate": 157605.33231817867
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].taxable",
       "reference": 4955793.425462688,
-      "candidate": 4787585.486421903
+      "candidate": 4780298.903355496
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].taxes",
       "reference": 10799.828667826268,
-      "candidate": 9630.606696515062
+      "candidate": 9579.851599647387
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[10].total",
       "reference": 7035270.708235315,
-      "candidate": 6866986.785869002
+      "candidate": 6859698.611867639
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].dividends",
       "reference": 180157.06672314237,
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].income",
       "reference": 180157.06672314237,
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].magi",
       "reference": 180157.06672314237,
-      "candidate": 174029.88490855298
+      "candidate": 173765.38525256712
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].networth",
       "reference": 7207980.6810462605,
-      "candidate": 7035772.183796386
+      "candidate": 7028363.92914227
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].realTotal",
       "reference": 4973954.892457876,
-      "candidate": 4855120.3207072625
+      "candidate": 4850008.164319509
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].roth",
       "reference": 2158860.5058453497,
-      "candidate": 2158770.1361261373
+      "candidate": 2158767.974300904
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].spending",
       "reference": 167995.81044523703,
-      "candidate": 164692.48953812264
+      "candidate": 164484.59280851774
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].taxable",
       "reference": 5049120.17520091,
-      "candidate": 4877002.047670249
+      "candidate": 4869595.954841366
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].taxes",
       "reference": 12161.256277905333,
-      "candidate": 9337.395370430339
+      "candidate": 9280.792444049366
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[11].total",
       "reference": 7207980.6810462605,
-      "candidate": 7035772.183796386
+      "candidate": 7028363.92914227
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].dividends",
       "reference": 187164.08802290526,
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].income",
       "reference": 187164.08802290526,
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].magi",
       "reference": 187164.08802290526,
-      "candidate": 180759.0773055745
+      "candidate": 180484.9698202024
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].networth",
       "reference": 7382501.074537611,
-      "candidate": 7205906.875618147
+      "candidate": 7198381.908719696
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].realTotal",
       "reference": 4925442.150612525,
-      "candidate": 4807622.389784916
+      "candidate": 4802601.897573757
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].roth",
       "reference": 2241285.8113967516,
-      "candidate": 2241180.3672051374
+      "candidate": 2241177.610013278
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].taxable",
       "reference": 5141215.263140859,
-      "candidate": 4964726.508413009
+      "candidate": 4957204.298706418
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[12].total",
       "reference": 7382501.074537611,
-      "candidate": 7205906.875618147
+      "candidate": 7198381.908719696
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].dividends",
       "reference": 194326.89299632126,
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].income",
       "reference": 194326.89299632126,
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].magi",
       "reference": 194326.89299632126,
-      "candidate": 187621.33878700103
+      "candidate": 187337.47650455375
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].networth",
       "reference": 7558149.618496221,
-      "candidate": 7377280.75501822
+      "candidate": 7369642.775005466
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].realTotal",
       "reference": 4875404.613046544,
-      "candidate": 4758734.669228658
+      "candidate": 4753807.769806422
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].roth",
       "reference": 2326869.7716203113,
-      "candidate": 2326748.5036039837
+      "candidate": 2326745.1255779993
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].taxable",
       "reference": 5231279.84687591,
-      "candidate": 5050532.251414237
+      "candidate": 5042897.649427467
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[13].total",
       "reference": 7558149.618496221,
-      "candidate": 7377280.75501822
+      "candidate": 7369642.775005466
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].dividends",
       "reference": 201589.5751865372,
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].income",
       "reference": 201589.5751865372,
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].magi",
       "reference": 201589.5751865372,
-      "candidate": 194609.31145462743
+      "candidate": 194315.56061133815
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].networth",
       "reference": 7733959.588491924,
-      "candidate": 7549782.786687101
+      "candidate": 7542035.82769216
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].realTotal",
       "reference": 4823369.722616379,
-      "candidate": 4708505.816325019
+      "candidate": 4703674.339378314
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].roth",
       "reference": 2415733.388101719,
-      "candidate": 2415595.520678484
+      "candidate": 2415591.495327536
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].taxable",
       "reference": 5318226.200390205,
-      "candidate": 5134187.266008617
+      "candidate": 5126444.332364624
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[14].total",
       "reference": 7733959.588491924,
-      "candidate": 7549782.786687101
+      "candidate": 7542035.82769216
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].dividends",
       "reference": 208937.86325230927,
-      "candidate": 201714.7183705915
+      "candidate": 201410.95969941135
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].income",
       "reference": 223346.86325230927,
-      "candidate": 217242.7183705915
+      "candidate": 216938.95969941135
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].magi",
       "reference": 221185.51325230926,
-      "candidate": 214913.51837059148
+      "candidate": 214609.75969941134
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].networth",
       "reference": 7909711.6913623735,
-      "candidate": 7723301.790625438
+      "candidate": 7715450.224974675
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].realTotal",
       "reference": 4769389.41499255,
-      "candidate": 4656988.174325911
+      "candidate": 4652253.845747694
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].roth",
       "reference": 2508002.244946249,
-      "candidate": 2507847.0294089373
+      "candidate": 2507842.3291862234
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].taxable",
       "reference": 5401709.446416125,
-      "candidate": 5215454.761216501
+      "candidate": 5207607.895788452
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[15].total",
       "reference": 7909711.6913623735,
-      "candidate": 7723301.790625438
+      "candidate": 7715450.224974675
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].dividends",
       "reference": 218247.69319574817,
-      "candidate": 210819.5953198176
+      "candidate": 210505.724713344
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].income",
       "reference": 251056.12279574818,
-      "candidate": 246435.5953198176
+      "candidate": 246121.724713344
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].magi",
       "reference": 246134.85835574818,
-      "candidate": 241093.1953198176
+      "candidate": 240779.32471334402
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].networth",
       "reference": 8084103.109327526,
-      "candidate": 7896498.07614656
+      "candidate": 7888546.599628001
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].realTotal",
       "reference": 4712891.58261109,
-      "candidate": 4603521.109501476
+      "candidate": 4598885.536915767
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].roth",
       "reference": 2554705.0664696638,
-      "candidate": 2554532.0158326016
+      "candidate": 2554526.621984072
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].taxable",
       "reference": 5529398.042857862,
-      "candidate": 5341966.060313959
+      "candidate": 5334019.977643929
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[16].total",
       "reference": 8084103.109327526,
-      "candidate": 7896498.07614656
+      "candidate": 7888546.599628001
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].dividends",
       "reference": 225793.73103631256,
-      "candidate": 218191.8126576265
+      "candidate": 217867.743388889
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].income",
       "reference": 258943.36830415257,
-      "candidate": 254167.8126576265
+      "candidate": 253843.743388889
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].magi",
       "reference": 253970.92271397656,
-      "candidate": 248771.4126576265
+      "candidate": 248447.343388889
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].networth",
       "reference": 8258112.235291468,
-      "candidate": 8070391.611329808
+      "candidate": 8062345.277599095
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].realTotal",
       "reference": 4654680.342413066,
-      "candidate": 4548871.717714831
+      "candidate": 4544336.40620807
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].roth",
       "reference": 2652304.6290706885,
-      "candidate": 2652113.062620173
+      "candidate": 2652106.945657228
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].taxable",
       "reference": 5605807.606220779,
-      "candidate": 5418278.548709635
+      "candidate": 5410238.331941867
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[17].total",
       "reference": 8258112.235291468,
-      "candidate": 8070391.611329808
+      "candidate": 8062345.277599095
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].dividends",
       "reference": 233374.49764359734,
-      "candidate": 225651.1720343216
+      "candidate": 225316.83628448047
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].income",
       "reference": 266868.8911390229,
-      "candidate": 261999.1720343216
+      "candidate": 261664.83628448047
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].magi",
       "reference": 261844.73211470904,
-      "candidate": 256546.97203432157
+      "candidate": 256212.63628448045
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].networth",
       "reference": 8431294.157342896,
-      "candidate": 8244871.528292332
+      "candidate": 8236735.731444428
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].realTotal",
       "reference": 4594696.157702339,
-      "candidate": 4493103.766140313
+      "candidate": 4488670.1034285985
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].roth",
       "reference": 2753643.83294664,
-      "candidate": 2753433.1015996565
+      "candidate": 2753426.230880698
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].taxable",
       "reference": 5677650.324396256,
-      "candidate": 5491438.426692676
+      "candidate": 5483309.50056373
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[18].total",
       "reference": 8431294.157342896,
-      "candidate": 8244871.528292332
+      "candidate": 8236735.731444428
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].dividends",
       "reference": 240969.12021668672,
-      "candidate": 233185.314883266
+      "candidate": 232840.66472026554
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].income",
       "reference": 274811.85540446464,
-      "candidate": 269917.314883266
+      "candidate": 269572.66472026554
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].magi",
       "reference": 269735.445126298,
-      "candidate": 264407.514883266
+      "candidate": 264062.86472026556
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].networth",
       "reference": 8603416.656298945,
-      "candidate": 8419830.602589048
+      "candidate": 8411611.075147321
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].realTotal",
       "reference": 4533013.233609993,
-      "candidate": 4436284.451985322
+      "candidate": 4431953.704311944
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].roth",
       "reference": 2858865.8639436644,
-      "candidate": 2858635.371117921
+      "candidate": 2858627.7148141353
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].taxable",
       "reference": 5744550.79235528,
-      "candidate": 5561195.231471127
+      "candidate": 5552983.360333186
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[19].total",
       "reference": 8603416.656298945,
-      "candidate": 8419830.602589048
+      "candidate": 8411611.075147321
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].dividends",
       "reference": 248554.9639436945,
-      "candidate": 240780.83205743792
+      "candidate": 240425.8408051037
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].income",
       "reference": 282749.66357742535,
-      "candidate": 277896.8320574379
+      "candidate": 277541.8408051037
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].magi",
       "reference": 277620.45863236574,
-      "candidate": 272329.4320574379
+      "candidate": 271974.4408051037
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].networth",
       "reference": 8774248.87346332,
-      "candidate": 8595166.413529413
+      "candidate": 8586869.222930778
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].realTotal",
       "reference": 4469711.1157588875,
-      "candidate": 4378484.291292478
+      "candidate": 4374257.599574119
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].roth",
       "reference": 2968119.388295715,
-      "candidate": 2967868.598881416
+      "candidate": 2967860.1239423854
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].taxable",
       "reference": 5806129.485167604,
-      "candidate": 5627297.814647997
+      "candidate": 5619009.098988391
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[20].total",
       "reference": 8774248.87346332,
-      "candidate": 8595166.413529413
+      "candidate": 8586869.222930778
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].dividends",
       "reference": 256107.59454525335,
-      "candidate": 248423.25235638808
+      "candidate": 248057.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].income",
       "reference": 290657.919055175,
-      "candidate": 285923.2523563881
+      "candidate": 285557.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].magi",
       "reference": 285475.37037868676,
-      "candidate": 280298.2523563881
+      "candidate": 279932.91595651384
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].networth",
       "reference": 8943562.896632683,
-      "candidate": 8770782.578067668
+      "candidate": 8762414.121570066
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].realTotal",
       "reference": 4404874.579403278,
-      "candidate": 4319776.991130625
+      "candidate": 4315655.36737495
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].roth",
       "reference": 3081558.7623280557,
-      "candidate": 3081287.2126206523
+      "candidate": 3081277.8847398683
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].taxable",
       "reference": 5862004.134304626,
-      "candidate": 5689495.365447016
+      "candidate": 5681136.236830197
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[21].total",
       "reference": 8943562.896632683,
-      "candidate": 8770782.578067668
+      "candidate": 8762414.121570066
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].dividends",
       "reference": 263600.746850143,
-      "candidate": 256097.03678340005
+      "candidate": 255721.37514178164
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].income",
       "reference": 314205.4347349678,
-      "candidate": 309676.0767834
+      "candidate": 309300.4151417816
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].magi",
       "reference": 308968.9875522441,
-      "candidate": 303993.47678340005
+      "candidate": 303617.8151417817
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].networth",
       "reference": 9111135.460420694,
-      "candidate": 8946590.056566745
+      "candidate": 8938157.054510577
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].realTotal",
       "reference": 4338593.492743422,
-      "candidate": 4260239.304999998
+      "candidate": 4256223.6290171165
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].roth",
       "reference": 3199344.250212327,
-      "candidate": 3199051.558885199
+      "candidate": 3199041.3424655474
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].taxable",
       "reference": 5911791.210208367,
-      "candidate": 5747538.497681545
+      "candidate": 5739115.71204503
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[22].total",
       "reference": 9111135.460420694,
-      "candidate": 8946590.056566745
+      "candidate": 8938157.054510577
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].dividends",
       "reference": 271006.30160126765,
-      "candidate": 263785.57910927193
+      "candidate": 263399.6374159602
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].income",
       "reference": 331252.1782400947,
-      "candidate": 327026.74752527196
+      "candidate": 326640.80583196017
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].magi",
       "reference": 325961.2720066706,
-      "candidate": 321286.54752527195
+      "candidate": 320900.60583196016
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].networth",
       "reference": 9276749.758766765,
-      "candidate": 9122508.528054222
+      "candidate": 9114018.015415575
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].realTotal",
       "reference": 4270962.6538576875,
-      "candidate": 4199950.8713704245
+      "candidate": 4196041.887800236
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].roth",
       "reference": 3321642.2500887862,
-      "candidate": 3321328.130288397
+      "candidate": 3321316.988407705
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].taxable",
       "reference": 5955107.508677979,
-      "candidate": 5801180.3977658255
+      "candidate": 5792701.02700787
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[23].total",
       "reference": 9276749.758766765,
-      "candidate": 9122508.528054222
+      "candidate": 9114018.015415575
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].dividends",
       "reference": 278294.2713994933,
-      "candidate": 271471.2133193081
+      "candidate": 271075.06333268725
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].income",
       "reference": 339166.70515536406,
-      "candidate": 335380.1026868345
+      "candidate": 334983.95270021365
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].magi",
       "reference": 333820.77349711244,
-      "candidate": 329578.7026868345
+      "candidate": 329182.5527002136
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].networth",
       "reference": 9440197.366393702,
-      "candidate": 9298467.831867356
+      "candidate": 9289927.148048047
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].realTotal",
       "reference": 4202081.600834208,
-      "candidate": 4138994.0353720603
+      "candidate": 4135192.351048868
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].roth",
       "reference": 3448625.528884685,
-      "candidate": 3448289.8015339235
+      "candidate": 3448277.6959106443
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].taxable",
       "reference": 5991571.837509017,
-      "candidate": 5850178.030333433
+      "candidate": 5841649.452137403
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[24].total",
       "reference": 9440197.366393702,
-      "candidate": 9298467.831867356
+      "candidate": 9289927.148048047
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].dividends",
       "reference": 285432.79669482494,
-      "candidate": 279135.2285139327
+      "candidate": 278728.9697976
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].income",
       "reference": 346938.3037617568,
-      "candidate": 343702.5399308814
+      "candidate": 343296.2812145487
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].magi",
       "reference": 341536.7744142593,
-      "candidate": 337841.7399308814
+      "candidate": 337435.4812145487
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].networth",
       "reference": 9601280.264802393,
-      "candidate": 9474409.471827142
+      "candidate": 9465826.24863498
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].realTotal",
       "reference": 4132054.394836627,
-      "candidate": 4077453.6537655005
+      "candidate": 4073759.73544056
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].roth",
       "reference": 3580473.4661718216,
-      "candidate": 3580116.074569825
+      "candidate": 3580102.965528944
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].taxable",
       "reference": 6020806.798630571,
-      "candidate": 5894293.397257318
+      "candidate": 5885723.283106035
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[25].total",
       "reference": 9601280.264802393,
-      "candidate": 9474409.471827142
+      "candidate": 9465826.24863498
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].dividends",
       "reference": 292388.15272580093,
-      "candidate": 286757.89182011393
+      "candidate": 286341.6529209444
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].networth",
       "reference": 9759812.967148893,
-      "candidate": 9650288.178294055
+      "candidate": 9641670.326075979
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].realTotal",
       "reference": 4060989.376003869,
-      "candidate": 4015416.883431965
+      "candidate": 4011831.0558736525
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].roth",
       "reference": 3717372.3074210673,
-      "candidate": 3716993.333229619
+      "candidate": 3716979.179668867
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].taxable",
       "reference": 6042440.659727825,
-      "candidate": 5933294.845064435
+      "candidate": 5924691.1464071125
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[26].total",
       "reference": 9759812.967148893,
-      "candidate": 9650288.178294055
+      "candidate": 9641670.326075979
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].dividends",
       "reference": 299124.7682875754,
-      "candidate": 294318.479849827
+      "candidate": 293892.41940506874
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].income",
       "reference": 345387.9070340667,
-      "candidate": 343706.51601405395
+      "candidate": 343280.4555692957
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].magi",
       "reference": 339873.44164672703,
-      "candidate": 337723.31601405394
+      "candidate": 337297.25556929567
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].networth",
       "reference": 9915624.735047108,
-      "candidate": 9826073.522646137
+      "candidate": 9817429.214547323
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].realTotal",
       "reference": 3988998.8922614106,
-      "candidate": 3952972.9537438373
+      "candidate": 3949495.398234031
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].roth",
       "reference": 3859515.4270272176,
-      "candidate": 3859115.1077346103
+      "candidate": 3859099.8670910574
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].taxable",
       "reference": 6056109.3080198895,
-      "candidate": 5966958.414911527
+      "candidate": 5958329.347456265
     },
     {
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[27].total",
       "reference": 9915624.735047108,
-      "candidate": 9826073.522646137
+      "candidate": 9817429.214547323
     },
     {
       "declared": {
@@ -105068,7 +105074,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[6].taxSettled",
-      "candidate": 7295.251443723997
+      "candidate": 7476.473392864955
     },
     {
       "scenario": "seed:16",
@@ -105086,7 +105092,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[7].taxSettled",
-      "candidate": 8622.541717595637
+      "candidate": 8783.223628928898
     },
     {
       "scenario": "seed:16",
@@ -105104,7 +105110,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[8].taxSettled",
-      "candidate": 10054.197669226483
+      "candidate": 10194.074094297943
     },
     {
       "scenario": "seed:16",
@@ -105122,7 +105128,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[9].taxSettled",
-      "candidate": 8348.15445578541
+      "candidate": 8299.245936848576
     },
     {
       "scenario": "seed:16",
@@ -105140,7 +105146,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[10].taxSettled",
-      "candidate": 9630.606696515062
+      "candidate": 9579.851599647387
     },
     {
       "scenario": "seed:16",
@@ -105158,7 +105164,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].taxSettled",
-      "candidate": 9337.395370430339
+      "candidate": 9280.792444049366
     },
     {
       "scenario": "seed:16",
@@ -105176,7 +105182,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].taxSettled",
-      "candidate": 10777.442543392941
+      "candidate": 10718.78354152331
     },
     {
       "scenario": "seed:16",
@@ -105194,7 +105200,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].taxSettled",
-      "candidate": 10845.286582223236
+      "candidate": 10780.28211954281
     },
     {
       "scenario": "seed:16",
@@ -105212,7 +105218,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].taxSettled",
-      "candidate": 12445.532323109685
+      "candidate": 12378.263379996437
     },
     {
       "scenario": "seed:16",
@@ -105230,7 +105236,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].taxSettled",
-      "candidate": 17768.334506865456
+      "candidate": 17698.7737711652
     },
     {
       "scenario": "seed:16",
@@ -105248,7 +105254,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].taxSettled",
-      "candidate": 25024.325054540917
+      "candidate": 24950.188817291855
     },
     {
       "scenario": "seed:16",
@@ -105266,7 +105272,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].taxSettled",
-      "candidate": 26858.17718973138
+      "candidate": 26781.632028455584
     },
     {
       "scenario": "seed:16",
@@ -105284,7 +105290,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].taxSettled",
-      "candidate": 28752.359797898956
+      "candidate": 28671.517413587382
     },
     {
       "scenario": "seed:16",
@@ -105302,7 +105308,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].taxSettled",
-      "candidate": 30674.646738773714
+      "candidate": 30591.31032936021
     },
     {
       "scenario": "seed:16",
@@ -105320,7 +105326,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].taxSettled",
-      "candidate": 32611.77399148849
+      "candidate": 32525.93710667408
     },
     {
       "scenario": "seed:16",
@@ -105338,7 +105344,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].taxSettled",
-      "candidate": 34560.242419774644
+      "candidate": 34471.90407828504
     },
     {
       "scenario": "seed:16",
@@ -105356,7 +105362,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].taxSettled",
-      "candidate": 41742.74301422613
+      "candidate": 41651.9080292828
     },
     {
       "scenario": "seed:16",
@@ -105374,7 +105380,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].taxSettled",
-      "candidate": 46791.98051114995
+      "candidate": 46698.659809707184
     },
     {
       "scenario": "seed:16",
@@ -105392,7 +105398,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].taxSettled",
-      "candidate": 48843.668339995
+      "candidate": 48747.879273230064
     },
     {
       "scenario": "seed:16",
@@ -105410,7 +105416,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].taxSettled",
-      "candidate": 50887.88655651284
+      "candidate": 50789.65319890359
     },
     {
       "scenario": "seed:16",
@@ -105428,7 +105434,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].taxSettled",
-      "candidate": 47478.872403116584
+      "candidate": 47378.22583729738
     },
     {
       "scenario": "seed:16",
@@ -105446,7 +105452,7 @@
       "scenario": "seed:16",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].taxSettled",
-      "candidate": 49446.39887037573
+      "candidate": 49343.377454833186
     },
     {
       "scenario": "seed:16",
@@ -106724,7 +106730,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[11].taxSettled",
-      "candidate": 95730.94976247312
+      "candidate": 96561.86848786048
     },
     {
       "scenario": "seed:20",
@@ -106742,7 +106748,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[12].taxSettled",
-      "candidate": 103965.56002562333
+      "candidate": 104521.38614739585
     },
     {
       "scenario": "seed:20",
@@ -106760,7 +106766,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[13].taxSettled",
-      "candidate": 112100.7729052581
+      "candidate": 112469.27554198266
     },
     {
       "scenario": "seed:20",
@@ -106778,7 +106784,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[14].taxSettled",
-      "candidate": 118871.65847954559
+      "candidate": 119575.37924903011
     },
     {
       "scenario": "seed:20",
@@ -106796,7 +106802,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[15].taxSettled",
-      "candidate": 96648.85165720042
+      "candidate": 96491.4345373731
     },
     {
       "scenario": "seed:20",
@@ -106814,7 +106820,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[16].taxSettled",
-      "candidate": 104046.93558329219
+      "candidate": 103878.14488458527
     },
     {
       "scenario": "seed:20",
@@ -106832,7 +106838,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[17].taxSettled",
-      "candidate": 111946.24383461224
+      "candidate": 113563.65580206305
     },
     {
       "scenario": "seed:20",
@@ -106850,7 +106856,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[18].taxSettled",
-      "candidate": 121044.69953445022
+      "candidate": 125903.71907458364
     },
     {
       "scenario": "seed:20",
@@ -106868,7 +106874,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[19].taxSettled",
-      "candidate": 167441.84159525574
+      "candidate": 167056.63965266102
     },
     {
       "scenario": "seed:20",
@@ -106886,7 +106892,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[20].taxSettled",
-      "candidate": 185308.7367279762
+      "candidate": 184906.5569038088
     },
     {
       "scenario": "seed:20",
@@ -106904,7 +106910,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[21].taxSettled",
-      "candidate": 204174.8697568738
+      "candidate": 203743.63194994707
     },
     {
       "scenario": "seed:20",
@@ -106922,7 +106928,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[22].taxSettled",
-      "candidate": 224372.40762307332
+      "candidate": 223910.01235869643
     },
     {
       "scenario": "seed:20",
@@ -106940,7 +106946,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[23].taxSettled",
-      "candidate": 245990.87094755363
+      "candidate": 245495.0670614288
     },
     {
       "scenario": "seed:20",
@@ -106958,7 +106964,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[24].taxSettled",
-      "candidate": 269134.87278018077
+      "candidate": 268603.2464586446
     },
     {
       "scenario": "seed:20",
@@ -106976,7 +106982,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[25].taxSettled",
-      "candidate": 254392.33623000473
+      "candidate": 264468.2938888828
     },
     {
       "scenario": "seed:20",
@@ -106994,7 +107000,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[26].taxSettled",
-      "candidate": 277988.10820605507
+      "candidate": 288022.8799985686
     },
     {
       "scenario": "seed:20",
@@ -107012,7 +107018,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[27].taxSettled",
-      "candidate": 303301.11183392635
+      "candidate": 313291.7220310038
     },
     {
       "scenario": "seed:20",
@@ -107030,7 +107036,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[28].taxSettled",
-      "candidate": 330453.62610489136
+      "candidate": 340396.8839774069
     },
     {
       "scenario": "seed:20",
@@ -107048,7 +107054,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[29].taxSettled",
-      "candidate": 359580.5382193899
+      "candidate": 369473.0225041472
     },
     {
       "scenario": "seed:20",
@@ -107066,7 +107072,7 @@
       "scenario": "seed:20",
       "kind": "EXTRA_FIELD",
       "path": "rows[30].taxSettled",
-      "candidate": 390825.1944411271
+      "candidate": 401056.323680157
     },
     {
       "scenario": "seed:20",
@@ -119179,42 +119185,42 @@
       "kind": "VALUE",
       "path": "rows[11].spending",
       "reference": 21081.141972,
-      "candidate": 21672.74822485414
+      "candidate": 35332.78289817268
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[12].spending",
       "reference": 21081.141972,
-      "candidate": 26520.981172864533
+      "candidate": 35332.78289817268
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[13].spending",
       "reference": 21081.141972,
-      "candidate": 29348.44362735807
+      "candidate": 35332.78289817268
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[14].spending",
       "reference": 21081.141972,
-      "candidate": 25532.94722543887
+      "candidate": 35332.78289817268
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[17].spending",
       "reference": 21081.141972,
-      "candidate": 30411.576442219943
+      "candidate": 35332.78289817268
     },
     {
       "scenario": "seed:20",
       "kind": "VALUE",
       "path": "rows[18].spending",
       "reference": 21081.141972,
-      "candidate": 24322.94680137173
+      "candidate": 35332.78289817268
     },
     {
       "scenario": "targeted:historical-spouse-ss",
@@ -121343,6 +121349,83 @@
       "path": "rows[17].roth",
       "reference": 0,
       "candidate": 102493.35851606244
+    },
+    {
+      "scenario": "seed:16",
+      "kind": "VALUE",
+      "path": "rows[4].spending",
+      "reference": 26722.238172222584,
+      "candidate": 28749.014956538223
+    },
+    {
+      "scenario": "seed:16",
+      "kind": "VALUE",
+      "path": "rows[5].spending",
+      "reference": 27290.23921938143,
+      "candidate": 29317.01600369707
+    },
+    {
+      "scenario": "seed:16",
+      "kind": "VALUE",
+      "path": "rows[6].spending",
+      "reference": 27900.21554392532,
+      "candidate": 29926.992328240958
+    },
+    {
+      "scenario": "seed:16",
+      "kind": "VALUE",
+      "path": "rows[7].spending",
+      "reference": 28555.269118853,
+      "candidate": 30582.04590316864
+    },
+    {
+      "scenario": "seed:16",
+      "kind": "VALUE",
+      "path": "rows[8].spending",
+      "reference": 29258.73115296784,
+      "candidate": 31285.50793728348
+    },
+    {
+      "scenario": "seed:20",
+      "kind": "VALUE",
+      "path": "rows[25].spending",
+      "reference": 34244.87,
+      "candidate": 57395.68372022852
+    },
+    {
+      "scenario": "seed:20",
+      "kind": "VALUE",
+      "path": "rows[26].spending",
+      "reference": 34244.87,
+      "candidate": 57395.68372022852
+    },
+    {
+      "scenario": "seed:20",
+      "kind": "VALUE",
+      "path": "rows[27].spending",
+      "reference": 34244.87,
+      "candidate": 57395.68372022852
+    },
+    {
+      "scenario": "seed:20",
+      "kind": "VALUE",
+      "path": "rows[28].spending",
+      "reference": 34244.87,
+      "candidate": 57395.68372022852
+    },
+    {
+      "scenario": "seed:20",
+      "kind": "VALUE",
+      "path": "rows[29].spending",
+      "reference": 34244.87,
+      "candidate": 57395.68372022852
+    },
+    {
+      "scenario": "seed:20",
+      "kind": "VALUE",
+      "path": "rows[30].spending",
+      "reference": 34244.87,
+      "candidate": 57395.68372022852
     }
   ]
 }
