@@ -595,7 +595,12 @@ function artifactFor(lane) {
 // its owner (src/engine.js, src/scenario-validator.js)), so the tracked file was rebuilt, again installed only after
 // two builds agreed. The pin before it, 63b8982b54054aabfad5dee866ffd980709c90892fc4d0e34b4080091983e298, described the
 // previous rebuild.
-const EXPECTED_SHA256 = '5a631a9ddf76b8f4768737caa5cd15eff49ed626dfcdb9b2b199284b8c9a9668';
+//
+// Changed again 2026-09-28 (S5AA R32 R31-01/R30A-01: every IRA of the owner is valued on the transfer date, and an IRA
+// rolls only its taxable money into a 401(k) (src/engine.js)), so the tracked file was rebuilt, again installed only
+// after two builds agreed. The pin before it, 5a631a9ddf76b8f4768737caa5cd15eff49ed626dfcdb9b2b199284b8c9a9668,
+// described the previous rebuild.
+const EXPECTED_SHA256 = '1a40e5be85b524f44a7e948815a0662f2ebc26c32753e213f50877c104d45ee5';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
