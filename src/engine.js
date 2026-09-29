@@ -2057,7 +2057,9 @@ function ssEarningsTestWithholding(p,ownerAgeStart,ownerAgeEnd,earnings,annualBe
 function ssFloorDime(x){return Math.floor(x*10+1e-6)/10}
 function ssFloorDollar(x){return Math.floor(x+1e-6)}
 /* The monthly PIA before any COLA: the entered full-retirement-age benefit, or the bend-point formula on the entered AIME. */
-function ssPiaBase(p,owner){var r=p.retirement,base=owner==="spouse"?r.spouseSS:r.ssBenefit;if(owner!=="spouse"&&r.ssAdvanced&&r.aime>0){var a=r.aime,b1=RULES.socialSecurity.pia.bend1,b2=RULES.socialSecurity.pia.bend2;base=.9*Math.min(a,b1)+.32*Math.max(0,Math.min(a,b2)-b1)+.15*Math.max(0,a-b2)}return ssFloorDime(Math.max(0,Number(base)||0))}
+function ssPiaBase(p,owner){var r=p.retirement,base=owner==="spouse"?r.spouseSS:r.ssBenefit;if(owner!=="spouse"&&r.ssAdvanced&&r.aime>0){/* S5AA R36 (SA32F-D1): the bend points are those of the year the person turns 62, set by the wage index two years before
+   (42 USC 415(a)(1)(B), rounded to the nearest $1), and the entered AIME, at today's wage level, is indexed to the same year -- by the
+   salary-growth field, a stand-in for the national average wage index. From 62 the COLAs follow (R34). */var ageNow=Number(p.profile&&p.profile.age),wIdx=Math.pow(Math.max(.01,1+(Number(p.employment&&p.employment.growth)||0)/100),Math.max(0,62-Math.floor(Number.isFinite(ageNow)?ageNow:62))),a=r.aime*wIdx,b1=Math.floor(RULES.socialSecurity.pia.bend1*wIdx+.5),b2=Math.floor(RULES.socialSecurity.pia.bend2*wIdx+.5);base=.9*Math.min(a,b1)+.32*Math.max(0,Math.min(a,b2)-b1)+.15*Math.max(0,a-b2)}return ssFloorDime(Math.max(0,Number(base)||0))}
 /* The early-claim reduction or delayed credit on the owner's own benefit, at the owner's own full retirement age (unchanged arithmetic). */
 function ssClaimFactor(p,owner,creditedMonths,ownerAgeNow){var r=p.retirement,claim=ssCreditedClaimAge(owner==="spouse"?r.spouseClaim:r.ssClaim),fra=ssFullRetirementAge(p,owner);var months=Math.round(Math.abs(claim-fra)*12),factor=1;if(claim<fra){/* Q91: the credited months come off here, and only once the owner has reached full retirement age. */if(ownerAgeNow!==undefined&&ownerAgeNow>=fra-1e-9)months=Math.max(0,months-(Number(creditedMonths)||0));var first=Math.min(36,months),later=Math.max(0,months-36);/* S5AA R34: the EXACT fractions of 20 CFR 404.410 -- 5/9 of 1% a month for 36 months, 5/12 of 1% beyond -- and 404.313's 2/3 of 1% a month of
      delayed credit, counted in whole months. The rules package stores the first two as rounded decimals (0.0055555556), which put a benefit that is
@@ -3443,7 +3445,64 @@ function checkRowInvariants(issues,row,flows){var expected=flows.opening+flows.c
    its whole draw as before 59 1/2 (the owner, 2026-09-24: "Keep it and disclose it"); the message says so. The 10% additional
    tax on a pooled pre-tax draw follows the same convention (earlyWithdrawalPenaltyRate() at the year-opening age). */
 function noteEarlyRothDraw(issues,ownerAge){if(!issues)return;for(var i=0;i<issues.length;i++)if(issues[i]&&issues[i].code==="UNSUPPORTED_ROTH_ORDERING")return;recordIssue(issues,"UNSUPPORTED_ROTH_ORDERING","WARNING","A Roth account was drawn before its owner reached 59 1/2. A transfer is judged at its own age; a spending or tax-funding draw is judged at the age its projection year began, because the engine pools a year's draws, so part of such a draw may in fact fall after 59 1/2. A withdrawal from a Roth account is modelled as tax-free and penalty-free at every age: the contribution-then-earnings ordering, the recovery of basis and the five-year clocks are not modelled, so this projection is a reference only for QUALIFIED Roth withdrawals, and this draw may not be one.",{path:"accounts",outsideSupportedDomain:true,exclusion:"non-qualified Roth withdrawals",carriedTo:"new-engine Roth block",firstDrawOwnerAge:ownerAge})}
-function simulatePlan(p,random,historyOffset,ltcRandom,issues,serialized,gateToken){if(gateToken!==scenarioInputGate){var gate=scenarioInputGate(p);if(gate.code){recordScenarioRefusal(issues,gate.code,gate.flagPath);return refusedSimulation(p,gate.code)}p=withResolvedStrategy(gate.plan,issues);serialized=gate.serialized}
+/* S5AA R36 (SA32F-D1; the owner's decision 8, "Index, own round"): THE RULES FOR A LATER PLAN YEAR. The rules package holds 2026's figures
+   and the engine applied them to every year while incomes inflated. Each price-linked amount is now indexed by the plan's own inflation
+   since the plan opened (`f`, a stand-in for the C-CPI-U or CPI-U the statute names), each wage-linked amount by the salary-growth field
+   (`w`, a stand-in for the national average wage index), each with its own statute's rounding -- of the INCREASE where the statute
+   rounds the increase, of the amount where it rounds the amount -- applied to the 2026 figure (a stand-in for the statute's own base
+   year). Statutory fixed amounts stay fixed: the NIIT and Additional Medicare thresholds, the Social Security taxation bases, the $3,000
+   loss limit, the senior deduction and its thresholds (continued after 2028, the owner's decision D8), Arizona's $2,100, the HSA catch-up.
+   Sources (read 2026-09-29): brackets IRC 1(f)(7) and capital-gains thresholds 1(j)(5)(C), the increase down to $50; the standard and
+   age-65 amounts 63(c)(4), (c)(7), the increase down to $50 (Arizona conforms, Chapter 140); IRA limit 219(b)(5)(C) the amount down to
+   $500, catch-up to $100; IRA and Roth phase-outs 219(g)(8), 408A(c)(3)(D), the increase to the nearest $1,000; deferrals 402(g)(4),
+   catch-ups 414(v)(2)(C), (E), the increase down to $500; total additions 415(d)(4)(B) down to $1,000; compensation 401(a)(17)(B) and the
+   Roth catch-up wage threshold 414(v)(7) down to $5,000; HSA 223(g)(2) the increase to the nearest $50; QCD 408(d)(8)(G) the amount to
+   the nearest $1,000; IRMAA 42 USC 1395r(i)(5) the amount to the nearest $1,000, the top tier fixed until 2028 and indexed from then on
+   August 2026 (`fTop`, the factor at the plan's second year); the OASDI wage base 42 USC 430(b) to the nearest $300 (a $150 multiple up);
+   the earnings test 42 USC 403(f)(8)(B), the monthly amount to the nearest $10. Plan year k is read as tax year 2026 + k, each year's
+   figures set by the inflation to its opening. */
+function taxYearRules(base,f,w,elapsed,fTop){
+  f=Number(f);w=Number(w);if(!(Number.isFinite(f)&&f>0))f=1;if(!(Number.isFinite(w)&&w>0))w=1;
+  if(Math.abs(f-1)<1e-12&&Math.abs(w-1)<1e-12)return base;
+  var top=Number(elapsed)>=2-1e-9&&Number.isFinite(Number(fTop))&&Number(fTop)>0?f/Number(fTop):1,
+      key=f.toFixed(12)+"|"+w.toFixed(12)+"|"+top.toFixed(12);
+  var cache=taxYearRules.cache;if(!cache||cache.base!==base||cache.size>4000)cache=taxYearRules.cache={base:base,map:{},size:0};
+  if(cache.map[key])return cache.map[key];
+  var down=function(x,m){return Math.floor(x/m+1e-9)*m},near=function(x,m){return Math.floor(x/m+.5+1e-9)*m},
+      incDown=function(v,m){return v==null?v:v+down(v*(f-1),m)},incNear=function(v,m){return v==null?v:v+near(v*(f-1),m)},
+      amtDown=function(v,m){return v==null?v:down(v*f,m)},amtNear=function(v,m){return v==null?v:near(v*f,m)},
+      mapObj=function(o,fn){var r={};Object.keys(o).forEach(function(k){r[k]=fn(o[k],k)});return r},
+      brackets=function(t){return mapObj(t,function(rows){return rows.map(function(b){return [b[0]==null?null:incDown(b[0],50),b[1]]})})},
+      recs=function(block,fn){var r=Object.assign({},block);r.records=block.records.map(function(x){var y=Object.assign({},x),v=fn(x);if(v!==undefined)y.value=v;return y});return r},
+      fed=base.federal,ret=base.retirement,ss=base.socialSecurity,med=base.medicare,out=Object.assign({},base);
+  out.federal=Object.assign({},fed,{
+    ordinaryBrackets:brackets(fed.ordinaryBrackets),capitalGains:brackets(fed.capitalGains),
+    standardDeduction:mapObj(fed.standardDeduction,function(v){return incDown(v,50)}),
+    additionalStandardDeduction:recs(fed.additionalStandardDeduction,function(x){return typeof x.value==="number"?incDown(x.value,50):undefined}),
+    payroll:Object.assign({},fed.payroll,{oasdiWageBase:near(fed.payroll.oasdiWageBase*w,300)})});
+  out.retirement=Object.assign({},ret,{
+    ira:Object.assign({},ret.ira,{combinedLimit:amtDown(ret.ira.combinedLimit,500),catchup:amtDown(ret.ira.catchup,100),
+      rothPhaseout:mapObj(ret.ira.rothPhaseout,function(pair){return pair.map(function(v){return incNear(v,1000)})}),
+      deductionPhaseout:recs(ret.ira.deductionPhaseout,function(x){return typeof x.value==="number"?incNear(x.value,1000):undefined})}),
+    workplace:Object.assign({},ret.workplace,{employeeDeferral:incDown(ret.workplace.employeeDeferral,500),catchup:incDown(ret.workplace.catchup,500),
+      enhancedCatchup:incDown(ret.workplace.enhancedCatchup,500),totalEmployeeEmployer:incDown(ret.workplace.totalEmployeeEmployer,1000),
+      compensationLimit:incDown(ret.workplace.compensationLimit,5000),
+      rothCatchup:recs(ret.workplace.rothCatchup,function(x){return x.provision_id==="prior_year_fica_wage_threshold"?incDown(x.value,5000):undefined})}),
+    hsa:Object.assign({},ret.hsa,{self:incNear(ret.hsa.self,50),family:incNear(ret.hsa.family,50),
+      hdhpDeductible:mapObj(ret.hsa.hdhpDeductible,function(v){return incNear(v,50)}),outOfPocket:mapObj(ret.hsa.outOfPocket,function(v){return incNear(v,50)})}),
+    qcd:recs(ret.qcd,function(x){return typeof x.value==="number"?amtNear(x.value,1000):undefined})});
+  var irmaa=med.irmaa,last=function(list){return list.map(function(v,i){return i===list.length-1?near(v*top,1000):amtNear(v,1000)})};
+  out.medicare=Object.assign({},med,{irmaa:Object.assign({},irmaa,{singleThresholds:last(irmaa.singleThresholds),jointThresholds:last(irmaa.jointThresholds)})});
+  out.socialSecurity=Object.assign({},ss,{taxableMaximum:near(ss.taxableMaximum*w,300),
+    earningsTest:Object.assign({},ss.earningsTest,{underFRA:near(ss.earningsTest.underFRA/12*w,10)*12,fraYear:near(ss.earningsTest.fraYear/12*w,10)*12})});
+  out.arizona=recs(base.arizona,function(x){return x.provision_id==="az_basic_standard_deduction"&&typeof x.value==="number"?incDown(x.value,50):undefined});
+  cache.map[key]=out;cache.size++;
+  return out;
+}
+/* S5AA R36: simulatePlan() gives each row its year's rules (taxYearRules(), above) and this wrapper puts the 2026 rules back however it
+   returns or throws, so no later caller can see a projected year's figures. */
+function simulatePlan(){var baseRules=RULES;try{return simulatePlanRows.apply(this,arguments)}finally{RULES=baseRules}}
+function simulatePlanRows(p,random,historyOffset,ltcRandom,issues,serialized,gateToken){var baseRules=RULES,irmaaTopFactor=null,taxYearPriceIndex=1,annualInflation=0;if(gateToken!==scenarioInputGate){var gate=scenarioInputGate(p);if(gate.code){recordScenarioRefusal(issues,gate.code,gate.flagPath);return refusedSimulation(p,gate.code)}p=withResolvedStrategy(gate.plan,issues);serialized=gate.serialized}
       var accounts=serialized&&serialized[0]?JSON.parse(serialized[0].text):clone(p.accounts),otherAssets=serialized&&serialized[1]?JSON.parse(serialized[1].text):clone(p.advanced.otherAssets||[]),debts=serialized&&serialized[2]?JSON.parse(serialized[2].text):clone(p.advanced.debts||[]),taxableBasisReady=initTaxableBasis(accounts),rows=[],inflationFactor=1,lifetimeTaxes=0,failed=false,/* Q91 (F5): the crediting months earned SO FAR, per person. The adjustment of the reduction factor is
          cumulative and permanent, so it is run state rather than row state -- a month withheld at 62 is
          still buying a larger benefit at 85. */ssCreditedMonths={self:0,spouse:0},/* Q87 step 2: each owner's Form 8606 basis, carried across rows. Basis is a running total -- nondeductible contributions in, nontaxable distributions out -- and it NEVER crosses owners. */iraBasisState={self:0,spouse:0},/* R18 (B1 (c)): the household's capital loss carried into the next row. */capitalLossCarry=0,capitalLossCarryByOwner={self:0,spouse:0},/* R19 workstream A: each owner's unused post-70.5 QCD offset, and the tax true-up owed into the next row. */qcdOffsetState={self:0,spouse:0},taxTrueUpCarried=0,iraBasisDisclosed=false,/* R7-02: what actually changed hands at each death. Decision 8: the row opening at which nobody is alive, where the projection stopped. */successionEvents=[],successionDone={},noSurvivorFrom=null,firstShortfallAge=null,sustainedFailureAge=null,firstCalculationErrorAge=null,shortfallStreak=0,limitWarnings=[],magiHistory=[],filingHistory=[],/* S5AA R35 (SA32F-24): the two tax returns before the plan, when entered, open the IRMAA lookback (20 CFR 418.1135); absent, plan years 0 and 1 assume no surcharge, as MODEL_ASSUMPTIONS 11 says */preMagiEntered=(function(){var adv=p.advanced||{},m2=Number(adv.irmaaMagiTwoYearsBefore),m1=Number(adv.irmaaMagiOneYearBefore),has2=adv.irmaaMagiTwoYearsBefore!=null&&Number.isFinite(m2),has1=adv.irmaaMagiOneYearBefore!=null&&Number.isFinite(m1);if(!has2&&!has1)return false;var f=householdFilingFor(p,p.profile.age),f2=typeof adv.irmaaFilingTwoYearsBefore==="string"?adv.irmaaFilingTwoYearsBefore:f,f1=typeof adv.irmaaFilingOneYearBefore==="string"?adv.irmaaFilingOneYearBefore:f;magiHistory.push(has2?Math.max(0,m2):0,has1?Math.max(0,m1):0);filingHistory.push(f2,f1);return true})(),firstMagiRow=true,ltcStart=null,ltcWeight=1,retireBalance=null,retireInflationFactor=null,priorSpend=null,priorReturn=0,/* SA-04 fix (SPRINT_EXTERNAL_AUDIT_20260909.md): the DECISION-TIME inflation
@@ -3479,6 +3538,9 @@ function simulatePlan(p,random,historyOffset,ltcRandom,issues,serialized,gateTok
    audit R10-07). */noSurvivorFrom=lastDeathCutAge(p);if(noSurvivorFrom!==null)boundaries=boundaries.filter(function(b){return b<=noSurvivorFrom});var initial=totalBalance(accounts),initialAssets=sum(otherAssets,function(x){return x.value}),initialDebt=sum(debts,function(x){return x.balance});rows.push({age:start,total:initial,realTotal:initial,taxable:taxClassBalance(accounts,"taxable"),preTax:taxClassBalance(accounts,"preTax"),roth:taxClassBalance(accounts,"roth"),hsa:taxClassBalance(accounts,"hsa"),contributions:0,income:0,spending:0,withdrawals:0,dividends:0,taxes:0,rmd:0,rmdDistributed:0,rmdUnmet:0,shortfall:0,debtPayments:0,debtPaymentsTotal:0,debtInterest:0,debtPrincipal:0,debtHousing:0,otherAssets:initialAssets,debtBalance:initialDebt,nonPortfolioDraw:0,inflationFactor:1,networth:initial+(p.advanced.networthOn?initialAssets-initialDebt+(start>=p.retirement.selfLife?p.advanced.insurance:0):0),magi:0,federalAgi:0,ssProvisionalIncome:0,seniorDeductionMagi:0,niitMagi:0,irmaaMagi:0,taxSettled:0,taxTrueUpPaid:0,taxOutstanding:0});
       var startHistory=historyIndex(p,historyOffset);
       for(var yi=0;yi<boundaries.length;yi++){
+        /* S5AA R36 (SA32F-D1): this row's tax-year figures (taxYearRules()). Row yi is tax year 2026 + yi, a partial first row included, so each
+           row advances the price index by one whole year of its inflation (`annualInflation` still holds the previous row's here), and the
+           wage index by one year of salary growth. */if(yi>0)taxYearPriceIndex*=Math.max(.01,1+annualInflation);if(yi===1)irmaaTopFactor=taxYearPriceIndex;RULES=taxYearRules(baseRules,taxYearPriceIndex,Math.pow(Math.max(.01,1+(Number(p.employment&&p.employment.growth)||0)/100),yi),yi,irmaaTopFactor);
         var rowAge=boundaries[yi],age=yi===0?start:boundaries[yi-1],duration=rowAge-age,yearProgress=age-start,spouseAge=p.profile.spouseAge+yearProgress,histIndex=(startHistory+yi)%HIST_RETURNS.length,histReturn=HIST_RETURNS[histIndex][1],annualInflation=p.assumptions.method==="historical"?HIST_INFLATION[histIndex][1]:p.assumptions.inflation/100,openingPreTax=taxClassBalance(accounts,"preTax"),/* Q90: the per-account balances at the row's open, so each obligation keeps the prior-year basis
             the pooled figure used to carry for the household as a whole.
             R14 round, external re-audit of 6468235 (R13-01): NO PROTOTYPE, as in rmdProtectedAmounts(). An id of
@@ -5116,7 +5178,7 @@ if (typeof module !== 'undefined' && module.exports) {
     growAccounts,
     recordIssue,
     checkRowInvariants,
-    simulatePlan,
+    simulatePlan,taxYearRules,simulatePlanRows,
     quantile,
     firstCalculationErrorCode,
     classifyHistoricalCell,

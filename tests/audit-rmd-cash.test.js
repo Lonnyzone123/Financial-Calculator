@@ -43,6 +43,9 @@ function rmdPlan(overrides = {}) {
   p.retirement.strategy = 'fixedNominal';
   p.retirement.spending = 0;
   p.assumptions.returnRate = 0; // isolate RMD/cash-retention behavior from investment growth
+  /* RE-FIXTURED BY INTENT at S5AA R36 (SA32F-D1): later years' tax figures now index with inflation, which shrank the year-2 tax this
+     file's shortfall rests on (to 145.41). Inflation is isolated as growth is, so the year-2 need is the one the fixture was built on. */
+  p.assumptions.inflation = 0;
   p.assumptions.method = 'simple';
   p.accounts = [
     { id: 'pretax', name: '401k', type: 'traditional401k', taxClass: 'preTax', owner: 'self', balance: 1000000, contribution: 0, contributionMode: 'amount', priority: 1, basisPct: 0, annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0, profitShare: 0, vesting: 100 },
