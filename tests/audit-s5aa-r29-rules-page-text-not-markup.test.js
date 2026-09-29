@@ -65,6 +65,10 @@ test('R29: a source url that is not https: makes no link; its agency and title s
   assert.ok(cards[0].textContent.includes(SHIPPED.sources[0].agency + ': <i id="it">t</i>'), cards[0].textContent);
   assert.equal(window.document.getElementById('it'), null);
   const others = Array.from(cards).slice(1).map((c) => c.querySelector('a'));
+  const quoted = await load((r) => { r.sources[1].url = 'https://example.test/a"b<c>\'d'; });
+  const qa = quoted.document.getElementById('v2-rule-sources').children[1].querySelector('a');
+  assert.ok(qa, 'an https: url with metacharacters is still a link');
+  assert.equal(qa.getAttribute('href'), 'https://example.test/abcd', 'its HTML metacharacters are removed before it becomes the href');
   assert.ok(others.every((a) => a && /^https:\/\//.test(a.href) && a.rel === 'noopener noreferrer'), 'the other sources are still links');
 });
 
