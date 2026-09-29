@@ -59,7 +59,9 @@ test('auditContributions: two workplace accounts for the same owner share one po
     account({ id: 'a1', name: '401k A', type: 'traditional401k', priority: 1, contribution: limit - 5000 }),
     account({ id: 'a2', name: '401k B', type: 'traditional401k', priority: 2, contribution: 20000 }),
   ]);
-  const { items, warnings } = engine.auditContributions(p, 40, 0, 0);
+  /* RE-FIXTURED BY INTENT at S5AA R33: a deferral cannot exceed the owner's own compensation (IRC 415(c)(1)(B)), so the
+     owner is given a $200,000 salary; this test is about the pooled DOLLAR limit, which the salary does not touch. */
+  const { items, warnings } = engine.auditContributions(p, 40, 200000, 0);
   assert.equal(items[0].allowed, limit - 5000, 'the first account (by priority) gets its full request');
   assert.equal(items[1].allowed, 5000, 'the second account only gets whatever room is left in the pooled limit');
   assert.equal(items[1].excess, 15000);
@@ -87,7 +89,10 @@ test('auditContributions: a Roth IRA request above the salary-based phase-out is
 test('auditContributions: limitPolicy "warn" reports the excess but never actually caps the allowed amount', () => {
   const limit = RULES.retirement.workplace.employeeDeferral;
   const p = planFor([account({ type: 'traditional401k', name: 'Overfunded 401k', contribution: limit + 50000 })], { limitPolicy: 'warn' });
-  const { items, warnings } = engine.auditContributions(p, 40, 0, 0);
+  /* RE-FIXTURED BY INTENT at S5AA R33: given the pay to cover the request (IRC 415(c)(1)(B)), so the excess is the dollar-limit
+     excess alone. Under "warn" the item keeps the whole request on deposit; its `lawful` part is the limit (R33, SA32F-31). */
+  const { items, warnings } = engine.auditContributions(p, 40, 200000, 0);
+  assert.equal(items[0].lawful, limit, 'warn mode: only the limit is lawful to exclude');
   assert.equal(items[0].allowed, limit + 50000, 'warn mode: allowed must equal the full request, uncapped');
   assert.equal(items[0].excess, 50000, 'excess is still computed correctly even though it is not enforced');
   assert.ok(warnings.length > 0, 'a warning must still fire even though the limit is not enforced');

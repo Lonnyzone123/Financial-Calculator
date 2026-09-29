@@ -65,16 +65,21 @@ test('R26: an IRA deduction beyond ordinary income no longer ends the row in TAX
   assert.equal(r.status, 'ok', r.status + '/' + r.calculationErrorCode + ' at ' + r.calculationErrorAge);
 });
 
-test('R26: that deduction reduces the tax on the dividends -- exactly 2.5% x $7,000 = $175 of Arizona tax', () => {
+/* RE-FIXTURED BY INTENT at S5AA R33 (SA32F-31): this witness reached a deduction larger than ordinary income only because "warn"
+   let a $7,000 IRA contribution with NO compensation be deducted. IRC 219(b)(1)(B) limits the deduction to compensation, so the
+   lawful deduction here is $0 under any policy: "warn" keeps the deposit, not the deduction. The R26 guarantee this file holds --
+   the quote and the commit read one rule, so the row ends ok -- is the first test above, and it still holds. */
+test('R26 / R33: a contribution with no compensation deducts nothing even under "warn" -- the tax is the same as without it', () => {
   const withIra = run(7000), without = run(0);
   assert.equal(without.status, 'ok');
   assert.equal(withIra.status, 'ok');
-  assert.ok(Math.abs((without.rows[1].taxes - withIra.rows[1].taxes) - 175) < 0.005,
-    'the deduction saves Arizona 2.5% of $7,000: ' + without.rows[1].taxes + ' - ' + withIra.rows[1].taxes);
+  assert.ok(Math.abs(without.rows[1].taxes - withIra.rows[1].taxes) < 0.005,
+    'no compensation, no deduction: ' + without.rows[1].taxes + ' vs ' + withIra.rows[1].taxes);
 });
 
-test('R26 CONTROL: the federal AGI the row reports is the dividends less the deduction -- $30,000 - $7,000 = $23,000', () => {
+test('R26 / R33 CONTROL: the federal AGI is the $30,000 of dividends with or without the uncompensated contribution', () => {
   const withIra = run(7000), without = run(0);
-  assert.ok(Math.abs(without.rows[1].federalAgi - 30000) < 0.005, 'no deduction: ' + without.rows[1].federalAgi);
-  assert.ok(Math.abs(withIra.rows[1].federalAgi - 23000) < 0.005, 'with the deduction: ' + withIra.rows[1].federalAgi);
+  assert.ok(Math.abs(without.rows[1].federalAgi - 30000) < 0.005, 'no contribution: ' + without.rows[1].federalAgi);
+  assert.ok(Math.abs(withIra.rows[1].federalAgi - 30000) < 0.005, 'uncompensated contribution: ' + withIra.rows[1].federalAgi);
+  assert.ok(withIra.rows[1].preTax > 6999, 'CONTROL: "warn" still deposits it: ' + withIra.rows[1].preTax);
 });

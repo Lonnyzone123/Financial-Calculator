@@ -609,7 +609,11 @@ function artifactFor(lane) {
 // 200-dollar minimum (SA32F-10, SA32F-28, SA32F-29)), so the tracked file was rebuilt, again installed only after two
 // builds agreed. The pin before it, cb53e7ff9954f4f084dd92540a991734a89d8f7ef85a390af47bfcc6bba38468, described the
 // previous rebuild.
-const EXPECTED_SHA256 = 'b1f28750a55096bfc381f8ebb517c13245bde96bfde70aeab5cfe22ecfcce43c';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 2: deferrals are excluded only as far as the law excludes them (SA32F-11,
+// SA32F-30, SA32F-31)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, b1f28750a55096bfc381f8ebb517c13245bde96bfde70aeab5cfe22ecfcce43c, described the previous rebuild.
+const EXPECTED_SHA256 = '55c68a8cdf657ae139305b40fca0369220123e24e49b8a1fac5070048787c75f';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
