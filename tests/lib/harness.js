@@ -662,7 +662,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R35 commit 3 (SA32F-36, decision 6): fixed-nominal spending in today's dollars), so
 // the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // f88f1b6e8fb18b30c85897e4dfafbb9cee0e0f32aeb306d39be5ca6c714f7069, described the previous rebuild.
-const EXPECTED_SHA256 = 'e24d44c92ac4755a3eb81cdf12f697d438e7e2597c789d167708e588aa7eeecd';
+//
+// Changed again 2026-09-29 (S5AA R35 commit 4 (SA32F-39): a set spending stage takes the survivor reduction), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// e24d44c92ac4755a3eb81cdf12f697d438e7e2597c789d167708e588aa7eeecd, described the previous rebuild.
+const EXPECTED_SHA256 = 'b98eb42feb3681c57a284645b00ec6a438d1036401e8d83954e3e0d966962d9c';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

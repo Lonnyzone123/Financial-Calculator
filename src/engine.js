@@ -3166,7 +3166,10 @@ function strategySpending(p,age,balance,retireBalance,priorSpend,priorReturn,inf
 
    `spend` is untouched. The household still spends the adjusted figure this year; only what is remembered
    for next year changes. */
-var spend=applyStage(r,age,amount*survivorFactor,inflationFactor,stageEnd),base=amount;/* S5AA task 2.2, Q109: the down-year cut is a LEVEL, not a ratchet. `base*=1-r.flexibility/100` used to sit
+/* S5AA R35 (SA32F-39; R32F FLOWS-06): THE STAGE BEFORE THE SURVIVOR REDUCTION. The stage read the already-reduced amount, so a percent stage
+   kept the reduction and a "Set annual spending" amount replaced it. A set amount names the household's spending, as the entered spending
+   does, so the survivor reduction applies to it once; for a percent stage the order of the two multiplications changes nothing. */
+var spend=applyStage(r,age,amount,inflationFactor,stageEnd)*survivorFactor,base=amount;/* S5AA task 2.2, Q109: the down-year cut is a LEVEL, not a ratchet. `base*=1-r.flexibility/100` used to sit
    beside the line below, writing the cut into what the next year starts from -- so each year's cut was taken
    from the previous year's already-cut figure. Measured at the start commit: 80,000 -> 72,000 -> 64,800 ->
    58,320 -> 52,488, never recovering. A household that said it could cut 10% in a bad year was modelled as
