@@ -104,18 +104,22 @@ test('S5AA 3.3: $24,500 plus an $8,000 catch-up leaves $47,500 of employer room,
     'and it must equal the no-catch-up room exactly -- that is what "disregarded" means');
 });
 
+/* S5AA R32 (the owner 2026-09-28: "Use the year-end age"): a catch-up reads the age reached by the row's close, as IRC
+   414(v)(2)(B)(i) and (5)(A) read the age attained by the close of the taxable year. A row that opens at 59 closes at 60, so
+   the rows in the 60-63 window are the ones opening at 59 to 62, and the row opening at 63 closes at 64, outside it. This
+   test named each row by its opening age, which R32 re-reads by one year; the rule it holds is unchanged. */
 test('S5AA 3.3: the age 60-63 enhanced catch-up is disregarded too, and by its own larger amount', () => {
   for (const age of W.enhancedCatchupAges) {
-    const room = employerRoom(age, WITH_ENHANCED);
+    const room = employerRoom(age - 1, WITH_ENHANCED);
     assert.ok(Math.abs(room - ROOM) < 1,
-      'at ' + age + ' the enhanced catch-up must be disregarded as well: expected ' + ROOM
+      'in the row closing at ' + age + ' the enhanced catch-up must be disregarded as well: expected ' + ROOM
       + ', got ' + Math.round(room));
   }
   /* CONTROL: 64 is outside the enhanced window, so it takes the ordinary catch-up. If the engine
      treated every age alike, this would pass trivially and the window would be untested. */
-  const beyond = employerRoom(64, WITH_CATCHUP);
-  assert.ok(Math.abs(beyond - ROOM) < 1, 'at 64 the ordinary catch-up applies and is also disregarded');
-  const over = employerRoom(64, WITH_ENHANCED);
+  const beyond = employerRoom(63, WITH_CATCHUP);
+  assert.ok(Math.abs(beyond - ROOM) < 1, 'in the row closing at 64 the ordinary catch-up applies and is also disregarded');
+  const over = employerRoom(63, WITH_ENHANCED);
   assert.ok(over < ROOM - 1,
     'CONTROL: at 64 a deferral of ' + WITH_ENHANCED + ' exceeds the 402(g) plus ordinary catch-up limit, '
     + 'so it must be cut back rather than silently allowed: room ' + Math.round(over));

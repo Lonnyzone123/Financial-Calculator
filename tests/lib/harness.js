@@ -600,7 +600,11 @@ function artifactFor(lane) {
 // rolls only its taxable money into a 401(k) (src/engine.js)), so the tracked file was rebuilt, again installed only
 // after two builds agreed. The pin before it, 5a631a9ddf76b8f4768737caa5cd15eff49ed626dfcdb9b2b199284b8c9a9668,
 // described the previous rebuild.
-const EXPECTED_SHA256 = '1a40e5be85b524f44a7e948815a0662f2ebc26c32753e213f50877c104d45ee5';
+//
+// Changed again 2026-09-28 (S5AA R32: a catch-up limit reads the age the owner reaches by the row's close
+// (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 1a40e5be85b524f44a7e948815a0662f2ebc26c32753e213f50877c104d45ee5, described the previous rebuild.
+const EXPECTED_SHA256 = 'cb53e7ff9954f4f084dd92540a991734a89d8f7ef85a390af47bfcc6bba38468';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
