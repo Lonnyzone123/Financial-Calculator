@@ -130,7 +130,10 @@ test('S5AA 4.1: the RULE OF 55 exempts workplace money and NOT an IRA -- the rul
      these two apart, which is exactly why the old gate exempted both. */
   const workplace = { type: 'traditional401k' };
   const ira = { type: 'traditionalIRA' };
-  const p = { advanced: { rule55: true, penaltyException: false } };
+  /* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-22): the Rule of 55 now also needs the separation it is named for -- the owner has left
+     work, in or after the year they turn 55 (IRC 72(t)(2)(A)(v)). These fixtures test other things (the age boundary, the account type,
+     the ordering nudge), so they state a qualifying separation: a profile whose owner left at 55. */
+  const p = { advanced: { rule55: true, penaltyException: false }, profile: { age: 55, retireAge: 55 } };
 
   assert.strictEqual(engine.earlyWithdrawalPenaltyRate(p, 57, workplace), 0,
     'a 401(k) draw at 57 with the flag on is exempt');

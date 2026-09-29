@@ -39,8 +39,10 @@ const BAND = [50, 85];
    S5AA R18 round, workstream B (taxable basis in dollars): the rule re-applied again -- step 24 fell to 84.8% and step 23
    is 85.6%, so step 24 is the first in band (family version 3). The rule and the band are unchanged.
    S5AA R34 (Social Security by law; the today's-dollar COLA up to the claim raises income): step 24 rose to 86.6% and step 25
-   is 85.8%, so step 26 (84.8%) is the first in band (family version 4). The rule and the band are unchanged. */
-const DECLARED_STEP = 26;
+   is 85.8%, so step 26 (84.8%) is the first in band (family version 4). The rule and the band are unchanged.
+   S5AA R35 (R32V-01: the flexibility cut reads the portfolio's balance-weighted return): step 26 rose to 85.2%, so step 27
+   (84.4%) is the first in band (family version 5). The rule and the band are unchanged. */
+const DECLARED_STEP = 27;
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
 const goldenPlan = () => {

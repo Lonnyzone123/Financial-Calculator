@@ -59,7 +59,10 @@ function run(o) {
 }
 const rolled = (r) => (r.issues || []).filter((i) => i.code === 'SPOUSAL_ROLLOVER_ASSUMED');
 const entry = (issue, id) => issue.state.succession.find((s) => s.account === id);
-const TAXABLE_BASIS = 'a taxable account keeps the decedent\'s cost basis, with no step-up at death';
+/* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-17; the owner's decision 4, 2026-09-29, "a loss also resets"): a taxable account's basis now
+   resets at the death -- the decedent's own in full, a joint one half (IRC 1014(a), 2040(b)) -- so the named assumption is the reset's
+   timing and the joint share, no longer "no step-up". The succession still discloses it, account by account. */
+const TAXABLE_BASIS = 'a taxable account\'s cost basis resets to its value when it passes, up or down (IRC 1014(a)), read at the opening of the first row after the death';
 
 test('R7-02A: an IRA moved into a taxable account before the death -- the TAXABLE account is what passes, and is named', () => {
   const r = run({
@@ -105,7 +108,7 @@ test('R7-02D control: a funded IRA and workplace plan still pass under the cited
   assert.deepEqual(issue.state.assumptionsAwaitingDecision, []);
 });
 
-const JOINT = 'a joint account stays with the survivor with its whole cost basis; the step-up at death depends on titling and property law this plan does not record';
+const JOINT = 'a joint account stays with the survivor, and half of its cost basis, the share assumed to be the decedent\'s (IRC 2040(b)), resets to half its value when it passes; community property, which can reset both halves (IRC 1014(b)(6)), is not modelled';
 
 test('R7-03A: a joint taxable account, the SPOUSE dying first, is disclosed -- it does not pass silently', () => {
   const r = run({ accounts: [acct('joint-cash', 'taxable', 'joint', 100000, { priority: 5 }), acct('self-cash', 'taxable', 'self', 400000)] });
@@ -125,7 +128,7 @@ test('R7-03B: the SELF dying first gives the joint account the same treatment --
   const [issue] = rolled(r);
   const j = entry(issue, 'joint-cash');
   assert.equal(j.owner, 'joint');
-  assert.deepEqual(j.authority, ['IRC 2040(b)', 'IRC 1014(b)(6)']);
+  assert.deepEqual(j.authority, ['IRC 2040(b)', 'IRC 1014(a)']); // R35: the decedent's half (2040(b)) resets (1014(a)); community property (1014(b)(6)) is named as not modelled
   assert.equal(j.assumed, JOINT, 'symmetric with R7-03A');
   assert.equal(entry(issue, 'self-cash').assumed, TAXABLE_BASIS, 'CONTROL: the self\'s own taxable account keeps its own rule');
 });

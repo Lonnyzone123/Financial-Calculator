@@ -33,7 +33,8 @@ function planFor(retirementOverrides = {}, advancedOverrides = {}, profileOverri
       penaltyException: false, rule55: false, healthOn: false, reserveOn: false,
       legacy: 0, debts: [],
     }, advancedOverrides),
-    profile: Object.assign({ age: 65, filing: 'single', spouseOn: false }, profileOverrides),
+    /* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-22): the Rule of 55 needs a separation in or after the year of 55; this owner left at 55. */
+    profile: Object.assign({ age: 65, retireAge: 55, filing: 'single', spouseOn: false }, profileOverrides),
   };
 }
 function evenAccounts(amount = 1000000) {

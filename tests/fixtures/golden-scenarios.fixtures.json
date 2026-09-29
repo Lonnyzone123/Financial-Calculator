@@ -43,7 +43,7 @@
     "rowCount": 68,
     "failed": false,
     "successRate": 100,
-    "lifetimeTaxes": 7358750.8,
+    "lifetimeTaxes": 7310038.74,
     "lifetimeContributions": 1138890.31,
     "firstRow": {
       "age": 29.5,
@@ -58,25 +58,25 @@
     },
     "midRow": {
       "age": 63,
-      "total": 21417936.04,
-      "taxable": 4530411.95,
-      "preTax": 10091776.68,
+      "total": 21444506.16,
+      "taxable": 4525909.28,
+      "preTax": 10106182.07,
       "roth": 2697147.08,
-      "taxes": 44203.65,
-      "withdrawals": 226141.32,
-      "networth": 21417936.04,
-      "magi": 279899.33
+      "taxes": 44115.14,
+      "withdrawals": 225715.05,
+      "networth": 21444506.16,
+      "magi": 280743.53
     },
     "lastRow": {
       "age": 96,
-      "total": 303370177.3,
-      "taxable": 47043691.93,
-      "preTax": 96455341.6,
-      "roth": 34730960.37,
-      "taxes": 489103.81,
-      "withdrawals": 1051713,
-      "networth": 303370177.3,
-      "magi": 1708123.98
+      "total": 303569430.69,
+      "taxable": 47277359.21,
+      "preTax": 96624919.85,
+      "roth": 34644360.01,
+      "taxes": 489900.38,
+      "withdrawals": 1052027.58,
+      "networth": 303569430.69,
+      "magi": 1705038.09
     }
   },
   "rmd-and-roth-conversion": {

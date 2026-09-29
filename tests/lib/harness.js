@@ -650,7 +650,59 @@ function artifactFor(lane) {
 // rounding, the spouse's and survivor's benefits, the earnings test; the survivor disclosure and the read-only
 // full-retirement-age field), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
 // before it, a1488b882ee1ddf640ba43925f86aeb5918c5f5dea3e175b5bd22b003b1416d7, described the previous rebuild.
-const EXPECTED_SHA256 = 'eede3253c8fa7c0d3e955ca0690f27f9732021fa3c5c44696a8c544440178039';
+//
+// Changed again 2026-09-29 (S5AA R35 commit 1: a pension stream's survivor share (SA32F-18)), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// eede3253c8fa7c0d3e955ca0690f27f9732021fa3c5c44696a8c544440178039, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 2 (SA32F-19): a working spouse's pay funds retirement spending), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 46442fa049d45259333616211b656f07931946d883781842aed3dd844eab70d1, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 3 (SA32F-36, decision 6): fixed-nominal spending in today's dollars), so
+// the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// f88f1b6e8fb18b30c85897e4dfafbb9cee0e0f32aeb306d39be5ca6c714f7069, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 4 (SA32F-39): a set spending stage takes the survivor reduction), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// e24d44c92ac4755a3eb81cdf12f697d438e7e2597c789d167708e588aa7eeecd, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 5 (SA32F-20): an other asset's accessible share is a sub-balance), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// b98eb42feb3681c57a284645b00ec6a438d1036401e8d83954e3e0d966962d9c, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 6 (SA32F-37, R32V-01): spending decisions read the portfolio's own
+// returns), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// d09fdd333e060abb6df2c6f4f5cc9e2dff32ed0d7d4970a942f836417614d3a8, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 7 (SA32F-17, decision 4): a taxable account's basis resets at a death), so
+// the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 8f05a5b9aa9420e199573108d9c81f10344eba498acd0b9647ea4b704df92fbc, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 8 (SA32F-08): the Joint and Last Survivor Table), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 41837a6dd749edfec5e25dca930f2d9bc1b19d8e15168047658d99046c6e2e1d, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 8 fix: the Table II comment's citations), so the tracked file was rebuilt,
+// again installed only after two builds agreed. The pin before it,
+// 354ef012751922aa09750dec4251c5ee2a63c7f20f1bb9039f4224bd944dedd5, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 9 (SA32F-26): the still-working exception), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// f4eeaf413f89788d8560bb701a9773fb564b3b037cdf61ec085d97445c621b83, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 10 (SA32F-22): the Rule of 55 needs the separation), so the tracked file
+// was rebuilt, again installed only after two builds agreed. The pin before it,
+// b68c75f6136f05475d46e723421400c9d2ac8a603b97e4956be2ca2db1fc82fa, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 11 (SA32F-24): the IRMAA lookback's first years), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 80ff14dbd6e589308c81941b3fe1ace0981d6af10adf25bcb075f4aa5eb603b7, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R35 commit 12 (SA32F-13, decision 5b): vesting decided at separation, on service), so
+// the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 872bcb511e2857d6abb9a14dbcf73b9dd86e0a683ff3fd44dc071c7fdb4e9518, described the previous rebuild.
+const EXPECTED_SHA256 = '5d6eeb8255008e96aa12443c128e3879937b8996a6c58c20e39492dd7028176c';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

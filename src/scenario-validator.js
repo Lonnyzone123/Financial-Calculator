@@ -434,6 +434,17 @@ function validateAccount(c, account, index) {
      real boolean, on the taxable class, at cash basis. engine.js enforces the
      same three at its public boundary via accountContractCode(), and
      isHouseholdCashHolding() is the single predicate every consumer reads. */
+  /* S5AA R35 (SA32F-08): whether the spouse is the sole designated beneficiary of a pre-tax account (the Table II condition). */
+  /* S5AA R35 (SA32F-26): the still-working exception's two facts about a workplace plan. */
+  /* S5AA R35 (SA32F-13): the vesting schedule and the credited service at the plan's start. */
+  if (account.vestingSchedule !== undefined && ['graded6', 'cliff3'].indexOf(account.vestingSchedule) < 0) c.error('INVALID_ENUM', `${path}.vestingSchedule`, 'vestingSchedule must be graded6 or cliff3');
+  if (account.yearsOfService !== undefined && account.yearsOfService !== null && !(isFiniteNumber(account.yearsOfService) && account.yearsOfService >= 0)) c.error('OUT_OF_RANGE', `${path}.yearsOfService`, 'yearsOfService must be a number, 0 or more');
+  ['currentEmployerPlan', 'fivePercentOwner'].forEach((k) => {
+    if (account[k] !== undefined && typeof account[k] !== 'boolean') c.error('WRONG_TYPE', `${path}.${k}`, `${k} must be a boolean, got ${JSON.stringify(account[k])}`);
+  });
+  if (account.spouseSoleBeneficiary !== undefined && typeof account.spouseSoleBeneficiary !== 'boolean') {
+    c.error('WRONG_TYPE', `${path}.spouseSoleBeneficiary`, `spouseSoleBeneficiary must be a boolean, got ${JSON.stringify(account.spouseSoleBeneficiary)}`);
+  }
   if (account.cashHolding !== undefined) {
     if (typeof account.cashHolding !== 'boolean') {
       c.error('WRONG_TYPE', `${path}.cashHolding`,
@@ -559,6 +570,15 @@ function validateRetirement(c, retirement) {
      stage switched to percent read as 60,000% and emptied the plan in a year. A range WARNING, 0 to 200%. The
      repaired generator draws 50 to 120, and 600 seeds and both corpora hold nothing outside that; above 200% a
      stage more than doubles the plan's spending, which reads as a dollar figure in a percent field. */
+  /* S5AA R35 (SA32F-18): a pension stream's survivor share is a percentage of the stream, 0 (single life) to 100. */
+  if (Array.isArray(retirement.otherIncomes)) {
+    retirement.otherIncomes.forEach((income, i) => {
+      if (isPlainObject(income) && income.survivorPercent !== undefined) {
+        checkType(c, income.survivorPercent, `retirement.otherIncomes[${i}].survivorPercent`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+        checkRange(c, income.survivorPercent, `retirement.otherIncomes[${i}].survivorPercent`, 0, 100, 'PENSION_SURVIVOR_PERCENT_OUT_OF_RANGE', 'error');
+      }
+    });
+  }
   if (Array.isArray(retirement.stages)) {
     retirement.stages.forEach((stage, i) => {
       if (isPlainObject(stage) && stage.mode === 'percent') {
@@ -746,11 +766,16 @@ const ADVANCED_KNOWN_KEYS = ['armRecastOnReset', 'assetClasses', 'assetsOn', 'bo
  * here is a decision, and the drift test still requires the default's own keys
  * to be present in full. */
 const ADVANCED_MIGRATION_KEYS = ['v210Migrated'];
+/* S5AA R35 (SA32F-24): OPTIONAL INPUTS the default does not carry -- the MAGI and filing status of the two tax returns before the plan,
+   for the IRMAA lookback. Absent means not entered (the plan then assumes no surcharge in its first two years, and says so), which is why
+   they are not in the default: a default of 0 would read as entered. */
+const ADVANCED_OPTIONAL_KEYS = ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore', 'irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore'];
 
 function validateAdvancedKnownKeys(c, advanced) {
   Object.keys(advanced).forEach((k) => {
     if (ADVANCED_KNOWN_KEYS.indexOf(k) >= 0) return;
     if (ADVANCED_MIGRATION_KEYS.indexOf(k) >= 0) return;
+    if (ADVANCED_OPTIONAL_KEYS.indexOf(k) >= 0) return;
     c.warn('UNKNOWN_ADVANCED_KEY', 'advanced.' + k,
       `"advanced.${k}" is not a field this version knows. If it is a typo for a real setting, ` +
       'that setting is silently keeping its default -- a misspelled "networthOn" leaves net ' +
@@ -762,6 +787,15 @@ function validateAdvanced(c, advanced) {
   if (!advanced) return;
   validateAdvancedKnownKeys(c, advanced);
   validateSurplusPolicies(c, advanced);
+  ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore'].forEach((k) => {
+    if (advanced[k] === undefined || advanced[k] === null) return;
+    checkType(c, advanced[k], 'advanced.' + k, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+    if (isFiniteNumber(advanced[k]) && advanced[k] < 0) c.error('OUT_OF_RANGE', 'advanced.' + k, `"advanced.${k}" is ${advanced[k]}, expected 0 or more`);
+  });
+  ['irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore'].forEach((k) => {
+    if (advanced[k] === undefined || advanced[k] === null) return;
+    if (['single', 'mfj', 'mfs', 'hoh'].indexOf(advanced[k]) < 0) c.error('INVALID_ENUM', 'advanced.' + k, `"advanced.${k}" must be single, mfj, mfs or hoh`);
+  });
   if (advanced.correlation !== undefined) {
     checkType(c, advanced.correlation, 'advanced.correlation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
     checkRange(c, advanced.correlation, 'advanced.correlation', -1, 1);

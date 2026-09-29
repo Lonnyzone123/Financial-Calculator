@@ -180,8 +180,13 @@ const DEBT_FAMILIES = [
    to the claim (SA32F-04), so the household's income rises and success rises a little along the whole grid. Measured:
    step 24 86.6%, step 25 (x2.25) 85.8%, step 26 (x2.30, $138,000) 84.8%, step 27 84.2%. The same rule, applied again with
    nothing else changed: step 26 is the first in [50, 85]. The golden plan is 100%; step 26 gives 100% / 84.8% / 55.6% at
-   half, full and one-and-a-half times the golden volatility. */
-const MC_BAND_STEP = 26;
+   half, full and one-and-a-half times the golden volatility.
+   RE-APPLIED, VERSION 5 (S5AA R35, R32V-01): the flexibility cut now reads the portfolio's balance-weighted return rather than
+   the unweighted mean of the accounts' draws, so fewer paths take a cut and success rises a little along the grid. Measured:
+   step 26 85.2%, step 27 (x2.35, $141,000) 84.4%, step 28 83.2%. The same rule, applied again with nothing else changed: step 27
+   is the first in [50, 85]. The golden plan is 100%; step 27 gives 100% / 84.4% / 54.4% at half, full and one-and-a-half
+   times the golden volatility. */
+const MC_BAND_STEP = 27;
 const MC_BAND_FACTOR = 1 + 0.05 * MC_BAND_STEP;
 
 function goldenMonteCarlo(defaultPlan) {
@@ -191,7 +196,7 @@ function goldenMonteCarlo(defaultPlan) {
 
 const MC_BAND_FAMILY = {
   id: 'monte-carlo-sensitive-band',
-  version: 4,
+  version: 5,
   covers: 'S4 task 4.5: the Monte Carlo corpus is saturated against the success ceiling -- the golden Monte Carlo ' +
     'plan succeeds 99.8% -- so it cannot see a defect in the risk model, which only shows through failure. This ' +
     'member sits in the sensitive band (50-85%), chosen by a rule declared before measuring: the golden plan, same ' +
@@ -200,7 +205,7 @@ const MC_BAND_FAMILY = {
   reached: (result) => result.mode === 'monteCarlo' && result.successRate >= 50 && result.successRate <= 85,
   members: [
     { name: 'expansion:monte-carlo-sensitive-band',
-      reaches: '84.8% success at spending x2.30 (measured at version 4, after S5AA R34); 100% / 84.8% / 55.6% at half, full and one-and-a-half times the golden volatility',
+      reaches: '84.4% success at spending x2.35 (measured at version 5, after S5AA R35); 100% / 84.4% / 54.4% at half, full and one-and-a-half times the golden volatility',
       build: (plan) => {
         const p = goldenMonteCarlo(plan);
         p.retirement.spending = Math.round(p.retirement.spending * MC_BAND_FACTOR * 100) / 100;
@@ -897,6 +902,23 @@ const R20_FAMILY = {
         accounts: [{ id: 'brk', balance: 50000 }, { id: 'ira', type: 'traditionalIRA', taxClass: 'preTax', basisPct: 0, balance: 50000 }],
       }),
       check: (result) => result.status === 'ok' && within(rowAt(result, 57).taxes, 0) && within(rowAt(result, 57).preTax, 50000),
+    },
+    /* S5AA R35 (SA32F-22): the Rule of 55 now needs the separation it is named for, in or after the year of 55, and no corpus plan both
+       switched it on and left work at 55 or later -- the seeds that reached it had left at 52 or earlier, which the law does not exempt.
+       This member reaches it lawfully: a single 56-year-old who left at 55, drawing $20,000 of spending from that employer's 401(k)
+       (the current employer's plan, said so). No 10%: D = 20,000 + 0.125 (D - 16,100) = 20,557.14, $557.14 of tax -- against 23,209.68
+       and 3,209.68 with the 10%. */
+    {
+      name: 'expansion:s5aa-r35-rule55-separation-at-55',
+      reaches: 'SA32F-22. A single 56-year-old who left work at 55, Rule of 55 on, $20,000 of spending from that employer\'s $500,000 ' +
+        '401(k): no early tax, $20,557.14 drawn and $557.14 of tax. With a separation at 52 it would be $23,209.68 and $3,209.68.',
+      build: (plan) => r20Household(plan, {
+        profile: { age: 56, spouseOn: false, filing: 'single', retireAge: 55, endAge: 57 },
+        retirement: { spending: 20000, withdrawalOrder: 'manual', manualOrder: 'preTax,taxable,roth,hsa' },
+        advanced: { rule55: true },
+        accounts: [{ id: 'k401', type: 'traditional401k', taxClass: 'preTax', basisPct: 0, balance: 500000, currentEmployerPlan: true }],
+      }),
+      check: (result) => result.status === 'ok' && within(rowAt(result, 57).withdrawals, 20557.14) && within(rowAt(result, 57).taxes, 557.14),
     },
     {
       name: 'expansion:s5aa-r20-all-stock-glide',

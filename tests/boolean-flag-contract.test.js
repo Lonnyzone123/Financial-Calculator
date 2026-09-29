@@ -156,6 +156,9 @@ const SETUPS = {
     return p;
   },
   richAdjustable: () => richPlan('adjustable'),
+  /* S5AA R35 (SA32F-22): the Rule of 55 needs a separation in or after the year of 55 (IRC 72(t)(2)(A)(v)). `rich` retires at 52, so the
+     switch can no longer change it -- correctly -- and this witness retires at 55 instead, contributing to the 401(k) until then. */
+  richRetire55: () => { const p = richPlan('fixed'); p.profile.retireAge = 55; p.employment.contributionStop = 55; return p; },
   simpleAssets: () => {
     const p = basePlan();
     Object.assign(p.profile, { retireAge: 55 });
@@ -461,7 +464,7 @@ const ABSENT_WITNESSES = [
   ['advanced.penaltyException', 'rich', 0],
   ['advanced.reserveOn', 'base', 0],
   ['advanced.rmdOn', 'base', 0],
-  ['advanced.rule55', 'rich', 0],
+  ['advanced.rule55', 'richRetire55', 0],
   ['advanced.transferOn', 'rich', 0],
   ['profile.spouseOn', 'rich', 0],
   ['retirement.dividendOn', 'base', 0],

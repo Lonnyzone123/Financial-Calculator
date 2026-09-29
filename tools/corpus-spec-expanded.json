@@ -379,7 +379,7 @@
       "family": "monte-carlo-sensitive-band",
       "mode": "monteCarlo",
       "status": "ok",
-      "inputFingerprint": "a6d2986ef3ad7272eb892b5f955dfa1eb051887c5046eefe5e61902784024c20"
+      "inputFingerprint": "78821fe3962e23340e02905d899597d7f2aabb692c0e43ffa371ab9e89c43f52"
     },
     {
       "name": "expansion:s5aa-gap-working-household",
@@ -540,6 +540,14 @@
       "mode": "simple",
       "status": "ok",
       "inputFingerprint": "23c03b2f8e472b837b07766fd509e9a38ecbcb044b4fb07ddbdcc8fc18d4a6d2"
+    },
+    {
+      "name": "expansion:s5aa-r35-rule55-separation-at-55",
+      "source": "expansion",
+      "family": "s5aa-r20-full-model",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "dacced795820235aad038fb2c1cdc49f4b9a427a15a8e76efa806a46a1c7769f"
     },
     {
       "name": "expansion:s5aa-r20-all-stock-glide",

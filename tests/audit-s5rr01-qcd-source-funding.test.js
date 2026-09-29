@@ -61,7 +61,10 @@ const D80 = RULES.retirement.rmd.uniformLifetime['80'];
 const D81 = RULES.retirement.rmd.uniformLifetime['81'];
 const CASH = 2000000;
 
-const account = (id, owner, type, balance) => ({ id, name: id, owner, type, taxClass: 'preTax', balance, basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0, profitShare: 0, vesting: 100, priority: 1 });
+/* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-08): with a spouse more than ten years younger as sole beneficiary, the divisor is now Table II
+   (26 CFR 1.401(a)(9)-5(c)(2)). This file tests something else, on Uniform-table amounts, so its accounts name the spouse as NOT the sole
+   beneficiary (spouseSoleBeneficiary: false) and every expectation stands. Table II has its own test file. */
+const account = (id, owner, type, balance) => ({ id, name: id, owner, type, taxClass: 'preTax', spouseSoleBeneficiary: false, balance, basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0, profitShare: 0, vesting: 100, priority: 1 });
 const ira = (id, owner, balance) => account(id, owner, 'traditionalIRA', balance);
 const k401 = (balance) => account('k401', 'self', 'traditional401k', balance);
 /* 100% basis, so nothing it sells is a gain and nothing it holds is income. Header note 2. */
