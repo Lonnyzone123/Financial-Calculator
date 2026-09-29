@@ -1526,6 +1526,11 @@ function capture(options) {
      is visible to boundaryAround(). */
   const inputs = captureInputs(options);
   const inputsBefore = hashFiles(inputs);
+  /* A test seam, called once the inputs are hashed and before anything else is read: an edit made here lands
+     between the two hashes by construction. The mid-capture test counted reads of build.js instead, and the
+     first read is the require() inside captureInputs() whenever build.js is not yet cached -- always, when the
+     test runs alone -- so the hash saw the edit too and nothing looked changed. */
+  if (options && typeof options.onInputsHashed === 'function') options.onInputsHashed(inputs);
   const { engine } = loadEngine();
   /* ST2-02: complete by default. `allowIncomplete` is the diagnostic path and
      it is opt-in at the call site, not a fallback the tool takes on its own. */

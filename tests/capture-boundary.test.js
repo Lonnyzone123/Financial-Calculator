@@ -195,23 +195,29 @@ test('5.4: the CLI disqualifies an unqualified capture explicitly, and --measure
 });
 
 test('5.4: an input whose bytes change while the capture runs disqualifies it', () => {
-  /* The first read is the hash taken before the engine loads; every later read
-     sees an edit, as if another session saved the file mid-run. */
+  /* The edit starts once capture() has hashed its inputs (its onInputsHashed seam), so the hash taken before the
+     engine loads sees the committed bytes and every later read of this repository's build.js sees an edit, as if
+     another session saved the file mid-run. It used to start at the SECOND read of any file named build.js,
+     which is the hash only if build.js was already in the require cache: run alone, the first read was the
+     require() inside captureInputs(), the hash saw the edit as well, and nothing looked changed (this test failed
+     every time on its own, and once in CI on 2026-09-29, run 36565073512). */
+  const target = path.resolve(ROOT, 'build.js');
   const real = fs.readFileSync;
-  let reads = 0;
+  let editing = false, editedReads = 0;
   fs.readFileSync = function (p, ...rest) {
     const out = real.call(this, p, ...rest);
-    if (typeof p !== 'string' || !/[\\/]build\.js$/.test(p) || ++reads === 1) return out;
+    if (!editing || typeof p !== 'string' || path.resolve(p) !== target) return out;
+    editedReads++;
     const edit = '\n// edited mid-capture\n';
     return typeof out === 'string' ? out + edit : Buffer.concat([out, Buffer.from(edit)]);
   };
   let snap;
   try {
-    snap = cb.capture();
+    snap = cb.capture({ onInputsHashed: () => { editing = true; } });
   } finally {
     fs.readFileSync = real;
   }
-  assert.ok(reads > 1, 'CONTROL: the capture read build.js again after hashing it');
+  assert.ok(editedReads > 0, 'CONTROL: the capture read build.js again after hashing it');
   assert.equal(snap.meta.boundary.qualified, false);
   assert.deepEqual(snap.meta.boundary.changedDuringCapture, ['build.js']);
   assert.match(snap.meta.boundary.reason, /inputs changed while the capture ran/);
