@@ -730,7 +730,12 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R37: the HSA's age-65 exception follows Q137's opening-age convention, declared
 // (SA32F-44)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 3381f937ec0a2a4bb3afaed405fb379a950228167427707ef344ab3ba53fc693, described the previous rebuild.
-const EXPECTED_SHA256 = '2b86c62b5a637fc631efaa5f1a4e2e27afc87e2cb8d58f7e6d59240c2246b37a';
+//
+// Changed again 2026-09-29 (S5AA R37: Monte Carlo guidance withholds what a median row cannot size; the return process
+// is disclosed (SA32F-41, -42, -52, -53)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, 2b86c62b5a637fc631efaa5f1a4e2e27afc87e2cb8d58f7e6d59240c2246b37a, described the previous
+// rebuild.
+const EXPECTED_SHA256 = '4a8dab10c94d64040cb5f17819d54b0d5e5b348212655a27ed284ddd17e3937d';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

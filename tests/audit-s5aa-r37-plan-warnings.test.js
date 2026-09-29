@@ -12,8 +12,8 @@
  * SA32F-38: an expense at or after the plan's end age falls in no row ([start, end) intervals) and is never charged. R32V: "The
  *   accepted but ineffective input needs a clear horizon warning." Reported as EXPENSE_AFTER_PLAN_END.
  *
- * Before this round the app rendered exactly one engine issue code (RETIREMENT_STRATEGY_UNRECOGNIZED), so a warning the engine
- * recorded reached no one. These three, and the 1959 warning, now show as cards on the results page. */
+ * Before this round the app rendered three engine issue codes as cards (RETIREMENT_STRATEGY_UNRECOGNIZED,
+ * SPENDING_FLOOR_CEILING_SWAPPED and VPW_RATE_BOUNDS_SWAPPED), so any other warning the engine recorded reached no one. These three, and the 1959 warning, now show as cards on the results page. */
 'use strict';
 
 const test = require('node:test');
