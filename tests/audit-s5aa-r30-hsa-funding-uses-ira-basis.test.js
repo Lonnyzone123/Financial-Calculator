@@ -81,9 +81,12 @@ function run(p) {
 }
 const near = (a, b, what) => assert.ok(Math.abs(a - b) < 0.005, what + ': ' + a + ' against ' + b);
 
+/* RE-FIXTURED BY INTENT at S5AA R33 (SA32F-11): this plan's $1,000 401(k) deferral is funded by $200,000 of employment-STREAM
+   wages, which the engine used not to exclude. Excluded, the basis year's AGI is $199,000 and its tax $265 lower (1,000 x (24% + 2.5%));
+   the $265 stays in the 0%-return cash account, so every later net worth is $265 higher. The later years are unchanged. */
 test('R29-02 WITNESS: funding from an all-basis IRA uses up $5,400 of basis, so the later deductible $2,000 is taxed when drawn', () => {
   const r = run(basisPlan());
-  near(r.rows[1].federalAgi, 200000, 'the basis year');
+  near(r.rows[1].federalAgi, 199000, 'the basis year: $200,000 of stream wages less the $1,000 deferral (R33)');
   near(r.rows[1].preTax, 9600, 'the basis year: $8,600 IRA + $1,000 401(k)');
   near(r.rows[2].federalAgi, 0, 'the funding year: no income and no deduction');
   near(r.rows[2].preTax, 4200, 'the funding year: $3,200 IRA + $1,000 401(k)');
@@ -92,7 +95,7 @@ test('R29-02 WITNESS: funding from an all-basis IRA uses up $5,400 of basis, so 
   near(end.federalAgi, 31000, 'the liquidation year: $30,000 + $2,000 + $1,000 - $2,000');
   near(end.taxes, 4207.5, 'the liquidation year: tax');
   near(end.hsa, 5400, 'the HSA');
-  near(end.total, 181722, 'net worth (ChatGPT\'s figure; $290 lower than the stale-basis $182,012)');
+  near(end.total, 181987, 'net worth (ChatGPT\'s $181,722, plus the $265 the excluded deferral saves in the basis year: R33)');
 });
 
 test('R29-02 CONTROL: with no funding the same plan drains $10,600 of IRA carrying $8,600 of real basis -- AGI $31,000', () => {
@@ -100,7 +103,7 @@ test('R29-02 CONTROL: with no funding the same plan drains $10,600 of IRA carryi
   const end = run(basisPlan({ transferOn: false })).rows[3];
   near(end.federalAgi, 31000, 'AGI');
   near(end.taxes, 4207.5, 'tax');
-  near(end.total, 181722, 'net worth');
+  near(end.total, 181987, 'net worth ($181,722 + $265, R33)');
 });
 
 test('R29-02 MIXED: funding larger than the IRA\'s taxable value takes that value first, then basis for the rest', () => {

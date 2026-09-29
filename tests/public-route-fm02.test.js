@@ -66,12 +66,14 @@ function firstYearTaxes(p) {
   return result.rows[1].taxes;
 }
 
-/* Row 1 taxes for couples with both, one, and neither spouse aged 65 or older. */
+/* Row 1 taxes for couples with both, one, and neither spouse aged 65 or older. RE-FIXTURED BY INTENT at S5AA R33 (SA32F-16): the
+   age-65 amounts read the age reached by the row's CLOSE, so a person opening the row at 64 is 65 for it; the under-65 spouses open
+   at 63, closing at 64. */
 function byEligibleCount(pension) {
   return {
     two: firstYearTaxes(couple(70, 70, pension)),
-    one: firstYearTaxes(couple(70, 64, pension)),
-    none: firstYearTaxes(couple(64, 64, pension)),
+    one: firstYearTaxes(couple(70, 63, pension)),
+    none: firstYearTaxes(couple(63, 63, pension)),
   };
 }
 

@@ -782,7 +782,11 @@ test('R2-T01: taxSegmentLocal\'s affine-piece contract holds at every breakpoint
       oi0: Math.floor(rand() * 250000), cg0: Math.floor(rand() * 150000),
       qDiv: rand() < 0.3 ? Math.floor(rand() * 20000) : 0,
       ssBenefit: rand() < 0.6 ? Math.floor(rand() * 45000) : 0,
-      filing, seniorAges: seniorAgesFor(p, age), Tbase: 0, payrollConst: 0, pen0: 0,
+      /* S5AA R33 (SA32F-33): the context states whose age-65 amounts the return carries, as the engine's own row context does
+         (engine.ageAmountAges()); a spouse on a single or head-of-household return is married and apart. RE-FIXTURED BY INTENT: the
+         mirror is still compared with estimateTaxes() exactly, at every landing. */
+      filing, ...(({ seniorAges, seniorDeductionAges, additionalFiling }) => ({ seniorAges, seniorDeductionAges, additionalFiling }))(engine.ageAmountAges(p, age, filing, 0)),
+      Tbase: 0, payrollConst: 0, pen0: 0,
       rPenalty: (!isTaxable && age < 59.5 && rand() < 0.5) ? 0.10 : 0,
       rIncome: isTaxable ? 0 : 1, rGains: isTaxable ? 1 - basisPct / 100 : 0,
     };

@@ -604,7 +604,48 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (S5AA R32: a catch-up limit reads the age the owner reaches by the row's close
 // (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 1a40e5be85b524f44a7e948815a0662f2ebc26c32753e213f50877c104d45ee5, described the previous rebuild.
-const EXPECTED_SHA256 = 'cb53e7ff9954f4f084dd92540a991734a89d8f7ef85a390af47bfcc6bba38468';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 1: the IRA phase-outs reduce the limit, with the 10-dollar rounding and
+// 200-dollar minimum (SA32F-10, SA32F-28, SA32F-29)), so the tracked file was rebuilt, again installed only after two
+// builds agreed. The pin before it, cb53e7ff9954f4f084dd92540a991734a89d8f7ef85a390af47bfcc6bba38468, described the
+// previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 2: deferrals are excluded only as far as the law excludes them (SA32F-11,
+// SA32F-30, SA32F-31)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, b1f28750a55096bfc381f8ebb517c13245bde96bfde70aeab5cfe22ecfcce43c, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 3: profit sharing on its own, each owner's own contribution clock, and the
+// spousal IRA while the joint return has pay (SA32F-12, SA32F-14, SA32F-15)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 55c68a8cdf657ae139305b40fca0369220123e24e49b8a1fac5070048787c75f, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 4: the age-65 amounts read the age reached by the row's close, federal and
+// Arizona (SA32F-16)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, 036d7ce51ac9ee34dc2700f22606486aeaedd9786075b3b39162349c2deacedd, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 5: a married couple on a non-joint return carries only the self's own
+// age-65 amount, at the married rate, and no senior deduction (SA32F-33)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 03fc2f50f7ed0c659b60a339d391887b072cb6d8482d04a45cb2bbc8b0aec56e, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 5: a married couple on a non-joint return carries only the self's own
+// age-65 amount, at the married rate, and no senior deduction (SA32F-33)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// bc3f8cee96e0a15e9856b3263e9dd0e8b5885e1db9b60d65632bc9c24cdc1fb1, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 6: the capital-gains worksheet's line 25, the smaller of the preferential
+// and the regular tax (SA32F-32)), so the tracked file was rebuilt, again installed only after two builds agreed. The
+// pin before it, 2ae978d5ec3335c566ab2915098413ee0e2fd58b7be6468a94d7d37c9635b6aa, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 7: the capital-loss carryover adds back the section 151 deduction
+// (SA32F-34)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 9e90e6a0dd6a9e56a1fad125989b8890c5a3e50247d7cfb4f77b06d533614ce0, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 8: IRMAA reads the lookback year's own filing status, and its top tier
+// includes its threshold (SA32F-09, SA32F-23)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, ebddc637353ff98afae988f8eefa62bbdefbdd70e3c77f1edc364763cd12d65a, described the previous
+// rebuild.
+const EXPECTED_SHA256 = 'a1488b882ee1ddf640ba43925f86aeb5918c5f5dea3e175b5bd22b003b1416d7';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

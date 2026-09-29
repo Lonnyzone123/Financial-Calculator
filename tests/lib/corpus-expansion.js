@@ -299,15 +299,19 @@ const GAP_FAMILY = {
       name: 'expansion:s5aa-gap-working-household',
       reaches: 'F-03, F-05, F-07, F-08, F-10 and X01 at once. MEASURED: the $34,000 deferral is allowed ' +
         'at $32,500, which is the base limit plus the catch-up, so catch-up room is CONSUMED and then ' +
-        'binds; row 1 MAGI of $143,588 sits inside the $129,000-$149,000 joint phaseout and deducts ' +
-        '$2,164.86 of the $8,000 IRA contribution -- partial, neither end; three conversion routes ' +
+        'binds; row 1 MAGI of $143,486.58 (restated at S5AA R33, stop age 67) sits inside the $129,000-$149,000 joint ' +
+        'phaseout and deducts $2,070 of the $8,000 IRA contribution -- the reduced limit, R33 -- partial, neither end; ' +
+        'conversion routes (two at a 5% prior return, measured at R33) ' +
         'exist across two owners and move $174,057.38 into Roth by age 72; the match is Roth-elected ' +
         'and fully vested, worth $68,281.81 of ending Roth against the same plan with a pre-tax match; ' +
         'the adjustable mortgage resets at 57 INSIDE the horizon and raises ARM_RECAST_ALWAYS_APPLIED; ' +
         'and the credit card runs at its revolving minimum in 12 of its first 12 months.',
       build: (plan) => gapHousehold(plan, {
         profile: { age: 52, retireAge: 67, endAge: 72, spouseOn: true, spouseAge: 63, filing: 'mfj' },
-        employment: { salary: 150000, spouseSalary: 26000 },
+        /* S5AA R33 (the owner's decision 5a, 2026-09-29): the stop age is read on each owner's own age. At 55 it stopped the
+           63-year-old spouse's deferral from the first row, which took row 1 out of the phase-out band this member exists to
+           reach; it is the retirement age, 67, as the app's own setup makes it. */
+        employment: { salary: 150000, spouseSalary: 26000, contributionStop: 67 },
         retirement: { spending: 120000 },
         advanced: {
           rmdOn: true, conversionOn: true, conversionAmount: 30000,
@@ -744,14 +748,15 @@ const LOSS_FAMILY = {
     {
       name: 'expansion:s5aa-sa18-loss-under-deduction',
       reaches: 'SA18-01. A single retiree at 70 with a $20,000 pension realises a $50,000 loss while under the standard ' +
-        'deduction, and at 71 a one-time $58,000 expense sells a $60,000 gain. The worksheet keeps all $50,000: AGI at 71 is ' +
-        '30,166.20. MEASURED: 33,208.45 at 6e8f31e, which carried only 47,000.',
+        'deduction, and at 71 a one-time $58,000 expense sells a $60,000 gain. IRC 1212(b)(2)(B) adds back the 1211(b) amount and ' +
+        'the section 151 senior deduction, so the year uses 1,850 and 48,150 carries (restated at S5AA R33, SA32F-34): AGI at 71 is ' +
+        'that of a 31,850 pre-tax base. MEASURED: 33,208.45 at 6e8f31e, which carried only 47,000; 30,166.20 before R33, which carried 50,000.',
       build: (plan) => lossHousehold(plan, {
         profile: { age: 70, retireAge: 60, endAge: 72, spouseOn: false, spouseAge: 70, filing: 'single' },
         retirement: { spending: 70000, pension: 20000, pensionAge: 60, pensionCola: 0, selfLife: 99,
           expenses: [{ name: 'Once', age: 71, amount: 58000 }] },
       }),
-      check: (result) => result.status === 'ok' && Math.abs(Number(((result.rows || [])[2] || {}).federalAgi) - lossRowAgi(30000)) < 0.005,
+      check: (result) => result.status === 'ok' && Math.abs(Number(((result.rows || [])[2] || {}).federalAgi) - lossRowAgi(31850)) < 0.005,
     },
     {
       name: 'expansion:s5aa-sa18-decedent-loss',

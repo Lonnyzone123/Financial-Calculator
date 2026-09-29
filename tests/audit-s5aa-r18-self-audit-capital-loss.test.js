@@ -82,8 +82,13 @@ test('SA18-01: through runPlan -- a loss realised under the standard deduction c
   const rows = run({ pension: 20000, spend: 70000, expenses: [{ name: 'Once', age: 71, amount: 58000 }] });
   near(rows[1].federalAgi, 17000, '70: the loss offsets $3,000 of the pension');
   near(rows[1].taxes, 0);
-  const y71 = azFunded(30000);
-  near(rows[2].federalAgi, y71.agi, '71: the whole $50,000 carried loss meets the gain');
+  /* RE-FIXTURED BY INTENT at S5AA R33 (SA32F-34): IRC 1212(b)(2)(B) adds back "(ii) the deduction allowed for such year under section
+     151" -- the senior deduction -- as well as the 1211(b) amount. At 70: taxable income 17,000 - (16,100 + 2,050 + 6,000) = -7,150;
+     adjusted taxable income -7,150 + 3,000 + 6,000 = 1,850, so 1,850 of the loss is used and 48,150 carries (not the whole 50,000).
+     At 71 the gain net of the carry is 11,850: AGI before tax 20,000 + 11,850 = 31,850, federal tax still 0 (the net gain sits in
+     the 0% band), and Arizona's tax is funded as before. */
+  const y71 = azFunded(31850);
+  near(rows[2].federalAgi, y71.agi, '71: the 48,150 carried loss meets the gain');
   near(rows[2].taxes, y71.taxes);
 });
 

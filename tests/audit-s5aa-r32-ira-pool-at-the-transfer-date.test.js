@@ -115,6 +115,9 @@ test('R31-01 CONTROLS: a funding at the year\'s opening, and a flat second IRA, 
   }
 });
 
+/* RE-FIXTURED BY INTENT at S5AA R33 (SA32F-11): this plan's $1,000 401(k) deferral is funded by $200,000 of employment-STREAM
+   wages, which the engine used not to exclude. Excluded, the basis year's AGI is $199,000 and its tax $265 lower (1,000 x (24% + 2.5%));
+   the $265 stays in the 0%-return cash account, so every later net worth is $265 higher. The later years are unchanged. */
 test('R30A-01 WITNESS: an all-basis IRA cannot roll into the 401(k) -- nothing moves, and the year is the year without it', () => {
   // ChatGPT's figures: $8,600 of basis stays to be recovered; the drain's taxable IRA money is the deductible $2,000; AGI $30,000 +
   // $2,000 + $1,000 - $2,000 = $31,000; tax $1,540 + $372.50 + $2,295 = $4,207.50; net worth $181,722 (it was $37,600, $5,164.50
@@ -123,7 +126,7 @@ test('R30A-01 WITNESS: an all-basis IRA cannot roll into the 401(k) -- nothing m
   const end = r.rows[3];
   near(end.federalAgi, 31000, 'AGI');
   near(end.taxes, 4207.5, 'tax');
-  near(end.networth, 181722, 'net worth');
+  near(end.networth, 181987, 'net worth ($181,722 + $265, R33)');
   assert.ok((r.limitWarnings || []).some((w) => /taxable/.test(w) && /401\(k\)/.test(w)), 'a warning names the limit: ' + JSON.stringify(r.limitWarnings));
 });
 

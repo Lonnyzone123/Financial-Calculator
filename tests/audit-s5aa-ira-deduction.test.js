@@ -127,11 +127,14 @@ test('S5AA 3.6: the phase-out tapers linearly across each range, and the IRS wor
     assert.ok(Math.abs(at(mid) - LIMIT / 2) < 0.01, key + ': the midpoint is half, got ' + at(mid));
   }
 
-  /* Publication 590-A Example 1, a CERTIFIED expected value: 2025, joint return, the contributor is
-     covered, combined modified AGI $126,500, contribution $7,000, range $126,000-$146,000 -> $6,825.
-     Asserted as arithmetic rather than through the engine, because the engine carries 2026 tables. */
-  const irsExample = 7000 * (146000 - 126500) / (146000 - 126000);
-  assert.strictEqual(irsExample, 6825, 'the linear taper must reproduce the publication worked example');
+  /* Publication 590-A Example 1: 2025, joint return, the contributor is covered, combined modified AGI $126,500,
+     contribution $7,000, range $126,000-$146,000. RE-FIXTURED BY INTENT at S5AA R33 (the owner, 2026-09-29: apply the $10
+     rounding): the reduction 7,000 x 500/20,000 = 175 is rounded down to 170 (IRC 219(g)(2)(C)), so the reduced limit is
+     $6,830; the worksheet's own line 4 ('round it to the next highest multiple of $10') gives the same. The example
+     prints $6,825, which contradicts that line; the statute controls. Asserted through the engine's rounding helper
+     with the 2025 figures, because the engine carries 2026 tables. */
+  assert.strictEqual(engine.iraPhaseoutLimit(7000, 126500, [126000, 146000], PH.minimumAllowance), 6830,
+    'the reduced limit rounds the reduction down to the next $10');
 });
 
 test('S5AA 3.6: on a JOINT return an uncovered contributor married to a covered spouse gets the HIGHER range', () => {

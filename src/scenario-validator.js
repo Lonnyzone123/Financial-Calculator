@@ -916,19 +916,26 @@ function validatePlannedContributions(c, plan) {
   const profile = isPlainObject(plan.profile) ? plan.profile : {};
   const employment = isPlainObject(plan.employment) ? plan.employment : {};
   const num = (v) => (isFiniteNumber(v) ? v : NaN);
-  const age = num(profile.age), retireAge = num(profile.retireAge), stop = num(employment.contributionStop) - age;
-  const eligible = { self: Math.max(0, Math.min(stop, Math.max(0, Math.min(1, retireAge - age)))) > 0, spouse: profile.spouseOn === true && Math.max(0, Math.min(stop, Math.max(0, Math.min(1, retireAge - num(profile.spouseAge))))) > 0 };
+  /* S5AA R33 (decisions 5a and 5c): the stop age is read on each owner's own age, and on a joint return an owner not working can
+     fund an IRA while the other spouse works (the engine's ownerContributionEligibility()). */
+  const age = num(profile.age), retireAge = num(profile.retireAge), stopAge = num(employment.contributionStop), spouseAge = num(profile.spouseAge);
+  const work = { self: Math.max(0, Math.min(1, retireAge - age)), spouse: profile.spouseOn === true ? Math.max(0, Math.min(1, retireAge - spouseAge)) : 0 };
+  const eligible = { self: Math.max(0, Math.min(stopAge - age, work.self)) > 0, spouse: profile.spouseOn === true && Math.max(0, Math.min(stopAge - spouseAge, work.spouse)) > 0 };
+  const joint = profile.spouseOn === true && profile.filing === 'mfj';
+  const iraEligible = { self: eligible.self || (joint && stopAge - age > 0 && work.spouse > 0), spouse: eligible.spouse || (joint && stopAge - spouseAge > 0 && work.self > 0) };
+  const startAgeOf = (owner) => (owner === 'spouse' && profile.spouseOn === true ? spouseAge : age);
   const salaryOf = (owner) => { const s = owner === 'spouse' ? employment.spouseSalary : employment.salary; return isFiniteNumber(s) ? s : 0; };
   let planned = 0, ownIraAbove = false;
   for (const a of accounts) {
     if (!isPlainObject(a)) continue;
     const owner = a.owner === 'spouse' ? 'spouse' : 'self';
-    if (!eligible[owner]) continue;
+    const isIra = a.type === 'traditionalIRA' || a.type === 'rothIRA';
+    if (!(isIra ? iraEligible[owner] : eligible[owner])) continue;
     const ownerSalary = salaryOf(owner);
     const contribution = isFiniteNumber(a.contribution) ? a.contribution : 0;
     let amount = a.contributionMode === 'salaryPct' ? ownerSalary * contribution / 100 : contribution;
     const due = Array.isArray(a.futureChanges)
-      ? a.futureChanges.filter((f) => isPlainObject(f) && isFiniteNumber(f.age) && isFiniteNumber(f.value) && age >= f.age).sort((x, y) => x.age - y.age)
+      ? a.futureChanges.filter((f) => isPlainObject(f) && isFiniteNumber(f.age) && isFiniteNumber(f.value) && startAgeOf(owner) >= f.age).sort((x, y) => x.age - y.age)
       : [];
     for (const f of due) {
       if (f.mode === 'set') amount = f.value;

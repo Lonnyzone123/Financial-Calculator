@@ -100,12 +100,13 @@ test('SA-05: the helper reproduces the engine\'s own work-window proxy exactly',
 });
 
 test('SA-05: the helper honours the shared stop clock and the retirement age independently', () => {
-  // Past the shared contribution-stop age: nobody is eligible, even though
-  // the spouse would still be under the retirement age.
+  // RE-FIXTURED BY INTENT at S5AA R33 (SA32F-12; the owner's decision 5a, 2026-09-29: "Each owner's own"): the stop age is read
+  // on each owner's OWN age, as their wages are. The self at 66 is past the stop age of 65; the spouse at 60 is not, and is still
+  // under the retirement age, so the spouse is eligible. (It was compared with the self's age for both owners.)
   const stopped = household({ profile: { age: 66, spouseAge: 60, retireAge: 70 }, employment: { contributionStop: 65 } });
   assert.deepEqual(engine.ownerContributionEligibility(stopped, stopped.profile.age, stopped.profile.spouseAge, 1),
-    { self: false, spouse: false },
-    'the stop clock is shared and is compared against the self age for both owners -- the existing convention');
+    { self: false, spouse: true },
+    'each owner is compared with the stop age on their own clock');
 
   // Both inside the window.
   const both = household({ profile: { age: 60, spouseAge: 60 } });
@@ -156,8 +157,11 @@ test('SA-05: a genuinely excessive contribution by an ELIGIBLE owner still warns
 test('SA-05 (reversed owners): the same holds when the SELF is the retired owner', () => {
   const p = household({ profile: { age: 70, spouseAge: 60 } });
   const eligibility = engine.ownerContributionEligibility(p, p.profile.age, p.profile.spouseAge, 1);
-  assert.deepEqual(eligibility, { self: false, spouse: false },
-    'the shared stop clock is measured on the self age, so a self past it stops both -- the existing convention, stated rather than changed');
+  /* RE-FIXTURED BY INTENT at S5AA R33 (SA32F-12; the owner's decision 5a, 2026-09-29: "Each owner's own"): the stop age is read on each
+     owner's own age. The self at 70 has stopped; the spouse at 60 is under both the stop age and the retirement age, so the spouse still
+     contributes. (The shared clock measured on the self's age stopped both.) */
+  assert.deepEqual(eligibility, { self: false, spouse: true },
+    'each owner on their own clock: a self past the stop age does not stop the spouse');
 });
 
 test('SA-05 (warn and redirect policies): shared eligibility behaves consistently under every limit policy', () => {
