@@ -31,8 +31,9 @@ const acct = (id, type, taxClass, balance, priority) => ({ id, name: id, type, t
   profitShare: 0, vesting: 100, priority });
 const ROTH = ['rothIRA', 'roth'], TAXABLE = ['taxable', 'taxable'];
 
-/* $300,000 in "src" moves to an empty "dest" at `at`; a 10% dividend yield paid from 60; every return 0%. */
-function run(from, to, at) {
+/* $300,000 in "src" moves to an empty "dest" at `at`; a 10% dividend yield paid from 60; every return 0%. `srcBalance` (S5AA R30)
+   lets the source hold more than it sends. */
+function run(from, to, at, srcBalance = 300000) {
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
   /* S5AA R29 (PCF-02): a taxable -> Roth transfer is a contribution, held to the year's room -- $0 here, with no compensation. These
@@ -47,7 +48,7 @@ function run(from, to, at) {
   Object.assign(p.advanced, { rmdOn: false, conversionOn: false, healthOn: false, networthOn: true, otherAssets: [], debts: [], assetsOn: true,
     assetClasses: [{ id: 'flat', name: 'Flat', returnRate: 0, volatility: 0 }],
     transferOn: true, transferFrom: 'src', transferTo: 'dest', transferAmount: 300000, transferAge: at, penaltyException: true });
-  p.accounts = [acct('src', from[0], from[1], 300000, 2), acct('dest', to[0], to[1], 0, 1)];
+  p.accounts = [acct('src', from[0], from[1], srcBalance, 2), acct('dest', to[0], to[1], 0, 1)];
   const v = validateScenario(JSON.parse(JSON.stringify(p)));
   assert.equal(v.valid, true, 'a valid plan: ' + JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   const r = engine.runPlan(p);
@@ -63,8 +64,12 @@ test('R27F-02: a taxable account that receives $300,000 at 60.5 is paid half a y
   near(row.federalAgi, 15000, 'the AGI');
 });
 
-test('R27F-02: a taxable account that sends $300,000 at 60.5 is paid the half year it held it -- $15,000 (was $0)', () => {
-  near(run(TAXABLE, ROTH, 60.5).dividends, 15000, 'the dividends');
+/* S5AA R30: this sent the source's whole $300,000, and the Roth IRA paid the source's $15,000 -- the leak R30 closes (each account
+   pays its own dividends, so a source that pays them cannot send everything). The case is about who is paid on the moved dollars,
+   so the source now keeps $100,000; tests/audit-s5aa-r30-transfer-dividends-follow-the-move.test.js holds a whole-balance move. */
+test('R27F-02: a taxable account that sends $300,000 of $400,000 at 60.5 is paid the half year it held it -- $15,000 (was $0) -- and the year on the rest', () => {
+  // $300,000 x 10% x 0.5 + $100,000 x 10% x 1 = $15,000 + $10,000.
+  near(run(TAXABLE, ROTH, 60.5, 400000).dividends, 25000, 'the dividends');
 });
 
 test('R27F-02: a quarter of the way in, a taxable destination is paid three quarters of a year -- $22,500 (was $30,000)', () => {
