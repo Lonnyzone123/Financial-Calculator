@@ -686,7 +686,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R35 commit 8 fix: the Table II comment's citations), so the tracked file was rebuilt,
 // again installed only after two builds agreed. The pin before it,
 // 354ef012751922aa09750dec4251c5ee2a63c7f20f1bb9039f4224bd944dedd5, described the previous rebuild.
-const EXPECTED_SHA256 = 'f4eeaf413f89788d8560bb701a9773fb564b3b037cdf61ec085d97445c621b83';
+//
+// Changed again 2026-09-29 (S5AA R35 commit 9 (SA32F-26): the still-working exception), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// f4eeaf413f89788d8560bb701a9773fb564b3b037cdf61ec085d97445c621b83, described the previous rebuild.
+const EXPECTED_SHA256 = 'b68c75f6136f05475d46e723421400c9d2ac8a603b97e4956be2ca2db1fc82fa';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

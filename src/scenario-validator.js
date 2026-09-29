@@ -435,6 +435,10 @@ function validateAccount(c, account, index) {
      same three at its public boundary via accountContractCode(), and
      isHouseholdCashHolding() is the single predicate every consumer reads. */
   /* S5AA R35 (SA32F-08): whether the spouse is the sole designated beneficiary of a pre-tax account (the Table II condition). */
+  /* S5AA R35 (SA32F-26): the still-working exception's two facts about a workplace plan. */
+  ['currentEmployerPlan', 'fivePercentOwner'].forEach((k) => {
+    if (account[k] !== undefined && typeof account[k] !== 'boolean') c.error('WRONG_TYPE', `${path}.${k}`, `${k} must be a boolean, got ${JSON.stringify(account[k])}`);
+  });
   if (account.spouseSoleBeneficiary !== undefined && typeof account.spouseSoleBeneficiary !== 'boolean') {
     c.error('WRONG_TYPE', `${path}.spouseSoleBeneficiary`, `spouseSoleBeneficiary must be a boolean, got ${JSON.stringify(account.spouseSoleBeneficiary)}`);
   }

@@ -2827,8 +2827,17 @@ function rmdObligations(accounts,age,p,openingById){
         iraBalance=iras.reduce(function(t,a){return t+balanceOf(a)},0),
         iraAmount=iras.reduce(function(t,a){return t+balanceOf(a)/divisorFor(a)},0);
     if(iraBalance>0)out.push({owner:o.key,ownerIndex:o.index,kind:"ira",accounts:iras,amount:iraAmount});
+    /* S5AA R35 (SA32F-26; R32V note C): THE STILL-WORKING EXCEPTION. 401(a)(9)(C)(i)-(ii): a qualified-plan participant who is
+       not a 5-percent owner begins at the later of the applicable age and retirement from the employer maintaining the plan. It reaches only
+       that employer's plan -- `currentEmployerPlan`, absent read as yes when the account receives contributions -- and never an IRA or a
+       5-percent owner (`fivePercentOwner`). The owner is still working while paid and retiring at least a year after this row opens (on
+       their own clock, as householdWorkDurations() times both people); the year they retire is the first distribution year. */
+    var ownerPay=o.key==="spouse"?Number(p.employment&&p.employment.spouseSalary):Number(p.employment&&p.employment.salary),
+        stillWorking=ownerPay>0&&Number(profile.retireAge)>=o.ageNow+1-1e-9,
+        currentEmployer=function(a){return a.currentEmployerPlan===true||(a.currentEmployerPlan===undefined&&(Number(a.contribution)>0||!!a.matchOn||Number(a.profitShare)>0))};
     mine.filter(function(a){return a.type!=="traditionalIRA"}).forEach(function(a){
       var b=balanceOf(a);
+      if(stillWorking&&a.type==="traditional401k"&&a.fivePercentOwner!==true&&currentEmployer(a))return;
       if(b>0)out.push({owner:o.key,ownerIndex:o.index,kind:"plan",accounts:[a],amount:b/divisorFor(a)});
     });
   });
