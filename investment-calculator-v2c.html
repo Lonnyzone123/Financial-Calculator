@@ -6530,8 +6530,8 @@ if(p.retirement&&p.retirement.survivor&&p.profile&&p.profile.spouseOn){recordIss
       "A credit card is projected as a REVOLVING balance: its minimum payment is the greater of "+
       DebtRevolving.DEFAULT_MINIMUM_PERCENT+"% of the current balance and $"+DebtRevolving.DEFAULT_MINIMUM_FLOOR+
       ", recomputed every month, so the payment falls as the balance does. An entered payment LARGER than the "+
-      "minimum is what is paid; the minimum is a floor, never a ceiling. There is no input for the percent or "+
-      "the floor, so those two figures are used for every card. Interest accrues simply on the month's balance "+
+      "minimum is what is paid; the minimum is a floor, never a ceiling. The form has no input for the percent or "+
+      "the floor, so a card uses those two figures unless its record carries its own. Interest accrues simply on the month's balance "+
       "at the entered rate divided by twelve: average daily balance, which most issuers use, and grace-period "+
       "handling for a balance paid in full are NOT modelled, because both depend on when within a month money "+
       "moves and this projection works in whole months.",

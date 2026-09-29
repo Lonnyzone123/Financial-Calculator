@@ -748,7 +748,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R37: effectiveMarginalRate() states its sources; the debt page lists four inert
 // mortgage fields (SA32F-47, -50)), so the tracked file was rebuilt, again installed only after two builds agreed. The
 // pin before it, 48f67c398e156244225fa8d5e13d2522e72a03bd51991b3ffb8530e7c618a156, described the previous rebuild.
-const EXPECTED_SHA256 = 'd5e49ec8268fdfa8ee9e2aea4049f6ec815321ecd931b180ce9597e6ef4e415f';
+//
+// Changed again 2026-09-29 (S5AA R37: stale result texts corrected and held to what runs (SA32F-54; SA32F-48's
+// RESULT_CONTRACT part)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, d5e49ec8268fdfa8ee9e2aea4049f6ec815321ecd931b180ce9597e6ef4e415f, described the previous rebuild.
+const EXPECTED_SHA256 = '13aafac831f8be370e130c13bdefd64efca9c0492bcb911d645bf8313bfca92e';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
