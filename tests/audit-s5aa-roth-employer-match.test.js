@@ -159,8 +159,11 @@ test('S5AA 4.5 (Q96): the election is refused unless the employee is fully veste
   ]));
   assert.equal(half.roth.toFixed(2), '10000.00',
     'a 50%-vested match may not be designated Roth at all, so the Roth bucket holds only the deferral');
-  assert.equal(half.preTax.toFixed(2), (MATCH / 2).toFixed(2),
-    'it lands pre-tax instead, at the vesting-reduced amount the engine already computed');
+  /* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-13; the owner's decision 5b): the match is no longer cut by the vesting percentage when it
+     is deposited; it lands in full, and only what is still unvested at separation is forfeited -- a separation this row does not reach.
+     The election is still refused, which is what this test is about. */
+  assert.equal(half.preTax.toFixed(2), MATCH.toFixed(2),
+    'it lands pre-tax instead, in full until a separation');
 });
 
 test('S5AA 4.5 (Q96): a fully vested election is allowed and a 99%-vested one is not', () => {

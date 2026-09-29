@@ -436,6 +436,9 @@ function validateAccount(c, account, index) {
      isHouseholdCashHolding() is the single predicate every consumer reads. */
   /* S5AA R35 (SA32F-08): whether the spouse is the sole designated beneficiary of a pre-tax account (the Table II condition). */
   /* S5AA R35 (SA32F-26): the still-working exception's two facts about a workplace plan. */
+  /* S5AA R35 (SA32F-13): the vesting schedule and the credited service at the plan's start. */
+  if (account.vestingSchedule !== undefined && ['graded6', 'cliff3'].indexOf(account.vestingSchedule) < 0) c.error('INVALID_ENUM', `${path}.vestingSchedule`, 'vestingSchedule must be graded6 or cliff3');
+  if (account.yearsOfService !== undefined && account.yearsOfService !== null && !(isFiniteNumber(account.yearsOfService) && account.yearsOfService >= 0)) c.error('OUT_OF_RANGE', `${path}.yearsOfService`, 'yearsOfService must be a number, 0 or more');
   ['currentEmployerPlan', 'fivePercentOwner'].forEach((k) => {
     if (account[k] !== undefined && typeof account[k] !== 'boolean') c.error('WRONG_TYPE', `${path}.${k}`, `${k} must be a boolean, got ${JSON.stringify(account[k])}`);
   });
