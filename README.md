@@ -7,8 +7,8 @@ browser, and its engine also runs under Node for testing.
 
 > **Not financial, tax or legal advice.** This is a planning model, provided as is, without warranty of any kind (see
 > [`LICENSE`](LICENSE)). Its figures are estimates under the assumptions in
-> [`MODEL_ASSUMPTIONS.md`](MODEL_ASSUMPTIONS.md), and its tax rules cover one tax year (2026), federal and Arizona
-> only. It can be wrong. Check anything you act on with a qualified professional.
+> [`MODEL_ASSUMPTIONS.md`](MODEL_ASSUMPTIONS.md), and its tax rules are 2026's, federal and Arizona only, carried into later
+> years by the plan's own inflation and salary-growth rates standing in for the official indexes. It can be wrong. Check anything you act on with a qualified professional.
 
 **Correct financial calculation comes before convenience.** Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before changing
 anything, and [`docs/AI_REVIEW_INSTRUCTIONS.md`](docs/AI_REVIEW_INSTRUCTIONS.md) before reviewing.

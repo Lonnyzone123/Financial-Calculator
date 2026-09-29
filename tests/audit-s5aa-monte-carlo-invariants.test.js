@@ -59,7 +59,9 @@ function faultedAfterPathZero() {
   return loadEngineVariant([
     {
       id: 'count each simulatePlan() call, so a fault can target paths after the first',
-      marker: 'function simulatePlan(p,random,historyOffset,ltcRandom,issues,serialized,gateToken){',
+      /* RE-FIXTURED BY INTENT at S5AA R36 (SA32F-D1): simulatePlan() is now a wrapper that restores the 2026 rules; the rows run in
+         simulatePlanRows(), called exactly once per simulatePlan() call, so the count is the same. */
+      marker: 'function simulatePlanRows(p,random,historyOffset,ltcRandom,issues,serialized,gateToken){',
       append: 'globalThis.__S5AA_FAULT_PATH=(globalThis.__S5AA_FAULT_PATH||0)+1;',
     },
     {
