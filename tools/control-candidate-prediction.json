@@ -342,6 +342,12 @@
       "why": "seeds 3, 4, 17 and 18 have a spouse and a single or head-of-household status. In the row the self turns 65 the tax rises by 400 (2,050 to 1,650) at the marginal rate: seed:3 +96 (24%), seed:17 +128 (32%), seed:18 +166.04 grossed up. seed:4 (self 67, working, MAGI 3.06M): the total return moves +148 (400 at 37%), while the wage-only baseline loses 3,503.75 of senior deduction plus 400 at 22% (+858.83, measured directly), so the portfolio draws 1,174.92 less and the row's tax falls 316.09 = 148 - 1,174.92 x 39.5%",
       "differences": 619,
       "replacedDeclarations": 619
+    },
+    {
+      "change": "S5AA R33 commit 6 (SA32F-32): the capital-gains worksheet's line 25, the smaller of the preferential and the regular tax, in the estimator and the funding solver's mirror (pwaMin)",
+      "why": "No control plan's figures change: every row matches the previous commit to within 1e-9 (the Monte Carlo golden plan 1.5e-8), measured by overnight/r33/c6-moves.js. The re-declared values in these nine scenarios differ from the stored declarations only in the last floating-point digits (e.g. 554013.6341638049 against 554013.634163805), from the solver's new min() landing one unit differently",
+      "differences": 61,
+      "replacedDeclarations": 61
     }
   ],
   "differences": [
@@ -3499,31 +3505,31 @@
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[32].federalAgi",
-      "candidate": 249370.82336139533
+      "candidate": 249370.8233613953
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[32].irmaaMagi",
-      "candidate": 249370.82336139533
+      "candidate": 249370.8233613953
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[32].niitMagi",
-      "candidate": 249370.82336139533
+      "candidate": 249370.8233613953
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[32].seniorDeductionMagi",
-      "candidate": 249370.82336139533
+      "candidate": 249370.8233613953
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[32].ssProvisionalIncome",
-      "candidate": 249370.82336139533
+      "candidate": 249370.8233613953
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -3559,31 +3565,31 @@
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[34].federalAgi",
-      "candidate": 279899.3306830266
+      "candidate": 279899.3306830265
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[34].irmaaMagi",
-      "candidate": 279899.3306830266
+      "candidate": 279899.3306830265
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[34].niitMagi",
-      "candidate": 279899.3306830266
+      "candidate": 279899.3306830265
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[34].seniorDeductionMagi",
-      "candidate": 279899.3306830266
+      "candidate": 279899.3306830265
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[34].ssProvisionalIncome",
-      "candidate": 279899.3306830266
+      "candidate": 279899.3306830265
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -40160,7 +40166,7 @@
       "kind": "VALUE",
       "path": "rows[42].magi",
       "reference": 556394.9952046522,
-      "candidate": 554013.6341638049
+      "candidate": 554013.634163805
     },
     {
       "scenario": "golden:baseline",
@@ -40195,7 +40201,7 @@
       "kind": "VALUE",
       "path": "rows[42].taxes",
       "reference": 112453.8089337149,
-      "candidate": 111445.65502896757
+      "candidate": 111445.65502896758
     },
     {
       "scenario": "golden:baseline",
@@ -40209,37 +40215,37 @@
       "kind": "VALUE",
       "path": "rows[42].withdrawals",
       "reference": 315021.39992272254,
-      "candidate": 314013.2460179752
+      "candidate": 314013.24601797527
     },
     {
       "scenario": "golden:baseline",
       "kind": "EXTRA_FIELD",
       "path": "rows[42].federalAgi",
-      "candidate": 554013.6341638049
+      "candidate": 554013.634163805
     },
     {
       "scenario": "golden:baseline",
       "kind": "EXTRA_FIELD",
       "path": "rows[42].irmaaMagi",
-      "candidate": 554013.6341638049
+      "candidate": 554013.634163805
     },
     {
       "scenario": "golden:baseline",
       "kind": "EXTRA_FIELD",
       "path": "rows[42].niitMagi",
-      "candidate": 554013.6341638049
+      "candidate": 554013.634163805
     },
     {
       "scenario": "golden:baseline",
       "kind": "EXTRA_FIELD",
       "path": "rows[42].seniorDeductionMagi",
-      "candidate": 554013.6341638049
+      "candidate": 554013.634163805
     },
     {
       "scenario": "golden:baseline",
       "kind": "EXTRA_FIELD",
       "path": "rows[42].ssProvisionalIncome",
-      "candidate": 540325.322368605
+      "candidate": 540325.3223686051
     },
     {
       "scenario": "golden:baseline",
@@ -43382,7 +43388,7 @@
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[46].ssProvisionalIncome",
-      "candidate": 437505.98368162813
+      "candidate": 437505.9836816281
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -43582,7 +43588,7 @@
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[48].ssProvisionalIncome",
-      "candidate": 522139.45267823
+      "candidate": 522139.45267822995
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -43910,7 +43916,7 @@
       "kind": "VALUE",
       "path": "rows[52].q10",
       "reference": 25455227.635930568,
-      "candidate": 25167121.333297305
+      "candidate": 25167121.33329732
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -44010,7 +44016,7 @@
       "kind": "VALUE",
       "path": "rows[53].q10",
       "reference": 27252897.36423116,
-      "candidate": 26952476.51644742
+      "candidate": 26952476.516447432
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -44682,7 +44688,7 @@
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "EXTRA_FIELD",
       "path": "rows[59].ssProvisionalIncome",
-      "candidate": 1043513.93275605
+      "candidate": 1043513.9327560501
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -45310,7 +45316,7 @@
       "kind": "VALUE",
       "path": "rows[66].q10",
       "reference": 61986027.07470182,
-      "candidate": 59458911.3594225
+      "candidate": 59458911.35942249
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -49682,32 +49688,11 @@
       "candidate": 2420688.7974075074
     },
     {
-      "declared": {
-        "declared": {
-          "declared": {
-            "scenario": "golden:rmd-and-roth-conversion",
-            "kind": "VALUE",
-            "path": "rows[17].withdrawals",
-            "reference": 59266.469613778194,
-            "candidate": 59628.44783420036
-          },
-          "scenario": "golden:rmd-and-roth-conversion",
-          "kind": "VALUE",
-          "path": "rows[17].withdrawals",
-          "reference": 59266.469613778194,
-          "candidate": 58996.53294058333
-        },
-        "scenario": "golden:rmd-and-roth-conversion",
-        "kind": "VALUE",
-        "path": "rows[17].withdrawals",
-        "reference": 59266.469613778194,
-        "candidate": 56984.99920889185
-      },
       "scenario": "golden:rmd-and-roth-conversion",
       "kind": "VALUE",
       "path": "rows[17].withdrawals",
       "reference": 59266.469613778194,
-      "candidate": 57474.512969526775
+      "candidate": 57474.51296952678
     },
     {
       "declared": {
@@ -53847,7 +53832,7 @@
       "kind": "VALUE",
       "path": "rows[43].taxes",
       "reference": 114377.98423012787,
-      "candidate": 110336.56108140308
+      "candidate": 110336.56108140307
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -53861,7 +53846,7 @@
       "kind": "VALUE",
       "path": "rows[43].withdrawals",
       "reference": 324309.2071396548,
-      "candidate": 320267.78399093
+      "candidate": 320267.78399092995
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -53991,7 +53976,7 @@
       "kind": "VALUE",
       "path": "rows[45].magi",
       "reference": 642012.2289835105,
-      "candidate": 622931.4049297229
+      "candidate": 622931.4049297228
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -54033,7 +54018,7 @@
       "kind": "VALUE",
       "path": "rows[45].taxes",
       "reference": 133028.301319723,
-      "candidate": 128268.05287725804
+      "candidate": 128268.05287725803
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -54047,37 +54032,37 @@
       "kind": "VALUE",
       "path": "rows[45].withdrawals",
       "reference": 358492.4691585016,
-      "candidate": 353732.2207160367
+      "candidate": 353732.2207160366
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[45].federalAgi",
-      "candidate": 622931.4049297229
+      "candidate": 622931.4049297228
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[45].irmaaMagi",
-      "candidate": 622931.4049297229
+      "candidate": 622931.4049297228
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[45].niitMagi",
-      "candidate": 622931.4049297229
+      "candidate": 622931.4049297228
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[45].seniorDeductionMagi",
-      "candidate": 622931.4049297229
+      "candidate": 622931.4049297228
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[45].ssProvisionalIncome",
-      "candidate": 608060.7795485633
+      "candidate": 608060.7795485632
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -54363,7 +54348,7 @@
       "kind": "VALUE",
       "path": "rows[49].magi",
       "reference": 864554.7939379272,
-      "candidate": 833397.0430118698
+      "candidate": 833397.0430118699
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -54419,37 +54404,37 @@
       "kind": "VALUE",
       "path": "rows[49].withdrawals",
       "reference": 462249.36250037595,
-      "candidate": 452044.88266909355
+      "candidate": 452044.8826690936
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[49].federalAgi",
-      "candidate": 833397.0430118698
+      "candidate": 833397.0430118699
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[49].irmaaMagi",
-      "candidate": 833397.0430118698
+      "candidate": 833397.0430118699
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[49].niitMagi",
-      "candidate": 833397.0430118698
+      "candidate": 833397.0430118699
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[49].seniorDeductionMagi",
-      "candidate": 833397.0430118698
+      "candidate": 833397.0430118699
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[49].ssProvisionalIncome",
-      "candidate": 816789.6412660347
+      "candidate": 816789.6412660348
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -56927,7 +56912,7 @@
       "kind": "VALUE",
       "path": "rows[47].magi",
       "reference": 1019631.2324734915,
-      "candidate": 1002772.1738665295
+      "candidate": 1002772.1738665293
     },
     {
       "scenario": "golden:guardrails-withdrawal-strategy",
@@ -56969,37 +56954,37 @@
       "kind": "VALUE",
       "path": "rows[47].withdrawals",
       "reference": 656082.8331586055,
-      "candidate": 650380.2065666787
+      "candidate": 650380.2065666786
     },
     {
       "scenario": "golden:guardrails-withdrawal-strategy",
       "kind": "EXTRA_FIELD",
       "path": "rows[47].federalAgi",
-      "candidate": 1002772.1738665295
+      "candidate": 1002772.1738665293
     },
     {
       "scenario": "golden:guardrails-withdrawal-strategy",
       "kind": "EXTRA_FIELD",
       "path": "rows[47].irmaaMagi",
-      "candidate": 1002772.1738665295
+      "candidate": 1002772.1738665293
     },
     {
       "scenario": "golden:guardrails-withdrawal-strategy",
       "kind": "EXTRA_FIELD",
       "path": "rows[47].niitMagi",
-      "candidate": 1002772.1738665295
+      "candidate": 1002772.1738665293
     },
     {
       "scenario": "golden:guardrails-withdrawal-strategy",
       "kind": "EXTRA_FIELD",
       "path": "rows[47].seniorDeductionMagi",
-      "candidate": 1002772.1738665295
+      "candidate": 1002772.1738665293
     },
     {
       "scenario": "golden:guardrails-withdrawal-strategy",
       "kind": "EXTRA_FIELD",
       "path": "rows[47].ssProvisionalIncome",
-      "candidate": 987057.1348937261
+      "candidate": 987057.1348937259
     },
     {
       "scenario": "golden:guardrails-withdrawal-strategy",
@@ -66422,7 +66407,7 @@
       "kind": "VALUE",
       "path": "rows[27].withdrawals",
       "reference": 0,
-      "candidate": 522839.7341282878
+      "candidate": 522839.7341282879
     },
     {
       "scenario": "seed:18",
@@ -67840,7 +67825,7 @@
       "kind": "VALUE",
       "path": "rows[20].withdrawals",
       "reference": 162546.0974194953,
-      "candidate": 141859.92135452438
+      "candidate": 141859.92135452444
     },
     {
       "scenario": "seed:20",
@@ -96003,18 +95988,11 @@
       "candidate": 11464456.349225653
     },
     {
-      "declared": {
-        "scenario": "seed:15",
-        "kind": "VALUE",
-        "path": "rows[6].withdrawals",
-        "reference": 39632.758725850435,
-        "candidate": 39635.22949500491
-      },
       "scenario": "seed:15",
       "kind": "VALUE",
       "path": "rows[6].withdrawals",
       "reference": 39632.758725850435,
-      "candidate": 36138.599948126444
+      "candidate": 36138.59994812643
     },
     {
       "declared": {
@@ -105287,18 +105265,11 @@
       "candidate": 4840994.254806344
     },
     {
-      "declared": {
-        "scenario": "seed:16",
-        "kind": "VALUE",
-        "path": "rows[1].withdrawals",
-        "reference": 0,
-        "candidate": 30190.167668435413
-      },
       "scenario": "seed:16",
       "kind": "VALUE",
       "path": "rows[1].withdrawals",
       "reference": 0,
-      "candidate": 29809.95280447158
+      "candidate": 29809.952804471573
     },
     {
       "declared": {
@@ -109683,18 +109654,11 @@
       "candidate": 9562105.988184625
     },
     {
-      "declared": {
-        "scenario": "seed:18",
-        "kind": "VALUE",
-        "path": "rows[15].withdrawals",
-        "reference": 0,
-        "candidate": 26305.016633837993
-      },
       "scenario": "seed:18",
       "kind": "VALUE",
       "path": "rows[15].withdrawals",
       "reference": 0,
-      "candidate": 30023.50930970203
+      "candidate": 30023.509309702033
     },
     {
       "declared": {
@@ -113901,7 +113865,7 @@
       "kind": "VALUE",
       "path": "rows[18].withdrawals",
       "reference": 3977.192621741743,
-      "candidate": 4214.727576576051
+      "candidate": 4214.72757657605
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -114727,7 +114691,7 @@
       "kind": "VALUE",
       "path": "rows[32].magi",
       "reference": 231238.19454133848,
-      "candidate": 249370.82336139533
+      "candidate": 249370.8233613953
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -114867,7 +114831,7 @@
       "kind": "VALUE",
       "path": "rows[34].magi",
       "reference": 261837.5352204629,
-      "candidate": 279899.3306830266
+      "candidate": 279899.3306830265
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -114916,7 +114880,7 @@
       "kind": "VALUE",
       "path": "rows[34].taxes",
       "reference": 41751.52982566788,
-      "candidate": 44203.64798966942
+      "candidate": 44203.64798966943
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
@@ -120304,7 +120268,7 @@
       "scenario": "golden:baseline",
       "kind": "EXTRA_FIELD",
       "path": "rows[42].taxSettled",
-      "candidate": 111445.65502896757
+      "candidate": 111445.65502896758
     },
     {
       "scenario": "golden:baseline",
@@ -122068,7 +122032,7 @@
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[43].taxSettled",
-      "candidate": 110336.56108140308
+      "candidate": 110336.56108140307
     },
     {
       "scenario": "golden:reserve-and-bond-tent",
@@ -122104,7 +122068,7 @@
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "EXTRA_FIELD",
       "path": "rows[45].taxSettled",
-      "candidate": 128268.05287725804
+      "candidate": 128268.05287725803
     },
     {
       "scenario": "golden:reserve-and-bond-tent",

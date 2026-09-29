@@ -632,7 +632,11 @@ function artifactFor(lane) {
 // age-65 amount, at the married rate, and no senior deduction (SA32F-33)), so the tracked file was rebuilt, again
 // installed only after two builds agreed. The pin before it,
 // bc3f8cee96e0a15e9856b3263e9dd0e8b5885e1db9b60d65632bc9c24cdc1fb1, described the previous rebuild.
-const EXPECTED_SHA256 = '2ae978d5ec3335c566ab2915098413ee0e2fd58b7be6468a94d7d37c9635b6aa';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 6: the capital-gains worksheet's line 25, the smaller of the preferential
+// and the regular tax (SA32F-32)), so the tracked file was rebuilt, again installed only after two builds agreed. The
+// pin before it, 2ae978d5ec3335c566ab2915098413ee0e2fd58b7be6468a94d7d37c9635b6aa, described the previous rebuild.
+const EXPECTED_SHA256 = '9e90e6a0dd6a9e56a1fad125989b8890c5a3e50247d7cfb4f77b06d533614ce0';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

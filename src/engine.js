@@ -729,7 +729,10 @@ function estimateTaxes(p,age,ordinaryIncome,capitalGains,ssBenefit,wages,qualifi
        instructions, lines 1-4; IRC 1212(b)(2)): line 1 is taxable income, which may be negative; line 3 is line 1 plus the loss
        deducted, floored at zero; the year used the smaller of the deduction and line 3. This treated the whole deduction as used,
        so a year whose income sat under the standard deduction lost up to $3,000 of carryover (143 rows of 10 corpus members,
-       measured at 6e8f31e). The deduction itself, and so this row's AGI, is unchanged. */capitalLossCarryOut=netCapital<0?-netCapital-Math.min(capitalLossDeduction,Math.max(0,federalAgi-deduction+capitalLossDeduction)):0,ordinaryBeforeDeduction=Math.max(0,incomeTaxOrdinary+ssTaxable),ordinaryTaxable=Math.max(0,ordinaryBeforeDeduction-deduction),remainingDeduction=Math.max(0,deduction-ordinaryBeforeDeduction),/* R19 (R18-01): an ordinary side still negative after taxable Social Security (the loss exceeding them) comes off the preferential income, so taxable income is AGI less the deduction, never more. */taxableGains=Math.max(0,investmentIncome+Math.min(0,incomeTaxOrdinary+ssTaxable)-remainingDeduction),federal=marginalTax(ordinaryTaxable,filing)+capitalGainsTax(taxableGains,ordinaryTaxable,filing),niit=RULES.federal.niit.rate*Math.min(netInvestmentIncome,Math.max(0,measures.niit_magi-filingEntry(RULES.federal.niit.threshold,filing))),ssPayroll=(Math.min(selfPayrollWages,RULES.federal.payroll.oasdiWageBase)+Math.min(spousePayrollWages,RULES.federal.payroll.oasdiWageBase))*RULES.federal.payroll.oasdiEmployee,medicare=wages*RULES.federal.payroll.medicareEmployee+Math.max(0,wages+seNetSelf+seNetSpouse-filingEntry(RULES.federal.payroll.additionalThreshold,filing))*RULES.federal.payroll.additionalMedicare,/* S5 task 8 (the owner's question 5, answer C): Arizona taxable income is Arizona AGI -- federal AGI less the federally
+       measured at 6e8f31e). The deduction itself, and so this row's AGI, is unchanged. */capitalLossCarryOut=netCapital<0?-netCapital-Math.min(capitalLossDeduction,Math.max(0,federalAgi-deduction+capitalLossDeduction)):0,ordinaryBeforeDeduction=Math.max(0,incomeTaxOrdinary+ssTaxable),ordinaryTaxable=Math.max(0,ordinaryBeforeDeduction-deduction),remainingDeduction=Math.max(0,deduction-ordinaryBeforeDeduction),/* R19 (R18-01): an ordinary side still negative after taxable Social Security (the loss exceeding them) comes off the preferential income, so taxable income is AGI less the deduction, never more. */taxableGains=Math.max(0,investmentIncome+Math.min(0,incomeTaxOrdinary+ssTaxable)-remainingDeduction),/* S5AA R33 (SA32F-32): Form 1040 Qualified Dividends and Capital Gain Tax Worksheet line 25, "the smaller of line 23 or line 24" --
+       the preferential computation, or the regular tax on all taxable income if that is less (IRC 1(h)(1), "shall not exceed"). For
+       2026 the 0% ceiling sits below the top of the 12% bracket, so preferential income in that sliver is cheaper at 12% than 15%.
+       The funding solver's mirror takes the same min() (taxSegmentLocal()). */federal=Math.min(marginalTax(ordinaryTaxable,filing)+capitalGainsTax(taxableGains,ordinaryTaxable,filing),marginalTax(ordinaryTaxable+taxableGains,filing)),niit=RULES.federal.niit.rate*Math.min(netInvestmentIncome,Math.max(0,measures.niit_magi-filingEntry(RULES.federal.niit.threshold,filing))),ssPayroll=(Math.min(selfPayrollWages,RULES.federal.payroll.oasdiWageBase)+Math.min(spousePayrollWages,RULES.federal.payroll.oasdiWageBase))*RULES.federal.payroll.oasdiEmployee,medicare=wages*RULES.federal.payroll.medicareEmployee+Math.max(0,wages+seNetSelf+seNetSpouse-filingEntry(RULES.federal.payroll.additionalThreshold,filing))*RULES.federal.payroll.additionalMedicare,/* S5 task 8 (the owner's question 5, answer C): Arizona taxable income is Arizona AGI -- federal AGI less the federally
      taxable Social Security it includes, which is incomeTaxOrdinary+investmentIncome, written as the base before it --
      less Arizona's basic standard deduction record and $2,100 for each person 65 or older, never below zero. Written
      this way rather than as arizona_agi-..., whose adding and subtracting of taxable Social Security is exact in
@@ -951,6 +954,10 @@ function taxSegmentLocal(ctx,x0In){
   var top0=ot0+tg0,rTop=rOT+rTG,distCgTop=distanceToCap(cgCaps,top0,rTop);
   var federal0=marginalTax(ot0,filing)+capitalGainsTax(tg0,ot0,filing);
   var federalSlope=marginalRateAt(ot0,filing)*rOT+(capitalGainsMarginalRateAt(top0,filing)*rTop-capitalGainsMarginalRateAt(ot0,filing)*rOT);
+  /* S5AA R33 (SA32F-32): the mirror of estimateTaxes()'s worksheet line 25 -- the smaller of that (line 23) and the regular tax on
+     all taxable income (line 24), with line 24's own bracket breakpoint and the crossing as breakpoints of the piece. */
+  var line24=marginalTax(top0,filing),line24Slope=marginalRateAt(top0,filing)*rTop,distLine24=distanceToCap(ordCaps,top0,rTop),line25=pwaMin(federal0,federalSlope,line24,line24Slope);
+  federal0=line25.value;federalSlope=line25.slope;
   var niitThreshold=filingEntry(RULES.federal.niit.threshold,filing),niitOver=pwaMaxZero(niitMagi0-niitThreshold,rNiitMagi);
   /* G17: the mirror moves in the SAME COMMIT as estimateTaxes() (ground rule 4). niiOther is dividends and
      income streams already fixed for the period, so a withdrawal does not change it: it shifts the base's
@@ -967,7 +974,7 @@ function taxSegmentLocal(ctx,x0In){
   var total0=federal0+niit0+ctx.payrollConst+az0,rTotal=federalSlope+rNiit+rAz;
   var clamped=pwaMaxZero(total0-ctx.Tbase,rTotal);
   var pen0=ctx.pen0+ctx.rPenalty*x0;
-  var dist=Math.min(distII,distS,distSeniorStart,distSeniorZero,distOBD,distOT,remDClamp.dist,distTG,distOrdBracket,distCgLow,distCgTop,niitOver.dist,niiPos.dist,niitBase.dist,azClamp.dist,clamped.dist);
+  var dist=Math.min(distII,distS,distSeniorStart,distSeniorZero,distOBD,distOT,remDClamp.dist,distTG,distOrdBracket,distCgLow,distCgTop,distLine24,line25.dist,niitOver.dist,niiPos.dist,niitBase.dist,azClamp.dist,clamped.dist);
   var slope=clamped.slope+ctx.rPenalty,valueAtEval=clamped.value+pen0;
   return {value:valueAtEval-slope*DELTA,slope:slope,dist:(dist>1e-9?dist:Infinity)+DELTA};
 }
