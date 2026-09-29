@@ -10,12 +10,12 @@
   "src/debt-recast.js"
  ],
  "counts": {
-  "commentBlocksWithIds": 389,
-  "requirements": 207,
-  "GUARDED_BY_TEST_NAME": 188,
+  "commentBlocksWithIds": 392,
+  "requirements": 208,
+  "GUARDED_BY_TEST_NAME": 189,
   "CITED_IN_TEST_FILE": 19,
   "UNGUARDED": 0,
-  "carriedForward": 207,
+  "carriedForward": 208,
   "needsDecision": 0,
   "superseded": 0
  },
@@ -44,7 +44,7 @@
    "id": "A4-4",
    "family": "A4",
    "sites": [
-    "src/engine.js:4604"
+    "src/engine.js:4607"
    ],
    "summary": "FOURTH AUDIT (A4-4): \"contribution room\" became false for the Roth limit at EA-03",
    "guard": {
@@ -66,8 +66,8 @@
    "id": "A4-6",
    "family": "A4",
    "sites": [
-    "src/engine.js:4177",
-    "src/engine.js:4626"
+    "src/engine.js:4180",
+    "src/engine.js:4629"
    ],
    "summary": "THE DEATH DISCLOSURES, FROM WHAT THE PROJECTION ACTUALLY DID (R7-02, R7-03, A4-6). Both were built in runPlan() before the simulation, from the configured accounts, and both could describe things that",
    "guard": {
@@ -142,9 +142,9 @@
    "id": "ARCH-02",
    "family": "ARCH",
    "sites": [
-    "src/engine.js:4255",
-    "src/engine.js:4306",
-    "src/engine.js:4747"
+    "src/engine.js:4258",
+    "src/engine.js:4309",
+    "src/engine.js:4750"
    ],
    "summary": "R2R-002 round 2 external requalification fix (ARCH-02): the explicit invalid-result contract. Round 1 stopped publishing a numeric `successRate` for an invalid batch but still returned `failed:true` (",
    "guard": {
@@ -439,7 +439,7 @@
     "src/engine.js:1405",
     "src/engine.js:1670",
     "src/engine.js:2425",
-    "src/engine.js:4876"
+    "src/engine.js:4879"
    ],
    "summary": "R2R-001 round 2: the PUBLIC execution boundary half of the same repair. quoteTaxFunding()'s entry guard cannot see a malformed balance that never reaches it: simulatePlan() starts with clone(), which ",
    "guard": {
@@ -619,7 +619,7 @@
    "sites": [
     "src/engine.js:33",
     "src/engine.js:609",
-    "src/engine.js:4604"
+    "src/engine.js:4607"
    ],
    "summary": "R6 EXTERNAL AUDIT, EA-03: THE ROW'S FILING STATUS. This read the ENTERED status, so a survivor stayed on the joint phase-out for the rest of the plan -- MEASURED at 5c985c0, a survivor earning $170,00",
    "guard": {
@@ -650,8 +650,8 @@
    "sites": [
     "src/engine.js:455",
     "src/engine.js:2168",
-    "src/engine.js:4170",
-    "src/engine.js:4170"
+    "src/engine.js:4173",
+    "src/engine.js:4173"
    ],
    "summary": "R6 EXTERNAL AUDIT, EA-04 AND EA-05: THE TAX CHARACTER OF A PRE-TAX DISTRIBUTION, in one place. EA-04: the nontaxable share of a draw was priced on the owner's pool, but the basis it recovered was summ",
    "guard": {
@@ -708,7 +708,7 @@
    "family": "EA",
    "sites": [
     "src/engine.js:3483",
-    "src/engine.js:4177"
+    "src/engine.js:4180"
    ],
    "summary": "S5AA follow-up, Q4 (the owner, 2026-09-21): A DECEASED SPOUSE'S ACCOUNTS PASS TO THE SURVIVOR, modelled as the surviving spouse's election to treat them as their own -- Treas. Reg. 1.408-8(c) for an I",
    "guard": {
@@ -779,8 +779,8 @@
     "src/engine.js:3732",
     "src/engine.js:3875",
     "src/engine.js:3901",
-    "src/engine.js:4567",
-    "src/engine.js:4630"
+    "src/engine.js:4570",
+    "src/engine.js:4633"
    ],
    "summary": "Q88 (F-02): WHO IS ALIVE IN THIS ROW. `p.profile.filing` was static for the whole projection -- nothing anywhere changed it -- so a couple filing mfj still filed mfj in every year after one of them di",
    "guard": {
@@ -1005,7 +1005,7 @@
    "family": "FM",
    "sites": [
     "src/engine.js:3123",
-    "src/engine.js:4170"
+    "src/engine.js:4173"
    ],
    "summary": "FM-07 fix (FULL_MODEL_AUDIT_AND_CLAUDE_HANDOVER_20260910.md; user decision D-2 = scale to elapsed time): a spending decision must apply the inflation the previous period ACTUALLY accrued, not a full y",
    "guard": {
@@ -1032,7 +1032,7 @@
    "id": "FM-09",
    "family": "FM",
    "sites": [
-    "src/engine.js:4605"
+    "src/engine.js:4608"
    ],
    "summary": "Q94 (F8): AN ADJUSTABLE LOAN RE-AMORTISES, AND THE HOUSEHOLD IS TOLD SO. Until S5AA task 5.1 this depended on a switch that occurred ONCE in the whole shipped page -- inside the default plan, with no ",
    "guard": {
@@ -1303,8 +1303,8 @@
     "src/engine.js:1292",
     "src/engine.js:1311",
     "src/engine.js:1328",
-    "src/engine.js:4421",
-    "src/engine.js:4957"
+    "src/engine.js:4424",
+    "src/engine.js:4960"
    ],
    "summary": "S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lif",
    "guard": {
@@ -1322,7 +1322,7 @@
    "id": "Q101",
    "family": "Q",
    "sites": [
-    "src/engine.js:4790"
+    "src/engine.js:4793"
    ],
    "summary": "S5AA task 1.2, Q101: EVERY path is checked, and a failed ESSENTIAL invariant invalidates the batch. Previously the issues collector went to `i===0?issues:null`, and checkRowInvariants() is gated on ha",
    "guard": {
@@ -1693,8 +1693,8 @@
    "family": "Q",
    "sites": [
     "src/engine.js:1405",
-    "src/engine.js:4876",
-    "src/engine.js:4943"
+    "src/engine.js:4879",
+    "src/engine.js:4946"
    ],
    "summary": "Q48: the one input class the finiteness gate above cannot see, because it fails INSIDE clone() rather than after it. simulatePlan() opens with clone(p.accounts), clone(p.advanced.otherAssets) and clon",
    "guard": {
@@ -1762,7 +1762,7 @@
    "id": "Q51",
    "family": "Q",
    "sites": [
-    "src/engine.js:4533"
+    "src/engine.js:4536"
    ],
    "summary": "Q51, Q52 -- decided 2026-09-13 (the owner): disclose and swap. strategySpending() orders an inverted floor/ceiling or VPW rate pair itself, at each of its three user-bounded clamp() sites. This record",
    "guard": {
@@ -1790,7 +1790,7 @@
    "id": "Q52",
    "family": "Q",
    "sites": [
-    "src/engine.js:4533"
+    "src/engine.js:4536"
    ],
    "summary": "Q51, Q52 -- decided 2026-09-13 (the owner): disclose and swap. strategySpending() orders an inverted floor/ceiling or VPW rate pair itself, at each of its three user-bounded clamp() sites. This record",
    "guard": {
@@ -1816,7 +1816,7 @@
    "family": "Q",
    "sites": [
     "src/engine.js:1469",
-    "src/engine.js:4515"
+    "src/engine.js:4518"
    ],
    "summary": "Q53: the plan's boolean flags were read by truthiness, so the string \"false\" switched a feature ON. Decided 2026-09-13 (the owner): a present value that is not a boolean is refused, never coerced; a t",
    "guard": {
@@ -1899,7 +1899,7 @@
    "sites": [
     "src/engine.js:3225",
     "src/engine.js:3239",
-    "src/engine.js:4528"
+    "src/engine.js:4531"
    ],
    "summary": "Q58: one resolution rule for a plan's withdrawal-strategy name, used by runPlan() and by the app's form. Decided 2026-09-13 (the owner): normalise case silently, and warn and then default an unrecogni",
    "guard": {
@@ -2116,8 +2116,8 @@
    "sites": [
     "src/engine.js:1532",
     "src/engine.js:1589",
-    "src/engine.js:4397",
-    "src/engine.js:4515"
+    "src/engine.js:4400",
+    "src/engine.js:4518"
    ],
    "summary": "S5 2l.2: a truly absent engine-read flag takes its documented default. The engine already reads an absent flag as false, which is the default for all but five, so only a default that resolves to true ",
    "guard": {
@@ -2150,7 +2150,7 @@
    "family": "Q",
    "sites": [
     "src/engine.js:3239",
-    "src/engine.js:4528"
+    "src/engine.js:4531"
    ],
    "summary": "Q58, Q81: one resolution of a plan's withdrawal-strategy name per run, on every route that runs a plan: runPlan() before its paths, and a direct simulatePlan() call -- the exported function and the he",
    "guard": {
@@ -2193,8 +2193,8 @@
     "src/engine.js:3864",
     "src/engine.js:3875",
     "src/engine.js:3916",
-    "src/engine.js:4170",
-    "src/engine.js:4170"
+    "src/engine.js:4173",
+    "src/engine.js:4173"
    ],
    "summary": "Q87 (F1, with G15): the traditional IRA deduction and its IRC 219(g) phase-out. A traditional IRA contribution was not deducted AT ALL -- an IRA is limitGroup \"ira\", and only \"workplace\" and \"hsa\" rea",
    "guard": {
@@ -2243,7 +2243,7 @@
     "src/engine.js:3732",
     "src/engine.js:3875",
     "src/engine.js:3901",
-    "src/engine.js:4567"
+    "src/engine.js:4570"
    ],
    "summary": "Q88 (F2, with G16): the REGULAR additional standard deduction for the aged, IRC 63(f)(1). It was simply absent: estimateTaxes() charged the basic standard deduction plus the temporary enhanced senior ",
    "guard": {
@@ -2345,7 +2345,7 @@
     "src/engine.js:3093",
     "src/engine.js:3441",
     "src/engine.js:3734",
-    "src/engine.js:4169"
+    "src/engine.js:4172"
    ],
    "summary": "Q91 (F5): FULL RETIREMENT AGE, stated once. ssaBenefitAtClaim() derived it inline; the earnings test needs the same number, and two derivations of one fact is the shape this sprint keeps repairing.",
    "guard": {
@@ -2378,7 +2378,7 @@
     "src/engine.js:1983",
     "src/engine.js:2976",
     "src/engine.js:3067",
-    "src/engine.js:4558"
+    "src/engine.js:4561"
    ],
    "summary": "Q92 (F6): A SURVIVOR BENEFIT IS A DIFFERENT BENEFIT WITH A DIFFERENT CLOCK. The survivor branch paid only if the recipient had reached THEIR OWN RETIREMENT claim age, so a widow of 60 whose own claim ",
    "guard": {
@@ -2448,7 +2448,7 @@
    "family": "Q",
    "sites": [
     "src/engine.js:2185",
-    "src/engine.js:4605"
+    "src/engine.js:4608"
    ],
    "summary": "ARM payment shock (S2 sprint, 2026-09-10, item 8 of §8 in ROADMAP_EXTERNAL_REVIEW.md): the rate steps at nextRateResetAge, but the payment previously never did -- an adjustable debt kept its entered p",
    "guard": {
@@ -2612,7 +2612,7 @@
     "src/engine.js:2168",
     "src/engine.js:3838",
     "src/engine.js:3914",
-    "src/engine.js:4558"
+    "src/engine.js:4561"
    ],
    "summary": "Q99 (G5): THE QUALIFIED-MEDICAL SHARE OF AN HSA DISTRIBUTION, stated once. Before this, an HSA draw was tax-free at every age for every purpose: withdrawFromClass() recognised gains for `taxable` and ",
    "guard": {
@@ -2803,8 +2803,8 @@
    "sites": [
     "src/engine.js:1383",
     "src/engine.js:3465",
-    "src/engine.js:4547",
-    "src/engine.js:4690"
+    "src/engine.js:4550",
+    "src/engine.js:4693"
    ],
    "summary": "S5AA R11 round, external audit of 02b921a (R10-07): WHERE THE PROJECTION STOPS, as one function. Decision 8 cuts the rows at the first opening with nobody alive; the row loop computed that inline, and",
    "guard": {
@@ -2883,7 +2883,7 @@
    "id": "R11-03",
    "family": "R11",
    "sites": [
-    "src/engine.js:4682"
+    "src/engine.js:4685"
    ],
    "summary": "R12 round, external re-audit of b053dc2 (R11-03): from the first row in which the owner is DEAD. The year of a death is a year the person lived in (householdSurvivorship() counts them dead only once t",
    "guard": {
@@ -3330,8 +3330,8 @@
     "src/engine.js:2164",
     "src/engine.js:3425",
     "src/engine.js:3654",
-    "src/engine.js:4741",
-    "src/engine.js:4816"
+    "src/engine.js:4744",
+    "src/engine.js:4819"
    ],
    "summary": "S5AA R23 (R22-01): a Roth dollar drawn while ITS OWNER is under 59 1/2 is the fact the Roth exclusion keys on.",
    "guard": {
@@ -3705,7 +3705,7 @@
     "src/engine.js:1862",
     "src/engine.js:1878",
     "src/engine.js:1914",
-    "src/engine.js:4512"
+    "src/engine.js:4515"
    ],
    "summary": "R2V-002 external audit fix: recomputes the obligation from a COMPLETE quoted/committed journal using the real estimateTaxes (handover section 4.5), shared by quoteTaxFunding's own \"funded\" verificatio",
    "guard": {
@@ -3741,10 +3741,10 @@
    "id": "R2R-002",
    "family": "R2R",
    "sites": [
-    "src/engine.js:4255",
-    "src/engine.js:4306",
-    "src/engine.js:4379",
-    "src/engine.js:4759"
+    "src/engine.js:4258",
+    "src/engine.js:4309",
+    "src/engine.js:4382",
+    "src/engine.js:4762"
    ],
    "summary": "R2R-002 round 2 external requalification fix (ARCH-02): the explicit invalid-result contract. Round 1 stopped publishing a numeric `successRate` for an invalid batch but still returned `failed:true` (",
    "guard": {
@@ -3858,8 +3858,8 @@
    "sites": [
     "src/engine.js:3937",
     "src/engine.js:4156",
-    "src/engine.js:4306",
-    "src/engine.js:4747"
+    "src/engine.js:4309",
+    "src/engine.js:4750"
    ],
    "summary": "R2V-003 external audit fix: this must not overwrite a calcErrorCode the byClass commit loop above already set -- TAX_COMMIT_SHORTFALL is the more specific diagnosis (a specific class failed to raise w",
    "guard": {
@@ -4029,7 +4029,7 @@
    "family": "R32V",
    "sites": [
     "src/engine.js:3696",
-    "src/engine.js:4170"
+    "src/engine.js:4173"
    ],
    "summary": "S5AA R35 (R32V-01; the recommendation of record, the owner 2026-09-29): THE PRIOR-PERIOD SIGNAL IS THE PORTFOLIO'S RETURN, balance- weighted over the accounts as they are about to grow, each at the ra",
    "guard": {
@@ -4085,8 +4085,8 @@
    "sites": [
     "src/engine.js:3443",
     "src/engine.js:3507",
-    "src/engine.js:4177",
-    "src/engine.js:4626"
+    "src/engine.js:4180",
+    "src/engine.js:4629"
    ],
    "summary": "R7-02: what actually changed hands at each death. Decision 8: the row opening at which nobody is alive, where the projection stopped.",
    "guard": {
@@ -4109,7 +4109,7 @@
    "sites": [
     "src/engine.js:541",
     "src/engine.js:3507",
-    "src/engine.js:4177"
+    "src/engine.js:4180"
    ],
    "summary": "THE R6 SUCCESSION FINDING, and the R7 re-audit's R7-03: WHAT COVERS AN ACCOUNT THAT CHANGES HANDS AT A DEATH. One class per account, read from the account as it stands when it passes. \"authority\" is t",
    "guard": {
@@ -4291,7 +4291,7 @@
     "src/engine.js:3762",
     "src/engine.js:3825",
     "src/engine.js:4111",
-    "src/engine.js:4975"
+    "src/engine.js:4978"
    ],
    "summary": "RC-01: the pretax dollars a conversion-like move may take THIS row -- the balance on hand, less what the year's required distribution is owed. Two paths can drain the pretax class before the RMD withd",
    "guard": {
@@ -4321,7 +4321,7 @@
    "sites": [
     "src/engine.js:3141",
     "src/engine.js:3188",
-    "src/engine.js:4169"
+    "src/engine.js:4172"
    ],
    "summary": "RC-02 (adversarial addendum): the survivor reduction is a HOUSEHOLD-SIZE adjustment applied to each year's spending, not a compounding haircut on the carried spending state. The defect: fixedReal (and",
    "guard": {
@@ -4445,12 +4445,12 @@
    "family": "S5R",
    "sites": [
     "src/engine.js:1457",
-    "src/engine.js:4404",
-    "src/engine.js:4439",
-    "src/engine.js:4453",
-    "src/engine.js:4460",
-    "src/engine.js:4518",
-    "src/engine.js:4954"
+    "src/engine.js:4407",
+    "src/engine.js:4442",
+    "src/engine.js:4456",
+    "src/engine.js:4463",
+    "src/engine.js:4521",
+    "src/engine.js:4957"
    ],
    "summary": "S5R-01: the simulation and, since the execution snapshot, every reader see this text. JSON writes NaN and +-Infinity as null, so a non-finite number the named checks above do not cover (an account's a",
    "guard": {
@@ -4525,7 +4525,7 @@
    "sites": [
     "src/engine.js:2737",
     "src/engine.js:3762",
-    "src/engine.js:4744"
+    "src/engine.js:4747"
    ],
    "summary": "S5R-02 and S5R-03 (the 2026-09-16 external audit; decided by the owner on 2026-09-16, answers 2 (A) and 4 (A)): how much of a row's requested QCD each owner may give. S5 task 10 capped the household a",
    "guard": {
@@ -4674,7 +4674,7 @@
    "sites": [
     "src/engine.js:3123",
     "src/engine.js:3443",
-    "src/engine.js:4170"
+    "src/engine.js:4173"
    ],
    "summary": "FM-07 fix (FULL_MODEL_AUDIT_AND_CLAUDE_HANDOVER_20260910.md; user decision D-2 = scale to elapsed time): a spending decision must apply the inflation the previous period ACTUALLY accrued, not a full y",
    "guard": {
@@ -4802,7 +4802,7 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:2079",
-    "src/engine.js:4558"
+    "src/engine.js:4561"
    ],
    "summary": "S5AA R34 (SA32F-01, SA32F-02; decision 1, \"Pay by law\"): THE SURVIVOR BENEFIT. It rests on the deceased's PIA -- the \"original benefit\" is 100% of the death PIA, or more with the delayed credits the d",
    "guard": {
@@ -4827,7 +4827,7 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:2079",
-    "src/engine.js:4558"
+    "src/engine.js:4561"
    ],
    "summary": "S5AA R34 (SA32F-01, SA32F-02; decision 1, \"Pay by law\"): THE SURVIVOR BENEFIT. It rests on the deceased's PIA -- the \"original benefit\" is 100% of the death PIA, or more with the delayed credits the d",
    "guard": {
@@ -4901,7 +4901,7 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:1991",
-    "src/engine.js:4558"
+    "src/engine.js:4561"
    ],
    "summary": "S5AA R34 (SA32F-05, SA32F-25): EACH PERSON'S FULL RETIREMENT AGE COMES FROM THEIR BIRTH YEAR -- SSA, Normal Retirement Age (ssa.gov/oact/progdata/nra.html): 65 for 1937 and before, then two months a y",
    "guard": {
@@ -5180,7 +5180,7 @@
    "sites": [
     "src/engine.js:3314",
     "src/engine.js:3316",
-    "src/engine.js:4655"
+    "src/engine.js:4658"
    ],
    "summary": "S5AA R34 (SA32F-18): a `socialSecurity` stream is its owner's benefit and ends at their death too (42 USC 402(a): \"ending with the month preceding the month in which he dies\"); it paid on. A pension s",
    "guard": {
@@ -5287,6 +5287,30 @@
     ],
     "files": [
      "tests/audit-s5aa-r33-irmaa-lookback-status-and-top-tier.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "SA32F-24",
+   "family": "SA32F",
+   "sites": [
+    "src/engine.js:3443",
+    "src/engine.js:4169",
+    "src/engine.js:4561"
+   ],
+   "summary": "S5AA R35 (SA32F-24): the two tax returns before the plan, when entered, open the IRMAA lookback (20 CFR 418.1135); absent, plan years 0 and 1 assume no surcharge, as MODEL_ASSUMPTIONS 11 says",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js :: R35 SA32F-24: the two returns before the plan price plan years 0 and 1",
+     "tests/audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js :: R35 SA32F-24: a partial first row is completed to a year before it is looked back to",
+     "tests/audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js :: R35 SA32F-24: the validator bounds the inputs"
+    ],
+    "files": [
+     "tests/audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js"
     ],
     "onlyTodo": false
    },
@@ -5754,7 +5778,7 @@
    "id": "UI-002",
    "family": "UI",
    "sites": [
-    "src/engine.js:4273"
+    "src/engine.js:4276"
    ],
    "summary": "R3-UI-002 round 3 external requalification fix: classifies ONE raw simulatePlan() result for the historical heat map. The heat map calls simulatePlan() directly, so its results never pass through runP",
    "guard": {

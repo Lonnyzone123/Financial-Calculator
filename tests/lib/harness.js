@@ -694,7 +694,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R35 commit 10 (SA32F-22): the Rule of 55 needs the separation), so the tracked file
 // was rebuilt, again installed only after two builds agreed. The pin before it,
 // b68c75f6136f05475d46e723421400c9d2ac8a603b97e4956be2ca2db1fc82fa, described the previous rebuild.
-const EXPECTED_SHA256 = '80ff14dbd6e589308c81941b3fe1ace0981d6af10adf25bcb075f4aa5eb603b7';
+//
+// Changed again 2026-09-29 (S5AA R35 commit 11 (SA32F-24): the IRMAA lookback's first years), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 80ff14dbd6e589308c81941b3fe1ace0981d6af10adf25bcb075f4aa5eb603b7, described the previous rebuild.
+const EXPECTED_SHA256 = '872bcb511e2857d6abb9a14dbcf73b9dd86e0a683ff3fd44dc071c7fdb4e9518';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

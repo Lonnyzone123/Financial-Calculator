@@ -763,11 +763,16 @@ const ADVANCED_KNOWN_KEYS = ['armRecastOnReset', 'assetClasses', 'assetsOn', 'bo
  * here is a decision, and the drift test still requires the default's own keys
  * to be present in full. */
 const ADVANCED_MIGRATION_KEYS = ['v210Migrated'];
+/* S5AA R35 (SA32F-24): OPTIONAL INPUTS the default does not carry -- the MAGI and filing status of the two tax returns before the plan,
+   for the IRMAA lookback. Absent means not entered (the plan then assumes no surcharge in its first two years, and says so), which is why
+   they are not in the default: a default of 0 would read as entered. */
+const ADVANCED_OPTIONAL_KEYS = ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore', 'irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore'];
 
 function validateAdvancedKnownKeys(c, advanced) {
   Object.keys(advanced).forEach((k) => {
     if (ADVANCED_KNOWN_KEYS.indexOf(k) >= 0) return;
     if (ADVANCED_MIGRATION_KEYS.indexOf(k) >= 0) return;
+    if (ADVANCED_OPTIONAL_KEYS.indexOf(k) >= 0) return;
     c.warn('UNKNOWN_ADVANCED_KEY', 'advanced.' + k,
       `"advanced.${k}" is not a field this version knows. If it is a typo for a real setting, ` +
       'that setting is silently keeping its default -- a misspelled "networthOn" leaves net ' +
@@ -779,6 +784,15 @@ function validateAdvanced(c, advanced) {
   if (!advanced) return;
   validateAdvancedKnownKeys(c, advanced);
   validateSurplusPolicies(c, advanced);
+  ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore'].forEach((k) => {
+    if (advanced[k] === undefined || advanced[k] === null) return;
+    checkType(c, advanced[k], 'advanced.' + k, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+    if (isFiniteNumber(advanced[k]) && advanced[k] < 0) c.error('OUT_OF_RANGE', 'advanced.' + k, `"advanced.${k}" is ${advanced[k]}, expected 0 or more`);
+  });
+  ['irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore'].forEach((k) => {
+    if (advanced[k] === undefined || advanced[k] === null) return;
+    if (['single', 'mfj', 'mfs', 'hoh'].indexOf(advanced[k]) < 0) c.error('INVALID_ENUM', 'advanced.' + k, `"advanced.${k}" must be single, mfj, mfs or hoh`);
+  });
   if (advanced.correlation !== undefined) {
     checkType(c, advanced.correlation, 'advanced.correlation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
     checkRange(c, advanced.correlation, 'advanced.correlation', -1, 1);
