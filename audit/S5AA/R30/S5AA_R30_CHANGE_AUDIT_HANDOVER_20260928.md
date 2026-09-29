@@ -93,7 +93,7 @@ on what is left.
   - Any other source has nothing figured on its dollars before the draw, so the draw sees it as it stands (R28.1). That
     is a Roth, pre-tax or HSA account, or a taxable account with no dividend. The owner's question was about the taxable
     case, and holding back a Roth IRA's dollars would have left a household that had the money $95,000 short in R28.1's
-    own test.
+    own test. The owner confirmed this scope on 2026-09-28, over protecting every late transfer or every taxable one.
 
 ## 4. Evidence
 

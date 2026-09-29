@@ -39,8 +39,8 @@
   there.
   - The owner's question was about a taxable source, whose dividends are figured on the dollars before the draw. For any
     other source nothing is figured on them.
-  - The protection is now scoped to that case, and R28.1's tests stand unchanged. **This scoping is my reading of the
-    decision, and the owner has it to confirm.**
+  - The protection is now scoped to that case, and R28.1's tests stand unchanged. **The owner confirmed this scope on
+    2026-09-28**, choosing it over protecting every late transfer, or every taxable one with dividends on or off.
 - **A figure I gave the owner when asking about the mirror was wrong.** I said an emptied $50,000 taxable account would
   move $48,750. Under the engine's dividend convention it moves $48,648.65. The dollars kept back to pay the dividends
   earn for the rest of the year, as the handover explains (§6).
@@ -72,5 +72,4 @@ R29's transfer sweep at `66c406c`: 1,512 plans, 4,476 checks, 0 problems.
 ## 4. What remains
 
 - The handover's §6 known limits.
-- The owner confirms the protection's scope (§2).
-- eb's commit `03341c5` rides in this branch (handover §1).
+- eb's commit `03341c5` came in with this round's pull request (handover §1).
