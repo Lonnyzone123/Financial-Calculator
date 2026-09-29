@@ -5810,3 +5810,37 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **The decision (the owner, 2026-09-26).** "Keep R27, record the gap." Alternatives offered and not chosen: move the money physically at the engine's withdrawal point, or go back to moving it at the year's opening.
 
 **Status: DECIDED 2026-09-26 (the owner, as reported), a known limit, kept and recorded; not repaired.** Modelling text: `MODEL_ASSUMPTIONS.md` §20.
+
+## 2026-09-28 — Q149. A transfer into a 401(k) from a different kind of account is refused (S5AA R29, the owner, 2026-09-28)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, from the S5AA session's R29 relay (`audit/S5AA/R29/S5AA_R29_RELAY_TO_EB_20260928.md`). The owner's answer was given to the S5AA session directly; it is **as reported by that session, not confirmed in the plan owner's chat.**
+
+**The decision.** A 401(k) takes payroll, same-character rollovers and conversions only. A transfer into it from a different kind of account is refused.
+
+**Status: IMPLEMENTED 2026-09-28 at `3a02ed1`** (S5AA R29; merged `993f76b`, PR #4; audited source `s5aa-r29.1-source` = `aaff3f1`; ChatGPT's R29 audit, PR #6 `df8f8b4`, is NO-GO but neither of its two findings, R29-01 and R29-02, touches this rule). Witness: `tests/audit-s5aa-r29-transfer-into-workplace-refused.test.js`. Modelling text: `MODEL_ASSUMPTIONS.md` §21.
+
+## 2026-09-28 — Q150. A transfer into an IRA or HSA from a different kind of account is a contribution, held to the year's room (S5AA R29, the owner, 2026-09-28)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q149 (PCF-02, ChatGPT's public-copy migration audit).
+
+**The decision.** Count it against the year's room: the IRA limit and compensation, or the HSA limit. Under the redirect policy only what fits moves and the rest stays in the source; under warn all of it moves, with a warning.
+
+**Status: IMPLEMENTED 2026-09-28 at `7c93220`.** Witness: `tests/audit-s5aa-r29-transfer-as-contribution.test.js`. Modelling text: `MODEL_ASSUMPTIONS.md` §21; `FEATURES.md` line 155 corrected.
+
+## 2026-09-28 — Q151. A traditional IRA into its owner's own HSA is a qualified HSA funding distribution (S5AA R29, the owner, 2026-09-28)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q149.
+
+**The decision.** Tax-free, not deductible, within the HSA room, following the funding rule.
+
+**Status: IMPLEMENTED 2026-09-28 at `c07c01f`; PARTLY REPAIRED, one open finding.** Witness: `tests/audit-s5aa-r29-ira-to-hsa-funding.test.js`. **R29-02 (ChatGPT's R29 audit, priority 1, open):** the funding amount does not yet draw down the IRA's nondeductible basis, per IRS Notice 2008-51 (taxable value first, then basis); leftover basis later shelters deductible money, understating tax. The owner has not yet decided the repair. Modelling text: `MODEL_ASSUMPTIONS.md` §21.
+
+## 2026-09-28 — Q152. Money leaving a taxable account for a non-taxable one realises its gain (found in passing, S5AA R29)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q149. Found while building R29, not a ChatGPT finding.
+
+**The repair.** A transfer out of a taxable account into a non-taxable one is a sale: the moved dollars realise their share of the gain at the account's pro-rata basis.
+
+**Status: IMPLEMENTED 2026-09-28 at `83647e0`.** Witness: `tests/audit-s5aa-r29-transfer-realises-gain.test.js`. Modelling text: `MODEL_ASSUMPTIONS.md` §21.
+
+**Also open, R29-01 (ChatGPT's R29 audit, priority 1, not yet registered — no repair decided):** a late-in-year transfer that the contribution-room cap holds to $0 or less than asked still removes the requested dollars from the source's dividend base for the rest of the year, understating dividends, income and tax. Not a categorisation question; will be registered with its repair.
