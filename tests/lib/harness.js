@@ -577,7 +577,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (S5AA R30: a pre-tax transfer into an HSA counts toward the year's required distribution
 // (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 9998e82df49b106f78028b68fd05cac674fa8c0e011e33d10c36b6c61e77818d, described the previous rebuild.
-const EXPECTED_SHA256 = 'c1ddf0e0a9e43084eb48d74e8e95a1fff39237a1d8ae648ecedc478dca3e483e';
+//
+// Changed again 2026-09-28 (S5AA R30 R29-02: a qualified HSA funding distribution uses up the IRA basis it takes
+// (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// c1ddf0e0a9e43084eb48d74e8e95a1fff39237a1d8ae648ecedc478dca3e483e, described the previous rebuild.
+const EXPECTED_SHA256 = 'bb15dbed4e28cd7c6fadc0450763c18deea5181bec6350cad6c5b22f9e13283b';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
