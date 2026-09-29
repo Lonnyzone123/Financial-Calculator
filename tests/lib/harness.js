@@ -536,7 +536,44 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (public copy: "the owner" lower-cased mid-sentence (src/engine.js comments)), so the
 // tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 82b68329658572e747b92e5aa25a8ac6b5ea0b8b12faaba4f1e2743fdb387c02, described the previous rebuild.
-const EXPECTED_SHA256 = '3b4a98ac7e1bd40acd0aaaa3ec4b9550b0225562cbc91bca86a1876c2f5d5fee';
+//
+// Changed again 2026-09-28 (S5AA R29 PCF-03: the held-dollar maps have no prototype (src/engine.js)), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 3b4a98ac7e1bd40acd0aaaa3ec4b9550b0225562cbc91bca86a1876c2f5d5fee, described the previous rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29: the rules page writes rule data as text; renderRulesLegacy() removed
+// (src/app-shell.html)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, 76009e63b0103555f6dbadf3ba8ceb8ca143841bf260c9055e2f4698f875f36e, described the previous rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29: a transfer into a 401(k) from a different kind of account is refused
+// (src/engine.js, src/scenario-validator.js)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, 50067f84fcae9e8c120824fb6e09f92bffb14cf04bc57a68e63313185f9f39a6, described the previous
+// rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29 PCF-01: a transfer out of an HSA is an HSA distribution (src/engine.js)), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// a193154815d971d279ea01d986fcc38b18c32c08d55ef7b3edbd0ebfe7b56c2a, described the previous rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29 PCF-02: a transfer into an IRA or HSA from a different kind of account is a
+// contribution (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The
+// pin before it, ea34cac017df762ee5bc1d2594f0415c3f4078f188e69c34c9e328f4d52f178c, described the previous rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29: a traditional IRA to its owner's HSA is a qualified HSA funding distribution
+// (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 685372c5d401ae3d574402596bf9c54b05ddad7d000c6be5f5c4ec3ebdb0351f, described the previous rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29: money leaving a taxable account for a non-taxable one realises its gain
+// (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// a0386ba9dcbba5450610984c56054423e154f4adb9182249953d18fc96bae4a4, described the previous rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29 self-audit: a transfer's limit warning reports what moved (src/engine.js)), so
+// the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// ff201637ca5ff66122f28a34e5a172072c886fee27c2632d16b159a03628d96d, described the previous rebuild.
+//
+// Changed again 2026-09-28 (S5AA R29: the rules-page source link's href is stripped of HTML metacharacters
+// (src/app-shell.html)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, 3d4fe0d4d8883fe98386acae39dc04547195f1431c1c00951509f9b2fb8f66b8, described the previous rebuild.
+const EXPECTED_SHA256 = '9998e82df49b106f78028b68fd05cac674fa8c0e011e33d10c36b6c61e77818d';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

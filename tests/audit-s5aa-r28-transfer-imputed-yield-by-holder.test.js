@@ -32,6 +32,10 @@ const ROTH = ['rothIRA', 'roth'], TAXABLE = ['taxable', 'taxable'];
 function agi(from, to, at) {
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
+  /* S5AA R29 (PCF-02): a taxable -> Roth transfer is a contribution, held to the year's room -- $0 here, with no compensation. These
+     tests are about who is paid on the moved dollars, not about that limit, so the plan uses the "warn" policy, under which all of
+     it moves (with a warning), as it did before R29. */
+  p.limitPolicy = 'warn';
   Object.assign(p.profile, { age: 60, retireAge: 60, endAge: 61, spouseOn: false, filing: 'single' });
   Object.assign(p.assumptions, { method: 'simple', returnRate: 0, inflation: 0, fee: 0, volatility: 0, withdrawalTiming: 'monthly' });
   Object.assign(p.employment, { salary: 0, spouseSalary: 0, growth: 0 });
