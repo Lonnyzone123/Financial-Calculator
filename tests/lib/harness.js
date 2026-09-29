@@ -618,7 +618,11 @@ function artifactFor(lane) {
 // spousal IRA while the joint return has pay (SA32F-12, SA32F-14, SA32F-15)), so the tracked file was rebuilt, again
 // installed only after two builds agreed. The pin before it,
 // 55c68a8cdf657ae139305b40fca0369220123e24e49b8a1fac5070048787c75f, described the previous rebuild.
-const EXPECTED_SHA256 = '036d7ce51ac9ee34dc2700f22606486aeaedd9786075b3b39162349c2deacedd';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 4: the age-65 amounts read the age reached by the row's close, federal and
+// Arizona (SA32F-16)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, 036d7ce51ac9ee34dc2700f22606486aeaedd9786075b3b39162349c2deacedd, described the previous rebuild.
+const EXPECTED_SHA256 = '03fc2f50f7ed0c659b60a339d391887b072cb6d8482d04a45cb2bbc8b0aec56e';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
