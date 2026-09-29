@@ -277,6 +277,12 @@ function accountOwnerAge(p,age,account){
 function hsaNonQualifiedRecord(id){
   return RULES.retirement.hsa.nonQualified.records.filter(function(r){return r.provision_id===id})[0].value;
 }
+/* S5AA R37 (SA32F-44; R32V: "Declare the convention or add timing"): the age-65 exception (IRC 223(f)(4)(C)) is judged at
+   the age passed in, which for a pooled draw is the age its projection year opened at -- the convention Q137 (the owner,
+   2026-09-24: "Keep it and disclose it") settled for 59 1/2, because a year's draw has no date inside the year. So in a year that
+   opens before the owner turns 65 and ends after it, the whole non-qualified part of that draw owes the 20%; part of it may in
+   fact fall after 65, so this errs toward more tax. Declared here and in MODEL_ASSUMPTIONS.md section 18.3; proration or dated
+   draws are Q137's alternatives, left to the engine rebuild. */
 function hsaAdditionalTaxRate(p,age,account){
   if(hsaIncludibleShare(account)<=0)return 0;
   return accountOwnerAge(p,age,account)>=hsaNonQualifiedRecord("hsa_nonqualified_exception_age")
