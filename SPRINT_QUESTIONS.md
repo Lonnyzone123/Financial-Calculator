@@ -5882,3 +5882,13 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 - **R29-02, repair:** a qualified HSA funding distribution comes out of the IRA's taxable value first, and only the rest draws down its nondeductible basis, dollar for dollar (IRC 408(d)(9)(E); Notice 2008-51).
 
 **Status: IMPLEMENTED 2026-09-28 at `c9f6556`** (the RMD credit) **and `bf4d3d8`** (R29-02, the basis rule). Witnesses: `tests/audit-s5aa-r30-transfer-to-hsa-counts-toward-rmd.test.js`, `tests/audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js`. The "funding distribution's credit toward an RMD" line in `MODEL_ASSUMPTIONS.md` §21's not-modelled list is removed; both are now modelled. Modelling text: `MODEL_ASSUMPTIONS.md` §21.1 and §21.2.
+
+## 2026-09-28 — Q157. A qualified HSA funding distribution's basis is measured on the funding's date, not year-end (R30-01, S5AA R31, the owner, 2026-09-28)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, from the S5AA session's R31 relay (`audit/S5AA/R31/S5AA_R31_RELAY_TO_EB_20260928.md`). The owner's answer was given to the S5AA session directly; it is **as reported by that session, not confirmed in the plan owner's chat.** Extends Q156's R29-02 basis rule.
+
+**The finding.** ChatGPT's R30 change audit of `66c406c` (priority 1): the year-end settlement measured a qualified HSA funding distribution's basis from the December 31 value, so growth after the funding brought back basis the funding had already used (understating tax), and a loss did the opposite.
+
+**The decision.** "Repair in R31": the taxable value the funding takes first is measured on the funding's date — the owner's IRAs then, plus what the year had already distributed or converted, less the year's basis. Later growth or loss does not change the basis the funding used (Notice 2008-51 reads the basis "immediately after" the funding). The year's ordinary draws and conversions are still settled pro rata at the year's end, on the basis the funding left.
+
+**Status: IMPLEMENTED 2026-09-28 at `8afe16d`** (S5AA R31; merged `35c8d9a`, PR #11; source tag `s5aa-r31-source` = `8afe16d`; sent to ChatGPT for audit). Witnesses: `tests/audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js`, `tests/audit-s5aa-r31-hsa-funding-settlement-dated.test.js`. **Known limit, kept:** the funding's taxable value counts the whole year's nondeductible contributions as basis, wherever in the year they fall, as the settlement already does for conversions. Modelling text: `MODEL_ASSUMPTIONS.md` §21.2.
