@@ -542,6 +542,14 @@
       "inputFingerprint": "23c03b2f8e472b837b07766fd509e9a38ecbcb044b4fb07ddbdcc8fc18d4a6d2"
     },
     {
+      "name": "expansion:s5aa-r35-rule55-separation-at-55",
+      "source": "expansion",
+      "family": "s5aa-r20-full-model",
+      "mode": "simple",
+      "status": "ok",
+      "inputFingerprint": "dacced795820235aad038fb2c1cdc49f4b9a427a15a8e76efa806a46a1c7769f"
+    },
+    {
       "name": "expansion:s5aa-r20-all-stock-glide",
       "source": "expansion",
       "family": "s5aa-r20-full-model",

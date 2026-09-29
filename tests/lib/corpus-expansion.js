@@ -903,6 +903,23 @@ const R20_FAMILY = {
       }),
       check: (result) => result.status === 'ok' && within(rowAt(result, 57).taxes, 0) && within(rowAt(result, 57).preTax, 50000),
     },
+    /* S5AA R35 (SA32F-22): the Rule of 55 now needs the separation it is named for, in or after the year of 55, and no corpus plan both
+       switched it on and left work at 55 or later -- the seeds that reached it had left at 52 or earlier, which the law does not exempt.
+       This member reaches it lawfully: a single 56-year-old who left at 55, drawing $20,000 of spending from that employer's 401(k)
+       (the current employer's plan, said so). No 10%: D = 20,000 + 0.125 (D - 16,100) = 20,557.14, $557.14 of tax -- against 23,209.68
+       and 3,209.68 with the 10%. */
+    {
+      name: 'expansion:s5aa-r35-rule55-separation-at-55',
+      reaches: 'SA32F-22. A single 56-year-old who left work at 55, Rule of 55 on, $20,000 of spending from that employer\'s $500,000 ' +
+        '401(k): no early tax, $20,557.14 drawn and $557.14 of tax. With a separation at 52 it would be $23,209.68 and $3,209.68.',
+      build: (plan) => r20Household(plan, {
+        profile: { age: 56, spouseOn: false, filing: 'single', retireAge: 55, endAge: 57 },
+        retirement: { spending: 20000, withdrawalOrder: 'manual', manualOrder: 'preTax,taxable,roth,hsa' },
+        advanced: { rule55: true },
+        accounts: [{ id: 'k401', type: 'traditional401k', taxClass: 'preTax', basisPct: 0, balance: 500000, currentEmployerPlan: true }],
+      }),
+      check: (result) => result.status === 'ok' && within(rowAt(result, 57).withdrawals, 20557.14) && within(rowAt(result, 57).taxes, 557.14),
+    },
     {
       name: 'expansion:s5aa-r20-all-stock-glide',
       reaches: 'R18F-01. $1,000,000 all in stocks at 59, retiring at 60, gliding to 60% stocks with asset classes on: 10% then ' +

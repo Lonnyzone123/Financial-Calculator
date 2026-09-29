@@ -73,9 +73,15 @@ test('R18F-02: a spouse-owned IRA whose owner is 50 owes the 10%, although the p
 });
 
 test('R18F-02: Rule of 55 excuses a spouse-owned 401(k) only on its owner being 55 -- owner 56, primary 50', () => {
+  /* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-22): the Rule of 55 also needs the owner's separation in or after the year of 55. The
+     engine times both people's work by one retirement age on each one's own clock, so here it is 56: the spouse-owner (56) has just
+     left, the primary (50) still works; the draw is a $10,000 one-time expense at 50 rather than retirement spending. What this
+     tests is unchanged: the OWNER's age decides, not the primary person's. */
   assert.deepEqual(drawRow(couple(50, 56, (p) => {
     p.advanced.rule55 = true;
     p.accounts[0].type = 'traditional401k';
+    p.profile.retireAge = 56;
+    p.retirement.expenses = [{ name: 'Draw', age: 50, amount: 10000 }];
   })), FREE);
 });
 

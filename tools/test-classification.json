@@ -11,8 +11,8 @@
   "coupledOnly": "file level (upper bound): a requirement, or one of the two flow identities, whose every guarding file depends on internals. testLevel (lower bound): for requirements a test names, whether that test's own body reaches internals; helpers it calls are not followed"
  },
  "counts": {
-  "total": 386,
-  "implementation-independent": 217,
+  "total": 387,
+  "implementation-independent": 218,
   "implementation-coupled": 134,
   "infrastructure": 35
  },
@@ -1602,6 +1602,14 @@
   },
   {
    "file": "tests/audit-s5aa-r35-rmd-table-ii.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r35-rule-of-55-separation.test.js",
    "category": "implementation-independent",
    "via": [
     "runPlan/runScenario"

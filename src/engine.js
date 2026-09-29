@@ -2128,12 +2128,22 @@ function smartWithdrawalOrder(p,age,accounts,magiHistory,priorReturn){var scores
    so a spouse-owned IRA was taxed or excused on the wrong person's age. IRC 72(t)(1) and (2)(A)(i) turn on
    the age of the employee or IRA owner receiving the distribution, and (2)(A)(v) on the employee's own age
    at separation. */
+/* S5AA R35 (SA32F-22; R32V note H): THE RULE OF 55 NEEDS THE SEPARATION. 72(t)(2)(A)(v) exempts a distribution "made to an employee after
+   separation from service after attainment of age 55" -- in or after the calendar year the employee turns 55 -- from the plan of the employer
+   separated from. It read the household switch and the draw's age alone, so a separation at 50 was exempt from 55. The switch stays, as
+   the household's statement that its workplace plans are with the employer it leaves (R32V: "a user certification of eligibility" that
+   must state the separation-year condition and detect contradictory facts); the facts it cannot overrule are now checked: the owner has
+   left work (their retirement age, on their own clock), did so in or after the year they turned 55 -- with the plan's birth-year reading,
+   floor(retireAge - startAge) + floor(startAge) >= 55 -- and the account is not marked as another employer's (`currentEmployerPlan: false`). */
 function earlyWithdrawalPenaltyRate(p,age,account){
   age=accountOwnerAge(p,age,account);
   if(!(age<59.5))return 0;
   var adv=p&&p.advanced;
   if(adv&&adv.penaltyException)return 0;
-  if(adv&&adv.rule55&&age>=55&&account&&accountType(account.type).limitGroup==="workplace")return 0;
+  if(adv&&adv.rule55&&account&&accountType(account.type).limitGroup==="workplace"&&account.currentEmployerPlan!==false){
+    var pr=p.profile||{},start=Number(account.owner==="spouse"&&pr.spouseOn?pr.spouseAge:pr.age),left=Number(pr.retireAge);
+    if(Number.isFinite(start)&&Number.isFinite(left)&&age>=left&&Math.floor(left-start)+Math.floor(start)>=55)return 0;
+  }
   return .10;
 }
 /* Q99 (G5): `income` is the ORDINARY INCOME this draw creates, reported by the draw rather than

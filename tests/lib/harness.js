@@ -690,7 +690,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R35 commit 9 (SA32F-26): the still-working exception), so the tracked file was
 // rebuilt, again installed only after two builds agreed. The pin before it,
 // f4eeaf413f89788d8560bb701a9773fb564b3b037cdf61ec085d97445c621b83, described the previous rebuild.
-const EXPECTED_SHA256 = 'b68c75f6136f05475d46e723421400c9d2ac8a603b97e4956be2ca2db1fc82fa';
+//
+// Changed again 2026-09-29 (S5AA R35 commit 10 (SA32F-22): the Rule of 55 needs the separation), so the tracked file
+// was rebuilt, again installed only after two builds agreed. The pin before it,
+// b68c75f6136f05475d46e723421400c9d2ac8a603b97e4956be2ca2db1fc82fa, described the previous rebuild.
+const EXPECTED_SHA256 = '80ff14dbd6e589308c81941b3fe1ace0981d6af10adf25bcb075f4aa5eb603b7';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
