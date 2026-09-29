@@ -411,6 +411,8 @@
         <div class="v2-card v2-stack">
           <div class="v2-inline"><select class="form-control" id="v2-add-debt-type"></select><button type="button" class="btn" id="v2-add-debt">Add debt</button></div>
           <p class="v2-note">Interest deductibility is stored as a planning classification. Itemized-interest deductions are not automatically applied because eligibility depends on debt use, collateral, and tax circumstances.</p>
+          <!-- S5AA R37 (SA32F-50; R32V: "List ignored fields or implement their stated semantics"): held to the engine by tests/audit-s5aa-r37-inert-mortgage-fields.test.js. -->
+          <p class="v2-note">The mortgage program, original loan amount, property value and original loan term are recorded for reference and do not change the projection, which runs on the balance, rate, monthly payment and payoff age. An interest-only loan is modelled by entering its interest-only payment.</p>
           <div id="v2-debts-list" class="v2-account-list"></div>
         </div>
       </section>

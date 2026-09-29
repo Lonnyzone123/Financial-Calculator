@@ -11,8 +11,8 @@
   "coupledOnly": "file level (upper bound): a requirement, or one of the two flow identities, whose every guarding file depends on internals. testLevel (lower bound): for requirements a test names, whether that test's own body reaches internals; helpers it calls are not followed"
  },
  "counts": {
-  "total": 400,
-  "implementation-independent": 230,
+  "total": 402,
+  "implementation-independent": 232,
   "implementation-coupled": 135,
   "infrastructure": 35
  },
@@ -1705,11 +1705,27 @@
    "internals": []
   },
   {
+   "file": "tests/audit-s5aa-r37-inert-mortgage-fields.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
    "file": "tests/audit-s5aa-r37-joint-salary-base.test.js",
    "category": "implementation-independent",
    "via": [
     "runPlan/runScenario",
     "the built app in jsdom"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r37-marginal-rate-contract.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
    ],
    "internals": []
   },

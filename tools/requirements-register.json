@@ -10,12 +10,12 @@
   "src/debt-recast.js"
  ],
  "counts": {
-  "commentBlocksWithIds": 406,
-  "requirements": 220,
-  "GUARDED_BY_TEST_NAME": 200,
+  "commentBlocksWithIds": 407,
+  "requirements": 221,
+  "GUARDED_BY_TEST_NAME": 201,
   "CITED_IN_TEST_FILE": 20,
   "UNGUARDED": 0,
-  "carriedForward": 220,
+  "carriedForward": 221,
   "needsDecision": 0,
   "superseded": 0
  },
@@ -5788,6 +5788,27 @@
     ],
     "files": [
      "tests/audit-s5aa-r37-joint-salary-base.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "SA32F-47",
+   "family": "SA32F",
+   "sites": [
+    "src/engine.js:772"
+   ],
+   "summary": "S5AA R37 (SA32F-47; R32V: \"State the helper's supported source contract or extend it with the proper NIIT base\"): the sources are \"ordinary\" (a dollar of ordinary income that is not net investment inc",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r37-marginal-rate-contract.test.js :: R37 SA32F-47: a dollar of investment income that is ordinary income carries the 3.8% surtax a wage-like dollar does not",
+     "tests/audit-s5aa-r37-marginal-rate-contract.test.js :: R37 SA32F-47: an amount the helper does not read is refused by name, not ignored"
+    ],
+    "files": [
+     "tests/audit-s5aa-r37-marginal-rate-contract.test.js"
     ],
     "onlyTodo": false
    },
