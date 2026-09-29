@@ -586,7 +586,11 @@ function artifactFor(lane) {
 // own, and the draw leaves a late taxable transfer its dollars (src/engine.js)), so the tracked file was rebuilt, again
 // installed only after two builds agreed. The pin before it,
 // bb15dbed4e28cd7c6fadc0450763c18deea5181bec6350cad6c5b22f9e13283b, described the previous rebuild.
-const EXPECTED_SHA256 = '34e1ec4824712c26ecf205f884e36f0836ec8519a0f70fe54e399c3e0fc9df52';
+//
+// Changed again 2026-09-28 (S5AA R31 R30-01: a funding distribution's basis is measured on its date and kept by the
+// year-end settlement (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed.
+// The pin before it, 34e1ec4824712c26ecf205f884e36f0836ec8519a0f70fe54e399c3e0fc9df52, described the previous rebuild.
+const EXPECTED_SHA256 = '63b8982b54054aabfad5dee866ffd980709c90892fc4d0e34b4080091983e298';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
