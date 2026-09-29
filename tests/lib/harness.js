@@ -573,7 +573,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (S5AA R29: the rules-page source link's href is stripped of HTML metacharacters
 // (src/app-shell.html)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
 // before it, 3d4fe0d4d8883fe98386acae39dc04547195f1431c1c00951509f9b2fb8f66b8, described the previous rebuild.
-const EXPECTED_SHA256 = '9998e82df49b106f78028b68fd05cac674fa8c0e011e33d10c36b6c61e77818d';
+//
+// Changed again 2026-09-28 (S5AA R30: a pre-tax transfer into an HSA counts toward the year's required distribution
+// (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 9998e82df49b106f78028b68fd05cac674fa8c0e011e33d10c36b6c61e77818d, described the previous rebuild.
+const EXPECTED_SHA256 = 'c1ddf0e0a9e43084eb48d74e8e95a1fff39237a1d8ae648ecedc478dca3e483e';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
