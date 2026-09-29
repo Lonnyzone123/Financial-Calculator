@@ -434,6 +434,10 @@ function validateAccount(c, account, index) {
      real boolean, on the taxable class, at cash basis. engine.js enforces the
      same three at its public boundary via accountContractCode(), and
      isHouseholdCashHolding() is the single predicate every consumer reads. */
+  /* S5AA R35 (SA32F-08): whether the spouse is the sole designated beneficiary of a pre-tax account (the Table II condition). */
+  if (account.spouseSoleBeneficiary !== undefined && typeof account.spouseSoleBeneficiary !== 'boolean') {
+    c.error('WRONG_TYPE', `${path}.spouseSoleBeneficiary`, `spouseSoleBeneficiary must be a boolean, got ${JSON.stringify(account.spouseSoleBeneficiary)}`);
+  }
   if (account.cashHolding !== undefined) {
     if (typeof account.cashHolding !== 'boolean') {
       c.error('WRONG_TYPE', `${path}.cashHolding`,

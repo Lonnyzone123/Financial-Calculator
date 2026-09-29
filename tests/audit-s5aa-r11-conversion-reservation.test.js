@@ -27,7 +27,10 @@ require(path.join(ROOT, 'tools', 'capture-baseline.js')).installDebtModules();
 const engine = require(path.join(ROOT, 'src', 'engine.js'));
 const defaultPlan = require(path.join(ROOT, 'tests', 'lib', 'golden-scenario-defs.js')).extractDefaultPlan(SHELL);
 
-const acct = (o) => Object.assign({ name: o.id, owner: 'self', basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0,
+/* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-08): with a spouse more than ten years younger as sole beneficiary, the divisor is now Table II
+   (26 CFR 1.401(a)(9)-5(c)(2)). This file tests something else, on Uniform-table amounts, so its accounts name the spouse as NOT the sole
+   beneficiary (spouseSoleBeneficiary: false) and every expectation stands. Table II has its own test file. */
+const acct = (o) => Object.assign({ name: o.id, owner: 'self', spouseSoleBeneficiary: false, basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0,
   annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0,
   profitShare: 0, vesting: 100, priority: 1 }, o);
 const DIVISOR_80 = 20.2; // IRS Uniform Lifetime Table at 80, as RULES carries it

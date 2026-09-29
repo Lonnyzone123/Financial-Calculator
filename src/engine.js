@@ -2812,14 +2812,24 @@ function rmdObligations(accounts,age,p,openingById){
   owners.forEach(function(o){
     if(!Number.isFinite(o.ageNow))return;
     if(!(o.ageNow>=rmdStartAge(p,o.ageAtStart)))return;
-    var divisor=uniform[String(Math.min(120,Math.floor(o.ageNow)))]||2,
+    /* S5AA R35 (SA32F-08; R32F RMDROTH-01, R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated
+       beneficiary is a spouse more than ten years younger, the divisor is the two lives' joint expectancy (1.401(a)(9)-9(d); Pub. 590-B
+       Table II). Sole beneficiary is each account's own fact -- `spouseSoleBeneficiary`, default true, as 18.1 already assumes the spouse
+       inherits -- and is "determined as of January 1", so the spouse must be alive at the row's opening. Each IRA's amount is figured
+       with its own divisor and the IRA total is their sum (1.408-8 Q&A-9). The engine always used the Uniform table. */
+    var ownerYears=Math.min(120,Math.floor(o.ageNow)),divisor=uniform[String(ownerYears)]||2,
+        other=owners.filter(function(x){return x.key!==o.key})[0],living=other?householdSurvivorship(p,age):null,
+        otherAlive=!!other&&(other.key==="spouse"?living.spouseAlive:living.selfAlive),otherYears=other?Math.floor(other.ageNow):NaN,
+        jls=RULES.retirement.rmd.jointLastSurvivor&&RULES.retirement.rmd.jointLastSurvivor.rows,
+        divisorFor=function(a){if(a.spouseSoleBeneficiary===false||!otherAlive||!Number.isFinite(otherYears)||!(ownerYears-otherYears>10)||!jls)return divisor;var row=jls[String(ownerYears)],v=row&&row[Math.max(0,otherYears)];return Number.isFinite(v)&&v>0?v:divisor},
         mine=pre.filter(function(a){return (a.owner==="spouse"?1:0)===o.index}),
         iras=mine.filter(function(a){return a.type==="traditionalIRA"}),
-        iraBalance=iras.reduce(function(t,a){return t+balanceOf(a)},0);
-    if(iraBalance>0)out.push({owner:o.key,ownerIndex:o.index,kind:"ira",accounts:iras,amount:iraBalance/divisor});
+        iraBalance=iras.reduce(function(t,a){return t+balanceOf(a)},0),
+        iraAmount=iras.reduce(function(t,a){return t+balanceOf(a)/divisorFor(a)},0);
+    if(iraBalance>0)out.push({owner:o.key,ownerIndex:o.index,kind:"ira",accounts:iras,amount:iraAmount});
     mine.filter(function(a){return a.type!=="traditionalIRA"}).forEach(function(a){
       var b=balanceOf(a);
-      if(b>0)out.push({owner:o.key,ownerIndex:o.index,kind:"plan",accounts:[a],amount:b/divisor});
+      if(b>0)out.push({owner:o.key,ownerIndex:o.index,kind:"plan",accounts:[a],amount:b/divisorFor(a)});
     });
   });
   return out;

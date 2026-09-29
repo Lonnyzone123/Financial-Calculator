@@ -34,7 +34,10 @@ const defaultPlan = require(path.join(ROOT, 'tests', 'lib', 'golden-scenario-def
 const OWED = 100000 / 8.9; // a $100,000 account's obligation at 95
 const round = (x) => Math.round(Number(x) * 100) / 100;
 const near = (actual, expected, label) => assert.equal(round(actual), round(expected), label);
-const acct = (o) => Object.assign({ name: 'account', owner: 'self', basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0,
+/* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-08): with a spouse more than ten years younger as sole beneficiary, the divisor is now Table II
+   (26 CFR 1.401(a)(9)-5(c)(2)). This file tests something else, on Uniform-table amounts, so its accounts name the spouse as NOT the sole
+   beneficiary (spouseSoleBeneficiary: false) and every expectation stands. Table II has its own test file. */
+const acct = (o) => Object.assign({ name: 'account', owner: 'self', spouseSoleBeneficiary: false, basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0,
   annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0,
   profitShare: 0, vesting: 100 }, o);
 

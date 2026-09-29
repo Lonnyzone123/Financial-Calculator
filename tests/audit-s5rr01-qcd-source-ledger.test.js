@@ -50,7 +50,10 @@ const HOOK = '__S5RR01_QCD_SOURCE__';
 const tapped = loadEngineVariant([{ id: 'qcd-source', marker: 'var shortfall=Math.max(0,need+taxNeed),nonPortfolioDraw=0;',
   append: 'if(globalThis.' + HOOK + ')globalThis.' + HOOK + '(accounts.map(function(a){return [a.id,a.balance]}),Math.min(qcd,rmdGross));' }]);
 
-const account = (id, owner, type, balance) => ({ id, name: id, owner, type, taxClass: 'preTax', balance, basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0, profitShare: 0, vesting: 100, priority: 1 });
+/* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-08): with a spouse more than ten years younger as sole beneficiary, the divisor is now Table II
+   (26 CFR 1.401(a)(9)-5(c)(2)). This file tests something else, on Uniform-table amounts, so its accounts name the spouse as NOT the sole
+   beneficiary (spouseSoleBeneficiary: false) and every expectation stands. Table II has its own test file. */
+const account = (id, owner, type, balance) => ({ id, name: id, owner, type, taxClass: 'preTax', spouseSoleBeneficiary: false, balance, basisPct: 0, contribution: 0, contributionMode: 'amount', annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0, profitShare: 0, vesting: 100, priority: 1 });
 const ira = (id, owner, balance) => account(id, owner, 'traditionalIRA', balance);
 const k401 = (balance) => account('k401', 'self', 'traditional401k', balance);
 const cash = (balance) => Object.assign(account('cash', 'self', 'taxable', balance), { taxClass: 'taxable', basisPct: 100 });
