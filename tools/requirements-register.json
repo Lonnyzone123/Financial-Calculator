@@ -10,12 +10,12 @@
   "src/debt-recast.js"
  ],
  "counts": {
-  "commentBlocksWithIds": 403,
-  "requirements": 216,
-  "GUARDED_BY_TEST_NAME": 197,
+  "commentBlocksWithIds": 404,
+  "requirements": 217,
+  "GUARDED_BY_TEST_NAME": 198,
   "CITED_IN_TEST_FILE": 19,
   "UNGUARDED": 0,
-  "carriedForward": 216,
+  "carriedForward": 217,
   "needsDecision": 0,
   "superseded": 0
  },
@@ -5703,6 +5703,28 @@
     ],
     "files": [
      "tests/audit-s5aa-r37-engine-safeguards.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "SA32F-43",
+   "family": "SA32F",
+   "sites": [
+    "src/engine.js:2254"
+   ],
+   "summary": "S5AA R37 (SA32F-43; R32V: \"The undisclosed cost-index convention is real; add a chosen assumption/input or describe nominal constancy\"; the recommendation of record): a mortgage's property tax, insura",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r37-housing-costs-inflate.test.js :: R37 SA32F-43: property tax, insurance and HOA rise with the plan inflation",
+     "tests/audit-s5aa-r37-housing-costs-inflate.test.js :: R37 SA32F-43: PMI is a term of the loan and stays as entered",
+     "tests/audit-s5aa-r37-housing-costs-inflate.test.js :: R37 SA32F-43: the form says the costs rise with inflation"
+    ],
+    "files": [
+     "tests/audit-s5aa-r37-housing-costs-inflate.test.js"
     ],
     "onlyTodo": false
    },

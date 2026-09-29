@@ -722,7 +722,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R37: plan warnings for a 1959 spouse, filing vs household, an expense at the end
 // (SA32F-27, -35, -38)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
 // it, 4e850ae62942e795d33c340d842f72f4d4949899bd000ee32ebfc232655a87be, described the previous rebuild.
-const EXPECTED_SHA256 = '62e9e4f4f15f15dd55f9df1e826a6fff7057785b424f8a0be325a2d22dcf9666';
+//
+// Changed again 2026-09-29 (S5AA R37: a mortgage's property tax, insurance and HOA rise with the plan's inflation
+// (SA32F-43)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 62e9e4f4f15f15dd55f9df1e826a6fff7057785b424f8a0be325a2d22dcf9666, described the previous rebuild.
+const EXPECTED_SHA256 = '3381f937ec0a2a4bb3afaed405fb379a950228167427707ef344ab3ba53fc693';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
