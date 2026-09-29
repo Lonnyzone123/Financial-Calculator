@@ -5843,4 +5843,42 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Status: IMPLEMENTED 2026-09-28 at `83647e0`.** Witness: `tests/audit-s5aa-r29-transfer-realises-gain.test.js`. Modelling text: `MODEL_ASSUMPTIONS.md` §21.
 
-**Also open, R29-01 (ChatGPT's R29 audit, priority 1, not yet registered — no repair decided):** a late-in-year transfer that the contribution-room cap holds to $0 or less than asked still removes the requested dollars from the source's dividend base for the rest of the year, understating dividends, income and tax. Not a categorisation question; will be registered with its repair.
+**R29-01 is repaired, at Q153 below** (S5AA R30, `66c406c`).
+
+## 2026-09-28 — Q153. A transfer's dividends follow the dollars that actually move, and each account pays its own (R29-01, S5AA R30, the owner, 2026-09-28)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, from the S5AA session's R30 relay (`audit/S5AA/R30/S5AA_R30_RELAY_TO_EB_20260928.md`). The owner's answers were given to the S5AA session directly; they are **as reported by that session, not confirmed in the plan owner's chat.**
+
+**The finding.** ChatGPT's R29 change audit of `aaff3f1` (priority 1): a late-in-year transfer that the contribution-room cap held to $0, or to less than asked, still removed the requested dollars from the source's dividend base for the rest of the year, understating dividends, income and tax.
+
+**The decision.** Repair: the moved dollars' dividends belong to whichever account holds them, source before the transfer date and destination after. A taxable source that sends everything can send only what its dividends leave.
+
+**Status: IMPLEMENTED 2026-09-28 at `66c406c`** (S5AA R30; merged `3cac133`, PR #7; source tag `s5aa-r30-source` = `66c406c`; sent to ChatGPT for audit). Witness: `tests/audit-s5aa-r30-transfer-dividends-follow-the-move.test.js`. Modelling text: `MODEL_ASSUMPTIONS.md` §21.3.
+
+## 2026-09-28 — Q154. A transfer dated after the year's spending draw pays its destination after the move (found in passing, S5AA R30)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q153. Found beside R29-01, not a separate ChatGPT finding.
+
+**The decision.** Repair: such a transfer's destination is credited after the move, on what moved; that cash comes after the year's spending draw, so it is kept or spent under the dividends policy.
+
+**Status: IMPLEMENTED 2026-09-28 at `66c406c`.** Witness: `tests/audit-s5aa-r30-transfer-dividends-follow-the-move.test.js`. Modelling text: `MODEL_ASSUMPTIONS.md` §21.3.
+
+## 2026-09-28 — Q155. A late transfer out of a dividend-paying taxable account is protected from the year's spending draw, only for that case (S5AA R30, the owner, 2026-09-28)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q153. Mirror of Q154.
+
+**The decision.** For a transfer dated after the year's spending draw, out of a dividend-paying taxable account, the draw leaves the transfer's dollars in the source. The owner confirmed 2026-09-28 that this protection applies only to that case — a dividend-paying taxable source — not to every late transfer or every taxable account.
+
+**Status: IMPLEMENTED 2026-09-28 at `66c406c`.** Witness: `tests/audit-s5aa-r30-transfer-dividends-follow-the-move.test.js`. **Known limit, kept:** a late destination's dividend cash does not fund that year's spending. Modelling text: `MODEL_ASSUMPTIONS.md` §21.3.
+
+## 2026-09-28 — Q156. A pre-tax distribution counts toward the year's required minimum distribution whatever it lands in, including into an HSA (an unnumbered ChatGPT R29 finding, S5AA R30, the owner, 2026-09-28)
+
+**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q153. Includes R29-02's basis repair.
+
+**The finding.** ChatGPT's R29 audit raised, unnumbered, that a pre-tax transfer into an HSA did not count toward the year's required distribution. The owner's decision: research first, then repair. The research found that every pre-tax distribution counts, whatever it lands in.
+
+**The decisions.**
+- A pre-tax distribution counts toward the year's RMD whatever it lands in: a taxable account, or an HSA (either a distribution then a contribution, or a qualified HSA funding distribution). A rollover or a conversion does not count. A transfer dated after the year's spending draw counts neither way, since the draw already paid the year's requirement. (26 CFR 1.408-8(g)(1).)
+- **R29-02, repair:** a qualified HSA funding distribution comes out of the IRA's taxable value first, and only the rest draws down its nondeductible basis, dollar for dollar (IRC 408(d)(9)(E); Notice 2008-51).
+
+**Status: IMPLEMENTED 2026-09-28 at `c9f6556`** (the RMD credit) **and `bf4d3d8`** (R29-02, the basis rule). Witnesses: `tests/audit-s5aa-r30-transfer-to-hsa-counts-toward-rmd.test.js`, `tests/audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js`. The "funding distribution's credit toward an RMD" line in `MODEL_ASSUMPTIONS.md` §21's not-modelled list is removed; both are now modelled. Modelling text: `MODEL_ASSUMPTIONS.md` §21.1 and §21.2.
