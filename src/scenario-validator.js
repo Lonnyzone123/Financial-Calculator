@@ -559,6 +559,15 @@ function validateRetirement(c, retirement) {
      stage switched to percent read as 60,000% and emptied the plan in a year. A range WARNING, 0 to 200%. The
      repaired generator draws 50 to 120, and 600 seeds and both corpora hold nothing outside that; above 200% a
      stage more than doubles the plan's spending, which reads as a dollar figure in a percent field. */
+  /* S5AA R35 (SA32F-18): a pension stream's survivor share is a percentage of the stream, 0 (single life) to 100. */
+  if (Array.isArray(retirement.otherIncomes)) {
+    retirement.otherIncomes.forEach((income, i) => {
+      if (isPlainObject(income) && income.survivorPercent !== undefined) {
+        checkType(c, income.survivorPercent, `retirement.otherIncomes[${i}].survivorPercent`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+        checkRange(c, income.survivorPercent, `retirement.otherIncomes[${i}].survivorPercent`, 0, 100, 'PENSION_SURVIVOR_PERCENT_OUT_OF_RANGE', 'error');
+      }
+    });
+  }
   if (Array.isArray(retirement.stages)) {
     retirement.stages.forEach((stage, i) => {
       if (isPlainObject(stage) && stage.mode === 'percent') {

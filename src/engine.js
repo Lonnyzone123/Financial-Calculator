@@ -3270,7 +3270,12 @@ function otherIncomeFor(p,periodStart,periodEnd,inflationFactor,startHistoryInde
    Math.min(NaN, lifespan) is NaN -- the death bound switched itself off. The lifespan alone bounds it. */
 /* S5AA R34 (SA32F-18): a `socialSecurity` stream is its owner's benefit and ends at their death too (42 USC 402(a): "ending with the month
    preceding the month in which he dies"); it paid on. A pension stream's survivor share is a separate decision (R35). */var streamEnd=Number(i.end);if(i.type==="employment"||i.type==="selfEmployment"||i.type==="socialSecurity"){var ownerLife=Number(spouse?p.retirement.spouseLife:p.retirement.selfLife);if(Number.isFinite(ownerLife))streamEnd=Number.isFinite(streamEnd)?Math.min(streamEnd,ownerLife):ownerLife}
-if(ownerEnd<=i.start||ownerAge>streamEnd)return;var activeAge=Math.max(ownerAge,i.start),activeEnd=ownerEnd>streamEnd?streamEnd:ownerEnd,activeDuration=Math.max(0,activeEnd-activeAge),years=Math.max(0,activeAge-i.start),factor=1;if(i.growthMode==="inflation")factor=inflationFactor;else if(i.growthMode==="cola")factor=growthFromCola(p,i.start,activeAge,startHistoryIndex,spouse?p.profile.spouseAge:p.profile.age);/* FM-01: the stream's start age is on its OWNER's scale, so the calendar origin must be too */else factor=Math.pow(1+(Number(i.growth)||0)/100,years);var amount=(Number(i.amount)||0)*factor*activeDuration;cash+=amount;if(i.type==="socialSecurity")ss+=amount;else if(i.type!=="taxFree")ordinary+=amount;if(i.type==="rental"||i.type==="investment")nii+=amount;if(i.type==="selfEmployment"){if(spouse)seSpouse+=amount;else seSelf+=amount}/* Q98 (G4): an `employment` stream IS wages -- it bears Social Security and Medicare payroll tax like
+if(ownerEnd<=i.start||ownerAge>streamEnd)return;var activeAge=Math.max(ownerAge,i.start),activeEnd=ownerEnd>streamEnd?streamEnd:ownerEnd,activeDuration=Math.max(0,activeEnd-activeAge),years=Math.max(0,activeAge-i.start),factor=1;if(i.growthMode==="inflation")factor=inflationFactor;else if(i.growthMode==="cola")factor=growthFromCola(p,i.start,activeAge,startHistoryIndex,spouse?p.profile.spouseAge:p.profile.age);/* FM-01: the stream's start age is on its OWNER's scale, so the calendar origin must be too */else factor=Math.pow(1+(Number(i.growth)||0)/100,years);/* S5AA R35 (SA32F-18, the pension half): a `pension` stream owned by a person pays `survivorPercent` of itself after that person's death
+   -- 0 for a single-life annuity, the elected share for a joint-and-survivor one (e.g. IRC 417(b)'s 50%). Absent, 100%: the main
+   pension's declared joint-and-survivor assumption, disclosed (PENSION_STREAM_AFTER_DEATH_ASSUMED). It paid in full, silently.
+   A death inside the period pays the whole amount before it and the share after, on the stream convention used above. */
+   var paidDuration=activeDuration;if(i.type==="pension"&&(spouse||i.owner==="self")){var pensionLife=Number(spouse?p.retirement.spouseLife:p.retirement.selfLife),rawShare=Number(i.survivorPercent),share=i.survivorPercent===undefined||i.survivorPercent===null||!Number.isFinite(rawShare)?1:Math.min(1,Math.max(0,rawShare/100));if(Number.isFinite(pensionLife)&&activeEnd>pensionLife){var beforeDeath=Math.max(0,Math.min(activeEnd,pensionLife)-activeAge);paidDuration=beforeDeath+(activeDuration-beforeDeath)*share}}
+   var amount=(Number(i.amount)||0)*factor*paidDuration;cash+=amount;if(i.type==="socialSecurity")ss+=amount;else if(i.type!=="taxFree")ordinary+=amount;if(i.type==="rental"||i.type==="investment")nii+=amount;if(i.type==="selfEmployment"){if(spouse)seSpouse+=amount;else seSelf+=amount}/* Q98 (G4): an `employment` stream IS wages -- it bears Social Security and Medicare payroll tax like
      any other wages. It is kept PER OWNER because the OASDI wage base is a per-person cap: crediting a
      spouse's job to the self pushes both onto one cap and UNDERCHARGES a two-earner household, which is
      the failure a household-total repair makes while every single-earner test still passes.
@@ -4582,6 +4587,24 @@ if(p.retirement&&p.retirement.survivor&&p.profile&&p.profile.spouseOn){recordIss
       "name is treated as the survivor's own. "+
       "If that is not what was meant, check the lifespan.",
       {path:deaths[0].who==="spouse"?"retirement.spouseLife":"retirement.selfLife",deaths:deaths});
+  })();
+  /* S5AA R35 (SA32F-18): an other-income pension stream whose owner dies inside the projection, while the stream still pays, with no
+     `survivorPercent` entered, is paid in full to the survivor. That is the same joint-and-survivor assumption as the main pension's,
+     and it is said here, naming the streams. An entered share is the household's own statement and needs no disclosure. */
+  (function(){
+    var r=p.retirement||{},profile=p.profile||{},reach=lastDeathCutAge(p),endAge=Number(profile.endAge),horizon=reach===null?endAge:reach,streams=[];
+    (r.otherIncomes||[]).forEach(function(i,k){
+      if(!i||i.type!=="pension"||i.survivorPercent!==undefined&&i.survivorPercent!==null)return;
+      var spouse=i.owner==="spouse"&&profile.spouseOn;if(!spouse&&i.owner!=="self")return;
+      var life=Number(spouse?r.spouseLife:r.selfLife),toSelf=spouse?Number(profile.age)-Number(profile.spouseAge):0;
+      if(!Number.isFinite(life)||!(life+toSelf<horizon)||!(Number(i.end)>life)||!(Number(i.start)<horizon-toSelf))return;/* owner's ages: the death is inside the projection and the stream is still paying */
+      streams.push("retirement.otherIncomes["+k+"]")});
+    if(!streams.length)return;
+    recordIssue(issues,"PENSION_STREAM_AFTER_DEATH_ASSUMED","WARNING",
+      "A pension income is paid in full after the death of the person it belongs to, because no survivor share was entered for it. "+
+      "That assumes a 100% joint-and-survivor annuity. A single-life pension stops at the death (a survivor share of 0%), and many "+
+      "joint-and-survivor pensions pay a survivor 50% to 75%; enter the pension's own survivor share to model it.",
+      {path:streams[0],approximation:true,assumed:"100% joint-and-survivor",streams:streams});
   })();
   /* S5AA THIRD AUDIT, disclosed on the owner's decision of 2026-09-21 ("disclose the pension"): `retirement.pension`
      is paid whenever the self is retired, with no death check. So it keeps paying in full after the self

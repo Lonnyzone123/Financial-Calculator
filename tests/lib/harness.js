@@ -650,7 +650,11 @@ function artifactFor(lane) {
 // rounding, the spouse's and survivor's benefits, the earnings test; the survivor disclosure and the read-only
 // full-retirement-age field), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
 // before it, a1488b882ee1ddf640ba43925f86aeb5918c5f5dea3e175b5bd22b003b1416d7, described the previous rebuild.
-const EXPECTED_SHA256 = 'eede3253c8fa7c0d3e955ca0690f27f9732021fa3c5c44696a8c544440178039';
+//
+// Changed again 2026-09-29 (S5AA R35 commit 1: a pension stream's survivor share (SA32F-18)), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// eede3253c8fa7c0d3e955ca0690f27f9732021fa3c5c44696a8c544440178039, described the previous rebuild.
+const EXPECTED_SHA256 = '46442fa049d45259333616211b656f07931946d883781842aed3dd844eab70d1';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
