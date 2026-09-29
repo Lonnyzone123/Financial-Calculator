@@ -33,10 +33,12 @@ const acct = (id, type, taxClass, balance, priority) => ({ id, name: 'account ' 
   frequency: 1, changeTiming: 'year', futureChanges: [], allocation: { flat: 100 }, matchOn: false, matchCap: 0, matchRate: 0,
   profitShare: 0, vesting: 100, priority });
 
-/* $300,000 moves at `at` between a Roth IRA and a taxable account; `taxableId` names the taxable one. */
-function row({ taxableId, taxableIsSource, at, dividendStart }) {
+/* $300,000 moves at `at` between a Roth IRA and a taxable account; `taxableId` names the taxable one. `amount` and `policy`
+   (S5AA R30) let a taxable source send part of it, under a named limit policy. */
+function row({ taxableId, taxableIsSource, at, dividendStart, amount = 300000, policy }) {
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
+  if (policy) p.limitPolicy = policy;
   Object.assign(p.profile, { age: 60, retireAge: 60, endAge: 61, spouseOn: false, filing: 'single' });
   Object.assign(p.assumptions, { method: 'simple', returnRate: 0, inflation: 0, fee: 0, volatility: 0, withdrawalTiming: 'monthly' });
   Object.assign(p.employment, { salary: 0, spouseSalary: 0, growth: 0 });
@@ -47,7 +49,7 @@ function row({ taxableId, taxableIsSource, at, dividendStart }) {
   const [from, to] = taxableIsSource ? [taxable, roth] : [roth, taxable];
   Object.assign(p.advanced, { rmdOn: false, conversionOn: false, healthOn: false, networthOn: true, otherAssets: [], debts: [], assetsOn: true,
     assetClasses: [{ id: 'flat', name: 'Flat', returnRate: 0, volatility: 0 }],
-    transferOn: true, transferFrom: from.id, transferTo: to.id, transferAmount: 300000, transferAge: at, penaltyException: true });
+    transferOn: true, transferFrom: from.id, transferTo: to.id, transferAmount: amount, transferAge: at, penaltyException: true });
   p.accounts = [roth, taxable];
   const v = validateScenario(JSON.parse(JSON.stringify(p)));
   assert.equal(v.valid, true, 'a valid plan for id ' + taxableId + ': ' + JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
@@ -66,8 +68,16 @@ test('PCF-03: a taxable DESTINATION receiving $300,000 at 60.5 is paid half a ye
   }
 });
 
-test('PCF-03: a taxable SOURCE sending $300,000 at 60.75, after the draw, is paid the three quarters it held -- $22,500 under every accepted id', () => {
-  for (const id of IDS) near(row({ taxableId: id, taxableIsSource: true, at: 60.75, dividendStart: 60 }).dividends, 22500, 'the dividends for id ' + id);
+/* S5AA R30 (R29-01's test gap, ChatGPT's R29 change audit): this case sent $300,000 into a Roth IRA under the default redirect policy
+   with no compensation, so the year's room let nothing move, and still asserted the $22,500 of a source that had sent it all. It now
+   sends $200,000 under "warn", deliberately, and the control below holds the redirect case. */
+test('PCF-03: a taxable SOURCE sending $200,000 of $300,000 at 60.75, after the draw, is paid the three quarters it held it and the year on the rest -- $25,000 under every accepted id', () => {
+  // $300,000 x 10% x 0.75 + $100,000 x 10% x 0.25 = $22,500 + $2,500.
+  for (const id of IDS) near(row({ taxableId: id, taxableIsSource: true, at: 60.75, dividendStart: 60, amount: 200000, policy: 'warn' }).dividends, 25000, 'the dividends for id ' + id);
+});
+
+test('R30 CONTROL (R29-01): under the redirect policy with no compensation nothing moves, and the source is paid the whole year -- $30,000 under every accepted id', () => {
+  for (const id of IDS) near(row({ taxableId: id, taxableIsSource: true, at: 60.75, dividendStart: 60, policy: 'redirect' }).dividends, 30000, 'the dividends for id ' + id);
 });
 
 test('PCF-03: REINVESTED dividends follow the same split -- a destination at 60.5 with dividends paid from 65 is taxed on $15,000 reinvested under every accepted id', () => {

@@ -790,3 +790,43 @@ Publication 590-A reading are the S5AA session's and were not re-derived, and IR
 
 *Decided 2026-09-26 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q144 to Q148 (and Q143's
 repair).*
+
+---
+
+## 21. What a transfer is depends on the two accounts (S5AA R29)
+
+**Provenance.** Written from the S5AA session's R29 relay (`audit/S5AA/R29/S5AA_R29_RELAY_TO_EB_20260928.md`), checked
+against `main` at `df8f8b4`: the six R29 commits exist and the test file names (`tests/audit-s5aa-r29-*.test.js`) match
+every rule below. The owner's decisions were given to the S5AA session directly and are **as reported by it**. Two
+priority-1 findings on the audited source (`s5aa-r29.1-source` = `aaff3f1`) are open — R29-01, a late-in-year transfer
+capped by the contribution-room rule still removes the requested dollars from the source's dividend base for the rest
+of the year; R29-02, a traditional-IRA-to-HSA funding transfer never draws down the IRA's nondeductible basis (IRS
+Notice 2008-51 says it should, taxable value first). **Neither finding changes the categorisation below**: R29-01 is an
+accounting error in how much moves, and R29-02 adds a basis detail to the funding rule. Placed now rather than held for
+the repair round, since the categorisation itself is settled; the basis detail will be added to the HSA-funding bullet
+when R30 lands.
+
+- A transfer between accounts of the same tax character is a rollover, or an in-kind move between taxable accounts: it
+  moves untaxed and outside every limit.
+- Pre-tax into a Roth-class account is a conversion.
+- Pre-tax into a taxable account is a distribution.
+- **Into a 401(k) from a different kind of account, it is refused.** A 401(k) takes payroll, same-character rollovers
+  and conversions only. Witness: `tests/audit-s5aa-r29-transfer-into-workplace-refused.test.js`.
+- **Into an IRA or an HSA from a different kind of account, it is a contribution**, held to the room the year's planned
+  contributions leave: the IRA limit and compensation, or the HSA limit. Under the redirect policy only what fits
+  moves and the rest stays in the source; under warn all of it moves, with a warning. Witness:
+  `tests/audit-s5aa-r29-transfer-as-contribution.test.js`.
+- Into a traditional IRA it is deductible under the IRA deduction rule (§20). Into an HSA it is a direct contribution,
+  deducted above the line.
+- **A traditional IRA into its owner's own HSA is a qualified HSA funding distribution:** tax-free, not deductible, and
+  within the HSA room. Witness: `tests/audit-s5aa-r29-ira-to-hsa-funding.test.js`. *(R29-02, open: the funding amount
+  does not yet draw down the IRA's nondeductible basis, per IRS Notice 2008-51.)*
+- **Out of an HSA into any other account, it is an HSA distribution:** the account's includible share is income, plus
+  20% before its owner is 65. Witness: `tests/audit-s5aa-r29-hsa-transfer-out-taxed.test.js`.
+- **Out of a taxable account into a non-taxable one, it is a sale:** the moved dollars realise their gain at the
+  account's pro-rata basis. Witness: `tests/audit-s5aa-r29-transfer-realises-gain.test.js`.
+
+**Not modelled:** HSA eligibility (coverage, or Medicare from 65), limits on custom accounts, and a funding
+distribution's credit toward an RMD.
+
+*Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q149 to Q152.*
