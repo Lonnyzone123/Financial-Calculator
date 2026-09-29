@@ -554,7 +554,7 @@ function accountSuccessionClass(a){
   var type=a&&a.type,cls=a&&a.taxClass,group=accountType(type).limitGroup;
   if(a&&a.owner==="joint"){
     if(group)return {basis:"unsupported",authority:[],assumed:"an IRA, a workplace plan or an HSA is individually owned; an account entered as joint is read as the primary person's"};
-    if(cls==="taxable")return {basis:"assumption",authority:["IRC 2040(b)","IRC 1014(b)(6)"],assumed:"a joint account stays with the survivor with its whole cost basis; the step-up at death depends on titling and property law this plan does not record"};
+    if(cls==="taxable")return {basis:"assumption",authority:["IRC 2040(b)","IRC 1014(a)"],assumed:"a joint account stays with the survivor, and half of its cost basis, the share assumed to be the decedent's (IRC 2040(b)), resets to half its value when it passes; community property, which can reset both halves (IRC 1014(b)(6)), is not modelled"};
     return {basis:"assumption",authority:[],assumed:"a joint custom account stays with the survivor, as if it were an IRA of its tax class"};
   }
   var TABLE={
@@ -563,7 +563,7 @@ function accountSuccessionClass(a){
         traditional401k:{basis:"authority",authority:["IRC 402(c)(9)"]},
         roth401k:{basis:"authority",authority:["IRC 402(c)(9)"]},
         hsa:{basis:"assumption",authority:["IRC 223(f)(8)(A)"],assumed:"the surviving spouse is the designated beneficiary of the HSA"},
-        customTaxable:{basis:"assumption",authority:["IRC 1014"],assumed:"a taxable account keeps the decedent's cost basis, with no step-up at death"},
+        customTaxable:{basis:"assumption",authority:["IRC 1014(a)"],assumed:"a taxable account's cost basis resets to its value when it passes, up or down (IRC 1014(a)), read at the opening of the first row after the death"},
         customTraditional:{basis:"assumption",authority:[],assumed:"a custom account passes like an IRA of its tax class"},
         customRoth:{basis:"assumption",authority:[],assumed:"a custom account passes like an IRA of its tax class"}},
       c=TABLE[type==="taxable"?"customTaxable":type]||TABLE[{taxable:"customTaxable",hsa:"hsa",roth:"customRoth"}[cls]||"customTraditional"];
@@ -3486,7 +3486,13 @@ function simulatePlan(p,random,historyOffset,ltcRandom,issues,serialized,gateTok
           accounts.forEach(function(a){if(!a)return;var side=a.owner==="spouse"?"spouse":"self",joint=a.owner==="joint";
             if(event&&(side===from||joint)){var bal=Math.max(0,Number(a.balance)||0),rec=accountSuccessionClass(a);
               rec.account=a.id;rec.type=a.type;rec.taxClass=a.taxClass;rec.owner=a.owner==null?"self":a.owner;rec.to=to;rec.balance=Math.round(bal*100)/100;
-              (bal>0.005?event.passed:event.empty).push(rec)}
+              (bal>0.005?event.passed:event.empty).push(rec);
+              /* S5AA R35 (SA32F-17; the owner's decision 4, 2026-09-29, with "a loss also resets"): IRC 1014(a) gives property acquired from a
+                 decedent its fair market value as basis, up or down. The decedent's own taxable account resets in full; a joint one resets
+                 half, the decedent's assumed share (2040(b)): half the old basis plus half the value. The value is this row's opening
+                 balance, when the account passes. It passed on with the old basis. Retirement accounts and HSAs are income in respect of a
+                 decedent and have no such basis; only taxable-class accounts are touched. */
+              if(a.taxClass==="taxable"){var oldBasis=taxableBasisOf(a);a.basisDollars=joint?0.5*oldBasis+0.5*bal:bal}}
             if(side===from)a.owner=to});
           if(event&&(event.passed.length||event.empty.length))successionEvents.push(event);
           var carried=Math.max(0,Number(iraBasisState[from])||0);
@@ -4165,17 +4171,18 @@ qcdRequested=qcdOwnerRequests(p,accounts,age,spouseAge,duration),qcd=0,/* P2 (de
                 beforePlanStart:Number.isFinite(d)&&d<startAge,accounts:e.passed.map(function(x){return x.account}),emptyAtTransfer:e.empty.map(function(x){return x.account})}}),
               has=function(t){return succession.some(function(x){return x.assumed===t})},
               HSA="the surviving spouse is the designated beneficiary of the HSA",
-              TAX="a taxable account keeps the decedent's cost basis, with no step-up at death",
+              TAX="a taxable account's cost basis resets to its value when it passes, up or down (IRC 1014(a)), read at the opening of the first row after the death",
               CUSTOM="a custom account passes like an IRA of its tax class",
-              JOINT="a joint account stays with the survivor with its whole cost basis; the step-up at death depends on titling and property law this plan does not record",
+              JOINT="a joint account stays with the survivor, and half of its cost basis, the share assumed to be the decedent's (IRC 2040(b)), resets to half its value when it passes; community property, which can reset both halves (IRC 1014(b)(6)), is not modelled",
               JOINTCUSTOM="a joint custom account stays with the survivor, as if it were an IRA of its tax class",
               assumptionProse=
                 (has(HSA)?" An HSA is treated as the survivor's own, which is right only if the survivor is its designated beneficiary "+
                   "(IRC 223(f)(8)(A)); otherwise it stops being an HSA at the death and its value is income (223(f)(8)(B)).":"")+
-                (has(TAX)?" A taxable account passes with the decedent's cost basis unchanged; its basis is not stepped up at the death "+
-                  "(IRC 1014), so the survivor's capital gains are overstated.":"")+
-                (has(JOINT)?" A joint account stays with the survivor with its whole cost basis; how much of it is stepped up at the death "+
-                  "depends on its titling and on state property law (IRC 2040(b), 1014(b)(6)), which this plan does not record.":"")+
+                (has(TAX)?" A taxable account's cost basis resets to its value when it passes, up or down (IRC 1014(a)); the value is read at the "+
+                  "opening of the first year after the death, not on the date of death.":"")+
+                (has(JOINT)?" A joint account stays with the survivor, and half of its cost basis, the share assumed to be the decedent's "+
+                  "(IRC 2040(b)), resets to half its value when it passes. Community property, whose both halves can reset (IRC 1014(b)(6)), "+
+                  "is not modelled, and the plan does not record titling.":"")+
                 (has(CUSTOM)||has(JOINTCUSTOM)?" A custom account passes as if it were an IRA of its tax class, which no particular rule supports.":"")+
                 (succession.some(function(x){return x.basis==="unsupported"})?" An IRA, a workplace plan or an HSA entered as joint cannot be "+
                   "jointly owned; it is read as the primary person's, which may not be what was meant.":"");

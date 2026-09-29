@@ -674,7 +674,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R35 commit 6 (SA32F-37, R32V-01): spending decisions read the portfolio's own
 // returns), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // d09fdd333e060abb6df2c6f4f5cc9e2dff32ed0d7d4970a942f836417614d3a8, described the previous rebuild.
-const EXPECTED_SHA256 = '8f05a5b9aa9420e199573108d9c81f10344eba498acd0b9647ea4b704df92fbc';
+//
+// Changed again 2026-09-29 (S5AA R35 commit 7 (SA32F-17, decision 4): a taxable account's basis resets at a death), so
+// the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 8f05a5b9aa9420e199573108d9c81f10344eba498acd0b9647ea4b704df92fbc, described the previous rebuild.
+const EXPECTED_SHA256 = '41837a6dd749edfec5e25dca930f2d9bc1b19d8e15168047658d99046c6e2e1d';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

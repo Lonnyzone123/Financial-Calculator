@@ -76,14 +76,17 @@ test('EA-07: an HSA passing to the survivor is disclosed as ASSUMING the spouse 
     'the prose says what happens otherwise');
 });
 
-test('EA-07: a taxable account passing to the survivor is disclosed as keeping the decedent\'s cost basis', () => {
+/* RE-FIXTURED BY INTENT at S5AA R35 (SA32F-17; the owner's decision 4, 2026-09-29, "a loss also resets"): a taxable account's basis now
+   resets at the death -- the decedent's own in full, a joint one half (IRC 1014(a), 2040(b)) -- so the named assumption is the reset's
+   timing and the joint share, no longer "no step-up". The succession still discloses it, account by account. */
+test('EA-07: a taxable account passing to the survivor is disclosed, with its basis reset to its value', () => {
   for (const t of ['taxable', 'customTaxable']) {
     const issue = run([t]);
     const s = treatmentOf(issue, t);
     assert.equal(s.basis, 'assumption', t);
-    assert.ok(s.authority.includes('IRC 1014'), t);
-    assert.ok(issue.state.assumptionsAwaitingDecision.includes('a taxable account keeps the decedent\'s cost basis, with no step-up at death'), t);
-    assert.ok(/stepped up/.test(issue.message), t + ': the prose names the step-up it does not model');
+    assert.ok(s.authority.includes('IRC 1014(a)'), t);
+    assert.ok(issue.state.assumptionsAwaitingDecision.includes('a taxable account\'s cost basis resets to its value when it passes, up or down (IRC 1014(a)), read at the opening of the first row after the death'), t);
+    assert.ok(/resets to its value when it passes/.test(issue.message), t + ': the prose says the basis resets, and when');
   }
 });
 
@@ -119,7 +122,7 @@ test('EA-07: an account whose type the engine does not list is classed by its ta
     return (r.issues || []).find((i) => i.code === 'SPOUSAL_ROLLOVER_ASSUMED');
   })();
   const s = withBrokerage.state.succession.find((x) => x.account === 'spouse-brokerage');
-  assert.deepEqual(s.authority, ['IRC 1014'], 'a taxable account, whatever its type is spelled');
+  assert.deepEqual(s.authority, ['IRC 1014(a)'], 'a taxable account, whatever its type is spelled (R35: the basis reset, 1014(a))');
   assert.ok(!withBrokerage.state.assumptionsAwaitingDecision.includes('a custom account passes like an IRA of its tax class'));
 });
 
