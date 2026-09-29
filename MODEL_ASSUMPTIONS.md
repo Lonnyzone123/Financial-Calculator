@@ -227,7 +227,9 @@ they are.
 
 ---
 
-## 8. Insurance will count in net worth from the first year, even for a plan that starts past `selfLife` — **decided, not yet built**
+## 8. Insurance will count in net worth from the first year, even for a plan that starts past `selfLife` — **built** (S5 task 2o)
+
+> **Corrected 2026-09-29 (UTC−7), on ChatGPT's SA32F-48 finding, checked directly (`audit/S5AA/R32/SA32F/LIFE-EVENTS/repro-LIFE-07-insurance-doc-stale.js` run against `main`: a plan starting at age 70 with `selfLife` 70 and $250,000 of insurance shows an opening `networth` of $2,250,000 against a total of $2,000,000, i.e. counted).** The heading and the "Today the engine still does not do this" sentence below were stale: `S5_TASK_CHECKLIST.md` task 2o.2 landed this at `4c104e9` (2026-09-14, a private-archive commit — the private repo is archived, kept as the full record). Read the paragraphs below as history; the fix is built.
 
 **Added 2026-09-13, on a decision that was made the same day and belonged here.**
 `RESULT_CONTRACT.md`'s written rule (L4b) has always said insurance counts in
@@ -239,15 +241,11 @@ characterization test rather than resolved, since S2.
 
 **Decided 2026-09-13 (the owner): the written rule stands.** Insurance will count in
 `networth` from the first row a plan's age is ≥ `selfLife`, including a plan
-whose projection opens there. **Today the engine still does not do this** —
-the conflict is unrepaired, and this section records the decided direction,
-not a landed fix, per this document's own scope (§0: not a list of known
-defects — the defect itself is `SPRINT_QUESTIONS.md`'s C6/S2 record; this is
-only the assumption C6 will resolve to). The engine is to be aligned to this
-in `S5_TASK_CHECKLIST.md` task 2o, which has **not landed**;
-`tests/result-contract.test.js`'s C6 characterization test becomes a
-conformance assertion in the same commit. `RESULT_CONTRACT.md`'s own C6 row
-already carries this correctly: "carried here only until 2o lands."
+whose projection opens there. *(**Superseded 2026-09-29 — see the note above §8's heading:** "Today the engine still does not do this" was true on 2026-09-13 and is not true now.)* The engine was aligned to this
+in `S5_TASK_CHECKLIST.md` task 2o, **landed** at `4c104e9`;
+`tests/result-contract.test.js`'s C6 characterization test became a
+conformance assertion in the same commit. `RESULT_CONTRACT.md`'s own C6 row is not the plan owner's file to
+correct; flagged to the S5AA session.
 
 **What this moves.** Only the opening row's `networth`, and only for plans
 with net-worth accounting on, insurance configured, and a start age at or
@@ -311,6 +309,13 @@ until this section is updated. If this section stops naming a field that still
 does nothing, it fails too.
 
 *`S5_TASK_CHECKLIST.md` block 2e; `SIMULATION_LOG.md` Batches 7–10.*
+
+**Four mortgage fields are also accepted and change nothing** (S5AA R32F, SA32F-50, added 2026-09-29 from the S5AA
+session's relay, checked against `src/engine.js` and `src/scenario-validator.js`: none of `mortgageType`,
+`originalAmount`, `propertyValue` or `loanTermYears` is read by the engine): `mortgageType` (an "Interest-only" choice
+included), `originalAmount`, `propertyValue` and `loanTermYears`. The engine amortizes from the balance, rate,
+payment and payoff age. `remainingTermYears` is used only by the app, to set the payoff age. This is a finding
+(SA32F-50), not yet a decision or a repair; not yet added to `tests/inert-scenario-fields.test.js`'s held list.
 
 ---
 
@@ -600,8 +605,13 @@ added at R8).
   instead is not modelled. An HSA passes as the survivor's own, which is right only if the survivor is its
   designated beneficiary. A taxable account, including a joint one, passes with the decedent's cost basis: no
   step-up (or step-down) at death is applied, because how much is stepped up depends on titling and state law the
-  plan does not record, so the survivor's capital gains are overstated. Custom accounts pass like an IRA of their
-  tax class.
+  plan does not record, so the survivor's capital gains are overstated. *(**Correction, 2026-09-29, on ChatGPT's
+  SA32F-17 finding: the stated reason covers joint accounts only.** A solely-owned taxable account is stepped up in
+  full whatever the titling or state law (IRC 1014(a)); the "depends on titling and state law" reason applies to the
+  joint-account half only. The owner has decided the model change — Q161: own accounts step up in full, joint
+  accounts half, with an Arizona community-property disclosure — but it is not yet built; this correction is only to
+  the stated reason, and this paragraph's behaviour is otherwise as written until Q161 lands.)* Custom accounts pass
+  like an IRA of their tax class.
 - An IRA, workplace plan or HSA belongs to one person. The validator refuses any other owner (joint is allowed only
   on taxable and custom accounts).
 

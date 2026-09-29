@@ -5892,3 +5892,70 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **The decision.** "Repair in R31": the taxable value the funding takes first is measured on the funding's date — the owner's IRAs then, plus what the year had already distributed or converted, less the year's basis. Later growth or loss does not change the basis the funding used (Notice 2008-51 reads the basis "immediately after" the funding). The year's ordinary draws and conversions are still settled pro rata at the year's end, on the basis the funding left.
 
 **Status: IMPLEMENTED 2026-09-28 at `8afe16d`** (S5AA R31; merged `35c8d9a`, PR #11; source tag `s5aa-r31-source` = `8afe16d`; sent to ChatGPT for audit). Witnesses: `tests/audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js`, `tests/audit-s5aa-r31-hsa-funding-settlement-dated.test.js`. **Known limit, kept:** the funding's taxable value counts the whole year's nondeductible contributions as basis, wherever in the year they fall, as the settlement already does for conversions. Modelling text: `MODEL_ASSUMPTIONS.md` §21.2.
+
+## 2026-09-29 — Q158. A surviving spouse gets the deceased's FRA benefit plus earned delayed credits, reduced for the survivor's age (SA32F-02, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R32F relay (`audit/S5AA/R32/S5AA_R32F_RELAY_TO_EB_20260929.md`). Zac's answer was given to the S5AA session directly; it is **as reported by that session, not confirmed in the plan owner's chat.** Finding: Claude's full-model audit at the R32 source (SA32F-02, `audit/S5AA/R32/SA32F/`), merged as PR #17 (`b5424ff`).
+
+**The decision.** "Pay by law": when someone dies before claiming Social Security, the surviving spouse gets the deceased's FRA benefit plus the delayed credits earned before death, reduced for the survivor's own age (42 USC 402(e)). The survivor-side claim-age gate (Q3b) stays. This reverses R2-003(b)'s "posthumous claim" removal, which is Q3a's context.
+
+**Status: DECIDED 2026-09-29, not yet built.** No figure moves until its repair round lands.
+
+## 2026-09-29 — Q159. A spousal Social Security benefit, up to half the worker's FRA amount, is built (SA32F-03, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, as for Q158.
+
+**The decision.** "Build it": up to half the worker's FRA benefit, with the spousal reduction and no delayed credits. It cannot start before the worker files (20 CFR 404.333, 404.410).
+
+**Status: DECIDED 2026-09-29, not yet built.**
+
+## 2026-09-29 — Q160. The entered Social Security benefit is in today's dollars, and grows at the COLA field to claim (SA32F-04, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, as for Q158.
+
+**The decision.** "Today's dollars": the entered figure grows at the COLA assumption from the plan's start to the claim. The earnings-based path takes COLAs from age 62 (20 CFR 404.271). The input field is relabelled to say so.
+
+**Status: DECIDED 2026-09-29, not yet built.**
+
+## 2026-09-29 — Q161. A decedent's sole taxable account steps up in full at death; a joint account steps up half (SA32F-17, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, as for Q158. Corrects §18.1's stated reason for no step-up, which covered only joint accounts.
+
+**The decision.** "Own full, joint half": a decedent's own taxable accounts are fully stepped up (IRC 1014(a)); joint accounts step up half. A disclosure notes Arizona community property (1014(b)(6)) can step up more.
+
+**Status: DECIDED 2026-09-29, not yet built.** §18.1's reason for no step-up is corrected now (below), separately from this decision's repair.
+
+## 2026-09-29 — Q162. Three contribution conventions: each owner's own age, a 6-year vesting ramp, and a spousal IRA while jointly filed past retirement (SA32F-12, -13, -15, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, as for Q158.
+
+**The decisions.**
+- **5a (SA32F-12).** "Each owner's own": a spouse's contribution stop age is that owner's own age, not the primary person's.
+- **5b (SA32F-13).** "Vest over 6 years": the entered vested percentage rises to 100% within 6 years (IRC 411(a)(2)(B)); only what remains unvested at retirement is lost.
+- **5c (SA32F-15).** "Allow while joint pay": a spousal IRA is allowed after the non-working spouse's retirement age while filing jointly (219(c); 219(d)(1) is repealed).
+
+**Status: DECIDED 2026-09-29, not yet built.**
+
+## 2026-09-29 — Q163. Fixed-nominal spending entered "in today's dollars" inflates to the retirement date, then holds flat (SA32F-36, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, as for Q158.
+
+**The decision.** "Inflate to retirement": with a later retirement, the entered fixed-nominal spending figure is inflated forward to the retirement date and then held flat from there.
+
+**Status: DECIDED 2026-09-29, not yet built.**
+
+## 2026-09-29 — Q164. "Expected annual return" keeps its arithmetic-mean meaning, disclosed as such (SA32F-42, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, as for Q158.
+
+**The decision.** "Keep average, disclose": Monte Carlo keeps "Expected annual return" as the arithmetic mean. A disclosure states that simple mode shows the average path, not the typical (median) one.
+
+**Status: DECIDED 2026-09-29, not yet built.**
+
+## 2026-09-29 — Q165. Tax law after 2026: price-linked amounts index at the plan's inflation, disclosed as a model assumption; statutory-fixed amounts stay fixed (SA32F-D1, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, as for Q158.
+
+**The decision.** "Index, own round": amounts that are price-linked by law are indexed at the plan's own inflation assumption and labelled a model assumption; amounts fixed by statute stay fixed. Built in a round of its own.
+
+**Status: DECIDED 2026-09-29, not yet built.**
