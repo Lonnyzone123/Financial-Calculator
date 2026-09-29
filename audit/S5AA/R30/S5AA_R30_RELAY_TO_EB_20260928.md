@@ -57,8 +57,8 @@ The owner's decisions of 2026-09-28:
 - The RMD credit: research, then repair. Researched: all pre-tax distributions count.
 - The late-destination leak found in passing: repair.
 - Its mirror: repair.
-- A source spent by the draw: **protect the transfer**. The protection is scoped to dividend-paying taxable sources, and
-  the owner is confirming that scope.
+- A source spent by the draw: **protect the transfer**. The protection is scoped to dividend-paying taxable sources; the
+  owner confirmed that scope on 2026-09-28, over every late transfer or every taxable one.
 
 ## 4. Where this round lives
 
