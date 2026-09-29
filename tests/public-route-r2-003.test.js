@@ -5,9 +5,11 @@
  * Survivor benefits follow two eligibility rules:
  *   - a surviving spouse is paid only once they reach their own chosen claim
  *     age, so a 50-year-old whose claim age is 67 receives nothing;
- *   - a benefit can be passed on only if the person who died had claimed it
- *     while alive, so someone who died at 65 with a claim age of 67 leaves no
- *     benefit, and the survivor receives only their own.
+ *   - (SUPERSEDED at S5AA R34, SA32F-02) a benefit can be passed on only if the
+ *     person who died had claimed it while alive. The law asks no such thing: a
+ *     widow(er)'s benefit rests on the deceased's PIA and the delayed credits
+ *     earned by the death (20 CFR 404.335, 404.313(e)). The probes are kept and
+ *     what they prove is inverted below.
  * A survivor past their own claim age still receives the larger of the two
  * established benefits, even with no benefit of their own.
  *
@@ -72,10 +74,20 @@ const near = (actual, expected, what) => assert.ok(Math.abs(actual - expected) <
    their survivor at spouseAge - 2, because the self is 72 and died at 70. The factor is
    1 - 0.285 * (months before survivor full retirement age) / 84, written out here rather than read
    back from the engine so each assertion stays independent. */
-const REDUCED_FROM_66 = 36000 * (1 - 0.285 * 12 / 84);       /* 34534.285714285714 */
-const REDUCED_FROM_65 = 36000 * (1 - 0.285 * 24 / 84);       /* 33068.571428571428 */
-const REDUCED_FROM_64 = 36000 * (1 - 0.285 * 36 / 84);       /* 31602.857142857145 */
-const REDUCED_FROM_64_999 = 36000 * (1 - 0.285 * (2.001 * 12) / 84);  /* 33067.414285714286 */
+/* RE-FIXTURED BY INTENT at S5AA R34 (the owner 2026-09-29: "Follow law everywhere"). The self at 72 was born 1954, full retirement
+   age 66 from the birth year (SA32F-05), so a claim at 67 is 12 months of credit, 3,240 a month -- the benefit a survivor inherits.
+   A survivor's full retirement age is read two birth years on (20 CFR 404.409), so it moves with the survivor's age; benefits round
+   down to the dollar (R32V-03); while both are alive the lower earner also receives 500 a month on the other's record (SA32F-03).
+   Worked with tests/lib/ssa-reference.js, not read back from the engine. */
+const SSA = require('./lib/ssa-reference.js');
+const DECEASED = SSA.floorDollar(3000 * SSA.claimFactor(67, SSA.fra(72)));   /* 3,240 */
+const survivorAnnual = (survivorAgeNow, widowedAt, original) =>
+  SSA.floorDollar((original || DECEASED) * SSA.survivorFactor(Math.max(60, widowedAt), SSA.survivorFra(survivorAgeNow))) * 12;
+const SPOUSE68_OWN = SSA.floorDollar(1000 * SSA.claimFactor(67, SSA.fra(68))) * 12;   /* 1,026 a month: 12,312 */
+const REDUCED_FROM_66 = survivorAnnual(68, 66);           /* 38,292 */
+const REDUCED_FROM_65 = survivorAnnual(67, 65);           /* 36,312 */
+const REDUCED_FROM_64 = survivorAnnual(66, 64);           /* 34,440 */
+const REDUCED_FROM_64_999 = survivorAnnual(66.999, 64.999);  /* 36,108 */
 
 /* The self died; only the surviving spouse's current age and the listed fields vary. */
 const selfDied = (spouseAge, fields) => plan({ age: 72, spouseAge, spouseOn: true }, Object.assign({
@@ -103,10 +115,13 @@ test('R2-003 (superseded by S5AA 4.7): the survivor benefit does not wait for th
     'widowed at 64 and now 66: this row used to pay ZERO because their own claim age is 67');
 });
 
-test('R2-003 (runPlan): a person who died before claiming passes on no benefit, whichever spouse died', () => {
-  near(paidIn(selfDied(68, { selfLife: 65 }), 1), 12000, 'a self who died at 65 before a claim at 67');
-  near(paidIn(spouseDied(68, 65), 1), 12000, 'a spouse who died at 65 before a claim at 67');
-  near(paidIn(selfDied(68, { selfLife: 67 }), 1), 12000, 'a self who died at the claim age itself');
+test('R2-003 (superseded by S5AA R34, SA32F-02): a person who died before claiming still leaves a survivor benefit, whichever spouse died', () => {
+  /* THE OLD PREMISE WAS THE DEFECT. Died at 65, before full retirement age 66, unfiled: the original benefit is the PIA, 3,000, and
+     the survivor, widowed at 61, is 24% reduced -- 2,280 a month, well above their own 1,026. Died at 67 unfiled: 12 months of
+     credit had been earned, 3,240, and widowed at 63 it is 15% reduced -- 2,754. */
+  near(paidIn(selfDied(68, { selfLife: 65 }), 1), survivorAnnual(68, 61, 3000), 'a self who died at 65 before a claim at 67');
+  near(paidIn(spouseDied(68, 65), 1), survivorAnnual(68, 61, 3000), 'a spouse who died at 65 before a claim at 67');
+  near(paidIn(selfDied(68, { selfLife: 67 }), 1), survivorAnnual(68, 63), 'a self who died at the claim age itself');
 });
 
 test('R2-003 (runPlan): a survivor past their claim age still receives the larger established benefit, with or without one of their own', () => {
@@ -116,7 +131,7 @@ test('R2-003 (runPlan): a survivor past their claim age still receives the large
 });
 
 test('R2-003 (runPlan): both alive, survivor benefits off, and a death partway through the year are unchanged', () => {
-  near(paidIn(selfDied(68, { selfLife: 95 }), 1), 48000, 'both alive and claimed');
-  near(paidIn(selfDied(68, { survivor: false }), 1), 12000, 'survivor benefits off');
-  near(paidIn(selfDied(68, { selfLife: 72.5 }), 1), 42000, 'a death halfway through the year');
+  near(paidIn(selfDied(68, { selfLife: 95 }), 1), DECEASED * 12 + SPOUSE68_OWN + 6000, 'both alive and claimed');
+  near(paidIn(selfDied(68, { survivor: false }), 1), SPOUSE68_OWN, 'survivor benefits off');
+  near(paidIn(selfDied(68, { selfLife: 72.5 }), 1), (DECEASED * 12 + SPOUSE68_OWN + 6000) / 2 + survivorAnnual(68, 68.5) / 2, 'a death halfway through the year');
 });

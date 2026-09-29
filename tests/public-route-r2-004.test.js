@@ -68,6 +68,16 @@ function paidIn(p, row) {
 
 const near = (actual, expected, what) => assert.ok(Math.abs(actual - expected) < 0.01, what + ': expected ' + expected + ', got ' + actual);
 
+/* RE-FIXTURED BY INTENT at S5AA R34 (the owner 2026-09-29: "Follow law everywhere"). At 68 the holder was born 1958: full retirement
+   age 66 and 8 months from the birth year (SA32F-05; `ssFra` no longer decides it), so a claim at 67.5 carries 10 months of delayed
+   credit, and SSA rounds the benefit down to the dollar (R32V-03): 1,066 a month, 12,792 -- the unmoved figure this file guards.
+   The partner with no benefit of their own now receives the spouse's benefit on the holder's record from the later of the two
+   filings (SA32F-03): half the 1,000 PIA, 500 a month, past full retirement age. A claim inside the year adds exactly that for the
+   months left, and nothing to the holder's own; a growth tick would have added (1,173 - 1,066) x 12 x 0.5 more. */
+const SSA = require('./lib/ssa-reference.js');
+const OWN = SSA.floorDollar(1000 * SSA.claimFactor(67.5, SSA.fra(68))) * 12;            /* 12,792 */
+const OWN_AFTER_ONE_YEAR = SSA.floorDollar(SSA.colaPia(1000, 0.10, 1) * SSA.claimFactor(67.5, SSA.fra(68))) * 12;   /* 1,173 a month: 14,076 */
+const HALF_YEAR_SPOUSAL = 500 * 6;                                                          /* 3,000 */
 const selfBenefit = (spouseClaim, fields) => plan({ age: 68, spouseAge: 68, spouseOn: true }, Object.assign({
   ssClaim: 67.5, ssFra: 67, ssBenefit: 1000, ssCola: 10, survivor: false,
   spouseSS: 0, spouseClaim, selfLife: 95, spouseLife: 95,
@@ -77,22 +87,23 @@ const spouseBenefit = (ssClaim) => plan({ age: 68, spouseAge: 68, spouseOn: true
   spouseSS: 1000, spouseClaim: 67.5, selfLife: 95, spouseLife: 95,
 });
 
-test('R2-004 (runPlan): an unrelated spouse claim inside the year does not advance the self\'s benefit growth, $12,480 either way', () => {
-  near(paidIn(selfBenefit(69.5), 1), 12480, 'spouse claim outside the year');
-  near(paidIn(selfBenefit(68.5), 1), 12480, 'spouse claim inside the year');
+test('R2-004 (runPlan): an unrelated spouse claim inside the year does not advance the self\'s benefit growth, $12,792 either way', () => {
+  near(paidIn(selfBenefit(69.5), 1), OWN, 'spouse claim outside the year');
+  near(paidIn(selfBenefit(68.5), 1), OWN + HALF_YEAR_SPOUSAL, 'spouse claim inside the year: the self\'s own, and the spouse\'s half year on it');
 });
 
 test('R2-004 (runPlan): an unrelated self claim inside the year does not advance the spouse\'s benefit growth', () => {
-  near(paidIn(spouseBenefit(69.5), 1), 12480, 'self claim outside the year');
-  near(paidIn(spouseBenefit(68.5), 1), 12480, 'self claim inside the year');
+  near(paidIn(spouseBenefit(69.5), 1), OWN, 'self claim outside the year');
+  near(paidIn(spouseBenefit(68.5), 1), OWN + HALF_YEAR_SPOUSAL, 'self claim inside the year: the spouse\'s own, and the self\'s half year on it');
 });
 
 test('R2-004 (runPlan): with no benefit growth, and with no spouse, the benefit is unchanged', () => {
-  near(paidIn(selfBenefit(68.5, { ssCola: 0 }), 1), 12480, 'no growth, spouse claim inside the year');
+  near(paidIn(selfBenefit(68.5, { ssCola: 0 }), 1), OWN + HALF_YEAR_SPOUSAL, 'no growth, spouse claim inside the year');
   const single = plan({ age: 68, spouseOn: false }, { ssClaim: 67.5, ssFra: 67, ssBenefit: 1000, ssCola: 10, survivor: false, selfLife: 95 });
-  near(paidIn(single, 1), 12480, 'no spouse');
+  near(paidIn(single, 1), OWN, 'no spouse');
 });
 
 test('R2-004 (runPlan): benefit growth still accrues from one year to the next', () => {
-  near(paidIn(selfBenefit(68.5), 2), 13728, 'the second year, after a whole year of 10% growth');
+  /* One 10% step: the PIA to 1,100.00, the self's own 1,173 a month, and the spouse's half of it, 550, for the whole year. */
+  near(paidIn(selfBenefit(68.5), 2), OWN_AFTER_ONE_YEAR + SSA.floorDollar(SSA.colaPia(1000, 0.10, 1) / 2) * 12, 'the second year, after a whole year of 10% growth');
 });

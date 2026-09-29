@@ -42,6 +42,15 @@ require(path.join(ROOT, 'tools', 'capture-baseline.js')).installDebtModules();
 const engine = require(path.join(ROOT, 'src', 'engine.js'));
 const defaultPlan = eval('(' + shell.match(/var defaultPlan=(\{.*?\});/)[1] + ')');
 
+const SSA = require('./lib/ssa-reference.js');
+/* RE-FIXTURED BY INTENT at S5AA R34 (the owner 2026-09-29: "Follow law everywhere"). The deceased's benefit now carries the
+   delayed credits their birth year gives them (SA32F-05): each fixture's spouse is 67 or 68 and was born 1959 or 1958 (full
+   retirement age 66 and 10 months, or 66 and 8 months), so a claim at 67 is 3,040 or 3,080 a month, not 3,000. The survivor's own
+   full retirement age is read two birth years on. Benefits round to the dollar (R32V-03). The early-claim cap is now APPLIED
+   (SA32F-01), so the disclosure says so. Expectations are worked with tests/lib/ssa-reference.js. */
+const deceasedMonthly = (spouseAgeNow, claim) => SSA.floorDollar(3000 * SSA.claimFactor(claim, SSA.fra(spouseAgeNow)));
+const survivorAnnual = (selfAgeNow, startAge, spouseAgeNow) =>
+  SSA.floorDollar(deceasedMonthly(spouseAgeNow, 67) * SSA.survivorFactor(startAge, SSA.survivorFra(selfAgeNow))) * 12;
 const SURVIVOR_START = 60;
 const SURVIVOR_FLOOR = 0.715;
 
@@ -133,9 +142,11 @@ test('S5AA 4.7 (Q92): a widow at 60 is paid 71.5%, not nothing', () => {
      the unreduced survivor amount is $36,000 a year. The survivor turns 60 in the row the spouse dies
      in, and gets 71.5% of it. Before this repair the survivor's OWN retirement claim age of 67 gated
      the whole thing to zero for seven years. */
+  /* R34: the spouse (67, born 1959) claimed at 67, two months past full retirement age: 3,040. The survivor at 59 was born 1967
+     (survivor full retirement age 67): 71.5% of 3,040 is 2,173.60, 2,173 a month, 26,076. */
   const p = widowed(59, 63, 67, 68, 67);
   const paid = incomeAt(p, 60);
-  assert.equal(paid.toFixed(2), (36000 * SURVIVOR_FLOOR).toFixed(2),
+  assert.equal(paid.toFixed(2), survivorAnnual(59, 60, 67).toFixed(2),
     'a widow of 60 was paid nothing for seven years; SSA pays 71.5% from 60');
 });
 
@@ -153,7 +164,8 @@ test('S5AA 4.7 (Q92): the reduction follows the age the benefit STARTS, across h
   const at60 = started(60), at63 = started(63), at66 = started(66), at68 = started(68);
   assert.ok(at60 < at63 && at63 < at66 && at66 <= at68,
     'a later start is a larger benefit: ' + [at60, at63, at66, at68].map((x) => x.toFixed(2)).join(' < '));
-  assert.equal(at68.toFixed(2), '36000.00', 'and it is capped at the deceased\'s own full amount');
+  /* R34: the deceased is 68 (born 1958) and claimed at 67, four months past 66 and 8 months: 3,080 a month. */
+  assert.equal(at68.toFixed(2), (deceasedMonthly(68, 67) * 12).toFixed(2), 'and it is capped at the deceased\'s own full amount');
 });
 
 test('S5AA 4.7 (Q92): a later birthday does not restore an unreduced benefit to an EARLY claimant', () => {
@@ -163,7 +175,7 @@ test('S5AA 4.7 (Q92): a later birthday does not restore an unreduced benefit to 
      comparison is of the reduction alone. */
   const p = widowed(59, 72, 67, 68, 67);
   const at60 = incomeAt(p, 60), at64 = incomeAt(p, 64), at70 = incomeAt(p, 70);
-  assert.equal((at60 / 36000).toFixed(4), SURVIVOR_FLOOR.toFixed(4), 'the first year is 60\'s reduction');
+  assert.equal(at60.toFixed(2), survivorAnnual(59, 60, 67).toFixed(2), 'the first year is 60\'s reduction');
   assert.equal(at64.toFixed(2), at60.toFixed(2), 'and so is the fifth');
   assert.equal(at70.toFixed(2), at60.toFixed(2),
     'and so is the eleventh, past survivor full retirement age: a birthday is not an application');
@@ -183,12 +195,14 @@ test('S5AA 4.7 (G19): a survivor start inside a row splits it, and the row bills
 
      That row must therefore bill HALF a year of the spouse's own $36,000 and HALF a year of the
      survivor benefit at 61.5's factor. Either missing boundary gives a round number instead. */
+  /* R34: the deceased's own is 3,040 a month (born 1959, claimed at 67); the survivor (born 1967, survivor full retirement age 67)
+     starts at 61.5, 66 of 84 months early: 2,359 a month. */
   const p = widowed(59.5, 64, 67, 69, 67);
-  const f = engine.survivorReductionFactor({ retirement: {} }, 61.5);
-  const expected = 0.5 * 36000 + 0.5 * 36000 * f;
+  const survivor = survivorAnnual(59.5, 61.5, 67);
+  const expected = 0.5 * deceasedMonthly(67, 67) * 12 + 0.5 * survivor;
   assert.equal(incomeAt(p, 61).toFixed(2), expected.toFixed(2),
     'the row from 61 to 62 must be billed in two halves at two different rates');
-  assert.equal(incomeAt(p, 62).toFixed(2), (36000 * f).toFixed(2),
+  assert.equal(incomeAt(p, 62).toFixed(2), survivor.toFixed(2),
     'and the year after is a whole year at the survivor rate');
 });
 
@@ -203,7 +217,9 @@ test('S5AA 4.7 (Q92): a survivor result says what it does not model, and flags t
   assert.match(said.message, /82\.5%|82.5 percent/,
     'the deceased\'s early-claim cap is named with its figure, not merely alluded to');
   assert.equal(said.state.approximation, true, 'and the flag is machine-readable, not only prose');
-  assert.equal(said.state.capApplied, false, 'the cap is disclosed as NOT applied');
+  /* R34 (SA32F-01): the cap is applied now, and the disclosure says so rather than calling it missing. */
+  assert.equal(said.state.capApplied, true, 'the cap is disclosed as applied');
+  assert.ok(!/NOT applied/.test(said.message), 'and the message no longer calls it missing');
 });
 
 test('S5AA 4.7 (Q92): a household with no survivor benefit is told nothing about one', () => {
@@ -220,7 +236,7 @@ test('S5AA 4.7 (Q92): a survivor past their own claim age with no benefit of the
      deliberately NOT on whether they have a benefit of their own. Adding the survivor floor must not
      disturb it. */
   const p = widowed(68, 71, 68, 69, 67);
-  assert.equal(incomeAt(p, 69).toFixed(2), '36000.00',
+  assert.equal(incomeAt(p, 69).toFixed(2), (deceasedMonthly(68, 67) * 12).toFixed(2),
     'past their own claim age, and past survivor full retirement age, the survivor gets the full amount');
 });
 

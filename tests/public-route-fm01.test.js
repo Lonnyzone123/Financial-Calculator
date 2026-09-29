@@ -33,7 +33,14 @@ global.RULES = JSON.parse(shell.match(/<script type="application\/json" id="v2b-
 const engine = require(path.join(ROOT, 'src', 'engine.js'));
 const defaultPlan = eval('(' + shell.match(/var defaultPlan=(\{.*?\});/)[1] + ')');
 
+/* RE-FIXTURED BY INTENT at S5AA R34. (1) SA32F-03: a partner with no benefit of their own now draws the spouse's benefit on the
+   other's record once both have filed; these tests isolate the COLA calendar, so that partner files at 70, outside the rows tested.
+   (2) SA32F-05 and R32V-03: the benefit holder's factor comes from their birth year, and SSA rounds the PIA to the dime and the
+   benefit to the dollar -- expectations are worked with tests/lib/ssa-reference.js. */
+const SSA = require('./lib/ssa-reference.js');
 function plan(o) {
+  if (!o.selfBenefit) o = Object.assign({}, o, { selfClaim: 70 });
+  if (!o.spouseBenefit) o = Object.assign({}, o, { spouseClaim: 70 });
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
   Object.assign(p.assumptions, { method: 'historical', historyStart: o.historyStart || 2020, rollingHistory: false, returnRate: 0, inflation: 0, fee: 0, volatility: 0 });
@@ -71,20 +78,27 @@ function paid(p) {
   return [1, 2].map((i) => a.rows[i].income - b.rows[i].income);
 }
 const growth = (p) => { const [first, second] = paid(p); return second / first; };
+/* The first projection year's COLA on the calendar the whole household shares, measured through runPlan() alone: the second-year
+   growth of a SELF-owned, COLA-indexed income stream in an equal-age household (a stream is not rounded like a benefit). */
+const c1 = (historyStart) => growth(plan({ age: 66, spouseAge: 66, historyStart,
+  incomes: [{ type: 'pension', owner: 'self', amount: 10000, start: 66, end: 95, growthMode: 'cola', growth: 0 }] })) - 1;
+/* A benefit of 1,000 held by someone of `holderAge` who claimed at that age: its second-year growth on the shared calendar. */
+const expectedGrowth = (holderAge, historyStart) => { const f = SSA.claimFactor(holderAge, SSA.fra(Math.min(holderAge, 100))); return SSA.floorDollar(SSA.floorDime(1000 * (1 + c1(historyStart))) * f) / SSA.floorDollar(1000 * f); };
 const equalAges = (historyStart) => growth(plan({ age: 66, spouseAge: 66, selfClaim: 66, spouseClaim: 66, spouseBenefit: 1000, historyStart }));
 
 const near = (actual, expected, what, tolerance) => assert.ok(Math.abs(actual - expected) < (tolerance || 0.01), what + ': expected ' + expected + ', got ' + actual);
 
 test('FM-01 (runPlan): a spouse older than the self is indexed on the shared calendar, growing like an equal-age household', () => {
   const older = (gap, historyStart) => growth(plan({ age: 65, spouseAge: 65 + gap, selfClaim: 65, spouseClaim: 65 + gap, spouseBenefit: 1000, historyStart }));
-  near(older(2, 2020), equalAges(2020), 'a spouse two years older, history from 2020, second-year growth against equal ages', 1e-9);
-  near(older(2, 1980), equalAges(1980), 'a spouse two years older, history from 1980, second-year growth against equal ages', 1e-9);
-  near(older(10, 2020), equalAges(2020), 'a spouse ten years older, history from 2020, second-year growth against equal ages', 1e-9);
+  near(older(2, 2020), expectedGrowth(67, 2020), 'a spouse two years older, history from 2020, second-year growth on the shared calendar', 1e-9);
+  near(older(2, 1980), expectedGrowth(67, 1980), 'a spouse two years older, history from 1980, second-year growth on the shared calendar', 1e-9);
+  near(older(10, 2020), expectedGrowth(75, 2020), 'a spouse ten years older, history from 2020, second-year growth on the shared calendar', 1e-9);
+  near(equalAges(2020), expectedGrowth(66, 2020), 'CONTROL: equal ages on the same calendar', 1e-9);
 });
 
 test('FM-01 (runPlan): a spouse younger than the self is indexed on the shared calendar too', () => {
   const younger = growth(plan({ age: 67, spouseAge: 65, selfClaim: 67, spouseClaim: 65, spouseBenefit: 1000 }));
-  near(younger, equalAges(2020), 'a spouse two years younger, history from 2020, second-year growth against equal ages', 1e-9);
+  near(younger, expectedGrowth(65, 2020), 'a spouse two years younger, history from 2020, second-year growth on the shared calendar', 1e-9);
 });
 
 test('FM-01 (runPlan): a household grows the same whether the self or the spouse holds the benefit', () => {
@@ -95,7 +109,7 @@ test('FM-01 (runPlan): a household grows the same whether the self or the spouse
 
 test('FM-01 (runPlan): a half-year claim age accrues whole growth steps on its owner\'s own clock', () => {
   const halfYear = growth(plan({ age: 65, spouseAge: 67.5, selfClaim: 65, spouseClaim: 67.5, spouseBenefit: 1000 }));
-  near(halfYear, equalAges(2020), 'a half-year claim age, second-year growth against equal ages', 1e-9);
+  near(halfYear, expectedGrowth(67.5, 2020), 'a half-year claim age, second-year growth on the shared calendar', 1e-9);
 });
 
 test('FM-01 (runPlan): a spouse-owned income stream indexed to benefit growth follows the spouse\'s own clock', () => {
@@ -103,11 +117,11 @@ test('FM-01 (runPlan): a spouse-owned income stream indexed to benefit growth fo
     age: 65, spouseAge: 70, selfClaim: 65, spouseClaim: 70,
     incomes: [{ type: 'pension', owner: 'spouse', amount: 10000, start: 70, end: 95, growthMode: 'cola', growth: 0 }],
   }));
-  near(stream, equalAges(2020), 'a spouse-owned income stream, second-year growth against equal ages', 1e-9);
+  near(stream, 1 + c1(2020), 'a spouse-owned income stream (not rounded like a benefit), second-year growth on the shared calendar', 1e-9);
 });
 
 test('FM-01 (runPlan): a self-held benefit grows like an equal-age household, and both do grow', () => {
   const selfHolds = growth(plan({ age: 67, spouseAge: 65, selfClaim: 67, spouseClaim: 65, selfBenefit: 1000 }));
-  near(selfHolds, equalAges(2020), 'a self-held benefit, second-year growth against equal ages', 1e-9);
+  near(selfHolds, expectedGrowth(67, 2020), 'a self-held benefit, second-year growth on the shared calendar', 1e-9);
   assert.ok(equalAges(2020) > 1, 'an equal-age household grows in its second year');
 });

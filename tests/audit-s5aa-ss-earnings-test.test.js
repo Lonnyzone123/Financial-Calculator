@@ -186,9 +186,12 @@ test('S5AA 4.6 (Q91): a month of PARTIAL withholding is a whole crediting month'
      60 months to 59 and is worth 5/9 of 1% of the benefit for life. */
   const one = claimant(62, 70, ET.underFRA + 2, 62, 63);
   const idle = claimant(62, 70, 0, 62, FRA);
-  const er = global.RULES.socialSecurity.earlyReduction;
-  const factor59 = 1 - 36 * er.first36MonthlyPercent - 23 * er.laterMonthlyPercent;
-  assert.equal((benefitAt(one, 68) / benefitAt(idle, 68)).toFixed(8), (factor59 / FACTOR_AT_62).toFixed(8),
+  /* RE-FIXTURED BY INTENT at S5AA R34 (R32V-03): SSA rounds the COLA-increased PIA to the dime and the benefit to the dollar, so the ratio is
+     of the two rounded monthly benefits at 68 -- six 2.8% COLAs since the claim at 62 -- not of the bare factors. */
+  const SSA = require('./lib/ssa-reference.js');
+  const piaAt68 = SSA.colaPia(MONTHLY, 0.028, 6);
+  const expected = SSA.floorDollar(piaAt68 * (1 - 36 * 5 / 900 - 23 * 5 / 1200)) / SSA.floorDollar(piaAt68 * 0.7);
+  assert.equal((benefitAt(one, 68) / benefitAt(idle, 68)).toFixed(8), expected.toFixed(8),
     'one dollar withheld in one month buys back that whole month');
 });
 

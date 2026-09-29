@@ -175,8 +175,13 @@ const DEBT_FAMILIES = [
    so success falls a little along the whole grid. Measured: step 23 (x2.15) 85.6%, step 24 (x2.20, $132,000) 84.8%,
    step 25 84.2%. The same rule, applied again with nothing else changed: step 24 -- the step S4 first chose -- is the
    first in [50, 85]. The golden plan is 100%; step 24 gives 100% / 84.8% / 53.8% at half, full and one-and-a-half times
-   the golden volatility. */
-const MC_BAND_STEP = 24;
+   the golden volatility.
+   RE-APPLIED, VERSION 4 (S5AA R34, Social Security by law): the entered benefit is in today's dollars and takes its COLA up
+   to the claim (SA32F-04), so the household's income rises and success rises a little along the whole grid. Measured:
+   step 24 86.6%, step 25 (x2.25) 85.8%, step 26 (x2.30, $138,000) 84.8%, step 27 84.2%. The same rule, applied again with
+   nothing else changed: step 26 is the first in [50, 85]. The golden plan is 100%; step 26 gives 100% / 84.8% / 55.6% at
+   half, full and one-and-a-half times the golden volatility. */
+const MC_BAND_STEP = 26;
 const MC_BAND_FACTOR = 1 + 0.05 * MC_BAND_STEP;
 
 function goldenMonteCarlo(defaultPlan) {
@@ -186,7 +191,7 @@ function goldenMonteCarlo(defaultPlan) {
 
 const MC_BAND_FAMILY = {
   id: 'monte-carlo-sensitive-band',
-  version: 3,
+  version: 4,
   covers: 'S4 task 4.5: the Monte Carlo corpus is saturated against the success ceiling -- the golden Monte Carlo ' +
     'plan succeeds 99.8% -- so it cannot see a defect in the risk model, which only shows through failure. This ' +
     'member sits in the sensitive band (50-85%), chosen by a rule declared before measuring: the golden plan, same ' +
@@ -195,7 +200,7 @@ const MC_BAND_FAMILY = {
   reached: (result) => result.mode === 'monteCarlo' && result.successRate >= 50 && result.successRate <= 85,
   members: [
     { name: 'expansion:monte-carlo-sensitive-band',
-      reaches: '84.8% success at spending x2.20 (measured at version 3, after workstream B); 100% / 84.8% / 53.8% at half, full and one-and-a-half times the golden volatility',
+      reaches: '84.8% success at spending x2.30 (measured at version 4, after S5AA R34); 100% / 84.8% / 55.6% at half, full and one-and-a-half times the golden volatility',
       build: (plan) => {
         const p = goldenMonteCarlo(plan);
         p.retirement.spending = Math.round(p.retirement.spending * MC_BAND_FACTOR * 100) / 100;

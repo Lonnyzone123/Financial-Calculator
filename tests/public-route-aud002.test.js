@@ -57,23 +57,30 @@ const incomeByAge = (o) => {
 };
 const close = (a, b) => Math.abs(a - b) < 1e-6;
 
+/* RE-FIXTURED BY INTENT at S5AA R34 (the owner 2026-09-29: "Follow law everywhere"). At 79.5 both were born 1947: full retirement
+   age 66 from the birth year (SA32F-05; `ssFra` no longer decides it), so a claim at 67 carries 12 months of delayed credit, 8%:
+   3,240 and 1,080 a month. While both are alive the lower earner also receives the spouse's benefit on the other's record, half the
+   higher PIA less their own, 500 a month (SA32F-03; 20 CFR 404.330), which ends at the death. The survivor inherits the deceased's
+   3,240 and is past survivor full retirement age, so it is unreduced. */
+const HIGH = 3000 * 1.08 * 12, LOW = 1000 * 1.08 * 12, SPOUSAL = 500 * 12;   /* 38,880; 12,960; 6,000 */
+
 test('AUD-002/T04 (runPlan): after a death the survivor receives the larger benefit, whichever spouse earned it', () => {
   for (const [who, o] of [
     ['the higher earner is self', { self: 3000, spouse: 1000, selfLife: 80, spouseLife: 95, survivor: true }],
     ['the higher earner is the spouse', { self: 1000, spouse: 3000, selfLife: 95, spouseLife: 80, survivor: true }],
   ]) {
     const income = incomeByAge(o);
-    assert.ok(close(income.get(80), 24000), who + ': premise, half a year with both alive pays $24,000; got ' + income.get(80));
+    assert.ok(close(income.get(80), (HIGH + LOW + SPOUSAL) / 2), who + ': premise, half a year with both alive pays $28,920; got ' + income.get(80));
     for (const age of [81, 82]) {
-      assert.ok(close(income.get(age), 36000),
-        who + ', age ' + age + ': after the death the survivor receives the larger benefit, $36,000 a year; got ' + income.get(age));
+      assert.ok(close(income.get(age), HIGH),
+        who + ', age ' + age + ': after the death the survivor receives the larger benefit, $38,880 a year; got ' + income.get(age));
     }
   }
 });
 
 test('AUD-002/T04 (runPlan): with the survivor benefit off each spouse keeps their own, and with nobody dying both are paid', () => {
   const off = incomeByAge({ self: 3000, spouse: 1000, selfLife: 80, spouseLife: 95, survivor: false });
-  assert.ok(close(off.get(81), 12000) && close(off.get(82), 12000), 'survivor off: the spouse keeps their own $12,000; got ' + off.get(81) + ', ' + off.get(82));
+  assert.ok(close(off.get(81), LOW) && close(off.get(82), LOW), 'survivor off: the spouse keeps their own $12,960; got ' + off.get(81) + ', ' + off.get(82));
   const both = incomeByAge({ self: 3000, spouse: 1000, selfLife: 95, spouseLife: 95, survivor: true });
-  assert.ok(close(both.get(81), 48000) && close(both.get(82), 48000), 'nobody dies: both are paid, $48,000; got ' + both.get(81) + ', ' + both.get(82));
+  assert.ok(close(both.get(81), HIGH + LOW + SPOUSAL) && close(both.get(82), HIGH + LOW + SPOUSAL), 'nobody dies: both are paid, with the spouse\'s benefit, $57,840; got ' + both.get(81) + ', ' + both.get(82));
 });

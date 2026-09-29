@@ -43,7 +43,14 @@ const engine = require('../src/engine.js');
 
 const HIST_START = 2020;
 
+/* RE-FIXTURED BY INTENT at S5AA R34. (1) SA32F-03: a partner with no benefit of their own now draws the spouse's benefit on the
+   other's record once both have filed; these tests isolate the COLA calendar, so that partner files at 70, outside the rows tested.
+   (2) SA32F-05 and R32V-03: the benefit holder's factor comes from their birth year, and SSA rounds the PIA to the dime and the
+   benefit to the dollar -- expectations are worked with tests/lib/ssa-reference.js. */
+const SSA = require('./lib/ssa-reference.js');
 function household({ age, spouseAge, selfClaim, spouseClaim, selfBenefit, spouseBenefit }) {
+  if (!selfBenefit) selfClaim = 70;
+  if (!spouseBenefit) spouseClaim = 70;
   return {
     profile: { filing: 'mfj', state: 'AZ', age, spouseAge, spouseOn: true, retireAge: age, endAge: 95 },
     assumptions: { method: 'historical', historyStart: HIST_START, inflation: 0, returnRate: 0, volatility: 0, fee: 0, seed: 1, runs: 1 },
@@ -108,7 +115,9 @@ test('FM-01: editing a FUTURE year\'s COLA must not change an earlier period\'s 
 test('FM-01: on the shipped data, the second period uses the FIRST projection year\'s COLA', () => {
   const p = household({ age: 65, spouseAge: 67, selfClaim: 65, spouseClaim: 67, selfBenefit: 0, spouseBenefit: 1000 });
   const sh = startHistoryFor(p);
-  const expected = 12000 * (1 + colaOfProjectionYear(p, 0));
+  /* The spouse (67, born 1959, full retirement age 66 and 10 months) claimed at 67: two months of delayed credit. */
+  const f = SSA.claimFactor(67, SSA.fra(67));
+  const expected = SSA.floorDollar(SSA.floorDime(1000 * (1 + colaOfProjectionYear(p, 0))) * f) * 12;
 
   const actual = engine.householdSocialSecurityForPeriod(p, 66, 67, 68, sh);
   assert.ok(
@@ -131,9 +140,10 @@ test('FM-01: an OBSERVED past COLA still moves a later benefit, by exactly one s
   const bumped = withColaOverrides({ 2020: 0.10, 2021: 0, 2022: 0 }, () =>
     engine.householdSocialSecurityForPeriod(make(), 66, 67, 68, sh));
 
-  assert.ok(Math.abs(base - 12000) < 1e-9, 'control: zero COLA gives the flat benefit, got ' + base);
+  const f = SSA.claimFactor(67, SSA.fra(67));
+  assert.ok(Math.abs(base - SSA.floorDollar(1000 * f) * 12) < 1e-9, 'control: zero COLA gives the flat benefit, got ' + base);
   assert.ok(
-    Math.abs(bumped - 13200) < 1e-9,
+    Math.abs(bumped - SSA.floorDollar(1100 * f) * 12) < 1e-9,
     'the first projection year\'s COLA must raise the second period to 13200, got ' + bumped +
     ' -- suppressing the leak must not also suppress legitimate indexing'
   );
@@ -170,9 +180,12 @@ test('FM-01: older spouse, younger spouse and equal ages all index the same cale
     assert.ok(base > 0, c.label + ': precondition -- the spouse must actually have a benefit');
     const actual = withColaOverrides({ 2020: 0.10, 2021: 0, 2022: 0, 2023: 0, 2024: 0 }, () =>
       engine.householdSocialSecurityForPeriod(make(), c.age + 1, c.age + 2, c.spouseAge + 1, sh));
+    const f = SSA.claimFactor(c.spouseAge, SSA.fra(c.spouseAge));
+    assert.equal(base, SSA.floorDollar(1000 * f) * 12, c.label + ': the base at the claim');
+    const expected = SSA.floorDollar(SSA.floorDime(1000 * 1.10) * f) * 12;
     assert.ok(
-      Math.abs(actual - base * 1.10) < 1e-6,
-      c.label + ': expected ' + (base * 1.10).toFixed(2) + ' (base x one projection year at 10%), got ' + actual.toFixed(2)
+      Math.abs(actual - expected) < 1e-6,
+      c.label + ': expected ' + expected.toFixed(2) + ' (base x one projection year at 10%), got ' + actual.toFixed(2)
     );
   }
 });
@@ -295,7 +308,9 @@ test('Q16 CLOSED (P1): a pre-projection claim indexes at the CONFIGURED rate, no
   const baseThree = engine.ssaBenefitAtClaim(three, 'spouse');
   const grown = withColaOverrides(OVERRIDES, () =>
     engine.householdSocialSecurityForPeriod(three, 65, 66, 67, startHistoryFor(three)));
-  const expected = baseThree * Math.pow(1.03, 2);   // independent oracle
+  /* RE-FIXTURED BY INTENT at S5AA R34 (R32V-03): two 3% steps on the PIA, each rounded to the dime, then the spouse's factor
+     (22 months early against 66 and 10 months), the benefit rounded to the dollar: floor(1,060.90 x 0.87778) = 931 a month. */
+  const expected = SSA.floorDollar(SSA.colaPia(1000, 0.03, 2) * SSA.claimFactor(65, SSA.fra(67))) * 12;   // independent oracle
   assert.ok(Math.abs(grown - expected) < 1e-6,
     'two pre-projection years must index at the configured 3% -- expected ' + expected.toFixed(2) +
     ', got ' + grown.toFixed(2));

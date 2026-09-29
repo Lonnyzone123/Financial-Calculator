@@ -20,34 +20,32 @@ global.RULES = JSON.parse(rulesMatch[1]);
 const RULES = global.RULES;
 
 const engine = require('../src/engine.js');
+const SSA = require('./lib/ssa-reference.js');
+/* RE-FIXTURED BY INTENT at S5AA R34 (R32V-03; SA32F-25): exact fractions, SSA's rounding (the PIA to the dime, the benefit to the dollar),
+   and a full retirement age that comes from the birth year -- these plans have no profile, so the reading is the 1960+ cohort's 67. */
 
 test('ssaBenefitAtClaim: the reduction-tier boundary is exact -- 36 months early uses only the first tier; 37 months early blends in exactly one month of the second tier', () => {
   const at36 = { retirement: { ssBenefit: 3000, ssClaim: 64, ssFra: 67, ssAdvanced: false, aime: 0, spouseSS: 0, spouseClaim: 67 } };
-  const factor36 = 1 - 36 * RULES.socialSecurity.earlyReduction.first36MonthlyPercent;
-  assert.ok(Math.abs(engine.ssaBenefitAtClaim(at36, 'self') - 3000 * factor36 * 12) < 1e-6);
+  assert.equal(engine.ssaBenefitAtClaim(at36, 'self'), SSA.floorDollar(3000 * (1 - 36 * 5 / 900)) * 12);
 
   // 37 months early: fra=67, claim = 67 - 37/12
   const claim37 = 67 - 37 / 12;
   const at37 = { retirement: { ssBenefit: 3000, ssClaim: claim37, ssFra: 67, ssAdvanced: false, aime: 0, spouseSS: 0, spouseClaim: 67 } };
-  const factor37 = 1 - 36 * RULES.socialSecurity.earlyReduction.first36MonthlyPercent - 1 * RULES.socialSecurity.earlyReduction.laterMonthlyPercent;
-  assert.ok(Math.abs(engine.ssaBenefitAtClaim(at37, 'self') - 3000 * factor37 * 12) < 1e-6, 'the 37th month must use the smaller later-tier rate, not the first-tier rate again');
+  assert.equal(engine.ssaBenefitAtClaim(at37, 'self'), SSA.floorDollar(3000 * (1 - 36 * 5 / 900 - 1 * 5 / 1200)) * 12, 'the 37th month must use the smaller later-tier rate, not the first-tier rate again');
 });
 
-test('ssaBenefitAtClaim: a claim far enough below FRA that the raw reduction factor would go negative is floored at exactly 0, not a negative benefit', () => {
-  /* Since 2026-09-14 a claim age is credited no earlier than 62, so an absurd claim age no longer reaches a negative
-     raw factor. The earliest credited claim, 62, against a full retirement age far above it still does. */
+test('ssaBenefitAtClaim: the deepest reduction the law allows is a claim at 62 against a full retirement age of 67 -- 30% -- and an entered ssFra cannot deepen it', () => {
+  /* RE-FIXTURED BY INTENT at S5AA R34 (SA32F-25): this case entered a full retirement age of 100 to drive the factor below zero. Full
+     retirement age now comes from the birth year (at most 67), so `ssFra` decides nothing and the deepest reduction is 60 months: 30%. */
   const p = { retirement: { ssBenefit: 3000, ssClaim: 62, ssFra: 100, ssAdvanced: false, aime: 0, spouseSS: 0, spouseClaim: 67 } };
-  const months = Math.round((100 - 62) * 12); // 456 months early
-  const rawFactor = 1 - 36 * RULES.socialSecurity.earlyReduction.first36MonthlyPercent - (months - 36) * RULES.socialSecurity.earlyReduction.laterMonthlyPercent;
-  assert.ok(rawFactor < 0, 'test assumption: this claim genuinely drives the raw factor negative');
-  assert.equal(engine.ssaBenefitAtClaim(p, 'self'), 0, 'the final Math.max(0, ...) must floor the benefit at exactly 0, not a negative annual benefit');
+  assert.equal(engine.ssaBenefitAtClaim(p, 'self'), SSA.floorDollar(3000 * 0.7) * 12);
+  assert.ok(engine.ssaBenefitAtClaim(p, 'self') > 0, 'never negative');
 });
 
 test('ssaBenefitAtClaim: half-year claim ages (the app\'s own age convention) round to the nearest whole month, not truncate', () => {
   // fra - claim = 0.5 years exactly -> Math.round(0.5*12) = Math.round(6) = 6 months early, unambiguous.
   const p = { retirement: { ssBenefit: 3000, ssClaim: 66.5, ssFra: 67, ssAdvanced: false, aime: 0, spouseSS: 0, spouseClaim: 67 } };
-  const factor = 1 - 6 * RULES.socialSecurity.earlyReduction.first36MonthlyPercent;
-  assert.ok(Math.abs(engine.ssaBenefitAtClaim(p, 'self') - 3000 * factor * 12) < 1e-6);
+  assert.equal(engine.ssaBenefitAtClaim(p, 'self'), SSA.floorDollar(3000 * (1 - 6 * 5 / 900)) * 12);
 });
 
 test('ssaBenefitAtClaim: claiming at exactly the latest allowed age (70) applies the full delayed-credit rate for a claim 3 years past a 67 FRA', () => {
@@ -60,6 +58,6 @@ test('ssaBenefitAtClaim: claiming at exactly the latest allowed age (70) applies
 test('ssaBenefitAtClaim: the advanced PIA/AIME path floors correctly at exactly bend1 (only the first tier rate applies, no second/third tier contribution)', () => {
   const bend1 = RULES.socialSecurity.pia.bend1;
   const p = { retirement: { ssBenefit: 1, ssClaim: 67, ssFra: 67, ssAdvanced: true, aime: bend1, spouseSS: 0, spouseClaim: 67 } };
-  const expectedBase = 0.9 * bend1; // aime===bend1 exactly -> the min(a,b1) term caps at bend1, and max(0,min(a,b2)-b1) is exactly 0
-  assert.ok(Math.abs(engine.ssaBenefitAtClaim(p, 'self') - expectedBase * 12) < 1e-6);
+  const expectedBase = SSA.floorDime(0.9 * bend1); // aime===bend1 exactly -> only the first tier; 1,157.40
+  assert.equal(engine.ssaBenefitAtClaim(p, 'self'), SSA.floorDollar(expectedBase) * 12);
 });
