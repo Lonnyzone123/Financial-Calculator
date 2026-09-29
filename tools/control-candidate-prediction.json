@@ -386,6 +386,12 @@
       "differences": 9958,
       "replacedDeclarations": 9530,
       "removedDeclarations": 7
+    },
+    {
+      "change": "S5AA R37 (SA32F-27, SA32F-35, SA32F-38): plan warnings -- the 1959 RMD warning for a spouse, a filing status that does not fit the household (a warning, the recommendation of record), and an expense at or after the plan's end age",
+      "why": "Only the issues list moves: each named plan gains exactly one WARNING and no figure changes. Checked plan by plan against its inputs: 11 plans file jointly with no spouse included (the five golden plans, the three historical plans, arm-flag-on and the two collision plans -- the app's default plan is itself mfj with spouseOn false) and 6 file single or head of household with a spouse included (seed:3, 4, 13, 14, 17, 18), each FILING_HOUSEHOLD_MISMATCH; seed:12 has an expense at age 59 with endAge 59, EXPENSE_AFTER_PLAN_END. No control plan has a spouse born in 1959. Golden regenerated, unchanged: it carries no issues.",
+      "differences": 18,
+      "replacedDeclarations": 11
     }
   ],
   "differences": [
@@ -62396,7 +62402,7 @@
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 2
+      "candidate": 3
     },
     {
       "scenario": "seed:5",
@@ -62445,21 +62451,21 @@
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 1
+      "candidate": 2
     },
     {
       "scenario": "seed:13",
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 1
+      "candidate": 2
     },
     {
       "scenario": "seed:14",
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 2
+      "candidate": 3
     },
     {
       "scenario": "seed:15",
@@ -63698,63 +63704,42 @@
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 1
+      "candidate": 2
     },
     {
-      "declared": {
-        "scenario": "golden:baseline",
-        "kind": "LENGTH",
-        "path": "issues",
-        "reference": 0,
-        "candidate": 2
-      },
       "scenario": "golden:baseline",
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 1
+      "candidate": 2
     },
     {
       "scenario": "golden:monte-carlo-fixed-seed",
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 2
+      "candidate": 3
     },
     {
-      "declared": {
-        "scenario": "golden:reserve-and-bond-tent",
-        "kind": "LENGTH",
-        "path": "issues",
-        "reference": 0,
-        "candidate": 2
-      },
       "scenario": "golden:reserve-and-bond-tent",
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 1
+      "candidate": 2
     },
     {
-      "declared": {
-        "scenario": "golden:guardrails-withdrawal-strategy",
-        "kind": "LENGTH",
-        "path": "issues",
-        "reference": 0,
-        "candidate": 2
-      },
       "scenario": "golden:guardrails-withdrawal-strategy",
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 1
+      "candidate": 2
     },
     {
       "scenario": "seed:3",
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 2
+      "candidate": 3
     },
     {
       "scenario": "seed:11",
@@ -63775,7 +63760,7 @@
       "kind": "LENGTH",
       "path": "issues",
       "reference": 0,
-      "candidate": 1
+      "candidate": 2
     },
     {
       "scenario": "seed:2",
@@ -107808,6 +107793,55 @@
       "path": "rows[17].hsa",
       "reference": 2390779.888164993,
       "candidate": 2392621.16988291
+    },
+    {
+      "scenario": "seed:17",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 0,
+      "candidate": 1
+    },
+    {
+      "scenario": "seed:18",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 0,
+      "candidate": 1
+    },
+    {
+      "scenario": "targeted:historical-1929",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 0,
+      "candidate": 1
+    },
+    {
+      "scenario": "targeted:historical-1966",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 0,
+      "candidate": 1
+    },
+    {
+      "scenario": "targeted:historical-2000",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 0,
+      "candidate": 1
+    },
+    {
+      "scenario": "targeted:collision-household-cash",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 0,
+      "candidate": 1
+    },
+    {
+      "scenario": "targeted:collision-rmd-retained-cash",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 0,
+      "candidate": 1
     }
   ]
 }

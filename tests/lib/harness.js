@@ -710,7 +710,49 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R36: later-year tax indexing (SA32F-D1, decision 8)), so the tracked file was rebuilt,
 // again installed only after two builds agreed. The pin before it,
 // 7d3b00d5a40394a62d71d52ceebeb476b5ae39a671eac253ea3e09e396952fa3, described the previous rebuild.
-const EXPECTED_SHA256 = 'c35994d8fb7eeeffb7896cfbeeaee5dfc39685ab0b183ce1b2777a7c5cfde9e0';
+//
+// Changed again 2026-09-29 (S5AA R37: engine safeguards -- adjustable reset terms, hash of undefined keys (SA32F-21,
+// -40, -55)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// c35994d8fb7eeeffb7896cfbeeaee5dfc39685ab0b183ce1b2777a7c5cfde9e0, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: the validator and runPlan() agree on six input gaps (SA32F-51)), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 32f9c0d0b4c98c793d932ac302aa64c757e0c77c1ea5b9d63e0258fc3a21e71c, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: plan warnings for a 1959 spouse, filing vs household, an expense at the end
+// (SA32F-27, -35, -38)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, 4e850ae62942e795d33c340d842f72f4d4949899bd000ee32ebfc232655a87be, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: a mortgage's property tax, insurance and HOA rise with the plan's inflation
+// (SA32F-43)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 62e9e4f4f15f15dd55f9df1e826a6fff7057785b424f8a0be325a2d22dcf9666, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: the HSA's age-65 exception follows Q137's opening-age convention, declared
+// (SA32F-44)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 3381f937ec0a2a4bb3afaed405fb379a950228167427707ef344ab3ba53fc693, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: Monte Carlo guidance withholds what a median row cannot size; the return process
+// is disclosed (SA32F-41, -42, -52, -53)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, 2b86c62b5a637fc631efaa5f1a4e2e27afc87e2cb8d58f7e6d59240c2246b37a, described the previous
+// rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: a joint account's percent of salary is the household's salary in the form,
+// validator and engine (SA32F-45)), so the tracked file was rebuilt, again installed only after two builds agreed. The
+// pin before it, 4a8dab10c94d64040cb5f17819d54b0d5e5b348212655a27ed284ddd17e3937d, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: a new future change starts at today's dollars; percent strategies say the
+// percentage sets spending (SA32F-46, -49)), so the tracked file was rebuilt, again installed only after two builds
+// agreed. The pin before it, f8c57e2ccd49c09bba275dcaf0b2700fe0a5aa699f560934ca88063803d1af75, described the previous
+// rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: effectiveMarginalRate() states its sources; the debt page lists four inert
+// mortgage fields (SA32F-47, -50)), so the tracked file was rebuilt, again installed only after two builds agreed. The
+// pin before it, 48f67c398e156244225fa8d5e13d2522e72a03bd51991b3ffb8530e7c618a156, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R37: stale result texts corrected and held to what runs (SA32F-54; SA32F-48's
+// RESULT_CONTRACT part)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, d5e49ec8268fdfa8ee9e2aea4049f6ec815321ecd931b180ce9597e6ef4e415f, described the previous rebuild.
+const EXPECTED_SHA256 = '13aafac831f8be370e130c13bdefd64efca9c0492bcb911d645bf8313bfca92e';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

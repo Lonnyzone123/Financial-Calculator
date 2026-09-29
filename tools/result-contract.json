@@ -11,7 +11,7 @@
   "scope": "P5-02's intended-result contract: the shape, types, meanings, units, nominal/real bases, per-mode differences and structural/reconciliation invariants of a runPlan() result. It does NOT certify financial values (tax amounts, success rates). Accepted scope: S2_S3_CLOSEOUT_ANSWERS_20260912.md CQ-1a/1b. Human-readable form and full source citations: RESULT_CONTRACT.md.",
   "sources": {
     "S-TABLE": "src/app-shell.html renderTable(): nominal row values, 'real' view divides by inflationFactor",
-    "S-CSV": "src/app-shell.html exportCsv(): 21 exported row columns and their user-facing headers",
+    "S-CSV": "src/app-shell.html exportCsv(): 26 exported row columns and their user-facing headers (corrected 2026-09-29, S5AA R37 (SA32F-54): it said 21)",
     "S-STATS": "src/app-shell.html results stats and guidance: successRate via pct(), realTotal for retire/end stats, lifetimeTaxes, first/sustained shortfall guidance, sustainedFailureAge falling back to failureAge",
     "S-ERRUI": "src/app-shell.html calculation-error display: calculationError checked first, calculationErrorCode, validPathCount/requestedPathCount/calculationErrorPaths",
     "S-R2V003": "R2V-003 / ARCH-02 (engine comment in runPlan): calculationError is a distinct outcome; successRate is only a real percentage, never a stand-in for a failed computation",

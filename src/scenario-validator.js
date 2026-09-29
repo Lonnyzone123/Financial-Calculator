@@ -477,6 +477,11 @@ function validateAccount(c, account, index) {
   }
 }
 
+/* S5AA R37 (SA32F-51): the engine's run ceiling and the last year of its historical return data. A test holds the year to
+   the engine's HIST_RETURNS, so the two cannot drift apart. */
+const MAX_RUNS = 10000;
+const LAST_HISTORY_YEAR = 2025;
+
 function validateAssumptions(c, assumptions) {
   if (!assumptions) return;
   checkEnum(c, assumptions.method, 'assumptions.method', METHODS);
@@ -486,10 +491,19 @@ function validateAssumptions(c, assumptions) {
     c.warn('NEGATIVE_VOLATILITY', 'assumptions.volatility', `volatility is negative (${assumptions.volatility})`);
   }
   if (assumptions.runs !== undefined) {
-    checkType(c, assumptions.runs, 'assumptions.runs', (v) => Number.isInteger(v) && v >= 1, 'WRONG_TYPE', 'an integer >= 1');
+    /* S5AA R37 (SA32F-51): the engine's ceiling (invalidRunCountCode()'s MAX_RUNS) is the validator's, so the two agree. */
+    checkType(c, assumptions.runs, 'assumptions.runs', (v) => Number.isInteger(v) && v >= 1 && v <= MAX_RUNS, 'WRONG_TYPE', 'an integer from 1 to 10,000');
   }
   if (assumptions.seed !== undefined) {
     checkType(c, assumptions.seed, 'assumptions.seed', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+  }
+  /* S5AA R37 (SA32F-51): inflation, fee and the historical start year are numbers, as the engine now requires; and on the
+     historical method a start after the last data year is refused, where the engine silently started at the first. */
+  checkType(c, assumptions.inflation, 'assumptions.inflation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+  checkType(c, assumptions.fee, 'assumptions.fee', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+  checkType(c, assumptions.historyStart, 'assumptions.historyStart', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+  if (assumptions.method === 'historical' && isFiniteNumber(assumptions.historyStart) && assumptions.historyStart > LAST_HISTORY_YEAR) {
+    c.error('OUT_OF_RANGE', 'assumptions.historyStart', `historyStart ${assumptions.historyStart} is after the last year of return data (${LAST_HISTORY_YEAR})`);
   }
 }
 
@@ -810,6 +824,10 @@ function validateAdvanced(c, advanced) {
         checkType(c, ac.id, `${path}.id`, (v) => typeof v === 'string' && v.length > 0, 'WRONG_TYPE', 'a non-empty string');
         checkType(c, ac.returnRate, `${path}.returnRate`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
         checkType(c, ac.volatility, `${path}.volatility`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+        /* S5AA R37 (SA32F-51): the engine blends class volatilities in pairs, so a negative one cancels risk; refused there. */
+        if (isFiniteNumber(ac.volatility) && ac.volatility < 0) {
+          c.error('NEGATIVE_VOLATILITY', `${path}.volatility`, `asset-class volatility is negative (${ac.volatility})`);
+        }
       });
     }
   }
@@ -850,6 +868,12 @@ function validateDebt(c, debt, index) {
       c.warn('NEGATIVE_PAYMENT', `${path}.paymentMonthly`, `paymentMonthly is negative (${debt.paymentMonthly})`);
     }
   }
+  /* S5AA R37 (SA32F-51): the engine made each of these zero when it was negative or not a number; it now refuses them. */
+  ['extraPrincipalMonthly', 'pmiMonthly', 'annualPropertyTax', 'annualInsurance', 'hoaMonthly'].forEach((field) => {
+    if (checkType(c, debt[field], `${path}.${field}`, isFiniteNumber, 'WRONG_TYPE', 'a finite number') && debt[field] < 0) {
+      c.error('NEGATIVE_AMOUNT', `${path}.${field}`, `${field} is negative (${debt[field]})`);
+    }
+  });
   if (debt.payoffAge !== undefined) {
     checkType(c, debt.payoffAge, `${path}.payoffAge`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
   }
@@ -965,7 +989,8 @@ function validatePlannedContributions(c, plan) {
     const owner = a.owner === 'spouse' ? 'spouse' : 'self';
     const isIra = a.type === 'traditionalIRA' || a.type === 'rothIRA';
     if (!(isIra ? iraEligible[owner] : eligible[owner])) continue;
-    const ownerSalary = salaryOf(owner);
+    /* S5AA R37 (SA32F-45): a joint account reads the household's salary, as the engine and the form do. */
+    const ownerSalary = a.owner === 'joint' ? salaryOf('self') + (profile.spouseOn === true ? salaryOf('spouse') : 0) : salaryOf(owner);
     const contribution = isFiniteNumber(a.contribution) ? a.contribution : 0;
     let amount = a.contributionMode === 'salaryPct' ? ownerSalary * contribution / 100 : contribution;
     const due = Array.isArray(a.futureChanges)
@@ -1292,6 +1317,7 @@ function validateRawContainers(plan) {
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
+    LAST_HISTORY_YEAR,
   ADVANCED_KNOWN_KEYS,
   ADVANCED_MIGRATION_KEYS,
     validateScenario, validateRawContainers,

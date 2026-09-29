@@ -15,6 +15,7 @@ private archive. Documents here that cite them name the private commits and path
 | R34 | [`R34/`](R34/) | 11 Social Security items from R32F and R32V (SA32F-01 to -07, -18, -25; R32V-03): the change handover, self-audit and its reference over all 25 R32F Social Security cases, the cover note and the relay to eb; source `s5aa-r34-source` (`7b61b88`) |
 | R35 | [`R35/`](R35/) | 13 items from R32F and R32V (cash flows, Medicare and life events: SA32F-08, -13, -17, -18, -19, -20, -22, -24, -26, -36, -37, -39; R32V-01): the change handover, self-audit, cover note and relay to eb; source `s5aa-r35-source` (`26ef26d`) |
 | R36 | [`R36/`](R36/) | SA32F-D1 by decision 8 (with D8): later tax years index the 2026 figures, each by its statute's rule and rounding: the change handover, self-audit, cover note and relay to eb; source `s5aa-r36-source` (`cf643a8`) |
+| R37 | [`R37/`](R37/) | The rest of the R32F/R32V register: engine safeguards, the validator gaps, three plan warnings shown as cards, housing costs, the HSA at 65, Monte Carlo guidance and disclosures, contributions and strategy text, the marginal-rate helper, inert mortgage fields and stale texts: the change handover, self-audit, cover note and relay to eb; source `s5aa-r37-source` (`4a9a15e`) |
 | R37 on | `audit/S5AA/RNN/` | each round's cover note, response, self-audit, handover and evidence |
 
 The working rules for ChatGPT and Claude are in [`WORKING_RULES.md`](WORKING_RULES.md).
