@@ -5865,7 +5865,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 ## 2026-09-28 — Q155. A late transfer out of a dividend-paying taxable account is protected from the year's spending draw, only for that case (S5AA R30, the owner, 2026-09-28)
 
-**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q153. Mirror of Q154.
+**Registered 2026-09-28 (UTC−7) by the plan owner**, as for Q153. A separate decision, on the case R29-01's preview could not see: the year's own spending draw taking the source first. *(Corrected 2026-09-28: this line first called Q155 a "mirror of Q154". It is not — Q154's case is an early transfer that empties a taxable account into an IRA, Roth or HSA, where the destination used to pay the source's pre-date dividends, and that case is Q153's, not a fourth entry. Found by the S5AA session.)*
 
 **The decision.** For a transfer dated after the year's spending draw, out of a dividend-paying taxable account, the draw leaves the transfer's dollars in the source. The owner confirmed 2026-09-28 that this protection applies only to that case — a dividend-paying taxable source — not to every late transfer or every taxable account.
 
