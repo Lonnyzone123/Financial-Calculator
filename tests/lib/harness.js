@@ -604,7 +604,12 @@ function artifactFor(lane) {
 // Changed again 2026-09-28 (S5AA R32: a catch-up limit reads the age the owner reaches by the row's close
 // (src/engine.js)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 1a40e5be85b524f44a7e948815a0662f2ebc26c32753e213f50877c104d45ee5, described the previous rebuild.
-const EXPECTED_SHA256 = 'cb53e7ff9954f4f084dd92540a991734a89d8f7ef85a390af47bfcc6bba38468';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 1: the IRA phase-outs reduce the limit, with the 10-dollar rounding and
+// 200-dollar minimum (SA32F-10, SA32F-28, SA32F-29)), so the tracked file was rebuilt, again installed only after two
+// builds agreed. The pin before it, cb53e7ff9954f4f084dd92540a991734a89d8f7ef85a390af47bfcc6bba38468, described the
+// previous rebuild.
+const EXPECTED_SHA256 = 'b1f28750a55096bfc381f8ebb517c13245bde96bfde70aeab5cfe22ecfcce43c';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

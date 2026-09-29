@@ -37,6 +37,11 @@ function contributionLimit(group,age,filing){if(group==="ira")return RULES.retir
    nobody dead, which is the entered plan's own answer. THE SALARIES ARE THE ROW'S: the loop passes each person's salary
    for the row, which since Q3 is $0 once their work duration has ended at retirement or death, so a dead spouse's
    entered salary never reaches this proxy and no second survivorship reading is needed for it. */
+/* S5AA R33 (SA32F-28, SA32F-29): THE ROTH IRA LIMIT, as Publication 590-A Worksheet 2-2 figures it: the 219 limit (with
+   catch-up) reduced over the Roth range with the $10 rounding and the $200 minimum (408A(c)(3)(A), applying 219(g)(2)(B)-(C)).
+   The caller also holds it to the limit less the year's other IRA contributions (408A(c)(2); Worksheet 2-2 line 11, "the
+   lesser of line 8 or line 10"). MAGI is the declared salary proxy rothPhaseoutFactor() uses. */
+function rothContributionLimit(p,a,salary,spouseSalary,age,limit){if(!a||a.type!=="rothIRA")return Math.max(0,Number(limit)||0);var filing=householdFilingFor(p,age)==="mfj"?"mfj":"single",range=filingEntry(RULES.retirement.ira.rothPhaseout,filing),rothContributionMagi=salary+(p.profile.spouseOn?spouseSalary:0);return iraPhaseoutLimit(limit,rothContributionMagi,range,RULES.retirement.ira.deductionPhaseout.minimumAllowance)}
 function rothPhaseoutFactor(p,a,salary,spouseSalary,age){if(a.type!=="rothIRA")return 1;var filing=householdFilingFor(p,age)==="mfj"?"mfj":"single",range=filingEntry(RULES.retirement.ira.rothPhaseout,filing),rothContributionMagi=salary+(p.profile.spouseOn?spouseSalary:0);if(rothContributionMagi<=range[0])return 1;if(rothContributionMagi>=range[1])return 0;return (range[1]-rothContributionMagi)/(range[1]-range[0])}
 /* SA-05 fix (SPRINT_EXTERNAL_AUDIT_20260909.md): ONE definition of owner
    contribution eligibility, shared by simulatePlan() and by the UI consumers
@@ -139,7 +144,7 @@ function ownerCompensation(p,age,salary,spouseSalary,inflationFactor,startHistor
    or 60 in was denied the catch-up and the row they turned 64 in still had the 60-63 amount. The model has no calendar; each row
    is a tax year, and its close is the opening age plus the row's length (compensation.rowDuration; a caller that gives none is
    read as a whole year). Only the catch-up tests read it. */
-function auditContributions(p,age,salary,spouseSalary,ownerEligible,compensation,oneTime){var rowSpan=compensation&&Number.isFinite(Number(compensation.rowDuration))?Math.max(0,Number(compensation.rowDuration)):1,used={},hsaBaseUsed=0,hsaCatchUsed={self:0,spouse:0},warnings=[],items=[],hsaBase=p.profile.filing==="mfj"?RULES.retirement.hsa.family:RULES.retirement.hsa.self;p.accounts.slice().sort(function(a,b){return a.priority-b.priority}).forEach(function(a){var catchUpShare=0,owner=a.owner==="spouse"?"spouse":"self",ownerSalary=owner==="spouse"?spouseSalary:salary,ownerAge=owner==="spouse"?p.profile.spouseAge+(age-p.profile.age):age,requested=accountPlannedContribution(a,ownerSalary,age,p),group=accountType(a.type).limitGroup,allowed=requested;if(ownerEligible&&ownerEligible[owner]===false){items.push({account:a,requested:requested,allowed:0,excess:0});return}if(group==="hsa"){var baseRoom=Math.max(0,hsaBase-hsaBaseUsed),catchLimit=ownerAge+rowSpan>=RULES.retirement.hsa.catchupAge?RULES.retirement.hsa.catchup:0,catchRoom=Math.max(0,catchLimit-hsaCatchUsed[owner]),basePart=Math.min(requested,baseRoom),catchPart=Math.min(Math.max(0,requested-basePart),catchRoom);allowed=basePart+catchPart;hsaBaseUsed+=basePart;hsaCatchUsed[owner]+=catchPart}else if(group){var key=group+":"+owner,limit=contributionLimit(group,ownerAge+rowSpan,p.profile.filing);if(a.type==="rothIRA"){var factor=rothPhaseoutFactor(p,a,salary,spouseSalary,age);limit*=factor;if(factor<1)warnings.push(a.name+" Roth IRA limit is reduced using salary as a MAGI proxy.")}allowed=Math.max(0,Math.min(requested,limit-(used[key]||0)));used[key]=(used[key]||0)+allowed;/* S5AA task 3.3 (Q95, F9): the ONE definition of this account's share of the catch-up room, and it is now
+function auditContributions(p,age,salary,spouseSalary,ownerEligible,compensation,oneTime){var rowSpan=compensation&&Number.isFinite(Number(compensation.rowDuration))?Math.max(0,Number(compensation.rowDuration)):1,used={},usedRoth={},hsaBaseUsed=0,hsaCatchUsed={self:0,spouse:0},warnings=[],items=[],hsaBase=p.profile.filing==="mfj"?RULES.retirement.hsa.family:RULES.retirement.hsa.self;p.accounts.slice().sort(function(a,b){return a.priority-b.priority}).forEach(function(a){var catchUpShare=0,owner=a.owner==="spouse"?"spouse":"self",ownerSalary=owner==="spouse"?spouseSalary:salary,ownerAge=owner==="spouse"?p.profile.spouseAge+(age-p.profile.age):age,requested=accountPlannedContribution(a,ownerSalary,age,p),group=accountType(a.type).limitGroup,allowed=requested;if(ownerEligible&&ownerEligible[owner]===false){items.push({account:a,requested:requested,allowed:0,excess:0});return}if(group==="hsa"){var baseRoom=Math.max(0,hsaBase-hsaBaseUsed),catchLimit=ownerAge+rowSpan>=RULES.retirement.hsa.catchupAge?RULES.retirement.hsa.catchup:0,catchRoom=Math.max(0,catchLimit-hsaCatchUsed[owner]),basePart=Math.min(requested,baseRoom),catchPart=Math.min(Math.max(0,requested-basePart),catchRoom);allowed=basePart+catchPart;hsaBaseUsed+=basePart;hsaCatchUsed[owner]+=catchPart}else if(group){var key=group+":"+owner,limit=contributionLimit(group,ownerAge+rowSpan,p.profile.filing);var rothRoom=Infinity;if(a.type==="rothIRA"){var rothLimit=rothContributionLimit(p,a,salary,spouseSalary,age,limit);rothRoom=rothLimit-(usedRoth[key]||0);if(rothLimit<limit)warnings.push(a.name+" Roth IRA limit is reduced using salary as a MAGI proxy.")}allowed=Math.max(0,Math.min(requested,limit-(used[key]||0),rothRoom));used[key]=(used[key]||0)+allowed;if(a.type==="rothIRA")usedRoth[key]=(usedRoth[key]||0)+allowed;/* S5AA task 3.3 (Q95, F9): the ONE definition of this account's share of the catch-up room, and it is now
    computed for EVERY workplace account rather than only inside the pre-tax Roth warning below. Two callers
    need it and they must not drift apart: the Roth warning (S5 task 11, ACCOUNT section 7.4), and the
    section 415(c) room, because IRC 414(v)(3)(A)(ii) DISREGARDS a catch-up contribution for 415(c). The
@@ -163,7 +168,7 @@ var comp=compensation||ownerCompensation(p,age,salary,spouseSalary,1,0),dur={sel
    owner's own catch-up. The planned items' work proxy (ownerEligible: contributions flow while the owner works) does not apply:
    an IRA's own limit is compensation, measured above, and an HSA's is coverage, which the engine does not model. It returns what
    fits and the excess; the caller decides, by the limit policy, whether the excess moves. */
-var once=null;if(oneTime&&oneTime.account&&Number(oneTime.amount)>0){var oa=oneTime.account,og=accountType(oa.type).limitGroup,oo=oa.owner==="spouse"?"spouse":"self",oAge=oo==="spouse"?p.profile.spouseAge+(age-p.profile.age):age,ownerOf=function(it){return it.account.owner==="spouse"?"spouse":"self"},fits=0;{if(og==="hsa"){var baseLeft=Math.max(0,hsaBase-items.reduce(function(s,it){return s+(it.hsaBasePart||0)*dur[ownerOf(it)]},0)),catchLeft=Math.max(0,(oAge+rowSpan>=RULES.retirement.hsa.catchupAge?RULES.retirement.hsa.catchup:0)-items.reduce(function(s,it){return s+(ownerOf(it)===oo?(it.hsaCatchPart||0)*dur[oo]:0)},0));fits=baseLeft+catchLeft}else if(og==="ira"){var oLimit=contributionLimit("ira",oAge+rowSpan,p.profile.filing);if(oa.type==="rothIRA")oLimit*=rothPhaseoutFactor(p,oa,salary,spouseSalary,age);var dollarLeft=Math.max(0,oLimit-items.reduce(function(s,it){return s+(accountType(it.account.type).limitGroup==="ira"&&ownerOf(it)===oo?it.allowed*dur[oo]:0)},0));fits=Math.min(dollarLeft,Math.max(0,joint?shared:room[oo]))}}var askedOnce=Number(oneTime.amount);once={allowed:Math.min(askedOnce,fits),excess:Math.max(0,askedOnce-fits),group:og}}
+var once=null;if(oneTime&&oneTime.account&&Number(oneTime.amount)>0){var oa=oneTime.account,og=accountType(oa.type).limitGroup,oo=oa.owner==="spouse"?"spouse":"self",oAge=oo==="spouse"?p.profile.spouseAge+(age-p.profile.age):age,ownerOf=function(it){return it.account.owner==="spouse"?"spouse":"self"},fits=0;{if(og==="hsa"){var baseLeft=Math.max(0,hsaBase-items.reduce(function(s,it){return s+(it.hsaBasePart||0)*dur[ownerOf(it)]},0)),catchLeft=Math.max(0,(oAge+rowSpan>=RULES.retirement.hsa.catchupAge?RULES.retirement.hsa.catchup:0)-items.reduce(function(s,it){return s+(ownerOf(it)===oo?(it.hsaCatchPart||0)*dur[oo]:0)},0));fits=baseLeft+catchLeft}else if(og==="ira"){var oLimit=contributionLimit("ira",oAge+rowSpan,p.profile.filing),iraIn=function(rothOnly){return items.reduce(function(s,it){return s+(accountType(it.account.type).limitGroup==="ira"&&ownerOf(it)===oo&&(!rothOnly||it.account.type==="rothIRA")?it.allowed*dur[oo]:0)},0)};var dollarLeft=Math.max(0,oLimit-iraIn(false));if(oa.type==="rothIRA")dollarLeft=Math.max(0,Math.min(dollarLeft,rothContributionLimit(p,oa,salary,spouseSalary,age,oLimit)-iraIn(true)));fits=Math.min(dollarLeft,Math.max(0,joint?shared:room[oo]))}}var askedOnce=Number(oneTime.amount);once={allowed:Math.min(askedOnce,fits),excess:Math.max(0,askedOnce-fits),group:og}}
 return {items:items,warnings:Array.from(new Set(warnings)),oneTime:once}}
 /* Q68: the filing-status tables are parsed JSON, so each inherits
    Object.prototype, and a bracket read by a prototype name returned an
@@ -558,22 +563,33 @@ function iraDeductionPhaseoutRange(filing,ownerCovered,spouseCovered){
   if(!key)return null;
   return [v("ira_deduction_phaseout_start_"+key),v("ira_deduction_phaseout_end_"+key)];
 }
-/* The reduced deduction, as Publication 590-A Worksheet 1-2 figures it: the contribution tapered linearly
-   across the range, with the worksheet's $200 MINIMUM applied. The worksheet also rounds the result up to
-   the next $10; that is NOT applied here, because the publication's own Example 1 certifies $6,825 for a
-   2025 joint filer at $126,500 of MAGI and the round-up would make it $6,830. The choice is recorded in
-   Handover temp/S5AA_CITATION_CHECKS_20260920.md rather than left to be inferred from this line. */
-function iraDeductibleAmount(contribution,magi,filing,ownerCovered,spouseCovered){
+/* S5AA R33 (SA32F-10, SA32F-29; the owner 2026-09-29: apply the $10 rounding): A PHASE-OUT REDUCES THE LIMIT. IRC 219(g)(1):
+   "each of the dollar limitations ... shall be reduced" by the share of the range the MAGI has crossed; 219(g)(2)(B): not
+   below $200 unless reduced to zero; 219(g)(2)(C): a reduction that is not a multiple of $10 is rounded to the next lowest
+   $10. Publication 590-A Worksheet 1-2 line 4 is the same figure (the reduced limit rounded UP to the next $10, at least
+   $200). The Roth limit uses the same arithmetic on its own range (408A(c)(3)(A) applies 219(g)(2)(B)-(C)). The rounding
+   was left out until R33 because Publication 590-A's Example 1 prints $6,825 for a 2025 joint filer at $126,500 of MAGI;
+   its own line 4 instruction, and the statute, give $6,830. `limit` is the owner's dollar limit with any catch-up, and the
+   minimum is Worksheet 1-2's $200 (read by the caller from the rules). Self-contained: the Worker copies this function. */
+function iraPhaseoutLimit(limit,magi,range,minimum){
+  var L=Math.max(0,Number(limit)||0);
+  if(!range||!Number.isFinite(range[0])||!Number.isFinite(range[1])||!(range[1]>range[0]))return L;
+  var m=Number(magi)||0;
+  if(m<=range[0])return L;
+  if(m>=range[1])return 0;
+  var reduction=Math.floor(L*(m-range[0])/(range[1]-range[0])/10+1e-9)*10,reduced=Math.max(0,L-reduction);
+  return reduced>0?Math.max(Math.max(0,Number(minimum)||0),reduced):0;
+}
+/* The deductible part of a traditional IRA contribution: Publication 590-A Worksheet 1-2 line 7, the smaller of the
+   contribution and the reduced limit (line 4); compensation (line 5) is capped where the contribution is made (R26).
+   Until R33 the CONTRIBUTION was tapered (SA32F-10): 4,000 at the midpoint deducted 2,000 where the law allows 3,750.
+   `limit` is the owner's IRA dollar limit for the row (with catch-up); a caller that gives none is read as the base limit.
+   With no phase-out the deduction is still at most the limit, so an excess kept under the "warn" policy is not deducted. */
+function iraDeductibleAmount(contribution,magi,filing,ownerCovered,spouseCovered,limit){
   var amount=Math.max(0,Number(contribution)||0);
   if(amount<=0)return 0;
-  var range=iraDeductionPhaseoutRange(filing,ownerCovered,spouseCovered);
-  if(!range||!Number.isFinite(range[0])||!Number.isFinite(range[1]))return amount;
-  var m=Number(magi)||0;
-  if(m<=range[0])return amount;
-  if(m>=range[1])return 0;
-  var tapered=amount*(range[1]-m)/(range[1]-range[0]),
-      floorAllowance=Number(RULES.retirement.ira.deductionPhaseout.minimumAllowance)||0;
-  return Math.min(amount,Math.max(tapered,floorAllowance));
+  var L=Number.isFinite(Number(limit))&&limit!==null&&limit!==undefined?Number(limit):RULES.retirement.ira.combinedLimit;
+  return Math.min(amount,iraPhaseoutLimit(L,magi,iraDeductionPhaseoutRange(filing,ownerCovered,spouseCovered),RULES.retirement.ira.deductionPhaseout.minimumAllowance));
 }
 /* Q88 (F-02): WHO IS ALIVE IN THIS ROW. `p.profile.filing` was static for the whole projection --
    nothing anywhere changed it -- so a couple filing mfj still filed mfj in every year after one of
@@ -3685,7 +3701,7 @@ qcdRequested=qcdOwnerRequests(p,accounts,age,spouseAge,duration),qcd=0,/* P2 (de
              on a joint return an UNCOVERED contributor married to a COVERED spouse has their own, much higher
              range (IRC 219(g)(7)(A)). G15: rothPhaseoutFactor() is NOT fed this -- Publication 590-A
              Worksheet 1-2 ADDS the traditional IRA deduction back for Roth purposes. *//* Q87 step 2: the deduction is computed PER OWNER now, not as one total. Form 8606 is filed separately by each spouse and basis NEVER combines, so the nondeductible remainder has to be attributable to the person who made it. The SUM is unchanged, which is why no household without nondeductible money moves a cent. */iraDeductionSplit=(iraPreTaxSelf+iraPreTaxSpouse)>0.005?(function(){var preIra=estimateTaxes(p,age,ordinaryIncomeBeforeIra,gains,ss+other.ss,payrollWages,qualifiedDividends,payrollSpouseWages,other.seSelf,other.seSpouse,ordinaryDividends+(other.nii||0),capitalLossCarry),/* Q88 (F-02): the IRA deduction phaseout range is a filing-status table, so it moves with the
-   status the row is actually taxed under. */magi=preIra.measures.federal_agi,f=householdFilingFor(p,age),sp=!!p.profile.spouseOn;return {self:iraDeductibleAmount(iraPreTaxSelf,magi,f,coveredSelf,sp&&coveredSpouse),spouse:iraDeductibleAmount(iraPreTaxSpouse,magi,f,coveredSpouse,coveredSelf)}})():{self:0,spouse:0},iraDeduction=iraDeductionSplit.self+iraDeductionSplit.spouse,/* S5AA R26 (the owner 2026-09-26: one rule for the quote and the commit). This was
+   status the row is actually taxed under. */magi=preIra.measures.federal_agi,f=householdFilingFor(p,age),sp=!!p.profile.spouseOn;/* R33 (SA32F-10): each owner's own IRA limit for the row, with the catch-up read at the row's close (R32). */return {self:iraDeductibleAmount(iraPreTaxSelf,magi,f,coveredSelf,sp&&coveredSpouse,contributionLimit("ira",age+duration,p.profile.filing)),spouse:iraDeductibleAmount(iraPreTaxSpouse,magi,f,coveredSpouse,coveredSelf,contributionLimit("ira",spouseAge+duration,p.profile.filing))}})():{self:0,spouse:0},iraDeduction=iraDeductionSplit.self+iraDeductionSplit.spouse,/* S5AA R26 (the owner 2026-09-26: one rule for the quote and the commit). This was
              max(0, ordinaryIncomeBeforeIra - iraDeduction), while the committed tax (ordinaryAtCommit, below) subtracts the
              deduction with no floor: a deduction beyond ordinary income was lost in the quote and kept at commit, and the row
              ended in TAX_SETTLEMENT_MISMATCH (R25 SA25-10). The unfloored figure is the law's: AGI is gross income -- dividends
@@ -4795,6 +4811,8 @@ if (typeof module !== 'undefined' && module.exports) {
     additionalStandardDeduction,
     iraDeductionPhaseoutRange,
     iraDeductibleAmount,
+    iraPhaseoutLimit,
+    rothContributionLimit,
     form8606Basis,
     iraNontaxableFraction,
     iraPoolFor,
