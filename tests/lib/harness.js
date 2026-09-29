@@ -622,7 +622,17 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R33 commit 4: the age-65 amounts read the age reached by the row's close, federal and
 // Arizona (SA32F-16)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
 // it, 036d7ce51ac9ee34dc2700f22606486aeaedd9786075b3b39162349c2deacedd, described the previous rebuild.
-const EXPECTED_SHA256 = '03fc2f50f7ed0c659b60a339d391887b072cb6d8482d04a45cb2bbc8b0aec56e';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 5: a married couple on a non-joint return carries only the self's own
+// age-65 amount, at the married rate, and no senior deduction (SA32F-33)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 03fc2f50f7ed0c659b60a339d391887b072cb6d8482d04a45cb2bbc8b0aec56e, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R33 commit 5: a married couple on a non-joint return carries only the self's own
+// age-65 amount, at the married rate, and no senior deduction (SA32F-33)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// bc3f8cee96e0a15e9856b3263e9dd0e8b5885e1db9b60d65632bc9c24cdc1fb1, described the previous rebuild.
+const EXPECTED_SHA256 = '2ae978d5ec3335c566ab2915098413ee0e2fd58b7be6468a94d7d37c9635b6aa';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

@@ -11,8 +11,8 @@
   "coupledOnly": "file level (upper bound): a requirement, or one of the two flow identities, whose every guarding file depends on internals. testLevel (lower bound): for requirements a test names, whether that test's own body reaches internals; helpers it calls are not followed"
  },
  "counts": {
-  "total": 370,
-  "implementation-independent": 201,
+  "total": 371,
+  "implementation-independent": 202,
   "implementation-coupled": 134,
   "infrastructure": 35
  },
@@ -96,6 +96,7 @@
   "taxSegmentLocal": 2,
   "ACCOUNT_TYPES": 1,
   "accountType": 1,
+  "ageAmountAges": 1,
   "aggregateMonteCarloRuns": 1,
   "applyStage": 1,
   "checkRowInvariants": 1,
@@ -639,6 +640,7 @@
    "file": "tests/audit-r2-tax-quote.test.js",
    "category": "implementation-coupled",
    "internals": [
+    "ageAmountAges",
     "capitalGainsMarginalRateAt",
     "capitalGainsTax",
     "estimateTaxes",
@@ -1496,6 +1498,14 @@
   },
   {
    "file": "tests/audit-s5aa-r33-ira-phaseout-reduces-the-limit.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r33-married-on-a-non-joint-return.test.js",
    "category": "implementation-independent",
    "via": [
     "runPlan/runScenario"
@@ -3292,6 +3302,7 @@
     "tests/audit-r2-tax-quote.test.js"
    ],
    "internals": [
+    "ageAmountAges",
     "aggregateMonteCarloRuns",
     "capitalGainsMarginalRateAt",
     "capitalGainsTax",
