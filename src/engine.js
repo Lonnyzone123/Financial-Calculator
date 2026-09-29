@@ -1216,7 +1216,11 @@ function nonNumberPlanValuePath(p){
   var FIELDS=[["profile","age"],["profile","retireAge"],["profile","endAge"],["assumptions","returnRate"],["assumptions","seed"],
     ["assumptions","volatility"],["employment","salary"],["retirement","spending"],["retirement","dividendYield"],
     ["retirement","dividendQualified"],["retirement","dividendGrowth"],["retirement","dividendStart"],
-    ["retirement","ssClaim"],["retirement","spouseClaim"],["advanced","correlation"]];
+    ["retirement","ssClaim"],["retirement","spouseClaim"],["advanced","correlation"],
+    /* S5AA R37 (SA32F-51; R32V: "strings for fee/inflation fail later under unrelated codes"): refused here by name, as the
+       fields above are. historyStart is read only by the historical method, but a text year is refused on any method: it is
+       never what the app's form stores. */
+    ["assumptions","inflation"],["assumptions","fee"],["assumptions","historyStart"]];
   for(var i=0;i<FIELDS.length;i++){
     var section=p&&p[FIELDS[i][0]];
     if(!section||typeof section!=="object")continue;
@@ -1272,6 +1276,27 @@ function nonFiniteHoldingInputCode(p){
   var assets=adv.otherAssets,debts=adv.debts,i;
   if(Array.isArray(assets))for(i=0;i<assets.length;i++){var asset=assets[i];if(asset&&typeof asset==="object"&&asset.value!==undefined&&!isFiniteNumberValue(asset.value))return "NONFINITE_OTHER_ASSET_VALUE"}
   if(Array.isArray(debts))for(i=0;i<debts.length;i++){var debt=debts[i];if(debt&&typeof debt==="object"){if(debt.balance!==undefined&&!isFiniteNumberValue(debt.balance))return "NONFINITE_DEBT_BALANCE";/* S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt   the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lifetime interest   became $0, with status ok. Balance was already gated here; rate was not, and rate is what makes a debt cost   anything. resetRate is gated with it: an adjustable debt reads it after the reset, so an unusable value there   is the same defect one branch later. */if(debt.rate!==undefined&&!isFiniteNumberValue(debt.rate))return "NONFINITE_DEBT_RATE";if(debt.rateType==="adjustable"&&debt.resetRate!==undefined&&!isFiniteNumberValue(debt.resetRate))return "NONFINITE_DEBT_RATE";/* S5AA R37 (SA32F-21, SA32F-40; R32V: "Validate/default the term or return the documented refusal"; "Zero cannot silently stand for unknown"): an adjustable debt that resets at an age needs both facts the reset reads. With no payoffAge the recast term was NaN and runPlan() threw; with no resetRate the rate after the reset was 0%. The app's form always supplies both (normalizeDebt()). */if(debt.rateType==="adjustable"&&isFiniteNumberValue(debt.nextRateResetAge)&&(!isFiniteNumberValue(debt.payoffAge)||!isFiniteNumberValue(debt.resetRate)))return "DEBT_RESET_TERMS_MISSING"}}
+  return null;
+}
+/* S5AA R37 (SA32F-51; R32V: "Separate invalid-input refusals from silent replacement of financially meaningful fields"): three
+   inputs the engine replaced without saying so. Each is refused by name, and the validator reports each as an ERROR.
+   - A historical start after the last data year: historyIndex() found no year at or after it and started the sequence at
+     the FIRST data year. Only the historical method reads the field, so only it is refused.
+   - A debt's extra principal, PMI, property tax, insurance or HOA that is negative or not a number, and a payment that is
+     not a number: Math.max(0,Number(x)||0) made each zero. A negative payment is the validator's decided NEGATIVE_PAYMENT
+     warning and is not reopened here.
+   - An asset class's volatility that is negative or not a number: accountVolatility() multiplies volatilities in pairs, so
+     a negative one cancels the others' risk.
+   The app's form offers only data years and clamps each amount and volatility to zero or more. */
+function replacedPlanInputCode(p){
+  var a=p&&p.assumptions,adv=p&&p.advanced,i,k;
+  if(a&&typeof a==="object"&&a.method==="historical"&&isFiniteNumberValue(a.historyStart)&&HIST_RETURNS.length&&a.historyStart>HIST_RETURNS[HIST_RETURNS.length-1][0])return "HISTORY_START_AFTER_DATA";
+  if(!adv||typeof adv!=="object")return null;
+  var debts=adv.debts,classes=adv.assetClasses,AMOUNTS=["extraPrincipalMonthly","pmiMonthly","annualPropertyTax","annualInsurance","hoaMonthly"];
+  if(Array.isArray(debts))for(i=0;i<debts.length;i++){var d=debts[i];if(!d||typeof d!=="object")continue;
+    if(d.paymentMonthly!==undefined&&!isFiniteNumberValue(d.paymentMonthly))return "INVALID_DEBT_AMOUNT";
+    for(k=0;k<AMOUNTS.length;k++){var v=d[AMOUNTS[k]];if(v!==undefined&&(!isFiniteNumberValue(v)||v<0))return "INVALID_DEBT_AMOUNT"}}
+  if(Array.isArray(classes))for(i=0;i<classes.length;i++){var c=classes[i];if(c&&typeof c==="object"&&c.volatility!==undefined&&(!isFiniteNumberValue(c.volatility)||c.volatility<0))return "INVALID_CLASS_VOLATILITY"}
   return null;
 }
 /* Q69: otherIncomeFor() times an income against the spouse's age only when
@@ -4498,14 +4523,14 @@ function scenarioInputGate(p){var serialized=[],flagPath=null,rejectedInput=null
   rejectedInput=rejectedInput||nonArrayListInputCode(p)||nonRecordListElementCode(p);
   if(!rejectedInput){flagPath=nonBooleanFlagPath(p);if(flagPath!==null)rejectedInput="NONBOOLEAN_FLAG"}
   if(!rejectedInput){flagPath=nonNumberPlanValuePath(p);if(flagPath!==null)rejectedInput="NONNUMBER_PLAN_VALUE"}
-  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||nobodyAliveAtStartCode(p)||accountContractCode(p);
+  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||replacedPlanInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||nobodyAliveAtStartCode(p)||accountContractCode(p);
   if(!rejectedInput)rejectedInput=nonSerializableScenarioInputCode(p,serialized);
   if(!rejectedInput){
       identityPlan=serializedSnapshot(p,serialized);
       rejectedInput=nonListSerializedOutputCode(p,identityPlan)||nonArrayListInputCode(identityPlan)||nonRecordListElementCode(identityPlan);
       if(!rejectedInput){flagPath=nonBooleanFlagPath(identityPlan);if(flagPath!==null)rejectedInput="NONBOOLEAN_FLAG"}
       if(!rejectedInput){flagPath=nonNumberPlanValuePath(identityPlan);if(flagPath!==null)rejectedInput="NONNUMBER_PLAN_VALUE"}
-      rejectedInput=rejectedInput||nonFiniteScenarioInputCode(identityPlan)||nonFiniteHoldingInputCode(identityPlan)||accountContractCode(identityPlan);
+      rejectedInput=rejectedInput||nonFiniteScenarioInputCode(identityPlan)||nonFiniteHoldingInputCode(identityPlan)||replacedPlanInputCode(identityPlan)||accountContractCode(identityPlan);
       if(!rejectedInput)plan=serializedSnapshot(withDocumentedFlagDefaults(identityPlan,serialized),serialized);
   }
   }catch(e){rejectedInput="UNREADABLE_INPUT";flagPath=null;plan=p;identityPlan=p}
@@ -4560,6 +4585,12 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"The scenario is missing one of its required sections (profile, employment, assumptions, retirement or advanced), or one of them is not a record, so no projection can be computed."
             :rejectedInput==="INVALID_RUN_COUNT"
             ?"The number of simulation runs is not a whole number between 1 and 10,000, so no projection can be computed."
+            :rejectedInput==="HISTORY_START_AFTER_DATA"
+            ?"The historical start year is after the last year of return data, so no historical sequence starts there."
+            :rejectedInput==="INVALID_DEBT_AMOUNT"
+            ?"A debt's payment, extra principal, PMI, property tax, insurance or HOA is negative or not a number, so it cannot be charged as entered."
+            :rejectedInput==="INVALID_CLASS_VOLATILITY"
+            ?"An asset class's volatility is negative or not a number, so the portfolio's risk cannot be combined from it."
             :rejectedInput==="DEBT_RESET_TERMS_MISSING"
             ?"An adjustable debt resets its rate at an age but has no reset rate or no payoff age, so its payment after the reset cannot be projected."
             :rejectedInput==="NONFINITE_DEBT_RATE"
