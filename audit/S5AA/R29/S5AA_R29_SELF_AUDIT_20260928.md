@@ -25,6 +25,8 @@
    composed from the room before the transfer met its source, so it told `seed:13` "only $5,400 was moved" when its
    taxable account was empty and $0 moved. It is now written after the move (`4ead57c`), with a test.
 4. **An independent sweep of the transfer rules**, below.
+5. **After the pull request opened**, CodeQL's check on it still flagged the rules page's source-link line: R29's `https:`
+   test is not a sanitiser CodeQL recognises. R29.1 (`aaff3f1`) strips the url's HTML metacharacters first, with a test.
 
 ## 2. The sweep
 

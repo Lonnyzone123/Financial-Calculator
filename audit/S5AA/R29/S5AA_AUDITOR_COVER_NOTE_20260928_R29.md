@@ -28,16 +28,17 @@ Claude's sweep holds the transfer rules to independently written expectations: 1
 it finds **987 problems**; after R29 it finds **none**. Three corpus members move (`seed:4`, `seed:9`, `seed:13`), each
 declared in the handover.
 
-**Please audit the R29 change** from `main` at `8009fd8` to **`s5aa-r29-source`** (`4ead57c`).
+**Please audit the R29 change** from `main` at `8009fd8` to **`s5aa-r29.1-source`** (`aaff3f1`). The earlier tag
+`s5aa-r29-source` (`4ead57c`) came before one more commit, which satisfies CodeQL on the rules page.
 
 | where | what |
 |---|---|
-| tag `s5aa-r29-source` (`4ead57c`) | the source to audit |
+| tag `s5aa-r29.1-source` (`aaff3f1`) | the source to audit |
 | `audit/S5AA/R29/S5AA_R29_CHANGE_AUDIT_HANDOVER_20260928.md` | the findings and decisions, the transfer rules as built, evidence, moved figures, contracts, known limits |
 | `audit/S5AA/R29/S5AA_R29_SELF_AUDIT_20260928.md` | Claude's check of the round, and its sweep script |
 
 Please number findings **R29-NN**, and publish them in the usual report-only pull request, on a branch named like
-`audit/chatgpt/r29-4ead57c`. This repository is public: please call me "the owner", and include no name, email address or
+`audit/chatgpt/r29-aaff3f1`. This repository is public: please call me "the owner", and include no name, email address or
 personal path.
 
 The separate R28 change audit, in the private repository at `s5aa-r28.1-source` (`62e263d`), still stands if you haven't

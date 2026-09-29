@@ -5,10 +5,12 @@ Node 24.17.0 at the commits named. This is the first round in the public reposit
 
 ## 1. What to audit
 
-- **The change:** from `main` at `8009fd8` (your PC/PCF reports merged) to **`s5aa-r29-source`** at **`4ead57c`**.
-- **Nine commits.** Each is test-first, and each is its own task.
+- **The change:** from `main` at `8009fd8` (your PC/PCF reports merged) to **`s5aa-r29.1-source`** at **`aaff3f1`**.
+  `s5aa-r29-source` (`4ead57c`) came first; R29.1 adds one commit after PR #4's CodeQL check (below). The earlier tag
+  stays where it is.
+- **Ten commits.** Each is test-first, and each is its own task.
 - **Please number findings R29-NN** and publish them in the usual report-only pull request, on a branch like
-  `audit/chatgpt/r29-4ead57c`, under `audit/S5AA/R29/`.
+  `audit/chatgpt/r29-aaff3f1`, under `audit/S5AA/R29/`.
 
 ## 2. Your findings and the owner's decisions
 
@@ -29,6 +31,10 @@ The owner also decided three cases your findings raised but did not settle:
 When the repository went public, CodeQL raised **8 js/xss-through-dom** alerts on the rules page (`5e891c3`). None could
 be reached: the data is the rules package shipped inside the page. The page is hardened anyway. CodeQL's 3 other alerts
 were in test and fixture tooling, and were dismissed with reasons.
+
+**R29.1 (`aaff3f1`):** PR #4's CodeQL check still flagged the source-link line. The `https:` test makes it safe, but
+CodeQL's XSS model does not accept a scheme test as a sanitiser; it does accept removing HTML metacharacters. So the url
+is stripped of raw `<`, `>`, `"` and `'` before the test and the assignment. No shipped url changes.
 
 ## 3. The transfer rules, as built
 
@@ -96,7 +102,7 @@ passes.
 - `tests/lib/decided-refusals.js`: the frozen generator produces three plans the 401(k) refusal makes invalid (seeds 9, 82
   and 100052). The generator-validity tests skip exactly those, only for exactly that refusal, and assert each still occurs.
 
-**Gate at `4ead57c`:** GATE PASSED, 2925 tests, 2916 passing, 0 failing, 9 authorised todo; closeout accepted 12, refused 0.
+**Gate at `aaff3f1`:** GATE PASSED, 2925 tests, 2916 passing, 0 failing, 9 authorised todo; closeout accepted 12, refused 0.
 
 **The control (4.7):** declared in `tools/control-candidate-prediction.json` under three new `changes` entries (35 → 38;
 PCF-01, the funding rule and the warning's wording had nothing to declare):
@@ -104,7 +110,7 @@ PCF-01, the funding rule and the warning's wording had nothing to declare):
 - `seed:4`: 28, then 27 re-declared for the realised gain;
 - `seed:13`: 1.
 
-**The expanded corpus** at `4ead57c` against `tools/baseline-20260926-s5aa-expanded-r17.json`: **3 of 70 scenarios differ,
+**The expanded corpus** at `4ead57c` (R29.1 changes only the rules page, which no capture reads) against `tools/baseline-20260926-s5aa-expanded-r17.json`: **3 of 70 scenarios differ,
 33 fields.** The independent corpus invariant passes all 7 checks.
 
 | member | what moves |
