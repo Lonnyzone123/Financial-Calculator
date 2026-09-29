@@ -613,7 +613,12 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R33 commit 2: deferrals are excluded only as far as the law excludes them (SA32F-11,
 // SA32F-30, SA32F-31)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
 // it, b1f28750a55096bfc381f8ebb517c13245bde96bfde70aeab5cfe22ecfcce43c, described the previous rebuild.
-const EXPECTED_SHA256 = '55c68a8cdf657ae139305b40fca0369220123e24e49b8a1fac5070048787c75f';
+//
+// Changed again 2026-09-29 (S5AA R33 commit 3: profit sharing on its own, each owner's own contribution clock, and the
+// spousal IRA while the joint return has pay (SA32F-12, SA32F-14, SA32F-15)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 55c68a8cdf657ae139305b40fca0369220123e24e49b8a1fac5070048787c75f, described the previous rebuild.
+const EXPECTED_SHA256 = '036d7ce51ac9ee34dc2700f22606486aeaedd9786075b3b39162349c2deacedd';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
