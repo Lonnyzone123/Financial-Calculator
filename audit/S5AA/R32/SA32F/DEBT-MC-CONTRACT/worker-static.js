@@ -1,7 +1,7 @@
 'use strict';
 // DMC part (d): static free-variable analysis of the app's Web Worker.
 // Run: node --expose-internals worker-static.js
-// Builds the real single-file artifact into this folder (build.js with a scratch path), parses the app's main
+// Builds the real single-file artifact into the system temp folder (build.js with a scratch path), parses the app's main
 // script with Node's bundled acorn, collects the IIFE-scope declarations (what the main thread sees), then for every
 // function named in buildWorkerSource()'s workerFunctions list computes its free identifiers. Anything that is an
 // IIFE-scope binding on the main thread but is NOT provided to the Worker (listed function, emitted constant, debt
@@ -16,7 +16,8 @@ const origLog = console.log; console.log = () => {};
 const { output } = build(out);
 console.log = origLog;
 
-const scripts = [...output.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
+// The app's own attribute-less inline scripts, in any case and any end-tag form (CodeQL js/bad-tag-filter).
+const scripts = [...output.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)].filter(m => m[1].trim() === '').map(m => m[2]);
 const main = scripts.find(s => s.includes('buildWorkerSource'));
 const ast = acorn.parse(main, { ecmaVersion: 'latest', sourceType: 'script', ranges: true });
 // The IIFE body

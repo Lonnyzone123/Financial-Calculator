@@ -11,7 +11,8 @@ const { build } = require(path.join(TREE, 'build.js'));
 const log = console.log; console.log = () => {};
 const built = build(path.join(require('os').tmpdir(), 'sa32f-built-app.html'));
 console.log = log;
-const main = [...built.output.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).find(s => s.includes('buildWorkerSource'));
+// The app's own attribute-less inline scripts, in any case and any end-tag form (CodeQL js/bad-tag-filter).
+const main = [...built.output.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)].filter(m => m[1].trim() === '').map(m => m[2]).find(s => s.includes('buildWorkerSource'));
 const ast = acorn.parse(main, { ecmaVersion: 'latest' });
 let bws = null;
 (function f(n) { if (bws || !n || typeof n !== 'object') return; if (n.type === 'FunctionDeclaration' && n.id.name === 'buildWorkerSource') { bws = n; return; }
