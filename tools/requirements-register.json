@@ -11,39 +11,15 @@
  ],
  "counts": {
   "commentBlocksWithIds": 387,
-  "requirements": 206,
+  "requirements": 205,
   "GUARDED_BY_TEST_NAME": 186,
   "CITED_IN_TEST_FILE": 19,
-  "UNGUARDED": 1,
-  "carriedForward": 206,
+  "UNGUARDED": 0,
+  "carriedForward": 205,
   "needsDecision": 0,
   "superseded": 0
  },
  "requirements": [
-  {
-   "id": "A-9",
-   "family": "A",
-   "sites": [
-    "src/engine.js:2815"
-   ],
-   "summary": "S5AA R35 (SA32F-08; R32F RMDROTH-01, R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated beneficiary is a spouse more than ten years younger, the divisor is",
-   "guard": {
-    "class": "UNGUARDED",
-    "tests": [],
-    "files": [],
-    "onlyTodo": false
-   },
-   "disposition": "carried-forward",
-   "dispositionBasis": "no closure or open decision recorded against it",
-   "open": {
-    "id": "A-9",
-    "kind": "unguarded-behaviour",
-    "severity": "UNASSIGNED",
-    "owner": "UNASSIGNED",
-    "downstreamTask": "UNASSIGNED",
-    "deadline": "UNASSIGNED"
-   }
-  },
   {
    "id": "A4-1",
    "family": "A4",
@@ -4998,7 +4974,7 @@
    "sites": [
     "src/engine.js:2815"
    ],
-   "summary": "S5AA R35 (SA32F-08; R32F RMDROTH-01, R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated beneficiary is a spouse more than ten years younger, the divisor is",
+   "summary": "S5AA R35 (SA32F-08; R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated beneficiary is a spouse more than ten years younger, the divisor is the two lives' j",
    "guard": {
     "class": "GUARDED_BY_TEST_NAME",
     "tests": [
@@ -5768,10 +5744,6 @@
   }
  ],
  "families": [
-  {
-   "family": "A",
-   "reachableFromCommittedDocument": true
-  },
   {
    "family": "A4",
    "reachableFromCommittedDocument": true

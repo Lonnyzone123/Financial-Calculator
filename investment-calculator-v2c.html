@@ -4508,11 +4508,11 @@ function rmdObligations(accounts,age,p,openingById){
   owners.forEach(function(o){
     if(!Number.isFinite(o.ageNow))return;
     if(!(o.ageNow>=rmdStartAge(p,o.ageAtStart)))return;
-    /* S5AA R35 (SA32F-08; R32F RMDROTH-01, R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated
+    /* S5AA R35 (SA32F-08; R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated
        beneficiary is a spouse more than ten years younger, the divisor is the two lives' joint expectancy (1.401(a)(9)-9(d); Pub. 590-B
        Table II). Sole beneficiary is each account's own fact -- `spouseSoleBeneficiary`, default true, as 18.1 already assumes the spouse
        inherits -- and is "determined as of January 1", so the spouse must be alive at the row's opening. Each IRA's amount is figured
-       with its own divisor and the IRA total is their sum (1.408-8 Q&A-9). The engine always used the Uniform table. */
+       with its own divisor and the IRA total is their sum (1.408-8, question and answer 9). The engine always used the Uniform table. */
     var ownerYears=Math.min(120,Math.floor(o.ageNow)),divisor=uniform[String(ownerYears)]||2,
         other=owners.filter(function(x){return x.key!==o.key})[0],living=other?householdSurvivorship(p,age):null,
         otherAlive=!!other&&(other.key==="spouse"?living.spouseAlive:living.selfAlive),otherYears=other?Math.floor(other.ageNow):NaN,
