@@ -710,7 +710,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R36: later-year tax indexing (SA32F-D1, decision 8)), so the tracked file was rebuilt,
 // again installed only after two builds agreed. The pin before it,
 // 7d3b00d5a40394a62d71d52ceebeb476b5ae39a671eac253ea3e09e396952fa3, described the previous rebuild.
-const EXPECTED_SHA256 = 'c35994d8fb7eeeffb7896cfbeeaee5dfc39685ab0b183ce1b2777a7c5cfde9e0';
+//
+// Changed again 2026-09-29 (S5AA R37: engine safeguards -- adjustable reset terms, hash of undefined keys (SA32F-21,
+// -40, -55)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// c35994d8fb7eeeffb7896cfbeeaee5dfc39685ab0b183ce1b2777a7c5cfde9e0, described the previous rebuild.
+const EXPECTED_SHA256 = '32f9c0d0b4c98c793d932ac302aa64c757e0c77c1ea5b9d63e0258fc3a21e71c';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

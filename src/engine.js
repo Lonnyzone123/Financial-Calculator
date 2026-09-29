@@ -1271,7 +1271,7 @@ function nonFiniteHoldingInputCode(p){
   if(!adv||typeof adv!=="object")return null;
   var assets=adv.otherAssets,debts=adv.debts,i;
   if(Array.isArray(assets))for(i=0;i<assets.length;i++){var asset=assets[i];if(asset&&typeof asset==="object"&&asset.value!==undefined&&!isFiniteNumberValue(asset.value))return "NONFINITE_OTHER_ASSET_VALUE"}
-  if(Array.isArray(debts))for(i=0;i<debts.length;i++){var debt=debts[i];if(debt&&typeof debt==="object"){if(debt.balance!==undefined&&!isFiniteNumberValue(debt.balance))return "NONFINITE_DEBT_BALANCE";/* S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt   the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lifetime interest   became $0, with status ok. Balance was already gated here; rate was not, and rate is what makes a debt cost   anything. resetRate is gated with it: an adjustable debt reads it after the reset, so an unusable value there   is the same defect one branch later. */if(debt.rate!==undefined&&!isFiniteNumberValue(debt.rate))return "NONFINITE_DEBT_RATE";if(debt.rateType==="adjustable"&&debt.resetRate!==undefined&&!isFiniteNumberValue(debt.resetRate))return "NONFINITE_DEBT_RATE"}}
+  if(Array.isArray(debts))for(i=0;i<debts.length;i++){var debt=debts[i];if(debt&&typeof debt==="object"){if(debt.balance!==undefined&&!isFiniteNumberValue(debt.balance))return "NONFINITE_DEBT_BALANCE";/* S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt   the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lifetime interest   became $0, with status ok. Balance was already gated here; rate was not, and rate is what makes a debt cost   anything. resetRate is gated with it: an adjustable debt reads it after the reset, so an unusable value there   is the same defect one branch later. */if(debt.rate!==undefined&&!isFiniteNumberValue(debt.rate))return "NONFINITE_DEBT_RATE";if(debt.rateType==="adjustable"&&debt.resetRate!==undefined&&!isFiniteNumberValue(debt.resetRate))return "NONFINITE_DEBT_RATE";/* S5AA R37 (SA32F-21, SA32F-40; R32V: "Validate/default the term or return the documented refusal"; "Zero cannot silently stand for unknown"): an adjustable debt that resets at an age needs both facts the reset reads. With no payoffAge the recast term was NaN and runPlan() threw; with no resetRate the rate after the reset was 0%. The app's form always supplies both (normalizeDebt()). */if(debt.rateType==="adjustable"&&isFiniteNumberValue(debt.nextRateResetAge)&&(!isFiniteNumberValue(debt.payoffAge)||!isFiniteNumberValue(debt.resetRate)))return "DEBT_RESET_TERMS_MISSING"}}
   return null;
 }
 /* Q69: otherIncomeFor() times an income against the spouse's age only when
@@ -4560,6 +4560,8 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"The scenario is missing one of its required sections (profile, employment, assumptions, retirement or advanced), or one of them is not a record, so no projection can be computed."
             :rejectedInput==="INVALID_RUN_COUNT"
             ?"The number of simulation runs is not a whole number between 1 and 10,000, so no projection can be computed."
+            :rejectedInput==="DEBT_RESET_TERMS_MISSING"
+            ?"An adjustable debt resets its rate at an age but has no reset rate or no payoff age, so its payment after the reset cannot be projected."
             :rejectedInput==="NONFINITE_DEBT_RATE"
             ?"A debt's interest rate is not a usable number, so its interest and payoff cannot be projected."
             :rejectedInput==="UNKNOWN_FILING_STATUS"
@@ -4963,8 +4965,10 @@ function stableStringify(value,ancestors){
   if(seen.indexOf(value)>=0)return "~cycle~";
   seen.push(value);
   var text;
-  if(Array.isArray(value))text="["+value.map(function(item){return stableStringify(item,seen)}).join(",")+"]";
-  else{var keys=Object.keys(value).sort();text="{"+keys.map(function(k){return JSON.stringify(k)+":"+stableStringify(value[k],seen)}).join(",")+"}"}
+  /* S5AA R37 (SA32F-55): hash what JSON would keep -- an undefined (or function) value drops its key and becomes null in a list -- so an
+     accepted input hashes the same before and after a JSON round trip. It kept the key, and the hash changed. */
+  if(Array.isArray(value))text="["+value.map(function(item){return item===undefined||typeof item==="function"?"null":stableStringify(item,seen)}).join(",")+"]";
+  else{var keys=Object.keys(value).filter(function(k){return value[k]!==undefined&&typeof value[k]!=="function"}).sort();text="{"+keys.map(function(k){return JSON.stringify(k)+":"+stableStringify(value[k],seen)}).join(",")+"}"}
   seen.pop();
   return text;
 }
