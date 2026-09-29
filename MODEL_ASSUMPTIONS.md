@@ -798,13 +798,12 @@ repair).*
 **Provenance.** Written from the S5AA session's R29 relay (`audit/S5AA/R29/S5AA_R29_RELAY_TO_EB_20260928.md`), checked
 against `main` at `df8f8b4`: the six R29 commits exist and the test file names (`tests/audit-s5aa-r29-*.test.js`) match
 every rule below. The owner's decisions were given to the S5AA session directly and are **as reported by it**. Two
-priority-1 findings on the audited source (`s5aa-r29.1-source` = `aaff3f1`) are open — R29-01, a late-in-year transfer
-capped by the contribution-room rule still removes the requested dollars from the source's dividend base for the rest
-of the year; R29-02, a traditional-IRA-to-HSA funding transfer never draws down the IRA's nondeductible basis (IRS
-Notice 2008-51 says it should, taxable value first). **Neither finding changes the categorisation below**: R29-01 is an
-accounting error in how much moves, and R29-02 adds a basis detail to the funding rule. Placed now rather than held for
-the repair round, since the categorisation itself is settled; the basis detail will be added to the HSA-funding bullet
-when R30 lands.
+priority-1 findings on the audited source (`s5aa-r29.1-source` = `aaff3f1`) were open when this section was first
+written — R29-01, a late-in-year transfer capped by the contribution-room rule still removed the requested dollars
+from the source's dividend base for the rest of the year; R29-02, a traditional-IRA-to-HSA funding transfer never drew
+down the IRA's nondeductible basis. **Neither changed the categorisation below**, and both are now repaired: see §21.1
+and §21.2, added 2026-09-28 from the S5AA session's R30 relay (`audit/S5AA/R30/S5AA_R30_RELAY_TO_EB_20260928.md`),
+checked against `main` at `bf9c6ef` (the three R30 commits exist and the test file names match).
 
 - A transfer between accounts of the same tax character is a rollover, or an in-kind move between taxable accounts: it
   moves untaxed and outside every limit.
@@ -819,14 +818,46 @@ when R30 lands.
 - Into a traditional IRA it is deductible under the IRA deduction rule (§20). Into an HSA it is a direct contribution,
   deducted above the line.
 - **A traditional IRA into its owner's own HSA is a qualified HSA funding distribution:** tax-free, not deductible, and
-  within the HSA room. Witness: `tests/audit-s5aa-r29-ira-to-hsa-funding.test.js`. *(R29-02, open: the funding amount
-  does not yet draw down the IRA's nondeductible basis, per IRS Notice 2008-51.)*
+  within the HSA room, and it counts toward the year's required distribution (S5AA R30, §21.1 below). Witness:
+  `tests/audit-s5aa-r29-ira-to-hsa-funding.test.js`. *(R29-02, repaired at `bf4d3d8`: the funding amount comes out of
+  the IRA's taxable value first, and only the rest draws down its nondeductible basis, per IRS Notice 2008-51 —
+  §21.2 below.)*
 - **Out of an HSA into any other account, it is an HSA distribution:** the account's includible share is income, plus
   20% before its owner is 65. Witness: `tests/audit-s5aa-r29-hsa-transfer-out-taxed.test.js`.
 - **Out of a taxable account into a non-taxable one, it is a sale:** the moved dollars realise their gain at the
   account's pro-rata basis. Witness: `tests/audit-s5aa-r29-transfer-realises-gain.test.js`.
 
-**Not modelled:** HSA eligibility (coverage, or Medicare from 65), limits on custom accounts, and a funding
-distribution's credit toward an RMD.
+**Not modelled:** HSA eligibility (coverage, or Medicare from 65), and limits on custom accounts.
 
 *Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q149 to Q152.*
+
+### 21.1 Required distributions (S5AA R30)
+
+A pre-tax transfer that is a distribution counts toward the year's required minimum distribution, whatever it lands
+in. That covers a transfer into a taxable account, and one into an HSA: either a distribution then a contribution, or
+a qualified HSA funding distribution (26 CFR 1.408-8(g)(1): distributions count "regardless of whether the amount is
+includible in income"). A rollover or a conversion does not count. A transfer dated after the year's spending draw
+counts neither way: the draw has already paid the year's requirement. Witness:
+`tests/audit-s5aa-r30-transfer-to-hsa-counts-toward-rmd.test.js`; landed at `c9f6556`.
+
+### 21.2 Funding distributions and basis (S5AA R30)
+
+A qualified HSA funding distribution comes out of the IRA's taxable value first. Only the part beyond that uses up
+basis, dollar for dollar (IRC 408(d)(9)(E); Notice 2008-51). Witness:
+`tests/audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js`; landed at `bf4d3d8`.
+
+### 21.3 Dividends on moved dollars (S5AA R30)
+
+The moved dollars' dividends belong to the account holding them: the source before the date, the destination after
+it. Each account pays its own.
+- A taxable source that sends everything can send only what its dividends leave.
+- A transfer dated after the year's spending draw pays its destination after the move, on what moved. That cash
+  comes after the draw, so it is kept or spent under the dividends policy.
+- For such a transfer out of a dividend-paying taxable account, the year's spending draw leaves the transfer's
+  dollars in the source. The owner confirmed 2026-09-28 that this protection applies only to dividend-paying taxable
+  sources, not to every late transfer or every taxable account.
+
+**Known limit:** a late destination's dividend cash does not fund that year's spending. Witness:
+`tests/audit-s5aa-r30-transfer-dividends-follow-the-move.test.js`; landed at `66c406c`.
+
+*Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q153 to Q156.*
