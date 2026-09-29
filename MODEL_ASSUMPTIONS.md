@@ -846,6 +846,14 @@ A qualified HSA funding distribution comes out of the IRA's taxable value first.
 basis, dollar for dollar (IRC 408(d)(9)(E); Notice 2008-51). Witness:
 `tests/audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js`; landed at `bf4d3d8`.
 
+**The taxable value is measured on the funding's date** (S5AA R31, R30-01): the owner's IRAs on that date, plus what
+the year had already distributed or converted, less the year's basis. Later growth or loss does not change the basis
+the funding used — Notice 2008-51 reads the basis "immediately after" the funding. The year's ordinary draws and
+conversions are still settled pro rata at its end, on the basis the funding left. **Known limit:** the funding's
+taxable value counts the whole year's nondeductible contributions as basis, wherever in the year they fall, as the
+settlement already does for conversions. Witness: `tests/audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js`,
+`tests/audit-s5aa-r31-hsa-funding-settlement-dated.test.js`; landed at `8afe16d`.
+
 ### 21.3 Dividends on moved dollars (S5AA R30)
 
 The moved dollars' dividends belong to the account holding them: the source before the date, the destination after
