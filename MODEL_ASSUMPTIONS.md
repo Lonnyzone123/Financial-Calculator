@@ -605,7 +605,7 @@ added at R8).
   instead is not modelled. An HSA passes as the survivor's own, which is right only if the survivor is its
   designated beneficiary. A taxable account, including a joint one, passes with the decedent's cost basis: no
   step-up (or step-down) at death is applied, because how much is stepped up depends on titling and state law the
-  plan does not record, so the survivor's capital gains are overstated. *(**Correction, 2026-09-29, on ChatGPT's
+  plan does not record, so the survivor's capital gains are overstated. *(**Correction, 2026-09-29, on
   Claude's full-model audit (SA32F-17): the stated reason covers joint accounts only.** A solely-owned taxable account is stepped up in
   full whatever the titling or state law (IRC 1014(a)); the "depends on titling and state law" reason applies to the
   joint-account half only. The owner has decided the model change — Q161: own accounts step up in full, joint
