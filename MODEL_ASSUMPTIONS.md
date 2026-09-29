@@ -229,7 +229,7 @@ they are.
 
 ## 8. Insurance will count in net worth from the first year, even for a plan that starts past `selfLife` — **built** (S5 task 2o)
 
-> **Corrected 2026-09-29 (UTC−7), on ChatGPT's SA32F-48 finding, checked directly (`audit/S5AA/R32/SA32F/LIFE-EVENTS/repro-LIFE-07-insurance-doc-stale.js` run against `main`: a plan starting at age 70 with `selfLife` 70 and $250,000 of insurance shows an opening `networth` of $2,250,000 against a total of $2,000,000, i.e. counted).** The heading and the "Today the engine still does not do this" sentence below were stale: `S5_TASK_CHECKLIST.md` task 2o.2 landed this at `4c104e9` (2026-09-14, a private-archive commit — the private repo is archived, kept as the full record). Read the paragraphs below as history; the fix is built.
+> **Corrected 2026-09-29 (UTC−7), on Claude's full-model audit (SA32F-48), checked directly (`audit/S5AA/R32/SA32F/LIFE-EVENTS/repro-LIFE-07-insurance-doc-stale.js` run against `main`: a plan starting at age 70 with `selfLife` 70 and $250,000 of insurance shows an opening `networth` of $2,250,000 against a total of $2,000,000, i.e. counted).** The heading and the "Today the engine still does not do this" sentence below were stale: `S5_TASK_CHECKLIST.md` task 2o.2 landed this at `4c104e9` (2026-09-14, a private-archive commit — the private repo is archived, kept as the full record). Read the paragraphs below as history; the fix is built.
 
 **Added 2026-09-13, on a decision that was made the same day and belonged here.**
 `RESULT_CONTRACT.md`'s written rule (L4b) has always said insurance counts in
@@ -606,7 +606,7 @@ added at R8).
   designated beneficiary. A taxable account, including a joint one, passes with the decedent's cost basis: no
   step-up (or step-down) at death is applied, because how much is stepped up depends on titling and state law the
   plan does not record, so the survivor's capital gains are overstated. *(**Correction, 2026-09-29, on ChatGPT's
-  SA32F-17 finding: the stated reason covers joint accounts only.** A solely-owned taxable account is stepped up in
+  Claude's full-model audit (SA32F-17): the stated reason covers joint accounts only.** A solely-owned taxable account is stepped up in
   full whatever the titling or state law (IRC 1014(a)); the "depends on titling and state law" reason applies to the
   joint-account half only. The owner has decided the model change — Q161: own accounts step up in full, joint
   accounts half, with an Arizona community-property disclosure — but it is not yet built; this correction is only to

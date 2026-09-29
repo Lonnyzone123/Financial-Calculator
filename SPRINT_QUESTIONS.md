@@ -5895,7 +5895,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 ## 2026-09-29 — Q158. A surviving spouse gets the deceased's FRA benefit plus earned delayed credits, reduced for the survivor's age (SA32F-02, the owner, 2026-09-29)
 
-**Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R32F relay (`audit/S5AA/R32/S5AA_R32F_RELAY_TO_EB_20260929.md`). Zac's answer was given to the S5AA session directly; it is **as reported by that session, not confirmed in the plan owner's chat.** Finding: Claude's full-model audit at the R32 source (SA32F-02, `audit/S5AA/R32/SA32F/`), merged as PR #17 (`b5424ff`).
+**Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R32F relay (committed with the next S5AA records commit as `audit/S5AA/R32/S5AA_R32F_RELAY_TO_EB_20260929.md`). The owner's answer was given to the S5AA session directly, and is recorded in the R32F report's §4 (merged by the owner, PR #17, `b5424ff`); it is not confirmed in the plan owner's chat. Finding: Claude's full-model audit at the R32 source (SA32F-02, `audit/S5AA/R32/SA32F/`).
 
 **The decision.** "Pay by law": when someone dies before claiming Social Security, the surviving spouse gets the deceased's FRA benefit plus the delayed credits earned before death, reduced for the survivor's own age (42 USC 402(e)). The survivor-side claim-age gate (Q3b) stays. This reverses R2-003(b)'s "posthumous claim" removal, which is Q3a's context.
 
@@ -5923,7 +5923,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision.** "Own full, joint half": a decedent's own taxable accounts are fully stepped up (IRC 1014(a)); joint accounts step up half. A disclosure notes Arizona community property (1014(b)(6)) can step up more.
 
-**Status: DECIDED 2026-09-29, not yet built.** §18.1's reason for no step-up is corrected now (below), separately from this decision's repair.
+**Status: DECIDED 2026-09-29, not yet built.** §18.1's reason for no step-up is corrected now, in `MODEL_ASSUMPTIONS.md` §18.1 itself, separately from this decision's repair.
 
 ## 2026-09-29 — Q162. Three contribution conventions: each owner's own age, a 6-year vesting ramp, and a spousal IRA while jointly filed past retirement (SA32F-12, -13, -15, the owner, 2026-09-29)
 
@@ -5932,7 +5932,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **The decisions.**
 - **5a (SA32F-12).** "Each owner's own": a spouse's contribution stop age is that owner's own age, not the primary person's.
 - **5b (SA32F-13).** "Vest over 6 years": the entered vested percentage rises to 100% within 6 years (IRC 411(a)(2)(B)); only what remains unvested at retirement is lost.
-- **5c (SA32F-15).** "Allow while joint pay": a spousal IRA is allowed after the non-working spouse's retirement age while filing jointly (219(c); 219(d)(1) is repealed).
+- **5c (SA32F-15).** "Allow while joint pay": a spousal IRA is allowed after the non-working spouse's retirement age while the joint return has compensation (219(c); 219(d)(1) is repealed).
 
 **Status: DECIDED 2026-09-29, not yet built.**
 
