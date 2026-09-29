@@ -735,7 +735,11 @@ function artifactFor(lane) {
 // is disclosed (SA32F-41, -42, -52, -53)), so the tracked file was rebuilt, again installed only after two builds
 // agreed. The pin before it, 2b86c62b5a637fc631efaa5f1a4e2e27afc87e2cb8d58f7e6d59240c2246b37a, described the previous
 // rebuild.
-const EXPECTED_SHA256 = '4a8dab10c94d64040cb5f17819d54b0d5e5b348212655a27ed284ddd17e3937d';
+//
+// Changed again 2026-09-29 (S5AA R37: a joint account's percent of salary is the household's salary in the form,
+// validator and engine (SA32F-45)), so the tracked file was rebuilt, again installed only after two builds agreed. The
+// pin before it, 4a8dab10c94d64040cb5f17819d54b0d5e5b348212655a27ed284ddd17e3937d, described the previous rebuild.
+const EXPECTED_SHA256 = 'f8c57e2ccd49c09bba275dcaf0b2700fe0a5aa699f560934ca88063803d1af75';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

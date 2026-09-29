@@ -989,7 +989,8 @@ function validatePlannedContributions(c, plan) {
     const owner = a.owner === 'spouse' ? 'spouse' : 'self';
     const isIra = a.type === 'traditionalIRA' || a.type === 'rothIRA';
     if (!(isIra ? iraEligible[owner] : eligible[owner])) continue;
-    const ownerSalary = salaryOf(owner);
+    /* S5AA R37 (SA32F-45): a joint account reads the household's salary, as the engine and the form do. */
+    const ownerSalary = a.owner === 'joint' ? salaryOf('self') + (profile.spouseOn === true ? salaryOf('spouse') : 0) : salaryOf(owner);
     const contribution = isFiniteNumber(a.contribution) ? a.contribution : 0;
     let amount = a.contributionMode === 'salaryPct' ? ownerSalary * contribution / 100 : contribution;
     const due = Array.isArray(a.futureChanges)

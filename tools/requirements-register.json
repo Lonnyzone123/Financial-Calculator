@@ -10,12 +10,12 @@
   "src/debt-recast.js"
  ],
  "counts": {
-  "commentBlocksWithIds": 405,
-  "requirements": 219,
-  "GUARDED_BY_TEST_NAME": 199,
+  "commentBlocksWithIds": 406,
+  "requirements": 220,
+  "GUARDED_BY_TEST_NAME": 200,
   "CITED_IN_TEST_FILE": 20,
   "UNGUARDED": 0,
-  "carriedForward": 219,
+  "carriedForward": 220,
   "needsDecision": 0,
   "superseded": 0
  },
@@ -1166,6 +1166,7 @@
      "tests/audit-s5aa-r35-rmd-table-ii.test.js",
      "tests/audit-s5aa-r35-rule-of-55-separation.test.js",
      "tests/audit-s5aa-r35-still-working-exception.test.js",
+     "tests/audit-s5aa-r37-joint-salary-base.test.js",
      "tests/scenario-generator.test.js"
     ],
     "onlyTodo": false
@@ -5765,6 +5766,28 @@
     ],
     "files": [
      "tests/audit-s5aa-r37-hsa-65-opening-age.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "SA32F-45",
+   "family": "SA32F",
+   "sites": [
+    "src/engine.js:157"
+   ],
+   "summary": "S5AA R37 (SA32F-45; R32V: \"Define joint ownership's compensation base once for UI and engine\"): a joint account belongs to the household, so its percent of salary reads the household's salary -- the p",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r37-joint-salary-base.test.js :: R37 SA32F-45: the engine deposits 10% of the household salary into a joint account",
+     "tests/audit-s5aa-r37-joint-salary-base.test.js :: R37 SA32F-45: the validator\\'s earned-income check reads the same base",
+     "tests/audit-s5aa-r37-joint-salary-base.test.js :: R37 SA32F-45: the form shows the same figure the engine deposits"
+    ],
+    "files": [
+     "tests/audit-s5aa-r37-joint-salary-base.test.js"
     ],
     "onlyTodo": false
    },
