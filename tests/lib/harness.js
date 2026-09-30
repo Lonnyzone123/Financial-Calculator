@@ -756,7 +756,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R38 (R35-01): employer money earned in the row of separation is vested or forfeited
 // with the rest), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 13aafac831f8be370e130c13bdefd64efca9c0492bcb911d645bf8313bfca92e, described the previous rebuild.
-const EXPECTED_SHA256 = 'd6cb5cbd1cc5c7bf3e4b84f3979cd388d613d735901de6c0c207d81cf410e29e';
+//
+// Changed again 2026-09-29 (S5AA R38: employer money is fully vested at normal retirement age, 65 (IRC 411(a))), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// d6cb5cbd1cc5c7bf3e4b84f3979cd388d613d735901de6c0c207d81cf410e29e, described the previous rebuild.
+const EXPECTED_SHA256 = 'fe56312e78da32fb41dd23263b0957c35fa7a3f28b0e053dd4da00026e956e27';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
