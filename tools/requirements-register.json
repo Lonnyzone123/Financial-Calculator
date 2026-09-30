@@ -4283,6 +4283,8 @@
     "tests": [
      "tests/audit-s5aa-r39-1-posthumous-claim-not-priced.test.js :: R39.1 R39-01: the self dies before a planned claim inside the row; the survivor is paid the same whatever the planned claim",
      "tests/audit-s5aa-r39-1-posthumous-claim-not-priced.test.js :: R39.1 R39-01: the same with the spouse dying and the self surviving",
+     "tests/audit-s5aa-r39-1-posthumous-claim-not-priced.test.js :: R39.1 R39-01: a death exactly at the planned claim does not reach it",
+     "tests/audit-s5aa-r39-1-posthumous-claim-not-priced.test.js :: R39.1 R39-01: a younger spouse\\'s claim and death are compared on one clock",
      "tests/audit-s5aa-r39-1-posthumous-claim-not-priced.test.js :: R39.1 R39-01: control -- a claim reached alive inside the row keeps R39\\'s claim-date price (R38-04, 13,728)"
     ],
     "files": [

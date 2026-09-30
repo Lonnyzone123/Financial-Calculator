@@ -27,10 +27,10 @@ const engine = require(path.join(ROOT, 'src', 'engine.js'));
 const { validateScenario } = require(path.join(ROOT, 'src', 'scenario-validator.js'));
 const defaultPlan = eval('(' + shell.match(/var defaultPlan=(\{.*?\});/)[1] + ')');
 
-function incomeAt68(retirement) {
+function incomeAt68(retirement, profile) {
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
-  Object.assign(p.profile, { age: 66.5, spouseAge: 66.5, retireAge: 66.5, endAge: 68, spouseOn: true, filing: 'mfj' });
+  Object.assign(p.profile, { age: 66.5, spouseAge: 66.5, retireAge: 66.5, endAge: 68, spouseOn: true, filing: 'mfj' }, profile);
   Object.assign(p.employment, { salary: 0, spouseSalary: 0, growth: 0, contributionStop: 66.5 });
   Object.assign(p.assumptions, { method: 'simple', returnRate: 0, inflation: 0, fee: 0, volatility: 0 });
   Object.assign(p.retirement, { strategy: 'fixedNominal', spending: 0, dividendOn: false, pension: 0, ssCola: 10, survivor: true,
@@ -56,6 +56,24 @@ test('R39.1 R39-01: the same with the spouse dying and the self surviving', () =
   const base = { ssBenefit: 0, ssClaim: 67, spouseSS: 2000, selfLife: 95, spouseLife: 67.25 };
   assert.strictEqual(incomeAt68(Object.assign({ spouseClaim: 67.5 }, base)), 18360);
   assert.strictEqual(incomeAt68(Object.assign({ spouseClaim: 68 }, base)), 18360);
+});
+
+test('R39.1 R39-01: a death exactly at the planned claim does not reach it', () => {
+  /* ChatGPT's R39.1 change audit (boundary kept on its request): a claim at the death age is not reached alive, so the row prices the
+     PIA at its opening. By hand: six months of delayed credit past FRA 67 at the death, 6 x 2/3% = 4%; 2,000 x 1.04 = 2,080 a month; six
+     months of survivor benefit to 68: 12,480. */
+  const base = { ssBenefit: 2000, spouseSS: 0, spouseClaim: 67, selfLife: 67.5, spouseLife: 95 };
+  assert.strictEqual(incomeAt68(Object.assign({ ssClaim: 67.5 }, base)), 12480);
+  assert.strictEqual(incomeAt68(Object.assign({ ssClaim: 68 }, base)), 12480);
+});
+
+test('R39.1 R39-01: a younger spouse\'s claim and death are compared on one clock', () => {
+  /* ChatGPT's R39.1 change audit (boundary kept on its request): the spouse is a year younger and dies at their own 66.25, the self's
+     67.25; a spouse claim at their own 66.5 falls inside the self's row to 68 but after the death. By hand: the spouse dies before their
+     FRA, so no delayed credit; the self is past FRA, so the survivor benefit is the full 2,000 a month for nine months: 18,000. */
+  const base = { ssBenefit: 0, ssClaim: 67, spouseSS: 2000, selfLife: 95, spouseLife: 66.25 };
+  assert.strictEqual(incomeAt68(Object.assign({ spouseClaim: 66.5 }, base), { spouseAge: 65.5 }), 18000);
+  assert.strictEqual(incomeAt68(Object.assign({ spouseClaim: 67 }, base), { spouseAge: 65.5 }), 18000);
 });
 
 test('R39.1 R39-01: control -- a claim reached alive inside the row keeps R39\'s claim-date price (R38-04, 13,728)', () => {
