@@ -2195,7 +2195,11 @@ function earlyWithdrawalPenaltyRate(p,age,account){
   if(adv&&adv.penaltyException)return 0;
   if(adv&&adv.rule55&&account&&accountType(account.type).limitGroup==="workplace"&&account.currentEmployerPlan!==false){
     var pr=p.profile||{},start=Number(account.owner==="spouse"&&pr.spouseOn?pr.spouseAge:pr.age),left=Number(pr.retireAge);
-    if(Number.isFinite(start)&&Number.isFinite(left)&&age>=left&&Math.floor(left-start)+Math.floor(start)>=55)return 0;
+    /* S5AA R39 (R38-02, ChatGPT's R38 change audit; the owner 2026-09-29: "go with your recommendations"): A SEPARATION AT 55 OR LATER HAS
+       ATTAINED 55 (72(t)(2)(A)(v): "after separation from service after attainment of age 55"), so it qualifies outright. The calendar-year
+       reading alone, on the plan's birth-year convention, denied it from a fractional start: 54.5 separating at 55 read 0 + 54. That
+       reading still admits a separation earlier in the year of 55 (the IRS: "during or after the year the employee reaches age 55"). */
+    if(Number.isFinite(start)&&Number.isFinite(left)&&age>=left&&(left>=55-1e-9||Math.floor(left-start)+Math.floor(start)>=55))return 0;
   }
   return .10;
 }
