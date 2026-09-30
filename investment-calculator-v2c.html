@@ -4776,7 +4776,11 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       /* S5AA R34: each person's MONTHLY figures for the row, SSA-rounded -- own, own plus the spouse's excess, and the survivor amount on the
          other's record -- from ssPiaAt() (today's dollars, COLAs to the claim and after, dime-rounded), ssClaimFactor(), ssSpousalFactor() and
          ssSurvivorMonthly(). Row-constant, as the amounts always were (R2-004): a segment decides who is paid and for how long, not how much. */
-      var selfPia=ssPiaAt(p,"self",age,startHistory),spousePia=spouseOn?ssPiaAt(p,"spouse",spouseAge,startHistory):0,
+      /* S5AA R39 (R38-04, ChatGPT's R38 change audit; the owner 2026-09-29: "go with your recommendations"): A CLAIM INSIDE THE ROW IS PRICED
+         AT THE CLAIM. The entered benefit takes each COLA from the plan's start to the claim (20 CFR 404.271); priced at the row's opening,
+         a claim at 67.5 in a plan opening at 66.5 missed the COLA its first year had earned (2,080 a month where 2,288 is right). A benefit
+         already being paid keeps the row-constant amount. */
+      var selfPia=ssPiaAt(p,"self",selfClaim>age+1e-9&&selfClaim<rowAge-1e-9?selfClaim:age,startHistory),spousePia=spouseOn?ssPiaAt(p,"spouse",spouseClaimAtSelfAge>age+1e-9&&spouseClaimAtSelfAge<rowAge-1e-9?spouseAge+(spouseClaimAtSelfAge-age):spouseAge,startHistory):0,
       selfOwnM=ssFloorDollar(selfPia*ssClaimFactor(p,"self",credited&&credited.self,age)),
       spouseOwnM=spouseOn?ssFloorDollar(spousePia*ssClaimFactor(p,"spouse",credited&&credited.spouse,spouseAge)):0,
       selfSpousalStart=spouseOn?Math.max(selfClaim,spouseClaimAtSelfAge):Infinity,

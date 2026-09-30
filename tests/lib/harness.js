@@ -776,7 +776,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R39 (R38-03): an elected Roth match follows the vesting the employee has when it is
 // allocated), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 3b614151b078ae0197fa6adeeae9fe00f1d882649528cc26cf6c9e81eda2832d, described the previous rebuild.
-const EXPECTED_SHA256 = '96db2ad4c0c6cf45045dd5080961db15f3ebbdf0cf5dcbb98422569e759d45f4';
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-04): a Social Security claim inside a projection year is priced at the claim,
+// with the COLAs it has earned), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, 96db2ad4c0c6cf45045dd5080961db15f3ebbdf0cf5dcbb98422569e759d45f4, described the previous rebuild.
+const EXPECTED_SHA256 = '1ad1b3f52944148d9ebaea557994756391e976f218d94096d8ea0f7439a1c80f';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
