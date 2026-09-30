@@ -6026,7 +6026,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decisions (the owner, 2026-09-26).** R27F-01: "Repair". R27F-02: "Repair". A transfer dated after the year's draw: "Repair in R28.1". Where the repairs go: "Add to R28 as R28.1", so the next audit covers the R28 change only.
 
-**Status: IMPLEMENTED 2026-09-26** (S5AA R28.1; source tag `s5aa-r28.1-source` = `62e263d`). R27F-01 at `227635e`; R27F-02 at `5a5cb39`; a transfer dated after the draw at `c480f72`; the imputed yield at `62e263d`. The relay reports that no corpus figure moves (r17 stands); the plan owner did not re-check that. The commits are in the repository's first commit (it contains `ee9757d`), not in its own history. Modelling text: `MODEL_ASSUMPTIONS.md` §20.
+**Status: IMPLEMENTED 2026-09-26** (S5AA R28.1; source tag `s5aa-r28.1-source` = `62e263d`). R27F-01 at `227635e`; R27F-02 at `5a5cb39`; a transfer dated after the draw at `c480f72`; the imputed yield at `62e263d`. The relay reports that no corpus figure moves (r17 stands); the plan owner did not re-check that. The commits are in the repository's first commit (it contains `ee9757d`), not in its own history. **No change audit of R28 or R28.1 was ever returned** (the R40 handover says so); ChatGPT's later full-model PCF audit of the same engine found PCF-03, a gap in R28's dividend repair, which R29 then repaired. Modelling text: `MODEL_ASSUMPTIONS.md` §20.
 
 ## 2026-09-28 — Q171. A traditional IRA rolls only its taxable money into a 401(k); a Roth IRA cannot roll into a 401(k); a rollover stays with its owner; the IRA pool counts every IRA; a catch-up reads the year-end age (R30A-01, R30A-02, R30A-03, R31-01, S5AA R32, the owner, 2026-09-28)
 
