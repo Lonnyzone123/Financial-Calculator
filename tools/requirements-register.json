@@ -5500,7 +5500,8 @@
      "tests/audit-s5aa-r37-engine-safeguards.test.js :: R37 SA32F-21: an adjustable debt with no payoff age is refused, not thrown"
     ],
     "files": [
-     "tests/audit-s5aa-r37-engine-safeguards.test.js"
+     "tests/audit-s5aa-r37-engine-safeguards.test.js",
+     "tests/audit-s5aa-r40-validator-debt-reset-terms.test.js"
     ],
     "onlyTodo": false
    },
@@ -6027,7 +6028,8 @@
      "tests/audit-s5aa-r37-validator-gaps.test.js :: R37 SA32F-51: a negative asset-class volatility is refused, not blended as negative risk"
     ],
     "files": [
-     "tests/audit-s5aa-r37-validator-gaps.test.js"
+     "tests/audit-s5aa-r37-validator-gaps.test.js",
+     "tests/audit-s5aa-r40-validator-debt-reset-terms.test.js"
     ],
     "onlyTodo": false
    },

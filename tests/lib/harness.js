@@ -792,7 +792,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R39.1 (R39-01): a claim the worker never reaches does not price the survivor's
 // benefit), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // ded7d6699d95088463036b5d20b1fbb4848550c8d2c39157d8d4c8d1535ee63f, described the previous rebuild.
-const EXPECTED_SHA256 = 'e23795d0970e42b9a49e31d0db9b3054d2a8f61fa9b1858bf579e34a6e9363e3';
+//
+// Changed again 2026-09-30 (S5AA R40: the validator refuses an adjustable debt's missing reset terms, as runPlan()
+// does), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// e23795d0970e42b9a49e31d0db9b3054d2a8f61fa9b1858bf579e34a6e9363e3, described the previous rebuild.
+const EXPECTED_SHA256 = '1904622456876836870cbc180d4c5123800cb47263095d2336dbd0dbaf5132af';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

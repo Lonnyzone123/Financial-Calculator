@@ -7661,6 +7661,12 @@ function validateDebt(c, debt, index) {
   if (debt.payoffAge !== undefined) {
     checkType(c, debt.payoffAge, `${path}.payoffAge`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
   }
+  /* S5AA R40: runPlan() refuses an adjustable debt that resets its rate at an age but has no reset rate or no payoff age
+     (SCENARIO_DEBT_RESET_TERMS_MISSING, R37 ad62460). This accepted it, so a valid plan came back as a calculation error. */
+  if (debt.rateType === 'adjustable' && isFiniteNumber(debt.nextRateResetAge) && (!isFiniteNumber(debt.resetRate) || !isFiniteNumber(debt.payoffAge))) {
+    c.error('DEBT_RESET_TERMS_MISSING', `${path}.${isFiniteNumber(debt.resetRate) ? 'payoffAge' : 'resetRate'}`,
+      'an adjustable debt that resets its rate at an age needs a reset rate and a payoff age, or its payment after the reset cannot be projected');
+  }
   /* Q43: A PAYMENT THAT DOES NOT COVER ITS OWN INTEREST WAS ACCEPTED IN SILENCE.
    *
    * `normalizeDebt()` defaults `paymentMonthly` to 0, which is the literal
