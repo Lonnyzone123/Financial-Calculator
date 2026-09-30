@@ -17,6 +17,7 @@ private archive. Documents here that cite them name the private commits and path
 | R36 | [`R36/`](R36/) | SA32F-D1 by decision 8 (with D8): later tax years index the 2026 figures, each by its statute's rule and rounding: the change handover, self-audit, cover note and relay to eb; source `s5aa-r36-source` (`cf643a8`) |
 | R37 | [`R37/`](R37/) | The rest of the R32F/R32V register: engine safeguards, the validator gaps, three plan warnings shown as cards, housing costs, the HSA at 65, Monte Carlo guidance and disclosures, contributions and strategy text, the marginal-rate helper, inert mortgage fields and stale texts: the change handover, self-audit, cover note and relay to eb; source `s5aa-r37-source` (`4a9a15e`) |
 | R38 | [`R38/`](R38/) | ChatGPT's R35-01 (the row of separation's employer money), full vesting at normal retirement age 65, and a new plan filing single: the change handover, self-audit, cover note and relay to eb; source `s5aa-r38-source` (`678c556`) |
+| R39 | [`R39/`](R39/) | ChatGPT's R38-01 to R38-05 (part-year contribution limits, the Rule of 55 from a fractional start, the Roth match at allocation, the COLA before a claim inside a year, a survivor's inherited workplace plan) and the QCD's 70 1/2 convention declared: the change handover, self-audit, cover note and relay to eb; source `s5aa-r39-source` (`f7ea076`) |
 | R37 on | `audit/S5AA/RNN/` | each round's cover note, response, self-audit, handover and evidence |
 
 The working rules for ChatGPT and Claude are in [`WORKING_RULES.md`](WORKING_RULES.md).

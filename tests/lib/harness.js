@@ -764,7 +764,31 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R38: a new plan files single (R37's open question; the owner: "go with your
 // recommendations")), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // fe56312e78da32fb41dd23263b0957c35fa7a3f28b0e053dd4da00026e956e27, described the previous rebuild.
-const EXPECTED_SHA256 = '2ff902bfc8bd97d4c3edb77be13cd41f4ed02c62a512e44817493cf13a6e7712';
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-01): annual contribution limits hold the dollars deposited, not a rate cut by
+// the part of the year worked), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, 2ff902bfc8bd97d4c3edb77be13cd41f4ed02c62a512e44817493cf13a6e7712, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-02): a separation at 55 or later qualifies for the Rule of 55, whatever the
+// plan's starting age), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, 34ac3f87a90a921846656dac38fcc03d0e27f4b3df8402a55c8ea0fc4b2fd751, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-03): an elected Roth match follows the vesting the employee has when it is
+// allocated), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 3b614151b078ae0197fa6adeeae9fe00f1d882649528cc26cf6c9e81eda2832d, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-04): a Social Security claim inside a projection year is priced at the claim,
+// with the COLAs it has earned), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, 96db2ad4c0c6cf45045dd5080961db15f3ebbdf0cf5dcbb98422569e759d45f4, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-05): a workplace plan that passes to a surviving spouse is not the survivor's
+// current employer's plan), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, 1ad1b3f52944148d9ebaea557994756391e976f218d94096d8ea0f7439a1c80f, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R39: a QCD's eligibility is read at the row's start -- declared, and the form says
+// so), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 7fff2f51bed6aa386fbd242f23afb12af9f15150ef037160519bbc2073173770, described the previous rebuild.
+const EXPECTED_SHA256 = 'ded7d6699d95088463036b5d20b1fbb4848550c8d2c39157d8d4c8d1535ee63f';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

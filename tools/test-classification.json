@@ -11,8 +11,8 @@
   "coupledOnly": "file level (upper bound): a requirement, or one of the two flow identities, whose every guarding file depends on internals. testLevel (lower bound): for requirements a test names, whether that test's own body reaches internals; helpers it calls are not followed"
  },
  "counts": {
-  "total": 406,
-  "implementation-independent": 236,
+  "total": 412,
+  "implementation-independent": 242,
   "implementation-coupled": 135,
   "infrastructure": 35
  },
@@ -1789,6 +1789,54 @@
   },
   {
    "file": "tests/audit-s5aa-r38-vesting-separation-row.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r39-claim-inside-row-cola.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r39-part-year-contribution-limits.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r39-qcd-opening-age.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r39-roth-match-effective-vesting.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r39-rule55-fractional-start.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r39-survivor-inherits-no-employer-flag.test.js",
    "category": "implementation-independent",
    "via": [
     "runPlan/runScenario"
