@@ -884,11 +884,31 @@ and §21.2, added 2026-09-28 from the S5AA session's R30 relay (`audit/S5AA/R30/
 checked against `main` at `bf9c6ef` (the three R30 commits exist and the test file names match).
 
 - A transfer between accounts of the same tax character is a rollover, or an in-kind move between taxable accounts: it
-  moves untaxed and outside every limit.
+  moves untaxed and outside every limit. *(Refined by S5AA R32, 2026-09-28: a rollover stays with its owner, a Roth IRA
+  cannot roll into a 401(k), and an IRA rolls only its taxable money into one. See the three bullets after the next one.)*
 - Pre-tax into a Roth-class account is a conversion.
 - Pre-tax into a taxable account is a distribution.
 - **Into a 401(k) from a different kind of account, it is refused.** A 401(k) takes payroll, same-character rollovers
   and conversions only. Witness: `tests/audit-s5aa-r29-transfer-into-workplace-refused.test.js`.
+- *Added 2026-09-30 (UTC−7), late, from the S5AA session's R32 relay (`audit/S5AA/R32/S5AA_R32_RELAY_TO_EB_20260928.md`),
+  which was not placed before now. Checked by the plan owner: the three R32 commits are in this repository's history
+  (`0413792`, `8ef84d3`, `3017351`), each rule below has a test of that name under `tests/audit-s5aa-r32-*.test.js`, and
+  the engine's own comments on `main` state each rule as written here. The owner's decisions were given to the S5AA
+  session directly and are as reported by it. Registered as Q171.*
+- **A traditional IRA into a 401(k) rolls its taxable money only** (ChatGPT's R30A-01; the owner: "Move taxable part
+  only"; `8ef84d3`). IRC 408(d)(3)(A)(ii) and (H): what goes into an employer plan may not exceed the part includible in
+  income, and the part rolled over is treated as income first, across all the owner's IRAs. So at most the owner's IRAs
+  on the date less their basis moves; the after-tax money stays in the IRA, with a warning. Before R32 the after-tax
+  money went in as pre-tax, its basis stayed on an empty IRA, and the 401(k) was taxed in full.
+- **A Roth IRA cannot roll into a 401(k)** (ChatGPT's R30A-02; the owner: "Refuse it"; `0413792`; Publication 590-A). The
+  transfer is refused, including into a Roth 401(k). A designated Roth account into a Roth IRA is still a rollover.
+- **A rollover stays with its owner** (ChatGPT's R30A-03; the owner: "Refuse it"; `0413792`). Between two of the named
+  retirement or HSA accounts of one kind (traditional IRA, traditional 401(k), Roth IRA, Roth 401(k), HSA), a transfer to
+  the other spouse's account is refused while both are living (IRC 408(d)(3)(A), 223(f)(5)). A divorce instrument, a
+  QDRO and a death are separate paths, and marriage alone is not one. Transfers between different kinds, taxable gifts,
+  the custom accounts and the handling at a death are unchanged.
+- **Known limit (R32):** a rollover into a 401(k) measures the IRA's basis as it stands on the date, without that year's
+  nondeductible contributions.
 - **Into an IRA or an HSA from a different kind of account, it is a contribution**, held to the room the year's planned
   contributions leave: the IRA limit and compensation, or the HSA limit. Under the redirect policy only what fits
   moves and the rest stays in the source; under warn all of it moves, with a warning. Witness:
@@ -907,7 +927,8 @@ checked against `main` at `bf9c6ef` (the three R30 commits exist and the test fi
 
 **Not modelled:** HSA eligibility (coverage, or Medicare from 65), and limits on custom accounts.
 
-*Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q149 to Q152.*
+*Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q149 to Q152. R32's
+refinements (2026-09-28, placed 2026-09-30): Q171.*
 
 ### 21.1 Required distributions (S5AA R30)
 
@@ -931,6 +952,11 @@ conversions are still settled pro rata at its end, on the basis the funding left
 taxable value counts the whole year's nondeductible contributions as basis, wherever in the year they fall, as the
 settlement already does for conversions. Witness: `tests/audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js`,
 `tests/audit-s5aa-r31-hsa-funding-settlement-dated.test.js`; landed at `8afe16d`.
+
+**The owner's IRA value on the funding date counts every one of that owner's traditional IRAs at its own return**, not
+only the one sending the money (S5AA R32, ChatGPT's R31-01; the owner: "Repair in R32"; `8ef84d3`; placed 2026-09-30).
+R31 carried only the sending IRA to the date and read the others at the row's opening, so a second IRA at +20% overstated
+the tax and one at −20% understated it. Witness: `tests/audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js`.
 
 ### 21.3 Dividends on moved dollars (S5AA R30)
 
@@ -1012,6 +1038,13 @@ limit and the limit less the year's other IRA contributions (Worksheet 2-2, line
   additions and 401(a)(17)'s compensation limit) — they are not cut because someone worked part of it (S5AA R39,
   repairing ChatGPT's R38-01). A plan year that is itself part of a tax year (a plan opening mid-year) keeps the
   limit for that share. The HSA limit stays prorated by the months of the contribution window (IRC 223(b)(2)).
+- **Catch-up contributions read the age reached by the year's end** (S5AA R32, raised in ChatGPT's R30A audit; the owner,
+  2026-09-28: "Use the year-end age"; `3017351`; placed 2026-09-30): the row an owner turns 50 has the IRA and 401(k)
+  catch-up, the row they turn 55 the HSA catch-up, the rows they turn 60 to 63 the 60-63 amount, and the row they turn 64
+  the ordinary catch-up (IRC 219(b)(5)(B), 414(v), 223(b)(3)). The model has no calendar, so each projection row is a
+  tax year and its close is the opening age plus the row's length. Before R32 the age at the row's opening was tested,
+  so the row an owner turned 50, 55 or 60 in was denied the catch-up and the row they turned 64 in kept the 60-63
+  amount. Witness: `tests/audit-s5aa-r32-catch-up-age-at-year-end.test.js`. Registered as Q171.
 
 **Tax.**
 - The age-65 amounts — the additional standard deduction, the senior deduction, and Arizona's $2,100 exemption — read
