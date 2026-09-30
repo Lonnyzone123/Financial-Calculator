@@ -183,7 +183,7 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
   staying prorated by months; the Rule of 55 now admits a separation at 55 or later, or earlier in the year of 55,
   instead of only a calendar-year reading that could deny a separation at 55 from a fractional starting age; an elected Roth match is Roth only when the employee is fully
   vested at allocation, matching the share that decides forfeiture; a Social Security claim inside a projection
-  year is priced at the claim with the COLAs it has earned by then; a workplace plan inherited by a surviving
+  year is priced at the claim with the COLAs it has earned by then (living claimants only, R39.1); a workplace plan inherited by a surviving
   spouse no longer carries the decedent's current-employer flag into the still-working exception; and the QCD's
   70½ opening-age eligibility convention is declared and stated on the form.
 

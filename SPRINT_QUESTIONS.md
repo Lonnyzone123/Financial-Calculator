@@ -6009,3 +6009,5 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 - (c) **The QCD keeps the opening-age convention, declared on the form**: a QCD is available from the first projection year that starts at 70½ or older (the plan records no gift date, so eligibility is read at the row's start, the same convention as 59½ and R37's HSA 65). To be decided with those two at the engine rebuild.
 
 **Status: IMPLEMENTED 2026-09-29** (S5AA R39). (a) at `8a51aaf` (R38-01); the Rule of 55's separation-age repair (not itself a new decision — R38-02, "separation at 55 or later" rather than only the calendar-year reading) at `4995761`; (b) at `85fe621` (R38-05); Social Security's claim-inside-a-year COLA repair (R38-04, likewise not itself a new decision) at `f6dbb2a`; (c) declared at `f7ea076`. Modelling text: `MODEL_ASSUMPTIONS.md` §4/§22, §18.3, §23.
+
+**Amended 2026-09-30 (S5AA R39.1, repairing ChatGPT's R39-01):** the R38-04 COLA repair above narrows to living claimants. A claim planned for after the claimant's death no longer prices the PIA at the claim, so it cannot move the survivor's benefit. Landed at `a2ee714`.
