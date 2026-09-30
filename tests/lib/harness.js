@@ -764,7 +764,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R38: a new plan files single (R37's open question; the owner: "go with your
 // recommendations")), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // fe56312e78da32fb41dd23263b0957c35fa7a3f28b0e053dd4da00026e956e27, described the previous rebuild.
-const EXPECTED_SHA256 = '2ff902bfc8bd97d4c3edb77be13cd41f4ed02c62a512e44817493cf13a6e7712';
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-01): annual contribution limits hold the dollars deposited, not a rate cut by
+// the part of the year worked), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
+// before it, 2ff902bfc8bd97d4c3edb77be13cd41f4ed02c62a512e44817493cf13a6e7712, described the previous rebuild.
+const EXPECTED_SHA256 = '34ac3f87a90a921846656dac38fcc03d0e27f4b3df8402a55c8ea0fc4b2fd751';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
