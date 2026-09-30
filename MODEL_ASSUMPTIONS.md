@@ -120,6 +120,11 @@ feature with migration consequences, not a repair.
 
 *Decision register P1. Closes `SPRINT_QUESTIONS.md` Q16 with a named successor.*
 
+**Since S5AA R34** (2026-09-29, Q160) the entered benefit is read in today's dollars. A claim after the plan's start
+takes every COLA from the start to the claim; a claim before the start is indexed from the claim at the configured
+rate, as above; the earnings-based PIA takes its COLAs from eligibility at 62 (20 CFR 404.271). Each COLA'd PIA is
+rounded down to the dime and each monthly benefit to the dollar (20 CFR 404.212(c), 404.275(c), 404.304(f)).
+
 ---
 
 ## 5. Turning dividends OFF does not mean no dividends
@@ -244,8 +249,9 @@ characterization test rather than resolved, since S2.
 whose projection opens there. *(**Superseded 2026-09-29 — see the note above §8's heading:** "Today the engine still does not do this" was true on 2026-09-13 and is not true now.)* The engine was aligned to this
 in `S5_TASK_CHECKLIST.md` task 2o, **landed** at `4c104e9`;
 `tests/result-contract.test.js`'s C6 characterization test became a
-conformance assertion in the same commit. `RESULT_CONTRACT.md`'s own C6 row is not the plan owner's file to
-correct; flagged to the S5AA session.
+conformance assertion in the same commit. *(**Update, 2026-09-29, S5AA R37:** `RESULT_CONTRACT.md`'s own C6 row —
+not the plan owner's file — was corrected in R37, and `tests/result-contract.test.js` now asserts "conflict C6,
+reconciled (S5 2o)". No longer flagged as outstanding.)*
 
 **What this moves.** Only the opening row's `networth`, and only for plans
 with net-worth accounting on, insurance configured, and a start age at or
@@ -310,12 +316,15 @@ does nothing, it fails too.
 
 *`S5_TASK_CHECKLIST.md` block 2e; `SIMULATION_LOG.md` Batches 7–10.*
 
-**Four mortgage fields are also accepted and change nothing** (S5AA R32F, SA32F-50, added 2026-09-29 from the S5AA
-session's relay, checked against `src/engine.js` and `src/scenario-validator.js`: none of `mortgageType`,
-`originalAmount`, `propertyValue` or `loanTermYears` is read by the engine): `mortgageType` (an "Interest-only" choice
-included), `originalAmount`, `propertyValue` and `loanTermYears`. The engine amortizes from the balance, rate,
-payment and payoff age. `remainingTermYears` is used only by the app, to set the payoff age. This is a finding
-(SA32F-50), not yet a decision or a repair; not yet added to `tests/inert-scenario-fields.test.js`'s held list.
+**Four more, added 2026-09-29 (S5AA R37, SA32F-50; Claude's R32F audit, confirmed by ChatGPT's R32V) — held to the
+engine in the same test as the three above:**
+
+- **`debt.mortgageType`, `debt.originalAmount`, `debt.propertyValue` and `debt.loanTermYears`** are recorded for
+  reference and change nothing. The projection runs on the balance, rate, monthly payment and payoff age. An
+  interest-only loan is modelled by entering its interest-only payment. The debt page says so.
+
+`remainingTermYears` is not inert in the form — it sets the payoff age there — and the engine reads the payoff age;
+it is not one of the held fields.
 
 ---
 
@@ -376,6 +385,14 @@ IRMAA actually works.
 *Decided 2026-09-14, night (the owner), the S5 run's question 3, answer (A)
 (the run's own session-local numbering, not a `SPRINT_QUESTIONS.md` entry).
 `S5_TASK_CHECKLIST.md` block 6.6a.*
+
+**Extended 2026-09-29 (S5AA R35): the two years before the plan are now optional inputs.** Entered, the MAGI (and
+optionally the filing status) of the two tax returns before the plan price years 0 and 1 directly, and nothing is
+assumed for them. A plan opening part-way through a calendar year completes that year for the lookback, at last
+year's entered rate or at the first row's own rate, and says which it used. Left blank, the assumption above still
+applies. **Also (S5AA R33): IRMAA reads the lookback year's own filing status**, recorded with its MAGI (20 CFR
+418.1115); for the two years after a death, the survivor's premium reads the joint returns filed those years. The
+top tier includes $500,000 / $750,000 (CMS 2026).
 
 ---
 
@@ -596,21 +613,26 @@ added at R8).
   follows the survivor's filing status: joint in the year of death, single after. The HSA family contribution limit
   after a death is a matter of health coverage, not filing status; with no coverage input, the plan keeps the limit
   the entered status implies.
-- The pension is assumed to continue in full to a surviving spouse (a 100% joint-and-survivor annuity), disclosed
-  by `PENSION_AFTER_DEATH_ASSUMED`. In the year of a death it is paid as in any year the person lived in.
+- ~~The pension is assumed to continue in full to a surviving spouse (a 100% joint-and-survivor annuity), disclosed
+  by `PENSION_AFTER_DEATH_ASSUMED`.~~ **Superseded 2026-09-29 (S5AA R35): an other-income pension stream pays its
+  entered survivor share after its owner's death. Absent, it is 100% and the result says so** — the recommendation
+  of record kept the same default, but it is now a stated field rather than a fixed assumption. In the year of a
+  death it is paid as in any year the person lived in.
 - **What passes to a surviving spouse** (the owner, 2026-09-21; disclosed as assumptions). The survivor takes the
   deceased's IRAs, Roth IRAs, 401(k)s and Roth 401(k)s as their own from the year after the death (the spousal
   election, Treas. Reg. 1.408-8(c); IRC 402(c)(9)), with any nondeductible IRA basis. A required distribution the
   deceased had not taken in the year of death is still due on their schedule. Keeping an account as an inherited IRA
   instead is not modelled. An HSA passes as the survivor's own, which is right only if the survivor is its
-  designated beneficiary. A taxable account, including a joint one, passes with the decedent's cost basis: no
-  step-up (or step-down) at death is applied, because how much is stepped up depends on titling and state law the
-  plan does not record, so the survivor's capital gains are overstated. *(**Correction, 2026-09-29, on
-  Claude's full-model audit (SA32F-17): the stated reason covers joint accounts only.** A solely-owned taxable account is stepped up in
-  full whatever the titling or state law (IRC 1014(a)); the "depends on titling and state law" reason applies to the
-  joint-account half only. The owner has decided the model change — Q161: own accounts step up in full, joint
-  accounts half, with an Arizona community-property disclosure — but it is not yet built; this correction is only to
-  the stated reason, and this paragraph's behaviour is otherwise as written until Q161 lands.)* Custom accounts pass
+  designated beneficiary. *(**Superseded 2026-09-29, S5AA R35 (Q161, `beb246a`), on Claude's full-model audit
+  (SA32F-17) and its D4 refinement ("a loss also resets"): the paragraph immediately below is built. The struck
+  claim — "no step-up (or step-down) at death is applied" — was wrong even before the repair for a solely-owned
+  account (IRC 1014(a) steps it up regardless of titling or state law); the stated reason covered joint accounts
+  only.)* ~~A taxable account, including a joint one, passes with the decedent's cost basis: no step-up (or
+  step-down) at death is applied, because how much is stepped up depends on titling and state law the plan does not
+  record, so the survivor's capital gains are overstated.~~ **A taxable account's basis resets to its value when it
+  passes, up or down (IRC 1014(a)): the decedent's own accounts in full, and a joint account half, the decedent's
+  assumed share (2040(b)). The value is read at the first row after the death. Community property (1014(b)(6)) is
+  not modelled.** Custom accounts pass
   like an IRA of their tax class.
 - An IRA, workplace plan or HSA belongs to one person. The validator refuses any other owner (joint is allowed only
   on taxable and custom accounts).
@@ -676,7 +698,15 @@ Replaces any percentage-basis description of the model.
   flagging. A scheduled transfer has a date and is judged at it. The engine's own comment and the flag's message say
   the same (read in the code 2026-09-25). *Reported by the S5AA session, not re-measured here:* on r15, 3 of 70 members
   pay more 10% than a split year would charge, and `expansion:s5aa-gap-early-retiree` pays $8,820 more lifetime tax.
-  The alternatives not chosen (Q137) can be decided with the engine rebuild.
+  The alternatives not chosen (Q137) can be decided with the engine rebuild. **Since S5AA R37 (SA32F-44), the HSA's
+  20% additional-tax exception to the age-65 rule follows the same convention:** a year that opens before the
+  owner turns 65 and ends after it has its whole non-qualified HSA draw charged the 20%.
+- **Required distributions, two more conventions** (S5AA R35). A spouse more than ten years younger who is the sole
+  beneficiary gives the Joint and Last Survivor Table (26 CFR 1.401(a)(9)-5(c)(2)), the default of record when the
+  plan doesn't say otherwise. A current employer's 401(k) owes no required distribution while its non-5%-owner
+  participant still works there (401(a)(9)(C)); "current employer" defaults to whichever plan still receives
+  contributions. The Rule of 55 needs the owner's separation in or after the year they turn 55; the switch itself
+  is read as the owner's certification that this holds, with the separation year enforced against the entered age.
 - **Conversions and transfers.** A conversion goes only into a Roth-class account of the same owner. A traditional
   IRA converts into a Roth IRA (or a custom Roth account); a 401(k) may convert into a Roth-class account of the same
   owner, including its own Roth 401(k). A manual transfer from a pre-tax account into a Roth account is a Roth
@@ -879,3 +909,159 @@ it. Each account pays its own.
 `tests/audit-s5aa-r30-transfer-dividends-follow-the-move.test.js`; landed at `66c406c`.
 
 *Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q153 to Q156.*
+
+
+---
+
+## 22. Social Security: spousal and survivor benefits, full retirement age, the earnings test (S5AA R34)
+
+**Provenance.** Written 2026-09-29 (UTC−7) from the S5AA session's R34 relay (`audit/S5AA/R34/S5AA_R34_RELAY_TO_EB_20260929.md`),
+checked against `main`: the commit exists and lands under S5AA task 5.1's line. Decisions are the owner's, given to the S5AA
+session directly, as reported by it. Registered as `SPRINT_QUESTIONS.md` Q158–Q160.
+
+- **Full retirement age comes from each person's birth year** (SSA's table; a survivor reads the year two later, 20 CFR
+  404.409). The birth year is 2026 minus the whole age, as §12 reads it; it is shown, not entered — the app's entered
+  full retirement age field is kept in saved plans but read by nothing.
+- **A spouse receives the spousal benefit**: up to half the other's PIA, less their own, on top of their own benefit,
+  reduced 25/36 of 1% a month for 36 months before their full retirement age and 5/12 of 1% beyond, with no delayed
+  credits (20 CFR 404.330, 404.333, 404.410). It cannot start before the worker files. Deemed filing makes a claim for
+  one a claim for both, so it starts at the later of the two filings. The family maximum cannot bind a worker and a
+  spouse and is not modelled beyond that.
+- **A survivor's benefit rests on the deceased's PIA**, with the delayed credits the deceased earned by the death (up
+  to 70), whether or not they had filed (42 USC 402(e)(1); 20 CFR 404.335) — this reverses the earlier "posthumous
+  claim establishes nothing" reading. It starts at the later of age 60 and the death, reduced from 71.5% at 60 evenly
+  by month to 100% at the survivor's own full retirement age, and, if the deceased had taken a reduced benefit, is
+  limited to the larger of that reduced benefit and 82.5% of the PIA (POMS RS 00615.320's early-claim cap, now
+  applied and disclosed).
+- **The earnings test counts net earnings from self-employment** (profit × 0.9235; 20 CFR 404.429, SS Act 211(a)(12)),
+  and in the grace year withholds only from the months before the owner stops working (20 CFR 404.435).
+- **An other income of type Social Security ends at its owner's death**, the same as an employment stream (42 USC
+  402(a)).
+
+*Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `7b61b88`.*
+
+---
+
+## 23. Contributions and tax figures follow the law more closely (S5AA R33)
+
+**Provenance.** Written 2026-09-29 (UTC−7) from the S5AA session's R33 relay (`audit/S5AA/R33/S5AA_R33_RELAY_TO_EB_20260929.md`).
+Decisions are the owner's, given to the S5AA session directly, as reported by it. Registered as `SPRINT_QUESTIONS.md` Q166.
+
+**IRA deduction (replaces the earlier note that the $10 round-up was not applied).** The IRA phase-outs reduce the
+deduction limit, not the contribution itself (IRC 219(g)(1)). The reduction is rounded down to $10, and the limit is
+at least $200 unless it reduces to zero (219(g)(2)(B)–(C)). The deduction is the smaller of that limit and the
+contribution (Publication 590-A Worksheet 1-2, line 7). A Roth IRA contribution is the lesser of the reduced Roth
+limit and the limit less the year's other IRA contributions (Worksheet 2-2, line 11).
+
+**Contributions.**
+- A deferral is excluded only as far as the law allows: excluded from whichever pay funds it, stream wages included;
+  capped at the owner's own compensation (415(c)(1)(B)); and under the "warn" policy the excess stays on deposit but
+  counts as income (402(g)(1)(A)).
+- **Each person's contributions stop at that person's own stop age** — a spouse's future contribution changes now
+  read the spouse's own age, not the primary person's.
+- On a joint return, a spouse who is not working can fund an IRA while the other spouse works, up to that spouse's
+  own stop age.
+- Profit sharing is paid without the employer-match switch.
+
+**Tax.**
+- The age-65 amounts — the additional standard deduction, the senior deduction, and Arizona's $2,100 exemption — read
+  the age reached by the row's close, its year-end age (IRC 63(f), 151(d)(5)(C); A.R.S. 43-1023(E)).
+- An included spouse is a married spouse: on a single or head-of-household return the spouse's age amounts are not
+  taken, neither spouse gets the senior deduction, and the self's own addition is the married $1,650 amount (IRC
+  151(d)(5)(C)(v), 63(f)(3)).
+- Qualified dividends and gains pay the smaller of the preferential rate and the regular tax (Form 1040 QDCG
+  worksheet, line 25).
+- A capital-loss carryover adds back the senior deduction (IRC 1212(b)(2)(B)(ii)).
+
+**Overnight instruction, governing R33 through R38: "Follow law everywhere"** — where the law gives a rule, build it
+rather than disclose a gap.
+
+*Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `f4e8294`.*
+
+---
+
+## 24. Vesting reaches normal retirement age; a new plan defaults to single (S5AA R35 and R38)
+
+**Provenance.** Written 2026-09-29 (UTC−7) from the S5AA session's R35 and R38 relays, checked against `main`: both
+commits exist. Registered as `SPRINT_QUESTIONS.md` Q162 (5b), Q167 (filing status).
+
+- Employer money vests on service, six-year graded unless a three-year cliff is chosen, and only the part still
+  unvested at separation is forfeited (IRC 411(a)(2)(B)).
+- **Employer money earned in the year of separation vests or forfeits along with the rest** (S5AA R38, repairing
+  ChatGPT's R35-01).
+- **At a separation at 65 or later, all employer money is kept.** IRC 411(a) makes it nonforfeitable at normal
+  retirement age, and the plan's own normal retirement age is taken as 65 (411(a)(8) gives 65 for such a plan).
+  There is no input for an earlier plan-defined normal retirement age.
+- **A new plan files single, matching its default of no spouse.** A saved plan keeps its own filing status. The test
+  corpus keeps the joint return it was written on, so no corpus figure moves. Linking the default to the spouse
+  switch is a possible later convenience, not built.
+- **Open, not decided:** with `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth
+  immediately and then mostly forfeited at separation — the two inputs disagree. The Roth-match vesting rule rests on
+  IRS guidance not yet checked. Registered as `SPRINT_QUESTIONS.md` Q168.
+
+*Decided 2026-09-29 (the owner), as reported by the S5AA session. Vesting through separation at `26ef26d` (R35),
+year-of-separation and age-65 vesting at `cc3217f` (R38), the filing default at `678c556` (R38).*
+
+---
+
+## 25. Later tax years index the 2026 figures (S5AA R36)
+
+**Provenance.** Written 2026-09-29 (UTC−7) from the S5AA session's R36 relay, checked against `main`: the commit
+exists. Registered as `SPRINT_QUESTIONS.md` Q165. This replaces any earlier statement that the tax rules are 2026's
+for every projected year.
+
+The rules package holds 2026's figures. Each later tax year indexes them as the law does, with each statute's own
+rounding:
+- brackets, capital-gains thresholds, the standard deduction and the age-65 addition (Arizona's standard deduction
+  conforms);
+- contribution limits (IRA, 401(k), catch-ups, total additions, the compensation limit, HSA, the QCD cap), the IRA
+  and Roth phase-outs, and the Roth catch-up wage threshold;
+- the IRMAA thresholds, the top tier from 2028.
+
+These rise with one whole year of the plan's inflation assumption per tax year — a stand-in for the C-CPI-U or
+CPI-U each statute names. The Social Security wage base, the earnings-test amounts and the bend points rise with the
+salary-growth rate instead, a stand-in for the national average wage index; a person's bend points are those of the
+year they turned 62.
+
+**Amounts the law fixes stay fixed:** the NIIT and Additional Medicare thresholds, the Social Security taxation
+bases, the $3,000 capital-loss limit, the senior deduction and its thresholds (kept after 2028 by the owner's
+decision, D8 — see `SPRINT_QUESTIONS.md` Q165), and Arizona's $2,100 exemption.
+
+Projection row `n` is tax year `2026 + n`. Indexing starts from the 2026 figure rather than each statute's own base
+year, so a figure can differ by one rounding step from the one the IRS eventually publishes. Medicare premiums
+themselves stay at 2026's.
+
+*Decided 2026-09-29 (the owner), "Index, own round", with D8 "Keep it even after 2028"; as reported by the S5AA
+session. Landed at `cf643a8`.*
+
+---
+
+## 26. Housing costs, input refusals, disclosure warnings, Monte Carlo detail, and a joint account's salary base (S5AA R37)
+
+**Provenance.** Written 2026-09-29 (UTC−7) from the S5AA session's R37 relay, checked against `main`: the commit
+exists. Some items below are the S5AA session's own reading, adopted by the owner's "go with your recommendations"
+(2026-09-29) — see `SPRINT_QUESTIONS.md` Q167.
+
+- **Housing costs.** A mortgage's property tax, insurance and HOA rise with the plan's inflation, at the price level
+  the year's spending uses. PMI is a term of the loan and stays as entered.
+- **Input refusals.** An adjustable debt that resets at an age needs its reset rate and its payoff age. A debt's
+  extra principal, PMI, property tax, insurance or HOA must be a number of zero or more, and its payment a number.
+  An asset class's volatility must be zero or more. A historical start must be a data year. `runs` is at most
+  10,000. Each is refused by name, and the validator agrees.
+- **Disclosure warnings.** A joint return with no spouse included, or a single or head-of-household return with one,
+  is reported. So is an expense at or after the plan's end age, which no year charges, and each person born in 1959
+  whom the plan carries to age 73 — the 1959 card stays visible for both spouses (Q167). The results page shows all
+  three.
+- **Monte Carlo.**
+  - The expected return stays the arithmetic mean, disclosed as such (Q164). Each year's draw is held to
+    [−95%, +200%], which raises the realised mean only at very high volatility.
+  - A partial year grows by (1 + r)^t.
+  - Guidance gives the unsuccessful paths' median ages and withholds a shortfall dollar amount and a spending-cut
+    percentage in the current engine (Q167); figures from the failing paths themselves are wanted for the engine
+    rebuild — see `FEATURES.md`, "Features — wanted".
+  - Simple mode shows the average path, not the typical one.
+- **A joint account's percent of salary reads the household's salary** — the owner's plus the spouse's, counted only
+  when a spouse is included and working (Q167).
+
+*Decided 2026-09-29 (the owner). Landed at `890ff72` and `503db3c` (R37); the filing-status and salary-base items
+also at `678c556` (R38) and `05f35fa`.*

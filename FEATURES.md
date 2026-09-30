@@ -40,7 +40,7 @@ A retirement / investment projection model. Given a household's accounts, contri
 | `tests/lib/worker-source.js` | Builds the real artifact to a scratch path, boots it, and returns the source the app would actually hand a Web Worker — so Worker-side tests exercise what ships instead of a third, hand-assembled approximation of it. |
 | `tests/` | 1,654 tests in the 147 files the release gate runs, as of S4's close (1,093 when this row was first written) — `audit-*` regression tests for confirmed-and-fixed bugs, `*-adversarial` boundary probes, golden scenarios, mathematical oracles, simulation identity, the universal row-level reconciliation invariant and its net-worth counterpart, Worker/main-thread output parity against the real build, a near-miss survivor sweep, a schema drift test, and a seeded property layer over the debt modules. |
 | `fixtures/` | Python-generated expected values plus the `generate_*.py` scripts that produced them — what the ported modules are verified against. |
-| `build.js` | Assembles the shipped single file from `app-shell.html` + `engine.js` + `scenario-validator.js` + all **eight** namespaced modules. Plain text substitution at three markers, no bundler. Each module is wrapped in its own IIFE namespace (`DebtAmortization`, `DebtRevolving`, `DebtRefinance`, `DebtArm`, `DebtRecast`, `MortgageVsInvesting`, …) rather than concatenated raw, because several define helpers — `num`, `clamp` — whose names collide with the shell's and the engine's own. `DEBT_MODULES` is the single registry the build and the test harness both read; `buildWorkerSource()` in `app-shell.html` still hand-maintains its own copy of the name list, which is `SPRINT_QUESTIONS.md` Q33. |
+| `build.js` | Assembles the shipped single file from `app-shell.html` + `engine.js` + `scenario-validator.js` + **five** namespaced debt modules *(corrected 2026-09-29, S5AA R37, SA32F-54: this line said "all eight"; `DebtPayoffStrategy`, `DebtStrategyAdapter` and `MortgageVsInvesting` are named in `DEBT_MODULES` with `bundled: false` under P19 and are left out of the shipped file)*. Plain text substitution at three markers, no bundler. Each shipped module is wrapped in its own IIFE namespace (`DebtAmortization`, `DebtRevolving`, `DebtRefinance`, `DebtArm`, `DebtRecast`) rather than concatenated raw, because several define helpers — `num`, `clamp` — whose names collide with the shell's and the engine's own. `DEBT_MODULES` is the single registry the build and the test harness both read; `buildWorkerSource()` in `app-shell.html` still hand-maintains its own copy of the name list, which is `SPRINT_QUESTIONS.md` Q33. |
 | `tools/capture-baseline.js` | Full-output baseline capture and diff — complete `runPlan()` output at full precision, **zero excluded fields**, over a fixed 36-scenario control corpus (golden set, seeded sweep, and targeted scenarios the generator cannot reach), plus a separate 49-scenario expanded composition since S4 task 4. Since S4 5.4 it records every input's hash and whether each is the committed bytes, and `--measured` refuses a capture whose inputs are not. Versioned; refuses to diff across format versions. Distinguishes `-0`, `NaN` and `±Infinity` from `null` end to end, recomputes every hash from the contents it claims to describe, and records the commit SHA plus a hash of the corpus *inputs*. This is what a behaviour-preserving refactor is proven against. |
 | `tools/verify-phase2-extraction.js` | Re-derives the original engine extraction from git history to prove nothing was silently rewritten. **Retired as a gate 2026-09-10 (P6 / Q31)** — it re-derives from the pre-Phase-2 ancestor `f06ac7c`, so every legitimate repair since reads as a mismatch. Kept in history as provenance, not run as a check. |
 | `tools/bench-simulation.js` | Performance and memory harness: peak retained heap, bytes per path and per row, wall time split between simulation and Monte Carlo aggregation, and a deoptimization signal (per-path cost as a function of path count). Desktop V8 figures only — they do not transfer to an iPhone. |
@@ -163,10 +163,36 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
 - CSV export of the full annual projection (26 columns per row) *(corrected 2026-09-24 from 21: the app's header list has 26, including settled tax, true-up paid and outstanding, and RMD due, paid and unmet)*
 - A flat, single-page "guided setup" checklist — not the branching/progressive wizard described in Onboarding below, which remains a real gap
 - Debug-info export (an IndexedDB-backed issue log)
+- **S5AA R33–R38 additions, 2026-09-29** (Claude's R32F full-model audit and ChatGPT's R32V check, repaired across six
+  rounds; detail in `MODEL_ASSUMPTIONS.md` §§20–26): the spousal and survivor Social Security benefits, and a shown
+  full retirement age; the IRA deduction's phase-out rounding; per-owner contribution stop ages and a spousal IRA
+  while the joint return has compensation; a step-up (or step-down) at death, own accounts in full and joint
+  accounts half; two optional pre-plan IRMAA lookback inputs; a pension stream's entered survivor share; the Joint
+  and Last Survivor Table for a much-younger sole beneficiary, and a current-employer 401(k) exception to required
+  distributions; vesting that reaches normal retirement age (65) and includes the separation year; a new plan
+  defaulting to single filing; later tax years indexing the 2026 figures; and new account-form fields — "Spouse is
+  the sole beneficiary", the current-employer plan flag, a 5%-owner flag, and a vesting schedule, plus a pension
+  row's "Survivor share" and the health section's two prior-year income fields. The Rule of 55 switch's label now
+  states the separation condition it certifies.
 
 ## Features — wanted (not yet built)
 
 Grouped by planning track (see `ENGINEERING_LOG.md` for sequencing/priority). Confirmed absent from `app-shell.html` as of the 2026-09-10 reconciliation above — no matching field, toggle, or render path found for any item below.
+
+**Monte Carlo shortfall guidance from the failing paths** (added 2026-09-29, S5AA R37/R38, SA32F-41/-42/-52) — since
+R37 (`890ff72`), Monte Carlo guidance names the ages where the plan runs short, but not how much or what spending
+cut would fix it: the only figures the engine returns come from the median row, a typical path across all runs, not
+from the runs that actually fail. Before R37 this told a plan with 51.9% success that it was "short by about $0" and
+offered a 1% cut. **Wanted:** the rebuilt engine computes guidance from the failing paths themselves — (a) the
+shortfall across the failing paths, in today's dollars, a median and a tail figure (for example the 90th
+percentile), for both the first year short and the total unfunded spending per failing path; (b) the spending cut
+that restores a target success rate, found by searching the spending level (for example by bisection) over re-runs
+seeded with the same random draws (common random numbers), so paired runs differ only by the cut. Needs new Monte
+Carlo result-contract fields with basis and units, and a guidance card that states them. Simple mode and historical
+replay keep their single-path figures unchanged. Cost note: (b) costs several Monte Carlo runs per plan, the same
+class of cost as the heatmap revisit trigger below. **Decided by the owner, 2026-09-29 (as reported by the S5AA
+session): withhold the shortfall amount and cut in the current engine (`SPRINT_QUESTIONS.md` Q167); build this in
+the engine rebuild.**
 
 **Onboarding** — turning the existing flat single-page guided-setup checklist into an actual progressive, branching wizard: skip real-estate questions if no property, skip debt questions if none, pick Simple/Standard/Advanced for the user based on their answers instead of asking up front, and share question copy with the contextual-help layer below rather than duplicating explanations. Should stay first-run-only by default, with a "restart guided setup" option in settings.
 

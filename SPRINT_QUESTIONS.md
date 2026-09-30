@@ -5897,9 +5897,11 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R32F relay (committed with the next S5AA records commit as `audit/S5AA/R32/S5AA_R32F_RELAY_TO_EB_20260929.md`). The owner's answer was given to the S5AA session directly, and is recorded in the R32F report's §4 (merged by the owner, PR #17, `b5424ff`); it is not confirmed in the plan owner's chat. Finding: Claude's full-model audit at the R32 source (SA32F-02, `audit/S5AA/R32/SA32F/`).
 
-**The decision.** "Pay by law": when someone dies before claiming Social Security, the surviving spouse gets the deceased's FRA benefit plus the delayed credits earned before death, reduced for the survivor's own age (42 USC 402(e)). The survivor-side claim-age gate (Q3b) stays. This reverses R2-003(b)'s "posthumous claim" removal, which is Q3a's context.
+**The decision.** "Pay by law": when someone dies before claiming Social Security, the surviving spouse gets the deceased's FRA benefit plus the delayed credits earned before death, reduced for the survivor's own age (42 USC 402(e)). This reverses R2-003(b)'s "posthumous claim" removal, which is Q3a's context. **Q3a and Q3b are superseded by law** (42 USC 402(e)(1); 20 CFR 404.335): Q3a's "no claim established" reading is wrong — the survivor benefit rests on the deceased's PIA and earned delayed credits whether or not they filed; Q3b's "survivor-side claim-age gate stays" is replaced below.
 
-**Status: DECIDED 2026-09-29, not yet built.** No figure moves until its repair round lands.
+**Amended 2026-09-29 (S5AA R34, the owner: "Start at 60 or the death").** The survivor benefit is paid from the later of age 60 and the death, reduced for that age; the recipient's own-claim-age gate (Q3b, above) is dropped.
+
+**Status: IMPLEMENTED 2026-09-29 at `7b61b88`** (S5AA R34; source tag `s5aa-r34-source` = `7b61b88`).
 
 ## 2026-09-29 — Q159. A spousal Social Security benefit, up to half the worker's FRA amount, is built (SA32F-03, the owner, 2026-09-29)
 
@@ -5907,7 +5909,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision.** "Build it": up to half the worker's FRA benefit, with the spousal reduction and no delayed credits. It cannot start before the worker files (20 CFR 404.333, 404.410).
 
-**Status: DECIDED 2026-09-29, not yet built.**
+**Status: IMPLEMENTED 2026-09-29 at `7b61b88`** (S5AA R34).
 
 ## 2026-09-29 — Q160. The entered Social Security benefit is in today's dollars, and grows at the COLA field to claim (SA32F-04, the owner, 2026-09-29)
 
@@ -5915,7 +5917,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision.** "Today's dollars": the entered figure grows at the COLA assumption from the plan's start to the claim. The earnings-based path takes COLAs from age 62 (20 CFR 404.271). The input field is relabelled to say so.
 
-**Status: DECIDED 2026-09-29, not yet built.**
+**Status: IMPLEMENTED 2026-09-29 at `7b61b88`** (S5AA R34).
 
 ## 2026-09-29 — Q161. A decedent's sole taxable account steps up in full at death; a joint account steps up half (SA32F-17, the owner, 2026-09-29)
 
@@ -5923,7 +5925,9 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision.** "Own full, joint half": a decedent's own taxable accounts are fully stepped up (IRC 1014(a)); joint accounts step up half. A disclosure notes Arizona community property (1014(b)(6)) can step up more.
 
-**Status: DECIDED 2026-09-29, not yet built.** §18.1's reason for no step-up is corrected now, in `MODEL_ASSUMPTIONS.md` §18.1 itself, separately from this decision's repair.
+**Refined 2026-09-29 on ChatGPT's R32V §5 (the owner: "a loss also resets"):** the decedent's share takes its date-of-death value as basis whether that is above or below its cost, so the reset can be a step-down as well as a step-up. Own accounts reset in full; joint accounts reset half.
+
+**Status: IMPLEMENTED 2026-09-29 at `beb246a`** (S5AA R35). §18.1's reason for no step-up is corrected in `MODEL_ASSUMPTIONS.md` §18.1 itself.
 
 ## 2026-09-29 — Q162. Three contribution conventions: each owner's own age, a 6-year vesting ramp, and a spousal IRA while jointly filed past retirement (SA32F-12, -13, -15, the owner, 2026-09-29)
 
@@ -5934,7 +5938,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 - **5b (SA32F-13).** "Vest over 6 years": the entered vested percentage rises to 100% within 6 years (IRC 411(a)(2)(B)); only what remains unvested at retirement is lost.
 - **5c (SA32F-15).** "Allow while joint pay": a spousal IRA is allowed after the non-working spouse's retirement age while the joint return has compensation (219(c); 219(d)(1) is repealed).
 
-**Status: DECIDED 2026-09-29, not yet built.**
+**Status: IMPLEMENTED 2026-09-29.** 5a and 5c at `5d85480` (S5AA R33); 5b at `26ef26d` (S5AA R35).
 
 ## 2026-09-29 — Q163. Fixed-nominal spending entered "in today's dollars" inflates to the retirement date, then holds flat (SA32F-36, the owner, 2026-09-29)
 
@@ -5942,7 +5946,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision.** "Inflate to retirement": with a later retirement, the entered fixed-nominal spending figure is inflated forward to the retirement date and then held flat from there.
 
-**Status: DECIDED 2026-09-29, not yet built.**
+**Status: IMPLEMENTED 2026-09-29 at `f9f37a8`** (S5AA R35).
 
 ## 2026-09-29 — Q164. "Expected annual return" keeps its arithmetic-mean meaning, disclosed as such (SA32F-42, the owner, 2026-09-29)
 
@@ -5950,7 +5954,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision.** "Keep average, disclose": Monte Carlo keeps "Expected annual return" as the arithmetic mean. A disclosure states that simple mode shows the average path, not the typical (median) one.
 
-**Status: DECIDED 2026-09-29, not yet built.**
+**Status: IMPLEMENTED 2026-09-29 at `890ff72`** (S5AA R37).
 
 ## 2026-09-29 — Q165. Tax law after 2026: price-linked amounts index at the plan's inflation, disclosed as a model assumption; statutory-fixed amounts stay fixed (SA32F-D1, the owner, 2026-09-29)
 
@@ -5958,4 +5962,39 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision.** "Index, own round": amounts that are price-linked by law are indexed at the plan's own inflation assumption and labelled a model assumption; amounts fixed by statute stay fixed. Built in a round of its own.
 
-**Status: DECIDED 2026-09-29, not yet built.**
+**Refined 2026-09-29 on ChatGPT's R32V §5 (the owner: "Keep it even after 2028"):** the senior deduction continues after 2028 as a model assumption, continuing Q46, though IRC 151(d)(5)(C) ends it for tax years beginning after 2028; its $6,000 amount and $75,000/$150,000 thresholds stay fixed. The engine has no calendar year, so it never stopped applying the deduction; this decision makes that the deliberate choice rather than an omission.
+
+**Status: IMPLEMENTED 2026-09-29 at `cf643a8`** (S5AA R36; source tag `s5aa-r36-source` = `cf643a8`).
+
+## 2026-09-29 — Q166. IRA deduction rounding, spouse contribution stop age, and Arizona's age-65 exemption timing (S5AA R33, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R33 relay (`audit/S5AA/R33/S5AA_R33_RELAY_TO_EB_20260929.md`). The owner's answers were given to the S5AA session directly; they are as reported by that session, not confirmed in the plan owner's chat.
+
+**The decisions.**
+- (a) Apply the IRA deduction's $10 rounding (IRC 219(g)(2)(B)–(C)): "yes".
+- (b) A spouse's future contribution changes on the spouse's own age, not the primary person's: "Yes".
+- (c) Arizona's age-65 exemption reads the age reached by the row's close (year-end age): "Yes".
+- **Overnight instruction: "Follow law everywhere"** — where the law gives a rule, build it rather than disclose a gap. This governs R33 through R38.
+
+**Status: IMPLEMENTED 2026-09-29 at `f4e8294`** (S5AA R33; source tag `s5aa-r33-source` = `f4e8294`). Modelling text: `MODEL_ASSUMPTIONS.md` §20 and §21 (IRA deduction, contributions, tax rules, IRMAA).
+
+## 2026-09-29 — Q167. Default filing status, HSA age-65 exception, joint-account salary base, the 1959 card, and Monte Carlo shortfall guidance (R37's five open items, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R37 and R38 relays. Claude's R32F audit left these as its own choices or as questions for the owner, not decided. The owner's answer, given to the S5AA session directly, was "go with your recommendations" — adopting Claude's reading on all five. As reported by that session, not confirmed in the plan owner's chat.
+
+**The decisions.**
+1. **The default plan now files single**, not joint with no spouse — the joint-with-no-spouse default made every untouched plan show the filing-mismatch warning. Linking the default to the spouse switch is possible later as a convenience.
+2. **The HSA's age-65 exception to the 20% additional tax follows Q137's opening-age convention**: a year that opens before 65 and ends after has its whole non-qualified draw charged the 20%. The 59½ and 65 conventions are to be decided together at the engine rebuild.
+3. **A joint account's percent of salary reads the household's salary** — the owner's plus the spouse's, counted only when a spouse is included and working.
+4. **The 1959 RMD proposed-rule card stays visible**, for both spouses.
+5. **Monte Carlo guidance keeps withholding the shortfall dollar amount and the spending-cut percentage** in the current engine. Figures from the failing paths (not just the median row) are a wanted feature for the engine rebuild — see `FEATURES.md`, "Features — wanted".
+
+**Status: decisions 2–5 IMPLEMENTED 2026-09-29 at `890ff72` and `503db3c`** (S5AA R37); **decision 1 IMPLEMENTED 2026-09-29 at `678c556`** (S5AA R38; the test corpus keeps the joint return it was written on, so no corpus figure moves). Decision 2 additionally at `3b45dfa` (test `hsa-65-opening-age`); decision 3 at `05f35fa`. Modelling text: `MODEL_ASSUMPTIONS.md` §18.3, §20 and the new "Later tax years" / Monte Carlo sections.
+
+## 2026-09-29 — Q168. A Roth match with vesting 100 and no years of service is taxed as Roth, then mostly forfeited (found by S5AA R38, not yet decided)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R38 relay.
+
+**The question.** With `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth (immediately, at contribution) and then mostly forfeited at separation — the two inputs disagree about what actually happens to the money. The rule for a Roth match's vesting rests on IRS guidance the S5AA session has not yet checked.
+
+**Status: OPEN, reported to the owner, not built.** No decision has been made.
