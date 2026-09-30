@@ -47,8 +47,23 @@ test('R40: a reset age with no reset rate or no payoff age is refused by the val
   }
 });
 
-test('R40: controls -- both terms present, no reset age, and a fixed rate are valid and run', () => {
-  for (const edit of [() => {}, (d) => { delete d.nextRateResetAge; delete d.resetRate; },
+test('R40 (the audit of PR #35): a reset rate or reset age that is present but not a number is WRONG_TYPE, and the engine refuses it', () => {
+  /* The audit found a numeric-string reset age passed both gates: projectDebts() read Number("61"), and with no reset rate ran the debt
+     at 0% after the reset (with no payoff age, it threw). And a string reset rate was reported as missing, which it is not. */
+  const cases = [
+    [(d) => { d.resetRate = '8'; }, ['WRONG_TYPE@advanced.debts[0].resetRate'], 'SCENARIO_NONFINITE_DEBT_RATE'],
+    [(d) => { d.nextRateResetAge = '61'; }, ['WRONG_TYPE@advanced.debts[0].nextRateResetAge'], 'SCENARIO_NONFINITE_DEBT_RESET_AGE'],
+    [(d) => { d.nextRateResetAge = '61'; delete d.resetRate; }, ['WRONG_TYPE@advanced.debts[0].nextRateResetAge'], 'SCENARIO_NONFINITE_DEBT_RESET_AGE']
+  ];
+  for (const [edit, expected, code] of cases) {
+    const p = withDebt(edit);
+    assert.deepStrictEqual(errors(p), expected);
+    assert.strictEqual(engine.runPlan(p).calculationErrorCode, code, 'the engine refuses the same plan');
+  }
+});
+
+test('R40: controls -- both terms present, no reset age, a null reset age, and a fixed rate are valid and run', () => {
+  for (const edit of [() => {}, (d) => { delete d.nextRateResetAge; delete d.resetRate; }, (d) => { d.nextRateResetAge = null; delete d.resetRate; },
     (d) => { d.rateType = 'fixed'; delete d.resetRate; delete d.payoffAge; }]) {
     const p = withDebt(edit);
     assert.deepStrictEqual(errors(p), []);

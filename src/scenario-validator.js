@@ -879,8 +879,17 @@ function validateDebt(c, debt, index) {
   }
   /* S5AA R40: runPlan() refuses an adjustable debt that resets its rate at an age but has no reset rate or no payoff age
      (SCENARIO_DEBT_RESET_TERMS_MISSING, R37 ad62460). This accepted it, so a valid plan came back as a calculation error. */
-  if (debt.rateType === 'adjustable' && isFiniteNumber(debt.nextRateResetAge) && (!isFiniteNumber(debt.resetRate) || !isFiniteNumber(debt.payoffAge))) {
-    c.error('DEBT_RESET_TERMS_MISSING', `${path}.${isFiniteNumber(debt.resetRate) ? 'payoffAge' : 'resetRate'}`,
+  /* S5AA R40 (the audit of PR #35): a present reset rate or reset age that is not a number is WRONG_TYPE -- the engine refuses both
+     (NONFINITE_DEBT_RATE, NONFINITE_DEBT_RESET_AGE, or NONFINITE_LIST_VALUE for NaN and Infinity) -- and a reset rate or payoff age that
+     is absent is DEBT_RESET_TERMS_MISSING, as the engine names it. */
+  if (debt.rateType === 'adjustable') {
+    if (debt.resetRate !== undefined) checkType(c, debt.resetRate, `${path}.resetRate`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+    if (debt.nextRateResetAge !== undefined && debt.nextRateResetAge !== null) {
+      checkType(c, debt.nextRateResetAge, `${path}.nextRateResetAge`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+    }
+  }
+  if (debt.rateType === 'adjustable' && isFiniteNumber(debt.nextRateResetAge) && (debt.resetRate === undefined || debt.payoffAge === undefined || debt.payoffAge === null)) {
+    c.error('DEBT_RESET_TERMS_MISSING', `${path}.${debt.resetRate === undefined ? 'resetRate' : 'payoffAge'}`,
       'an adjustable debt that resets its rate at an age needs a reset rate and a payoff age, or its payment after the reset cannot be projected');
   }
   /* Q43: A PAYMENT THAT DOES NOT COVER ITS OWN INTEREST WAS ACCEPTED IN SILENCE.

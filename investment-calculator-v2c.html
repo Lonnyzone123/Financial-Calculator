@@ -2988,7 +2988,7 @@ function nonFiniteHoldingInputCode(p){
   if(!adv||typeof adv!=="object")return null;
   var assets=adv.otherAssets,debts=adv.debts,i;
   if(Array.isArray(assets))for(i=0;i<assets.length;i++){var asset=assets[i];if(asset&&typeof asset==="object"&&asset.value!==undefined&&!isFiniteNumberValue(asset.value))return "NONFINITE_OTHER_ASSET_VALUE"}
-  if(Array.isArray(debts))for(i=0;i<debts.length;i++){var debt=debts[i];if(debt&&typeof debt==="object"){if(debt.balance!==undefined&&!isFiniteNumberValue(debt.balance))return "NONFINITE_DEBT_BALANCE";/* S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt   the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lifetime interest   became $0, with status ok. Balance was already gated here; rate was not, and rate is what makes a debt cost   anything. resetRate is gated with it: an adjustable debt reads it after the reset, so an unusable value there   is the same defect one branch later. */if(debt.rate!==undefined&&!isFiniteNumberValue(debt.rate))return "NONFINITE_DEBT_RATE";if(debt.rateType==="adjustable"&&debt.resetRate!==undefined&&!isFiniteNumberValue(debt.resetRate))return "NONFINITE_DEBT_RATE";/* S5AA R37 (SA32F-21, SA32F-40; R32V: "Validate/default the term or return the documented refusal"; "Zero cannot silently stand for unknown"): an adjustable debt that resets at an age needs both facts the reset reads. With no payoffAge the recast term was NaN and runPlan() threw; with no resetRate the rate after the reset was 0%. The app's form always supplies both (normalizeDebt()). */if(debt.rateType==="adjustable"&&isFiniteNumberValue(debt.nextRateResetAge)&&(!isFiniteNumberValue(debt.payoffAge)||!isFiniteNumberValue(debt.resetRate)))return "DEBT_RESET_TERMS_MISSING"}}
+  if(Array.isArray(debts))for(i=0;i<debts.length;i++){var debt=debts[i];if(debt&&typeof debt==="object"){if(debt.balance!==undefined&&!isFiniteNumberValue(debt.balance))return "NONFINITE_DEBT_BALANCE";/* S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt   the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lifetime interest   became $0, with status ok. Balance was already gated here; rate was not, and rate is what makes a debt cost   anything. resetRate is gated with it: an adjustable debt reads it after the reset, so an unusable value there   is the same defect one branch later. */if(debt.rate!==undefined&&!isFiniteNumberValue(debt.rate))return "NONFINITE_DEBT_RATE";if(debt.rateType==="adjustable"&&debt.resetRate!==undefined&&!isFiniteNumberValue(debt.resetRate))return "NONFINITE_DEBT_RATE";/* S5AA R40 (the audit of PR #35): a reset age that is present but not a number -- "35" -- passed every gate, and projectDebts() then read Number("35") and ran the debt at 0% after the reset, or threw on the recast term. Refused by name, as the rate is. */if(debt.rateType==="adjustable"&&debt.nextRateResetAge!==undefined&&debt.nextRateResetAge!==null&&!isFiniteNumberValue(debt.nextRateResetAge))return "NONFINITE_DEBT_RESET_AGE";/* S5AA R37 (SA32F-21, SA32F-40; R32V: "Validate/default the term or return the documented refusal"; "Zero cannot silently stand for unknown"): an adjustable debt that resets at an age needs both facts the reset reads. With no payoffAge the recast term was NaN and runPlan() threw; with no resetRate the rate after the reset was 0%. The app's form always supplies both (normalizeDebt()). */if(debt.rateType==="adjustable"&&isFiniteNumberValue(debt.nextRateResetAge)&&(!isFiniteNumberValue(debt.payoffAge)||!isFiniteNumberValue(debt.resetRate)))return "DEBT_RESET_TERMS_MISSING"}}
   return null;
 }
 /* S5AA R37 (SA32F-51; R32V: "Separate invalid-input refusals from silent replacement of financially meaningful fields"): three
@@ -6357,6 +6357,8 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"An adjustable debt resets its rate at an age but has no reset rate or no payoff age, so its payment after the reset cannot be projected."
             :rejectedInput==="NONFINITE_DEBT_RATE"
             ?"A debt's interest rate is not a usable number, so its interest and payoff cannot be projected."
+            :rejectedInput==="NONFINITE_DEBT_RESET_AGE"
+            ?"An adjustable debt's rate-reset age is not a number, so the reset cannot be placed in the projection."
             :rejectedInput==="UNKNOWN_FILING_STATUS"
             ?"The filing status is not one the tax tables define (single, mfj or hoh), so income tax cannot be computed."
             :rejectedInput==="UNKNOWN_METHOD"
@@ -7673,8 +7675,17 @@ function validateDebt(c, debt, index) {
   }
   /* S5AA R40: runPlan() refuses an adjustable debt that resets its rate at an age but has no reset rate or no payoff age
      (SCENARIO_DEBT_RESET_TERMS_MISSING, R37 ad62460). This accepted it, so a valid plan came back as a calculation error. */
-  if (debt.rateType === 'adjustable' && isFiniteNumber(debt.nextRateResetAge) && (!isFiniteNumber(debt.resetRate) || !isFiniteNumber(debt.payoffAge))) {
-    c.error('DEBT_RESET_TERMS_MISSING', `${path}.${isFiniteNumber(debt.resetRate) ? 'payoffAge' : 'resetRate'}`,
+  /* S5AA R40 (the audit of PR #35): a present reset rate or reset age that is not a number is WRONG_TYPE -- the engine refuses both
+     (NONFINITE_DEBT_RATE, NONFINITE_DEBT_RESET_AGE, or NONFINITE_LIST_VALUE for NaN and Infinity) -- and a reset rate or payoff age that
+     is absent is DEBT_RESET_TERMS_MISSING, as the engine names it. */
+  if (debt.rateType === 'adjustable') {
+    if (debt.resetRate !== undefined) checkType(c, debt.resetRate, `${path}.resetRate`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+    if (debt.nextRateResetAge !== undefined && debt.nextRateResetAge !== null) {
+      checkType(c, debt.nextRateResetAge, `${path}.nextRateResetAge`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+    }
+  }
+  if (debt.rateType === 'adjustable' && isFiniteNumber(debt.nextRateResetAge) && (debt.resetRate === undefined || debt.payoffAge === undefined || debt.payoffAge === null)) {
+    c.error('DEBT_RESET_TERMS_MISSING', `${path}.${debt.resetRate === undefined ? 'resetRate' : 'payoffAge'}`,
       'an adjustable debt that resets its rate at an age needs a reset rate and a payoff age, or its payment after the reset cannot be projected');
   }
   /* Q43: A PAYMENT THAT DOES NOT COVER ITS OWN INTEREST WAS ACCEPTED IN SILENCE.
