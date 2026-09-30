@@ -752,7 +752,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R37: stale result texts corrected and held to what runs (SA32F-54; SA32F-48's
 // RESULT_CONTRACT part)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
 // it, d5e49ec8268fdfa8ee9e2aea4049f6ec815321ecd931b180ce9597e6ef4e415f, described the previous rebuild.
-const EXPECTED_SHA256 = '13aafac831f8be370e130c13bdefd64efca9c0492bcb911d645bf8313bfca92e';
+//
+// Changed again 2026-09-29 (S5AA R38 (R35-01): employer money earned in the row of separation is vested or forfeited
+// with the rest), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 13aafac831f8be370e130c13bdefd64efca9c0492bcb911d645bf8313bfca92e, described the previous rebuild.
+const EXPECTED_SHA256 = 'd6cb5cbd1cc5c7bf3e4b84f3979cd388d613d735901de6c0c207d81cf410e29e';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
