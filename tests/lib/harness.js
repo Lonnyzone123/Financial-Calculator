@@ -772,7 +772,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R39 (R38-02): a separation at 55 or later qualifies for the Rule of 55, whatever the
 // plan's starting age), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
 // it, 34ac3f87a90a921846656dac38fcc03d0e27f4b3df8402a55c8ea0fc4b2fd751, described the previous rebuild.
-const EXPECTED_SHA256 = '3b614151b078ae0197fa6adeeae9fe00f1d882649528cc26cf6c9e81eda2832d';
+//
+// Changed again 2026-09-29 (S5AA R39 (R38-03): an elected Roth match follows the vesting the employee has when it is
+// allocated), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 3b614151b078ae0197fa6adeeae9fe00f1d882649528cc26cf6c9e81eda2832d, described the previous rebuild.
+const EXPECTED_SHA256 = '96db2ad4c0c6cf45045dd5080961db15f3ebbdf0cf5dcbb98422569e759d45f4';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
