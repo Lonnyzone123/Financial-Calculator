@@ -260,6 +260,49 @@ absence.
 8's cut became mandatory in R-AGE-SPAN — which is exactly what §8 says a bump is for. The reasoning above, about
 advisory issues, still stands.
 
+### What S5AA R29 to R39.1 added — recorded late, in R40 (2026-09-30)
+
+*These codes reached `src/` in R29 to R37 without being written here; R40 records them. Read in `src/engine.js` and
+`src/scenario-validator.js` at `a2ee714` (`s5aa-r39.1-source`), each against the commit that introduced it. R38 to
+R39.1 added none; R40 adds one refusal and one validator code, below.* **`contractVersion` stays at 5,** on the reasoning above and the precedent of R25's
+`SCENARIO_NONNUMBER_PLAN_VALUE` (§1): no row field, unit, basis or invariant changed. An advisory issue changes nothing a
+consumer relied on. A refusal is an existing outcome, `calculation_error` with no rows, reached by one more cause.
+
+**Six advisory issues, all `WARNING`:**
+
+| code | said when | `state` | introduced |
+|---|---|---|---|
+| `TRANSFER_INTO_WORKPLACE_REFUSED` | a scheduled transfer into a 401(k) is not payroll money, a same-character rollover from its owner's own plan or pre-tax IRA, or a conversion to its owner's own Roth; nothing moves | `path`, `from`, `to`, `age` | R29 `3a02ed1` (PCF-02) |
+| `TRANSFER_BETWEEN_OWNERS_REFUSED` | a rollover between retirement or HSA accounts would pass from one living spouse to the other; nothing moves | `path`, `from`, `to`, `age` | R32 `0413792` (R30A-03) |
+| `PENSION_STREAM_AFTER_DEATH_ASSUMED` | a pension stream with no survivor share entered is still paying after its owner's death inside the projection, so a 100% joint-and-survivor annuity is assumed | `path`, `approximation: true`, `assumed`, `streams` | R35 `a69c198` (SA32F-18) |
+| `IRMAA_PARTIAL_FIRST_YEAR_COMPLETED` | health costs are on, the plan opens part-way through a year, and someone is 65 or over by plan year 2, so the first year's MAGI for the IRMAA lookback is completed by estimate | `path`, `approximation: true`, `rowDuration`, `completedWith` | R35 `ddf658a` (SA32F-24) |
+| `FILING_HOUSEHOLD_MISMATCH` | married filing jointly with no spouse included, or single or head of household with a spouse included | `path`, `filing`, `spouseOn` | R37 `503db3c` (SA32F-35) |
+| `EXPENSE_AFTER_PLAN_END` | a one-time expense with an amount is at or after the plan's end age, so no year charges it | `path`, `age`, `endAge`, `amount` | R37 `503db3c` (SA32F-38) |
+
+**Four refusals,** each an `ERROR` issue `SCENARIO_<cause>` and the same `calculationErrorCode`, with `status`
+`"calculation_error"` and no rows (the "invalid" shape in §3). `validateScenario()` refuses each of the same plans: a
+start after the data as `OUT_OF_RANGE`, a debt amount or class volatility as `WRONG_TYPE`, `NEGATIVE_AMOUNT` or
+`NEGATIVE_VOLATILITY`, and missing reset terms as `DEBT_RESET_TERMS_MISSING` (only since R40 `d4fd3a9`: until then the
+validator accepted that plan and the engine refused it):
+
+| `calculationErrorCode` | refused when | introduced |
+|---|---|---|
+| `SCENARIO_HISTORY_START_AFTER_DATA` | historical replay starts after the last year of return data | R37 `e923123` (SA32F-51) |
+| `SCENARIO_INVALID_DEBT_AMOUNT` | a debt's payment, extra principal, PMI, property tax, insurance or HOA is negative or not a number | R37 `e923123` (SA32F-51) |
+| `SCENARIO_INVALID_CLASS_VOLATILITY` | an asset class's volatility is negative or not a number | R37 `e923123` (SA32F-51) |
+| `SCENARIO_DEBT_RESET_TERMS_MISSING` | an adjustable debt resets its rate at an age but has no reset rate or no payoff age | R37 `ad62460` (SA32F-21) |
+| `SCENARIO_NONFINITE_DEBT_RESET_AGE` | an adjustable debt's reset age is present (not absent or `null`) and not a finite number, such as the string `"35"` | R40 `7cd1a1a` (the audit of PR #35) |
+
+The validator reports that last case, and a present non-number reset rate (the engine's `SCENARIO_NONFINITE_DEBT_RATE`), as
+`WRONG_TYPE` since R40 `7cd1a1a`. R40 `c300508` also adds `advanced.healthInflation` to the plan fields refused as
+`SCENARIO_NONNUMBER_PLAN_VALUE` (§3), as the validator now types it.
+
+**Five validator codes,** all `error`, from `validateScenario()`, not part of the result: `TRANSFER_INTO_WORKPLACE_PLAN`
+(R29 `3a02ed1`) and `TRANSFER_BETWEEN_OWNERS` (R32 `0413792`) on `advanced.transferTo`;
+`PENSION_SURVIVOR_PERCENT_OUT_OF_RANGE` (R35 `a69c198`) when a stream's `survivorPercent` is outside 0 to 100;
+`NEGATIVE_AMOUNT` (R37 `e923123`) on a negative debt amount; and `DEBT_RESET_TERMS_MISSING` (R40 `d4fd3a9`) on the
+missing `resetRate` or `payoffAge` of an adjustable debt with a reset age.
+
 ---
 
 ## 7a. Failure policies — stated BEFORE any new scheduler is built (S5AA task 8.2)

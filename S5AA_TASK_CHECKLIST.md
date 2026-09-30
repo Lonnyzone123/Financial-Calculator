@@ -384,3 +384,22 @@ approved; nothing above is rewritten.** It answers ChatGPT's R24G-01
 *Not part of A-09 — the status, also the owner's on 2026-09-25:* S5AA is **NO-GO**, and from now on **ChatGPT determines the
 GO / NO-GO status** ("no go, chatgpt determines no go/go status"). ChatGPT is asked for that determination under A-09
 in `audit/S5AA/R24/`. Close record §35.
+
+**Amendment A-10, added 2026-09-30 (UTC−7) in the S5AA R40 round, by the S5AA session, on the owner's decision of
+2026-09-30; nothing above is rewritten.** The rounds from R29 on ran in this public repository, where `audit/S5AA/R24/` and
+the close record are not present (they are in the private archive this repository was copied from).
+
+> **A-10 (the owner, 2026-09-30): E10's record for R29 to R39.1.**
+>
+> 1. A-01 asks that each output-changing repair be predicted in writing before its implementation is edited, and the
+>    prediction compared with what was measured. R29 to R39.1 did not do that. Each output movement was traced to its
+>    mechanism after the change and declared: control test 4.7's declaration grew from 35 entries to 51, the first 35
+>    kept as they were, and each round's change handover names the corpus members that moved and their headline figures.
+> 2. For R29 to R39.1 that record stands in for E10's predicted-versus-actual record. It is disclosed as what it is: an
+>    explanation of each movement, written after the change. It shows that every movement was explained. It cannot show
+>    that any movement was expected.
+> 3. From R40 on, A-01 applies as written: the prediction is written and committed before the implementation is
+>    edited, and the round's handover compares it with the measured movement. R40's is
+>    `audit/S5AA/R40/S5AA_R40_PREDICTION_RECORD_20260930.md`.
+> 4. This amends E10's record for R29 to R39.1 only. It qualifies nothing for release or household reliance. Whether it
+>    is enough for E10 is part of ChatGPT's status determination.
