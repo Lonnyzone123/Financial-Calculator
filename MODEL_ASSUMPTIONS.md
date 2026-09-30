@@ -712,9 +712,11 @@ Replaces any percentage-basis description of the model.
   plan** (S5AA R39, repairing ChatGPT's R38-05): the still-working exception does not follow an inherited plan,
   including where the current-employer flag was only inferred from the contribution field. **The Rule of 55 needs
   the owner's separation at 55 or later, or earlier in the year they turn 55** (S5AA R39, repairing ChatGPT's
-  R38-02 — IRC 72(t)(2)(A)(v) exempts a separation "during or after the year the employee reaches age 55", not
-  only a separation on or after a calendar-year reading); the switch itself is read as the owner's certification
-  that this holds, with the separation year enforced against the entered age.
+  R38-02; IRC 72(t)(2)(A)(v): "after separation from service after attainment of age 55", which the IRS reads as a
+  separation "during or after the year the employee reaches age 55"). A separation at 55 or later qualifies
+  outright; the calendar-year reading, on the plan's birth-year convention, still admits a separation earlier in
+  the year of 55; the switch itself is read as the owner's certification that this holds, with the separation year
+  enforced against the entered age.
 - **Conversions and transfers.** A conversion goes only into a Roth-class account of the same owner. A traditional
   IRA converts into a Roth IRA (or a custom Roth account); a 401(k) may convert into a Roth-class account of the same
   owner, including its own Roth 401(k). A manual transfer from a pre-tax account into a Roth account is a Roth
@@ -946,8 +948,8 @@ session directly, as reported by it. Registered as `SPRINT_QUESTIONS.md` Q158–
 - **An other income of type Social Security ends at its owner's death**, the same as an employment stream (42 USC
   402(a)).
 - **A benefit that starts inside a projection year is priced at the claim**, with every COLA from the plan's start
-  to the claim (S5AA R39, repairing ChatGPT's R38-04). A benefit already being paid when the projection opens keeps
-  the year's opening amount, per §4.
+  to the claim (S5AA R39, repairing ChatGPT's R38-04). A benefit already in payment is priced at each projection
+  year's opening (R2-004), so a COLA falling inside a year is paid from the next.
 
 *Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `7b61b88`; the claim-year COLA repair
 added 2026-09-29 (S5AA R39) at `f6dbb2a`. Registered as `SPRINT_QUESTIONS.md` Q169.*
