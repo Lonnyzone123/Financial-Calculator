@@ -717,6 +717,14 @@ Replaces any percentage-basis description of the model.
   outright; the calendar-year reading, on the plan's birth-year convention, still admits a separation earlier in
   the year of 55; the switch itself is read as the owner's certification that this holds, with the separation year
   enforced against the entered age.
+- **A required distribution reads the age the owner reaches in the distribution year** (S5AA R40, `d51d30d`, corrected
+  at `3fbe9dc`; the owner, 2026-09-30: "Repair all four now"). The RMD start and the Uniform Lifetime divisor use the
+  engine's own birth year, 2026 less the whole age at the plan's start (§12), counted forward (Publication 590-B: "use
+  your age as of your birthday in 2026"). For the self that is the row's opening age, as before. With a fractional self
+  start, a spouse whose fraction was smaller than the self's had read an age a year short, so their first RMD year was
+  skipped and the divisor a year young. R40 first read the calendar age at the row's close, which disagreed with the
+  birth year the start age uses; the corrected reading agrees with it by construction. Witness:
+  `tests/audit-s5aa-r40-spouse-rmd-age-reached.test.js`.
 - **Conversions and transfers.** A conversion goes only into a Roth-class account of the same owner. A traditional
   IRA converts into a Roth IRA (or a custom Roth account); a 401(k) may convert into a Roth-class account of the same
   owner, including its own Roth 401(k). A manual transfer from a pre-tax account into a Roth account is a Roth
@@ -732,6 +740,15 @@ Replaces any percentage-basis description of the model.
 - A one-time income can be entered as tax-free (a gift or an inheritance).
 - Health costs are priced per living person: each person under 65 carries an equal share of the entered pre-Medicare
   cost, and each person 65 or over is charged Medicare.
+- **The long-term-care cost grows at healthcare inflation** (S5AA R40, `8f20d90`; the owner, 2026-09-30: "Repair all
+  four now"). It is entered in today's dollars and grows at the plan's healthcare inflation from the plan's start, as
+  the pre-Medicare health cost does. The insurance benefit stays at its entered amount, since a policy's benefit does
+  not rise without an inflation rider, which the plan does not model. Witness:
+  `tests/audit-s5aa-r40-ltc-cost-inflated.test.js`.
+- **Each person on Medicare pays the Part D base beneficiary premium** (S5AA R40, `d1572b1`): $38.99 a month in 2026
+  (CMS's annual release of July 28, 2025; 42 CFR 423.286(c); the figure was re-read at CMS on 2026-09-30). It stands in
+  for a plan's own premium, and the IRMAA surcharge is added on top of it. Witness:
+  `tests/audit-s5aa-r40-part-d-base-premium.test.js`. Registered as `SPRINT_QUESTIONS.md` Q172.
 - VPW and the RMD-style strategy divide by the years the projection models (to the last death or the projection's
   ending age, whichever comes first), and a final part-year is a fraction of a year. The VPW maximum annual rate still
   applies, so at a 100% cap a final part-year cannot draw the whole balance.
@@ -1118,10 +1135,21 @@ decision, D8 — see `SPRINT_QUESTIONS.md` Q165), and Arizona's $2,100 exemption
 
 Projection row `n` is tax year `2026 + n`. Indexing starts from the 2026 figure rather than each statute's own base
 year, so a figure can differ by one rounding step from the one the IRS eventually publishes. Medicare premiums
-themselves stay at 2026's.
+themselves stay at 2026's. *(Since S5AA R40 that covers the Part D base premium as well as Part B, see §18.4.)*
+
+**A disclosed limit: a partial row is taxed as a whole tax year** (S5AA R40; the owner, 2026-09-30: "Revert and
+disclose"; `b97fe0a`). A projection row shorter than a year, the first row of a plan that opens at a fractional age or
+the last row of one that ends at one, is taxed as a whole tax year holding only the row's income. The first year's tax
+is therefore understated where the household earned before the plan opened: a $60,000 pension over a half-year first
+row is taxed as $30,000 against the whole year's figures, $1,767.50, where taxed as half of a $60,000 year it would be
+$3,058.75. R40 built a share-of-a-year rule (`607101a`) and reverted it, because it also annualized one-time amounts:
+a $100,000 expense in a row a tenth of a year long was taxed $56,958 against $20,221.85. The proper rule, which counts
+recurring income at its rate and one-time items once, is for the engine rebuild (`FEATURES.md`, "Features — wanted").
+Witness, pinning the disclosed behaviour and the one-time case: `tests/audit-s5aa-r40-partial-row-whole-year-convention.test.js`.
 
 *Decided 2026-09-29 (the owner), "Index, own round", with D8 "Keep it even after 2028"; as reported by the S5AA
-session. Landed at `cf643a8`.*
+session. Landed at `cf643a8`. The Part D note and the partial-row limit were added 2026-09-30 (S5AA R40), registered
+as `SPRINT_QUESTIONS.md` Q172.*
 
 ---
 
@@ -1136,7 +1164,11 @@ exists. Some items below are the S5AA session's own reading, adopted by the owne
 - **Input refusals.** An adjustable debt that resets at an age needs its reset rate and its payoff age. A debt's
   extra principal, PMI, property tax, insurance or HOA must be a number of zero or more, and its payment a number.
   An asset class's volatility must be zero or more. A historical start must be a data year. `runs` is at most
-  10,000. Each is refused by name, and the validator agrees.
+  10,000. Each is refused by name, and the validator agrees. **Since S5AA R40:** healthcare inflation must be a
+  number above −100% and at most 100%, and a value outside the form's 0 to 20% is a warning (`c300508`); a debt's reset
+  rate or reset age that is present but not a number is refused, where before only an absent one was (`7cd1a1a`).
+  Witnesses: `tests/audit-s5aa-r40-health-inflation-validated.test.js`,
+  `tests/audit-s5aa-r40-validator-debt-reset-terms.test.js`.
 - **Disclosure warnings.** A joint return with no spouse included, or a single or head-of-household return with one,
   is reported. So is an expense at or after the plan's end age, which no year charges, and each person born in 1959
   whom the plan carries to age 73 — the 1959 card stays visible for both spouses (Q167). The results page shows all

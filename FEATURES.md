@@ -186,6 +186,12 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
   year is priced at the claim with the COLAs it has earned by then (living claimants only, R39.1); a workplace plan inherited by a surviving
   spouse no longer carries the decedent's current-employer flag into the still-working exception; and the QCD's
   70½ opening-age eligibility convention is declared and stated on the form.
+- **S5AA R40 additions, 2026-09-30** (detail in `MODEL_ASSUMPTIONS.md` §18.3, §18.4, §25 and §26): the long-term-care
+  cost now grows at healthcare inflation while its insurance benefit stays as entered; each person on Medicare pays the
+  Part D base premium ($38.99 a month in 2026), which the app's rules text now states; a required distribution reads the
+  age reached in the year by the engine's own birth year, so a spouse's first RMD year is no longer skipped with a
+  fractional start; the validator types healthcare inflation and refuses a malformed debt reset rate or age. A partial
+  row is still taxed as a whole tax year, a disclosed limit (see "Features — wanted").
 
 ## Features — wanted (not yet built)
 
@@ -205,6 +211,16 @@ replay keep their single-path figures unchanged. Cost note: (b) costs several Mo
 class of cost as the heatmap revisit trigger below. **Decided by the owner, 2026-09-29 (as reported by the S5AA
 session): withhold the shortfall amount and cut in the current engine (`SPRINT_QUESTIONS.md` Q167); build this in
 the engine rebuild.**
+
+**A tax rule for partial rows** (added 2026-09-30, S5AA R40) — a projection row shorter than a year, the first row of a
+plan that opens at a fractional age or the last row of one that ends at one, is taxed as a whole tax year holding only
+the row's income. That understates the first year's tax where the household earned before the plan opened
+(`MODEL_ASSUMPTIONS.md` §25). **Wanted:** the rebuilt engine tells recurring income from one-time items inside the tax
+computation, annualizing recurring income and counting one-time items once, so a partial row is taxed as the part of a
+real tax year it is. R40 built a share-of-a-year rule and reverted it because it annualized one-time amounts too (a
+$100,000 expense in a row a tenth of a year long was taxed $56,958 against $20,221.85). **Decided by the owner,
+2026-09-30 (as reported by the S5AA session): revert and disclose in the current engine (`SPRINT_QUESTIONS.md` Q172);
+build this in the engine rebuild.**
 
 **Onboarding** — turning the existing flat single-page guided-setup checklist into an actual progressive, branching wizard: skip real-estate questions if no property, skip debt questions if none, pick Simple/Standard/Advanced for the user based on their answers instead of asking up front, and share question copy with the contextual-help layer below rather than duplicating explanations. Should stay first-run-only by default, with a "restart guided setup" option in settings.
 
