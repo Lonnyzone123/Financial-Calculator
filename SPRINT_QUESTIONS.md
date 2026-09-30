@@ -5976,7 +5976,7 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 - (c) Arizona's age-65 exemption reads the age reached by the row's close (year-end age): "Yes".
 - **Overnight instruction: "Follow law everywhere"** — where the law gives a rule, build it rather than disclose a gap. This governs R33 through R38.
 
-**Status: IMPLEMENTED 2026-09-29 at `f4e8294`** (S5AA R33; source tag `s5aa-r33-source` = `f4e8294`). Modelling text: `MODEL_ASSUMPTIONS.md` §20 and §21 (IRA deduction, contributions, tax rules, IRMAA).
+**Status: IMPLEMENTED 2026-09-29 at `f4e8294`** (S5AA R33; source tag `s5aa-r33-source` = `f4e8294`). Modelling text: `MODEL_ASSUMPTIONS.md` §23 (IRA deduction, contributions, tax rules).
 
 ## 2026-09-29 — Q167. Default filing status, HSA age-65 exception, joint-account salary base, the 1959 card, and Monte Carlo shortfall guidance (R37's five open items, the owner, 2026-09-29)
 
@@ -5989,12 +5989,12 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 4. **The 1959 RMD proposed-rule card stays visible**, for both spouses.
 5. **Monte Carlo guidance keeps withholding the shortfall dollar amount and the spending-cut percentage** in the current engine. Figures from the failing paths (not just the median row) are a wanted feature for the engine rebuild — see `FEATURES.md`, "Features — wanted".
 
-**Status: decisions 2–5 IMPLEMENTED 2026-09-29 at `890ff72` and `503db3c`** (S5AA R37); **decision 1 IMPLEMENTED 2026-09-29 at `678c556`** (S5AA R38; the test corpus keeps the joint return it was written on, so no corpus figure moves). Decision 2 additionally at `3b45dfa` (test `hsa-65-opening-age`); decision 3 at `05f35fa`. Modelling text: `MODEL_ASSUMPTIONS.md` §18.3, §20 and the new "Later tax years" / Monte Carlo sections.
+**Status: decisions 2–5 IMPLEMENTED 2026-09-29 at `890ff72` and `503db3c`** (S5AA R37); **decision 1 IMPLEMENTED 2026-09-29 at `678c556`** (S5AA R38; the test corpus keeps the joint return it was written on, so no corpus figure moves). Decision 2 additionally at `e7fabeb` (test `audit-s5aa-r37-hsa-65-opening-age.test.js`); decision 3 at `05f35fa`. Modelling text: `MODEL_ASSUMPTIONS.md` §18.3, §24 and §26.
 
 ## 2026-09-29 — Q168. A Roth match with vesting 100 and no years of service is taxed as Roth, then mostly forfeited (found by S5AA R38, not yet decided)
 
 **Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R38 relay.
 
-**The question.** With `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth (immediately, at contribution) and then mostly forfeited at separation — the two inputs disagree about what actually happens to the money. The rule for a Roth match's vesting rests on IRS guidance the S5AA session has not yet checked.
+**The question.** With `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth (immediately, at contribution) and then mostly forfeited at separation — the two inputs disagree about what actually happens to the money. The rule: IRS Notice 2024-2, Q&A L-3 (IRS PDF, page 72), backed by IRC 402A(f)(3) — a match "may be designated as a Roth contribution only if the employee is fully vested in matching contributions at the time the contribution is allocated to the employee's account." ChatGPT's R38 audit (#27, merged) raised the same rule from the other direction as R38-03: someone who becomes fully vested mid-plan keeps a pre-tax match, because the engine checks only the entered `vesting === 100`. The `vesting` 100 / `yearsOfService` 0 case above is a second symptom of that same check. The repair is to route an elected match by the effective vested share at allocation, proposed for R39 and awaiting the owner's go.
 
 **Status: OPEN, reported to the owner, not built.** No decision has been made.

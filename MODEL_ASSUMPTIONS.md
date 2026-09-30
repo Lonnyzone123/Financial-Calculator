@@ -996,8 +996,13 @@ commits exist. Registered as `SPRINT_QUESTIONS.md` Q162 (5b), Q167 (filing statu
   corpus keeps the joint return it was written on, so no corpus figure moves. Linking the default to the spouse
   switch is a possible later convenience, not built.
 - **Open, not decided:** with `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth
-  immediately and then mostly forfeited at separation — the two inputs disagree. The Roth-match vesting rule rests on
-  IRS guidance not yet checked. Registered as `SPRINT_QUESTIONS.md` Q168.
+  immediately and then mostly forfeited at separation — the two inputs disagree. The rule: IRS Notice 2024-2, Q&A
+  L-3 (IRS PDF, page 72), backed by IRC 402A(f)(3) — a match "may be designated as a Roth contribution only if the
+  employee is fully vested in matching contributions at the time the contribution is allocated to the employee's
+  account." ChatGPT's R38 audit (#27, merged) raised the same rule from the other direction as R38-03: someone who
+  becomes fully vested mid-plan keeps a pre-tax match, because the engine checks only the entered `vesting === 100`.
+  The repair is to route an elected match by the effective vested share at allocation, proposed for R39 and awaiting
+  the owner's go. Registered as `SPRINT_QUESTIONS.md` Q168.
 
 *Decided 2026-09-29 (the owner), as reported by the S5AA session. Vesting through separation at `26ef26d` (R35),
 year-of-separation and age-65 vesting at `cc3217f` (R38), the filing default at `678c556` (R38).*

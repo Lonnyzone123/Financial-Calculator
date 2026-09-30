@@ -164,7 +164,7 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
 - A flat, single-page "guided setup" checklist — not the branching/progressive wizard described in Onboarding below, which remains a real gap
 - Debug-info export (an IndexedDB-backed issue log)
 - **S5AA R33–R38 additions, 2026-09-29** (Claude's R32F full-model audit and ChatGPT's R32V check, repaired across six
-  rounds; detail in `MODEL_ASSUMPTIONS.md` §§20–26): the spousal and survivor Social Security benefits, and a shown
+  rounds; detail in `MODEL_ASSUMPTIONS.md` §§22–26): the spousal and survivor Social Security benefits, and a shown
   full retirement age; the IRA deduction's phase-out rounding; per-owner contribution stop ages and a spousal IRA
   while the joint return has compensation; a step-up (or step-down) at death, own accounts in full and joint
   accounts half; two optional pre-plan IRMAA lookback inputs; a pension stream's entered survivor share; the Joint
@@ -173,7 +173,10 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
   defaulting to single filing; later tax years indexing the 2026 figures; and new account-form fields — "Spouse is
   the sole beneficiary", the current-employer plan flag, a 5%-owner flag, and a vesting schedule, plus a pension
   row's "Survivor share" and the health section's two prior-year income fields. The Rule of 55 switch's label now
-  states the separation condition it certifies.
+  states the separation condition it certifies. The warnings panel gained five new cards: filing status, an expense
+  after the plan's end age, the 1959 RMD proposed-rule card, "How Monte Carlo draws returns," and "Average return
+  path." The debt page now notes that the four mortgage fields added earlier (`mortgageType`, `originalAmount`,
+  `propertyValue`, `loanTermYears`) are recorded but not yet used by the projection.
 
 ## Features — wanted (not yet built)
 
