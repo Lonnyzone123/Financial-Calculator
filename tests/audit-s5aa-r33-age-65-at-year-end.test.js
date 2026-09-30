@@ -62,7 +62,10 @@ test('R33 SA32F-16: a couple both turning 65 in the row get both amounts on the 
 });
 
 test('R33 SA32F-16: a half-year first row that closes at 65 is a tax year the person reaches 65 in', () => {
-  /* Opens 64.5, closes 65: pension 30,000 for the half year. Federal: 30,000 - 24,150 = 5,850 at 10% = 585. Arizona: 2.5% x
-     (30,000 - 16,100 - 2,100) = 295. Total 880. The engine read 64.5: 1,420 + 347.50 = 1,767.50. */
-  assert.strictEqual(firstRowTax({ age: 64.5, pension: 60000 }), 880);
+  /* Opens 64.5, closes 65: pension 30,000 for the half year. The age-65 amounts apply (what this test is about); at R33 the row
+     took the whole year's deduction: 30,000 - 24,150 = 5,850 at 10% = 585, Arizona 2.5% x (30,000 - 16,100 - 2,100) = 295, 880.
+     RE-FIXTURED BY INTENT in S5AA R40: a partial row takes its share of each annual amount (half here). Federal: deductions
+     (16,100 + 2,050 + 6,000) / 2 = 12,075; taxable 17,925; brackets halved: 10% x 6,200 + 12% x 11,725 = 2,027. Arizona:
+     2.5% x (30,000 - 8,050 - 1,050) = 522.50. Total 2,549.50. The engine read 64.5 before R33: no age-65 amounts at all. */
+  assert.strictEqual(firstRowTax({ age: 64.5, pension: 60000 }), 2549.5);
 });
