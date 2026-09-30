@@ -760,7 +760,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R38: employer money is fully vested at normal retirement age, 65 (IRC 411(a))), so the
 // tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // d6cb5cbd1cc5c7bf3e4b84f3979cd388d613d735901de6c0c207d81cf410e29e, described the previous rebuild.
-const EXPECTED_SHA256 = 'fe56312e78da32fb41dd23263b0957c35fa7a3f28b0e053dd4da00026e956e27';
+//
+// Changed again 2026-09-29 (S5AA R38: a new plan files single (R37's open question; the owner: "go with your
+// recommendations")), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// fe56312e78da32fb41dd23263b0957c35fa7a3f28b0e053dd4da00026e956e27, described the previous rebuild.
+const EXPECTED_SHA256 = '2ff902bfc8bd97d4c3edb77be13cd41f4ed02c62a512e44817493cf13a6e7712';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

@@ -34,6 +34,9 @@ function rmdPlan(overrides = {}) {
   const defaultPlan = eval('(' + defaultPlanMatch[1] + ')');
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
+  /* RE-FIXTURED BY INTENT at S5AA R38: the app's default plan now files single; this file's year-2 need was built on the joint return it
+     filed before, so that is stated here (the single-filing checkpoints below set their own). */
+  p.profile.filing = 'mfj';
   p.profile.age = 75;
   p.profile.retireAge = 65;
   p.profile.endAge = 77; // two one-year rows: 76, then 77
