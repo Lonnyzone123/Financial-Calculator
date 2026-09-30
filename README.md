@@ -30,9 +30,10 @@ history checks whether the recorded commits are present and stands down only whe
 - **S5AA is NO-GO and not closed.** Since 2026-09-25 ChatGPT determines the GO / NO-GO status, and every determination it
   has made since R29 has been NO-GO; its R32 and R39.1 change audits accepted their repairs and say they do not determine
   it.
-- The latest merged round is **R39.1**, which repaired ChatGPT's R39-01 (source `s5aa-r39.1-source` = `a2ee714`); ChatGPT's
-  change audit of it found no new finding. **R40 is open as PR #35 and is not merged** (source `s5aa-r40.1-source` = `978a6e4`). The round index is
-  [`audit/S5AA/README.md`](audit/S5AA/README.md).
+- The latest merged round is **R40** (PR #35, merged 2026-09-30 at `54d6a9e`; source `s5aa-r40.1-source` = `978a6e4`),
+  which closed the exit-gate gaps found on the way to a status determination. ChatGPT has not yet reported on it. The
+  last round ChatGPT audited is **R39.1**, which repaired its R39-01; its change audit found no new finding. The round
+  index is [`audit/S5AA/README.md`](audit/S5AA/README.md).
 - **S5b has not started.** It needs the owner's own go.
 - A passing test run is evidence for what the tests cover. It is not certification of the whole model.
 
