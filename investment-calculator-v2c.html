@@ -5346,7 +5346,13 @@ function simulatePlanRows(p,random,historyOffset,ltcRandom,issues,serialized,gat
                  balance, when the account passes. It passed on with the old basis. Retirement accounts and HSAs are income in respect of a
                  decedent and have no such basis; only taxable-class accounts are touched. */
               if(a.taxClass==="taxable"){var oldBasis=taxableBasisOf(a);a.basisDollars=joint?0.5*oldBasis+0.5*bal:bal}}
-            if(side===from)a.owner=to});
+            /* S5AA R39 (R38-05, ChatGPT's R38 change audit; the owner 2026-09-29: "go with your recommendations"): A WORKPLACE PLAN THAT PASSES IS
+               NOT THE SURVIVOR'S CURRENT EMPLOYER'S. The still-working exception runs to the year the EMPLOYEE retires "from employment with
+               the employer maintaining the plan" (401(a)(9)(C)(i)(II)); the survivor does not work for the decedent's employer, in its plan or
+               in an IRA. The flag -- or the default read from the contribution field -- passed with the account, so a survivor still working
+               owed no distribution (0 where 3,905.63 is due). Only a rollover into the survivor's own employer's plan could qualify, and the
+               plan records no such election. */
+            if(side===from){a.owner=to;if(accountType(a.type).limitGroup==="workplace")a.currentEmployerPlan=false}});
           if(event&&(event.passed.length||event.empty.length))successionEvents.push(event);
           var carried=Math.max(0,Number(iraBasisState[from])||0);
           if(carried>0){iraBasisState[to]=(Number(iraBasisState[to])||0)+carried;iraBasisState[from]=0}
