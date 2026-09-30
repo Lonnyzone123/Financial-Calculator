@@ -949,10 +949,14 @@ session directly, as reported by it. Registered as `SPRINT_QUESTIONS.md` Q158–
   402(a)).
 - **A benefit that starts inside a projection year is priced at the claim**, with every COLA from the plan's start
   to the claim (S5AA R39, repairing ChatGPT's R38-04). A benefit already in payment is priced at each projection
-  year's opening (R2-004), so a COLA falling inside a year is paid from the next.
+  year's opening (R2-004), so a COLA falling inside a year is paid from the next. **Only a claim the claimant
+  reaches alive is priced at the claim** (S5AA R39.1, repairing ChatGPT's R39-01): a claim planned for after the
+  claimant's death leaves the PIA at the year's opening price, so a planned claim the worker never reaches does not
+  change the survivor's benefit.
 
 *Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `7b61b88`; the claim-year COLA repair
-added 2026-09-29 (S5AA R39) at `f6dbb2a`. Registered as `SPRINT_QUESTIONS.md` Q169.*
+added 2026-09-29 (S5AA R39) at `f6dbb2a`, narrowed to living claimants 2026-09-30 (S5AA R39.1) at `a2ee714`.
+Registered as `SPRINT_QUESTIONS.md` Q169.*
 
 ---
 
