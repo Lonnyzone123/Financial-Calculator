@@ -88,7 +88,7 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
   assert.deepEqual(provenance.registryProblems(REGISTRY, { history: false }), []);
   const counts = {};
   REGISTRY.baselines.forEach((b) => { counts[b.provenance.class] = (counts[b.provenance.class] || 0) + 1; });
-  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 25, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
+  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 26, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
     'measured 2026-09-13: eight record no commit, five reproduce byte for byte, one reproduces its output, one names the wrong commit. ' +
     'On 2026-09-14 the successor control capture joined the byte-for-byte class, replayed in a clean clone of its recorded commit, so six. ' +
     'On 2026-09-20 S5AA task 6.2 added the first EXPANDED capture, baseline-20260920-s5aa-expanded.json, replayed the same way, so seven. ' +
@@ -124,7 +124,9 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
     + 'The R26 round re-captured it at 0b90445, after IRA contributions were capped at compensation, in two clean '
     + 'worktrees, so twenty-three. The S5AA R40 round re-captured it at 00dbb4b, the first capture recorded in this public '
     + 'repository, after R29 to R39.1 had moved the corpus without registering one, in two clean worktrees, so twenty-four. '
-    + 'After R40\'s four repairs it was re-captured at d51d30d, in two clean worktrees, so twenty-five');
+    + 'After R40\'s four repairs it was re-captured at d51d30d, in two clean worktrees, so twenty-five. '
+    + 'After the audit of PR #35 reverted one of them and corrected another, it was re-captured at 9fd61c2, in two clean '
+    + 'worktrees, so twenty-six');
 });
 
 test('5.1: held to history -- reproduced captures match their recorded commit, and the wrong commit still does not', () => {
