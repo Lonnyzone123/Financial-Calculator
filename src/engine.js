@@ -1235,7 +1235,9 @@ function nonNumberPlanValuePath(p){
     /* S5AA R37 (SA32F-51; R32V: "strings for fee/inflation fail later under unrelated codes"): refused here by name, as the
        fields above are. historyStart is read only by the historical method, but a text year is refused on any method: it is
        never what the app's form stores. */
-    ["assumptions","inflation"],["assumptions","fee"],["assumptions","historyStart"]];
+    ["assumptions","inflation"],["assumptions","fee"],["assumptions","historyStart"],
+    /* S5AA R40 (the audit of PR #35): healthcare inflation, which the validator now types, grows the health and care costs. */
+    ["advanced","healthInflation"]];
   for(var i=0;i<FIELDS.length;i++){
     var section=p&&p[FIELDS[i][0]];
     if(!section||typeof section!=="object")continue;

@@ -824,7 +824,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-30 (S5AA R40: the validator and the engine agree on malformed debt reset terms), so the tracked
 // file was rebuilt, again installed only after two builds agreed. The pin before it,
 // b2d028fa5ecf573a4437dabd33f617f56a1f8b86213cd70b0d4855d722d3c468, described the previous rebuild.
-const EXPECTED_SHA256 = '30284f74ba6371e01e361167eb7ba9b2ed7ed42ac49d06ea80bfd97f8e403e31';
+//
+// Changed again 2026-09-30 (S5AA R40: healthcare inflation is validated), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 30284f74ba6371e01e361167eb7ba9b2ed7ed42ac49d06ea80bfd97f8e403e31, described the previous rebuild.
+const EXPECTED_SHA256 = 'b97a79cc52ac1555346da27244fd1f43554df24fe22ea2e0bd484b1b84f66da3';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
