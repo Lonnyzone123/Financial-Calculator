@@ -829,17 +829,45 @@ Publication 590-A reading are the S5AA session's and were not re-derived, and IR
   source too, the loss the moved dollars took before the date is borne by the destination (`73e24c7`); a transfer's
   source drawn by the year's withdrawals ends at zero, not below. Witness:
   `tests/audit-s5aa-r27-transfer-capped-at-date.test.js`.
-- **Known limit, kept by the owner's decision** (2026-09-26: "Keep R27, record the gap"). If the household runs out of money
+- **Superseded by S5AA R28 (`56c8847`): this limit no longer holds; see the R28 block below.** ~~**Known limit, kept by the owner's decision** (2026-09-26: "Keep R27, record the gap"). If the household runs out of money
   in the transfer's year, no account is left to bear that loss: an account ends negative (`NEGATIVE_ACCOUNT_BALANCE`),
   and a Monte Carlo run with such a path is refused. Alternatives not chosen: move the money physically at the engine's
   withdrawal point, or go back to moving it at the year's opening. Witness (run here on `main`; the destination ends at
-  −$2,565.84): `audit/S5AA/R27/S5AA_R27_KNOWN_GAP_WITNESS.js`. Registered as Q148.
+  −$2,565.84): `audit/S5AA/R27/S5AA_R27_KNOWN_GAP_WITNESS.js`. Registered as Q148.~~
 - **Mortgage PMI is charged only for the months the mortgage has a balance**, including after a payoff inside the
   year (the owner, 2026-09-26: "PMI while owed"; `7318d89`). Witness: `tests/audit-s5aa-r27-pmi-while-owed.test.js`. (Q113,
   that PMI never cancels at an LTV threshold, is a separate, still open item.)
 
 *Decided 2026-09-26 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q144 to Q148 (and Q143's
 repair).*
+
+**S5AA R28 and R28.1 refine this section** (written 2026-09-30 (UTC−7), late, from the S5AA session's R28 relay of 2026-09-26,
+`audit/S5AA/R28/S5AA_RELAY_TO_EB_20260926_R28.md`, which was not placed before the repository moved). The commits are
+inside this repository's first commit, not in its own history. Checked by the plan owner: the six commits exist in the
+private history and are all ancestors of `ee9757d`; the engine's own comments on current `main` describe the IRA rule,
+the transfer-after-the-draw rule and the dividend and yield rule in the terms below; and the Q148 witness, run at each
+commit of the round and on `main`, shows the known limit above closing at `56c8847`. The general statement below that
+neither account ends below zero is the relay's; only that one witness plan was run here. The owner's answers were given to
+the S5AA session and are **as reported by it**. Registered as Q170, with refinements noted on Q144 and Q146 and Q148
+closed.
+
+- **The IRA compensation limit is applied once, to dollars** (ChatGPT's R26-01; the owner: "Repair"; `6938519`). The
+  IRA contributions credited in a year are at most the compensation actually earned in it: the salary over the months
+  worked, plus the employment and self-employment income received, less the pre-tax workplace and HSA contributions
+  credited. R26 had compared rates and then multiplied by the contribution duration, prorating a wage stream that
+  ended inside the year twice. This refines the first bullet above.
+- **A mid-year transfer runs at the source's value on its date** (ChatGPT's R27-01; the owner: "Repair"; `56c8847`;
+  R28.1, R27F-01, `227635e`). The source gives up, and the destination receives, the value on that date: at most what
+  the source holds then, at the year's returns for the part of the year before. Its basis and tax follow from what
+  moved, and neither account ends below zero. **The known limit above, a household that runs out of money in the
+  transfer's year, is closed.** If the date falls after the point in the year where spending is drawn (half way through
+  for monthly timing, 0.625 for quarterly, the end for annual), the spending is drawn first, and the transfer then moves
+  at most what the source has left (the owner: "Repair in R28.1"; `c480f72`).
+- **Yield on moved money follows the money** (ChatGPT's R27F-02; the owner: "Repair"; `5a5cb39`; the imputed-yield case
+  `62e263d`). Dividends, paid or reinvested, and the imputed 1.5% yield with dividends off, count for the account that
+  held the moved money in each part of the year, each only if it is taxable. A taxable destination is no longer paid
+  dividends on money that had not yet arrived. (Q154, from R30, covers the destination's dividends for a transfer dated
+  after the draw.)
 
 ---
 
