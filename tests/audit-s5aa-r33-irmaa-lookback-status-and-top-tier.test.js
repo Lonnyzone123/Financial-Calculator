@@ -23,7 +23,10 @@ require(path.join(ROOT, 'tools', 'capture-baseline.js')).installDebtModules();
 const engine = require(path.join(ROOT, 'src', 'engine.js'));
 const defaultPlan = eval('(' + shell.match(/var defaultPlan=(\{.*?\});/)[1] + ')');
 
-const annual = (partB, partD, people) => ((partB + partD) * 12 + 283) * (people || 1);
+/* Re-fixtured by intent in S5AA R40: each person on Medicare now also pays the 2026 Part D base beneficiary premium, $38.99 a month
+   (CMS, July 28, 2025), which the engine had not charged; the surcharges these tests are about are unchanged. */
+const PART_D_BASE = 38.99;
+const annual = (partB, partD, people) => ((partB + partD + PART_D_BASE) * 12 + 283) * (people || 1);
 
 function run(o) {
   const p = JSON.parse(JSON.stringify(defaultPlan));

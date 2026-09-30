@@ -1,0 +1,419 @@
+{
+ "composition": "expanded",
+ "members": [
+  {
+   "name": "seed:1",
+   "method": "simple",
+   "strategy": "fixedNominal",
+   "ltc": {
+    "start": 65,
+    "years": 4,
+    "cost": 104198.81,
+    "prob": 23,
+    "hi": 5.5
+   },
+   "sumLtc": 101987.33,
+   "sumPartD": 0,
+   "rows": [
+    {
+     "age": 66,
+     "dLtc": 21598.09,
+     "dPartD": 0
+    },
+    {
+     "age": 67,
+     "dLtc": 24104.1,
+     "dPartD": 0
+    },
+    {
+     "age": 68,
+     "dLtc": 26747.94,
+     "dPartD": 0
+    },
+    {
+     "age": 69,
+     "dLtc": 29537.19,
+     "dPartD": 0
+    }
+   ]
+  },
+  {
+   "name": "seed:3",
+   "method": "historical",
+   "strategy": "floorCeiling",
+   "ltc": {
+    "start": 69,
+    "years": 6,
+    "cost": 197861.78,
+    "prob": 60,
+    "hi": 5.5
+   },
+   "sumLtc": 761321.21,
+   "sumPartD": 0,
+   "rows": [
+    {
+     "age": 70,
+     "dLtc": 95222.06,
+     "dPartD": 0
+    },
+    {
+     "age": 71,
+     "dLtc": 106988.71,
+     "dPartD": 0
+    },
+    {
+     "age": 72,
+     "dLtc": 119402.53,
+     "dPartD": 0
+    },
+    {
+     "age": 73,
+     "dLtc": 132499.11,
+     "dPartD": 0
+    },
+    {
+     "age": 74,
+     "dLtc": 146316,
+     "dPartD": 0
+    },
+    {
+     "age": 75,
+     "dLtc": 160892.81,
+     "dPartD": 0
+    }
+   ]
+  },
+  {
+   "name": "seed:6",
+   "method": "simple",
+   "strategy": "fixedReal",
+   "ltc": {
+    "start": 65,
+    "years": 5,
+    "cost": 184392.5,
+    "prob": 28,
+    "hi": 5.5
+   },
+   "sumLtc": 420522.21,
+   "sumPartD": 0,
+   "rows": [
+    {
+     "age": 66,
+     "dLtc": 69972.08,
+     "dPartD": 0
+    },
+    {
+     "age": 67,
+     "dLtc": 76660.19,
+     "dPartD": 0
+    },
+    {
+     "age": 68,
+     "dLtc": 83716.14,
+     "dPartD": 0
+    },
+    {
+     "age": 69,
+     "dLtc": 91160.17,
+     "dPartD": 0
+    },
+    {
+     "age": 70,
+     "dLtc": 99013.63,
+     "dPartD": 0
+    }
+   ]
+  },
+  {
+   "name": "seed:10",
+   "method": "historical",
+   "strategy": "constantPercent",
+   "ltc": null,
+   "sumLtc": 0,
+   "sumPartD": 10293.36,
+   "rows": [
+    {
+     "age": 72,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 73,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 74,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 75,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 76,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 77,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 78,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 79,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 80,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 81,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 82,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 83,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 84,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 85,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 86,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 87,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 88,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 89,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 90,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 91,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 92,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 93,
+     "dLtc": 0,
+     "dPartD": 467.88
+    }
+   ]
+  },
+  {
+   "name": "seed:16",
+   "method": "simple",
+   "strategy": "fixedNominal",
+   "ltc": {
+    "start": 67,
+    "years": 1,
+    "cost": 74047.06,
+    "prob": 59,
+    "hi": 7.39
+   },
+   "sumLtc": 66692.08,
+   "sumPartD": 14036.4,
+   "rows": [
+    {
+     "age": 66,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 67,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 68,
+     "dLtc": 66692.08,
+     "dPartD": 935.76
+    },
+    {
+     "age": 69,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 70,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 71,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 72,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 73,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 74,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 75,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 76,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 77,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 78,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 79,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 80,
+     "dLtc": 0,
+     "dPartD": 935.76
+    },
+    {
+     "age": 81,
+     "dLtc": 0,
+     "dPartD": 935.76
+    }
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-survivor-health-roth",
+   "method": "simple",
+   "strategy": "fixedNominal",
+   "ltc": null,
+   "sumLtc": 0,
+   "sumPartD": 6082.44,
+   "rows": [
+    {
+     "age": 68,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 69,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 70,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 71,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 72,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 73,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 74,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 75,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 76,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 77,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 78,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 79,
+     "dLtc": 0,
+     "dPartD": 467.88
+    },
+    {
+     "age": 80,
+     "dLtc": 0,
+     "dPartD": 467.88
+    }
+   ]
+  }
+ ]
+}

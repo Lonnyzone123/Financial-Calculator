@@ -44,8 +44,12 @@ const CL_CLOSURE = 'tools/baseline-20260910-after-CL-closure.json';
 /* The public repository began on 2026-09-28 as a one-commit copy of the private development repository. The commits
  * the stored baselines record are in that private archive, not here, so a checkout can have history and still not have
  * the history these checks read. That is checked, not assumed: the history-reading checks run where the recorded
- * commits are present, and where they are not, every one of them must be absent -- never some. */
-const RECORDED = [...new Set(REGISTRY.baselines.map((b) => read(b.file).meta || {})
+ * commits are present, and where they are not, every one of them must be absent -- never some.
+ * S5AA R40 (2026-09-30) registered the first capture recorded HERE (provenance.repository "this"). Its commit is in this
+ * repository's history, so it is kept out of the all-or-none set and held to this history on its own (below). */
+const ARCHIVED = REGISTRY.baselines.filter((b) => !(b.provenance && b.provenance.repository === 'this'));
+const HERE = REGISTRY.baselines.filter((b) => b.provenance && b.provenance.repository === 'this');
+const RECORDED = [...new Set(ARCHIVED.map((b) => read(b.file).meta || {})
   .filter((m) => typeof m.gitCommit === 'string').map((m) => m.gitCommit))];
 const PRESENT = OWN_CHECKOUT ? RECORDED.filter((c) => provenance.commitExists(c, ROOT)) : [];
 const HISTORY = PRESENT.length > 0;
@@ -60,6 +64,19 @@ test('5.1: the recorded commits are all in this history or none are', () => {
     'a partial history would let the checks below pass on the commits that happen to be here: ' + PRESENT.length + ' of ' + RECORDED.length);
 });
 
+test('5.1: a baseline recorded in this repository is held to this repository\'s history', () => {
+  assert.ok(HERE.length >= 1, 'CONTROL: r18 (S5AA R40) is recorded here');
+  assert.deepEqual(HERE.map((b) => b.provenance.class), HERE.map(() => 'reproduced'), 'recorded here means replayed here, byte for byte');
+  if (!OWN_CHECKOUT) {
+    assert.equal(baseline.gitCommit(), null, 'no history here, and the capture tool must agree');
+    return;
+  }
+  const missing = HERE.filter((b) => !provenance.commitExists(read(b.file).meta.gitCommit, ROOT)).map((b) => b.file);
+  assert.deepEqual(missing, [], 'a commit recorded in this repository is in any checkout of it');
+  assert.deepEqual(provenance.registryProblems(Object.assign({}, REGISTRY, { baselines: HERE }), { history: true }), [],
+    'its source hashes are its recorded commit\'s bytes');
+});
+
 test('5.1: this test and the capture tool agree on whether there is history to read', () => {
   assert.equal(OWN_CHECKOUT, baseline.gitCommit() !== null,
     'provenance checks run exactly where capture-baseline would record a commit, and nowhere else');
@@ -71,7 +88,7 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
   assert.deepEqual(provenance.registryProblems(REGISTRY, { history: false }), []);
   const counts = {};
   REGISTRY.baselines.forEach((b) => { counts[b.provenance.class] = (counts[b.provenance.class] || 0) + 1; });
-  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 23, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
+  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 26, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
     'measured 2026-09-13: eight record no commit, five reproduce byte for byte, one reproduces its output, one names the wrong commit. ' +
     'On 2026-09-14 the successor control capture joined the byte-for-byte class, replayed in a clean clone of its recorded commit, so six. ' +
     'On 2026-09-20 S5AA task 6.2 added the first EXPANDED capture, baseline-20260920-s5aa-expanded.json, replayed the same way, so seven. ' +
@@ -105,7 +122,11 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
     + 'fb3c6dc, after the Roth exclusion was keyed on actual draws, in two clean worktrees, so twenty-one. The R24 round '
     + 're-captured it at 0acc073, after a scheduled transfer was judged at its own age, in two clean worktrees, so twenty-two. '
     + 'The R26 round re-captured it at 0b90445, after IRA contributions were capped at compensation, in two clean '
-    + 'worktrees, so twenty-three');
+    + 'worktrees, so twenty-three. The S5AA R40 round re-captured it at 00dbb4b, the first capture recorded in this public '
+    + 'repository, after R29 to R39.1 had moved the corpus without registering one, in two clean worktrees, so twenty-four. '
+    + 'After R40\'s four repairs it was re-captured at d51d30d, in two clean worktrees, so twenty-five. '
+    + 'After the audit of PR #35 reverted one of them and corrected another, it was re-captured at 9fd61c2, in two clean '
+    + 'worktrees, so twenty-six');
 });
 
 test('5.1: held to history -- reproduced captures match their recorded commit, and the wrong commit still does not', () => {
@@ -113,7 +134,7 @@ test('5.1: held to history -- reproduced captures match their recorded commit, a
     noHistoryHere();
     return;
   }
-  assert.deepEqual(provenance.registryProblems(REGISTRY, { history: true }), []);
+  assert.deepEqual(provenance.registryProblems(Object.assign({}, REGISTRY, { baselines: ARCHIVED }), { history: true }), []);
 });
 
 test('5.1: after-CL-closure names 3a20e73, is internally clean, and its sources are fea216c\'s', () => {

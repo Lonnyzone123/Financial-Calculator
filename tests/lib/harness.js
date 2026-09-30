@@ -792,7 +792,47 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R39.1 (R39-01): a claim the worker never reaches does not price the survivor's
 // benefit), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // ded7d6699d95088463036b5d20b1fbb4848550c8d2c39157d8d4c8d1535ee63f, described the previous rebuild.
-const EXPECTED_SHA256 = 'e23795d0970e42b9a49e31d0db9b3054d2a8f61fa9b1858bf579e34a6e9363e3';
+//
+// Changed again 2026-09-30 (S5AA R40: the validator refuses an adjustable debt's missing reset terms, as runPlan()
+// does), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// e23795d0970e42b9a49e31d0db9b3054d2a8f61fa9b1858bf579e34a6e9363e3, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40 repair 1: the long-term-care cost grows at healthcare inflation), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 1904622456876836870cbc180d4c5123800cb47263095d2336dbd0dbaf5132af, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40 repair 2: Medicare charges the Part D premium, not only its surcharge), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 451352b8cbe59d0b23f371e61e01fe1b657f09a3bf6fbc9d579241201111371e, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40 repair 3: a partial row is taxed as its share of a year), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 55142cc9ea83aad34b4013f39df5cc740ec34a6087ca157d78d3e4afe34915cc, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40 repair 4: a required distribution reads the age reached in the row), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 0d0583c25102dc1a9bcbe9323b1f7692def72f091b64475814fce4aa868e434e, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40: revert repair 3 -- a partial row is again taxed with the whole year's thresholds
+// (disclosed)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 19445acd141ceca1b18f966ec8e2e56efaa9dd2f07fa35094ff6a548c25cba8c, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40: correct repair 4 -- the age reached in a row comes from the engine's own birth
+// year), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 20dd12cdd75ab35c03f54606303850480de38df9c8cb9d5d64aa453709f0a829, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40: the validator and the engine agree on malformed debt reset terms), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// b2d028fa5ecf573a4437dabd33f617f56a1f8b86213cd70b0d4855d722d3c468, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40: healthcare inflation is validated), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 30284f74ba6371e01e361167eb7ba9b2ed7ed42ac49d06ea80bfd97f8e403e31, described the previous rebuild.
+//
+// Changed again 2026-09-30 (S5AA R40: the app states the Part D premium and the care cost's growth), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// b97a79cc52ac1555346da27244fd1f43554df24fe22ea2e0bd484b1b84f66da3, described the previous rebuild.
+const EXPECTED_SHA256 = '498e6b740e3dc7ebd3451740a5b91c88e0897f856406ff5881431ee89af33d93';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

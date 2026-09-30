@@ -1,0 +1,97 @@
+{
+ "members": 36,
+ "ltc": [
+  {
+   "name": "seed:1",
+   "method": "simple",
+   "cost": 104198.81,
+   "insurance": 0,
+   "prob": 23,
+   "years": 4,
+   "healthInflation": 5.5,
+   "start": 53,
+   "end": 71
+  },
+  {
+   "name": "seed:3",
+   "method": "historical",
+   "cost": 197861.78,
+   "insurance": 0,
+   "prob": 60,
+   "years": 6,
+   "healthInflation": 5.5,
+   "start": 58,
+   "end": 75
+  },
+  {
+   "name": "seed:6",
+   "method": "simple",
+   "cost": 184392.5,
+   "insurance": 84792.96,
+   "prob": 28,
+   "years": 5,
+   "healthInflation": 5.5,
+   "start": 49,
+   "end": 71
+  },
+  {
+   "name": "seed:16",
+   "method": "simple",
+   "cost": 74047.06,
+   "insurance": 0,
+   "prob": 59,
+   "years": 1,
+   "healthInflation": 7.39,
+   "start": 54,
+   "end": 81
+  }
+ ],
+ "partD": [
+  {
+   "name": "seed:10",
+   "method": "historical",
+   "start": 48,
+   "end": 93,
+   "retire": 71,
+   "spouseOn": false,
+   "spouseAge": null
+  },
+  {
+   "name": "seed:16",
+   "method": "simple",
+   "start": 54,
+   "end": 81,
+   "retire": 57,
+   "spouseOn": true,
+   "spouseAge": 52
+  }
+ ],
+ "partialFirst": [
+  {
+   "name": "golden:baseline",
+   "method": "simple",
+   "start": 29.5,
+   "share": 0.5
+  },
+  {
+   "name": "golden:monte-carlo-fixed-seed",
+   "method": "monteCarlo",
+   "start": 29.5,
+   "share": 0.5
+  },
+  {
+   "name": "golden:reserve-and-bond-tent",
+   "method": "simple",
+   "start": 29.5,
+   "share": 0.5
+  },
+  {
+   "name": "golden:guardrails-withdrawal-strategy",
+   "method": "simple",
+   "start": 29.5,
+   "share": 0.5
+  }
+ ],
+ "partialLast": [],
+ "spouseRmd": []
+}
