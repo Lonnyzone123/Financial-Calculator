@@ -3085,8 +3085,14 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       /* S5AA R39 (R38-04, ChatGPT's R38 change audit; the owner 2026-09-29: "go with your recommendations"): A CLAIM INSIDE THE ROW IS PRICED
          AT THE CLAIM. The entered benefit takes each COLA from the plan's start to the claim (20 CFR 404.271); priced at the row's opening,
          a claim at 67.5 in a plan opening at 66.5 missed the COLA its first year had earned (2,080 a month where 2,288 is right). A benefit
-         already being paid keeps the row-constant amount. */
-      var selfPia=ssPiaAt(p,"self",selfClaim>age+1e-9&&selfClaim<rowAge-1e-9?selfClaim:age,startHistory),spousePia=spouseOn?ssPiaAt(p,"spouse",spouseClaimAtSelfAge>age+1e-9&&spouseClaimAtSelfAge<rowAge-1e-9?spouseAge+(spouseClaimAtSelfAge-age):spouseAge,startHistory):0,
+         already being paid keeps the row-constant amount.
+         S5AA R39.1 (R39-01, ChatGPT's R39 change audit; the owner 2026-09-30: "fix it"): ONLY A CLAIM THE CLAIMANT REACHES ALIVE. A worker
+         dying at 67.25 with a claim planned for 67.5 had the PIA priced at 67.5 -- a COLA the plan had not reached at the death -- and the
+         survivor was paid from it (20,196 where a claim planned at 68 or 69 gave 18,360). A planned claim never reached cannot move the
+         survivor benefit (POMS RS 00615.690: the deceased's delayed credits are effective at death), so a claim at or after the
+         claimant's death prices at the row's opening, as before R39. A lifespan that is not a finite number ends nothing. */
+      var selfClaimPriced=selfClaim>age+1e-9&&selfClaim<rowAge-1e-9&&!(selfClaim>=Number(selfDeath)-1e-9),spouseClaimPriced=spouseClaimAtSelfAge>age+1e-9&&spouseClaimAtSelfAge<rowAge-1e-9&&!(spouseClaimAtSelfAge>=Number(spouseDeathAtSelfAge)-1e-9),
+      selfPia=ssPiaAt(p,"self",selfClaimPriced?selfClaim:age,startHistory),spousePia=spouseOn?ssPiaAt(p,"spouse",spouseClaimPriced?spouseAge+(spouseClaimAtSelfAge-age):spouseAge,startHistory):0,
       selfOwnM=ssFloorDollar(selfPia*ssClaimFactor(p,"self",credited&&credited.self,age)),
       spouseOwnM=spouseOn?ssFloorDollar(spousePia*ssClaimFactor(p,"spouse",credited&&credited.spouse,spouseAge)):0,
       selfSpousalStart=spouseOn?Math.max(selfClaim,spouseClaimAtSelfAge):Infinity,
