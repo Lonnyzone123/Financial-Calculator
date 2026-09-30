@@ -20,12 +20,17 @@ function braceExtract(src, marker) {
 
 /* The app's default plan, as the tests build on it. The tests keep their own starting ages: the app's default became 30
    on 2026-09-28 (the public copy), and the golden fixtures, the stored control and every capture were built at 29.5,
-   so they stay there, apart from the app. Every other field is the app's own. */
+   so they stay there, apart from the app. Every other field is the app's own -- except the filing status, below. */
 const TEST_STARTING_AGE = 29.5;
+/* The same for the filing status. The app's default became single at S5AA R38 (the owner 2026-09-29: a new plan has no spouse), and every
+   corpus plan, golden fixture, stored control, capture and test built on this plan was written on the joint return it filed before -- the
+   married pairs included, which never set it themselves. They keep it, apart from the app. */
+const TEST_FILING = 'mfj';
 function extractDefaultPlan(shellHtml) {
   const plan = eval('(' + braceExtract(shellHtml, 'var defaultPlan=') + ')');
   plan.profile.age = TEST_STARTING_AGE;
   plan.profile.spouseAge = TEST_STARTING_AGE;
+  plan.profile.filing = TEST_FILING;
   return plan;
 }
 
