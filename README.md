@@ -25,11 +25,14 @@ repository's `main` at `ee9757d`, with the changes listed in its first commit's 
 tags and audit records from before that date. Those are in the private archive, not here. A test that reads that
 history checks whether the recorded commits are present and stands down only when none of them are.
 
-## Current status (2026-09-28)
+## Current status (2026-09-30)
 
-- **S5AA is NO-GO**, by ChatGPT's latest determination (its R27F full-model audit). Since 2026-09-25 ChatGPT determines the
-  GO / NO-GO status. The latest round, **R28** (with R28.1), repairs ChatGPT's R26, R27 and R27F findings and is
-  out for ChatGPT's change audit.
+- **S5AA is NO-GO and not closed.** Since 2026-09-25 ChatGPT determines the GO / NO-GO status, and every determination it
+  has made since R29 has been NO-GO; its R32 and R39.1 change audits accepted their repairs and say they do not determine
+  it.
+- The latest merged round is **R39.1**, which repaired ChatGPT's R39-01 (source `s5aa-r39.1-source` = `a2ee714`); ChatGPT's
+  change audit of it found no new finding. **R40 is in preparation and is not merged.** The round index is
+  [`audit/S5AA/README.md`](audit/S5AA/README.md).
 - **S5b has not started.** It needs the owner's own go.
 - A passing test run is evidence for what the tests cover. It is not certification of the whole model.
 
