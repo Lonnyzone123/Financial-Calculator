@@ -2881,21 +2881,28 @@ function rmdObligations(accounts,age,p,openingById){
       uniform=RULES.retirement.rmd.uniformLifetime,
       profile=p.profile||{},
       selfStartAge=Number(profile.age),
-      owners=[{key:"self",index:0,ageNow:age,ageAtStart:selfStartAge}];
+      owners=[{key:"self",index:0,ageNow:age,ageAtStart:selfStartAge}],
+      /* S5AA R40 (the owner 2026-09-30, "Repair all four now"): THE AGE REACHED IN THE ROW. Rows follow the self's birthdays, so a spouse's
+         birthday can fall inside one. The start and the Uniform Lifetime divisor were read at the row's opening, so such a spouse skipped the
+         RMD for the year they reach 73 (or 75) -- nothing doubles up the next year -- and was then given the divisor of an age a year younger
+         than the one reached that year. The table is read at "the age reached by the birthday in the distribution year": the age reached
+         within the row, floor(close - epsilon). For the self, whose birthdays fall on row boundaries, it is the opening age's floor, as before. */
+      rowSpan=(function(){var next=Math.floor(age+1e-9)+1,end=Number(profile.endAge);return Math.max(0,Math.min(next,Number.isFinite(end)?end:next)-age)})(),
+      reached=function(o){return Math.floor(o.ageNow+rowSpan-1e-9)};
   if(profile.spouseOn)owners.push({key:"spouse",index:1,
     ageNow:Number(profile.spouseAge)+(age-selfStartAge),ageAtStart:Number(profile.spouseAge)});
   var out=[];
   owners.forEach(function(o){
     if(!Number.isFinite(o.ageNow))return;
-    if(!(o.ageNow>=rmdStartAge(p,o.ageAtStart)))return;
+    if(!(reached(o)>=rmdStartAge(p,o.ageAtStart)))return;
     /* S5AA R35 (SA32F-08; R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated
        beneficiary is a spouse more than ten years younger, the divisor is the two lives' joint expectancy (1.401(a)(9)-9(d); Pub. 590-B
        Table II). Sole beneficiary is each account's own fact -- `spouseSoleBeneficiary`, default true, as 18.1 already assumes the spouse
        inherits -- and is "determined as of January 1", so the spouse must be alive at the row's opening. Each IRA's amount is figured
        with its own divisor and the IRA total is their sum (1.408-8, question and answer 9). The engine always used the Uniform table. */
-    var ownerYears=Math.min(120,Math.floor(o.ageNow)),divisor=uniform[String(ownerYears)]||2,
+    var ownerYears=Math.min(120,reached(o)),divisor=uniform[String(ownerYears)]||2,
         other=owners.filter(function(x){return x.key!==o.key})[0],living=other?householdSurvivorship(p,age):null,
-        otherAlive=!!other&&(other.key==="spouse"?living.spouseAlive:living.selfAlive),otherYears=other?Math.floor(other.ageNow):NaN,
+        otherAlive=!!other&&(other.key==="spouse"?living.spouseAlive:living.selfAlive),otherYears=other?reached(other):NaN,
         jls=RULES.retirement.rmd.jointLastSurvivor&&RULES.retirement.rmd.jointLastSurvivor.rows,
         divisorFor=function(a){if(a.spouseSoleBeneficiary===false||!otherAlive||!Number.isFinite(otherYears)||!(ownerYears-otherYears>10)||!jls)return divisor;var row=jls[String(ownerYears)],v=row&&row[Math.max(0,otherYears)];return Number.isFinite(v)&&v>0?v:divisor},
         mine=pre.filter(function(a){return (a.owner==="spouse"?1:0)===o.index}),

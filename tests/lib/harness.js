@@ -808,7 +808,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-30 (S5AA R40 repair 3: a partial row is taxed as its share of a year), so the tracked file was
 // rebuilt, again installed only after two builds agreed. The pin before it,
 // 55142cc9ea83aad34b4013f39df5cc740ec34a6087ca157d78d3e4afe34915cc, described the previous rebuild.
-const EXPECTED_SHA256 = '0d0583c25102dc1a9bcbe9323b1f7692def72f091b64475814fce4aa868e434e';
+//
+// Changed again 2026-09-30 (S5AA R40 repair 4: a required distribution reads the age reached in the row), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 0d0583c25102dc1a9bcbe9323b1f7692def72f091b64475814fce4aa868e434e, described the previous rebuild.
+const EXPECTED_SHA256 = '19445acd141ceca1b18f966ec8e2e56efaa9dd2f07fa35094ff6a548c25cba8c';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
