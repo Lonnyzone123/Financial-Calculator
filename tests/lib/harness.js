@@ -828,7 +828,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-30 (S5AA R40: healthcare inflation is validated), so the tracked file was rebuilt, again
 // installed only after two builds agreed. The pin before it,
 // 30284f74ba6371e01e361167eb7ba9b2ed7ed42ac49d06ea80bfd97f8e403e31, described the previous rebuild.
-const EXPECTED_SHA256 = 'b97a79cc52ac1555346da27244fd1f43554df24fe22ea2e0bd484b1b84f66da3';
+//
+// Changed again 2026-09-30 (S5AA R40: the app states the Part D premium and the care cost's growth), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// b97a79cc52ac1555346da27244fd1f43554df24fe22ea2e0bd484b1b84f66da3, described the previous rebuild.
+const EXPECTED_SHA256 = '498e6b740e3dc7ebd3451740a5b91c88e0897f856406ff5881431ee89af33d93';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
