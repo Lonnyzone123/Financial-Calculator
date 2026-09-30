@@ -109,5 +109,7 @@ test('EA-02 control, with decision 8: a household of one is charged while alive,
 });
 
 test('EA-02 control: a living couple does not move', () => {
-  assert.equal(TWO().toFixed(2), '5435.60', 'the auditor\'s figure for two living people');
+  /* Re-fixtured by intent in S5AA R40: the auditor's figure for two living people was 5,435.60; R40 adds the Part D base premium,
+     2 x 38.99 x 12 = 935.76 (CMS, July 28, 2025), which the engine had not charged. */
+  assert.equal(TWO().toFixed(2), '6371.36', 'the auditor\'s figure for two living people, with the Part D premium');
 });

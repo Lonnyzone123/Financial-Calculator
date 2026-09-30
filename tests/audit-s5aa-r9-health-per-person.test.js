@@ -28,8 +28,9 @@ const defaultPlan = require(path.join(ROOT, 'tests', 'lib', 'golden-scenario-def
 
 const PRE = 12000;
 /* One person's Medicare cost for a year at the lowest IRMAA tier (MAGI is zero here): 12 months of the standard Part B
-   premium plus the deductible. Read from the same rules the engine reads. */
-const MEDICARE_ONE = RULES.medicare.partB.standardMonthly * 12 + RULES.medicare.partB.annualDeductible;
+   premium plus the deductible. Read from the same rules the engine reads. Re-fixtured by intent in S5AA R40: plus 12 months of the
+   Part D base beneficiary premium ($38.99, CMS, July 28, 2025), which the engine had not charged; nothing else here changes. */
+const MEDICARE_ONE = RULES.medicare.partB.standardMonthly * 12 + RULES.medicare.partB.annualDeductible + RULES.medicare.partD.baseBeneficiaryMonthly * 12;
 
 function run({ age, spouseAge = null, selfLife = 100, spouseLife = 100, endAge }) {
   const p = JSON.parse(JSON.stringify(defaultPlan));
