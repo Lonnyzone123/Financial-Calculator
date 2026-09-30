@@ -2814,7 +2814,11 @@ function convertPreTaxToRoth(accounts,p,amount,priorReturn,iraBasisState,capacit
    age and left that one. This function returned nothing unless an RMD was due, and scaled the parts down to the RMD,
    so a 71-year-old's gift waited until 73 and a gift above the RMD was cut to it (DeepSeek audit, finding 2c/01).
    Once an RMD is due the QCD still counts toward the owner's IRA obligation -- the loop credits it there.
-   Returns [self, spouse]. Balances are read as they stand when the row's distribution is set. */
+   Returns [self, spouse]. Balances are read as they stand when the row's distribution is set.
+   S5AA R39 (ChatGPT's R38 audit, a disclosure question; the owner 2026-09-29: "go with your recommendations" -- keep it and say so): ELIGIBILITY
+   IS READ AT THE ROW'S START, Q137'S OPENING-AGE CONVENTION. 408(d)(8)(B)(ii) allows a QCD from the day the owner is 70 1/2, but the plan
+   records no gift date, so the row in which an owner turns 70 1/2 gives nothing and the next row gives the year's amount. Declared, not
+   changed; the form's label says so, and the choice is to be decided with the 59 1/2 and 65 conventions at the engine rebuild. */
 function qcdOwnerRequests(p,accounts,age,spouseAge,duration){
   var none=[0,0],eligibleAge=RULES.retirement.rmd.qcdEligibleAge,request=p.advanced.qcd*duration;
   if(!(request>0))return none;

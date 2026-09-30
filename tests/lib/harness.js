@@ -784,7 +784,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R39 (R38-05): a workplace plan that passes to a surviving spouse is not the survivor's
 // current employer's plan), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
 // before it, 1ad1b3f52944148d9ebaea557994756391e976f218d94096d8ea0f7439a1c80f, described the previous rebuild.
-const EXPECTED_SHA256 = '7fff2f51bed6aa386fbd242f23afb12af9f15150ef037160519bbc2073173770';
+//
+// Changed again 2026-09-29 (S5AA R39: a QCD's eligibility is read at the row's start -- declared, and the form says
+// so), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 7fff2f51bed6aa386fbd242f23afb12af9f15150ef037160519bbc2073173770, described the previous rebuild.
+const EXPECTED_SHA256 = 'ded7d6699d95088463036b5d20b1fbb4848550c8d2c39157d8d4c8d1535ee63f';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
