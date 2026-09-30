@@ -1876,7 +1876,7 @@
    "internals": []
   },
   {
-   "file": "tests/audit-s5aa-r40-partial-row-tax-share.test.js",
+   "file": "tests/audit-s5aa-r40-partial-row-whole-year-convention.test.js",
    "category": "implementation-independent",
    "via": [
     "runPlan/runScenario"
