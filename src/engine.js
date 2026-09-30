@@ -2882,13 +2882,16 @@ function rmdObligations(accounts,age,p,openingById){
       profile=p.profile||{},
       selfStartAge=Number(profile.age),
       owners=[{key:"self",index:0,ageNow:age,ageAtStart:selfStartAge}],
-      /* S5AA R40 (the owner 2026-09-30, "Repair all four now"): THE AGE REACHED IN THE ROW. Rows follow the self's birthdays, so a spouse's
-         birthday can fall inside one. The start and the Uniform Lifetime divisor were read at the row's opening, so such a spouse skipped the
-         RMD for the year they reach 73 (or 75) -- nothing doubles up the next year -- and was then given the divisor of an age a year younger
-         than the one reached that year. The table is read at "the age reached by the birthday in the distribution year": the age reached
-         within the row, floor(close - epsilon). For the self, whose birthdays fall on row boundaries, it is the opening age's floor, as before. */
-      rowSpan=(function(){var next=Math.floor(age+1e-9)+1,end=Number(profile.endAge);return Math.max(0,Math.min(next,Number.isFinite(end)?end:next)-age)})(),
-      reached=function(o){return Math.floor(o.ageNow+rowSpan-1e-9)};
+      /* S5AA R40 (the owner 2026-09-30, "Repair all four now"; corrected after the audit of PR #35): THE AGE AN OWNER REACHES IN THE ROW.
+         The RMD start and the Uniform Lifetime divisor read the age reached by the birthday in the distribution year (Publication
+         590-B: "use your age as of your birthday in 2026"). Row k is tax year 2026 + k, and the engine reads each person's birth year as
+         2026 - floor(age at the plan's start) (rmdStartAge(), MODEL_ASSUMPTIONS 12), so the age reached in row k is that whole age plus
+         k. For the self it is the opening age's floor, as before. For a spouse it is the same figure as before whenever the self starts
+         on a whole age; with a fractional self start, a spouse whose fraction was smaller than the self's had read an age a year short
+         (the first RMD year skipped, the divisor a year young). R40 first read the calendar age at the row's close instead, which
+         disagreed with rmdStartAge()'s birth year; this reading agrees with it by construction. */
+      yearIndex=Math.floor(age)-Math.floor(selfStartAge),
+      reached=function(o){return Math.floor(o.ageAtStart)+yearIndex};
   if(profile.spouseOn)owners.push({key:"spouse",index:1,
     ageNow:Number(profile.spouseAge)+(age-selfStartAge),ageAtStart:Number(profile.spouseAge)});
   var out=[];
