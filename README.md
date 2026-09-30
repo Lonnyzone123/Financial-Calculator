@@ -31,7 +31,7 @@ history checks whether the recorded commits are present and stands down only whe
   has made since R29 has been NO-GO; its R32 and R39.1 change audits accepted their repairs and say they do not determine
   it.
 - The latest merged round is **R39.1**, which repaired ChatGPT's R39-01 (source `s5aa-r39.1-source` = `a2ee714`); ChatGPT's
-  change audit of it found no new finding. **R40 is in preparation and is not merged.** The round index is
+  change audit of it found no new finding. **R40 is open as PR #35 and is not merged** (source `s5aa-r40.1-source` = `978a6e4`). The round index is
   [`audit/S5AA/README.md`](audit/S5AA/README.md).
 - **S5b has not started.** It needs the owner's own go.
 - A passing test run is evidence for what the tests cover. It is not certification of the whole model.
