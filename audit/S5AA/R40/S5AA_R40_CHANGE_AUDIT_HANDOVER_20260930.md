@@ -4,16 +4,20 @@
 decide GO/NO_GO status". S5AA is **NO-GO** today, by ChatGPT's latest determination. Since 2026-09-25 that determination is ChatGPT's
 (`audit/S5AA/WORKING_RULES.md` §1, §7). Declaring the milestone closed, the `s5aa-closed` tag and the go for S5b stay the owner's.*
 
-**Source:** `s5aa-r40-source` = `4a2250a`. **The change:** from `s5aa-r39.1-source` (`a2ee714`) to `4a2250a`. Between the two, `main`
-also took the R39.1 records, ChatGPT's R39.1 audit (#33) and eb's R39.1 placement (#34), all documents (`00dbb4b`).
+**Source: `s5aa-r40.1-source` = `978a6e4`.** The change runs from `s5aa-r39.1-source` (`a2ee714`) to `978a6e4`. Between the two, `main`
+also took the R39.1 records, your R39.1 audit (#33) and eb's R39.1 placement (#34), all documents (`00dbb4b`).
+
+**Why `.1`.** R40 was first tagged `s5aa-r40-source` = `4a2250a`. Before merge, the owner had the pull request audited ("you do a
+audit on #35 before we merge"), and three independent reviews found defects in two of R40's own repairs (§3.3). The fixes follow
+`4a2250a` on the same branch, and the source to audit is `s5aa-r40.1-source`. `s5aa-r40-source` stays where it is, as tags do; do not
+audit it on its own.
 
 ## 0. What is asked
 
-In one report, on a branch named `audit/chatgpt/r40-4a2250a`:
+In one report, on a branch named `audit/chatgpt/r40.1-978a6e4`:
 
-1. **Audit the R40 change** (§3): the four engine repairs, the validator repair, the baseline, the contract text and amendment A-10.
-   Findings are numbered **R40-NN**.
-2. **Determine S5AA's status, GO or NO-GO, at `4a2250a`,** against the exit gate E1 to E18 (`S5AA_TASK_CHECKLIST.md`) as amended by
+1. **Audit the R40 change** (§3). Findings are numbered **R40-NN**.
+2. **Determine S5AA's status, GO or NO-GO, at `978a6e4`,** against the exit gate E1 to E18 (`S5AA_TASK_CHECKLIST.md`) as amended by
    A-01 to A-10:
    - Does A-10 give E10 what it needs?
    - Is every other line true, or dispositioned explicitly?
@@ -69,54 +73,72 @@ line since.
 The owner's decisions of 2026-09-30:
 - **"Close gaps first":** close the exit-gate gaps before this determination;
 - **A-10:** amend E10's record for R29 to R39.1;
-- **"Repair all four now":** repair the four undisclosed limits Claude's R40 review found.
+- **"Repair all four now":** repair the four undisclosed limits Claude's R40 review found;
+- after the audit of the pull request, **"Revert and disclose"** the partial-row tax repair and **"All of them"** for the other fixes.
+
+### 3.1 The gaps
 
 | commit | what | evidence |
 |---|---|---|
 | `47a7333` | Tests: your R39.1 boundary cases kept (a death exactly at the claim, 12,480; a younger spouse, 18,000) | both fail on `96ce07f` |
 | `8fb0aca` | **E8:** r18, the first baseline recorded in this repository (the corpus at `00dbb4b`), and `tests/baseline-provenance.test.js` holding a baseline recorded here to this repository's history (archive commits keep their all-or-none rule) | two clean captures, byte-identical |
-| `d4fd3a9` | **Validator repair, found by Claude:** `validateScenario()` accepted an adjustable debt with a reset age but no reset rate or no payoff age, which `runPlan()` refuses (`SCENARIO_DEBT_RESET_TERMS_MISSING`, R37). It now reports `DEBT_RESET_TERMS_MISSING` | `tests/audit-s5aa-r40-validator-debt-reset-terms.test.js` |
-| `03a0ca7` | **E17:** `RESULT_CONTRACT.md` records the 14 codes R29 to R37 added without a word: 6 warnings, 4 refusals (`calculationErrorCode`) and 4 validator codes. `contractVersion` stays 5, as for R25's refusal | each read at `a2ee714` against its introducing commit |
+| `d4fd3a9` | **Validator repair, found by Claude:** `validateScenario()` accepted an adjustable debt with a reset age but no reset rate or no payoff age, which `runPlan()` refuses (`SCENARIO_DEBT_RESET_TERMS_MISSING`, R37) | `tests/audit-s5aa-r40-validator-debt-reset-terms.test.js` |
+| `03a0ca7` | **E17:** `RESULT_CONTRACT.md` records the 14 codes R29 to R37 added without a word. `contractVersion` stays 5, as for R25's refusal | each read against its introducing commit |
 | `6dccadb` | **E14:** R36's "Later tax years" card read as the page renders it | `tests/audit-s5aa-r40-later-tax-years-card-rendered.test.js` |
-| `e54125a` | **A-10** (E10) and **the prediction record**, committed before any engine edit | `audit/S5AA/R40/S5AA_R40_PREDICTION_RECORD_20260930.md` |
-| `8f20d90` | **Repair 1.** The long-term-care cost grows at healthcare inflation from the plan's start, like the pre-Medicare cost; the insurance benefit stays as entered | hand-worked: 100,000 × 1.05^10 = 162,889.46 |
-| `d1572b1` | **Repair 2.** Each person on Medicare pays the 2026 Part D base beneficiary premium, $38.99 a month (CMS memo of July 28, 2025, read; 42 CFR 423.286(c), read). The IRMAA surcharge had been charged on a premium never charged | 202.90 × 12 + 283 + 38.99 × 12 = 3,185.68 |
-| `607101a` | **Repair 3.** A partial row (a fractional first or last row) is taxed as its share `s` of a year: each annual dollar amount of the tax rules × `s` (`partialYearRules()`), which is `s` × the whole-year tax on the income annualized | a $60,000 pension: half a year 3,058.75, was 1,767.50 |
-| `d51d30d` | **Repair 4.** An RMD's start and Uniform Lifetime divisor read the age the owner reaches in the row (Pub. 590-B: "use your age as of your birthday in 2026"). A spouse with a mid-row birthday had skipped their first RMD year | 3,773.58, 3,773.58, 3,758.25; was 0, 3,773.58, 3,773.58 |
-| `4a2250a` | **r19**, the corpus after the four repairs | twice, byte-identical |
+| `e54125a` | **A-10** (E10) and **the prediction record**, committed before any engine edit | `S5AA_R40_PREDICTION_RECORD_20260930.md` |
 
-**Predicted and measured (A-01 as written).** Each repair was predicted in `e54125a` before `src/engine.js` was edited:
+### 3.2 The four repairs, as first built
 
-| repair | predicted | measured |
+| commit | repair | predicted against measured |
 |---|---|---|
-| 1. LTC | `seed:1`, `seed:3`, `seed:6`, `seed:16`; row spending up by a formula, exact for strategies that do not react | `seed:1`, `seed:3`, `seed:6` **equal to the cent in every care row**. **`seed:16` does not move**: its surplus policy is `spend`, so the cost displaces spent surplus (a miss, explained) |
-| 2. Part D | `seed:10`, `seed:16`, `expansion:s5aa-r6-gap-survivor-health-roth`; +467.88 × people × retired duration | exact where the strategy does not react. `seed:10`'s constant-percent strategy lowers its own spending in five rows, as predicted it might. `seed:16` differs only at about 1e-10 |
-| 3. Partial row | the four golden plans at 29.5 and the band member; row-1 taxes about +2,797.19; AGI unchanged | exactly those members. Row-1 taxes **+2,809.17**; the 11.98 is the sale that pays the extra tax realizing $68.48 of gain, so **AGI does move**, at the second order (a miss, explained) |
-| 4. Spouse RMD | no corpus member reaches it | **no control or corpus movement** |
+| `8f20d90` | **1. The long-term-care cost grows at healthcare inflation** from the plan's start, like the pre-Medicare cost; the insurance benefit stays as entered | `seed:1`, `seed:3`, `seed:6`: **equal to the cent in every care row**. `seed:16` was predicted to move and does not: its surplus policy is `spend`, so the cost displaces spent surplus (a miss, explained) |
+| `d1572b1` | **2. Each person on Medicare pays the 2026 Part D base beneficiary premium**, $38.99 a month (CMS memo of July 28, 2025, read; 42 CFR 423.286(c), read). The IRMAA surcharge had been charged on a premium never charged | exact where the strategy does not react; `seed:16` only at about 1e-10 |
+| `607101a` | **3. A partial row taxed as its share of a year** | exactly the predicted members; row-1 tax +2,809.17 against about +2,797.19 (a second-order sale, explained). **Reverted in §3.3** |
+| `d51d30d` | **4. An RMD reads the age reached in the row** | no corpus movement, as predicted. **Corrected in §3.3** |
+| `4a2250a` | r19, then the source `s5aa-r40-source` | twice, byte-identical |
 
-Control test 4.7 at `4a2250a`: 15,717 differences, **0 unpredicted**. The declarations grew from 51 to 54, and the first 51 are
-unchanged.
+### 3.3 The audit of the pull request, and its fixes
 
-## 4. Evidence at `4a2250a` (Windows 11, Node 24.17.0)
+Three independent reviews of `f4183b9` found the defects below. Every one was reproduced before it was fixed. They are listed with the
+reviewers' checks in `S5AA_R40_SELF_AUDIT_20260930.md` (AUD35-01 to -13). The fixes were **predicted before the engine was edited
+again**, in `S5AA_R40_PREDICTION_ADDENDUM_AUDIT_FIXES_20260930.md` (`20e7a41`).
 
-- **The gate:** 3,140 tests, 3,131 passed, 0 failed, 0 skipped, 9 authorized todo (the eight revival contracts and ACCOUNT-17-8),
-  `GATE PASSED`; closeout 12 accepted, 0 refused, 0 errors.
-- **The corpus:** r19 at `d51d30d`, 71 entries, invariants 7/7.
-  - Eleven members move against r18, all predicted (the registry note names each with its lifetime tax and ending net worth).
+| commit | fix | measured |
+|---|---|---|
+| `b97fe0a` | **Repair 3 reverted** (AUD35-01, P1). Its premise, "a year earning at the row's rate", annualized one-time amounts too: a $100,000 expense in a tenth-of-a-year row was taxed $56,958, against $20,221.85. It also left the IRA deduction phase-out unscaled. A partial row is again taxed with the whole year's thresholds, **disclosed**. The proper rule, which counts recurring income at its rate and one-time items once, goes to the engine rebuild | exactly the four golden plans return to their values before the repair (3,747 control differences); `tests/audit-s5aa-r40-partial-row-whole-year-convention.test.js` pins the disclosed behaviour and the one-time case |
+| `3fbe9dc` | **Repair 4 corrected** (AUD35-04, P1). It had read the spouse's calendar age against `rmdStartAge()`'s whole-age birth year (`2026 − floor(age at start)`), and at the 1959/1960 line the first RMD fell in a year neither reading gives. It had also moved the self's own Joint and Last Survivor figure (P2). **The age reached in row k is now the engine's birth year counted forward**, `floor(ageAtStart) + k`. For the self it is `floor(age)`; for a spouse it is the pre-R40 figure whenever the self starts on a whole age. The defect it repairs: with a fractional self start, a spouse whose fraction is smaller than the self's reached the start a year late | no control or corpus movement, as predicted. Witnesses: self 72.5 / spouse 72.3 gives 0, 3,773.58, 3,773.58, 3,758.25 (before R40: 0, 0, …); the 1960 line starts at 75 in the right year; the self's Table II figure is back to 4,784.69 |
+| `7cd1a1a` | **Malformed debt reset terms** (AUD35-07, P2; it predates R40). A string reset age such as `"35"` had passed both refusals: 0% after the reset, or a RangeError. The engine now refuses it (`SCENARIO_NONFINITE_DEBT_RESET_AGE`), and the validator types the reset rate and age | no movement |
+| `c300508` | **Healthcare inflation validated** (AUD35-10). Type; an error at −100 or below and above 100; a warning outside 0 to 20; missing when health or care costs are on. The engine refuses a non-number, as R25's parity test requires; that test caught the first form | no movement |
+| `9fd61c2` | **The app states what R40 charges** (AUD35-09): the Part D premium to the cent on the Rules page, and "Healthcare inflation (also grows the care cost)" and "Annual care cost (today's dollars)" on the form, read rendered | wording only |
+| `978a6e4` | **r20**, the corpus after the fixes | **exactly as predicted, entry hash for entry hash:** the five members repair 3 had moved equal their r18 entries, and the other 66 equal r19's |
+
+**Net against R39.1:**
+- R40 moves the corpus only through the long-term-care cost (`seed:1`, `seed:3`, `seed:6`) and the Part D premium (`seed:10`,
+  `expansion:s5aa-r6-gap-survivor-health-roth`, and `seed:16` at the last binary digit).
+- The RMD correction and the validation fixes move nothing.
+
+## 4. Evidence at `978a6e4` (Windows 11, Node 24.17.0)
+
+- **The gate:** 3,146 tests, 3,137 passed, 0 failed, 0 skipped, 9 authorized todo (the eight revival contracts and
+  ACCOUNT-17-8), `GATE PASSED`; closeout 12 accepted, 0 refused, 0 errors. Every R40 commit's gate, read from its log, is in the
+  self-audit.
+- **Control test 4.7:** 15,717 differences, **0 unpredicted**, 0 declared-but-not-found. The declarations are 51 at `a2ee714` and 53
+  now: repairs 1 and 2. Repair 3's was restored to its earlier state by the revert, and repair 4 moves nothing.
+- **The corpus:** r20 at `9fd61c2`, 71 entries, invariants 7/7.
   - The settlement codes `TAX_SETTLEMENT_MISMATCH` and `QUOTE_SETTLEMENT_UNVERIFIED` appear in no entry.
   - **Nine** entries carry `outsideSupportedDomain`: r16's ten less `seed:19`, which no longer draws a Roth before 59½ since R36
     (`cf643a8`).
-- **The conservation grid,** brought up to date (`audit/S5AA/R40/S5AA_R40_CONSERVATION_GRID/`, R32F's left as it was), at the final
-  engine, 3 seeds × 1,000 plans:
+- **The conservation grid,** brought up to date (`S5AA_R40_CONSERVATION_GRID/`, R32F's left as it was), at the final engine, 3 seeds ×
+  1,000 plans:
   - **0 leak flags**;
-  - 2 to 4 wage-tax-clamp rows per seed, R35's disclosed mechanism, worst $750.50;
-  - the old grid on the same code gave 80 leak flags.
-
-  The grid reads the engine's own `retiredPaySpent`, so it shows money is conserved, not that that amount is right.
+  - 2 to 4 wage-tax-clamp rows per seed, R35's disclosed mechanism, worst $750.50.
+  - R32F's own grid, unchanged, gave 80 leak flags at `00dbb4b` (before the repairs).
+  - The grid reads the engine's own `retiredPaySpent`, so it shows money is conserved, not that that amount is right.
 - **The R33 tax sweep:** 13,815 returns, 0 mismatches. **The R34 Social Security reference:** 25 cases, 0 mismatches.
-- **A desktop-browser smoke check:** the built app served locally completed guided setup and computed a projection with its cards,
-  and logged no console errors. This is not the comparator exercise and not a second machine.
-- **Your repro scripts, each run at `4a2250a`:**
+- **A desktop-browser smoke check** at `4a2250a`: the built app, served locally, completed guided setup and computed a projection with
+  its cards, and logged no console errors. Only wording changed in the app since, and it is read rendered by test. This is not the
+  comparator exercise and not a second machine.
+- **Your repro scripts, each run at `978a6e4`:**
 
 | script | result | why |
 |---|---|---|
@@ -130,35 +152,37 @@ unchanged.
 
 The **R24G2 at `d67b618`** column summarises ChatGPT's own report in the archive.
 
-| line | R24G2 at `d67b618` | since then, and the evidence at `4a2250a` |
+| line | R24G2 at `d67b618` | since then, and the evidence at `978a6e4` |
 |---|---|---|
-| **E1** | met; G9 (task 1.3), G3's partial-year half and X09a explicitly held | Every ChatGPT finding since is repaired (§2). G3's partial-year half: R39 (part-year limits) and R40 (partial-row tax) now cover the partial row. **Your call** whether G3 is closed or still held |
+| **E1** | met; G9 (task 1.3), G3's partial-year half and X09a explicitly held | Every ChatGPT finding since is repaired (§2). G3's partial-year half: R39 gives the contribution limits a partial row's share; **the partial row's tax stays whole-year, disclosed** (R40 reverted its repair). **Your call** whether G3 is still held |
 | **E2** | not met; accepted residual uncertainty (A-09 (3)) | unchanged |
-| **E3** | met | Every finding since was reproduced at a named commit before repair (each round's handover). R40's four witnesses and the validator witness each failed first |
-| **E4** | met | The settlement codes are silent on r19 (checked). No mirrored pair was split |
+| **E3** | met | Every finding since was reproduced at a named commit before repair (each round's handover). R40's witnesses each failed first; the audit's findings were each reproduced before their fixes |
+| **E4** | met | The settlement codes are silent on r20 (checked). Ground rule 4's pairs: `estimateTaxes` and `taxSegmentLocal` read the same row rules and `capitalLossLimit()`; `rmdFor` and `preTaxConvertible` both go through `rmdObligations()`, the one function the corrected repair 4 changes |
 | **E5** | met within the decided scope | unchanged |
-| **E6** | met | `RESULT_CONTRACT.md` §7a is unchanged by R29 to R40. The Monte Carlo invalidation rule is unchanged |
-| **E7** | not met; A-09 defers enforcement to S5b task 4; flagged results unqualified | r19: 9 flagged entries, named in its registry note. Enforcement is still deferred |
-| **E8** | met | The corpus moved in R29 and R32 to R36 **without a registered capture** until r18 (R40). r18 and r19 preserve the states at `00dbb4b` and `d51d30d`; r17 is kept. **The intermediate states between r17 and r18 are recorded only as each round's diff**, not as captures |
-| **E9** | met at `d67b618` | met at `4a2250a` (§4). ACCOUNT-18-8 left long ago; ACCOUNT-17-8 and the eight revival contracts remain, named |
-| **E10** | met | **A-10:** for R29 to R39.1, traced-and-declared (control 35 → 51, originals kept) stands in, disclosed as not a prediction. R40 predicted first (`e54125a`), then measured (§3). **Whether A-10 is enough is yours** |
+| **E6** | met | `RESULT_CONTRACT.md` §7a is unchanged by R29 to R40 (byte-identical). The Monte Carlo invalidation rule is unchanged |
+| **E7** | not met; A-09 defers enforcement to S5b task 4; flagged results unqualified | r20: 9 flagged entries. Enforcement is still deferred |
+| **E8** | met | The corpus moved in R29 and R32 to R36 **without a registered capture** until r18 (R40). r18, r19 and r20 preserve the states at `00dbb4b`, `d51d30d` and `9fd61c2`; r17 is kept. **The intermediate states between r17 and r18 are recorded only as each round's diff**, not as captures |
+| **E9** | met at `d67b618` | met at `978a6e4` (§4). ACCOUNT-18-8 left long ago; ACCOUNT-17-8 and the eight revival contracts remain, named |
+| **E10** | met | **A-10:** for R29 to R39.1, traced-and-declared (control 35 → 51, originals kept) stands in, disclosed as not a prediction. R40 predicted first (`e54125a`, then `20e7a41` for the audit fixes), then measured (§3). Two first-build misses are recorded (`seed:16`; a second-order AGI change). **Whether A-10 is enough is yours** |
 | **E11** | met | unchanged |
-| **E12** | met | Before R29: the archive's list, as you accepted it. R29 to R40: `audit/S5AA/R40/S5AA_R40_UNREPAIRED_LIST_20260930.md`, one A-07 label and a disclosure location each. It includes R32F's unconfirmed suspicions that R40 did not examine |
+| **E12** | met | Before R29: the archive's list, as you accepted it. R29 to R40: `S5AA_R40_UNREPAIRED_LIST_20260930.md`, one A-07 label and a disclosure location each, including the partial-row tax |
 | **E13** | met for the carry inventory; "does not prove E7" | Closeout is 12/0 at every gate. `tools/closeout-task-map.json`'s review note says the S5AA nodes were relayed to the plan owner and not treated as reviewed |
-| **E14** | partly met; explicit exception (A-09 (3)) | The shipped HTML is rebuilt at every engine commit and its pin moved (`tests/lib/harness.js`). R37's cards and now R36's card are read rendered. R40's LTC and Part D changes have no card of their own; the A-09 exception covers them. **The owner, 2026-09-30:** "The UI will be rebuilt. but we can use the old ui as a reference". So the rendering work E14 excepts belongs to the rebuilt UI, and the current app is its reference |
-| **E15** | narrowed in the archive's close record §1 to a clean-checkout replay; cross-machine carried to S5b | r18 and r19 were replayed in two clean worktrees. A desktop-browser smoke check ran (§4). **The comparator exercise (6.5) did not run**, and there is no second machine |
+| **E14** | partly met; explicit exception (A-09 (3)) | The shipped HTML is rebuilt at every source commit and its pin moved. R37's cards, R36's card and R40's wording are read rendered. **The owner, 2026-09-30:** "The UI will be rebuilt. but we can use the old ui as a reference". So the rendering work E14 excepts belongs to the rebuilt UI, and the current app is its reference |
+| **E15** | narrowed in the archive's close record §1 to a clean-checkout replay; cross-machine carried to S5b | r18, r19 and r20 were replayed in two clean worktrees. A desktop-browser smoke check ran. **The comparator exercise (6.5) did not run**, and there is no second machine |
 | **E16** | met | unchanged |
-| **E17** | met | Relays to eb every round, and placements merged (#28, #31, #34). R40's relay is written; eb places it after merge. The contract text is in (R40). Citations were checked at primary sources, but SA40-05 cited two before reading them; both hold |
+| **E17** | met | Relays to eb every round, and placements merged (#28, #31, #34). R40's relay is written; eb places it after merge. The contract text is in, with R40's refusal. Citations were checked at primary sources, but two were cited before being read (SA40-05); both hold |
 | **E18** | met | Your R39.1 and R40 audits are change audits. The last whole-model audits are PCF (`8396626`) and R32V (of Claude's R32F) |
 
 ## 6. Known limits, carried
 
-- **What R29 to R40 knowingly left unrepaired:** `audit/S5AA/R40/S5AA_R40_UNREPAIRED_LIST_20260930.md`, one label and a disclosure
-  location each. Among them:
+- **What R29 to R40 knowingly left unrepaired:** `S5AA_R40_UNREPAIRED_LIST_20260930.md`, one label and a disclosure location each. Among
+  them:
+  - the partial-row tax (whole-year thresholds; a rule that tells recurring income from one-time items goes to the rebuild);
   - the wage-tax clamp;
   - the row-opening ages for the QCD, 59½, 65, Medicare and filing (the owner deferred them to the engine rebuild);
-  - R40's own two: the IRA and Roth phase-out ranges are unscaled in a partial row, and the LTC insurance benefit is not inflated
-    (Claude's choice, told to the owner, not ruled on).
+  - the LTC insurance benefit not being inflated (Claude's choice, told to the owner, not ruled on).
+- **A direct call of the exported `simulatePlanRows()` leaves the last row's rules in place.** This predates R40, no production caller
+  makes one, and it is not fixed (AUD35-13).
 - **E7 and A-09:** the nine flagged results are unqualified reference values.
 - **Documents:** `audit/S5AA/WORKING_RULES.md` §7's "current state" and §9's prompt are stale: they still describe R24G2 as awaiting a
   determination. This handover replaces them for this request. A policy-only correction is the owner's to order.
@@ -167,7 +191,7 @@ The **R24G2 at `d67b618`** column summarises ChatGPT's own report in the archive
 ## 7. How to report
 
 - **First line:** GO or NO-GO.
-- **Findings:** R40-NN, five-part format, P1–P3, with file and line at `4a2250a` and hand-worked expectations.
-- **Where:** report only, on `audit/chatgpt/r40-4a2250a`.
+- **Findings:** R40-NN, five-part format, P1–P3, with file and line at `978a6e4` and hand-worked expectations.
+- **Where:** report only, on `audit/chatgpt/r40.1-978a6e4`.
 
 A passing gate is not certification.

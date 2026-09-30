@@ -11,27 +11,35 @@ determination of S5AA's status, GO or NO-GO**.
 
 Before asking for the status, I had Claude check the exit gate. It found lines that R29 to R39.1 had left open: no registered corpus
 baseline since r17, no predictions for R29 to R39.1's output movements, undocumented result codes, and no combined unrepaired list.
-**R40 closes them.** Along the way it found four undisclosed limits, and I had them repaired:
-- the long-term-care cost is now inflated;
-- Medicare now charges the Part D premium;
-- a partial first or last year is taxed as its share of a year;
-- a spouse's required distribution reads the age they reach that year.
+**R40 closes them.** Along the way it found four undisclosed limits, and I had them repaired.
+
+**Before merging, I had the pull request audited as well.** Three independent reviews found defects in two of the four repairs:
+- **The partial-year tax repair annualized one-time amounts.** I had it reverted, and the old behaviour is now a disclosed limit.
+- **The spouse RMD repair read the wrong birth year.** It was corrected.
+- The reviews also found some smaller items, which were fixed.
+
+That is why the source is **`s5aa-r40.1-source`**; the first tag, `s5aa-r40-source`, stays where it is.
+
+**The standing R40 repairs:**
+- the long-term-care cost is inflated;
+- Medicare charges the Part D premium;
+- a required distribution reads the age reached in the year, by the engine's own birth year.
 
 For E10 I added amendment **A-10**.
 
 | where | what |
 |---|---|
-| tag `s5aa-r40-source` (`4a2250a`) | the source to audit and to determine the status at |
-| `audit/S5AA/R40/S5AA_R40_CHANGE_AUDIT_HANDOVER_20260930.md` | what is asked; how the status got here; every finding since your R24G2 and where it stands; what R40 changed, predicted against measured; the evidence; **E1 to E18 line by line** |
+| tag `s5aa-r40.1-source` (`978a6e4`) | the source to audit and to determine the status at |
+| `audit/S5AA/R40/S5AA_R40_CHANGE_AUDIT_HANDOVER_20260930.md` | what is asked; how the status got here; every finding since your R24G2 and where it stands; what R40 changed, predicted against measured, and the pre-merge audit's fixes; the evidence; **E1 to E18 line by line** |
 | `S5AA_TASK_CHECKLIST.md`, end | amendment A-10 |
-| `audit/S5AA/R40/S5AA_R40_PREDICTION_RECORD_20260930.md` | the predictions, committed before the engine was edited |
+| `audit/S5AA/R40/S5AA_R40_PREDICTION_RECORD_20260930.md` and `…_PREDICTION_ADDENDUM_AUDIT_FIXES_20260930.md` | the predictions, each committed before the engine was edited |
 | `audit/S5AA/R40/S5AA_R40_UNREPAIRED_LIST_20260930.md` | what R29 to R40 knowingly left unrepaired, labelled (E12) |
-| `audit/S5AA/R40/S5AA_R40_SELF_AUDIT_20260930.md` | Claude's own errors this round, and its checks |
+| `audit/S5AA/R40/S5AA_R40_SELF_AUDIT_20260930.md` | Claude's own errors this round, the pre-merge audit's findings (AUD35-01 to -13), and the checks |
 
-**Please audit the R40 change** from `s5aa-r39.1-source` (`a2ee714`) to `s5aa-r40-source` (`4a2250a`). Number any findings
+**Please audit the R40 change** from `s5aa-r39.1-source` (`a2ee714`) to `s5aa-r40.1-source` (`978a6e4`). Number any findings
 **R40-NN**.
 
-**Then determine S5AA's status at `4a2250a`** against E1 to E18 as amended by A-01 to A-10:
+**Then determine S5AA's status at `978a6e4`** against E1 to E18 as amended by A-01 to A-10:
 - Does A-10 give E10 what it needs?
 - Is every other line true, or dispositioned?
 - If anything blocks, what exactly is missing?
@@ -46,7 +54,7 @@ the go for S5b stay with me.
 - **The app's UI will be rebuilt, with the current one as its reference.** So the disclosures the current app does not render stay the
   explicit exception A-09 made for E14.
 
-Please publish in the usual report-only pull request, on a branch named `audit/chatgpt/r40-4a2250a`. This repository is public: please
+Please publish in the usual report-only pull request, on a branch named `audit/chatgpt/r40.1-978a6e4`. This repository is public: please
 call me "the owner", and include no name, email address or personal path.
 
 Thank you,

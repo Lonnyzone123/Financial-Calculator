@@ -27,8 +27,7 @@ dividends-on gap assigned to S5b task 1 (A-07).
 | R38 §6 | `vesting` 100 with `yearsOfService` 0 routes a Roth match that is then forfeited | R39 `252faba` (Q168) |
 | R32F suspicion | the long-term-care cost is never inflated | R40 `8f20d90` |
 | R32F suspicion | no Part D premium, only its surcharge | R40 `d1572b1` |
-| R32F suspicion | a partial row is taxed with a whole year's thresholds | R40 `607101a` |
-| R32F suspicion | a spouse's first RMD year is skipped when their birthday falls inside a row | R40 `d51d30d` |
+| R32F suspicion | with a fractional self start, a spouse whose fraction is smaller than the self's reached the RMD start age a year late | R40 `d51d30d`, corrected at `3fbe9dc` after the audit of PR #35 (the age reached now follows the engine's own birth year) |
 
 ## Unsupported scope
 
@@ -47,7 +46,7 @@ dividends-on gap assigned to S5b task 1 (A-07).
 
 | item | disclosed in |
 |---|---|
-| **Row-opening ages.** The QCD's 70½, the 10% at 59½, the HSA's 65, Medicare eligibility and the filing status read the age at a row's opening. The QCD's convention is declared on the form. Deferred to the engine rebuild by the owner (R39). R40 moves the RMD start and divisor to the age reached in the row (repair 4); the rest are unchanged | R37 §6; R39 §6; Q137; the QCD form label |
+| **Row-opening ages.** The QCD's 70½, the 10% at 59½, the HSA's 65, Medicare eligibility and the filing status read the age at a row's opening. The QCD's convention is declared on the form. Deferred to the engine rebuild by the owner (R39). R40 reads the RMD start and divisor at the age reached in the row by the engine's own birth year (`d51d30d`, corrected at `3fbe9dc`); the rest are unchanged | R37 §6; R39 §6; Q137; the QCD form label |
 | **No birth month.** SSA's "born on January 1" rule and the year-of-FRA earnings band are read from the whole age | R34 §6 |
 | The earnings test is annual, prorated to the row (Q91). The survivor reduction is the rules package's reading of SSA's figures (Q92) | R34 §6 |
 | **Later years' figures.** They index by the plan's inflation and salary-growth rates, standing in for the C-CPI-U, CPI-U and wage index, from the 2026 base (one rounding step can differ) | R36 §6; the "Later tax years" card, now read rendered (R40 `6dccadb`) |
@@ -59,7 +58,7 @@ dividends-on gap assigned to S5b task 1 (A-07).
 | **Vesting and service.** Service is inferred from the vested percentage when blank. A death before separation forfeits and vests nothing. The spouse's separation is their retirement age on their own clock | R35 §6; R38 §6 |
 | Row approximations: the still-working exception reads "retires at least a year after the row opens"; Table II's January 1 is the row's opening; the basis reset reads the first row after a death (the app warns) | R35 §6 |
 | **Part-year limits.** The one-time contribution path (a transfer into an IRA or HSA) holds a partial row to the whole annual limit. Excess warnings state the annual-rate excess | R39 §6 |
-| **Partial-row tax (R40, repair 3).** The retirement block is not scaled for a partial row: the IRA deduction and Roth phase-out ranges read the partial row's MAGI against whole-year ranges. R39 scales the limits themselves | **here** |
+| **Partial-row tax.** A partial first or last row is taxed as a whole tax year holding only the row's income, so the first year's tax is understated where the household earned before the plan opened (a half-year $60,000 pension row: 1,767.50, where half of the year's tax is 3,058.75). R40 repaired it by taxing the row as its share of a year (`607101a`) and reverted that at `b97fe0a`: the audit of PR #35 showed it annualizes one-time amounts ($56,958 against $20,221.85 on a $100,000 expense in a tenth-of-a-year row) | **here**; `tests/audit-s5aa-r40-partial-row-whole-year-convention.test.js` |
 | The Rule of 55 in the year of 55 reads the plan's birth-year convention | R39 §6 |
 | A Roth match's allocation reads the vesting at the row's opening | R39 §6 |
 | **Social Security timing.** A COLA falling inside a row after a claim is paid from the next row (R2-004). The survivor's COLA timing after a death before eligibility (20 CFR 404.271(b)) is unqualified | R39 §6; R39.1 §6; ChatGPT's R39.1 audit |
@@ -78,7 +77,7 @@ dividends-on gap assigned to S5b task 1 (A-07).
 |---|---|
 | The senior deduction continues after 2028 (D8, "Keep it even after 2028") | R36; the "Later tax years" card |
 | Social Security in today's dollars (decision 3) | R34 |
-| A partial row takes its share of each annual limit (R39) and, from R40, of each annual tax amount | R39; R40 |
+| A partial row takes its share of each annual contribution limit | R39 |
 | The plan's normal retirement age is 65 for full vesting | R38 |
 | The app's default plan files single. The tests' corpus keeps joint filing (`TEST_FILING`), so its inputs stay fixed | R38 |
 | The QCD's opening-age convention, declared on the form | R39 |
@@ -92,6 +91,7 @@ The dividends-on gap, S5b task 1 (A-07), carried from before R29. It is unchange
 | item | where |
 |---|---|
 | Monte Carlo figures for the failing paths (shortfall amount and cut) | a CPU-rebuild wanted feature (R37, R38); `FEATURES.md` |
+| A partial row's tax that annualizes recurring income and counts one-time items once (the design R40's reverted repair 3 lacked) | the engine rebuild (R40); relayed to eb |
 | The income tax on an elected Roth match is drawn from the portfolio even in a year whose wages exceed its needs (Q96's treatment) | R38 §6, observed, not changed |
 
 ## R32F's unconfirmed suspicions not examined in R40

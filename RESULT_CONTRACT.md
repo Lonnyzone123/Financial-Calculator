@@ -264,7 +264,7 @@ advisory issues, still stands.
 
 *These codes reached `src/` in R29 to R37 without being written here; R40 records them. Read in `src/engine.js` and
 `src/scenario-validator.js` at `a2ee714` (`s5aa-r39.1-source`), each against the commit that introduced it. R38 to
-R39.1 added none; R40 adds one validator code, below.* **`contractVersion` stays at 5,** on the reasoning above and the precedent of R25's
+R39.1 added none; R40 adds one refusal and one validator code, below.* **`contractVersion` stays at 5,** on the reasoning above and the precedent of R25's
 `SCENARIO_NONNUMBER_PLAN_VALUE` (§1): no row field, unit, basis or invariant changed. An advisory issue changes nothing a
 consumer relied on. A refusal is an existing outcome, `calculation_error` with no rows, reached by one more cause.
 
@@ -291,6 +291,11 @@ validator accepted that plan and the engine refused it):
 | `SCENARIO_INVALID_DEBT_AMOUNT` | a debt's payment, extra principal, PMI, property tax, insurance or HOA is negative or not a number | R37 `e923123` (SA32F-51) |
 | `SCENARIO_INVALID_CLASS_VOLATILITY` | an asset class's volatility is negative or not a number | R37 `e923123` (SA32F-51) |
 | `SCENARIO_DEBT_RESET_TERMS_MISSING` | an adjustable debt resets its rate at an age but has no reset rate or no payoff age | R37 `ad62460` (SA32F-21) |
+| `SCENARIO_NONFINITE_DEBT_RESET_AGE` | an adjustable debt's reset age is present (not absent or `null`) and not a finite number, such as the string `"35"` | R40 `7cd1a1a` (the audit of PR #35) |
+
+The validator reports that last case, and a present non-number reset rate (the engine's `SCENARIO_NONFINITE_DEBT_RATE`), as
+`WRONG_TYPE` since R40 `7cd1a1a`. R40 `c300508` also adds `advanced.healthInflation` to the plan fields refused as
+`SCENARIO_NONNUMBER_PLAN_VALUE` (§3), as the validator now types it.
 
 **Five validator codes,** all `error`, from `validateScenario()`, not part of the result: `TRANSFER_INTO_WORKPLACE_PLAN`
 (R29 `3a02ed1`) and `TRANSFER_BETWEEN_OWNERS` (R32 `0413792`) on `advanced.transferTo`;

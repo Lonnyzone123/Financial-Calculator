@@ -65,3 +65,61 @@ handover goes out.*
   - 42 CFR 423.286(c);
   - Treas. Reg. 1.401(a)(9)-9(c);
   - Publication 590-B's Table III instruction.
+
+## The audit of PR #35, before merge (the owner: "you do a audit on #35 before we merge")
+
+Three independent reviews of `f4183b9` tried to break the four repairs, the validator repair and the re-fixtured tests. Every finding
+below was reproduced; each reviewer also listed what it checked and found correct.
+
+| | severity | finding | disposition |
+|---|---|---|---|
+| AUD35-01 | P1 | **Repair 3 annualized one-time amounts.** A $100,000 one-time expense in a tenth-of-a-year row was taxed as if $1,000,000 recurred: $56,958 against $20,221.85 | **reverted**, the owner's decision "Revert and disclose" (`b97fe0a`). The whole-year treatment is disclosed; a rule telling recurring income from one-time items goes to the engine rebuild |
+| AUD35-02 | P2 | **Repair 3 left the IRA deduction phase-out unscaled,** and its comment's reason (R39's stretch) was false | moot after the revert |
+| AUD35-03 | P3 | **Repair 3's death-row claim was false.** A death can fall in a partial first row | moot after the revert |
+| AUD35-04 | P1 | **Repair 4 read the spouse's calendar age against `rmdStartAge()`'s whole-age birth year.** At the 1959/1960 line the first RMD fell in a year neither reading gives | **corrected** (`3fbe9dc`): the age reached is the engine's birth year counted forward |
+| AUD35-05 | P2 | **Repair 4 moved the self's own Table II figure** (4,784.69 to 4,950.50) | corrected with AUD35-04; a test now pins 4,784.69 |
+| AUD35-06 | P3 | **Repair 4's test said "born 1953";** `rmdObligations()` depended on `endAge` and on a 1e-9 sliver | the test was rewritten; the row span is gone |
+| AUD35-07 | P2 | **A numeric-string debt reset age passed both refusals** (0% after the reset, or a RangeError). It predates R40 | **fixed** (`7cd1a1a`) |
+| AUD35-08 | P3 | **The validator and the engine disagreed next to the new rule** (a present non-number reset rate, a NaN reset age) | fixed with AUD35-07 |
+| AUD35-09 | P3 | **The Part D premium and the care cost's growth were not stated in the app** | **fixed** (`9fd61c2`), wording only |
+| AUD35-10 | P3 | **Healthcare inflation was unvalidated.** At −150 or 1e40 it gave a calculation error; a non-number silently gave 0% | **fixed** (`c300508`): the validator types and ranges it, and the engine refuses a non-number, as R25's parity test requires |
+| AUD35-11 | P3 | **The R9 dividend re-fixture read the engine's own withdrawals** | moot after the revert, which restored the original test |
+| AUD35-12 | P3 | **Record slips:** `8f20d90`'s message says "the first two failed before" (all three did); the R6 re-fixture's message calls 6,371.36 "the auditor's figure" | the first is recorded here (the commit is pushed); the second is corrected in the r20 commit |
+| AUD35-13 | P3 | **A direct call of the exported `simulatePlanRows()` leaves the last row's rules in place.** It predates R40 (R36) and no production caller makes one | **not fixed**; disclosed here |
+
+### Further errors of my own, found by the audit or in fixing it
+
+| | what |
+|---|---|
+| SA40-09 | **Repair 3's premise.** The rule "a year earning at the row's rate" was wrong for anything that is not a rate (AUD35-01). My prediction checked only the golden plans' recurring wages |
+| SA40-10 | **Repair 4 mixed two birth-year readings** (AUD35-04). My own witness, self 72 and spouse 72.5, was not a defect under the engine's documented reading |
+| SA40-11 | **Fix C's code was written before its test.** The new case was then shown to fail against the committed engine without it |
+| SA40-12 | **Fix D's first form typed a field the engine did not refuse.** The R25 parity test caught it in the gate. The commit was amended (`c300508`) and fix E replayed onto it (`9fd61c2`); the first forms, `434f19c` and `2881ceb`, were never pushed |
+| SA40-13 | **Two more gates were started with a shell `&`** (fixes C and D); both logs were read to the end |
+| SA40-14 | **The Part D sentence first used `money()`,** which rounds $38.99 to $39. The rendered test caught it |
+
+## At the final source, `978a6e4` (`s5aa-r40.1-source`)
+
+The checks above were run at `4a2250a`, the first source. After the audit's fixes, at `978a6e4`:
+
+- **The gate, read from each log.** Every run below had 0 failing, 0 skipped and 9 authorized todo, with closeout 12 / 0:
+
+  | commit | tests |
+  |---|---|
+  | `b97fe0a` | 3,139 |
+  | `3fbe9dc` | 3,141 |
+  | `7cd1a1a` | 3,142 |
+  | `c300508` | 3,145 (its first form, `434f19c`, failed 1: SA40-12) |
+  | `9fd61c2` | 3,146 |
+  | `978a6e4` | 3,146 / 3,137 passed |
+
+  `20e7a41` (records only) was not gated on its own.
+- **Control test 4.7:** 15,717 differences, 0 unpredicted. There are 53 declarations: 51 at `a2ee714` plus repairs 1 and 2. Repair 3's
+  entries were restored by the revert.
+- **r20:** captured twice at `9fd61c2`, byte-identical, invariants 7/7, nine flagged. It is exactly as predicted: the five members
+  repair 3 had moved equal r18, and the other 66 equal r19.
+- **References:** the tax sweep 13,815 / 0; the Social Security reference 25 / 0.
+- **The conservation grid:** 0 leak flags in 3 × 1,000 plans.
+- **ChatGPT's repro scripts:** the same results as at `4a2250a`, each stop explained in the handover.
+- **The browser smoke check** was not rerun. Only wording changed in the app, and that wording is read rendered by
+  `tests/audit-s5aa-r40-app-states-r40-charges.test.js`.
