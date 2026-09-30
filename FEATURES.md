@@ -177,6 +177,15 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
   after the plan's end age, the 1959 RMD proposed-rule card, "How Monte Carlo draws returns," and "Average return
   path." The debt page now notes that the four mortgage fields added earlier (`mortgageType`, `originalAmount`,
   `propertyValue`, `loanTermYears`) are recorded but not yet used by the projection.
+- **S5AA R39 additions, 2026-09-29** (repairing ChatGPT's R38-01 through R38-05; detail in `MODEL_ASSUMPTIONS.md`
+  §4/§22, §18.3 and §23): annual contribution limits now hold the dollars actually deposited in the tax year rather
+  than a rate cut for part-year work, with a part-year plan keeping the limit for its own share and the HSA limit
+  staying prorated by months; the Rule of 55 now admits a separation at 55 or later, or earlier in the year of 55,
+  instead of only the stricter calendar-year reading; an elected Roth match is Roth only when the employee is fully
+  vested at allocation, matching the share that decides forfeiture; a Social Security claim inside a projection
+  year is priced at the claim with the COLAs it has earned by then; a workplace plan inherited by a surviving
+  spouse no longer carries the decedent's current-employer flag into the still-working exception; and the QCD's
+  70½ opening-age eligibility convention is declared and stated on the form.
 
 ## Features — wanted (not yet built)
 

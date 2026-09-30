@@ -700,13 +700,21 @@ Replaces any percentage-basis description of the model.
   pay more 10% than a split year would charge, and `expansion:s5aa-gap-early-retiree` pays $8,820 more lifetime tax.
   The alternatives not chosen (Q137) can be decided with the engine rebuild. **Since S5AA R37 (SA32F-44), the HSA's
   20% additional-tax exception to the age-65 rule follows the same convention:** a year that opens before the
-  owner turns 65 and ends after it has its whole non-qualified HSA draw charged the 20%.
+  owner turns 65 and ends after it has its whole non-qualified HSA draw charged the 20%. **Since S5AA R39, a QCD
+  follows the same convention at 70½:** it is available from the first projection year that starts at 70½ or older
+  (IRC 408(d)(8)(B)(ii) allows one from the day, but the plan records no gift date), declared and stated on the
+  form. 59½, 65 and 70½ are to be decided together at the engine rebuild.
 - **Required distributions, two more conventions** (S5AA R35). A spouse more than ten years younger who is the sole
   beneficiary gives the Joint and Last Survivor Table (26 CFR 1.401(a)(9)-5(c)(2)), the default of record when the
   plan doesn't say otherwise. A current employer's 401(k) owes no required distribution while its non-5%-owner
   participant still works there (401(a)(9)(C)); "current employer" defaults to whichever plan still receives
-  contributions. The Rule of 55 needs the owner's separation in or after the year they turn 55; the switch itself
-  is read as the owner's certification that this holds, with the separation year enforced against the entered age.
+  contributions. **A workplace plan that passes to a surviving spouse is not the survivor's current employer's
+  plan** (S5AA R39, repairing ChatGPT's R38-05): the still-working exception does not follow an inherited plan,
+  including where the current-employer flag was only inferred from the contribution field. **The Rule of 55 needs
+  the owner's separation at 55 or later, or earlier in the year they turn 55** (S5AA R39, repairing ChatGPT's
+  R38-02 — IRC 72(t)(2)(A)(v) exempts a separation "during or after the year the employee reaches age 55", not
+  only a separation on or after a calendar-year reading); the switch itself is read as the owner's certification
+  that this holds, with the separation year enforced against the entered age.
 - **Conversions and transfers.** A conversion goes only into a Roth-class account of the same owner. A traditional
   IRA converts into a Roth IRA (or a custom Roth account); a 401(k) may convert into a Roth-class account of the same
   owner, including its own Roth 401(k). A manual transfer from a pre-tax account into a Roth account is a Roth
@@ -937,8 +945,12 @@ session directly, as reported by it. Registered as `SPRINT_QUESTIONS.md` Q158–
   and in the grace year withholds only from the months before the owner stops working (20 CFR 404.435).
 - **An other income of type Social Security ends at its owner's death**, the same as an employment stream (42 USC
   402(a)).
+- **A benefit that starts inside a projection year is priced at the claim**, with every COLA from the plan's start
+  to the claim (S5AA R39, repairing ChatGPT's R38-04). A benefit already being paid when the projection opens keeps
+  the year's opening amount, per §4.
 
-*Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `7b61b88`.*
+*Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `7b61b88`; the claim-year COLA repair
+added 2026-09-29 (S5AA R39) at `f6dbb2a`. Registered as `SPRINT_QUESTIONS.md` Q169.*
 
 ---
 
@@ -962,6 +974,10 @@ limit and the limit less the year's other IRA contributions (Worksheet 2-2, line
 - On a joint return, a spouse who is not working can fund an IRA while the other spouse works, up to that spouse's
   own stop age.
 - Profit sharing is paid without the employer-match switch.
+- **Annual limits hold the dollars deposited in the tax year** (the IRA and 401(k) limits, catch-ups, 415(c)'s total
+  additions and 401(a)(17)'s compensation limit) — they are not cut because someone worked part of it (S5AA R39,
+  repairing ChatGPT's R38-01). A plan year that is itself part of a tax year (a plan opening mid-year) keeps the
+  limit for that share. The HSA limit stays prorated by the months of the contribution window (IRC 223(b)(2)).
 
 **Tax.**
 - The age-65 amounts — the additional standard deduction, the senior deduction, and Arizona's $2,100 exemption — read
@@ -976,7 +992,8 @@ limit and the limit less the year's other IRA contributions (Worksheet 2-2, line
 **Overnight instruction, governing R33 through R38: "Follow law everywhere"** — where the law gives a rule, build it
 rather than disclose a gap.
 
-*Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `f4e8294`.*
+*Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `f4e8294`; the part-year contribution
+limit added 2026-09-29 (S5AA R39) at `8a51aaf`. Registered as `SPRINT_QUESTIONS.md` Q169.*
 
 ---
 
@@ -995,17 +1012,17 @@ commits exist. Registered as `SPRINT_QUESTIONS.md` Q162 (5b), Q167 (filing statu
 - **A new plan files single, matching its default of no spouse.** A saved plan keeps its own filing status. The test
   corpus keeps the joint return it was written on, so no corpus figure moves. Linking the default to the spouse
   switch is a possible later convenience, not built.
-- **Open, not decided:** with `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth
-  immediately and then mostly forfeited at separation — the two inputs disagree. The rule: IRS Notice 2024-2, Q&A
-  L-3 (IRS PDF, page 72), backed by IRC 402A(f)(3) — a match "may be designated as a Roth contribution only if the
-  employee is fully vested in matching contributions at the time the contribution is allocated to the employee's
-  account." ChatGPT's R38 audit (#27, merged) raised the same rule from the other direction as R38-03: someone who
-  becomes fully vested mid-plan keeps a pre-tax match, because the engine checks only the entered `vesting === 100`.
-  The repair is to route an elected match by the effective vested share at allocation, proposed for R39 and awaiting
-  the owner's go. Registered as `SPRINT_QUESTIONS.md` Q168.
+- **An elected Roth match is Roth only when the employee is fully vested at allocation** (S5AA R39, repairing
+  ChatGPT's R38-03), by the same vested share that decides forfeiture. IRS Notice 2024-2, Q&A L-3 (IRS PDF, page
+  72), backed by IRC 402A(f)(3): a match "may be designated as a Roth contribution only if the employee is fully
+  vested in matching contributions at the time the contribution is allocated to the employee's account."
+  `employerMatchIsRoth()` had read only the entered `vesting === 100`, apart from `employerVestedShare()`, which
+  decides forfeiture; the two now agree. This settles the `vesting` 100 / `yearsOfService` 0 case above. Registered
+  as `SPRINT_QUESTIONS.md` Q168.
 
 *Decided 2026-09-29 (the owner), as reported by the S5AA session. Vesting through separation at `26ef26d` (R35),
-year-of-separation and age-65 vesting at `cc3217f` (R38), the filing default at `678c556` (R38).*
+year-of-separation and age-65 vesting at `cc3217f` (R38), the filing default at `678c556` (R38), the Roth-match
+vesting rule at `252faba` (R39).*
 
 ---
 

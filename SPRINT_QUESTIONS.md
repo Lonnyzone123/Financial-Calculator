@@ -5991,10 +5991,21 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Status: decisions 2–5 IMPLEMENTED 2026-09-29 at `890ff72` and `503db3c`** (S5AA R37); **decision 1 IMPLEMENTED 2026-09-29 at `678c556`** (S5AA R38; the test corpus keeps the joint return it was written on, so no corpus figure moves). Decision 2 additionally at `e7fabeb` (test `audit-s5aa-r37-hsa-65-opening-age.test.js`); decision 3 at `05f35fa`. Modelling text: `MODEL_ASSUMPTIONS.md` §18.3, §24 and §26.
 
-## 2026-09-29 — Q168. A Roth match with vesting 100 and no years of service is taxed as Roth, then mostly forfeited (found by S5AA R38, not yet decided)
+## 2026-09-29 — Q168. A Roth match with vesting 100 and no years of service is taxed as Roth, then mostly forfeited (found by S5AA R38, the owner, 2026-09-29)
 
 **Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R38 relay.
 
-**The question.** With `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth (immediately, at contribution) and then mostly forfeited at separation — the two inputs disagree about what actually happens to the money. The rule: IRS Notice 2024-2, Q&A L-3 (IRS PDF, page 72), backed by IRC 402A(f)(3) — a match "may be designated as a Roth contribution only if the employee is fully vested in matching contributions at the time the contribution is allocated to the employee's account." ChatGPT's R38 audit (#27, merged) raised the same rule from the other direction as R38-03: someone who becomes fully vested mid-plan keeps a pre-tax match, because the engine checks only the entered `vesting === 100`. The `vesting` 100 / `yearsOfService` 0 case above is a second symptom of that same check. The repair is to route an elected match by the effective vested share at allocation, proposed for R39 and awaiting the owner's go.
+**The question.** With `vesting` at 100 and `yearsOfService` at 0, an elected Roth match is taxed as Roth (immediately, at contribution) and then mostly forfeited at separation — the two inputs disagree about what actually happens to the money. The rule: IRS Notice 2024-2, Q&A L-3 (IRS PDF, page 72), backed by IRC 402A(f)(3) — a match "may be designated as a Roth contribution only if the employee is fully vested in matching contributions at the time the contribution is allocated to the employee's account." ChatGPT's R38 audit (#27, merged) raised the same rule from the other direction as R38-03: someone who becomes fully vested mid-plan keeps a pre-tax match, because the engine checks only the entered `vesting === 100`. The `vesting` 100 / `yearsOfService` 0 case above is a second symptom of that same check.
 
-**Status: OPEN, reported to the owner, not built.** No decision has been made.
+**Status: IMPLEMENTED 2026-09-29 at `252faba`** (S5AA R39, repairing ChatGPT's R38-03). An elected match is Roth only when the employee is fully vested at allocation, by the same vested share that decides forfeiture. Modelling text: `MODEL_ASSUMPTIONS.md` §24.
+
+## 2026-09-29 — Q169. Part-year contribution limits, an inherited workplace plan's employer flag, and the QCD's opening-age convention (S5AA R39, the owner, 2026-09-29)
+
+**Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R39 relay (`audit/S5AA/R39/S5AA_R39_RELAY_TO_EB_20260929.md`). R39 repairs ChatGPT's R38-01, R38-02, R38-04 and R38-05, and declares the QCD's opening-age convention. The owner's instruction was "start R39, go with your recommendations" (2026-09-29).
+
+**The decisions.**
+- (a) **Annual contribution limits hold the dollars deposited in the tax year**, not a rate cut by part-year work (repairing R38-01): a plan year that is itself part of a tax year keeps the limit for that share of the year. The HSA limit stays prorated by the months of the contribution window.
+- (b) **A workplace plan that passes to a surviving spouse is not the survivor's current employer's plan** (repairing R38-05): the still-working exception to required distributions does not follow an inherited plan, including where the current-employer flag was only inferred from the contribution field.
+- (c) **The QCD keeps the opening-age convention, declared on the form**: a QCD is available from the first projection year that starts at 70½ or older (the plan records no gift date, so eligibility is read at the row's start, the same convention as 59½ and R37's HSA 65). To be decided with those two at the engine rebuild.
+
+**Status: IMPLEMENTED 2026-09-29** (S5AA R39). (a) at `8a51aaf` (R38-01); the Rule of 55's separation-age repair (not itself a new decision — R38-02, "separation at 55 or later" rather than only the calendar-year reading) at `4995761`; (b) at `85fe621` (R38-05); Social Security's claim-inside-a-year COLA repair (R38-04, likewise not itself a new decision) at `f6dbb2a`; (c) declared at `f7ea076`. Modelling text: `MODEL_ASSUMPTIONS.md` §4/§22, §18.3, §23.
