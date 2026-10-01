@@ -1,0 +1,2 @@
+golden:monte-carlo-fixed-seed: exposure test flags 5 of 500 paths; 4 changed (89,174,207,390); every changed path flagged: true
+expansion:monte-carlo-sensitive-band: exposure test flags 13 of 500 paths; 6 changed (125,211,219,349,377,389); every changed path flagged: true
