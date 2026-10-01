@@ -3845,7 +3845,13 @@ function ssSpousalFactor(p,owner,startAge){var fra=ssFullRetirementAge(p,owner),
    capped at 70). It is reduced for the survivor's age when it starts (survivorReductionFactor), and if the deceased received a REDUCED
    benefit it is limited to the larger of that benefit and 82.5% of the PIA, applied after the age reduction (POMS RS 00615.320, RIB-LIM).
    The engine multiplied the deceased's already-reduced benefit by the survivor factor, and paid nothing on a worker who died before claiming. */
-function ssSurvivorMonthly(p,deceased,piaNow,claimedBeforeDeath,survivorFactor){var r=p.retirement,fra=ssFullRetirementAge(p,deceased),death=Number(deceased==="spouse"?r.spouseLife:r.selfLife),own=claimedBeforeDeath?ssClaimFactor(p,deceased):1,ob=claimedBeforeDeath?Math.max(1,own):(death>fra?1+Math.round((Math.min(death,RULES.socialSecurity.latestClaimAge)-fra)*12)*2/300:1),amount=piaNow*ob*survivorFactor;if(claimedBeforeDeath&&own<1)amount=Math.min(amount,Math.max(piaNow*own,.825*piaNow));return ssFloorDollar(Math.max(0,amount))}
+/* S5AA R42 (ChatGPT's R41F-02; the owner 2026-09-30: "Repair all five in R42"): the limit's reduced benefit is the one the deceased "would have been
+   entitled [to] if they had lived" (RS 00615.320), so it carries the adjustment of the reduction factor for the months the earnings test withheld while
+   the deceased was alive, effective with the month they attained, or would have attained, full retirement age (RS 00615.598). `creditedMonths` is the
+   deceased's count, which stops growing at the death; `deceasedAgeNow` is the age they would have reached at the row's opening. Omitted, or with no
+   months, the limit is the unadjusted one, as before. A worker of 62 who had every early month withheld and died at 67.5 had left the survivor 82.5% of
+   the PIA ($2,475 a month) where the adjusted benefit was the full $3,000. */
+function ssSurvivorMonthly(p,deceased,piaNow,claimedBeforeDeath,survivorFactor,creditedMonths,deceasedAgeNow){var r=p.retirement,fra=ssFullRetirementAge(p,deceased),death=Number(deceased==="spouse"?r.spouseLife:r.selfLife),own=claimedBeforeDeath?ssClaimFactor(p,deceased,creditedMonths,deceasedAgeNow):1,ob=claimedBeforeDeath?Math.max(1,own):(death>fra?1+Math.round((Math.min(death,RULES.socialSecurity.latestClaimAge)-fra)*12)*2/300:1),amount=piaNow*ob*survivorFactor;if(claimedBeforeDeath&&own<1)amount=Math.min(amount,Math.max(piaNow*own,.825*piaNow));return ssFloorDollar(Math.max(0,amount))}
 /* S5AA R33 (SA32F-23): CMS's 2026 table puts "Greater than or equal to $500,000" ($750,000 joint) in the top tier; every lower tier
    starts "greater than" its threshold. */
 function irmaaMonthly(magi,filing){var m=RULES.medicare.irmaa,thresholds=filing==="mfj"?m.jointThresholds:m.singleThresholds,index=0;while(index<thresholds.length&&(index===thresholds.length-1?magi>=thresholds[index]:magi>thresholds[index]))index++;return m.partBMonthly[index]+m.partDMonthlySurcharge[index]}
@@ -4829,8 +4835,8 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       selfSpousalStart=spouseOn?Math.max(selfClaim,spouseClaimAtSelfAge):Infinity,
       selfPlusSpousalM=spouseOn?ssFloorDollar(selfPia*ssClaimFactor(p,"self",credited&&credited.self,age)+Math.max(0,.5*spousePia-selfPia)*ssSpousalFactor(p,"self",selfSpousalStart)):selfOwnM,
       spousePlusSpousalM=spouseOn?ssFloorDollar(spousePia*ssClaimFactor(p,"spouse",credited&&credited.spouse,spouseAge)+Math.max(0,.5*selfPia-spousePia)*ssSpousalFactor(p,"spouse",spouseAge+(selfSpousalStart-age))):0,
-      selfSurvivorM=survivorOn?ssSurvivorMonthly(p,"spouse",spousePia,spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,survivorReductionFactor(p,selfSurvivorStart,"self")):0,
-      spouseSurvivorM=survivorOn?ssSurvivorMonthly(p,"self",selfPia,selfClaim<selfDeath-1e-9,survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age)),"spouse")):0,
+      selfSurvivorM=survivorOn?ssSurvivorMonthly(p,"spouse",spousePia,spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,survivorReductionFactor(p,selfSurvivorStart,"self"),credited&&credited.spouse,spouseAge):0,
+      spouseSurvivorM=survivorOn?ssSurvivorMonthly(p,"self",selfPia,selfClaim<selfDeath-1e-9,survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age)),"spouse"),credited&&credited.self,age):0,
       /* R2-003(b) fix (R2-T03): a benefit amount exists only if the person
          actually reached their claim age while still alive. Entitlement was
          being tested by comparing an ADVANCING segment age against a claim
@@ -4845,6 +4851,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       /* Q91: the gross paid to each person and the months each was entitled in, accumulated beside the
          household total so the earnings test can be applied PER PERSON to THEIR OWN earnings. */
       selfGross=0,spouseGross=0,selfMonths=0,spouseMonths=0,selfServiceGross=0,spouseServiceGross=0,
+      /* S5AA R42 (R41F-01): the spousal part of each person's pay, which is paid on the OTHER's record, and how much of it falls in the other's service
+         months (for the grace year). */
+      selfAuxGross=0,spouseAuxGross=0,selfAuxInSpouseService=0,spouseAuxInSelfService=0,
       total=0;
   for(var i=0;i<points.length-1;i++){
     var segStart=points[i],segDuration=points[i+1]-segStart;
@@ -4855,7 +4864,7 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
         spouseAliveHere=spouseOn&&segStart<spouseDeathAtSelfAge-1e-9,
         spouseClaimedHere=spouseOn&&segStart>=spouseClaimAtSelfAge-1e-9,
         spouseAmount=spouseClaimedHere?12*(segStart<selfDeath-1e-9&&segStart>=selfSpousalStart-1e-9?spousePlusSpousalM:spouseOwnM):0,
-        selfPay=0,spousePay=0;
+        selfPay=0,spousePay=0,selfAuxPay=0,spouseAuxPay=0;
     if(survivorOn&&selfAliveHere!==spouseAliveHere){
       /* R2-003(a) fix (R2-T03): restore the RECIPIENT's own claim gate.
          T04 replaced the prior own-claim-duration gate with an
@@ -4888,7 +4897,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       }
     }else{
       selfPay=selfAliveHere?selfAmount:0;
-      spousePay=spouseOn&&spouseAliveHere?spouseAmount:0
+      spousePay=spouseOn&&spouseAliveHere?spouseAmount:0;
+      if(selfPay>0&&selfPlusSpousalM>selfOwnM&&selfAmount===12*selfPlusSpousalM)selfAuxPay=12*(selfPlusSpousalM-selfOwnM);
+      if(spousePay>0&&spousePlusSpousalM>spouseOwnM&&spouseAmount===12*spousePlusSpousalM)spouseAuxPay=12*(spousePlusSpousalM-spouseOwnM)
     }
     total+=(selfPay+spousePay)*segDuration;
     selfGross+=selfPay*segDuration;spouseGross+=spousePay*segDuration;
@@ -4896,6 +4907,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
     if(segStart<spouseRetireAtSelfAge-1e-9)spouseServiceGross+=spousePay*segDuration;
     if(selfPay>0)selfMonths+=segDuration*12;
     if(spousePay>0)spouseMonths+=segDuration*12;
+    selfAuxGross+=selfAuxPay*segDuration;spouseAuxGross+=spouseAuxPay*segDuration;
+    if(segStart<selfRetireAge-1e-9)spouseAuxInSelfService+=spouseAuxPay*segDuration;
+    if(segStart<spouseRetireAtSelfAge-1e-9)selfAuxInSpouseService+=selfAuxPay*segDuration;
   }
   /* Q91 (F5): the test is applied to the ROW's totals, per person, on that person's own age clock and
      that person's own earnings. THE SUBTRACTION IS CONDITIONAL AND THAT IS DELIBERATE: `total` is
@@ -4908,10 +4922,39 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
      benefits for the months after the stop are not withheld, whatever the year's earnings. */
   var selfGrace=selfRetireAge>age+1e-9&&selfRetireAge<=rowAge+1e-9&&!(earnings&&earnings.streamSelf>0),
       spouseGrace=spouseOn&&spouseRetireAtSelfAge>age+1e-9&&spouseRetireAtSelfAge<=rowAge+1e-9&&!(earnings&&earnings.streamSpouse>0);
-  var selfTest=ssEarningsTestWithholding(p,age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined),
-      spouseTest=spouseOn
-        ?ssEarningsTestWithholding(p,spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined)
-        :{withheld:0,creditMonths:0};
+  /* S5AA R42 (ChatGPT's R41F-01; the owner 2026-09-30: "Repair all five in R42"): A WORKER'S EXCESS EARNINGS REACH THE FAMILY. POMS RS 02501.095:
+     "Withhold the excess earnings of the NH from the total family benefit" (the one exception, an entitled divorced spouse, the model has no such
+     person). Each person was tested against their own pay only, so a worker of 62 earning $200,000 lost their own $25,200 while the spouse's $18,000
+     spousal benefit on the worker's record was still paid. Now the worker's excess is charged against the worker's own pay and the spousal pay on the
+     worker's record as one pool, in the family's whole months: each is withheld in proportion, and the worker is credited the months charged
+     (RS 00615.482: months of full or partial deduction). The grace year spares the family's non-service months. The other person's own test then
+     applies to what is left of their pay (their own benefit is not on the worker's record and only their spousal part is taken; their own credited
+     months are counted on their full monthly rate). Only one direction can carry a spousal part at once (each would need over twice the other's
+     PIA). With no spousal part on a worker's record, or no withholding, each figure is exactly as before. Not modelled: the adjustment of the
+     SPOUSAL reduction factor for spousal months withheld before the recipient's full retirement age. */
+  var selfTest,spouseTest,none={withheld:0,creditMonths:0},
+      familyTest=function(nhAgeStart,nhAgeEnd,nhEarnings,nhGross,nhMonths,nhOwner,nhCap,auxGross,auxInService){
+        var pool=nhGross+auxGross,t=ssEarningsTestWithholding(p,nhAgeStart,nhAgeEnd,nhEarnings,pool,nhMonths,nhOwner,nhCap===undefined?undefined:nhCap+auxInService);
+        return {nh:{withheld:t.withheld,creditMonths:t.withheld>1e-9&&nhMonths>0?Math.min(nhMonths,Math.ceil(t.withheld/(pool/nhMonths)-1e-9)):0},aux:t.withheld*auxGross/pool};
+      },
+      remainderTest=function(ageStart,ageEnd,ownEarnings,gross,taken,months,owner,cap){
+        var t=ssEarningsTestWithholding(p,ageStart,ageEnd,ownEarnings,gross-taken,months,owner,cap===undefined?undefined:Math.max(0,cap-taken));
+        return taken>1e-9&&t.withheld>1e-9&&months>0?{withheld:t.withheld,creditMonths:Math.min(months,Math.ceil(t.withheld/(gross/months)-1e-9))}:t;
+      };
+  if(spouseOn&&spouseAuxGross>1e-9){
+    var fa=familyTest(age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined,spouseAuxGross,spouseAuxInSelfService);
+    selfTest=fa.nh;
+    spouseTest=remainderTest(spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,fa.aux,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined);
+  }else if(spouseOn&&selfAuxGross>1e-9){
+    var fb=familyTest(spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined,selfAuxGross,selfAuxInSpouseService);
+    spouseTest=fb.nh;
+    selfTest=remainderTest(age,rowAge,earnings&&earnings.self,selfGross,fb.aux,selfMonths,"self",selfGrace?selfServiceGross:undefined);
+  }else{
+    selfTest=ssEarningsTestWithholding(p,age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined);
+    spouseTest=spouseOn
+      ?ssEarningsTestWithholding(p,spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined)
+      :none;
+  }
   if(selfTest.withheld>0||spouseTest.withheld>0)total-=selfTest.withheld+spouseTest.withheld;
   return {total:total,withheld:selfTest.withheld+spouseTest.withheld,
           creditMonths:{self:selfTest.creditMonths,spouse:spouseTest.creditMonths}};
