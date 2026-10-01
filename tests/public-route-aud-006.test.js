@@ -76,13 +76,17 @@ function changeIn(otherIncomes, profile) {
   };
 }
 
+/* S5AA R43 (SA42F-20; the owner 2026-09-30: "Today's dollars, all modes"): an amount is in today's dollars in every growth mode, so a
+   stream starting after the plan's start is grown at the plan's 2% inflation to its start: at 60.5 by 1.02^0.5, at 61 by 1.02. These
+   expectations were the nominal amount until then. A stream from the plan's start, and "Match inflation", are unchanged. */
+const AT_60_5 = Math.pow(1.02, 0.5), AT_61 = 1.02;
 const near = (actual, expected, what) => assert.ok(Math.abs(actual - expected) < 0.01, what + ': expected ' + expected + ', got ' + actual);
 
 test('AUD-006/T07 (runPlan): a rental starting at 60.5 pays half a year, $6,000, in the 60-61 row, and a full year after', () => {
   const c = changeIn([rental({})]);
-  near(c.income(1), 6000, 'row 1 income');
-  near(c.magi(1), 6000, 'row 1 magi');
-  near(c.income(2), 12000, 'row 2 income');
+  near(c.income(1), 6000 * AT_60_5, 'row 1 income');
+  near(c.magi(1), 6000 * AT_60_5, 'row 1 magi');
+  near(c.income(2), 12000 * AT_60_5, 'row 2 income');
 });
 
 test('AUD-006/T07 (runPlan): an income starting at the period start pays the whole period, and one starting at its end waits for the next', () => {
@@ -90,7 +94,7 @@ test('AUD-006/T07 (runPlan): an income starting at the period start pays the who
   near(atStart.income(1), 12000, 'start 60, row 1 income');
   const atEnd = changeIn([rental({ start: 61 })]);
   near(atEnd.income(1), 0, 'start 61, row 1 income');
-  near(atEnd.income(2), 12000, 'start 61, row 2 income');
+  near(atEnd.income(2), 12000 * AT_61, 'start 61, row 2 income');
 });
 
 test('AUD-006/T07 (runPlan): a stream already active before the period is unaffected', () => {
@@ -100,27 +104,27 @@ test('AUD-006/T07 (runPlan): a stream already active before the period is unaffe
 
 test('AUD-006/T07 (runPlan): a spouse-owned income starts on the spouse\'s own age clock', () => {
   const c = changeIn([rental({ owner: 'spouse', start: 58.5 })], { spouseOn: true, spouseAge: 58 });
-  near(c.income(1), 6000, 'row 1 income for a spouse two years younger, starting at 58.5');
+  near(c.income(1), 6000 * AT_60_5, 'row 1 income for a spouse two years younger, starting at 58.5');
 });
 
 test('AUD-006/T07 (runPlan): a prorated start keeps each type\'s tax character', () => {
   const ordinary = changeIn([rental({})]);
-  near(ordinary.income(1), 6000, 'rental cash');
-  near(ordinary.magi(1), 6000, 'rental is ordinary income');
+  near(ordinary.income(1), 6000 * AT_60_5, 'rental cash');
+  near(ordinary.magi(1), 6000 * AT_60_5, 'rental is ordinary income');
 
   const social = changeIn([rental({ type: 'socialSecurity' })]);
-  near(social.income(1), 6000, 'Social Security cash');
-  assert.ok(social.magi(1) > 0 && social.magi(1) < 6000, 'only part of a Social Security benefit is taxable, got ' + social.magi(1));
+  near(social.income(1), 6000 * AT_60_5, 'Social Security cash');
+  assert.ok(social.magi(1) > 0 && social.magi(1) < 6000 * AT_60_5, 'only part of a Social Security benefit is taxable, got ' + social.magi(1));
 
   const taxFree = changeIn([rental({ type: 'taxFree' })]);
-  near(taxFree.income(1), 6000, 'tax-free cash');
+  near(taxFree.income(1), 6000 * AT_60_5, 'tax-free cash');
   near(taxFree.magi(1), 0, 'tax-free income adds nothing to magi');
 });
 
 test('AUD-006/T07 (runPlan): growth is measured from the activation age, and an inflation-indexed income is prorated too', () => {
   const grown = changeIn([rental({ growth: 10 })]);
-  near(grown.income(1), 6000, 'no growth has elapsed at activation');
-  near(grown.income(2), 12000 * Math.pow(1.1, 0.5), 'half a year of 10% growth by 61');
+  near(grown.income(1), 6000 * AT_60_5, 'no growth has elapsed at activation');
+  near(grown.income(2), 12000 * AT_60_5 * Math.pow(1.1, 0.5), 'half a year of 10% growth by 61');
 
   const indexed = changeIn([rental({ growthMode: 'inflation' })]);
   near(indexed.income(1), 6000 * indexed.rows[0].inflationFactor, 'row 1 at the opening inflation factor');

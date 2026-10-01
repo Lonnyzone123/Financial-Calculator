@@ -278,6 +278,7 @@ consumer relied on. A refusal is an existing outcome, `calculation_error` with n
 | `IRMAA_PARTIAL_FIRST_YEAR_COMPLETED` | health costs are on, the plan opens part-way through a year, and someone is 65 or over by plan year 2, so the first year's MAGI for the IRMAA lookback is completed by estimate | `path`, `approximation: true`, `rowDuration`, `completedWith` | R35 `ddf658a` (SA32F-24) |
 | `FILING_HOUSEHOLD_MISMATCH` | married filing jointly with no spouse included, or single or head of household with a spouse included | `path`, `filing`, `spouseOn` | R37 `503db3c` (SA32F-35) |
 | `EXPENSE_AFTER_PLAN_END` | a one-time expense with an amount is at or after the plan's end age, so no year charges it | `path`, `age`, `endAge`, `amount` | R37 `503db3c` (SA32F-38) |
+| `INCOME_AFTER_PLAN_END` | a one-time income with an amount is at or after the plan's end age (on the self's clock), so no year pays it | `path`, `age`, `endAge`, `amount` | R43 (SA42F-28) |
 
 **Four refusals,** each an `ERROR` issue `SCENARIO_<cause>` and the same `calculationErrorCode`, with `status`
 `"calculation_error"` and no rows (the "invalid" shape in §3). `validateScenario()` refuses each of the same plans: a
