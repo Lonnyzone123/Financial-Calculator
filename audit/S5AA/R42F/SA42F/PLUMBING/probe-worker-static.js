@@ -19,6 +19,6 @@ console.log('listed but not engine top-level:',missingInList.join(',')||'none');
 const seen=new Set(),queue=[...list];const problems=[];
 while(queue.length){const n=queue.shift();if(seen.has(n))continue;seen.add(n);const d=byName[n];if(!d)continue;
   const body=d.body.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\/\/[^\n]*/g,'');
-  for(const other of names){if(other===n)continue;const w=new RegExp('(^|[^A-Za-z0-9_$.])'+other.replace(/\$/g,'\\$')+'([^A-Za-z0-9_$]|$)');if(w.test(body)){if(!shipped.has(other))problems.push(n+' -> '+other+' ('+byName[other].kind+')');queue.push(other);}}}
+  for(const other of names){if(other===n)continue;const w=new RegExp('(^|[^A-Za-z0-9_$.])'+other.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'([^A-Za-z0-9_$]|$)');if(w.test(body)){if(!shipped.has(other))problems.push(n+' -> '+other+' ('+byName[other].kind+')');queue.push(other);}}}
 console.log('references to unshipped top-level names:');problems.forEach(p=>console.log('  '+p));
 console.log('engine top-level functions not listed:',names.filter(n=>byName[n].kind==='function'&&!shipped.has(n)).join(','));
