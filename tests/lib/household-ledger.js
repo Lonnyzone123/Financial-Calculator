@@ -74,7 +74,7 @@ function pathRunners(plan, pathLimit) {
   let base = Number(plan.assumptions.seed);
   if (!Number.isFinite(base)) base = 0;
   return Array.from({ length: Math.min(plan.assumptions.runs, pathLimit) }, (_, i) =>
-    (eng, issues) => eng.simulatePlan(copy(), eng.rng(base + i * 2), 0, eng.rng(base + i * 2 + 1), issues));
+    (eng, issues) => eng.simulatePlan(copy(), eng.rng(eng.monteCarloPathSeed(base, i, 0)), 0, eng.rng(eng.monteCarloPathSeed(base, i, 1)), issues));   // S5AA R43 (SA42F-31): runPlan()'s seeds
 }
 
 /*

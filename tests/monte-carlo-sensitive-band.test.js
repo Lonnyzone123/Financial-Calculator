@@ -43,8 +43,10 @@ const BAND = [50, 85];
    S5AA R35 (R32V-01: the flexibility cut reads the portfolio's balance-weighted return): step 26 rose to 85.2%, so step 27
    (84.4%) is the first in band (family version 5). The rule and the band are unchanged.
    S5AA R36 (SA32F-D1: later years' tax figures index with inflation): step 31 is 85.6%, so step 32 (85.0%) is the first in band
-   (family version 6). The rule and the band are unchanged. */
-const DECLARED_STEP = 32;
+   (family version 6). The rule and the band are unchanged.
+   S5AA R43 (SA42F-31: each Monte Carlo path has its own seeds; seed + 2i let neighbouring seeds share paths): step 30 is 85.6%, so step
+   31 (84.6%) is the first in band (family version 7). The rule and the band are unchanged. */
+const DECLARED_STEP = 31;
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
 const goldenPlan = () => {

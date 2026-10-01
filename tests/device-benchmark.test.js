@@ -38,6 +38,7 @@ function rig(options) {
   let aggregates = 0;
   const engine = {
     rng: (s) => s,
+    monteCarloPathSeed: (s, i, k) => s + 2 * i + k,   // S5AA R43 (SA42F-31): the core now asks the engine for each path's seeds
     simulatePlan: (plan, returns, zero, ltc) => {
       if (o.throws) throw new Error('boom');
       clock.t += o.msPerPath ? o.msPerPath(plan.assumptions.runs) : 1;
@@ -281,6 +282,7 @@ function stallRig(simMs, aggMs, extra, onSimulate) {
   return Object.assign({
     engine: {
       rng: (s) => s,
+      monteCarloPathSeed: (s, i, k) => s + 2 * i + k,   // S5AA R43 (SA42F-31): the core now asks the engine for each path's seeds
       simulatePlan: () => { if (onSimulate) onSimulate(); busy(simMs); return { rows: [{}] }; },
       aggregateMonteCarloRuns: () => { busy(aggMs); return { total: 1 }; },
     },
@@ -364,6 +366,7 @@ function attemptRig(o) {
     options: {
       engine: {
         rng: (s) => s,
+        monteCarloPathSeed: (s, i, k) => s + 2 * i + k,   // S5AA R43 (SA42F-31): the core now asks the engine for each path's seeds
         simulatePlan: () => { calls += 1; if (opts.simulate) opts.simulate(calls); return { rows: [{}] }; },
         aggregateMonteCarloRuns: (runs) => { if (opts.aggregate) opts.aggregate(); return { total: runs.length }; },
       },

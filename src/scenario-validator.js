@@ -483,6 +483,7 @@ function validateAccount(c, account, index) {
    the engine's HIST_RETURNS, so the two cannot drift apart. */
 const MAX_RUNS = 10000;
 const LAST_HISTORY_YEAR = 2025;
+const FIRST_HISTORY_YEAR = 1928;   // S5AA R43 (SA42F-34): the first year of HIST_RETURNS
 
 function validateAssumptions(c, assumptions) {
   if (!assumptions) return;
@@ -504,6 +505,10 @@ function validateAssumptions(c, assumptions) {
   checkType(c, assumptions.inflation, 'assumptions.inflation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
   checkType(c, assumptions.fee, 'assumptions.fee', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
   checkType(c, assumptions.historyStart, 'assumptions.historyStart', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+  // S5AA R43 (SA42F-34): a start before the data, or between data years, is not a data year either (the series runs 1928 to LAST_HISTORY_YEAR).
+  if (assumptions.method === 'historical' && isFiniteNumber(assumptions.historyStart) && assumptions.historyStart <= LAST_HISTORY_YEAR && (assumptions.historyStart < FIRST_HISTORY_YEAR || !Number.isInteger(assumptions.historyStart))) {
+    c.error('OUT_OF_RANGE', 'assumptions.historyStart', `historyStart ${assumptions.historyStart} is not a year of the return data (whole years ${FIRST_HISTORY_YEAR} to ${LAST_HISTORY_YEAR})`);
+  }
   if (assumptions.method === 'historical' && isFiniteNumber(assumptions.historyStart) && assumptions.historyStart > LAST_HISTORY_YEAR) {
     c.error('OUT_OF_RANGE', 'assumptions.historyStart', `historyStart ${assumptions.historyStart} is after the last year of return data (${LAST_HISTORY_YEAR})`);
   }

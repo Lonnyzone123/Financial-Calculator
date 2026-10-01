@@ -1356,6 +1356,9 @@ function nonFiniteHoldingInputCode(p){
 function replacedPlanInputCode(p){
   var a=p&&p.assumptions,adv=p&&p.advanced,i,k;
   if(a&&typeof a==="object"&&a.method==="historical"&&isFiniteNumberValue(a.historyStart)&&HIST_RETURNS.length&&a.historyStart>HIST_RETURNS[HIST_RETURNS.length-1][0])return "HISTORY_START_AFTER_DATA";
+  /* S5AA R43 (SA42F-34): a start BEFORE the data or BETWEEN data years was silently replaced by the first data year at or after it (1900
+     replayed 1928); MODEL_ASSUMPTIONS 26 says a historical start must be a data year. */
+  if(a&&typeof a==="object"&&a.method==="historical"&&isFiniteNumberValue(a.historyStart)&&HIST_RETURNS.length&&!HIST_RETURNS.some(function(h){return h[0]===a.historyStart}))return "HISTORY_START_NOT_A_DATA_YEAR";
   if(!adv||typeof adv!=="object")return null;
   var debts=adv.debts,classes=adv.assetClasses,AMOUNTS=["extraPrincipalMonthly","pmiMonthly","annualPropertyTax","annualInsurance","hoaMonthly"];
   if(Array.isArray(debts))for(i=0;i<debts.length;i++){var d=debts[i];if(!d||typeof d!=="object")continue;
@@ -2250,6 +2253,12 @@ function ssSurvivorMonthly(p,deceased,piaNow,claimedBeforeDeath,survivorFactor,c
    tier ($649.20 + $83.30) below $391,000, and in the top one from there (CMS, 2026 Parts A & B Premiums and Deductibles). It was priced
    on the single table: $150,000 paid $443.30 a month where $732.50 is right. */
 function irmaaMonthly(magi,filing){var m=RULES.medicare.irmaa,thresholds=filing==="mfj"?m.jointThresholds:m.singleThresholds,index=0;if(filing==="mfs"){var s=m.singleThresholds;if(magi>s[0]){index=1;for(var k=1;k<s.length;k++)if(k===s.length-1?magi>=s[k]-s[0]:magi>s[k]-s[0])index=k+1}}else while(index<thresholds.length&&(index===thresholds.length-1?magi>=thresholds[index]:magi>thresholds[index]))index++;return m.partBMonthly[index]+m.partDMonthlySurcharge[index]}
+/* S5AA R43 (SA42F-31, Claude's R42F audit; the owner 2026-09-30): A MONTE CARLO PATH'S TWO SEEDS. They were seed + 2i (market) and
+   seed + 2i + 1 (care), so seed s + 2 replayed seed s's paths 1..N-1 and added one: two "different" seeds shared all paths but one (seed 44's
+   paths 0-998 were seed 42's 1-999), and a seed's care stream was the next seed's market stream. Each is now murmur3's 32-bit finalizer of the
+   seed, plus the golden-ratio step times (2 x path + stream + 1), finalized again -- still one independent generator per path and stream
+   (roadmap track D, item 3), and no two (seed, path, stream) triples in practice share one. */
+function monteCarloPathSeed(seed,path,stream){var fmix=function(h){h^=h>>>16;h=Math.imul(h,0x85ebca6b);h^=h>>>13;h=Math.imul(h,0xc2b2ae35);h^=h>>>16;return h>>>0};return fmix((fmix(seed>>>0)+Math.imul(2*path+stream+1,0x9e3779b9))>>>0)}
 function rng(seed){var x=seed>>>0;return function(){x+=0x6D2B79F5;var t=x;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
 function normal(random){var u=0,v=0;while(!u)u=random();while(!v)v=random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
 /* S5AA R20 (R18F-01, ChatGPT's R18 full-model audit, P1; the owner, 2026-09-23): THE ONE ALLOCATION an account holds at a point in its glide, which accountExpected() and accountVolatility() both read. The expected return moved with the glide while the volatility read the OPENING allocation, so a Monte Carlo draw paired the glided mean with the opening risk: an 80/20 account at its 20% target was drawn at 5.6% with 15.21% volatility, where 20/80 has 7.44%. The glide applies only with a year (yearProgress) given; without one -- the down-year account ranking -- the opening allocation is returned, as before. AN ACCOUNT WITH NO NON-STOCK HOLDING glides into BONDS (the owner's decision): it had nowhere to go, so a 60% target left it all stock and a 0% target made every weight 0 and its return 0%. With no bonds class the account keeps its allocation, so return and risk still agree. Returns {weights, total} (weights by class id, not re-normalised; total their sum), or null when the account holds no allocation. */
@@ -4918,6 +4927,8 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"The scenario is missing one of its required sections (profile, employment, assumptions, retirement or advanced), or one of them is not a record, so no projection can be computed."
             :rejectedInput==="INVALID_RUN_COUNT"
             ?"The number of simulation runs is not a whole number between 1 and 10,000, so no projection can be computed."
+            :rejectedInput==="HISTORY_START_NOT_A_DATA_YEAR"
+            ?"The historical start year is before the return data or not a whole data year, so no history can be replayed from it."
             :rejectedInput==="HISTORY_START_AFTER_DATA"
             ?"The historical start year is after the last year of return data, so no historical sequence starts there."
             :rejectedInput==="INVALID_DEBT_AMOUNT"
@@ -4965,7 +4976,7 @@ function runPlan(p,givenGate,gateToken){
       if(rejectedInput){
         recordScenarioRefusal(issues,rejectedInput,flagPath);
         return applyInvalidResultContract({
-          mode:readOrNull(function(){return p.assumptions.method}),issues:issues,limitWarnings:[],
+          /* S5AA R43 (SA42F-33): an unknown method is not a mode, so a refusal reports null -- the contract checker's S-EXACT-KEYS rejected the text */mode:readOrNull(function(){var m=p.assumptions.method;return m==="simple"||m==="historical"||m==="monteCarlo"?m:null}),issues:issues,limitWarnings:[],
           calculationError:true,calculationErrorCode:"SCENARIO_"+rejectedInput,calculationErrorAge:null
         },{label:"no projection was computed -- the scenario was rejected before simulation",calculationErrorCode:"SCENARIO_"+rejectedInput,rows:null});
       }
@@ -5256,7 +5267,7 @@ if(p.retirement&&p.retirement.survivor&&p.profile&&p.profile.spouseOn){recordIss
       var runs=[],invariantPaths=0,invariantFindings=0,invariantCodes={},firstAffectedPath=null,laterPathRothAge=null;
       for(var i=0;i<p.assumptions.runs;i++){
         var pathIssues=i===0?issues:[];
-        runs.push(simulatePlan(p,rng(baseSeed+i*2),0,rng(baseSeed+i*2+1),pathIssues,serialized,scenarioInputGate));
+        runs.push(simulatePlan(p,rng(monteCarloPathSeed(baseSeed,i,0)),0,rng(monteCarloPathSeed(baseSeed,i,1)),pathIssues,serialized,scenarioInputGate));
         /* S5AA R23 (R22-01): only path 0 reports its own issues, so a Roth draw before 59 1/2 on a later path is carried up
            to the run -- once, at the owner's age on the first such path. Bracket notation for the record's field, as below. */
         if(i>0&&laterPathRothAge===null)for(var rk=0;rk<pathIssues.length;rk++){if(pathIssues[rk]&&pathIssues[rk].code==="UNSUPPORTED_ROTH_ORDERING"){laterPathRothAge=pathIssues[rk]["state"]["firstDrawOwnerAge"];break}}
@@ -5526,6 +5537,7 @@ if (typeof module !== 'undefined' && module.exports) {
     projectDebts,
     growOtherAssets,
     drawFromOtherAssets,
+    monteCarloPathSeed,
     moveFunds,
     retainExcessRmdCash,
     rmdFor,

@@ -94,7 +94,7 @@ function engineFactorySource(shell, parts) {
     'var RULES = deepFreeze(JSON.parse(rulesText));\n' +
     assertInlineSafe('the debt-module block', parts.debtModulesBlock) + '\n' +
     assertInlineSafe('the engine body', parts.engineBody) + '\n' +
-    'return { simulatePlan: simulatePlan, rng: rng, aggregateMonteCarloRuns: aggregateMonteCarloRuns };\n})';
+    'return { simulatePlan: simulatePlan, rng: rng, monteCarloPathSeed: monteCarloPathSeed, aggregateMonteCarloRuns: aggregateMonteCarloRuns };\n})';
 }
 
 function planTemplate(root, shell, seed) {

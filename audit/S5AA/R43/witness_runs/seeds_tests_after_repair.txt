@@ -1,0 +1,14 @@
+✔ R43 (SA42F-31): a one-path run is the path seeded by the mix of (seed, 0, stream) (14.6772ms)
+✔ R43 (SA42F-31): seed 44 no longer replays seed 42 shifted by one path (25.4434ms)
+✔ R43 (SA42F-33): an unknown method is refused with mode null, and the result passes the contract checker (1.3458ms)
+✔ R43 (SA42F-33): RESULT_CONTRACT names every calculation error code S5AA added (1.4227ms)
+✔ R43 (SA42F-34): a historical start before the data or between data years is refused by both layers (2.1897ms)
+✔ R43 (SA42F-34) controls: a data year runs, and a start after the data keeps its own refusal (1.4455ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 174.3653

@@ -190,7 +190,7 @@ const DEBT_FAMILIES = [
    and success rises along the whole grid. Measured: step 30 86.6%, step 31 85.6%, step 32 (x2.60, $156,000) 85.0% -- inside the band, which includes 85. The same rule, applied
    again with nothing else changed: step 32 is the first in [50, 85]. The golden plan is 100%; step 32 gives 100% / 85.0% / 55.2% at
    half, full and one-and-a-half times the golden volatility. */
-const MC_BAND_STEP = 32;
+const MC_BAND_STEP = 31;   // S5AA R43 (SA42F-31): the rule re-applied under the new Monte Carlo seeds (family version 7)
 const MC_BAND_FACTOR = 1 + 0.05 * MC_BAND_STEP;
 
 function goldenMonteCarlo(defaultPlan) {
@@ -200,7 +200,7 @@ function goldenMonteCarlo(defaultPlan) {
 
 const MC_BAND_FAMILY = {
   id: 'monte-carlo-sensitive-band',
-  version: 6,
+  version: 7,
   covers: 'S4 task 4.5: the Monte Carlo corpus is saturated against the success ceiling -- the golden Monte Carlo ' +
     'plan succeeds 99.8% -- so it cannot see a defect in the risk model, which only shows through failure. This ' +
     'member sits in the sensitive band (50-85%), chosen by a rule declared before measuring: the golden plan, same ' +
@@ -209,7 +209,7 @@ const MC_BAND_FAMILY = {
   reached: (result) => result.mode === 'monteCarlo' && result.successRate >= 50 && result.successRate <= 85,
   members: [
     { name: 'expansion:monte-carlo-sensitive-band',
-      reaches: '85.0% success at spending x2.60 (measured at version 6, after S5AA R36); 100% / 85.0% / 55.2% at half, full and one-and-a-half times the golden volatility',
+      reaches: '84.6% success at spending x2.55 (measured at version 7, after the S5AA R43 Monte Carlo seeds); 100% / 84.6% / 52.2% at half, full and one-and-a-half times the golden volatility',
       build: (plan) => {
         const p = goldenMonteCarlo(plan);
         p.retirement.spending = Math.round(p.retirement.spending * MC_BAND_FACTOR * 100) / 100;
