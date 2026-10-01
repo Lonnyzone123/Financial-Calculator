@@ -1169,6 +1169,11 @@ exists. Some items below are the S5AA session's own reading, adopted by the owne
   rate or reset age that is present but not a number is refused, where before only an absent one was (`7cd1a1a`).
   Witnesses: `tests/audit-s5aa-r40-health-inflation-validated.test.js`,
   `tests/audit-s5aa-r40-validator-debt-reset-terms.test.js`.
+  **Since S5AA R41:** a projection whose ending age is before its starting age is refused
+  (`SCENARIO_END_AGE_BEFORE_START`), and the validator reports it as an error (`END_AGE_BEFORE_START`), so a backup
+  carrying it is not restored. The form cannot produce it, since it raises the ending age to at least the retirement
+  age and the retirement age to at least the starting age. An ending age equal to the starting age is projected as one
+  row (`984197c`; Q173). Witness: `tests/audit-s5aa-r41-end-age-before-start-refused.test.js`.
 - **Disclosure warnings.** A joint return with no spouse included, or a single or head-of-household return with one,
   is reported. So is an expense at or after the plan's end age, which no year charges, and each person born in 1959
   whom the plan carries to age 73 — the 1959 card stays visible for both spouses (Q167). The results page shows all
