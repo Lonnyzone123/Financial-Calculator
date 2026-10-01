@@ -30,12 +30,15 @@ history checks whether the recorded commits are present and stands down only whe
 - **S5AA is NO-GO and not closed.** Since 2026-09-25 ChatGPT determines the GO / NO-GO status, and every determination it
   has made since R29 has been NO-GO. Its R32 and R39.1 change audits accepted their repairs and said they did not
   determine it; its R40.1 audit does, and says NO-GO.
-- The latest merged round is **R40** (PR #35, merged 2026-09-30 at `54d6a9e`; source `s5aa-r40.1-source` = `978a6e4`),
-  which closed the exit-gate gaps found on the way to a status determination. ChatGPT's R40.1 change audit and status
-  determination (PR #36, 2026-09-30) found no new source finding and determined **NO-GO at `978a6e4` because exit-gate
-  line E15 is unmet**: the task 6.5 comparison of the main thread against an actual Worker in a desktop browser, with
-  an exception and a raw export, has not been run on the final source. The round index is
-  [`audit/S5AA/README.md`](audit/S5AA/README.md).
+- The latest merged round is **R41** (PR #38, merged 2026-09-30 at `020c6f3`; source `s5aa-r41-source` = `984197c`).
+  It follows **R40** (PR #35, `54d6a9e`), which closed the exit-gate gaps found on the way to a status determination.
+  ChatGPT's R40.1 change audit and status determination (PR #36, 2026-09-30) found no new source finding and
+  determined **NO-GO at `978a6e4` because exit-gate line E15 is unmet**: the task 6.5 comparison of the main thread
+  against an actual Worker in a desktop browser, with an exception and a raw export, had not been run. R41 ran it, on
+  one desktop browser, and it passed: the Worker and the main thread agree on all 75 plans, and the exception paths and
+  the raw export behave as designed. The check also found one defect, an end age before the starting age that a backup
+  could carry and that projected backwards, and R41 repairs it by refusing it. **ChatGPT has not yet determined E15 on
+  that evidence, so S5AA stays NO-GO.** The round index is [`audit/S5AA/README.md`](audit/S5AA/README.md).
 - **S5b has not started.** It needs the owner's own go.
 - A passing test run is evidence for what the tests cover. It is not certification of the whole model.
 
