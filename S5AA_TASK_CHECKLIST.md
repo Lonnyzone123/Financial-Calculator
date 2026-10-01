@@ -405,3 +405,27 @@ the close record are not present (they are in the private archive this repositor
 >    `audit/S5AA/R40/S5AA_R40_PREDICTION_RECORD_20260930.md`.
 > 4. This amends E10's record for R29 to R39.1 only. It qualifies nothing for release or household reliance. Whether it
 >    is enough for E10 is part of ChatGPT's status determination.
+
+**Amendment A-11, added 2026-10-01 (UTC−7) in the S5AA R44.1 round, by the S5AA session, on the owner's decision of
+2026-10-01 on ChatGPT's R44-01; nothing above is rewritten.**
+
+> **A-11 (the owner, 2026-10-01): A-01's prediction for a Monte Carlo plan.**
+>
+> 1. A Monte Carlo plan's published result (its quantile rows and success rate) is built from many paths. Whether a
+>    change to a few paths reaches a published figure depends on those paths' new values, which are not known before the
+>    change is built. So for a Monte Carlo plan, and only for one, A-01's prediction is met by a path-level prediction:
+>    - the plan is named, with the rule it is exposed to;
+>    - the exposed paths are named, by a test run on every path with that tree's own seeding. The test is a necessary
+>      condition, so it may name more paths than change, but it must not miss one;
+>    - the prediction says the published result **may move**.
+> 2. After the build, the round's handover compares on both levels: which paths changed (measured on both trees), and
+>    whether the published result moved.
+>    - A named Monte Carlo plan whose published result does not move is not a miss.
+>    - A Monte Carlo plan whose published result moves without being named is a miss.
+>    - So is a changed path the test did not name.
+> 3. Every other plan keeps A-01 as written: its affected cases and fields, an independently justified direction and an
+>    approximate size, and unaffected controls.
+> 4. It applies from R43-04's proof (R43 part 2's Monte Carlo plans) on. It amends A-01 and E10 for Monte Carlo plans
+>    only. It qualifies nothing for release or household reliance. Whether it is enough for E10 is part of ChatGPT's
+>    status determination. The prediction checklist that applies it is
+>    `audit/S5AA/R44.1/S5AA_R44_1_PREDICTION_CHECKLIST_20261001.md`.
