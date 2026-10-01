@@ -840,7 +840,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R42 (R41F-05): a Social Security amount that is not a number is refused), so the
 // tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 7e2e5aaf31f86a97080c0488a7d5e6905253ec9a8d01ac855cc26929486f43f8, described the previous rebuild.
-const EXPECTED_SHA256 = '49572fd630afc9e0ad5d2d48f5348ac4c0b7d210735fb3954e121dcef2bbc561';
+//
+// Changed again 2026-09-29 (S5AA R42 (R41F-03, R41F-04): the IRA spousal window, and the Roth proxy's worked share), so
+// the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 49572fd630afc9e0ad5d2d48f5348ac4c0b7d210735fb3954e121dcef2bbc561, described the previous rebuild.
+const EXPECTED_SHA256 = 'b5159a73f9a2507326493833fac9d32706de53d33b7491dcdb2c1577b3bd5031';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
