@@ -1,0 +1,11 @@
+separation at 55.5: valid true, status ok
+   row closing 55: spending 0, 401(k) draw 0.00, taxes 0.00
+   row closing 56: spending 20000, 401(k) draw 23209.68, taxes 3209.68
+   row closing 57: spending 40000, 401(k) draw 43763.16, taxes 3763.16
+separation at 55: valid true, status ok
+   row closing 55: spending 0, 401(k) draw 0.00, taxes 0.00
+   row closing 56: spending 40000, 401(k) draw 43763.16, taxes 3763.16
+   row closing 57: spending 40000, 401(k) draw 43763.16, taxes 3763.16
+hand (no 10%): draw 20557.14, taxes 557.14
+hand (with 10%, what the engine charges): draw 23209.68, taxes 3209.68, of which 10% = 2320.97
+REPRO DONE

@@ -1,0 +1,12 @@
+validateScenario.valid true | runPlan status ok
+row closing 45 (tax year 2045): law range 142000-152000, IRA limit 13000, deduction 0, AGI 155000, taxes 33731.00
+   engine: AGI 151380, deduction 3620, taxes 32844.10  -> taxes understated by 886.90
+row closing 46 (tax year 2046): law range 146000-156000, IRA limit 13500, deduction 1350, AGI 153650, taxes 32914.00
+   engine: AGI 148250, deduction 6750, taxes 31591.00  -> taxes understated by 1323.00
+engine indexed ranges, tax year 2046 (3% inflation):
+  single active 146000 - 164000 width 18000 (statute 10,000)
+  mfj contributor active 233000 - 269000 width 36000 (statute 20,000)
+  mfj spouse-only 437000 - 455000 width 18000 (statute 10,000)
+  Roth single 276000-303000 width 27000 (statute 15,000); Roth mfj 437000-455000 width 18000 (statute 10,000)
+  already in tax year 2027: single 83000 - 94000 width 11000
+REPRO DONE

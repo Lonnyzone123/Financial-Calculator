@@ -1,0 +1,9 @@
+spouse 45 at start; preset stamped futureChanges = [{"age":50,"mode":"percent","value":25}]
+valid true  status ok 
+  deposits per row (self ages 45->52): 10000, 10000, 10000, 10000, 10000, 12500, 12500  total 75000
+spouse 53 at start; preset stamped futureChanges = [{"age":50,"mode":"percent","value":25}]
+valid true  status ok 
+  deposits per row (self ages 45->52): 12500, 12500, 12500, 12500, 12500, 12500, 12500  total 87500
+spouse 40 at start; preset stamped futureChanges = [{"age":50,"mode":"percent","value":25}]
+valid true  status ok 
+  deposits per row (self ages 45->52): 10000, 10000, 10000, 10000, 10000, 10000, 10000  total 70000

@@ -1,0 +1,6 @@
+control selfLife 85                            | validator valid=true [] | engine ok  | row 73 income 44304, last row 80 total 863408 | issues SURVIVOR_FILING_STATUS_MODELLED
+selfLife "abc"                                 | validator valid=true [] | engine ok  | row 73 income 13272, last row 80 total 553088 | issues SURVIVOR_FILING_STATUS_MODELLED
+selfLife null                                  | validator valid=true [] | engine ok  | row 73 income 17160, last row 75 total 718640 | issues SURVIVOR_FILING_STATUS_MODELLED,DEATH_BEFORE_PLAN_START,PROJECTION_ENDS_AT_LAST_DEATH
+selfLife true                                  | validator valid=true [] | engine ok  | row 73 income 17160, last row 75 total 718640 | issues SURVIVOR_FILING_STATUS_MODELLED,DEATH_BEFORE_PLAN_START,PROJECTION_ENDS_AT_LAST_DEATH
+spouseLife -5                                  | validator valid=true [] | engine ok  | row 73 income 31032, last row 80 total 810320 | issues DEATH_BEFORE_PLAN_START
+control ssBenefit "abc" (R42 repair, refused)  | validator valid=false ["WRONG_TYPE@retirement.ssBenefit"] | engine calculation_error SCENARIO_NONNUMBER_PLAN_VALUE  | issues 

@@ -1,0 +1,24 @@
+W1 advanced.conversionAmount "abc" -- Roth balance at 63 (3 x $20,000 converted, zero return)
+   control: valid true, ok, figure 60000
+   malformed: valid true, ok, figure 0   hand expectation 60000   <-- silently changed
+W2 employment.contributionStop "abc" -- 401(k) balance at 43 (3 x $10,000 deferred, stop 65)
+   control: valid true, ok, figure 30000
+   malformed: valid true, ok, figure 0   hand expectation 30000   <-- silently changed
+W3 retirement.selfLife "abc" -- last row age (single, life 70, horizon 80: cut at 71)
+   control: valid true, ok, figure 71
+   malformed: valid true, ok, figure 80   hand expectation 71   <-- silently changed
+   lifetime spending: control 220000 (11 rows x 20,000 = 220,000), malformed 400000
+W4 advanced.ltcYears "2" -- lifetime care cost (start max(65, round(60+10)) = 70, 2 years x $50,000)
+   control: valid true, ok, figure 100000
+   malformed: valid true, ok, figure 300000   hand expectation 100000   <-- silently changed
+W5 advanced.debts[0].type "Mortgage" -- debtHousing at 61 ($3,000 property tax, 0% inflation)
+   control: valid true, ok, figure 3000
+   malformed: valid true, ok, figure 0   hand expectation 3000   <-- silently changed
+W6 accounts[0].annualChangeMode "Percent" -- row 42 deferral (10,000 x 1.05)
+   control: valid true, ok, figure 10500
+   malformed: valid true, ok, figure 10005   hand expectation 10500   <-- silently changed
+W7 retirement.aime "abc" -- row 68 Social Security (control figure from AIME 6,000)
+   control: valid true, ok, figure 31980
+   malformed: valid true, ok, figure 30000   hand expectation 31980   <-- silently changed
+
+silently changed figures (valid + ok): 7

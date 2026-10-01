@@ -1,0 +1,11 @@
+MISMATCH A row 61: the retired 68-year-old spouse's Medicare | expected 3185.68 | engine 0.00 | diff -3185.68
+MATCH    B row 69: the retired 68-year-old self's Medicare (control) | expected 3185.68 | engine 3185.68 | diff 0.00
+MISMATCH A row 62: the retired 68-year-old spouse's Medicare | expected 3185.68 | engine 0.00 | diff -3185.68
+MATCH    B row 70: the retired 68-year-old self's Medicare (control) | expected 3185.68 | engine 3185.68 | diff 0.00
+MISMATCH A row 63: the retired 68-year-old spouse's Medicare | expected 3185.68 | engine 0.00 | diff -3185.68
+MATCH    B row 71: the retired 68-year-old self's Medicare (control) | expected 3185.68 | engine 3185.68 | diff 0.00
+   with healthCost 12,000: A row 61 spending 0.00 | B row 69 spending 9185.68
+SUMMARY matches=3 mismatches=3
+   mirror check row 1: A taxes 11584.50 / B taxes 11584.50 ; A contributions 0 / B 0
+   mirror check row 2: A taxes 11584.50 / B taxes 11584.50 ; A contributions 0 / B 0
+   mirror check row 3: A taxes 11584.50 / B taxes 11584.50 ; A contributions 0 / B 0

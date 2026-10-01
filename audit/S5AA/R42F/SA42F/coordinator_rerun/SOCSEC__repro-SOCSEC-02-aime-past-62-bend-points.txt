@@ -1,0 +1,5 @@
+Control (turns 62 in 2028): age 60 valid true status ok  hand bend points 1364/8221, AIME 6365.40, PIA 2828  -> row 68 hand 33936  engine 33936  diff 0
+Control (turns 62 in 2026): age 62 valid true status ok  hand bend points 1286/7749, AIME 6000.00, PIA 2665.8  -> row 68 hand 31980  engine 31980  diff 0
+Defect  (turned 62 in 2023): age 65 valid true status ok  hand bend points 1177/7091, AIME 5490.85, PIA 2439.7  -> row 68 hand 29268  engine 31980  diff 2712
+Defect  (turned 62 in 2022): age 66 valid true status ok  hand bend points 1143/6885, AIME 5330.92, PIA 2368.8  -> row 68 hand 28416  engine 31980  diff 3564
+Actual-2023-bend-point PIA: 2566.7 -> 30792

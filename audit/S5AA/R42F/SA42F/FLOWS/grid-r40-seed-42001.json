@@ -1,0 +1,28 @@
+{
+ "N": 600,
+ "SEED": 42001,
+ "plansRun": 600,
+ "invalid": 0,
+ "invalidCodes": {},
+ "notOk": 0,
+ "rows": 12029,
+ "worst": {
+  "portfolio": 1.6880221664905548e-9,
+  "household": 261.1225031570066,
+  "combined": 261.12250315699566
+ },
+ "classes": {
+  "WAGE_TAX_CLAMP": 6
+ },
+ "failCount": 0,
+ "totalsChecked": 600,
+ "firstFails": [],
+ "issueCodes": {
+  "PROPOSED_RULE_USED": 47,
+  "HSA_QUALIFIED_SHARE_ASSUMED": 240,
+  "IRMAA_PRE_PLAN_MAGI_ASSUMED": 76,
+  "IRMAA_PARTIAL_FIRST_YEAR_COMPLETED": 26,
+  "UNSUPPORTED_ROTH_ORDERING": 34,
+  "CONVERSION_IRA_NEEDS_ROTH_IRA": 9
+ }
+}

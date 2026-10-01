@@ -1,0 +1,4 @@
+2027 single first threshold (hand) = 112000; joint by statute = 224000; engine joint = 223000 (218,000 x 1.025 = 223,450 rounded on its own)
+MISMATCH plan year 1 (tax year 2027; lookback 223,500 joint <= 224,000): standard for two | expected 6371.36 | engine 8668.16 | diff 2296.80
+MATCH    control plan year 0 (2026 figures, lookback 100,000): standard for two | expected 6371.36 | engine 6371.36 | diff 0.00
+SUMMARY matches=1 mismatches=1

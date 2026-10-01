@@ -1,0 +1,5 @@
+validateScenario.valid true | status ok | issues none
+hand: SE tax 11303.64, AGI 74348.18, QBI deduction 11649.64, taxable 46598.54, federal 5343.83, AZ 1456.20, total 18103.67
+engine: AGI 74348.18, taxes 20286.44  -> overstated by 2182.77 a year
+engine federal if no QBI deduction: 7526.60 (= taxes - SE - AZ = 7526.60)
+REPRO DONE

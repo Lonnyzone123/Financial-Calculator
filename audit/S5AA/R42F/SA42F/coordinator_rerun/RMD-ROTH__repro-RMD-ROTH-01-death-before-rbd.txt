@@ -1,0 +1,22 @@
+-- A: IRA owner dies at 73.5 in first distribution year | status ok | issues SURVIVOR_FILING_STATUS_MODELLED,SPOUSAL_ROLLOVER_ASSUMED
+  row 73 rmd 0.00 rmdDistributed 0.00 agi 0.00 taxes 0.00 preTax 500000.00 total 500000.00
+  row 74 rmd 18867.92 rmdDistributed 18867.92 agi 18867.92 taxes 0.00 preTax 481132.08 total 500000.00
+  row 75 rmd 0.00 rmdDistributed 0.00 agi 283.02 taxes 0.00 preTax 481132.08 total 500000.00
+  row 76 rmd 0.00 rmdDistributed 0.00 agi 283.02 taxes 0.00 preTax 481132.08 total 500000.00
+  hand: row 74 RMD 0 (died before RBD 1 April 2028); actual 18867.92 = 500000/26.5 = 18867.92
+  hand: preTax at row 76 = 500000.00; actual 481132.08
+-- A-control: self lives | status ok | issues 
+  row 73 rmd 0.00 rmdDistributed 0.00 agi 0.00 taxes 0.00 preTax 500000.00 total 500000.00
+  row 74 rmd 18867.92 rmdDistributed 18867.92 agi 18867.92 taxes 0.00 preTax 481132.08 total 500000.00
+  row 75 rmd 18867.92 rmdDistributed 18867.92 agi 19150.94 taxes 0.00 preTax 462264.15 total 500000.00
+A2 valid true 
+-- A2: with $90,000 pension | status ok | issues SURVIVOR_FILING_STATUS_MODELLED,PENSION_AFTER_DEATH_ASSUMED,SPOUSAL_ROLLOVER_ASSUMED
+  row 74 rmd 18867.92 rmdDistributed 18867.92 agi 108867.92 taxes 8679.85 preTax 481132.08 total 665376.15
+-- A2 control rmdOn=false (measured, no RMD can fall due in this window) | status ok | issues SURVIVOR_FILING_STATUS_MODELLED,PENSION_AFTER_DEATH_ASSUMED,SPOUSAL_ROLLOVER_ASSUMED
+  row 74 rmd 0.00 rmdDistributed 0.00 agi 90000.00 taxes 5944.00 preTax 500000.00 total 668112.00
+  measured tax overstatement in the death row: 2735.85  AGI overstatement: 18867.92
+-- B: 401(k) owner retires 75.3, dies 75.6 | status ok | issues SURVIVOR_FILING_STATUS_MODELLED,SPOUSAL_ROLLOVER_ASSUMED
+  row 75 rmd 0.00 rmdDistributed 0.00 agi 100000.00 taxes 15044.00 preTax 500000.00 total 500000.00
+  row 76 rmd 20325.20 rmdDistributed 20325.20 agi 50325.20 taxes 2925.65 preTax 479674.80 total 499369.35
+  row 77 rmd 0.00 rmdDistributed 0.00 agi 295.42 taxes 0.00 preTax 479674.80 total 499369.35
+  hand: row 76 RMD 0 (died before RBD); actual 20325.20 = 500000/24.6 = 20325.20

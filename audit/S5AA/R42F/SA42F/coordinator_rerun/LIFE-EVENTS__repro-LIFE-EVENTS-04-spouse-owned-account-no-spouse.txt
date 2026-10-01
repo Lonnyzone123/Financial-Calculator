@@ -1,0 +1,20 @@
+=== A1 self 65, IRA owner "self" (control) | validator issues: []
+age=65 withdrawals=0 rmd=0 federalAgi=0 taxes=0
+age=66 withdrawals=42571.93 rmd=0 federalAgi=42571.93 taxes=2571.93
+age=67 withdrawals=42571.93 rmd=0 federalAgi=42571.93 taxes=2571.93
+=== A2 self 65, IRA owner "spouse", spouseOn false, spouseAge 50 | validator issues: []
+age=65 withdrawals=0 rmd=0 federalAgi=0 taxes=0
+age=66 withdrawals=48210.6 rmd=0 federalAgi=48210.6 taxes=8210.6
+age=67 withdrawals=48210.6 rmd=0 federalAgi=48210.6 taxes=8210.6
+=== B1 self 75, IRA owner "self", RMD on (control) | validator issues: []
+age=75 withdrawals=0 rmd=0 federalAgi=0 taxes=0
+age=76 withdrawals=53.13 rmd=20325.2 federalAgi=20325.2 taxes=53.13
+age=77 withdrawals=50.99 rmd=20239.44 federalAgi=20239.44 taxes=50.99
+=== B2 self 75, IRA owner "spouse", spouseOn false, RMD on | validator issues: []
+age=75 withdrawals=0 rmd=0 federalAgi=0 taxes=0
+age=76 withdrawals=0 rmd=0 federalAgi=0 taxes=0
+age=77 withdrawals=0 rmd=0 federalAgi=0 taxes=0
+Hand (A, single, 65, $40,000 spending from the IRA, zero return): no 10% tax applies at 65 on the self reading;
+  gross draw G with tax T = federal + AZ on G: G - T = 40,000. At G = 42,571.93: federal taxable 42,571.93 - (16,100 + 2,050 + 6,000) = 18,421.93,
+  1,240 + 12% x 6,021.93 = 1,962.63; AZ 2.5% x (42,571.93 - 16,100 - 2,100) = 609.30; T = 2,571.93. G - T = 40,000.00.
+Hand (B, 75, born 1951, RMD age 73): 500,000 / 24.6 (Uniform, 75) = 20,325.20 a year.

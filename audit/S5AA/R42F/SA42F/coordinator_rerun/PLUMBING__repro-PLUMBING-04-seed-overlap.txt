@@ -1,0 +1,5 @@
+valid true statuses ok,ok,ok,ok,ok
+success rate  seed 42: 60.1%   seed 44: 60.2%   seed 43: 62.7%   seed 1042: 59.9%
+funded paths: seed 42 (1000 runs) = 601; seed 42 path 0 funded = false; seed 44 (999 runs) = 601  -> seed 44 runs 0..998 are exactly seed 42 runs 1..999: true
+seed 44 path 0 rows identical to seed 42 path 1 rows: true
+median-total rows within 1% between seed 42 and seed 44: 29 of 31

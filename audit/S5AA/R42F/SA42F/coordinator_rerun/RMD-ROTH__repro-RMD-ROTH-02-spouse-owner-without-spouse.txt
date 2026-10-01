@@ -1,0 +1,8 @@
+-- owner "self": valid true; validator issues []; status ok; engine issues []
+   row 76: rmd 12195.12 rmdDistributed(incl. QCD) 12195.12 withdrawals 25046.15 agi 20046.15 taxes 46.15 preTax 274953.85
+   row 77: rmd 11601.43 rmdDistributed(incl. QCD) 11601.43 withdrawals 25046.15 agi 20046.15 taxes 46.15 preTax 249907.69
+-- owner "spouse": valid true; validator issues []; status ok; engine issues []
+   row 76: rmd 0.00 rmdDistributed(incl. QCD) 0.00 withdrawals 22337.14 agi 22337.14 taxes 2337.14 preTax 277662.86
+   row 77: rmd 0.00 rmdDistributed(incl. QCD) 0.00 withdrawals 22337.14 agi 22337.14 taxes 2337.14 preTax 255325.71
+hand (owner read as the only person, 75): RMD row 76 = 300000/24.6 = 12195.12 ; QCD 5,000 excluded; no 10% tax at 75.
+engine for owner "spouse": RMD 0, QCD 0, and taxes include 10% x the draw (spouseAge 50 + elapsed < 59.5).

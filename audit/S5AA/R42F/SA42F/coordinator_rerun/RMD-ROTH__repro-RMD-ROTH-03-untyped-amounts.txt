@@ -1,0 +1,13 @@
+qcd 10000 (control)                          valid true  errors [] status ok  | rmdDist 10000.00 agi 0.00 roth 0.00 taxable 0.00 preTax 190000.00
+qcd "10,000" (string with comma)             valid true  errors [] status ok  | rmdDist 8130.08 agi 8130.08 roth 0.00 taxable 8130.08 preTax 191869.92
+qcd "abc"                                    valid true  errors [] status ok  | rmdDist 8130.08 agi 8130.08 roth 0.00 taxable 8130.08 preTax 191869.92
+conversion 50000 (control)                   valid true  errors [] status ok  | rmdDist 8130.08 agi 58130.08 roth 50000.00 taxable 3302.22 preTax 141869.92
+conversion "50,000"                          valid true  errors [] status ok  | rmdDist 8130.08 agi 8130.08 roth 0.00 taxable 8130.08 preTax 191869.92
+transfer 20000 at 75 (control)               valid true  errors [] status ok  | rmdDist 8130.08 agi 20299.21 roth 0.00 taxable 19947.52 preTax 180000.00
+transfer "20,000" at 75                      valid true  errors [] status ok  | rmdDist 8130.08 agi 8130.08 roth 0.00 taxable 8130.08 preTax 191869.92
+transfer 20000 at "75"                       valid true  errors [] status ok  | rmdDist 8130.08 agi 20299.21 roth 0.00 taxable 19947.52 preTax 180000.00
+transfer 20000 at "seventy-five"             valid true  errors [] status ok  | rmdDist 8130.08 agi 8130.08 roth 0.00 taxable 8130.08 preTax 191869.92
+retirement.ssBenefit "abc" (R42-typed, refused) valid false errors [WRONG_TYPE retirement.ssBenefit] status calculation_error SCENARIO_NONNUMBER_PLAN_VALUE
+selfLife 76             valid true status ok issues [SURVIVOR_FILING_STATUS_MODELLED,SPOUSAL_ROLLOVER_ASSUMED]
+selfLife "76"           valid true status ok issues [SURVIVOR_FILING_STATUS_MODELLED,SPOUSAL_ROLLOVER_ASSUMED]
+selfLife "seventy-six"  valid true status ok issues []

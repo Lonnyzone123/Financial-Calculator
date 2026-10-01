@@ -1,0 +1,20 @@
+=== selfLife 73.5 (owner born 1954, reaches 73 in tax year 2027 = row 74, dies at 73.5 in that year)
+valid=true status=ok
+age=72 income=0 rmd=0 rmdDistributed=0 federalAgi=0 taxes=0 preTax=1000000 total=1100000
+age=73 income=60000 rmd=0 rmdDistributed=0 federalAgi=60000 taxes=1840 preTax=1000000 total=1158160
+age=74 income=60000 rmd=37735.85 rmdDistributed=37735.85 federalAgi=97735.85 taxes=7065.7 preTax=962264.15 total=1211094.3
+age=75 income=60000 rmd=0 rmdDistributed=0 federalAgi=60000 taxes=5099 preTax=962264.15 total=1265995.3
+age=76 income=60000 rmd=36311.85 rmdDistributed=36311.85 federalAgi=96311.85 taxes=12821.72 preTax=925952.3 total=1313173.58
+age=77 income=60000 rmd=36311.85 rmdDistributed=36311.85 federalAgi=96311.85 taxes=12821.72 preTax=889640.44 total=1360351.86
+issues: SURVIVOR_FILING_STATUS_MODELLED,PENSION_AFTER_DEATH_ASSUMED,SPOUSAL_ROLLOVER_ASSUMED
+=== selfLife 120 (control: owner lives)
+valid=true status=ok
+age=72 income=0 rmd=0 rmdDistributed=0 federalAgi=0 taxes=0 preTax=1000000 total=1100000
+age=73 income=60000 rmd=0 rmdDistributed=0 federalAgi=60000 taxes=1840 preTax=1000000 total=1158160
+age=74 income=60000 rmd=37735.85 rmdDistributed=37735.85 federalAgi=97735.85 taxes=7065.7 preTax=962264.15 total=1211094.3
+age=75 income=60000 rmd=37735.85 rmdDistributed=37735.85 federalAgi=97735.85 taxes=7065.7 preTax=924528.3 total=1264028.6
+age=76 income=60000 rmd=37582.45 rmdDistributed=37582.45 federalAgi=97582.45 taxes=7043.46 preTax=886945.85 total=1316985.15
+age=77 income=60000 rmd=37423.88 rmdDistributed=37423.88 federalAgi=97423.88 taxes=7020.46 preTax=849521.98 total=1369964.69
+issues: 
+Expected (hand) for selfLife 73.5, row 74: rmd 0, federalAgi 60,000, taxes 1,840.00 (fed 1,250 + AZ 590);
+  row 76 (survivor, born 1956, reaches 73 in 2029): rmd = 1,000,000 / 26.5 = 37,735.85.

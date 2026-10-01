@@ -1,0 +1,4 @@
+valid true  status ok 
+engine row 56 : spouse IRA deposited 8600 ; excess redirected to taxable 1400.00
+app check: item allowed 0 , excess 0 , warnings []
+engine window: item allowed 8600 , excess 1400 , warnings ["iraP exceeds the applicable 2026 ira limit by $1,400"]

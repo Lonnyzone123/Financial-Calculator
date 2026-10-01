@@ -1,0 +1,2 @@
+spouseAge 68: validator valid=true [] | engine ok  | rows 70:0 71:44304 72:44304 73:44304 74:44304 75:31032 76:31032 | final total 859280
+spouseAge "68": validator valid=false ["WRONG_TYPE@profile.spouseAge"] | engine ok  | rows 70:0 71:31032 72:31032 73:31032 74:31032 75:31032 76:31032 | final total 806192
