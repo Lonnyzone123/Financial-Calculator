@@ -1,0 +1,22 @@
+== control (36 plans)
+  f02: none
+  f17: none
+  ss: 
+    seed:20 [67 both withheld with a spousal part [cm 4/12]]
+  notes: seed:2 is historical; seed:3 is historical; seed:4 is historical; seed:5 is historical; seed:7 is historical; seed:8 is historical; seed:10 is historical; seed:11 is historical; seed:14 is historical; seed:15 is historical; seed:18 is historical; targeted:historical-spouse-ss is historical; targeted:spouse-cola-income is historical; targeted:historical-1929 is historical; targeted:historical-1966 is historical; targeted:historical-2000 is historical
+== expanded (71 plans)
+  f02: none
+  f17: none
+  ss: 
+    seed:20 [67 both withheld with a spousal part [cm 4/12]]
+  notes: seed:2 is historical; seed:3 is historical; seed:4 is historical; seed:5 is historical; seed:7 is historical; seed:8 is historical; seed:10 is historical; seed:11 is historical; seed:14 is historical; seed:15 is historical; seed:18 is historical; targeted:historical-spouse-ss is historical; targeted:spouse-cola-income is historical; targeted:historical-1929 is historical; targeted:historical-1966 is historical; targeted:historical-2000 is historical; expansion:other-asset-draw-historical is historical
+== positive control
+  SA42F-02 witness, claim 67.5: f02 [69 self 5->6; 70 self 6->7; 71 self 7->8]
+  SA42F-02 control, claim 68: none
+  SA42F-17 witness, 65: f17 [self 65]
+  SA42F-17 control, 62: none
+  R42-01 witness, spousal 67.5: ss [63 pay changes inside the row [cm 4/0]]
+  R42-01 control, spousal 68: none
+  R42-01 witness, spousal 67.25 at $60,000: ss [63 pay changes inside the row [cm 6/0]]
+  SA42F-18 witness: ss [61 pay changes inside the row+a survivor benefit withheld [cm 6/0]; 62 a survivor benefit withheld [cm 12/0]; 63 a survivor benefit withheld [cm 12/0]]
+  SA42F-18 control, no wages: none
