@@ -231,6 +231,13 @@ function validateProfile(c, profile) {
   if (isFiniteNumber(profile.age) && isFiniteNumber(profile.retireAge) && profile.retireAge < profile.age) {
     c.warn('INCONSISTENT_AGES', 'profile.retireAge', `retireAge (${profile.retireAge}) is before the current age (${profile.age})`);
   }
+  /* S5AA R41 (found by the task 6.5 browser check; the owner 2026-09-30: "Repair now"): an end age before the starting age
+     projected backwards, and the warning below compares the end age with the retirement age only. An ERROR, so the app's
+     import refuses the backup; the engine refuses it as SCENARIO_END_AGE_BEFORE_START. An end age equal to the start is not
+     an error. */
+  if (isFiniteNumber(profile.age) && isFiniteNumber(profile.endAge) && profile.endAge < profile.age) {
+    c.error('END_AGE_BEFORE_START', 'profile.endAge', `endAge (${profile.endAge}) is before the current age (${profile.age}), so there are no years to project`);
+  }
   if (isFiniteNumber(profile.retireAge) && isFiniteNumber(profile.endAge) && profile.endAge < profile.retireAge) {
     c.warn('INCONSISTENT_AGES', 'profile.endAge', `endAge (${profile.endAge}) is before retireAge (${profile.retireAge})`);
   }
