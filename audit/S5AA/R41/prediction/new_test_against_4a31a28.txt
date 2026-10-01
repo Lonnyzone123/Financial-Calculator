@@ -1,0 +1,81 @@
+✖ R41: an end age one year below the start is refused, in every method -- no rows, one ERROR naming the ages (10.9431ms)
+✖ R41: runScenario() refuses it too, and a fractional start is compared exactly (29.5 against 28.5) (17.336ms)
+✖ R41: the validator reports it as an ERROR at profile.endAge, so the import refuses the backup (2.9867ms)
+✔ R41, control: an end age EQUAL to the start is projected as before -- one row, at the starting age, no ERROR (2.2963ms)
+✔ R41, control: an end age between the start and the retirement age keeps its warning and is projected to the end age (5.1467ms)
+✔ R41, control: a retirement age below the start (already retired) keeps its warning and is projected (2.5298ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 3
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 296.4111
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r41-end-age-before-start-refused.test.js:44:1
+✖ R41: an end age one year below the start is refused, in every method -- no rows, one ERROR naming the ages (10.9431ms)
+  AssertionError [ERR_ASSERTION]: simple
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_END_AGE_BEFORE_START'
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r41-end-age-before-start-refused.test.js:47:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_END_AGE_BEFORE_START',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r41-end-age-before-start-refused.test.js:58:1
+✖ R41: runScenario() refuses it too, and a fractional start is compared exactly (29.5 against 28.5) (17.336ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_END_AGE_BEFORE_START'
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r41-end-age-before-start-refused.test.js:60:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_END_AGE_BEFORE_START',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r41-end-age-before-start-refused.test.js:64:1
+✖ R41: the validator reports it as an ERROR at profile.endAge, so the import refuses the backup (2.9867ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r41-end-age-before-start-refused.test.js:67:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
