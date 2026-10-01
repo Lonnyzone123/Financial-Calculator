@@ -88,7 +88,7 @@ function plan(o) {
   p.retirement.stages = []; p.retirement.expenses = []; p.retirement.otherIncomes = [];
   p.advanced.rmdOn = true; p.advanced.debts = []; p.advanced.otherAssets = [];
   p.advanced.healthOn = false; p.advanced.ltcOn = false;
-  p.accounts = [account({ id: 'ira', type: 'traditionalIra', taxClass: 'preTax', balance: 1000000 })];
+  p.accounts = [account({ id: 'ira', type: 'customTraditional', taxClass: 'preTax', balance: 1000000 })];
   const ov = o || {};
   ['profile', 'assumptions', 'retirement', 'advanced'].forEach((k) => { if (ov[k]) Object.assign(p[k], ov[k]); });
   if (ov.accounts) p.accounts = ov.accounts;
@@ -127,7 +127,7 @@ AGREEMENT_MATRIX.forEach((c) => {
         surplusPolicyBySource: { rmd: c.policy },
       },
     };
-    const ira = account({ id: 'ira', type: 'traditionalIra', taxClass: 'preTax', balance: 1000000 });
+    const ira = account({ id: 'ira', type: 'customTraditional', taxClass: 'preTax', balance: 1000000 });
     const created = ending(plan(Object.assign({ accounts: [ira] }, base)));
     const preexisting = ending(plan(Object.assign({
       accounts: [ira, JSON.parse(JSON.stringify(c.spare))],
@@ -151,7 +151,7 @@ AGREEMENT_MATRIX.forEach((c) => {
 
 test('RA-02 Case A: retained cash must not earn a market return in its creation period', () => {
   const cfg = { advanced: { surplusPolicy: 'retain', surplusPolicyBySource: { rmd: 'retain' } } };
-  const ira = account({ id: 'ira', type: 'traditionalIra', taxClass: 'preTax', balance: 1000000 });
+  const ira = account({ id: 'ira', type: 'customTraditional', taxClass: 'preTax', balance: 1000000 });
   const created = ending(plan(Object.assign({ accounts: [ira] }, cfg))).total;
   const control = ending(plan(Object.assign({
     accounts: [ira, JSON.parse(JSON.stringify(CASH_HOLDING))] }, cfg))).total;
@@ -162,7 +162,7 @@ test('RA-02 Case A: retained cash must not earn a market return in its creation 
 });
 
 test('RA-02 Case B: an invest destination must grow in its creation period', () => {
-  const roth = account({ id: 'roth', type: 'rothIra', taxClass: 'roth', balance: 1000000 });
+  const roth = account({ id: 'roth', type: 'customRoth', taxClass: 'roth', balance: 1000000 });
   const cfg = { advanced: { rmdOn: false, surplusPolicy: 'invest' } };
   const created = ending(plan(Object.assign({ accounts: [roth] }, cfg))).total;
   const control = ending(plan(Object.assign({
@@ -182,7 +182,7 @@ test('RA-02: the invest destination grows by exactly deposit x remaining-period 
   // so the whole ending balance is the untouched Roth plus the deposited
   // surplus grown for the remainder of the period. Both terms are computed
   // here from the plan, not read back from the engine.
-  const roth = account({ id: 'roth', type: 'rothIra', taxClass: 'roth', balance: 1000000 });
+  const roth = account({ id: 'roth', type: 'customRoth', taxClass: 'roth', balance: 1000000 });
   const cfg = { advanced: { rmdOn: false, surplusPolicy: 'invest' } };
   const withControl = ending(plan(Object.assign({
     accounts: [roth, JSON.parse(JSON.stringify(EMPTY_TAXABLE))] }, cfg)));

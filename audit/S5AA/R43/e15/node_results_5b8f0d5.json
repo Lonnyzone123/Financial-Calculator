@@ -1,0 +1,606 @@
+{
+ "composition": "expanded",
+ "count": 75,
+ "node": {
+  "golden:baseline": {
+   "hash": "d82ec299a98edbf1e7c3cd330ad192f42fccaf3466c8e969900091dc88621fb9",
+   "keyOrder": "f90d29ca1ba5caa5f8c02038765f3882617d31519370d909c01a60bb23a6a6a0",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 68
+  },
+  "golden:monte-carlo-fixed-seed": {
+   "hash": "708dfbf50c69907c9d1cf7306d47eedfc96f19cb57dd156f41b0385b0dc12a87",
+   "keyOrder": "9be40c725b740ceedc6d715f1f9edc2ca0bede9d34e9094d11316507537c06a7",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 68
+  },
+  "golden:rmd-and-roth-conversion": {
+   "hash": "7a1526c4e1f8d649e4601329ade4d0bab2002e1b7c80459e071b59d219c2707d",
+   "keyOrder": "d97c048df765e757b58808e339b1e742e2aeb835ca483a1f98cc9665a218545f",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 29
+  },
+  "golden:reserve-and-bond-tent": {
+   "hash": "6a0e068c1dc854b5148826c56b7b1996e3df994ce62b906c84913827e0b559e5",
+   "keyOrder": "f90d29ca1ba5caa5f8c02038765f3882617d31519370d909c01a60bb23a6a6a0",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 68
+  },
+  "golden:guardrails-withdrawal-strategy": {
+   "hash": "5250f90bcb320149f8dcf55eb5fe87ac973aeda0ebe6f3a47b6055891c8121c8",
+   "keyOrder": "f90d29ca1ba5caa5f8c02038765f3882617d31519370d909c01a60bb23a6a6a0",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 68
+  },
+  "seed:1": {
+   "hash": "b61aaf1088689409edc86bc63c041726d102dd678c267cb2700ffae6f117f406",
+   "keyOrder": "d2e8e5eddfd7a16ed735da8d95ca35b7ccfb955389cf4beb099fa7200457cfbb",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 19
+  },
+  "seed:2": {
+   "hash": "5976565c1deaeb7a01c97e94c86f83cc87f2e1145380da307f0f1d2841760f93",
+   "keyOrder": "0a89d9749a29b47986d3030724cb752b70202282dbe1beaf400352526203d599",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "seed:3": {
+   "hash": "e6a3efbeb9a025969d2993881b2ee5ca5685e2a3c0f9788a3b0643876c794b93",
+   "keyOrder": "5b085f0ee579f534f4263f704ec8b221c9de31829bb21ca5d199d555093a32d3",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 18
+  },
+  "seed:4": {
+   "hash": "335d0781e44ab301442c76342db1aa3fba0e71440ec85677ef03e93353565bf8",
+   "keyOrder": "39d98060fb684cd32f3d11fd7bb993536367587ca3a7989bdfc784181642e082",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 19
+  },
+  "seed:5": {
+   "hash": "056270b6979177bbc560201c4f1621d32c3c302ce895a4a24a0c0c2d6fff2e0a",
+   "keyOrder": "bfcfd2a0fca9f70def7fb63b18b65c8658d0240ca78e7ee816fa9358ed873e15",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 31
+  },
+  "seed:6": {
+   "hash": "e81d658b2213b8652dde306a3306e3500304e47a966f2942cb3524272e037d79",
+   "keyOrder": "bf11abf1f16c65ab61fa0fca35600dbd3d1a249503b5cf4d218325f90a7f6f6e",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 23
+  },
+  "seed:7": {
+   "hash": "5e3616e71f29071a1e1f5dda625943a1de125711986b309835dd3f6ebf2b09ea",
+   "keyOrder": "0077ac687709ac38ee6d9470e36b806a377d4299293640a7834a6e78a5fe34d8",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 32
+  },
+  "seed:8": {
+   "hash": "ede24e0aaad009279bcd7d2ad386d8d966daf02885034574fc12bf16a3654c73",
+   "keyOrder": "a7be60007731e756a7a63a9f5b3857be752d6de56af01f8dea7c94d84e5f89d0",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 29
+  },
+  "seed:9": {
+   "hash": "4bb67bfa77301b1a337b76fd6f0ff36eb7adb543ca64807da7d372d30f8866e3",
+   "keyOrder": "11a8ce5cb50690a55d509be44300a6bc3efe2657a8621567b5f5f0b3d6c018fc",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 31
+  },
+  "seed:10": {
+   "hash": "dcd524465845a7bc662e75e36c31acba7cd7ad3060e49e29d5faed1089fde3b4",
+   "keyOrder": "76ea2665b0b96e4f4d27163dda37afcb510b049919860343390963b1e0ae089e",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 46
+  },
+  "seed:11": {
+   "hash": "7850848061d3938380f6cc838308fb3489a7d5804179b1337c06d7b39b59b94e",
+   "keyOrder": "dcfe82a798d2e9c90fe31fd07d1d79c9aa68e7ece4941a8b0af8729c3457968e",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 34
+  },
+  "seed:12": {
+   "hash": "bab9cafb994eaa7d350e42b4ff8b6bd0958a0cda104cb640b38e1e245af585b7",
+   "keyOrder": "27b4693f1003775037057583f4a9ca808acf413fb282a7ca01e57cb97cfb10c9",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 22
+  },
+  "seed:13": {
+   "hash": "7d7ae967d2267d6f68db63cbe429f5be1c5e798ce271371054db71c65d2ff20f",
+   "keyOrder": "e11ff7f3c6a8b5b0481629cd9b82a3b5f8893445c645f20c1f21d37b8b50e9ce",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 16
+  },
+  "seed:14": {
+   "hash": "4068dd60e798f051e6c3e9bac7681d6e710fcca0ae1074d38f5aa79f6f3628db",
+   "keyOrder": "3deda1c8019863056763d58cb63a7883fbbad412c66d8cbffb871f01e879b2f3",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 30
+  },
+  "seed:15": {
+   "hash": "de9231d4210436a33c50562fb4983f20598a7982ccd015636cc67e37cd35037f",
+   "keyOrder": "1648a5a4869531197c5545f3527fac6585e576088152c8e9f015d4efb3ab3eba",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 26
+  },
+  "seed:16": {
+   "hash": "06f00c1aa3d3f6a253c432914310a6c9b1a780b2a0f951c05137429081d5b1c1",
+   "keyOrder": "743c36f73977340c9d1d4b61f9a566d0d6ec80620eaf2f186138cfc544353a5a",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 28
+  },
+  "seed:17": {
+   "hash": "3d8ec696ee873f8e12b0b0a0ac29cf42adc089c8ace4d3ddaa886f4f767e8557",
+   "keyOrder": "d061d7f5a2fcdfc7911a79ec5b1940b344524233fb1b8f63d25a545a85156110",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 24
+  },
+  "seed:18": {
+   "hash": "c3c1e6a7d2a256a456755888991922a4f2508db9f0a3b7ff0d548b3b88eba4cf",
+   "keyOrder": "9416d70cf8424688c27b741a6f0012ffb5d6c69a70515f7890d3db19a7bb6c26",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 34
+  },
+  "seed:19": {
+   "hash": "bf1f2fa7a4a387634b1b4b667067ad6fe3b2c4d6558e886c0f2c452cf2ba6884",
+   "keyOrder": "40e9d95025b6b97dbb3a3659a229b85fa43f6a1b2d376e6ba5887cecbc9188d8",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 25
+  },
+  "seed:20": {
+   "hash": "d1d0197fed7d2c561ebf9e76947d7970342432bd8474617c822287a03f734aca",
+   "keyOrder": "db13c0f333e5f2f542408f9d2809bf5477c63d14edab5e3f4c7b559c2ff0a514",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 31
+  },
+  "targeted:historical-spouse-ss": {
+   "hash": "8867c564c898b90f711459d6a1687c85fda5247f1e7bfe9e75424dda709064f1",
+   "keyOrder": "0a89d9749a29b47986d3030724cb752b70202282dbe1beaf400352526203d599",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "targeted:spouse-cola-income": {
+   "hash": "80b4c404cf5d95f6e5daf9d3d3fd000dc7aee79ed0cd92c2898e4014b12bc37d",
+   "keyOrder": "0a89d9749a29b47986d3030724cb752b70202282dbe1beaf400352526203d599",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "targeted:historical-1929": {
+   "hash": "f822f4501ae800a4eb07322a208138b9cea8769049306709bc6dc1dced0d7bf8",
+   "keyOrder": "eaedba0af1aeaa9b59830fff4b6dd74b13ab05c50f4c017378a009f7ee1b54c7",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 26
+  },
+  "targeted:historical-1966": {
+   "hash": "d0566506a208fdefcc15566e10e161d0aef1dd7daebcd424026ad7d1906d951e",
+   "keyOrder": "eaedba0af1aeaa9b59830fff4b6dd74b13ab05c50f4c017378a009f7ee1b54c7",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 26
+  },
+  "targeted:historical-2000": {
+   "hash": "3531b12e968797689aa2228223f8145869dde1d713801143b35dfaa38328680e",
+   "keyOrder": "eaedba0af1aeaa9b59830fff4b6dd74b13ab05c50f4c017378a009f7ee1b54c7",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 26
+  },
+  "targeted:arm-flag-on": {
+   "hash": "69993237dc17de1009773b7fe1bce4a59fff46166d136e1a70fc0fca020329f4",
+   "keyOrder": "8628158ebe9489fcabebb2713d252d9df305070ab274a21312dc1428af7f80e0",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 11
+  },
+  "targeted:collision-household-cash": {
+   "hash": "29148691e6dce32a27030e30112f0430709fca4b5203fc083665d22f76a20d06",
+   "keyOrder": "6b3e224eb08ebfae5345f253ba1722892fe99ab25e091a2fc9478667e8d7debe",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 14
+  },
+  "targeted:explicit-cash-holding": {
+   "hash": "49689446fa7be2405601b79a5835af2ce537ae0e6e151cf502a15dab61a945fd",
+   "keyOrder": "587b7d3fab680521227bf574c0553bc35cccad0f7e579023ab6cf43d06a1f8fe",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 6
+  },
+  "targeted:funded-qcd": {
+   "hash": "07f7e3aee8401faf07fa8b77b0143d8b6461bcec87611a636cde38d711171ec5",
+   "keyOrder": "587b7d3fab680521227bf574c0553bc35cccad0f7e579023ab6cf43d06a1f8fe",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 6
+  },
+  "targeted:survivor-stateful": {
+   "hash": "67269b123e3325f0fa824572cb9b9d33613bfc274095192de9dad9ab3312fb5a",
+   "keyOrder": "190088a9eaf66bb1c384757cf046ac94b527138520e47f1f16f8e4334dd6a4f2",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 8
+  },
+  "targeted:collision-rmd-retained-cash": {
+   "hash": "bd42427d3adf5ee5a7c12b97e5c144eef7210ea7836f34b3e62d37b96dfff906",
+   "keyOrder": "ca9dda55061cbfe160ae082a9110be24a0310cd399076f271ff222559bb1ca56",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 11
+  },
+  "expansion:other-asset-draw-growth-0": {
+   "hash": "b0a8ce199a7eb2446e576679f9272cecc6f4a58a03c473b8c7ec5f3a065297a1",
+   "keyOrder": "a79a9eb72d70d9c635c9967fa502bb023d2b4fa89435aa1488a029bb284127ae",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 16
+  },
+  "expansion:other-asset-draw-growth-4": {
+   "hash": "924fd04fd0d78a60098b5080585ad581b93de6ffc41935590b1d109f787e39a0",
+   "keyOrder": "a79a9eb72d70d9c635c9967fa502bb023d2b4fa89435aa1488a029bb284127ae",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 16
+  },
+  "expansion:other-asset-draw-historical": {
+   "hash": "c97b5dc085eb765cd5eac1995beb018d775ec60ff49cb04e54ac412cc4d3818c",
+   "keyOrder": "0c50b42b84e5630c709d569ea545cef127c32b560400df52df6233d1410436e5",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 16
+  },
+  "expansion:other-asset-two-assets-late-access": {
+   "hash": "ca44f23a39b367573825a0303315a593fabd725f3de38729e0b09abae5115158",
+   "keyOrder": "a79a9eb72d70d9c635c9967fa502bb023d2b4fa89435aa1488a029bb284127ae",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 16
+  },
+  "expansion:debt-ordinary-amortizing-15y": {
+   "hash": "ba7dcbe9a1d1ad0a2efe18e9896aae38b4f52908b394a7501d8654c8576cc26c",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:debt-ordinary-amortizing-5y": {
+   "hash": "0dc687639f2fcbd573ac8a40bc240efc80dc8396f598e38f507d54b4add379a2",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:debt-ordinary-zero-interest": {
+   "hash": "03a08ea1c92317b8fd0214da473ee6850cab112e1b7cef07080c48d58e32bee9",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:debt-ordinary-zero-balance": {
+   "hash": "ab71cd119a0b6da852500d0be94eb2598d77aed4df6efc7400094fb825c9d0a8",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:debt-ordinary-payoff": {
+   "hash": "f450fb34776ebc4996e7974af3a447e521e8a699b031c0e6fb76bc61e63db79b",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:debt-adversarial-q54-worst": {
+   "hash": "7cbab4c6bb8627f41c656fe9af3279e3acceb0dc725873e70b9ccd0d4cbca54e",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:debt-adversarial-interest-only": {
+   "hash": "00b12444c51ce402571dc996a07ab1488add401a82730c8f77d081d51de6ddd7",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:debt-adversarial-a-cent-below": {
+   "hash": "b66f30da730be4ec9dcdd926c4c22ef0e1c392d2a926a2f82deae95a20623452",
+   "keyOrder": "f41506c78a4ee70fd6830e1a2dabd08a313f68e967f4cc7ef903dd7fe1282d40",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:monte-carlo-sensitive-band": {
+   "hash": "7e90302ccd3613604f9e13d1e919a57ca0fb782fbce3a60d16b76ea01aa9a42a",
+   "keyOrder": "9be40c725b740ceedc6d715f1f9edc2ca0bede9d34e9094d11316507537c06a7",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 68
+  },
+  "expansion:s5aa-gap-working-household": {
+   "hash": "300e1197b8964ce6840c9046c2e22d62906abdc0548f255f087ff4b712b2b2dd",
+   "keyOrder": "ea1fed2b7d501cc255af0c177e134aa06c75825a7c3a042d755feb12b27591bf",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:s5aa-gap-retired-couple": {
+   "hash": "2109302fb9c623a6927b7f2e76f53b99d51e2da93d5c7933fc43a8e652b361c6",
+   "keyOrder": "51eea028c44540f50ec10300a6968513d222ea7a87dd97cffa69c34f6bb496db",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 9
+  },
+  "expansion:s5aa-gap-early-retiree": {
+   "hash": "aedabd93ddf93a9b939df13edb656e1652c5295e03519318613907dd507b82f1",
+   "keyOrder": "769e5628e2d6e44da4b8ad2642a2620ec70ed369c1d91d9319d055e3174eba84",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 13
+  },
+  "expansion:s5aa-gap-widowed-before-fra": {
+   "hash": "5a9b180153fa622166b8c11bcfc408ee4395f06907978442b9dcd5bddc462b36",
+   "keyOrder": "b73ece3024aba6cb236d212ee450b224843c2d767e4098ab43c18ef23a2a51f9",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 19
+  },
+  "expansion:s5aa-gap-death-while-working": {
+   "hash": "29953313f4c93db4b66c7672be99c203ec1eb3c5ae81e083159f62985a85c430",
+   "keyOrder": "d5957d8df0eebf92e28ac6ac8fbf24f8a7c2e66f30ce010d4d26844859949069",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 16
+  },
+  "expansion:s5aa-r6-gap-survivor-health-roth": {
+   "hash": "cb924f9c8202ab2cbb2e4c7605b283dcdb52c6e0452defc80edc7b6b6a0cc1df",
+   "keyOrder": "a315474f62cda8be56c25a21d24bf16dd3628dca935ec64b191b20fe15b5fa1a",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 18
+  },
+  "expansion:s5aa-r6-gap-basis-conversion": {
+   "hash": "a48100d073214cdd49bb84278a8319c5b9d54fc5b35127fa166e0f05fce977c7",
+   "keyOrder": "d7239fa1434fd67eed1ba0b206eda63473cb9857b85f6656900ea7034d4fc5e9",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 21
+  },
+  "expansion:s5aa-r6-gap-basis-one-owner-draw": {
+   "hash": "d2c5cb12fbf623ecfc3b5af3ff20f0fc63bdf17d3e988a8f86d49413cfa241f3",
+   "keyOrder": "d33455918852e279754e580c468485ce3eef7cf5fd1186f806f07f6539460338",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 13
+  },
+  "expansion:s5aa-r14-rmd-conversion-under-loss": {
+   "hash": "7b6529e202c94e07abdd49ae9b63f2e2a6aaa1e7714928ff7dd21a60c02f4ad3",
+   "keyOrder": "587b7d3fab680521227bf574c0553bc35cccad0f7e579023ab6cf43d06a1f8fe",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 6
+  },
+  "expansion:s5aa-r14-rmd-two-iras-distinct-returns": {
+   "hash": "9206a83e072b7de51889c4b9375035c14f821a1d336cb683e139f8fcd448ff46",
+   "keyOrder": "1b32fc8b5aa3bac81d123164b2b5e21b2dd7fd7b162bdd079ad57d8ac5c7307f",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 7
+  },
+  "expansion:s5aa-r14-rmd-prototype-ids": {
+   "hash": "770b3946fb156c01fa50e0b4502b56bbdcd9246e9dcc72c04aefe9bb8f60c669",
+   "keyOrder": "587b7d3fab680521227bf574c0553bc35cccad0f7e579023ab6cf43d06a1f8fe",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 6
+  },
+  "expansion:s5aa-r15-rmd-transfer-to-taxable": {
+   "hash": "342c943f05e040e64e0803d566fe96815234b4434ac097072f348b9494443613",
+   "keyOrder": "587b7d3fab680521227bf574c0553bc35cccad0f7e579023ab6cf43d06a1f8fe",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 6
+  },
+  "expansion:s5aa-sa18-loss-under-deduction": {
+   "hash": "d3bf901cb63b3167c2e510c61a48621755a297e9260903c830517dd60d95968a",
+   "keyOrder": "df41f6df901cd9bc285cbe4b2d11d70152cfe0b9e64d36ab267353565e6c8219",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 3
+  },
+  "expansion:s5aa-sa18-decedent-loss": {
+   "hash": "9d570ee3598cf6e340a53dc8ea93773ebf49da84761ad3a959bd02eea9d49e8c",
+   "keyOrder": "5ddc07651757de38b1fd60bdb9448c70566274e8d4f182373da4cb62bc6108c9",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 3
+  },
+  "expansion:s5aa-r19-ira-contribution-conversion-same-year": {
+   "hash": "efd57b73be1e6ab9c13782477a47495c8423b8de4b4205423ffb544ea059c4d7",
+   "keyOrder": "80e3159824281aea6abf80b410f3e2df8bf5cba2e749f2b7d6925eadf29a7b36",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 3
+  },
+  "expansion:s5aa-r19-ira-conversion-and-qcd": {
+   "hash": "1caa9bc1281fe3f86429ae6f1634cd127bd8a38cf31cf27322b02df53627341e",
+   "keyOrder": "4e39518ede38b57245492cbaf3e3f14668f5d85beacc4164d61ff0a6fbdceff0",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 4
+  },
+  "expansion:s5aa-r19-ira-charity-then-rollover": {
+   "hash": "eedd03fd73d9e13ce502ff795e5eaf8e6ab755a19c2d24a0f5f147d26500fbca",
+   "keyOrder": "4e39518ede38b57245492cbaf3e3f14668f5d85beacc4164d61ff0a6fbdceff0",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 4
+  },
+  "expansion:s5aa-r19-ira-qcd-offset": {
+   "hash": "0cb9ce2b4d285f562046e4f4c36f91ed5efa50541b05754bfff1cd53ea1e173b",
+   "keyOrder": "df41f6df901cd9bc285cbe4b2d11d70152cfe0b9e64d36ab267353565e6c8219",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 3
+  },
+  "expansion:s5aa-r20-spouse-owner-early-tax": {
+   "hash": "77273b3b090936f51f40d7e37b187c485876be50d3c5d53b88aff558624130d0",
+   "keyOrder": "3cd811beba9ad896f9788105f64bbb26e837b7c1933b396f5dd70dda26a054a9",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 2
+  },
+  "expansion:s5aa-r20-rule55-ira-ranking": {
+   "hash": "937e2770142ac7e44b17c802a1b5f2fdec3a34dea0390d68d2f13b5db17289a3",
+   "keyOrder": "7399036706b96f82f6772feb173e6660247da2d6db1466bde4e5bce628761fba",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 2
+  },
+  "expansion:s5aa-r35-rule55-separation-at-55": {
+   "hash": "dac91b891009a6aa0cf4982b69e2db93b5e76a9f42c4c0be57135361d207ee08",
+   "keyOrder": "3cd811beba9ad896f9788105f64bbb26e837b7c1933b396f5dd70dda26a054a9",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 2
+  },
+  "expansion:s5aa-r20-all-stock-glide": {
+   "hash": "dc08f81ea8e591195acb59ae3077bd18877781d28aed90d4b1bf4d0f8c89702e",
+   "keyOrder": "df41f6df901cd9bc285cbe4b2d11d70152cfe0b9e64d36ab267353565e6c8219",
+   "runId": "string",
+   "calculationError": false,
+   "code": null,
+   "rows": 3
+  },
+  "refusal:debt-reset-age-string": {
+   "hash": "52bd98f0f5844d5472e95c290e06b75dfa972a68c9927af09c2d8a92c7e8ad55",
+   "keyOrder": "c76e9746a63b186d89cb61e41e9dd5d913246e1ecb95fbb87f2bbab7d089ae03",
+   "runId": "string",
+   "calculationError": true,
+   "code": "SCENARIO_NONFINITE_DEBT_RESET_AGE",
+   "rows": null
+  },
+  "refusal:health-inflation-string": {
+   "hash": "1da23dd00778585c92399e965df2e2e5adb092584d9e5a1450f0fcbc6e9c7809",
+   "keyOrder": "6048b788bf2c42dea8cc36ec0ac9a1e4ffbb4bce2cb23591c52d8f2cf0531a4c",
+   "runId": "string",
+   "calculationError": true,
+   "code": "SCENARIO_NONNUMBER_PLAN_VALUE",
+   "rows": null
+  },
+  "refusal:missing-retirement-section": {
+   "hash": "1284c66d0c46c5d1c09d6fbe4742b45f9445aafddcae1d0e3c0e83c3d33727a9",
+   "keyOrder": "738e758ddcfd5ecba0f3aafe8dacf31a59884955775547888adbbce72179b6fe",
+   "runId": "absent",
+   "calculationError": true,
+   "code": "SCENARIO_MISSING_SCENARIO_SECTION",
+   "rows": null
+  },
+  "edge:end-age-before-start": {
+   "hash": "41bee7ad54d63683caace6e8d397176141bd513106222f6b8d68dcac62b64d9b",
+   "keyOrder": "c76e9746a63b186d89cb61e41e9dd5d913246e1ecb95fbb87f2bbab7d089ae03",
+   "runId": "string",
+   "calculationError": true,
+   "code": "SCENARIO_END_AGE_BEFORE_START",
+   "rows": null
+  }
+ }
+}

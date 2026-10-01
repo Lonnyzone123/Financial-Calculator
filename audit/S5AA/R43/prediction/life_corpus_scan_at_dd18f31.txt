@@ -1,0 +1,23 @@
+== control (36 plans)
+  f03: none
+  f04: none
+  f11: none
+  ruling: none
+  f29: none
+== expanded (71 plans)
+  f03: none
+  f04: none
+  f11: none
+  ruling: none
+  f29: none
+== positive control
+  SA42F-03 IRA witness: f03 [self dies 73.5 in year 1]
+  SA42F-03 control, lives: none
+  SA42F-03 401(k) witness: f03 [self dies 75.6 in year 1]
+  SA42F-04 witness: f04 [accounts.1 traditionalIRA]
+  SA42F-11 witness: f11 [61 spouse 68.00; 62 spouse 69.00]
+  SA42F-11 control, swapped: none
+  ruling witness, no salary: ruling [self dies 56.5 before 65, spouse 64.50 not working]
+  ruling control, salary: none
+  SA42F-29 witness: f29 [61 death 60.25 before 60.5]
+  SA42F-29 control, retire 60: none

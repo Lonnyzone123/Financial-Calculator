@@ -155,8 +155,8 @@ function heapUsed() {
 
 /*
  * One sample at one path count. Mirrors runPlan()'s own per-path generator
- * derivation exactly -- rng(baseSeed + i*2) for market returns and
- * rng(baseSeed + i*2 + 1) for the LTC draw. Since S5 block 2n each direct
+ * derivation exactly -- rng(monteCarloPathSeed(baseSeed, i, 0)) for market returns and
+ * rng(monteCarloPathSeed(baseSeed, i, 1)) for the LTC draw (S5AA R43, SA42F-31; it was seed + 2i and + 2i + 1). Since S5 block 2n each direct
  * simulatePlan() call here also runs the input gates, which runPlan() runs once
  * per plan and skips for its own per-path calls. So a sample's simulation time
  * is an upper bound on runPlan()'s per-path work, not that work exactly: at most
@@ -176,7 +176,7 @@ function sample(pathCount) {
   const runs = new Array(pathCount);
   const t0 = performance.now();
   for (let i = 0; i < pathCount; i++) {
-    runs[i] = engine.simulatePlan(plan, engine.rng(baseSeed + i * 2), 0, engine.rng(baseSeed + i * 2 + 1), null);
+    runs[i] = engine.simulatePlan(plan, engine.rng(engine.monteCarloPathSeed(baseSeed, i, 0)), 0, engine.rng(engine.monteCarloPathSeed(baseSeed, i, 1)), null);
     if (i % probeEvery === 0) {
       const h = heapUsed();
       if (h > peak) peak = h;

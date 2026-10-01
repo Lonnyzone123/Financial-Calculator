@@ -140,14 +140,15 @@
     });
   }
 
-  /* runPlan()'s per-path derivation: rng(seed + 2i) for returns, rng(seed + 2i + 1) for the LTC draw. */
+  /* runPlan()'s per-path derivation: rng(monteCarloPathSeed(seed, i, 0)) for returns, rng(monteCarloPathSeed(seed, i, 1)) for the LTC draw
+     (S5AA R43, SA42F-31; it was seed + 2i and seed + 2i + 1). */
   function simulatePaths(engine, plan, pathCount, seed, now) {
     let base = Number(seed);
     if (!isFinite(base)) base = 0;
     const runs = new Array(pathCount);
     const t0 = now();
     for (let i = 0; i < pathCount; i++) {
-      runs[i] = engine.simulatePlan(plan, engine.rng(base + i * 2), 0, engine.rng(base + i * 2 + 1), null);
+      runs[i] = engine.simulatePlan(plan, engine.rng(engine.monteCarloPathSeed(base, i, 0)), 0, engine.rng(engine.monteCarloPathSeed(base, i, 1)), null);
     }
     return { runs: runs, simMs: now() - t0, rowsPerPath: runs[0] && runs[0].rows ? runs[0].rows.length : 0 };
   }
@@ -236,7 +237,7 @@
 
   /*
    * The run. options:
-   *   engine          { simulatePlan, rng, aggregateMonteCarloRuns }
+   *   engine          { simulatePlan, rng, monteCarloPathSeed, aggregateMonteCarloRuns }
    *   planFor(n)      a fresh Monte Carlo plan with n paths
    *   protocol        overrides of DEFAULT_PROTOCOL
    *   references      { [pathCount]: the Node aggregate fingerprint }

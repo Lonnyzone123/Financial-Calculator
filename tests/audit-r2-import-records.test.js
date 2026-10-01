@@ -226,10 +226,12 @@ test('SA-01 (end-to-end): the bare-stage payload really would have zeroed all sp
   p.retirement.strategy = 'fixedNominal'; p.retirement.spending = 20000;
   p.retirement.ssBenefit = 0; p.retirement.dividendOn = false;
   p.advanced.rmdOn = false; p.advanced.healthOn = false; p.advanced.ltcOn = false;
-  const row = engine.simulatePlan(p, null, 0, null, null).rows[1];
-  assert.equal(row.spending, 0, 'the incomplete stage must still zero spending at the engine level -- if this changed, the rejection rule needs rechecking');
-  assert.equal(row.calculationError, false, 'and it does so with NO calculation error, which is exactly why validation has to catch it');
-  assert.equal(errorPaths(p).rawValid, false, 'so the validator must refuse it before it can reach a projection');
+  /* S5AA R43 (SA42F-06): the engine's input gate now refuses the incomplete stage itself (src/plan-value-contract.json), so the
+     stake this test asserted -- spending silently zeroed with no calculation error -- can no longer be reached; both layers refuse. */
+  const refused = engine.simulatePlan(p, null, 0, null, null);
+  assert.equal(refused.calculationErrorCode, 'SCENARIO_NONNUMBER_PLAN_VALUE', 'the engine refuses the stage with no boundaries');
+  assert.ok(!refused.rows || refused.rows.length === 0, 'and projects nothing');
+  assert.equal(errorPaths(p).rawValid, false, 'and the validator refuses it before it can reach a projection');
 });
 
 test('SA-01 (end-to-end): a COMPLETE stage is accepted AND produces its intended spending, not merely valid === true', () => {

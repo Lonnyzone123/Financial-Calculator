@@ -848,7 +848,47 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R42 (R41F-01, R41F-02): a worker's excess reaches the family, and a survivor's limit
 // reads the credited months), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
 // before it, b5159a73f9a2507326493833fac9d32706de53d33b7491dcdb2c1577b3bd5031, described the previous rebuild.
-const EXPECTED_SHA256 = '1e44b9ae91b11ab0b4ee6ca6f90349ed0b525c3370c50c9a43ed25abf5bf16cd';
+//
+// Changed again 2026-09-30 (S5AA R42: the one-time Roth path reads the worked-share proxy too), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 1e44b9ae91b11ab0b4ee6ca6f90349ed0b525c3370c50c9a43ed25abf5bf16cd, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (R42-01, SA42F-02, -17, -18, -27): Social Security), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 369ad66696e4250e0eecc121ee25cb410724ff099ea8dc16299534da4fcb57c8, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (SA42F-01, -08, -09, -10, -22, -23): federal tax and Medicare), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 57d1fca95b0ea9135b5d5f63cbe3e5bf67e3fb5d9cd1fcdcc97b857dec4f4166, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (owner rulings; SA42F-12 to -15, -24, -25): contributions), so the tracked file
+// was rebuilt, again installed only after two builds agreed. The pin before it,
+// 255678de539bdc72c48f327c0799c615f9c11502b20e220af3feda7da8df92ac, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (SA42F-03, -04, -11, -29; survivor-costs ruling): life events, RMDs and Medicare),
+// so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 0f4e6c024a8bff3a6f5667526b18a535350055d1db9e65a7c1ae32c2c9baf338, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (SA42F-19, -20, -21, -26, -28): cash flows), so the tracked file was rebuilt,
+// again installed only after two builds agreed. The pin before it,
+// 2b1be29055d0f00940ad7211125ef1778d2aa042b915a758a89f6f14d990ea2e, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (SA42F-05, -06, -07, -30, -32): the plan-value contract), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 5ed1976b4048c88a396c1ac015a4f86f3cf87b3747821dc3ad16c0bb0fbbc399, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (SA42F-05, -06, -07, -30, -32): the plan-value contract), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 22cd2864d349ace063daabac2f725321d955b4a8f00e19afad63b0e7866f47e5, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (SA42F-31, -33, -34): Monte Carlo seeds, the result contract, historical starts),
+// so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// ce05add0efef06143d4b24ed5857f0a7651c3e6c71f4c900ef031a96e913902a, described the previous rebuild.
+//
+// Changed again 2026-09-29 (S5AA R43 (SA42F-31, -33, -34): Monte Carlo seeds, the result contract, historical starts),
+// so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// db10df662277285618d7209780c979afadbd13cd94e98128668d4884443b9bad, described the previous rebuild.
+const EXPECTED_SHA256 = 'eea770ab2b5c45bde41513c065fd5c457ed61acbd0e862ab122b7029df5ae94f';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

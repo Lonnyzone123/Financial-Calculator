@@ -9,6 +9,11 @@
 // derived from the scenario seed, `rng(baseSeed + i*2)` for market returns
 // and `rng(baseSeed + i*2 + 1)` for the LTC draw) so a future refactor can't
 // silently drift back to a shared-stream design without a test noticing.
+//
+// S5AA R43 (Claude's R42F audit, SA42F-31; the owner 2026-09-30): the derivation is now
+// rng(monteCarloPathSeed(seed, i, 0)) and rng(monteCarloPathSeed(seed, i, 1)) -- murmur3's 32-bit finalizer around a
+// golden-ratio step -- because seed + 2i let seed s + 2 replay seed s's paths. Each path still has its own generators.
+// The scheme is written out below, independently, and pinned.
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -20,6 +25,8 @@ const rulesMatch = shell.match(/<script type="application\/json" id="v2b-rules-2
 global.RULES = JSON.parse(rulesMatch[1]);
 
 const engine = require('../src/engine.js');
+const fmix32 = (h) => { h ^= h >>> 16; h = Math.imul(h, 0x85ebca6b); h ^= h >>> 13; h = Math.imul(h, 0xc2b2ae35); h ^= h >>> 16; return h >>> 0; };
+const pathSeed = (seed, i, stream) => fmix32((fmix32(seed >>> 0) + Math.imul(2 * i + stream + 1, 0x9e3779b9)) >>> 0);
 
 function braceExtract(src, marker) {
   const i = src.indexOf(marker);
@@ -55,7 +62,9 @@ test('runPlan(monteCarlo, runs:1) matches a direct simulatePlan() call seeded th
   const p = samplePlan({ assumptions: { method: 'monteCarlo', runs: 1, seed } });
 
   const viaRunPlan = engine.runPlan(p);
-  const direct = engine.simulatePlan(p, engine.rng(seed), 0, engine.rng(seed + 1), null);
+  const direct = engine.simulatePlan(p, engine.rng(pathSeed(seed, 0, 0)), 0, engine.rng(pathSeed(seed, 0, 1)), null);
+  assert.equal(engine.monteCarloPathSeed(seed, 0, 0), pathSeed(seed, 0, 0), 'the engine scheme is the one written out here');
+  assert.equal(engine.monteCarloPathSeed(seed, 7, 1), pathSeed(seed, 7, 1));
 
   // A single-path Monte Carlo run's "median" (and q10/q90) is just that one
   // path's own values, so runPlan's aggregated rows must equal simulatePlan's
@@ -98,7 +107,18 @@ test('adjacent paths draw from independent streams, not a shared sequential one'
   // guards against: e.g. accidentally reusing `i*0` instead of `i*2`).
   const seed = 555;
   const p = samplePlan({ assumptions: { method: 'monteCarlo', volatility: 25 } });
-  const path0 = engine.simulatePlan(p, engine.rng(seed + 0 * 2), 0, engine.rng(seed + 0 * 2 + 1), null);
-  const path1 = engine.simulatePlan(p, engine.rng(seed + 1 * 2), 0, engine.rng(seed + 1 * 2 + 1), null);
+  const path0 = engine.simulatePlan(p, engine.rng(pathSeed(seed, 0, 0)), 0, engine.rng(pathSeed(seed, 0, 1)), null);
+  const path1 = engine.simulatePlan(p, engine.rng(pathSeed(seed, 1, 0)), 0, engine.rng(pathSeed(seed, 1, 1)), null);
   assert.notDeepEqual(path0.rows, path1.rows, 'two different paths produced identical rows -- streams are not actually independent');
+});
+
+/* S5AA R43 (Claude's R42F audit, SA42F-31): the defect, held path by path. Under seed + 2i, seed 44's path j was seed 42's path j + 1
+   (both seeded rng(44 + 2j) and rng(45 + 2j)). No longer: the first twelve paths differ, and a one-path seed-44 run is not the old
+   rng(44)/rng(45) path. The public-route witness is in tests/audit-s5aa-r43-seeds-contract-history.test.js. */
+test('neighbouring seeds no longer share shifted paths (S5AA R43, SA42F-31)', () => {
+  const p = samplePlan({ assumptions: { method: 'monteCarlo', volatility: 25, runs: 1, seed: 44 } });
+  const onePath = (seed, i) => JSON.stringify(engine.simulatePlan(p, engine.rng(pathSeed(seed, i, 0)), 0, engine.rng(pathSeed(seed, i, 1)), null).rows);
+  for (let j = 0; j < 12; j++) assert.notEqual(onePath(44, j), onePath(42, j + 1), 'path ' + j);
+  const oldPath = engine.simulatePlan(p, engine.rng(44), 0, engine.rng(45), null);
+  assert.notDeepEqual(engine.runPlan(p).rows.map((x) => x.total), oldPath.rows.map((x) => x.total));
 });

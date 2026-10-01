@@ -90,7 +90,7 @@ function rmdOnlyPlan(overrides) {
   p.retirement.stages = []; p.retirement.expenses = []; p.retirement.otherIncomes = [];
   p.advanced.rmdOn = true; p.advanced.debts = []; p.advanced.otherAssets = [];
   p.advanced.healthOn = false; p.advanced.ltcOn = false;
-  p.accounts = [account({ id: 'ira', type: 'traditionalIra', taxClass: 'preTax', balance: 1000000 })];
+  p.accounts = [account({ id: 'ira', type: 'customTraditional', taxClass: 'preTax', balance: 1000000 })];
   Object.assign(p.advanced, overrides || {});
   return p;
 }
@@ -108,7 +108,7 @@ function outsideOnlyPlan(overrides) {
   p.retirement.pension = 60000;
   p.retirement.spending = 20000;
   p.advanced.rmdOn = false;
-  p.accounts = [account({ id: 'roth', type: 'rothIra', taxClass: 'roth', balance: 1000000 })];
+  p.accounts = [account({ id: 'roth', type: 'customRoth', taxClass: 'roth', balance: 1000000 })];
   return p;
 }
 

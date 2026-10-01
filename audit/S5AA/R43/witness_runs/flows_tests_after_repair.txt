@@ -1,0 +1,14 @@
+# tests/audit-s5aa-r43-flows.test.js run on 5b8f0d5
+ℹ fail 0
+ℹ pass 10
+ℹ tests 10
+✔ R43 (SA42F-19): a roof dated 65.75, after the home becomes available at 65.5, is paid from it (10.3185ms)
+✔ R43 (SA42F-19): recurring spending in that row is met from the home for the half after 65.5 (1.7141ms)
+✔ R43 (SA42F-20) control: "Match inflation" and a stream running from the plan's start are unchanged (3.0465ms)
+✔ R43 (SA42F-20): a rental stream from 65 under "Fixed 3%" is today's dollars too -- $30,000 x 1.03^10 at its start (3.2307ms)
+✔ R43 (SA42F-20): a stage amount is in today's dollars under "No annual change" -- grown to its start, then held (5.2019ms)
+✔ R43 (SA42F-20): at 3% inflation, "Fixed 3%" and "Match inflation" agree in every row (3.164ms)
+✔ R43 (SA42F-20): under "Fixed 2%" it grows 2% a year from the today's-dollar figure at its start (2.3803ms)
+✔ R43 (SA42F-21): the reserve is two years of the spending the plan projects, not of the hidden field (0.6456ms)
+✔ R43 (SA42F-26): the form says the annual conversion runs from the retirement age (1.7724ms)
+✔ R43 (SA42F-28): a one-time income at or after the end age is warned, as the expense is (2.4985ms)

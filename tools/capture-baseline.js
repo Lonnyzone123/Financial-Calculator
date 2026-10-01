@@ -608,7 +608,8 @@ const INSTRUMENT_FILE = 'tools/capture-baseline.js';
    contract as data (fs, not require), so the flag list stays one definition
    without becoming a module input. Declared in its own instrument commit, ahead
    of that first reader; until then the capture hashes a file it does not read. */
-const DATA_INPUTS = ['package-lock.json', 'src/app-shell.html', 'src/boolean-flag-contract.json'];
+/* S5AA R43 (SA42F-05, -06): src/plan-value-contract.json is read the same way, by the engine's input gate. */
+const DATA_INPUTS = ['package-lock.json', 'src/app-shell.html', 'src/boolean-flag-contract.json', 'src/plan-value-contract.json'];
 const CORPUS_INPUTS = {
   control: ['tests/lib/golden-scenario-defs.js', 'tests/lib/scenario-generator.js'],
   expanded: ['tests/lib/golden-scenario-defs.js', 'tests/lib/scenario-generator.js', 'tests/lib/corpus-expansion.js', 'tests/lib/debt-classes.js'],

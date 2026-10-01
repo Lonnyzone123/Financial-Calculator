@@ -75,7 +75,7 @@ function plan(o) {
   p.advanced.rmdOn = false; p.advanced.debts = []; p.advanced.otherAssets = [];
   p.advanced.healthOn = false; p.advanced.ltcOn = false;
   p.advanced.surplusPolicy = 'retain';
-  p.accounts = [account({ id: 'roth', type: 'rothIra', taxClass: 'roth', balance: 1000000 })];
+  p.accounts = [account({ id: 'roth', type: 'customRoth', taxClass: 'roth', balance: 1000000 })];
   const ov = o || {};
   ['profile', 'assumptions', 'retirement', 'advanced'].forEach((k) => { if (ov[k]) Object.assign(p[k], ov[k]); });
   if (ov.accounts) p.accounts = ov.accounts;
@@ -121,7 +121,7 @@ function staticCashPlan(o) {
   const p = plan(o);
   p.retirement.pension = 20000;   // exactly covers spending: no surplus
   p.accounts = [
-    account({ id: 'roth', type: 'rothIra', taxClass: 'roth', balance: 1000000 }),
+    account({ id: 'roth', type: 'customRoth', taxClass: 'roth', balance: 1000000 }),
     account({ id: 'household-cash', name: 'Retained household cash', type: 'customTaxable',
       taxClass: 'taxable', balance: 100000, priority: 2, cashHolding: true }),
   ];
@@ -158,7 +158,7 @@ test('RA-03: with a real taxable investment present, the dividend uses only that
   // pass against the defect.
   const rows = run(staticCashPlan({
     accounts: [
-      account({ id: 'roth', type: 'rothIra', taxClass: 'roth', balance: 1000000 }),
+      account({ id: 'roth', type: 'customRoth', taxClass: 'roth', balance: 1000000 }),
       account({ id: 'tax', type: 'taxable', taxClass: 'taxable', balance: INVESTED, priority: 2 }),
       account({ id: 'household-cash', name: 'Retained household cash', type: 'customTaxable',
         taxClass: 'taxable', balance: CASH, priority: 3, cashHolding: true }),

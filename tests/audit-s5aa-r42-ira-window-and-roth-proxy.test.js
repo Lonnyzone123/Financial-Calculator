@@ -72,3 +72,13 @@ test('R42 (R41F-04) control: $260,000 earned for the whole row is above the $252
   assert.equal(row.federalAgi, 260000);
   assert.equal(row.roth, 0);
 });
+
+test('R42 (R41F-04, the one-time path, found by the R42F audit): a one-time $7,500 transfer into the Roth reads the same worked-share proxy', () => {
+  // the same household as R41F-04: a one-time transfer from taxable into the self's Roth IRA at 44.5, counted as a contribution
+  const p = L.basePlan({ couple: true, age: 44, spouseAge: 45, retireAge: 45.5, endAge: 45, salary: 0, spouseSalary: 260000, spending: 0, returnRate: 0, inflation: 0,
+    accounts: [L.account('brok', 'taxable', 50000, { basisPct: 100 }), L.account('self-roth', 'rothIRA', 0)] });
+  p.employment.contributionStop = 55;
+  Object.assign(p.advanced, { transferOn: true, transferFrom: 'brok', transferTo: 'self-roth', transferAmount: 7500, transferAge: 44.5 });
+  // proxy 260,000 x 0.5 = 130,000, below the 242,000 start of the joint phase-out; joint compensation 130,000; nothing else contributed
+  assert.equal(rowOf(p, 45).roth, 7500);
+});

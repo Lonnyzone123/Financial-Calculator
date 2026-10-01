@@ -944,6 +944,15 @@ function readSource(p) {
    "<" is escaped so the JSON cannot end the page's script element. */
 const BOOLEAN_FLAG_CONTRACT_READ = 'JSON.parse(require("fs").readFileSync(require("path").join(__dirname,"boolean-flag-contract.json"),"utf8"))';
 
+/* S5AA R43 (SA42F-05, -06): the plan-value contract is read the same way by both files, and inlined the same way. */
+const PLAN_VALUE_CONTRACT_READ = 'JSON.parse(require("fs").readFileSync(require("path").join(__dirname,"plan-value-contract.json"),"utf8"))';
+function substitutePlanValueContract(body, dir) {
+  const found = body.split(PLAN_VALUE_CONTRACT_READ).length - 1;
+  if (found !== 1) throw new Error('build: expected exactly one plan-value contract read in each of engine.js and scenario-validator.js, found ' + found);
+  const json = JSON.stringify(JSON.parse(readSource(path.join(dir, 'plan-value-contract.json')))).replace(/</g, '\\u003c');
+  return body.split(PLAN_VALUE_CONTRACT_READ).join(json);
+}
+
 function substituteBooleanFlagContract(engineBody, dir) {
   const found = engineBody.split(BOOLEAN_FLAG_CONTRACT_READ).length - 1;
   if (found !== 1) throw new Error('build: expected exactly one boolean-flag contract read in each of engine.js and scenario-validator.js, found ' + found);
@@ -963,8 +972,8 @@ function build(outputPath, srcDir) {
   if (!shell.includes(VALIDATOR_MARKER)) throw new Error('build: ' + VALIDATOR_MARKER + ' not found in ' + shellPath);
 
   const debtModulesBlock = buildDebtModulesBlock(dir);
-  const engineBody = substituteBooleanFlagContract(stripHeaderComment(stripNodeExportFooter(engineRaw)), dir);
-  const validatorBody = substituteBooleanFlagContract(stripHeaderComment(stripNodeExportFooter(validatorRaw)), dir);
+  const engineBody = substitutePlanValueContract(substituteBooleanFlagContract(stripHeaderComment(stripNodeExportFooter(engineRaw)), dir), dir);
+  const validatorBody = substitutePlanValueContract(substituteBooleanFlagContract(stripHeaderComment(stripNodeExportFooter(validatorRaw)), dir), dir);
 
   const output = shell
     .replace(DEBT_MARKER, debtModulesBlock)

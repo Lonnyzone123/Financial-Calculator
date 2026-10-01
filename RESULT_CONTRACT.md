@@ -58,7 +58,7 @@ A result is exactly one of three shapes, selected by `status` and `mode`.
 |---|---|---|---|
 | **ok, per path** | `"ok"` | `simple` or `historical` | 16 |
 | **ok, Monte Carlo** | `"ok"` | `monteCarlo` | 18 |
-| **invalid** | `"calculation_error"` | any | 16 required, plus optional keys by cause |
+| **invalid** | `"calculation_error"` | any of the three, or `null` when the method itself is the refused input (`SCENARIO_UNKNOWN_METHOD`; S5AA R43, SA42F-33) | 16 required, plus optional keys by cause |
 
 `runScenario()` adds an optional `identity` object — `null` for `SCENARIO_NONSERIALIZABLE_INPUT` (Q48).
 
@@ -219,9 +219,25 @@ Measured at `3eefd75` (engine `494de216…ad51`), bounded per CQ-8b:
 
 ## 7b. What S5AA added, and why `contractVersion` does NOT move (task 8.2)
 
-**No row field was added, removed or redefined, and no calculation error code was added.** Every S5AA
-change that a consumer can see arrives as an **issue** on the existing `issues` array, whose shape
-(`code`, `severity`, `message`, `state`) is unchanged.
+**No row field was added, removed or redefined.** Every other S5AA change a consumer can see arrives as an **issue** on the
+existing `issues` array, whose shape (`code`, `severity`, `message`, `state`) is unchanged, or as a `calculationErrorCode`
+from the list below.
+
+*Corrected at S5AA R43 (Claude's R42F audit, SA42F-33):* this section said S5AA had added no calculation error code. It added
+these, and each is a refusal or a calculation error of the existing kinds, so `contractVersion` still does not move:
+
+| code | when | added |
+|---|---|---|
+| `SCENARIO_UNKNOWN_METHOD` | `assumptions.method` is present and not simple, historical or monteCarlo; the result's `mode` is null (R43) | S5AA task 1.1 |
+| `SCENARIO_INVALID_RUN_COUNT` | a Monte Carlo run count that is not a whole number of 1 or more | S5AA task 1.1 |
+| `SCENARIO_MISSING_SCENARIO_SECTION` | a required section (profile, employment, assumptions, retirement, advanced) is missing | S5AA task 1.1 |
+| `SCENARIO_NOBODY_ALIVE_AT_START` | nobody the plan models has a lifespan above their starting age (equal counts as not alive since R43) | after S5AA R9 |
+| `SCENARIO_UNRECOGNIZED_INCOME_OWNER`, `SCENARIO_MISSING_INCOME_OWNER` | an income's owner is not self, spouse or household, or is absent | S5AA task 1.1 |
+| `SCENARIO_END_AGE_BEFORE_START` | the end age is below the starting age (below) | S5AA R41 |
+| `SCENARIO_NONNUMBER_PLAN_VALUE` | a plan value the engine reads as a number is not one, or a required one is absent (`state.path`) | S5AA R25; R42; R43 |
+| `SCENARIO_PLAN_VALUE_OUT_OF_RANGE`, `SCENARIO_UNKNOWN_PLAN_VALUE` | src/plan-value-contract.json: a value outside its range, or text not in its list (`state.path`) | S5AA R43 |
+| `SCENARIO_HISTORY_START_AFTER_DATA`, `SCENARIO_HISTORY_START_NOT_A_DATA_YEAR` | a historical start after the last data year, or before the first or between years | S5AA R37; R43 |
+| `MONTE_CARLO_INVARIANT_FAILURE` | a Monte Carlo path breaks a run invariant; the batch summary keeps the path count | S5AA task 1.2 (Q101) |
 
 ### Six new advisory issue codes, all `WARNING`
 
@@ -278,6 +294,7 @@ consumer relied on. A refusal is an existing outcome, `calculation_error` with n
 | `IRMAA_PARTIAL_FIRST_YEAR_COMPLETED` | health costs are on, the plan opens part-way through a year, and someone is 65 or over by plan year 2, so the first year's MAGI for the IRMAA lookback is completed by estimate | `path`, `approximation: true`, `rowDuration`, `completedWith` | R35 `ddf658a` (SA32F-24) |
 | `FILING_HOUSEHOLD_MISMATCH` | married filing jointly with no spouse included, or single or head of household with a spouse included | `path`, `filing`, `spouseOn` | R37 `503db3c` (SA32F-35) |
 | `EXPENSE_AFTER_PLAN_END` | a one-time expense with an amount is at or after the plan's end age, so no year charges it | `path`, `age`, `endAge`, `amount` | R37 `503db3c` (SA32F-38) |
+| `INCOME_AFTER_PLAN_END` | a one-time income with an amount is at or after the plan's end age (on the self's clock), so no year pays it | `path`, `age`, `endAge`, `amount` | R43 (SA42F-28) |
 
 **Four refusals,** each an `ERROR` issue `SCENARIO_<cause>` and the same `calculationErrorCode`, with `status`
 `"calculation_error"` and no rows (the "invalid" shape in §3). `validateScenario()` refuses each of the same plans: a

@@ -33,6 +33,7 @@ const SHAPE = {
     'federal.additionalStandardDeduction': 'S5AA task 3.1 (Q88): the IRC 63(f) additional amount for the aged',
     'federal.salt': 'task 13',
     'federal.selfEmployment': 'task 7',
+    'federal.qualifiedBusinessIncome': 'S5AA R43 (SA42F-01): the IRC 199A deduction on self-employment profit',
     'retirement.ira.deductionPhaseout': 'S5AA task 3.6 step 1 (Q87): the IRC 219(g) phase-out of the traditional IRA deduction',
     'retirement.hsa.nonQualified': 'S5AA task 4.4 (Q99): IRC 223(f)(4)\'s 20% additional tax and its section 1811 age',
     'retirement.qcd': 'task 10',

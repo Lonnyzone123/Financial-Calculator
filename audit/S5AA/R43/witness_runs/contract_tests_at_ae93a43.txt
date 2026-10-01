@@ -1,0 +1,12 @@
+# tests/audit-s5aa-r43-plan-value-contract.test.js (as at 5b8f0d5) run on ae93a43
+ℹ fail 5
+ℹ pass 2
+ℹ tests 7
+✔ R43 (SA42F-06): the contract's record rules mirror the validator's NESTED_RECORD_SPECS (0.953ms)
+✔ R43 contract control: the rich plan is valid and runs (14.819ms)
+✖ R43 (SA42F-05): the R42F witnesses -- each was valid and ran, each is now refused by both layers (0.4408ms)
+✖ R43 (SA42F-05, SA42F-06): every contract field refuses a bad value in BOTH layers, at its path (276.7728ms)
+✖ R43 (SA42F-06): a required list field that is absent is refused by both layers (1.9705ms)
+✖ R43 (SA42F-07): fivePercentOwner, spouseSoleBeneficiary and currentEmployerPlan are boolean flags in both layers (1.5394ms)
+✖ R43 (SA42F-30, SA42F-32): a lifespan equal to the start age leaves nobody alive -- refused by both layers (0.4147ms)
+✖ failing tests:

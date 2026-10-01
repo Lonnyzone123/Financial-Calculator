@@ -110,7 +110,7 @@ test('S5AA 2.1: spending returns to the unreduced level after the window ends', 
 
 test('S5AA 2.1: a "set" stage is also a window -- it does not become the permanent level', () => {
   const SET = 50000;
-  const staged = byAge(run(fixture((p) => { p.retirement.stages = stage({ mode: 'set', value: SET, growthMode: 'none' }); })), 'spending');
+  const staged = byAge(run(fixture((p) => { p.retirement.stages = stage({ mode: 'amount', value: SET, growthMode: 'none' }); })), 'spending');   // S5AA R43: 'set' is not a stage mode; the engine read it as 'amount'
   const wrong = [];
   for (const age of Object.keys(controlSpend).map(Number)) {
     if (inWindow(age)) {

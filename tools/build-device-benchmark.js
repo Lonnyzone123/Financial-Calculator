@@ -66,7 +66,7 @@ function inputFiles(root) {
   /* src/boolean-flag-contract.json: S5 2l's build() substitutes the Q53
      contract into the engine body this page embeds. Declared in its own
      instrument commit, ahead of that change. */
-  return ['build.js', 'src/app-shell.html', 'src/boolean-flag-contract.json', 'src/engine.js']
+  return ['build.js', 'src/app-shell.html', 'src/boolean-flag-contract.json', 'src/engine.js', 'src/plan-value-contract.json']
     .concat(BUNDLED_MODULES.map((m) => 'src/' + m.file))
     .concat(['tests/lib/golden-scenario-defs.js', 'tools/device-benchmark-core.js', 'tools/build-device-benchmark.js'])
     .sort();
@@ -94,7 +94,7 @@ function engineFactorySource(shell, parts) {
     'var RULES = deepFreeze(JSON.parse(rulesText));\n' +
     assertInlineSafe('the debt-module block', parts.debtModulesBlock) + '\n' +
     assertInlineSafe('the engine body', parts.engineBody) + '\n' +
-    'return { simulatePlan: simulatePlan, rng: rng, aggregateMonteCarloRuns: aggregateMonteCarloRuns };\n})';
+    'return { simulatePlan: simulatePlan, rng: rng, monteCarloPathSeed: monteCarloPathSeed, aggregateMonteCarloRuns: aggregateMonteCarloRuns };\n})';
 }
 
 function planTemplate(root, shell, seed) {

@@ -127,7 +127,9 @@ const SELF_ONLY = { self: true, spouse: false };
 // =====================================================================
 
 test('R2-005 (control): the defect reproduces exactly as the audit traced it -- the retired spouse consumes the whole $8,750 family base and the working self is left $1,000', () => {
-  const p = household([hsaAccount('spouseHSA', 'spouse', 1), hsaAccount('selfHSA', 'self', 2)]);
+  // S5AA R43 (the owner's ruling of 2026-09-30): HSA contributions stop at 65, so an owner of 70 can no longer take the base. The
+  // spouse here is 64, which keeps this test about the shared base and nothing else.
+  const p = household([hsaAccount('spouseHSA', 'spouse', 1), hsaAccount('selfHSA', 'self', 2)], { profile: { spouseAge: 64 } });
   const audit = engine.auditContributions(p, 60, 100000, 0);
   assert.equal(byId(audit.items, 'spouseHSA').allowed, HSA_FAMILY_BASE);
   assert.equal(byId(audit.items, 'selfHSA').allowed, HSA_CATCHUP);
@@ -170,14 +172,18 @@ test('R2-005: the result does not depend on PRIORITY ORDER -- the active owner g
 });
 
 test('R2-005 (reversed owners): when it is the SELF who is inactive, the working spouse gets the full amount', () => {
-  const p = household([hsaAccount('selfHSA', 'self', 1), hsaAccount('spouseHSA', 'spouse', 2)]);
+  // S5AA R43 (the owner's ruling of 2026-09-30): HSA contributions stop at 65, so an owner of 70 can no longer take the base. The
+  // spouse here is 64, which keeps this test about the shared base and nothing else.
+  const p = household([hsaAccount('selfHSA', 'self', 1), hsaAccount('spouseHSA', 'spouse', 2)], { profile: { spouseAge: 64 } });
   const audit = engine.auditContributions(p, 60, 0, 100000, { self: false, spouse: true });
   assert.equal(byId(audit.items, 'selfHSA').allowed, 0);
   assert.equal(byId(audit.items, 'spouseHSA').allowed, REQUEST);
 });
 
 test('R2-005 (both active): two eligible owners still share ONE family base -- the accepted pooled-limit behavior is unchanged', () => {
-  const p = household([hsaAccount('spouseHSA', 'spouse', 1), hsaAccount('selfHSA', 'self', 2)]);
+  // S5AA R43 (the owner's ruling of 2026-09-30): HSA contributions stop at 65, so an owner of 70 can no longer take the base. The
+  // spouse here is 64, which keeps this test about the shared base and nothing else.
+  const p = household([hsaAccount('spouseHSA', 'spouse', 1), hsaAccount('selfHSA', 'self', 2)], { profile: { spouseAge: 64 } });
   const audit = engine.auditContributions(p, 60, 100000, 100000, { self: true, spouse: true });
   assert.equal(byId(audit.items, 'spouseHSA').allowed, HSA_FAMILY_BASE,
     'the first eligible owner still takes the shared base');
@@ -249,12 +255,13 @@ test('R2-005 (integration, both active): a household where both owners are worki
 });
 
 test('R2-005 (partial duration): an owner who stops contributing PART-way through the period keeps the accepted proration -- eligibility is not an all-or-nothing round-down', () => {
-  // Shared contribution-stop age 65.5 with the self at 65.0 gives the self
+  // Shared contribution-stop age 64.5 with the self at 64.0 gives the self
   // exactly half a period of eligibility. Retirement age is pushed out so
-  // the work window itself is not what truncates them.
+  // the work window itself is not what truncates them. (S5AA R43: this read 65.0 and 65.5 until the owner's ruling
+  // of 2026-09-30 stopped HSA contributions at 65; a year earlier keeps the test about the stop age.)
   const p = household(
     [hsaAccount('spouseHSA', 'spouse', 1), hsaAccount('selfHSA', 'self', 2)],
-    { profile: { age: 65, endAge: 66, retireAge: 70 }, employment: { contributionStop: 65.5 } });
+    { profile: { age: 64, endAge: 65, retireAge: 70 }, employment: { contributionStop: 64.5 } });
   const result = engine.simulatePlan(p, null, 0, null, null);
   assert.equal(result.rows[1].hsa, REQUEST * 0.5,
     'expected half a period of the full $8,750; got ' + result.rows[1].hsa);

@@ -45,7 +45,7 @@ function plan(type) {
   if (type) {
     p.retirement.otherIncomes = [{
       name: type, type, owner: 'self', amount: STREAM, start: 66, end: 70,
-      growthMode: 'none', growth: 0,
+      growthMode: 'fixed', growth: 0,   // S5AA R43: 'none' is not an income growth mode (the validator's list); fixed at 0% is the same
     }];
   }
   p.accounts = [{

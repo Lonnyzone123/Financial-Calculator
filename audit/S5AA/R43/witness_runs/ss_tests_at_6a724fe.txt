@@ -1,0 +1,16 @@
+# tests/audit-s5aa-r43-social-security.test.js (as at 5b8f0d5) run on 6a724fe
+ℹ fail 7
+ℹ pass 4
+ℹ tests 11
+✔ R43 (R42-01) control: the spousal claim after the withholding year gives the same 43,944 (0.9216ms)
+✔ R43 (SA42F-02) control: a claim at 68, on a row boundary, is unchanged (2.052ms)
+✔ R43 (SA42F-17) controls: 60 and 62 at the start are unchanged (2.7418ms)
+✔ R43 (SA42F-18) control: with no wages nothing is withheld, and the survivor benefit is 2,206 a month (1.7777ms)
+✖ R43 (R42-01): the spousal benefit starts mid-year -- the worker is credited five months, not four (1.5063ms)
+✖ R43 (R42-01): the spousal benefit starts while the excess is still being charged (1.0102ms)
+✖ R43 (SA42F-02): a claim at 67.5 keeps every COLA -- the row closing at 69 has six, not five (11.0773ms)
+✖ R43 (SA42F-02): the spousal and survivor benefits on that record keep the COLA too (2.5155ms)
+✖ R43 (SA42F-17): someone 65 at the start gets the bend points of the year they turned 62, three years back (1.4646ms)
+✖ R43 (SA42F-18): each benefit is adjusted for its own withheld months (1.8766ms)
+✖ R43 (SA42F-27): the AIME switch no longer says the 2026 bend points are used (1.9124ms)
+✖ failing tests:
