@@ -4312,7 +4312,8 @@
      "tests/audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js :: R42 (R41F-01) control: an excess below the worker\\'s own benefit withholds the same total as before"
     ],
     "files": [
-     "tests/audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js"
+     "tests/audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js",
+     "tests/baseline-provenance.test.js"
     ],
     "onlyTodo": false
    },
@@ -4402,7 +4403,8 @@
      "tests/audit-s5aa-r42-ss-benefit-typed.test.js :: R42 (R41F-05): Restore backup refuses a backup whose ssBenefit is not a number, and leaves the saved plan alone"
     ],
     "files": [
-     "tests/audit-s5aa-r42-ss-benefit-typed.test.js"
+     "tests/audit-s5aa-r42-ss-benefit-typed.test.js",
+     "tests/baseline-provenance.test.js"
     ],
     "onlyTodo": false
    },
