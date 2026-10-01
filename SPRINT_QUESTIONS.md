@@ -5777,6 +5777,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Status: IMPLEMENTED 2026-09-26 at `5a928d5`** (S5AA R26; merged as `6d958ce` (#34); source tag `s5aa-r26-source` = `04f0426`, awaiting ChatGPT's change audit). It moves 4 of 70 corpus members (`seed:2`, `seed:10`, `seed:14`, `seed:17`; checked by comparing the r16 and r17 baseline files), each of which contributed to a Roth IRA on a $0 salary. Modelling text: `MODEL_ASSUMPTIONS.md` §20. The IRS citation is unchecked (S5AA task 8.6).
 
+**Refined 2026-09-26 (S5AA R28; placed 2026-09-30), on ChatGPT's R26-01 (priority 2; the owner: "Repair").** R26 compared the annual contribution *rate* with the salary rate plus the other income received, and then multiplied what was allowed by the contribution duration, so a wage stream ending inside the year was prorated twice: a $6,000-a-year stream running 40.5 allowed $1,500 of an IRA where its $3,000 allows $3,000. The limit now compares dollars with dollars: the IRA contributions credited in a year are at most the compensation actually earned in it (the salary over the months worked, plus the employment and self-employment income received, less the pre-tax workplace and HSA contributions credited). Implemented at `6938519`. As reported by the S5AA session; the commit and the engine's own comment (`src/engine.js`, the "S5AA R28 (R26-01" block) agree with it. Modelling text: `MODEL_ASSUMPTIONS.md` §20.
+
 ## 2026-09-26 — Q145. The tax quote and the committed tax read an IRA deduction with one rule (S5AA R26, the owner, 2026-09-26)
 
 **Registered 2026-09-26 (UTC−7) by the plan owner**, as for Q144.
@@ -5792,6 +5794,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **The decision (the owner, 2026-09-26).** "Move what's there."
 
 **Status: IMPLEMENTED 2026-09-26 at `5f48505`, with a follow-up at `73e24c7`** (found in R27's self-audit: a transfer's source drawn by the year's withdrawals now ends at zero, not below, the moved dollars' loss being borne by the destination). Merged with R27 (#35, `fd491d6`); source tag `s5aa-r27-source` = `73e24c7`, awaiting ChatGPT's change audit. No corpus figure moves; r17 stands. The remaining case is Q148. Witness `tests/audit-s5aa-r27-transfer-capped-at-date.test.js`. Modelling text: `MODEL_ASSUMPTIONS.md` §20.
+
+**Refined 2026-09-26 (S5AA R28; placed 2026-09-30), on ChatGPT's R27-01 (priority 1; the owner: "Repair").** A mid-year transfer could not move what its source had earned before its date. The transfer's transaction now runs at the source's value on its date, at `56c8847`; the destination is credited on the transfer date, at `227635e` (Q170). The "remaining case" named above, Q148, is closed by `56c8847`.
 
 ## 2026-09-26 — Q147. Mortgage PMI is charged only while the mortgage has a balance (R25-02, the owner, 2026-09-26)
 
@@ -5809,7 +5813,9 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **The decision (the owner, 2026-09-26).** "Keep R27, record the gap." Alternatives offered and not chosen: move the money physically at the engine's withdrawal point, or go back to moving it at the year's opening.
 
-**Status: DECIDED 2026-09-26 (the owner, as reported), a known limit, kept and recorded; not repaired.** Modelling text: `MODEL_ASSUMPTIONS.md` §20.
+**Status: IMPLEMENTED 2026-09-26 at `56c8847`** (S5AA R28, repairing ChatGPT's R27-01; placed 2026-09-30): the gap no longer holds, so this entry's limit is closed. Checked by the plan owner on 2026-09-30 by running the witness above at each commit of the R28 round and on current `main`: at `6938519` (R28's first commit, which does not touch transfers) the destination still ends at −$2,565.84 with `NEGATIVE_ACCOUNT_BALANCE`; at `56c8847`, `227635e`, `62e263d` and on `main` (`00dbb4b`) the same plan is valid, status ok, no error, and the household ends at 0. Modelling text: `MODEL_ASSUMPTIONS.md` §20.
+
+*Earlier status, kept as history (superseded):* ~~DECIDED 2026-09-26 (the owner, as reported), a known limit, kept and recorded; not repaired.~~
 
 ## 2026-09-28 — Q149. A transfer into a 401(k) from a different kind of account is refused (S5AA R29, the owner, 2026-09-28)
 
@@ -6011,3 +6017,39 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **Status: IMPLEMENTED 2026-09-29** (S5AA R39). (a) at `8a51aaf` (R38-01); the Rule of 55's separation-age repair (not itself a new decision — R38-02, "separation at 55 or later" rather than only the calendar-year reading) at `4995761`; (b) at `85fe621` (R38-05); Social Security's claim-inside-a-year COLA repair (R38-04, likewise not itself a new decision) at `f6dbb2a`; (c) declared at `f7ea076`. Modelling text: `MODEL_ASSUMPTIONS.md` §4/§22, §18.3, §23.
 
 **Amended 2026-09-30 (S5AA R39.1, repairing ChatGPT's R39-01):** the R38-04 COLA repair above narrows to living claimants. A claim planned for after the claimant's death no longer prices the PIA at the claim, so it cannot move the survivor's benefit. Landed at `a2ee714`.
+
+## 2026-09-26 — Q170. A transfer's destination is credited on the transfer date; dividends and the imputed yield on the moved dollars follow them; a transfer dated after the year's draw runs after it (R27F-01, R27F-02, S5AA R28.1, the owner, 2026-09-26)
+
+**Registered 2026-09-30 (UTC−7) by the plan owner**, late: from the S5AA session's R28 relay (`audit/S5AA/R28/S5AA_RELAY_TO_EB_20260926_R28.md`, in the private archive), written 2026-09-26 and not placed before the repository moved. It is numbered after Q169 for that reason and dated by the decisions it records. The owner's answers were given to the S5AA session directly; they are **as reported by that session, not confirmed in the plan owner's chat.** Related: Q146, Q148, and Q154 (R30), which covers the dividends on a transfer dated after the draw.
+
+**The findings.** ChatGPT's R27F full-model audit of R27, priority 1 each: **R27F-01**, the destination's zero floor erased an owed growth correction, so money was created and a shortfall hidden; **R27F-02**, a taxable destination was paid dividends before the money arrived. R28.1's own self-audit added a transfer dated after the year's spending draw, which ran before the draw and so spent dollars that had not yet arrived, and the imputed 1.5% yield on moved dollars, which needed the same treatment as R27F-02.
+
+**The decisions (the owner, 2026-09-26).** R27F-01: "Repair". R27F-02: "Repair". A transfer dated after the year's draw: "Repair in R28.1". Where the repairs go: "Add to R28 as R28.1", so the next audit covers the R28 change only.
+
+**Status: IMPLEMENTED 2026-09-26** (S5AA R28.1; source tag `s5aa-r28.1-source` = `62e263d`). R27F-01 at `227635e`; R27F-02 at `5a5cb39`; a transfer dated after the draw at `c480f72`; the imputed yield at `62e263d`. The relay reports that no corpus figure moves (r17 stands); the plan owner did not re-check that. The commits are in the repository's first commit (it contains `ee9757d`), not in its own history. Modelling text: `MODEL_ASSUMPTIONS.md` §20.
+
+## 2026-09-28 — Q171. A traditional IRA rolls only its taxable money into a 401(k); a Roth IRA cannot roll into a 401(k); a rollover stays with its owner; the IRA pool counts every IRA; a catch-up reads the year-end age (R30A-01, R30A-02, R30A-03, R31-01, S5AA R32, the owner, 2026-09-28)
+
+**Registered 2026-09-30 (UTC−7) by the plan owner**, late: from the S5AA session's R32 relay (`audit/S5AA/R32/S5AA_R32_RELAY_TO_EB_20260928.md`), which was not placed before now (the R32F relay of the next day was). The entry is numbered after Q170 for that reason and dated by the decisions it records. The owner's answers were given to the S5AA session directly; they are **as reported by that session, not confirmed in the plan owner's chat.** Related: Q149 to Q152 (R29), Q157 (R31).
+
+**The findings.** ChatGPT's R30A account and transfer audit (priority in brackets): **R30A-01** (1), an IRA's after-tax money rolled into a 401(k) as pre-tax; **R30A-02** (2), a Roth IRA rolled into a Roth 401(k); **R30A-03** (2), a rollover between two living owners. It also raised the catch-up age convention. ChatGPT's R31 change audit: **R31-01** (1), the HSA-funding pool dated only the sending IRA.
+
+**The decisions (the owner, 2026-09-28).** R30A-01: "Move taxable part only". R30A-02: "Refuse it". R30A-03: "Refuse it". R31-01: "Repair in R32". The catch-up age: "Use the year-end age".
+
+**Status: IMPLEMENTED 2026-09-28** (S5AA R32; source tag `s5aa-r32-source` = `3017351`). R30A-01 and R31-01 at `8ef84d3`; R30A-02 and R30A-03 at `0413792`; the catch-up age at `3017351`. Witnesses: `tests/audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js`, `tests/audit-s5aa-r32-rollovers-stay-with-the-owner.test.js`, `tests/audit-s5aa-r32-catch-up-age-at-year-end.test.js`. The relay reports that the catch-up age moves corpus members `seed:10`, `seed:11` and `seed:20`, declared; the plan owner did not re-check that. **Known limit:** a rollover into a 401(k) measures the IRA's basis as it stands on the date, without that year's nondeductible contributions. ChatGPT's R32 change audit accepted the repair with carried limits and no new findings. Modelling text: `MODEL_ASSUMPTIONS.md` §21, §23.
+
+## 2026-09-30 — Q172. Close the exit-gate gaps first; amendment A-10; four undisclosed limits repaired; the partial-row tax reverted and disclosed; the audit's other fixes (S5AA R40, the owner, 2026-09-30)
+
+**Registered 2026-09-30 (UTC−7) by the plan owner**, from the S5AA session's R40 relay (`audit/S5AA/R40/S5AA_R40_RELAY_TO_EB_20260930.md`). After the merge the S5AA session corrected three commit citations in that relay, and this entry uses the corrected ones: `9fd61c2` and `c300508`, where the relay named `2881ceb` and `434f19c`, the first forms of two commits amended before they were pushed. The owner's answers were given to the S5AA session directly; they are **as reported by that session, not confirmed in the plan owner's chat.**
+
+**The context.** The owner asked for a GO/NO-GO handover for ChatGPT. Claude's check of the exit gate found gaps that R29 to R39.1 had left open, and the owner decided to close them first. The owner then asked for an audit of the pull request before merge ("you do a audit on #35 before we merge"); three independent reviews found a priority-1 problem in two of the four repairs.
+
+**The decisions (the owner, 2026-09-30).**
+- (a) **"Close gaps first":** a round of its own, R40, before the handover. It registers a baseline (r18 and on), records the R29 to R37 codes in `RESULT_CONTRACT.md`, reads R36's card as it renders, updates the conservation grid, and writes the combined unrepaired list.
+- (b) **Amendment A-10** (in `S5AA_TASK_CHECKLIST.md`): for R29 to R39.1 the traced-and-declared control record stands in for E10's predicted-versus-actual record, disclosed as not a prediction. From R40 on, A-01 applies as written.
+- (c) **"Repair all four now":** the long-term-care cost grows at healthcare inflation and its insurance benefit stays as entered (`8f20d90`); each person on Medicare pays the Part D base premium (`d1572b1`); an RMD reads the age reached in the row by the engine's own birth year (`d51d30d`, corrected at `3fbe9dc`); and the partial-row tax (`607101a`), which (d) then reverted.
+- (d) **"Revert and disclose" the partial-row tax** (`b97fe0a`). Taxing a partial row as its share of a year annualizes one-time amounts too: a $100,000 expense in a row a tenth of a year long was taxed $56,958 against $20,221.85. The whole-year treatment stays, disclosed. A rule that tells recurring income from one-time items goes to the engine rebuild.
+- (e) **"All of them",** for the audit's other fixes: the validator and the engine agree on malformed debt reset terms (`7cd1a1a`); healthcare inflation is validated (`c300508`); the app states the Part D premium and the care cost's growth (`9fd61c2`).
+- (f) **A planning fact, not a model decision:** "The UI will be rebuilt. but we can use the old ui as a reference." Engine disclosures the current app does not render stay an explicit exception (the R40 handover's E14 row).
+
+**Status: IMPLEMENTED 2026-09-30 (S5AA R40; merged as #35 at `54d6a9e`; source tag `s5aa-r40.1-source` = `978a6e4`), except the partial-row tax, which was reverted and is a disclosed limit.** Checked by the plan owner: the commits are on `main`, each repair has a test under `tests/audit-s5aa-r40-*.test.js`, the engine and validator text matches the modelling text, and the $38.99 Part D figure was re-read at CMS. Not re-checked: the corpus and baseline movement (r18 to r20) the relay reports. The combined unrepaired list is `audit/S5AA/R40/S5AA_R40_UNREPAIRED_LIST_20260930.md`. ChatGPT's R40 audit had not been merged when this was written. Modelling text: `MODEL_ASSUMPTIONS.md` §18.3, §18.4, §25, §26.

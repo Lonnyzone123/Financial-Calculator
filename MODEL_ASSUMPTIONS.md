@@ -717,6 +717,14 @@ Replaces any percentage-basis description of the model.
   outright; the calendar-year reading, on the plan's birth-year convention, still admits a separation earlier in
   the year of 55; the switch itself is read as the owner's certification that this holds, with the separation year
   enforced against the entered age.
+- **A required distribution reads the age the owner reaches in the distribution year** (S5AA R40, `d51d30d`, corrected
+  at `3fbe9dc`; the owner, 2026-09-30: "Repair all four now"). The RMD start and the Uniform Lifetime divisor use the
+  engine's own birth year, 2026 less the whole age at the plan's start (§12), counted forward (Publication 590-B: "use
+  your age as of your birthday in 2026"). For the self that is the row's opening age, as before. With a fractional self
+  start, a spouse whose fraction was smaller than the self's had read an age a year short, so their first RMD year was
+  skipped and the divisor a year young. R40 first read the calendar age at the row's close, which disagreed with the
+  birth year the start age uses; the corrected reading agrees with it by construction. Witness:
+  `tests/audit-s5aa-r40-spouse-rmd-age-reached.test.js`.
 - **Conversions and transfers.** A conversion goes only into a Roth-class account of the same owner. A traditional
   IRA converts into a Roth IRA (or a custom Roth account); a 401(k) may convert into a Roth-class account of the same
   owner, including its own Roth 401(k). A manual transfer from a pre-tax account into a Roth account is a Roth
@@ -732,6 +740,15 @@ Replaces any percentage-basis description of the model.
 - A one-time income can be entered as tax-free (a gift or an inheritance).
 - Health costs are priced per living person: each person under 65 carries an equal share of the entered pre-Medicare
   cost, and each person 65 or over is charged Medicare.
+- **The long-term-care cost grows at healthcare inflation** (S5AA R40, `8f20d90`; the owner, 2026-09-30: "Repair all
+  four now"). It is entered in today's dollars and grows at the plan's healthcare inflation from the plan's start, as
+  the pre-Medicare health cost does. The insurance benefit stays at its entered amount, since a policy's benefit does
+  not rise without an inflation rider, which the plan does not model. Witness:
+  `tests/audit-s5aa-r40-ltc-cost-inflated.test.js`.
+- **Each person on Medicare pays the Part D base beneficiary premium** (S5AA R40, `d1572b1`): $38.99 a month in 2026
+  (CMS's annual release of July 28, 2025; 42 CFR 423.286(c); the figure was re-read at CMS on 2026-09-30). It stands in
+  for a plan's own premium, and the IRMAA surcharge is added on top of it. Witness:
+  `tests/audit-s5aa-r40-part-d-base-premium.test.js`. Registered as `SPRINT_QUESTIONS.md` Q172.
 - VPW and the RMD-style strategy divide by the years the projection models (to the last death or the projection's
   ending age, whichever comes first), and a final part-year is a fraction of a year. The VPW maximum annual rate still
   applies, so at a 100% cap a final part-year cannot draw the whole balance.
@@ -829,17 +846,45 @@ Publication 590-A reading are the S5AA session's and were not re-derived, and IR
   source too, the loss the moved dollars took before the date is borne by the destination (`73e24c7`); a transfer's
   source drawn by the year's withdrawals ends at zero, not below. Witness:
   `tests/audit-s5aa-r27-transfer-capped-at-date.test.js`.
-- **Known limit, kept by the owner's decision** (2026-09-26: "Keep R27, record the gap"). If the household runs out of money
+- **Superseded by S5AA R28 (`56c8847`): this limit no longer holds; see the R28 block below.** ~~**Known limit, kept by the owner's decision** (2026-09-26: "Keep R27, record the gap"). If the household runs out of money
   in the transfer's year, no account is left to bear that loss: an account ends negative (`NEGATIVE_ACCOUNT_BALANCE`),
   and a Monte Carlo run with such a path is refused. Alternatives not chosen: move the money physically at the engine's
   withdrawal point, or go back to moving it at the year's opening. Witness (run here on `main`; the destination ends at
-  −$2,565.84): `audit/S5AA/R27/S5AA_R27_KNOWN_GAP_WITNESS.js`. Registered as Q148.
+  −$2,565.84): `audit/S5AA/R27/S5AA_R27_KNOWN_GAP_WITNESS.js`. Registered as Q148.~~
 - **Mortgage PMI is charged only for the months the mortgage has a balance**, including after a payoff inside the
   year (the owner, 2026-09-26: "PMI while owed"; `7318d89`). Witness: `tests/audit-s5aa-r27-pmi-while-owed.test.js`. (Q113,
   that PMI never cancels at an LTV threshold, is a separate, still open item.)
 
 *Decided 2026-09-26 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q144 to Q148 (and Q143's
 repair).*
+
+**S5AA R28 and R28.1 refine this section** (written 2026-09-30 (UTC−7), late, from the S5AA session's R28 relay of 2026-09-26,
+`audit/S5AA/R28/S5AA_RELAY_TO_EB_20260926_R28.md`, which was not placed before the repository moved). The commits are
+inside this repository's first commit, not in its own history. Checked by the plan owner: the six commits exist in the
+private history and are all ancestors of `ee9757d`; the engine's own comments on current `main` describe the IRA rule,
+the transfer-after-the-draw rule and the dividend and yield rule in the terms below; and the Q148 witness, run at each
+commit of the round and on `main`, shows the known limit above closing at `56c8847`. The general statement below that
+neither account ends below zero is the relay's; only that one witness plan was run here. The owner's answers were given to
+the S5AA session and are **as reported by it**. Registered as Q170, with refinements noted on Q144 and Q146 and Q148
+closed.
+
+- **The IRA compensation limit is applied once, to dollars** (ChatGPT's R26-01; the owner: "Repair"; `6938519`). The
+  IRA contributions credited in a year are at most the compensation actually earned in it: the salary over the months
+  worked, plus the employment and self-employment income received, less the pre-tax workplace and HSA contributions
+  credited. R26 had compared rates and then multiplied by the contribution duration, prorating a wage stream that
+  ended inside the year twice. This refines the first bullet above.
+- **A mid-year transfer runs at the source's value on its date** (ChatGPT's R27-01; the owner: "Repair"; `56c8847`;
+  R28.1, R27F-01, `227635e`). The source gives up, and the destination receives, the value on that date: at most what
+  the source holds then, at the year's returns for the part of the year before. Its basis and tax follow from what
+  moved, and neither account ends below zero. **The known limit above, a household that runs out of money in the
+  transfer's year, is closed.** If the date falls after the point in the year where spending is drawn (half way through
+  for monthly timing, 0.625 for quarterly, the end for annual), the spending is drawn first, and the transfer then moves
+  at most what the source has left (the owner: "Repair in R28.1"; `c480f72`).
+- **Yield on moved money follows the money** (ChatGPT's R27F-02; the owner: "Repair"; `5a5cb39`; the imputed-yield case
+  `62e263d`). Dividends, paid or reinvested, and the imputed 1.5% yield with dividends off, count for the account that
+  held the moved money in each part of the year, each only if it is taxable. A taxable destination is no longer paid
+  dividends on money that had not yet arrived. (Q154, from R30, covers the destination's dividends for a transfer dated
+  after the draw.)
 
 ---
 
@@ -856,11 +901,31 @@ and §21.2, added 2026-09-28 from the S5AA session's R30 relay (`audit/S5AA/R30/
 checked against `main` at `bf9c6ef` (the three R30 commits exist and the test file names match).
 
 - A transfer between accounts of the same tax character is a rollover, or an in-kind move between taxable accounts: it
-  moves untaxed and outside every limit.
+  moves untaxed and outside every limit. *(Refined by S5AA R32, 2026-09-28: a rollover stays with its owner, a Roth IRA
+  cannot roll into a 401(k), and an IRA rolls only its taxable money into one. See the three bullets after the next one.)*
 - Pre-tax into a Roth-class account is a conversion.
 - Pre-tax into a taxable account is a distribution.
 - **Into a 401(k) from a different kind of account, it is refused.** A 401(k) takes payroll, same-character rollovers
   and conversions only. Witness: `tests/audit-s5aa-r29-transfer-into-workplace-refused.test.js`.
+- *Added 2026-09-30 (UTC−7), late, from the S5AA session's R32 relay (`audit/S5AA/R32/S5AA_R32_RELAY_TO_EB_20260928.md`),
+  which was not placed before now. Checked by the plan owner: the three R32 commits are in this repository's history
+  (`0413792`, `8ef84d3`, `3017351`), each rule below has a test of that name under `tests/audit-s5aa-r32-*.test.js`, and
+  the engine's own comments on `main` state each rule as written here. The owner's decisions were given to the S5AA
+  session directly and are as reported by it. Registered as Q171.*
+- **A traditional IRA into a 401(k) rolls its taxable money only** (ChatGPT's R30A-01; the owner: "Move taxable part
+  only"; `8ef84d3`). IRC 408(d)(3)(A)(ii) and (H): what goes into an employer plan may not exceed the part includible in
+  income, and the part rolled over is treated as income first, across all the owner's IRAs. So at most the owner's IRAs
+  on the date less their basis moves; the after-tax money stays in the IRA, with a warning. Before R32 the after-tax
+  money went in as pre-tax, its basis stayed on an empty IRA, and the 401(k) was taxed in full.
+- **A Roth IRA cannot roll into a 401(k)** (ChatGPT's R30A-02; the owner: "Refuse it"; `0413792`; Publication 590-A). The
+  transfer is refused, including into a Roth 401(k). A designated Roth account into a Roth IRA is still a rollover.
+- **A rollover stays with its owner** (ChatGPT's R30A-03; the owner: "Refuse it"; `0413792`). Between two of the named
+  retirement or HSA accounts of one kind (traditional IRA, traditional 401(k), Roth IRA, Roth 401(k), HSA), a transfer to
+  the other spouse's account is refused while both are living (IRC 408(d)(3)(A), 223(f)(5)). A divorce instrument, a
+  QDRO and a death are separate paths, and marriage alone is not one. Transfers between different kinds, taxable gifts,
+  the custom accounts and the handling at a death are unchanged.
+- **Known limit (R32):** a rollover into a 401(k) measures the IRA's basis as it stands on the date, without that year's
+  nondeductible contributions.
 - **Into an IRA or an HSA from a different kind of account, it is a contribution**, held to the room the year's planned
   contributions leave: the IRA limit and compensation, or the HSA limit. Under the redirect policy only what fits
   moves and the rest stays in the source; under warn all of it moves, with a warning. Witness:
@@ -879,7 +944,8 @@ checked against `main` at `bf9c6ef` (the three R30 commits exist and the test fi
 
 **Not modelled:** HSA eligibility (coverage, or Medicare from 65), and limits on custom accounts.
 
-*Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q149 to Q152.*
+*Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q149 to Q152. R32's
+refinements (2026-09-28, placed 2026-09-30): Q171.*
 
 ### 21.1 Required distributions (S5AA R30)
 
@@ -903,6 +969,11 @@ conversions are still settled pro rata at its end, on the basis the funding left
 taxable value counts the whole year's nondeductible contributions as basis, wherever in the year they fall, as the
 settlement already does for conversions. Witness: `tests/audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js`,
 `tests/audit-s5aa-r31-hsa-funding-settlement-dated.test.js`; landed at `8afe16d`.
+
+**The owner's IRA value on the funding date counts every one of that owner's traditional IRAs at its own return**, not
+only the one sending the money (S5AA R32, ChatGPT's R31-01; the owner: "Repair in R32"; `8ef84d3`; placed 2026-09-30).
+R31 carried only the sending IRA to the date and read the others at the row's opening, so a second IRA at +20% overstated
+the tax and one at −20% understated it. Witness: `tests/audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js`.
 
 ### 21.3 Dividends on moved dollars (S5AA R30)
 
@@ -984,6 +1055,13 @@ limit and the limit less the year's other IRA contributions (Worksheet 2-2, line
   additions and 401(a)(17)'s compensation limit) — they are not cut because someone worked part of it (S5AA R39,
   repairing ChatGPT's R38-01). A plan year that is itself part of a tax year (a plan opening mid-year) keeps the
   limit for that share. The HSA limit stays prorated by the months of the contribution window (IRC 223(b)(2)).
+- **Catch-up contributions read the age reached by the year's end** (S5AA R32, raised in ChatGPT's R30A audit; the owner,
+  2026-09-28: "Use the year-end age"; `3017351`; placed 2026-09-30): the row an owner turns 50 has the IRA and 401(k)
+  catch-up, the row they turn 55 the HSA catch-up, the rows they turn 60 to 63 the 60-63 amount, and the row they turn 64
+  the ordinary catch-up (IRC 219(b)(5)(B), 414(v), 223(b)(3)). The model has no calendar, so each projection row is a
+  tax year and its close is the opening age plus the row's length. Before R32 the age at the row's opening was tested,
+  so the row an owner turned 50, 55 or 60 in was denied the catch-up and the row they turned 64 in kept the 60-63
+  amount. Witness: `tests/audit-s5aa-r32-catch-up-age-at-year-end.test.js`. Registered as Q171.
 
 **Tax.**
 - The age-65 amounts — the additional standard deduction, the senior deduction, and Arizona's $2,100 exemption — read
@@ -1057,10 +1135,21 @@ decision, D8 — see `SPRINT_QUESTIONS.md` Q165), and Arizona's $2,100 exemption
 
 Projection row `n` is tax year `2026 + n`. Indexing starts from the 2026 figure rather than each statute's own base
 year, so a figure can differ by one rounding step from the one the IRS eventually publishes. Medicare premiums
-themselves stay at 2026's.
+themselves stay at 2026's. *(Since S5AA R40 that covers the Part D base premium as well as Part B, see §18.4.)*
+
+**A disclosed limit: a partial row is taxed as a whole tax year** (S5AA R40; the owner, 2026-09-30: "Revert and
+disclose"; `b97fe0a`). A projection row shorter than a year, the first row of a plan that opens at a fractional age or
+the last row of one that ends at one, is taxed as a whole tax year holding only the row's income. The first year's tax
+is therefore understated where the household earned before the plan opened: a $60,000 pension over a half-year first
+row is taxed as $30,000 against the whole year's figures, $1,767.50, where taxed as half of a $60,000 year it would be
+$3,058.75. R40 built a share-of-a-year rule (`607101a`) and reverted it, because it also annualized one-time amounts:
+a $100,000 expense in a row a tenth of a year long was taxed $56,958 against $20,221.85. The proper rule, which counts
+recurring income at its rate and one-time items once, is for the engine rebuild (`FEATURES.md`, "Features — wanted").
+Witness, pinning the disclosed behaviour and the one-time case: `tests/audit-s5aa-r40-partial-row-whole-year-convention.test.js`.
 
 *Decided 2026-09-29 (the owner), "Index, own round", with D8 "Keep it even after 2028"; as reported by the S5AA
-session. Landed at `cf643a8`.*
+session. Landed at `cf643a8`. The Part D note and the partial-row limit were added 2026-09-30 (S5AA R40), registered
+as `SPRINT_QUESTIONS.md` Q172.*
 
 ---
 
@@ -1075,7 +1164,11 @@ exists. Some items below are the S5AA session's own reading, adopted by the owne
 - **Input refusals.** An adjustable debt that resets at an age needs its reset rate and its payoff age. A debt's
   extra principal, PMI, property tax, insurance or HOA must be a number of zero or more, and its payment a number.
   An asset class's volatility must be zero or more. A historical start must be a data year. `runs` is at most
-  10,000. Each is refused by name, and the validator agrees.
+  10,000. Each is refused by name, and the validator agrees. **Since S5AA R40:** healthcare inflation must be a
+  number above −100% and at most 100%, and a value outside the form's 0 to 20% is a warning (`c300508`); a debt's reset
+  rate or reset age that is present but not a number is refused, where before only an absent one was (`7cd1a1a`).
+  Witnesses: `tests/audit-s5aa-r40-health-inflation-validated.test.js`,
+  `tests/audit-s5aa-r40-validator-debt-reset-terms.test.js`.
 - **Disclosure warnings.** A joint return with no spouse included, or a single or head-of-household return with one,
   is reported. So is an expense at or after the plan's end age, which no year charges, and each person born in 1959
   whom the plan carries to age 73 — the 1959 card stays visible for both spouses (Q167). The results page shows all
