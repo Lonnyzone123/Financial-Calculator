@@ -1438,6 +1438,17 @@ function lastDeathCutAge(p){
   }
   return null;
 }
+/* S5AA R41 (found by the task 6.5 browser check; the owner 2026-09-30: "Repair now"): AN END AGE BEFORE THE STARTING AGE.
+   Measured at 978a6e4: such a plan returned status "ok" and rows running backwards (29.5, then 28.5); the validator only
+   warned, comparing the end age with the retirement age, so the app's "Restore backup" accepted it. The form cannot produce
+   it (readStatic() raises the end age to at least the retirement age, and that to at least the starting age). Refused here
+   by name, and the validator reports it as an ERROR (END_AGE_BEFORE_START). An end age EQUAL to the start is not refused:
+   the form produces it, and it projects one row. */
+function endAgeBeforeStartCode(p){
+  var profile=p&&p.profile;
+  if(!profile||typeof profile!=="object"||typeof profile.age!=="number"||!Number.isFinite(profile.age)||typeof profile.endAge!=="number"||!Number.isFinite(profile.endAge))return null;
+  return profile.endAge<profile.age?"END_AGE_BEFORE_START":null;
+}
 function nobodyAliveAtStartCode(p){
   var profile=p&&p.profile;
   if(!profile||typeof profile!=="object"||typeof profile.age!=="number"||!Number.isFinite(profile.age))return null;
@@ -4589,7 +4600,7 @@ function scenarioInputGate(p){var serialized=[],flagPath=null,rejectedInput=null
   rejectedInput=rejectedInput||nonArrayListInputCode(p)||nonRecordListElementCode(p);
   if(!rejectedInput){flagPath=nonBooleanFlagPath(p);if(flagPath!==null)rejectedInput="NONBOOLEAN_FLAG"}
   if(!rejectedInput){flagPath=nonNumberPlanValuePath(p);if(flagPath!==null)rejectedInput="NONNUMBER_PLAN_VALUE"}
-  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||replacedPlanInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||nobodyAliveAtStartCode(p)||accountContractCode(p);
+  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||replacedPlanInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||endAgeBeforeStartCode(p)||nobodyAliveAtStartCode(p)||accountContractCode(p);
   if(!rejectedInput)rejectedInput=nonSerializableScenarioInputCode(p,serialized);
   if(!rejectedInput){
       identityPlan=serializedSnapshot(p,serialized);
@@ -4667,6 +4678,8 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"The filing status is not one the tax tables define (single, mfj or hoh), so income tax cannot be computed."
             :rejectedInput==="UNKNOWN_METHOD"
             ?"The projection method is not one the engine runs (simple, historical or monteCarlo), so the projection it names cannot be computed."
+            :rejectedInput==="END_AGE_BEFORE_START"
+            ?"The projection's ending age is before its starting age, so there are no years to project. Check the ending age."
             :rejectedInput==="NOBODY_ALIVE_AT_START"
             ?"Every lifespan entered ends before the plan's starting age, so nobody the plan models is alive and there is nothing to project. Check the lifespans."
             :rejectedInput==="UNREADABLE_INPUT"
@@ -5211,6 +5224,7 @@ if (typeof module !== 'undefined' && module.exports) {
     solveSegmentFunding,
     earlyWithdrawalPenaltyRate,employerVestedShare,
     unknownMethodCode,
+    endAgeBeforeStartCode,
     nobodyAliveAtStartCode,
     lastDeathCutAge,
     lawfulConversionDestination,
