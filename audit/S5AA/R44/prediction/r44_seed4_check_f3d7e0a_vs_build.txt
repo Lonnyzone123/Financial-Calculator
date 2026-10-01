@@ -1,0 +1,4 @@
+seed:4 rows after R44 equal the pre-repair transfer-off rows: true
+seed:4 rows after R44 equal its pre-repair rows: false
+lifetime taxes: before 1521813.71, after 1524581.88, difference 2768.18
+limitWarnings after: ["Generated 4: the transfer asked for $56,260, more than the $0 of HSA contribution limit left this year; $0 moved, and the rest stayed in the source account."]

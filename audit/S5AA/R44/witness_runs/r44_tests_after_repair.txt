@@ -1,0 +1,14 @@
+# tests/audit-s5aa-r44-contribution-routes.test.js run after the R44 repairs (working tree on f3d7e0a)
+ℹ fail 0
+ℹ pass 10
+ℹ tests 10
+✔ R44 (R43-01) control: a planned $4,000 for the same spouse flows $2,000, under the prorated limit, unchanged (0.9543ms)
+✔ R44 (R43-01) control: a planned HSA contribution at 66 deposits nothing, as R43 made it (1.318ms)
+✔ R44 (R43-01) control: the same one-time $6,000 for a spouse of 63 is under the full $9,750 and moves in full (1.0241ms)
+✔ R44 (R43-01): a one-time $6,000 in the row the spouse turns 65 is held to (8,750 + 1,000) x 0.5 = $4,875 (1.5137ms)
+✔ R44 (R43-01): a one-time HSA contribution at 66 has no room -- the $4,400 stays in taxable, and the note says $0 (20.2508ms)
+✔ R44 (R43-01): a planned $12,000 in the row the spouse turns 65 flows for half the row ($6,000) and is held to $4,875; $1,125 is redirected (1.2474ms)
+✔ R44 (R43-02) control: the planned $7,500 is allowed, as before (2.5983ms)
+✔ R44 (R43-02): a one-time $7,500 IRA contribution reads the stream at its latched $5,000 x 1.10^10 = $12,968.71, and moves in full (3.812ms)
+✔ R44 (R43-03) controls: zero is allowed, and 5% profit sharing gives $10,000 + $3,000 + $5,000 = $18,000 (1.4854ms)
+✔ R44 (R43-03): a negative profitShare, matchRate or matchCap is refused by both layers, at its path (2.0167ms)
