@@ -127,7 +127,9 @@ test('SA-05: eligibility is a boolean, so it does not depend on the period lengt
 });
 
 test('SA-05: the audit run with shared eligibility raises NO contribution-limit warning for this fixture -- matching what the engine actually deposits', () => {
-  const p = household();
+  // S5AA R43 (the owner's ruling of 2026-09-30): HSA contributions stop at 65, so a spouse of 70 can no longer take the shared base and
+  // the stale warning this test needs cannot arise. The spouse here is 64.5 and past a household retirement at 64: inactive, under 65.
+  const p = household({ profile: { spouseAge: 64.5, retireAge: 64 }, employment: { contributionStop: 64 } });
   const eligibility = engine.ownerContributionEligibility(p, p.profile.age, p.profile.spouseAge, 1);
 
   const stale = engine.auditContributions(p, p.profile.age, p.employment.salary, p.employment.spouseSalary);
@@ -184,8 +186,10 @@ test('SA-05: both UI consumers pass the shared eligibility -- neither still call
   const calls = shell.match(/auditContributions\([^;]*?\)/g) || [];
   const uiCalls = calls.filter(function (c) { return c.indexOf('p.profile.age') !== -1; });
   assert.ok(uiCalls.length >= 2, 'expected to find both UI call sites, found ' + uiCalls.length);
+  // S5AA R43 (SA42F-24): the cards now pass ownerContributionWindow(), the projection's own window -- the same per-owner eligibility
+  // plus the spousal IRA flags -- so either helper satisfies this; omitting both is the defect.
   for (const call of uiCalls) {
-    assert.ok(/ownerContributionEligibility/.test(call),
+    assert.ok(/ownerContribution(Eligibility|Window)\(/.test(call),
       'a UI caller still omits eligibility and will disagree with the engine: ' + call);
   }
 });

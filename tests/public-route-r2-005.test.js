@@ -83,7 +83,8 @@ test('R2-005 (runPlan): under redirect policy no phantom excess lands in taxable
 test('R2-005 (runPlan): an owner who stops contributing partway through the year keeps the prorated half of the base', () => {
   const row = firstYear(household(
     [hsa('spouseHSA', 'spouse', 1), hsa('selfHSA', 'self', 2)],
-    { profile: { age: 65, endAge: 66, retireAge: 70 }, employment: { contributionStop: 65.5 } }));
+    { profile: { age: 64, endAge: 65, retireAge: 70 }, employment: { contributionStop: 64.5 } }));
+  // S5AA R43: 64 and 64.5 (it read 65 and 65.5); the owner's ruling of 2026-09-30 stops HSA contributions at 65.
   near(row.hsa, REQUEST * 0.5, 'row 1 HSA balance for half a year of eligibility');
 });
 
