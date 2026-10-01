@@ -852,7 +852,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-30 (S5AA R42: the one-time Roth path reads the worked-share proxy too), so the tracked file was
 // rebuilt, again installed only after two builds agreed. The pin before it,
 // 1e44b9ae91b11ab0b4ee6ca6f90349ed0b525c3370c50c9a43ed25abf5bf16cd, described the previous rebuild.
-const EXPECTED_SHA256 = '369ad66696e4250e0eecc121ee25cb410724ff099ea8dc16299534da4fcb57c8';
+//
+// Changed again 2026-09-29 (S5AA R43 (R42-01, SA42F-02, -17, -18, -27): Social Security), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 369ad66696e4250e0eecc121ee25cb410724ff099ea8dc16299534da4fcb57c8, described the previous rebuild.
+const EXPECTED_SHA256 = '57d1fca95b0ea9135b5d5f63cbe3e5bf67e3fb5d9cd1fcdcc97b857dec4f4166';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

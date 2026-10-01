@@ -2037,12 +2037,15 @@ function survivorRecord(id){
 }
 /* Q92: the factor for a benefit that STARTS at `startAge`. Linear in months, floored at 71.5% and
    capped at 100%. */
-function survivorReductionFactor(p,startAge,owner){
+/* S5AA R43 (SA42F-18): the survivor benefit's reduction is adjusted for the months it was withheld, at the survivor's full retirement age, as the
+   retirement benefit's is (20 CFR 404.412). Both arguments are optional; omitted, the factor is the unadjusted one. */
+function survivorReductionFactor(p,startAge,owner,creditedMonths,ownerAgeNow){
   var earliest=survivorRecord("survivor_earliest_claim_age"),
       floorFactor=survivorRecord("survivor_minimum_factor"),
       full=survivorFullRetirementAge(p,owner==="spouse"?"spouse":"self"),
       span=Math.max(1e-9,(full-earliest)*12),
       early=Math.max(0,Math.min((full-Number(startAge))*12,span));
+  if(ownerAgeNow!==undefined&&Number(ownerAgeNow)>=full-1e-9&&Number(creditedMonths)>0)early=Math.max(0,early-Number(creditedMonths));
   return 1-(1-floorFactor)*(early/span);
 }
 /* Q92: WHEN this person's survivor benefit starts, in their own age -- the later of the survivor
@@ -2124,7 +2127,10 @@ function ssFloorDollar(x){return Math.floor(x+1e-6)}
 /* The monthly PIA before any COLA: the entered full-retirement-age benefit, or the bend-point formula on the entered AIME. */
 function ssPiaBase(p,owner){var r=p.retirement,base=owner==="spouse"?r.spouseSS:r.ssBenefit;if(owner!=="spouse"&&r.ssAdvanced&&r.aime>0){/* S5AA R36 (SA32F-D1): the bend points are those of the year the person turns 62, set by the wage index two years before
    (42 USC 415(a)(1)(B), rounded to the nearest $1), and the entered AIME, at today's wage level, is indexed to the same year -- by the
-   salary-growth field, a stand-in for the national average wage index. From 62 the COLAs follow (R34). */var ageNow=Number(p.profile&&p.profile.age),wIdx=Math.pow(Math.max(.01,1+(Number(p.employment&&p.employment.growth)||0)/100),Math.max(0,62-Math.floor(Number.isFinite(ageNow)?ageNow:62))),a=r.aime*wIdx,b1=Math.floor(RULES.socialSecurity.pia.bend1*wIdx+.5),b2=Math.floor(RULES.socialSecurity.pia.bend2*wIdx+.5);base=.9*Math.min(a,b1)+.32*Math.max(0,Math.min(a,b2)-b1)+.15*Math.max(0,a-b2)}return ssFloorDime(Math.max(0,Number(base)||0))}
+   salary-growth field, a stand-in for the national average wage index. From 62 the COLAs follow (R34).
+   S5AA R43 (SA42F-17): someone already past 62 at the start turned 62 in an EARLIER year, so the exponent goes negative and indexes the 2026
+   bend points and the AIME back to that year. It was floored at zero, which gave a person of 65 the 2026 bend points ($31,980 a year where
+   R36's rule gives $29,268) and then the COLAs from 62 on top. */var ageNow=Number(p.profile&&p.profile.age),wIdx=Math.pow(Math.max(.01,1+(Number(p.employment&&p.employment.growth)||0)/100),62-Math.floor(Number.isFinite(ageNow)?ageNow:62)),a=r.aime*wIdx,b1=Math.floor(RULES.socialSecurity.pia.bend1*wIdx+.5),b2=Math.floor(RULES.socialSecurity.pia.bend2*wIdx+.5);base=.9*Math.min(a,b1)+.32*Math.max(0,Math.min(a,b2)-b1)+.15*Math.max(0,a-b2)}return ssFloorDime(Math.max(0,Number(base)||0))}
 /* The early-claim reduction or delayed credit on the owner's own benefit, at the owner's own full retirement age (unchanged arithmetic). */
 function ssClaimFactor(p,owner,creditedMonths,ownerAgeNow){var r=p.retirement,claim=ssCreditedClaimAge(owner==="spouse"?r.spouseClaim:r.ssClaim),fra=ssFullRetirementAge(p,owner);var months=Math.round(Math.abs(claim-fra)*12),factor=1;if(claim<fra){/* Q91: the credited months come off here, and only once the owner has reached full retirement age. */if(ownerAgeNow!==undefined&&ownerAgeNow>=fra-1e-9)months=Math.max(0,months-(Number(creditedMonths)||0));var first=Math.min(36,months),later=Math.max(0,months-36);/* S5AA R34: the EXACT fractions of 20 CFR 404.410 -- 5/9 of 1% a month for 36 months, 5/12 of 1% beyond -- and 404.313's 2/3 of 1% a month of
      delayed credit, counted in whole months. The rules package stores the first two as rounded decimals (0.0055555556), which put a benefit that is
@@ -2133,7 +2139,11 @@ function ssClaimFactor(p,owner,creditedMonths,ownerAgeNow){var r=p.retirement,cl
    so it takes the COLA from the plan's start to the claim and every COLA after it; the earnings-based PIA takes its COLAs from eligibility at
    62 (20 CFR 404.271: "beginning with December of the year they become eligible"). A benefit claimed before the plan opens is indexed from
    its claim (MODEL_ASSUMPTIONS section 4). Each COLA step is rounded to the dime (404.275(c)). The engine applied no COLA before the claim. */
-function ssPiaAt(p,owner,ownerAge,startHistory){var r=p.retirement,pr=p.profile,start=Number(owner==="spouse"?pr.spouseAge:pr.age),claim=ssClaimStartAge(owner==="spouse"?r.spouseClaim:r.ssClaim),aime=owner!=="spouse"&&r.ssAdvanced&&r.aime>0,anchor=aime?62:(claim<start?claim:start),pia=ssPiaBase(p,owner),h=startHistory||0,rates=ownerAge>claim?ssColaRates(p,anchor,claim,h,start).concat(ssColaRates(p,claim,ownerAge,h,start)):ssColaRates(p,anchor,ownerAge,h,start);for(var i=0;i<rates.length;i++)pia=ssFloorDime(pia*(1+rates[i]));return pia}
+/* S5AA R43 (Claude's R42F audit, SA42F-02; the owner 2026-09-30: repair all 34): A CLAIM DOES NOT SPLIT THE COLA COUNT. The count ran from the
+   anchor to the claim and from the claim on, floor(claim - anchor) + floor(age - claim), one COLA short whenever the claim's fraction of a year is
+   the larger: $2,000 claimed at 67.5 in a plan opening at 62 had five COLAs in the row opening at 68, not six ($28,644 where $29,448). A PIA
+   takes every COLA from its anchor (404.271), whenever the benefit is claimed. */
+function ssPiaAt(p,owner,ownerAge,startHistory){var r=p.retirement,pr=p.profile,start=Number(owner==="spouse"?pr.spouseAge:pr.age),claim=ssClaimStartAge(owner==="spouse"?r.spouseClaim:r.ssClaim),aime=owner!=="spouse"&&r.ssAdvanced&&r.aime>0,anchor=aime?62:(claim<start?claim:start),pia=ssPiaBase(p,owner),h=startHistory||0,rates=ssColaRates(p,anchor,ownerAge,h,start);for(var i=0;i<rates.length;i++)pia=ssFloorDime(pia*(1+rates[i]));return pia}
 /* The annual own benefit AT THE CLAIM, before any COLA, SSA-rounded. Kept for its callers. */
 function ssaBenefitAtClaim(p,owner,creditedMonths,ownerAgeNow){return Math.max(0,ssFloorDollar(ssPiaBase(p,owner)*ssClaimFactor(p,owner,creditedMonths,ownerAgeNow))*12)}
 /* S5AA R34 (SA32F-03; decision 2, "Build it"): THE SPOUSE'S BENEFIT. Up to half the worker's PIA, less the recipient's own PIA -- the
@@ -3139,8 +3149,8 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       selfSpousalStart=spouseOn?Math.max(selfClaim,spouseClaimAtSelfAge):Infinity,
       selfPlusSpousalM=spouseOn?ssFloorDollar(selfPia*ssClaimFactor(p,"self",credited&&credited.self,age)+Math.max(0,.5*spousePia-selfPia)*ssSpousalFactor(p,"self",selfSpousalStart)):selfOwnM,
       spousePlusSpousalM=spouseOn?ssFloorDollar(spousePia*ssClaimFactor(p,"spouse",credited&&credited.spouse,spouseAge)+Math.max(0,.5*selfPia-spousePia)*ssSpousalFactor(p,"spouse",spouseAge+(selfSpousalStart-age))):0,
-      selfSurvivorM=survivorOn?ssSurvivorMonthly(p,"spouse",spousePia,spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,survivorReductionFactor(p,selfSurvivorStart,"self"),credited&&credited.spouse,spouseAge):0,
-      spouseSurvivorM=survivorOn?ssSurvivorMonthly(p,"self",selfPia,selfClaim<selfDeath-1e-9,survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age)),"spouse"),credited&&credited.self,age):0,
+      selfSurvivorM=survivorOn?ssSurvivorMonthly(p,"spouse",spousePia,spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,survivorReductionFactor(p,selfSurvivorStart,"self",credited&&credited.selfSurvivor,age),credited&&credited.spouse,spouseAge):0,
+      spouseSurvivorM=survivorOn?ssSurvivorMonthly(p,"self",selfPia,selfClaim<selfDeath-1e-9,survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age)),"spouse",credited&&credited.spouseSurvivor,spouseAge),credited&&credited.self,age):0,
       /* R2-003(b) fix (R2-T03): a benefit amount exists only if the person
          actually reached their claim age while still alive. Entitlement was
          being tested by comparing an ADVANCING segment age against a claim
@@ -3158,6 +3168,7 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       /* S5AA R42 (R41F-01): the spousal part of each person's pay, which is paid on the OTHER's record, and how much of it falls in the other's service
          months (for the grace year). */
       selfAuxGross=0,spouseAuxGross=0,selfAuxInSpouseService=0,spouseAuxInSelfService=0,
+      /* S5AA R43: each segment's pay and entitlements, in order, for the earnings test's months. */ssSegs=[],
       total=0;
   for(var i=0;i<points.length-1;i++){
     var segStart=points[i],segDuration=points[i+1]-segStart;
@@ -3206,6 +3217,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       if(spousePay>0&&spousePlusSpousalM>spouseOwnM&&spouseAmount===12*spousePlusSpousalM)spouseAuxPay=12*(spousePlusSpousalM-spouseOwnM)
     }
     total+=(selfPay+spousePay)*segDuration;
+    ssSegs.push({s:segStart,d:segDuration,sp:selfPay,pp:spousePay,sa:selfAuxPay,pa:spouseAuxPay,sRib:selfAliveHere&&selfClaimedHere,pRib:spouseAliveHere&&spouseClaimedHere,
+      sWib:survivorOn&&selfAliveHere&&!spouseAliveHere&&segStart>=selfSurvivorStart-1e-9&&selfSurvivorM>0,pWib:survivorOn&&spouseAliveHere&&!selfAliveHere&&segStart>=spouseSurvivorStartAtSelfAge-1e-9&&spouseSurvivorM>0,
+      sSvc:segStart<selfRetireAge-1e-9,pSvc:segStart<spouseRetireAtSelfAge-1e-9});
     selfGross+=selfPay*segDuration;spouseGross+=spousePay*segDuration;
     if(segStart<selfRetireAge-1e-9)selfServiceGross+=selfPay*segDuration;
     if(segStart<spouseRetireAtSelfAge-1e-9)spouseServiceGross+=spousePay*segDuration;
@@ -3236,32 +3250,77 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
      months are counted on their full monthly rate). Only one direction can carry a spousal part at once (each would need over twice the other's
      PIA). With no spousal part on a worker's record, or no withholding, each figure is exactly as before. Not modelled: the adjustment of the
      SPOUSAL reduction factor for spousal months withheld before the recipient's full retirement age. */
-  var selfTest,spouseTest,none={withheld:0,creditMonths:0},
-      familyTest=function(nhAgeStart,nhAgeEnd,nhEarnings,nhGross,nhMonths,nhOwner,nhCap,auxGross,auxInService){
-        var pool=nhGross+auxGross,t=ssEarningsTestWithholding(p,nhAgeStart,nhAgeEnd,nhEarnings,pool,nhMonths,nhOwner,nhCap===undefined?undefined:nhCap+auxInService);
-        return {nh:{withheld:t.withheld,creditMonths:t.withheld>1e-9&&nhMonths>0?Math.min(nhMonths,Math.ceil(t.withheld/(pool/nhMonths)-1e-9)):0},aux:t.withheld*auxGross/pool};
+  /* S5AA R43 (R42-01, ChatGPT's R42 change audit; SA42F-18, Claude's R42F audit; the owner 2026-09-30): THE MONTHS CHARGED ARE COUNTED IN ORDER,
+     AND EACH BENEFIT IS CREDITED ITS OWN. Each row's withholding is computed exactly as before -- each person's excess, the family pool, the grace-year
+     cap, and SSA's order (the worker's excess against the total family benefit first, then the auxiliary's own excess against what is left; POMS
+     RS 02501.095 B.4). What changed is which months it falls in. The months were the withholding over the AVERAGE monthly benefit, so a spousal
+     benefit starting mid-year, which raises the family's later months, made the earlier months look dearer: ChatGPT's witness, a $10,260 excess
+     against $2,100 worker checks before the spouse's $1,500 began, was counted as four months, not five, and the worker's benefit at full retirement
+     age was $2,150 where $2,162 is right. Now the excess is charged month by month to what is payable in each month (the row's claim, death and
+     survivor segments; in a grace year only the service months), and a month of full or partial deduction counts once (RS 00615.482). The
+     auxiliary's share is what those months took of it, and the auxiliary's own test then runs on the months as they are left.
+     Each benefit is credited for its OWN months (20 CFR 404.412): a charged month credits the retirement benefit if it is entitled then, and the
+     survivor benefit if that is. Survivor months were credited to the retirement benefit, even months before it was claimed, and the survivor
+     benefit was never adjusted (SA42F-18's survivor: $27,996 where $30,132 is right). Where the family is paid at one rate all row, the count and
+     the auxiliary's share are the old arithmetic, to the last bit. The spousal factor's adjustment stays not modelled (R42). */
+  var ssNone={withheld:0,rib:0,wib:0},
+      ssPieces=function(who,poolWith,grace,takenEnds){
+        var list=[];
+        ssSegs.forEach(function(g,j){
+          var pay=who==="s"?g.sp:g.pp,ownAux=who==="s"?g.sa:g.pa,pooled=poolWith?(poolWith==="s"?g.sa:g.pa):0,on=!(grace&&!(who==="s"?g.sSvc:g.pSvc)),
+              rib=who==="s"?g.sRib:g.pRib,wib=who==="s"?g.sWib:g.pWib,m0=(g.s-age)*12,n=g.d*12;
+          if(takenEnds&&takenEnds[j]>0){var kk=Math.min(n,takenEnds[j]);
+            list.push({m0:m0,n:kk,monthly:on?(pay-ownAux)/12:0,aux:0,rib:rib,wib:wib});
+            list.push({m0:m0+kk,n:n-kk,monthly:on?pay/12:0,aux:0,rib:rib,wib:wib});
+          }else list.push({m0:m0,n:n,monthly:on?(pay+pooled)/12:0,aux:pooled/12,rib:rib,wib:wib});
+        });
+        return list;
       },
-      remainderTest=function(ageStart,ageEnd,ownEarnings,gross,taken,months,owner,cap){
+      ssWalk=function(pieces,amount){
+        var left=amount,ribSeen={},wibSeen={},out={rib:0,wib:0,aux:0,ends:[]};
+        for(var j=0;j<pieces.length;j++){
+          var g=pieces[j],k=0;
+          if(left>1e-9&&g.monthly>1e-12&&g.n>1e-12){
+            var take=Math.min(left,g.monthly*g.n);k=take/g.monthly;left-=take;out.aux+=k*g.aux;
+            for(var q=Math.floor(g.m0+1e-9);q<Math.ceil(g.m0+k-1e-9);q++){if(g.rib&&!ribSeen[q]){ribSeen[q]=1;out.rib++}if(g.wib&&!wibSeen[q]){wibSeen[q]=1;out.wib++}}
+          }
+          out.ends.push(k);
+        }
+        return out;
+      },
+      ssSingle=function(who,ageStart,ageEnd,earn,gross,months,owner,grace,cap){
+        var t=ssEarningsTestWithholding(p,ageStart,ageEnd,earn,gross,months,owner,cap);
+        if(!(t.withheld>1e-9))return {withheld:t.withheld,rib:0,wib:0};
+        var w=ssWalk(ssPieces(who,null,grace),t.withheld);
+        return {withheld:t.withheld,rib:w.rib,wib:w.wib};
+      },
+      ssFamily=function(nh,auxWho,nhAgeStart,nhAgeEnd,nhEarnings,nhGross,nhMonths,nhOwner,grace,nhCap,auxGross,auxInService){
+        var pool=nhGross+auxGross,t=ssEarningsTestWithholding(p,nhAgeStart,nhAgeEnd,nhEarnings,pool,nhMonths,nhOwner,nhCap===undefined?undefined:nhCap+auxInService);
+        if(!(t.withheld>1e-9))return {withheld:t.withheld,rib:0,wib:0,aux:t.withheld*auxGross/pool,ends:null};
+        var w=ssWalk(ssPieces(nh,auxWho,grace),t.withheld),first=null,oneRate=true;
+        ssSegs.forEach(function(g){var pay=nh==="s"?g.sp:g.pp,a=auxWho==="s"?g.sa:g.pa;if(!(pay+a>0))return;if(first===null)first=[pay,a];else if(pay!==first[0]||a!==first[1])oneRate=false});
+        return {withheld:t.withheld,rib:w.rib,wib:w.wib,aux:oneRate?t.withheld*auxGross/pool:w.aux,ends:w.ends};
+      },
+      ssRemainder=function(who,ageStart,ageEnd,ownEarnings,gross,taken,months,owner,grace,cap,ends){
         var t=ssEarningsTestWithholding(p,ageStart,ageEnd,ownEarnings,gross-taken,months,owner,cap===undefined?undefined:Math.max(0,cap-taken));
-        return taken>1e-9&&t.withheld>1e-9&&months>0?{withheld:t.withheld,creditMonths:Math.min(months,Math.ceil(t.withheld/(gross/months)-1e-9))}:t;
-      };
+        if(!(t.withheld>1e-9))return {withheld:t.withheld,rib:0,wib:0};
+        var w=ssWalk(ssPieces(who,null,grace,taken>1e-9?ends:null),t.withheld);
+        return {withheld:t.withheld,rib:w.rib,wib:w.wib};
+      },
+      selfW,spouseW;
   if(spouseOn&&spouseAuxGross>1e-9){
-    var fa=familyTest(age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined,spouseAuxGross,spouseAuxInSelfService);
-    selfTest=fa.nh;
-    spouseTest=remainderTest(spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,fa.aux,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined);
+    selfW=ssFamily("s","p",age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace,selfGrace?selfServiceGross:undefined,spouseAuxGross,spouseAuxInSelfService);
+    spouseW=ssRemainder("p",spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,selfW.aux,spouseMonths,"spouse",spouseGrace,spouseGrace?spouseServiceGross:undefined,selfW.ends);
   }else if(spouseOn&&selfAuxGross>1e-9){
-    var fb=familyTest(spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined,selfAuxGross,selfAuxInSpouseService);
-    spouseTest=fb.nh;
-    selfTest=remainderTest(age,rowAge,earnings&&earnings.self,selfGross,fb.aux,selfMonths,"self",selfGrace?selfServiceGross:undefined);
+    spouseW=ssFamily("p","s",spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace,spouseGrace?spouseServiceGross:undefined,selfAuxGross,selfAuxInSpouseService);
+    selfW=ssRemainder("s",age,rowAge,earnings&&earnings.self,selfGross,spouseW.aux,selfMonths,"self",selfGrace,selfGrace?selfServiceGross:undefined,spouseW.ends);
   }else{
-    selfTest=ssEarningsTestWithholding(p,age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined);
-    spouseTest=spouseOn
-      ?ssEarningsTestWithholding(p,spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined)
-      :none;
+    selfW=ssSingle("s",age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace,selfGrace?selfServiceGross:undefined);
+    spouseW=spouseOn?ssSingle("p",spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace,spouseGrace?spouseServiceGross:undefined):ssNone;
   }
-  if(selfTest.withheld>0||spouseTest.withheld>0)total-=selfTest.withheld+spouseTest.withheld;
-  return {total:total,withheld:selfTest.withheld+spouseTest.withheld,
-          creditMonths:{self:selfTest.creditMonths,spouse:spouseTest.creditMonths}};
+  if(selfW.withheld>0||spouseW.withheld>0)total-=selfW.withheld+spouseW.withheld;
+  return {total:total,withheld:selfW.withheld+spouseW.withheld,
+          creditMonths:{self:selfW.rib,spouse:spouseW.rib,selfSurvivor:selfW.wib,spouseSurvivor:spouseW.wib}};
 }
 /* S5AA R25 (R24F-01, the owner 2026-09-25: prorate the stage, its end age being "the last year covered"): the app takes a
    stage's start and end ages in half-year steps, but the stage was tested at ONE age, the one the retired part of the
@@ -3651,7 +3710,7 @@ function simulatePlan(){var baseRules=RULES;try{return simulatePlanRows.apply(th
 function simulatePlanRows(p,random,historyOffset,ltcRandom,issues,serialized,gateToken){var baseRules=RULES,irmaaTopFactor=null,taxYearPriceIndex=1,annualInflation=0;if(gateToken!==scenarioInputGate){var gate=scenarioInputGate(p);if(gate.code){recordScenarioRefusal(issues,gate.code,gate.flagPath);return refusedSimulation(p,gate.code)}p=withResolvedStrategy(gate.plan,issues);serialized=gate.serialized}
       var accounts=serialized&&serialized[0]?JSON.parse(serialized[0].text):clone(p.accounts),otherAssets=serialized&&serialized[1]?JSON.parse(serialized[1].text):clone(p.advanced.otherAssets||[]),debts=serialized&&serialized[2]?JSON.parse(serialized[2].text):clone(p.advanced.debts||[]),taxableBasisReady=initTaxableBasis(accounts),rows=[],inflationFactor=1,lifetimeTaxes=0,failed=false,/* Q91 (F5): the crediting months earned SO FAR, per person. The adjustment of the reduction factor is
          cumulative and permanent, so it is run state rather than row state -- a month withheld at 62 is
-         still buying a larger benefit at 85. */ssCreditedMonths={self:0,spouse:0},/* Q87 step 2: each owner's Form 8606 basis, carried across rows. Basis is a running total -- nondeductible contributions in, nontaxable distributions out -- and it NEVER crosses owners. */iraBasisState={self:0,spouse:0},/* R18 (B1 (c)): the household's capital loss carried into the next row. */capitalLossCarry=0,capitalLossCarryByOwner={self:0,spouse:0},/* R19 workstream A: each owner's unused post-70.5 QCD offset, and the tax true-up owed into the next row. */qcdOffsetState={self:0,spouse:0},taxTrueUpCarried=0,iraBasisDisclosed=false,/* R7-02: what actually changed hands at each death. Decision 8: the row opening at which nobody is alive, where the projection stopped. */successionEvents=[],successionDone={},noSurvivorFrom=null,firstShortfallAge=null,sustainedFailureAge=null,firstCalculationErrorAge=null,shortfallStreak=0,limitWarnings=[],magiHistory=[],filingHistory=[],/* S5AA R35 (SA32F-24): the two tax returns before the plan, when entered, open the IRMAA lookback (20 CFR 418.1135); absent, plan years 0 and 1 assume no surcharge, as MODEL_ASSUMPTIONS 11 says */preMagiEntered=(function(){var adv=p.advanced||{},m2=Number(adv.irmaaMagiTwoYearsBefore),m1=Number(adv.irmaaMagiOneYearBefore),has2=adv.irmaaMagiTwoYearsBefore!=null&&Number.isFinite(m2),has1=adv.irmaaMagiOneYearBefore!=null&&Number.isFinite(m1);if(!has2&&!has1)return false;var f=householdFilingFor(p,p.profile.age),f2=typeof adv.irmaaFilingTwoYearsBefore==="string"?adv.irmaaFilingTwoYearsBefore:f,f1=typeof adv.irmaaFilingOneYearBefore==="string"?adv.irmaaFilingOneYearBefore:f;magiHistory.push(has2?Math.max(0,m2):0,has1?Math.max(0,m1):0);filingHistory.push(f2,f1);return true})(),firstMagiRow=true,ltcStart=null,ltcWeight=1,retireBalance=null,retireInflationFactor=null,priorSpend=null,priorReturn=0,/* SA-04 fix (SPRINT_EXTERNAL_AUDIT_20260909.md): the DECISION-TIME inflation
+         still buying a larger benefit at 85. */ssCreditedMonths={self:0,spouse:0,selfSurvivor:0,spouseSurvivor:0},/* Q87 step 2: each owner's Form 8606 basis, carried across rows. Basis is a running total -- nondeductible contributions in, nontaxable distributions out -- and it NEVER crosses owners. */iraBasisState={self:0,spouse:0},/* R18 (B1 (c)): the household's capital loss carried into the next row. */capitalLossCarry=0,capitalLossCarryByOwner={self:0,spouse:0},/* R19 workstream A: each owner's unused post-70.5 QCD offset, and the tax true-up owed into the next row. */qcdOffsetState={self:0,spouse:0},taxTrueUpCarried=0,iraBasisDisclosed=false,/* R7-02: what actually changed hands at each death. Decision 8: the row opening at which nobody is alive, where the projection stopped. */successionEvents=[],successionDone={},noSurvivorFrom=null,firstShortfallAge=null,sustainedFailureAge=null,firstCalculationErrorAge=null,shortfallStreak=0,limitWarnings=[],magiHistory=[],filingHistory=[],/* S5AA R35 (SA32F-24): the two tax returns before the plan, when entered, open the IRMAA lookback (20 CFR 418.1135); absent, plan years 0 and 1 assume no surcharge, as MODEL_ASSUMPTIONS 11 says */preMagiEntered=(function(){var adv=p.advanced||{},m2=Number(adv.irmaaMagiTwoYearsBefore),m1=Number(adv.irmaaMagiOneYearBefore),has2=adv.irmaaMagiTwoYearsBefore!=null&&Number.isFinite(m2),has1=adv.irmaaMagiOneYearBefore!=null&&Number.isFinite(m1);if(!has2&&!has1)return false;var f=householdFilingFor(p,p.profile.age),f2=typeof adv.irmaaFilingTwoYearsBefore==="string"?adv.irmaaFilingTwoYearsBefore:f,f1=typeof adv.irmaaFilingOneYearBefore==="string"?adv.irmaaFilingOneYearBefore:f;magiHistory.push(has2?Math.max(0,m2):0,has1?Math.max(0,m1):0);filingHistory.push(f2,f1);return true})(),firstMagiRow=true,ltcStart=null,ltcWeight=1,retireBalance=null,retireInflationFactor=null,priorSpend=null,priorReturn=0,/* SA-04 fix (SPRINT_EXTERNAL_AUDIT_20260909.md): the DECISION-TIME inflation
          input -- the last CPI change the household could actually have observed.
 
          `annualInflation` is used in two places with opposite requirements. At the
@@ -4398,7 +4457,7 @@ qcdRequested=qcdOwnerRequests(p,accounts,age,spouseAge,duration),qcd=0,/* P2 (de
    fractional age is part of a tax year, and plan year 2 looked back to that part alone -- half a year's income for a half row. The rest of the
    year is completed at last year's entered MAGI rate, or at the row's own annual rate when none is entered: an approximation, disclosed. */
    (function(){var rowMagi=(taxesSettled||taxes).measures.irmaa_magi;if(firstMagiRow&&duration<1-1e-9&&duration>1e-9){var adv=p.advanced||{},lastYear=adv.irmaaMagiOneYearBefore!=null&&Number.isFinite(Number(adv.irmaaMagiOneYearBefore))?Math.max(0,Number(adv.irmaaMagiOneYearBefore)):rowMagi/duration;rowMagi=rowMagi+(1-duration)*lastYear;if(p.advanced&&p.advanced.healthOn&&/* only where the completed year prices a premium: someone 65 or over by plan year 2 */(Number(p.profile.age)+2>=65||(p.profile.spouseOn&&Number(p.profile.spouseAge)+2>=65))&&!issues.some(function(i){return i.code==="IRMAA_PARTIAL_FIRST_YEAR_COMPLETED"}))recordIssue(issues,"IRMAA_PARTIAL_FIRST_YEAR_COMPLETED","WARNING","The plan opens part-way through a year, so its first row holds only part of a tax year's income. The IRMAA surcharge two years later reads the whole year, so the rest of it is filled in at "+(adv.irmaaMagiOneYearBefore!=null?"last year's entered income":"the first row's own annual rate")+". That is an estimate.",{path:"advanced.healthOn",approximation:true,rowDuration:duration,completedWith:adv.irmaaMagiOneYearBefore!=null?"irmaaMagiOneYearBefore":"firstRowRate"})}firstMagiRow=false;magiHistory.push(rowMagi)})();filingHistory.push(householdFilingFor(p,age));/* RC-02: carry the pre-adjustment base, not the spendable amount. *//* Q91 (F5): the months this row withheld are added AFTER it is complete, so a row cannot credit
-             itself with months it is in the middle of earning. */ssCreditedMonths.self+=ssDetail.creditMonths.self;ssCreditedMonths.spouse+=ssDetail.creditMonths.spouse;/* Q87 step 2: basis IN, once the row is complete. Each owner gains the part of their OWN contribution that step 1 could not deduct. Basis OUT no longer happens here (the fourth internal audit found this comment still describing it). It said recoveries were removed "in the proportion each owner's basis stood in" and that this kept the two pools from crossing; that split was the crossing, and EA-04 deleted it. Each transaction now spends its own owner's recovery through spendIraBasis(). */(function(){/* R19 workstream A: a settled row's closing basis already holds this year's nondeductible contributions. */if(!iraSettled){iraBasisState.self+=Math.max(0,iraPreTaxSelf-iraDeductionSplit.self);iraBasisState.spouse+=Math.max(0,iraPreTaxSpouse-iraDeductionSplit.spouse)}delete iraBasisState.row;/* Q87 step 2: BASIS IS ONLY WHAT THIS PROJECTION ITSELF CREATED, and it is said HERE because this is where the fact becomes known -- not at the plan level, where the running basis does not exist. Form 8606 basis also arises from nontaxable rollover amounts and from nondeductible contributions made BEFORE the plan starts, and the engine has no input for an opening basis. A household that arrives with basis is UNDER-credited, which makes the modelled tax too HIGH -- the safe direction, still wrong, so it is said. Once per run, and only where nondeductible money actually accrues. */if(!iraBasisDisclosed&&issues&&(iraBasisState.self>0.005||iraBasisState.spouse>0.005)){iraBasisDisclosed=true;recordIssue(issues,"IRA_BASIS_FROM_PROJECTION_ONLY","WARNING","Part of a traditional IRA contribution in this plan was not deductible, so it becomes basis and is not "+"taxed again when it is distributed. Only basis this projection itself created is counted: nondeductible "+"contributions made before this plan starts, and nontaxable amounts rolled in, are not known to it. A "+"household that already holds an opening basis will see a HIGHER tax here than it would owe.",{path:"accounts",openingBasisModelled:false,approximation:true});}/* EA-04: NO SPLIT HERE ANY MORE. What each transaction recovered has already come off its own owner's basis. */})();if(retiredDuration>0)priorSpend=spendState.base===undefined?annualSpend:spendState.base;priorReturn=periodReturnSignal;/* S5AA R35 (R32V-01): every method reads the portfolio's own balance-weighted return, above */priorObservedInflation=annualInflation;priorObservedInflationFactor=Math.pow(Math.max(.01,1+annualInflation),duration) /* SA-04: observed. FM-07: and scaled to the period that was actually elapsed, not a flat year */
+             itself with months it is in the middle of earning. */ssCreditedMonths.self+=ssDetail.creditMonths.self;ssCreditedMonths.spouse+=ssDetail.creditMonths.spouse;ssCreditedMonths.selfSurvivor+=ssDetail.creditMonths.selfSurvivor;ssCreditedMonths.spouseSurvivor+=ssDetail.creditMonths.spouseSurvivor;/* Q87 step 2: basis IN, once the row is complete. Each owner gains the part of their OWN contribution that step 1 could not deduct. Basis OUT no longer happens here (the fourth internal audit found this comment still describing it). It said recoveries were removed "in the proportion each owner's basis stood in" and that this kept the two pools from crossing; that split was the crossing, and EA-04 deleted it. Each transaction now spends its own owner's recovery through spendIraBasis(). */(function(){/* R19 workstream A: a settled row's closing basis already holds this year's nondeductible contributions. */if(!iraSettled){iraBasisState.self+=Math.max(0,iraPreTaxSelf-iraDeductionSplit.self);iraBasisState.spouse+=Math.max(0,iraPreTaxSpouse-iraDeductionSplit.spouse)}delete iraBasisState.row;/* Q87 step 2: BASIS IS ONLY WHAT THIS PROJECTION ITSELF CREATED, and it is said HERE because this is where the fact becomes known -- not at the plan level, where the running basis does not exist. Form 8606 basis also arises from nontaxable rollover amounts and from nondeductible contributions made BEFORE the plan starts, and the engine has no input for an opening basis. A household that arrives with basis is UNDER-credited, which makes the modelled tax too HIGH -- the safe direction, still wrong, so it is said. Once per run, and only where nondeductible money actually accrues. */if(!iraBasisDisclosed&&issues&&(iraBasisState.self>0.005||iraBasisState.spouse>0.005)){iraBasisDisclosed=true;recordIssue(issues,"IRA_BASIS_FROM_PROJECTION_ONLY","WARNING","Part of a traditional IRA contribution in this plan was not deductible, so it becomes basis and is not "+"taxed again when it is distributed. Only basis this projection itself created is counted: nondeductible "+"contributions made before this plan starts, and nontaxable amounts rolled in, are not known to it. A "+"household that already holds an opening basis will see a HIGHER tax here than it would owe.",{path:"accounts",openingBasisModelled:false,approximation:true});}/* EA-04: NO SPLIT HERE ANY MORE. What each transaction recovered has already come off its own owner's basis. */})();if(retiredDuration>0)priorSpend=spendState.base===undefined?annualSpend:spendState.base;priorReturn=periodReturnSignal;/* S5AA R35 (R32V-01): every method reads the portfolio's own balance-weighted return, above */priorObservedInflation=annualInflation;priorObservedInflationFactor=Math.pow(Math.max(.01,1+annualInflation),duration) /* SA-04: observed. FM-07: and scaled to the period that was actually elapsed, not a flat year */
       }
       /* R19 WORKSTREAM A, THE TERMINAL ROW (the auditor's A2; the owner, 2026-09-23: a final tax the plan cannot pay counts as a
          failure). The last row's true-up has no next row to pay it. It is reported (taxOutstanding) and already comes off

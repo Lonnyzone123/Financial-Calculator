@@ -1,0 +1,144 @@
+✖ R43 (SA42F-02): a claim at 67.5 keeps every COLA -- the row closing at 69 has six, not five (11.1811ms)
+✔ R43 (SA42F-02) control: a claim at 68, on a row boundary, is unchanged (1.8815ms)
+✖ R43 (SA42F-02): the spousal and survivor benefits on that record keep the COLA too (2.249ms)
+✖ R43 (SA42F-17): someone 65 at the start gets the bend points of the year they turned 62, three years back (1.4705ms)
+✔ R43 (SA42F-17) controls: 60 and 62 at the start are unchanged (2.7724ms)
+✖ R43 (R42-01): the spousal benefit starts mid-year -- the worker is credited five months, not four (1.3776ms)
+✔ R43 (R42-01) control: the spousal claim after the withholding year gives the same 43,944 (0.9246ms)
+✖ R43 (R42-01): the spousal benefit starts while the excess is still being charged (1.0107ms)
+✖ R43 (SA42F-18): each benefit is adjusted for its own withheld months (1.873ms)
+✔ R43 (SA42F-18) control: with no wages nothing is withheld, and the survivor benefit is 2,206 a month (1.712ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 4
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 149.679
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r43-social-security.test.js:50:1
+✖ R43 (SA42F-02): a claim at 67.5 keeps every COLA -- the row closing at 69 has six, not five (11.1811ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  28644 !== 29448
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r43-social-security.test.js:53:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 28644,
+    expected: 29448,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r43-social-security.test.js:64:1
+✖ R43 (SA42F-02): the spousal and survivor benefits on that record keep the COLA too (2.249ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  42408 !== 43608
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r43-social-security.test.js:68:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 42408,
+    expected: 43608,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r43-social-security.test.js:85:1
+✖ R43 (SA42F-17): someone 65 at the start gets the bend points of the year they turned 62, three years back (1.4705ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  31980 !== 29268
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r43-social-security.test.js:88:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 31980,
+    expected: 29268,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r43-social-security.test.js:106:1
+✖ R43 (R42-01): the spousal benefit starts mid-year -- the worker is credited five months, not four (1.3776ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  43800 !== 43944
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r43-social-security.test.js:111:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 43800,
+    expected: 43944,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r43-social-security.test.js:118:1
+✖ R43 (R42-01): the spousal benefit starts while the excess is still being charged (1.0107ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  44100 !== 44244
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r43-social-security.test.js:123:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 44100,
+    expected: 44244,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r43-social-security.test.js:137:1
+✖ R43 (SA42F-18): each benefit is adjusted for its own withheld months (1.873ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  27996 !== 30132
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r43-social-security.test.js:142:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 27996,
+    expected: 30132,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
