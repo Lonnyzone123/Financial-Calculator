@@ -1,0 +1,11 @@
+== control (36 plans): 3 flagged
+   golden:monte-carlo-fixed-seed: SA42F-31 monteCarlo, 500 runs, seed 123456
+   seed:9: SA42F-31 monteCarlo, 52 runs, seed 577067
+   seed:17: SA42F-31 monteCarlo, 24 runs, seed 718221
+== expanded (71 plans): 4 flagged
+   golden:monte-carlo-fixed-seed: SA42F-31 monteCarlo, 500 runs, seed 123456
+   seed:9: SA42F-31 monteCarlo, 52 runs, seed 577067
+   seed:17: SA42F-31 monteCarlo, 24 runs, seed 718221
+   expansion:monte-carlo-sensitive-band: SA42F-31 monteCarlo, 500 runs, seed 123456
+== golden: monte-carlo-fixed-seed (SA42F-31 monteCarlo, 500 runs, seed 123456)
+== positive control: mc: SA42F-31 monteCarlo, 3 runs, seed 1 | 1900: SA42F-34 historyStart 1900 | 1966.5: SA42F-34 historyStart 1966.5 | 1967 (control): none | 2026 (after data, its own code): none | montecarlo: SA42F-33 method montecarlo
