@@ -1,0 +1,60 @@
+== control (36 plans)
+  f19 (0): none
+  f20 (11): 
+    seed:1 [stage 1 fixed from 61]
+    seed:2 [(historical); stream 0 pension fixed from 76; stage 0 fixed from 66]
+    seed:3 [(historical); stream 0 rental cola from 60]
+    seed:5 [(historical); stream 0 taxFree fixed from 78; stage 0 fixed from 76]
+    seed:7 [(historical); stream 1 rental fixed from 52]
+    seed:9 [(monteCarlo); stream 1 pension fixed from 59]
+    seed:11 [(historical); stage 0 fixed from 61]
+    seed:15 [(historical); stream 0 employment fixed from 49]
+    seed:16 [stream 0 rental cola from 73; stream 1 other cola from 76]
+    seed:19 [stream 0 other fixed from 42]
+    targeted:spouse-cola-income [(historical); stream 0 recurring cola from 70]
+  f21 (7): 
+    golden:reserve-and-bond-tent [reserve 3y, incomeFirst]
+    seed:1 [reserve 5y, fixedNominal]
+    seed:2 [(historical); reserve 1y, incomeFirst]
+    seed:4 [(historical); reserve 1y, floorCeiling]
+    seed:5 [(historical); reserve 4y, guyton]
+    seed:12 [reserve 1y, constantPercent]
+    seed:16 [reserve 5y, fixedNominal]
+  f28 (2): 
+    seed:4 [(historical); income 0 at 84]
+    seed:6 [income 0 at 69]
+== expanded (71 plans)
+  f19 (0): none
+  f20 (11): 
+    seed:1 [stage 1 fixed from 61]
+    seed:2 [(historical); stream 0 pension fixed from 76; stage 0 fixed from 66]
+    seed:3 [(historical); stream 0 rental cola from 60]
+    seed:5 [(historical); stream 0 taxFree fixed from 78; stage 0 fixed from 76]
+    seed:7 [(historical); stream 1 rental fixed from 52]
+    seed:9 [(monteCarlo); stream 1 pension fixed from 59]
+    seed:11 [(historical); stage 0 fixed from 61]
+    seed:15 [(historical); stream 0 employment fixed from 49]
+    seed:16 [stream 0 rental cola from 73; stream 1 other cola from 76]
+    seed:19 [stream 0 other fixed from 42]
+    targeted:spouse-cola-income [(historical); stream 0 recurring cola from 70]
+  f21 (7): 
+    golden:reserve-and-bond-tent [reserve 3y, incomeFirst]
+    seed:1 [reserve 5y, fixedNominal]
+    seed:2 [(historical); reserve 1y, incomeFirst]
+    seed:4 [(historical); reserve 1y, floorCeiling]
+    seed:5 [(historical); reserve 4y, guyton]
+    seed:12 [reserve 1y, constantPercent]
+    seed:16 [reserve 5y, fixedNominal]
+  f28 (2): 
+    seed:4 [(historical); income 0 at 84]
+    seed:6 [income 0 at 69]
+== positive control
+  SA42F-19 roof: f19 [66 Home from 65.5]
+  SA42F-19 recurring: f19 [66 Home from 65.5]
+  SA42F-20 stage none: f20 [stage 0 none from 65]
+  SA42F-20 stage inflation (control): none
+  SA42F-20 rent fixed: f20 [stream 0 rental fixed from 65]
+  SA42F-20 rent from start (control): none
+  SA42F-21 reserve: f21 [reserve 2y, guardrails]
+  SA42F-28 income at 63: f28 [income 0 at 63]
+  SA42F-28 income at 62 (control): none

@@ -1,0 +1,25 @@
+== control (36 plans)
+  f01: none
+  f08: none
+  f09: none
+  f10: none
+  f22: 
+    golden:monte-carlo-fixed-seed [87 withdrawal order changes (path 89 of 500); 88 withdrawal order changes (path 207 of 500); 96 withdrawal order changes (path 174 of 500)]
+  f23: none
+== expanded (71 plans)
+  f01: none
+  f08: none
+  f09: none
+  f10: none
+  f22: 
+    golden:monte-carlo-fixed-seed [87 withdrawal order changes (path 89 of 500); 88 withdrawal order changes (path 207 of 500); 96 withdrawal order changes (path 174 of 500)]
+    expansion:monte-carlo-sensitive-band [66 withdrawal order changes (path 71 of 500); 68 withdrawal order changes (path 19 of 500); 71 withdrawal order changes (path 467 of 500); +5]
+  f23: none
+== positive control
+  SA42F-01 witness, $80,000: f01 [51 Consulting; 52 Consulting]
+  SA42F-08 witness: f08 [45 ira 6230->810 at 151380; 46 ira 6190->340 at 155750]
+  SA42F-09 witness, 55.5: f09 [56 separation 55.5]
+  SA42F-09 control, 54.5: none
+  SA42F-10 witness: f10 [TwoYearsBefore 150000; OneYearBefore 150000]
+  SA42F-22 witness: f22 [68 tier 0 223000-224000]
+  SA42F-23 witness: f23 [90.5 spouse]
