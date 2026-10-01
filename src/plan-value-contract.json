@@ -1,0 +1,103 @@
+{
+  "formatVersion": 1,
+  "title": "Plan values: the one definition of type, presence, range and allowed text (S5AA R43)",
+  "about": "S5AA R43 (Claude's R42F audit, SA42F-05 and SA42F-06; the owner 2026-09-30: repair all 34). R42 typed two Social Security fields; R42F found the same defect in at least 25 more fields that neither layer typed or ranged and that ran silently coerced (a conversion amount of \"abc\" converted $0; an LTC probability of -10 turned care into income), six text fields neither layer checked, and ten plans the validator refused that the engine ran. Both the engine's input gate (src/engine.js) and the validator (src/scenario-validator.js) read THIS FILE, as both read src/boolean-flag-contract.json: a second hand-written list is the defect shape. A scalar entry names a dotted path; a list entry names a list and its records' fields. A number must be a finite JSON number when present (null is present); `required` makes absence an error too, and `requiredWhen` names a flag that makes it required while true. `min`/`max` bound it (`minExclusive` makes the minimum a strict bound). An `enum` value must be one of `values` when present. The engine refuses a violation (SCENARIO_NONNUMBER_PLAN_VALUE for a type or a missing value, SCENARIO_PLAN_VALUE_OUT_OF_RANGE, SCENARIO_UNKNOWN_PLAN_VALUE for text) and the validator reports it as an ERROR (WRONG_TYPE, MISSING_FIELD, OUT_OF_RANGE, INVALID_ENUM). Fields the engine already refuses under other codes keep those codes; this file adds what neither layer held.",
+  "scalars": [
+    { "path": "profile.spouseAge", "type": "number", "requiredWhen": "profile.spouseOn" },
+    { "path": "profile.state", "type": "enum", "values": ["AZ"] },
+    { "path": "employment.spouseSalary", "type": "number" },
+    { "path": "employment.growth", "type": "number" },
+    { "path": "employment.contributionStop", "type": "number" },
+    { "path": "assumptions.withdrawalTiming", "type": "enum", "values": ["monthly", "quarterly", "annual"] },
+    { "path": "limitPolicy", "type": "enum", "values": ["redirect", "warn", "prevent"] },
+    { "path": "retirement.withdrawalRate", "type": "number" },
+    { "path": "retirement.upperGuardrail", "type": "number" },
+    { "path": "retirement.lowerGuardrail", "type": "number" },
+    { "path": "retirement.adjustment", "type": "number" },
+    { "path": "retirement.floor", "type": "number" },
+    { "path": "retirement.ceiling", "type": "number" },
+    { "path": "retirement.vpwMinRate", "type": "number" },
+    { "path": "retirement.vpwMaxRate", "type": "number" },
+    { "path": "retirement.rmdMultiplier", "type": "number" },
+    { "path": "retirement.rmdFloor", "type": "number" },
+    { "path": "retirement.flexibility", "type": "number" },
+    { "path": "retirement.ssFra", "type": "number" },
+    { "path": "retirement.ssCola", "type": "number" },
+    { "path": "retirement.aime", "type": "number", "min": 0 },
+    { "path": "retirement.survivorSpendingReduction", "type": "number", "min": 0, "max": 100 },
+    { "path": "retirement.selfLife", "type": "number" },
+    { "path": "retirement.spouseLife", "type": "number" },
+    { "path": "retirement.pension", "type": "number", "min": 0 },
+    { "path": "retirement.pensionCola", "type": "number" },
+    { "path": "retirement.optimizationGoal", "type": "enum", "values": ["balanced", "success", "taxes", "spending", "legacy"] },
+    { "path": "advanced.retirementStock", "type": "number", "min": 0, "max": 100 },
+    { "path": "advanced.reserveYears", "type": "number", "min": 0 },
+    { "path": "advanced.bondTent", "type": "number", "min": 0, "max": 100 },
+    { "path": "advanced.transferAge", "type": "number" },
+    { "path": "advanced.transferAmount", "type": "number", "min": 0 },
+    { "path": "advanced.conversionAmount", "type": "number", "min": 0 },
+    { "path": "advanced.qcd", "type": "number", "min": 0 },
+    { "path": "advanced.healthCost", "type": "number", "min": 0 },
+    { "path": "advanced.healthInflation", "type": "number", "min": -100, "minExclusive": true, "max": 100, "requiredWhen": ["advanced.healthOn", "advanced.ltcOn"] },
+    { "path": "advanced.ltcCost", "type": "number", "min": 0 },
+    { "path": "advanced.ltcProbability", "type": "number", "min": 0, "max": 100 },
+    { "path": "advanced.ltcYears", "type": "number", "min": 0 },
+    { "path": "advanced.ltcInsurance", "type": "number", "min": 0 },
+    { "path": "advanced.home", "type": "number", "min": 0 },
+    { "path": "advanced.debt", "type": "number", "min": 0 },
+    { "path": "advanced.homeGrowth", "type": "number" },
+    { "path": "advanced.insurance", "type": "number", "min": 0 },
+    { "path": "advanced.legacy", "type": "number", "min": 0 }
+  ],
+  "lists": [
+    { "list": "accounts", "fields": [
+      { "name": "type", "type": "enum", "values": ["taxable", "traditionalIRA", "rothIRA", "traditional401k", "roth401k", "hsa", "customTaxable", "customTraditional", "customRoth", "brokerage"] },
+      { "name": "contributionMode", "type": "enum", "values": ["amount", "dollar", "salaryPct"] },
+      { "name": "annualChangeMode", "type": "enum", "values": ["amount", "dollar", "percent"] },
+      { "name": "annualChange", "type": "number" },
+      { "name": "frequency", "type": "number" },
+      { "name": "matchCap", "type": "number" },
+      { "name": "matchRate", "type": "number" },
+      { "name": "profitShare", "type": "number" },
+      { "name": "vesting", "type": "number", "min": 0, "max": 100 },
+      { "name": "basisPct", "type": "number" },
+      { "name": "priority", "type": "number" },
+      { "name": "yearsOfService", "type": "number", "nullable": true }
+    ] },
+    { "list": "retirement.stages", "mirrors": "NESTED_RECORD_SPECS.stages", "fields": [
+      { "name": "start", "type": "number", "required": true },
+      { "name": "end", "type": "number", "required": true },
+      { "name": "mode", "type": "enum", "values": ["amount", "percent"], "required": true },
+      { "name": "value", "type": "number", "required": true },
+      { "name": "annualChange", "type": "number" },
+      { "name": "growthMode", "type": "enum", "values": ["inflation", "fixed", "none"] }
+    ] },
+    { "list": "retirement.expenses", "mirrors": "NESTED_RECORD_SPECS.expenses", "fields": [
+      { "name": "age", "type": "number", "required": true },
+      { "name": "amount", "type": "number", "required": true },
+      { "name": "kind", "type": "enum", "values": ["expense", "withdrawal"] }
+    ] },
+    { "list": "retirement.otherIncomes", "mirrors": "NESTED_RECORD_SPECS.otherIncomes", "fields": [
+      { "name": "amount", "type": "number", "required": true },
+      { "name": "start", "type": "number", "required": true },
+      { "name": "end", "type": "number", "requiredUnlessType": ["oneTime", "oneTimeTaxFree"] },
+      { "name": "growth", "type": "number" },
+      { "name": "owner", "type": "enum", "values": ["self", "spouse", "household"] },
+      { "name": "growthMode", "type": "enum", "values": ["fixed", "inflation", "cola"] }
+    ] },
+    { "list": "advanced.otherAssets", "fields": [
+      { "name": "growth", "type": "number" },
+      { "name": "availableAge", "type": "number" },
+      { "name": "accessPct", "type": "number", "min": 0, "max": 100 },
+      { "name": "liquidity", "type": "enum", "values": ["liquid", "limited", "illiquid"] }
+    ] },
+    { "list": "advanced.debts", "fields": [
+      { "name": "type", "type": "enum", "values": ["mortgage", "creditCard", "autoLoan", "studentLoan", "personalLoan", "heloc", "businessLoan", "medicalDebt", "otherDebt"] },
+      { "name": "rateType", "type": "enum", "values": ["fixed", "adjustable"] },
+      { "name": "payoffAge", "type": "number" }
+    ] },
+    { "list": "advanced.assetClasses", "fields": [
+      { "name": "returnRate", "type": "number", "required": true }
+    ] }
+  ]
+}

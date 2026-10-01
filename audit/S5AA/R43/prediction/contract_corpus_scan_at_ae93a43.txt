@@ -1,0 +1,23 @@
+== control (36 plans): none refused
+== expanded (71 plans): none refused
+== app default (1 plans): none refused
+== golden (5 plans): none refused
+== positive control
+   control (valid): accepted
+   conversionAmount "abc": advanced.conversionAmount not a number: "abc"
+   contributionStop "abc": employment.contributionStop not a number: "abc"
+   qcd "10,000": advanced.qcd not a number: "10,000"
+   selfLife null: retirement.selfLife not a number: null
+   ltcYears "2": advanced.ltcYears not a number: "2"
+   ltcProbability -10: advanced.ltcProbability below 0: -10
+   healthCost -5000: advanced.healthCost below 0: -5000
+   debt type "Mortgage": advanced.debts[0].type not in [mortgage,creditCard,autoLoan,studentLoan,personalLoan,heloc,businessLoan,medicalDebt,otherDebt]: "Mortgage"
+   annualChangeMode "Percent": accounts[0].annualChangeMode not in [amount,dollar,percent]: "Percent"
+   withdrawalTiming "x": assumptions.withdrawalTiming not in [monthly,quarterly,annual]: "x"
+   stage with only a name: retirement.stages[0].start missing; retirement.stages[0].end missing; retirement.stages[0].mode missing; retirement.stages[0].value missing
+   income with no end: retirement.otherIncomes[0].end missing
+   healthInflation 150: advanced.healthInflation above 100: 150
+   ltcOn, healthInflation absent: advanced.healthInflation missing while advanced.healthOn or advanced.ltcOn
+   payoffAge null: advanced.debts[0].payoffAge not a number: null
+   fivePercentOwner "true": SA42F-07 accounts[0].fivePercentOwner: "true"
+   selfLife 60 at 60: SA42F-30/32 nobody alive at the start (selfLife 60, age 60)
