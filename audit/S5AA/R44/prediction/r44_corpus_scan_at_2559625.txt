@@ -1,0 +1,27 @@
+== control (36 plans)
+  h65p (0): none
+  h65o (2): 
+    seed:4 [(historical); 84 one-time 56260.18 into HSA, self 83.00 at the opening]
+    seed:13 [66 one-time 54279.64 into HSA, self 65.00 at the opening]
+  comp (0): none
+  neg (0): none
+== expanded (71 plans)
+  h65p (0): none
+  h65o (2): 
+    seed:4 [(historical); 84 one-time 56260.18 into HSA, self 83.00 at the opening]
+    seed:13 [66 one-time 54279.64 into HSA, self 65.00 at the opening]
+  comp (0): none
+  neg (0): none
+== positive and negative controls
+  R43-01a witness: spouse 64.5, planned 12,000: h65p [61 spouse turns 65 at 60.50: asks 6000 > 4875]
+  R43-01a control: spouse 64.5, planned 4,000 (under the prorated cap): none
+  R43-01a control: spouse 63, planned 12,000 (no birthday in the first rows): none
+  R43-01b witness: spouse 66, one-time 4,400: h65o [61 one-time 4400 into HSA, spouse 66.00 at the opening]
+  R43-01b witness: spouse 64.5, one-time 4,400: h65o [61 one-time 4400 into HSA, spouse 64.50 at the opening]
+  R43-01b control: spouse 63, one-time 4,400: none
+  R43-02 witness: stream from 65: comp [66 one-time IRA 7500 with stream 0 (employment from 65)]
+  R43-02 control: stream from the start: none
+  R43-03 witness: profitShare -10: neg [accounts[1].profitShare = -10]
+  R43-03 witness: matchRate -50: neg [accounts[1].matchRate = -50]
+  R43-03 witness: matchCap -6: neg [accounts[1].matchCap = -6]
+  R43-03 control: profitShare 0: none

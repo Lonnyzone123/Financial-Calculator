@@ -1,0 +1,12 @@
+seed:4 (historical): limitPolicy "redirect", transfer 56260.18 from gen-a3 to gen-a4 at 83
+   pre-repair notes on the HSA: none
+   row of the transfer (84): HSA falls 10691.66
+   direction with no transfer (default policy): final HSA falls 12580.77, final taxable rises 12575.82, final total falls 3254.14, lifetime taxes rises 2768.18, rows equal: false
+seed:5 (historical): limitPolicy "redirect", transfer 7030.58 from gen-a2 to gen-a1 at 79
+   pre-repair notes on the HSA: none
+   row of the transfer (80): HSA same
+   direction with no transfer (default policy): final HSA same, final taxable same, final total same, lifetime taxes same, rows equal: false
+seed:13 (simple): limitPolicy "redirect", transfer 54279.64 from gen-a3 to gen-a1 at 65
+   pre-repair notes on the HSA: none
+   row of the transfer (66): HSA same
+   direction with no transfer (default policy): final HSA same, final taxable same, final total same, lifetime taxes same, rows equal: true
