@@ -2935,7 +2935,10 @@ function nonNumberPlanValuePath(p){
        never what the app's form stores. */
     ["assumptions","inflation"],["assumptions","fee"],["assumptions","historyStart"],
     /* S5AA R40 (the audit of PR #35): healthcare inflation, which the validator now types, grows the health and care costs. */
-    ["advanced","healthInflation"]];
+    ["advanced","healthInflation"],
+    /* S5AA R42 (ChatGPT's R41F-05): the entered Social Security benefits, which the validator now types. A string ran as a zero
+       benefit (ssPiaBase(): Number(x) || 0) with status ok. */
+    ["retirement","ssBenefit"],["retirement","spouseSS"]];
   for(var i=0;i<FIELDS.length;i++){
     var section=p&&p[FIELDS[i][0]];
     if(!section||typeof section!=="object")continue;
@@ -7387,6 +7390,12 @@ function validateRetirement(c, retirement) {
     checkType(c, retirement.spouseClaim, 'retirement.spouseClaim', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
     checkRange(c, retirement.spouseClaim, 'retirement.spouseClaim', 62, 70, 'SS_CLAIM_OUT_OF_RANGE', 'error');
   }
+  /* S5AA R42 (ChatGPT's R41F-05; the owner 2026-09-30: "Repair all five in R42"): the entered monthly benefit at full retirement
+     age, self and spouse. A present value that was not a number ran as a zero benefit (Number("abc") || 0) with status ok, and
+     Restore backup accepted it. Present and not a finite number: WRONG_TYPE, and the engine refuses it by path. Absent is unchanged. */
+  ['ssBenefit', 'spouseSS'].forEach((key) => {
+    checkType(c, retirement[key], `retirement.${key}`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+  });
   /* Q50: retirement.dividendQualified is a percentage OF the dividend cash, and nothing here checked it. The UI
      input carries min 0 and max 100, but an imported or hand-edited plan skipped that. Above 100 the engine's
      ordinary share of dividends went negative and understated tax; below 0 it overstated tax. A range WARNING:

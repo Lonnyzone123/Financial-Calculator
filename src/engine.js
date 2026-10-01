@@ -1237,7 +1237,10 @@ function nonNumberPlanValuePath(p){
        never what the app's form stores. */
     ["assumptions","inflation"],["assumptions","fee"],["assumptions","historyStart"],
     /* S5AA R40 (the audit of PR #35): healthcare inflation, which the validator now types, grows the health and care costs. */
-    ["advanced","healthInflation"]];
+    ["advanced","healthInflation"],
+    /* S5AA R42 (ChatGPT's R41F-05): the entered Social Security benefits, which the validator now types. A string ran as a zero
+       benefit (ssPiaBase(): Number(x) || 0) with status ok. */
+    ["retirement","ssBenefit"],["retirement","spouseSS"]];
   for(var i=0;i<FIELDS.length;i++){
     var section=p&&p[FIELDS[i][0]];
     if(!section||typeof section!=="object")continue;
