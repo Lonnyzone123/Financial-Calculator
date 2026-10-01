@@ -1,0 +1,10 @@
+(a) method "montecarlo": calculation_error SCENARIO_UNKNOWN_METHOD mode="montecarlo" -> checker: S-EXACT-KEYS@mode must be one of ["simple","historical","monteCarlo"], got "montecarlo"
+(a) method "Monte Carlo": calculation_error SCENARIO_UNKNOWN_METHOD mode="Monte Carlo" -> checker: S-EXACT-KEYS@mode must be one of ["simple","historical","monteCarlo"], got "Monte Carlo"
+
+(b) RESULT_CONTRACT.md 7b: **No row field was added, removed or redefined, and no calculation error code was added.** Every S5AA
+    SCENARIO_UNKNOWN_METHOD              produced: true   named in RESULT_CONTRACT.md: false   named in any .md of the tree: false
+    SCENARIO_INVALID_RUN_COUNT           produced: true   named in RESULT_CONTRACT.md: false   named in any .md of the tree: true
+    SCENARIO_MISSING_SCENARIO_SECTION    produced: true   named in RESULT_CONTRACT.md: false   named in any .md of the tree: true
+    SCENARIO_NOBODY_ALIVE_AT_START       produced: true   named in RESULT_CONTRACT.md: false   named in any .md of the tree: false
+    SCENARIO_UNRECOGNIZED_INCOME_OWNER   produced: true   named in RESULT_CONTRACT.md: false   named in any .md of the tree: true
+    MONTE_CARLO_INVARIANT_FAILURE (task 1.2, Q101)  named in any .md of the tree: false

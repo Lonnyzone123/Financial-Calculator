@@ -1,0 +1,22 @@
+=== single, age 85, SS $2,000 PIA claimed at 67, spending $30,000, selfLife 87
+valid=true status=ok
+age=85 income=0 spending=0 withdrawals=0 taxes=0 total=500000
+age=86 income=26556 spending=30000 withdrawals=3444 taxes=0 total=496556
+age=87 income=26556 spending=30000 withdrawals=3444 taxes=0 total=493112
+age=88 income=0 spending=30000 withdrawals=30000 taxes=0 total=463112
+PROJECTION_ENDS_AT_LAST_DEATH state: {"stoppedAtRowOpening":88,"lastRowAge":88}
+=== single, age 85, SS $2,000 PIA claimed at 67, spending $30,000, selfLife 87.5
+valid=true status=ok
+age=85 income=0 spending=0 withdrawals=0 taxes=0 total=500000
+age=86 income=26556 spending=30000 withdrawals=3444 taxes=0 total=496556
+age=87 income=26556 spending=30000 withdrawals=3444 taxes=0 total=493112
+age=88 income=13278 spending=30000 withdrawals=16722 taxes=0 total=476390
+PROJECTION_ENDS_AT_LAST_DEATH state: {"stoppedAtRowOpening":88,"lastRowAge":88}
+=== single, age 85, SS $2,000 PIA claimed at 67, spending $30,000, selfLife 85
+valid=true status=ok
+age=85 income=0 spending=0 withdrawals=0 taxes=0 total=500000
+age=86 income=0 spending=30000 withdrawals=30000 taxes=0 total=470000
+PROJECTION_ENDS_AT_LAST_DEATH state: {"stoppedAtRowOpening":86,"lastRowAge":86}
+Hand, selfLife 87: born 1941, FRA 65y8m, claim 67 = 16 months of credits: 2,000 x (1 + 16 x 2/300) = 2,213.33 -> $2,213/mo = $26,556/yr.
+  Rows 86, 87: draw 30,000 - 26,556 = 3,444 each; balance 493,112 at 87, when the person dies.
+  The engine pays $0 Social Security in row 88 (dead for the whole row) but still spends $30,000: 463,112.

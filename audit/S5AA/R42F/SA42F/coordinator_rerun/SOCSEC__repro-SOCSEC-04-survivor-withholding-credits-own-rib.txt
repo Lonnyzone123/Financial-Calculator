@@ -1,0 +1,4 @@
+valid true status ok
+60:0  61:100000  62:100000  63:100000  64:26472  65:26472  66:26472  67:26472  68:27996  69:27996  70:27996
+row 68 (67-68): law max(RIB 2100, WIB 2511) x 12 = 30132; even with no survivor adjustment at all, max(RIB 2100, WIB 2206) x 12 = 26472; engine 27996 (= 2333 x 12, the RIB credited with the survivor's 30 months)
+control (no wages) row 68: hand 26472 engine 26472

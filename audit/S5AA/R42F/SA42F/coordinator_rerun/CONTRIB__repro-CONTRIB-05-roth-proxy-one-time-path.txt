@@ -1,0 +1,5 @@
+valid true  status ok 
+planned : row 45 wages/income 130000, AGI 130749.72, Roth IRA 7500  (expected 7500)
+valid true  status ok 
+one-time: row 45 wages/income 130000, AGI 130749.72, Roth IRA 0  (expected 7500)
+    roth: the transfer asked for $7,500, more than the $0 of IRA contribution limit left this year; $0 moved, and the rest stayed in the source account.

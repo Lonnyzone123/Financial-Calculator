@@ -1,0 +1,37 @@
+{
+ "N": 1000,
+ "SEED": 777002,
+ "plansRun": 985,
+ "invalid": 15,
+ "invalidCodes": {
+  "TRANSFER_INTO_WORKPLACE_PLAN": 7,
+  "TRANSFER_BETWEEN_OWNERS": 8
+ },
+ "notOk": 0,
+ "notOkCodes": {},
+ "rows": 18321,
+ "worst": {
+  "portfolio": 5.587935447692871e-9,
+  "household": 942.5,
+  "combined": 942.5
+ },
+ "classes": {
+  "WAGE_TAX_CLAMP": 4
+ },
+ "tags": {
+  "fracEnd": 287,
+  "halfStage": 295,
+  "historical": 251,
+  "selfDeath": 342,
+  "lateExpense": 191,
+  "divGrowth": 296,
+  "bySource": 235,
+  "spouseDeath": 171,
+  "transfer": 189,
+  "fallback": 247,
+  "tent": 145,
+  "reserve": 139
+ },
+ "failCount": 0,
+ "firstFails": []
+}

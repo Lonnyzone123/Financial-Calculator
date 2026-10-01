@@ -1,0 +1,12 @@
+valid true  status ok 
+A: $24,500 deferral + 25% profit sharing: salary 30000; warnings []
+  deposited to the 401(k): 32000 (deferral 24500 + employer 7500); expected employer 5500, total 30000; EXCEEDS 100% OF PAY
+  limitWarnings: []; audit warnings: []
+valid true  status ok 
+B: $20,000 deferral + 100% match up to 100% of pay: salary 30000; warnings []
+  deposited to the 401(k): 40000 (deferral 20000 + employer 20000); expected employer 10000, total 30000; EXCEEDS 100% OF PAY
+  limitWarnings: []; audit warnings: []
+valid true  status ok 
+control: $24,500 deferral + 25% profit sharing on $60,000: salary 60000; warnings []
+  deposited to the 401(k): 39500 (deferral 24500 + employer 15000); expected employer 15000, total 39500; ok
+  limitWarnings: []; audit warnings: []

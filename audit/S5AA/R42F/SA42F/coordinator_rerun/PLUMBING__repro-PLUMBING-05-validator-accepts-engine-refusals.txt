@@ -1,0 +1,8 @@
+selfLife 59 for a single person aged 60 (nobody alive at the start)
+   validator valid true []  |  runPlan calculation_error SCENARIO_NOBODY_ALIVE_AT_START  rows null
+couple, both lifespans below their starting ages
+   validator valid true []  |  runPlan calculation_error SCENARIO_NOBODY_ALIVE_AT_START  rows null
+assumptions.method "montecarlo" (validator: WARNING only)
+   validator valid true [WARNING INVALID_ENUM]  |  runPlan calculation_error SCENARIO_UNKNOWN_METHOD  rows null
+profile.filing "MFJ" (validator: WARNING only; Q68 decided the engine refusal)
+   validator valid true [WARNING INVALID_ENUM]  |  runPlan calculation_error SCENARIO_UNKNOWN_FILING_STATUS  rows null

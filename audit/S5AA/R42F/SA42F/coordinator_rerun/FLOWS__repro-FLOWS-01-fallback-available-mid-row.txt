@@ -1,0 +1,16 @@
+availableAge 65.5 status ok successRate 0 firstShortfallAge 66 validator warnings 
+  age=64 spending=0 withdrawals=0 nonPortfolioDraw=0 shortfall=0 otherAssets=400000 total=10000
+  age=65 spending=0 withdrawals=0 nonPortfolioDraw=0 shortfall=0 otherAssets=400000 total=10000
+  age=66 spending=100000 withdrawals=10000 nonPortfolioDraw=0 shortfall=90000 otherAssets=400000 total=0
+  age=67 spending=0 withdrawals=0 nonPortfolioDraw=0 shortfall=0 otherAssets=400000 total=0
+availableAge 65 status ok successRate 100 firstShortfallAge null validator warnings 
+  age=64 spending=0 withdrawals=0 nonPortfolioDraw=0 shortfall=0 otherAssets=400000 total=10000
+  age=65 spending=0 withdrawals=0 nonPortfolioDraw=0 shortfall=0 otherAssets=400000 total=10000
+  age=66 spending=100000 withdrawals=10000 nonPortfolioDraw=90000 shortfall=0 otherAssets=310000 total=0
+  age=67 spending=0 withdrawals=0 nonPortfolioDraw=0 shortfall=0 otherAssets=310000 total=0
+MISMATCH row 66 nonPortfolioDraw expected=90000 actual=0
+MISMATCH row 66 shortfall expected=0 actual=90000
+MISMATCH successRate expected=100 actual=0
+variant recurring spending: 64: draw 0 short 0 | 65: draw 0 short 0 | 66: draw 0 short 60000 | 67: draw 60000 short 0
+MISMATCH variant row 66 fallback draw >= 30,000 (time-prorated lower bound) expected=30000 actual=0
+== 0 pass, 4 mismatch

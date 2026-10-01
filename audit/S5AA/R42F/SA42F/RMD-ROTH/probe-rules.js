@@ -1,0 +1,13 @@
+const h=require('../harness.js');
+const r=h.RULES.retirement;
+const rmd=r.rmd;
+console.log(Object.keys(r));
+console.log(Object.keys(rmd));
+console.log(JSON.stringify(rmd.startAge,null,0).slice(0,1500));
+console.log('b1960',rmd.birth1960OrLaterAge,'b51-58',rmd.birth1951To1958Age,'qcdAge',rmd.qcdEligibleAge);
+console.log('uniform',JSON.stringify(rmd.uniformLifetime));
+const j=rmd.jointLastSurvivor; console.log(Object.keys(j)); const rows=j.rows; console.log(Object.keys(rows).slice(0,5),Object.keys(rows).length);
+const k=Object.keys(rows)[0]; console.log(k, Array.isArray(rows[k]), JSON.stringify(rows[k]).slice(0,600));
+console.log('75', JSON.stringify(rows['75']).slice(0,800));
+console.log(JSON.stringify(j).slice(0,400));
+console.log(JSON.stringify(r.qcd));

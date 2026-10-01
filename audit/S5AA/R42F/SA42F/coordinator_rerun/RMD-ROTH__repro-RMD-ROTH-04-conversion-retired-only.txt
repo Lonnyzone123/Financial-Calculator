@@ -1,0 +1,11 @@
+-- retireAge 62: valid true [] status ok issues []
+   row 61: Roth balance 0.00 (converted this row 0.00) agi 50000.00
+   row 62: Roth balance 0.00 (converted this row 0.00) agi 50000.00
+   row 63: Roth balance 20000.00 (converted this row 20000.00) agi 20557.14
+   row 64: Roth balance 40000.00 (converted this row 20000.00) agi 20557.14
+-- retireAge 61.5: valid true [] status ok issues []
+   row 61: Roth balance 0.00 (converted this row 0.00) agi 50000.00
+   row 62: Roth balance 10000.00 (converted this row 10000.00) agi 36614.04
+   row 63: Roth balance 30000.00 (converted this row 20000.00) agi 20557.14
+   row 64: Roth balance 50000.00 (converted this row 20000.00) agi 20557.14
+hand, reading the form literally (an annual amount): 20,000 converted in every row, Roth 20,000 / 40,000 / 60,000 / 80,000.

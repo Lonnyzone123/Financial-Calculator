@@ -1,0 +1,6 @@
+hidden spending 60000: row66 spending 120000.00  rate 6.8400%  row80 spending 181510.77 rate 6.8889%  end total 6302255
+hidden spending 120000: row66 spending 120000.00  rate 6.6800%  row80 spending 181510.77 rate 6.7723%  end total 5949425
+hidden spending 1000: row66 spending 120000.00  rate 6.9973%  row80 spending 181510.77 rate 6.9982%  end total 6739163
+MISMATCH row66 blended return (2 years of the projected $120,000) expected=6.68 actual=6.84
+MISMATCH row80 reserve share = 2 x row-80 spending / opening portfolio expected=0.08 actual=0.03
+== 0 pass, 2 mismatch

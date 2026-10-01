@@ -1,0 +1,18 @@
+valid true  status ok 
+selfLife 47:
+  row 46: preTax 20000.00  contributions 20000.00
+  row 47: preTax 40000.00  contributions 20000.00
+  row 48: preTax 40000.00  contributions 0.00
+  row 49: preTax 40000.00  contributions 0.00
+  row 50: preTax 40000.00  contributions 0.00
+  row 51: preTax 36000.00  contributions -4000.00
+  row 52: preTax 36000.00  contributions 0.00
+valid true  status ok 
+selfLife 120:
+  row 46: preTax 20000.00  contributions 20000.00
+  row 47: preTax 40000.00  contributions 20000.00
+  row 48: preTax 60000.00  contributions 20000.00
+  row 49: preTax 80000.00  contributions 20000.00
+  row 50: preTax 100000.00  contributions 20000.00
+  row 51: preTax 90000.00  contributions -10000.00
+  row 52: preTax 90000.00  contributions 0.00

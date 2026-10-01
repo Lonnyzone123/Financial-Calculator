@@ -1,0 +1,10 @@
+control ssCola 0                   validator VALID | engine ok  rows 0/24000/24000
+control ssCola 2.8                 validator VALID | engine ok  rows 0/24672/25356
+ssCola "abc"  (R42 rule: WRONG_TYPE) validator VALID | engine ok  rows 0/24672/25356
+control AIME 4000, ssAdvanced      validator VALID | engine ok  rows 0/24300/24300
+aime "abc", ssAdvanced             validator VALID | engine ok  rows 0/24000/24000
+aime -1, ssAdvanced                validator VALID | engine ok  rows 0/24000/24000
+control pension 12000              validator VALID | engine ok  rows 12000/36000/36000
+pension "abc"                      validator VALID | engine calculation_error TAX_QUOTE_NONFINITE_CONTEXT 
+pension -1000                      validator VALID | engine calculation_error COMMITTED_CASH_MISMATCH 
+pensionCola "abc" (pension 12000)  validator VALID | engine calculation_error TAX_QUOTE_NONFINITE_CONTEXT 

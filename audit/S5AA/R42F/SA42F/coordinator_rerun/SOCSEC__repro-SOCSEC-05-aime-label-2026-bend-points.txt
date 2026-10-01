@@ -1,0 +1,2 @@
+label: Calculate benefit from AIME using 2026 bend points
+valid true ok | label reading: row 68 = 31980 | engine row 68 = 61296 (bend points of 2048: 1286 x 1.03^22 = 2464 )

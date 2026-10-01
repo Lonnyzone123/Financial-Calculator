@@ -1,0 +1,15 @@
+control ltcProbability 25 (form range)       validator valid=true | runPlan ok | care cost charged 75000.00
+MATCH    control: 3 x 100,000 x 25% | expected 75000.00 | engine 75000.00 | diff 0.00
+ltcProbability 150 (form clamps to 100)      validator valid=true | runPlan ok | care cost charged 450000.00
+ltcProbability -10 (form clamps to 0)        validator valid=true | runPlan ok | care cost charged -30000.00
+ltcInsurance -20,000 (form clamps to 0)      validator valid=true | runPlan ok | care cost charged 90000.00
+MISMATCH ltcProbability 150 refused by the validator (valid=false -> 0) | expected 0.00 | engine 1.00 | diff 1.00
+MISMATCH ltcProbability -10 refused by the validator | expected 0.00 | engine 1.00 | diff 1.00
+MISMATCH ltcInsurance -20,000 refused by the validator | expected 0.00 | engine 1.00 | diff 1.00
+healthCost -5,000 (form clamps to 0), age 60 validator valid=true | runPlan ok | row spending [-5000,-5000,-5000]  <- negative health cost reduces spending
+MISMATCH healthCost -5,000 refused by the validator | expected 0.00 | engine 1.00 | diff 1.00
+healthCost missing, healthOn                 validator valid=true | runPlan calculation_error TAX_QUOTE_NONFINITE_CONTEXT | row spending null  
+MISMATCH healthCost missing: validator and engine agree (valid iff ok) | expected 1.00 | engine 0.00 | diff -1.00
+ltcCost missing, ltcOn                       validator valid=true | runPlan calculation_error TAX_QUOTE_NONFINITE_CONTEXT | care cost charged n/a
+MISMATCH ltcCost missing: validator and engine agree (valid iff ok) | expected 1.00 | engine 0.00 | diff -1.00
+SUMMARY matches=1 mismatches=6

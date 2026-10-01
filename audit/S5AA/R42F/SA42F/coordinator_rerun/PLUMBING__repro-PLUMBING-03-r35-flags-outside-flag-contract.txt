@@ -1,0 +1,13 @@
+in boolean-flag-contract.json: accounts[].spouseSoleBeneficiary=false  accounts[].currentEmployerPlan=false  accounts[].fivePercentOwner=false
+A accounts[1].fivePercentOwner = true: validator valid true  | runPlan ok | figure rmd 12195.12
+A accounts[1].fivePercentOwner = "true": validator valid false WRONG_TYPE@accounts[1].fivePercentOwner | runPlan ok | figure rmd 0.00
+A accounts[1].fivePercentOwner = false: validator valid true  | runPlan ok | figure rmd 0.00
+   hand expectation for the boolean the string spells: "true" -> 5% owner -> RMD 300,000/24.6 = 12195.12
+B accounts[1].spouseSoleBeneficiary = false: validator valid true  | runPlan ok | figure rmd 12195.12
+B accounts[1].spouseSoleBeneficiary = "false": validator valid false WRONG_TYPE@accounts[1].spouseSoleBeneficiary | runPlan ok | figure rmd 10600.71
+B accounts[1].spouseSoleBeneficiary = true: validator valid true  | runPlan ok | figure rmd 10600.71
+   hand expectation for the boolean the string spells: "false" -> Uniform 24.6 -> RMD 12195.12
+C accounts[0].currentEmployerPlan = true: validator valid true  | runPlan ok | figure taxes 2067.25 withdrawals 32067.25
+C accounts[0].currentEmployerPlan = "false": validator valid false WRONG_TYPE@accounts[0].currentEmployerPlan | runPlan ok | figure taxes 2067.25 withdrawals 32067.25
+C accounts[0].currentEmployerPlan = false: validator valid true  | runPlan ok | figure taxes 6314.57 withdrawals 36314.57
+   hand expectation for the boolean the string spells: "false" -> not the separating employer's plan -> the 10% additional tax of IRC 72(t)(1) applies (as with false)

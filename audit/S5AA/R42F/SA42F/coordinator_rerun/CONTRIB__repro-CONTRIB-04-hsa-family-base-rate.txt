@@ -1,0 +1,4 @@
+valid true  status ok 
+spouse HSA first: household HSA 4375, redirected to taxable 8750, AGI 145756.25, taxes 28376.40625  (expected HSA 8750, taxable 4375)
+valid true  status ok 
+self HSA first  : household HSA 8750, redirected to taxable 4375, AGI 141315.625, taxes 26958.359375  (expected HSA 8750, taxable 4375)

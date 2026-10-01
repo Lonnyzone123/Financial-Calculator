@@ -1,0 +1,15 @@
+no stage (incomeFirst, $40,000 today's dollars): row 66 53756.66 row 68 57030.44
+stage $40,000 inflation: row 66 53756.66  row 67 55369.35  row 68 57030.44  validator=- issues=-
+stage $40,000 none: row 66 40000.00  row 67 40000.00  row 68 40000.00  validator=- issues=-
+stage $40,000 fixed 0%: row 66 40000.00  row 67 40000.00  row 68 40000.00  validator=- issues=-
+stage $40,000 fixed 2%: row 66 40000.00  row 67 40800.00  row 68 41616.00  validator=- issues=-
+PASS Match inflation, row 66 expected=53756.66 actual=53756.66
+MISMATCH No annual change, row 66 (40,000 x 1.03^10, held) expected=53756.66 actual=40000
+MISMATCH No annual change, row 68 (held) expected=53756.66 actual=40000
+MISMATCH Fixed 2%, row 66 (40,000 x 1.03^10) expected=53756.66 actual=40000
+MISMATCH Fixed 2%, row 67 (x 1.02) expected=54831.79 actual=40800
+MISMATCH stage: Fixed 3% equals Match inflation at 3% inflation, row 66 expected=53756.66 actual=40000
+MISMATCH stage: Fixed 3% equals Match inflation at 3% inflation, row 68 expected=57030.44 actual=42436
+income row 66: Match inflation 40317.49  Fixed 3% 30000.00
+MISMATCH income: Fixed 3% equals Match inflation at 3% inflation, row 66 expected=40317.49 actual=30000
+== 1 pass, 7 mismatch

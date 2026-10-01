@@ -1,0 +1,6 @@
+retireAge 60.5: row61 spending 20000.00  row62 40000.00  filing-relevant issues: SURVIVOR_FILING_STATUS_MODELLED,SURVIVOR_BENEFIT_APPROXIMATED,SPOUSAL_ROLLOVER_ASSUMED
+retireAge 60: row61 spending 80000.00  row62 40000.00  filing-relevant issues: SURVIVOR_FILING_STATUS_MODELLED,SURVIVOR_BENEFIT_APPROXIMATED,SPOUSAL_ROLLOVER_ASSUMED
+MISMATCH row61 (death year, retired half the row) = 80,000 x 0.5 expected=40000 actual=20000
+PASS row62 (survivor) = 80,000 x 0.5 expected=40000 actual=40000
+PASS control retireAge 60: row61 = 80,000 expected=80000 actual=80000
+== 2 pass, 1 mismatch

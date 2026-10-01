@@ -1,0 +1,4 @@
+valid true  status ok 
+"set to $0 at 46.5": 45->46: 10000 | 46->47: 10000 | 47->48: 0   expected row 46->47: 5000
+valid true  status ok 
+"set to $0 at 47": 45->46: 10000 | 46->47: 10000 | 47->48: 0   expected row 46->47: 10000

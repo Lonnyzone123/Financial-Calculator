@@ -1,0 +1,32 @@
+W1 retirement.stages = [{name:"Go-go"}] -- lifetime spending (10 rows x 40,000)
+   validator: valid false  MISSING_FIELD@retirement.stages[0].growthMode, MISSING_FIELD@retirement.stages[0].start, MISSING_FIELD@retirement.stages[0].end (+2)
+   runPlan: ok  figure 0   control (valid plan) 400000   hand 400000
+W2 otherIncomes[0] without "end" (62-64 entered) -- lifetime income (2 x 10,000)
+   validator: valid false  MISSING_FIELD@retirement.otherIncomes[0].end
+   runPlan: ok  figure 80000   control (valid plan) 20000   hand 20000
+W3 expenses[0].amount "abc" -- lifetime spending (one $20,000 expense)
+   validator: valid false  WRONG_TYPE@retirement.expenses[0].amount
+   runPlan: ok  figure 0   control (valid plan) 20000   hand 20000
+W4 advanced.healthInflation 150 (validator: OUT_OF_RANGE ERROR since R40) -- row 63 spending
+   validator: valid false  OUT_OF_RANGE@advanced.healthInflation
+   runPlan: ok  figure 75000   control (valid plan) 13230
+W5 ltcOn with advanced.healthInflation absent -- lifetime care cost
+   validator: valid false  MISSING_FIELD@advanced.healthInflation
+   runPlan: ok  figure 100000   control (valid plan) 166961.6992446878
+W6 profile.spouseAge true (spouseOn) -- lifetime income (spouse 58 claims at 67)
+   validator: valid false  WRONG_TYPE@profile.spouseAge
+   runPlan: ok  figure 0   control (valid plan) 46128
+W7 assetClasses[0].returnRate true -- portfolio at 70 (control 5%)
+   validator: valid false  WRONG_TYPE@advanced.assetClasses[0].returnRate
+   runPlan: ok  figure 2205526   control (valid plan) 3251113
+W8 accounts[0].yearsOfService "3" -- 401(k) at 44
+   validator: valid false  OUT_OF_RANGE@accounts[0].yearsOfService
+   runPlan: ok  figure 60000   control (valid plan) 42000
+W8b accounts[0].vestingSchedule "x"
+   validator: valid false  INVALID_ENUM@accounts[0].vestingSchedule
+   runPlan: ok  figure 42000   control (valid plan) 42000
+W9 debts[0].payoffAge null (fixed loan) -- row 61 debt payments (12 x 1,500)
+   validator: valid false  WRONG_TYPE@advanced.debts[0].payoffAge
+   runPlan: ok  figure 211832.22   control (valid plan) 18000.00   hand 18000.00 (balance left 193832.22)
+
+validator ERROR but runPlan ok: 10

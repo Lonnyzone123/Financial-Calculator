@@ -1,0 +1,19 @@
+{
+ "NP": 300,
+ "PATHS": 5,
+ "plans": 300,
+ "invalid": 0,
+ "paths": 1500,
+ "errPaths": 0,
+ "rows": 30780,
+ "worst": {
+  "portfolio": 1.862645149230957e-9,
+  "household": 435,
+  "combined": 435
+ },
+ "classes": {
+  "WAGE_TAX_CLAMP": 12
+ },
+ "failCount": 0,
+ "firstFails": []
+}

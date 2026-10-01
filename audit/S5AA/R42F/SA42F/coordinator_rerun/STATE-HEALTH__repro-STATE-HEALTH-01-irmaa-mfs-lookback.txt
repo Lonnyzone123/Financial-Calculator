@@ -1,0 +1,6 @@
+validator valid=true errors=[]
+engine irmaaMonthly(150000,"mfs") = 443.3 (single tier 3 = 443.30; MFS lived-together = 732.50)
+MISMATCH plan year 0 (looks back to the mfs return two years before) | expected 9540.88 | engine 6070.48 | diff -3470.40
+MISMATCH plan year 1 (looks back to the mfs return one year before) | expected 9540.88 | engine 6070.48 | diff -3470.40
+MATCH    control plan year 2 (looks back to the plan's own joint return, 50,000): standard | expected 3185.68 | engine 3185.68 | diff 0.00
+SUMMARY matches=1 mismatches=2

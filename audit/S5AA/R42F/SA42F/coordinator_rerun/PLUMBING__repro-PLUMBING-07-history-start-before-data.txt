@@ -1,0 +1,7 @@
+historyStart 1900    validator valid true                    | runPlan ok                                   row 61 total 143810.00
+historyStart 1927    validator valid true                    | runPlan ok                                   row 61 total 143810.00
+historyStart 1928    validator valid true                    | runPlan ok                                   row 61 total 143810.00
+historyStart 1966.5  validator valid true                    | runPlan ok                                   row 61 total 123800.00
+historyStart 1967    validator valid true                    | runPlan ok                                   row 61 total 123800.00
+historyStart 2026    validator valid false ERROR OUT_OF_RANGE| runPlan calculation_error SCENARIO_HISTORY_START_AFTER_DATA 
+hand: 1928 first-year return 0.4381 -> 100,000 x 1.4381 = 143810.00; 1967 return 0.238 -> 123800.00; 1900 and 1927 have no data (the series starts in 1928), 1966.5 is not a data year

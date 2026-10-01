@@ -1,0 +1,4 @@
+MISMATCH last row (partial) taxes, spouse 65 at the tax year's close | expected 1840.00 | engine 2657.50 | diff 817.50
+   engine reading (spouse 64.5 at the row close) would be 2657.50
+MATCH    control full row closing 90 | expected 11264.50 | engine 11264.50 | diff 0.00
+SUMMARY matches=1 mismatches=1

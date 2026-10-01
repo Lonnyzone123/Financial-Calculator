@@ -1,0 +1,10 @@
+A. single, claim 67.5  valid true status ok
+  row 68: hand 14322  engine 14322  diff 0.00
+  row 69: hand 29448  engine 28644  diff -804.00
+  row 70: hand 30276  engine 29448  diff -828.00
+  row 71: hand 31116  engine 30276  diff -840.00
+Control, claim 68: row 70 hand 31440 engine 31440
+B. survivor plan valid true status ok
+  row 69 (worker + spousal): hand 43608 engine 42408
+  row 71 (survivor):         hand 31116 engine 30276
+  row 72 (survivor):         hand 31992 engine 31116
