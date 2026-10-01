@@ -1,0 +1,6 @@
+# node audit/S5AA/R44/prediction/retro/path_level_check.js <d11017f worktree> <b131aeb worktree> [plan]
+golden:monte-carlo-fixed-seed -- paths changed: 4 89,174,207,390 | aggregated result equal: true
+expansion:monte-carlo-sensitive-band -- paths changed: 6 125,211,219,349,377,389 | aggregated result equal: false
+# Paths the corrected scan's guard-reader condition flags (all rows), at d11017f:
+expansion:monte-carlo-sensitive-band flagged paths: 19,71,125,211,219,349,377,389,457,467   (all 6 changed paths, and 4 that did not change)
+golden:monte-carlo-fixed-seed flagged paths: 89,174,207   (3 of its 4 changed paths; 390 not flagged)

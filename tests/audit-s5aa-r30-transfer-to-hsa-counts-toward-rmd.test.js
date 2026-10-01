@@ -18,6 +18,13 @@
  *
  * Each plan: 80 to 81, 0% returns, a $60,000 pension, $100,000 of cash, $100,000 in the pre-tax source, dividends off. The Uniform
  * Lifetime Table divisor at 80 is 20.2 (the spouse, 78, is not more than ten years younger).
+ *
+ * S5AA R44 (ChatGPT's R43-01; the owner 2026-10-01): an HSA owner of 65 or over has no HSA limit (IRC 223(b)(7), Medicare assumed at
+ * 65), so a transfer into the 80-year-old's OWN HSA now moves nothing -- a qualified HSA funding distribution needs an eligible
+ * individual, and an owner old enough to owe a distribution is not one in this model. Each case that credits a transfer now sends
+ * it to the HSA of a spouse of 62, whose room is the family $8,750 plus the $1,000 catch-up = $9,750 (ChatGPT's own amount). The
+ * IRA's spouse is then 18 years younger, so the account is marked not solely the spouse's, keeping the Uniform Lifetime divisor of
+ * 20.2 that every expectation reads. The owner's-own case is kept as the R44 rule: $0 moves and the requirement is drawn in full.
  */
 'use strict';
 
@@ -42,12 +49,12 @@ function account(id, type, balance, extra) {
     priority: id === 'cash' ? 0 : 2 }, extra || {});
 }
 function rmdPlan(o) {
-  const x = Object.assign({ spouse: false, from: 'traditionalIRA', hsaOwner: 'self', amount: 5400, at: 80 }, o);
+  const x = Object.assign({ spouse: true, spouseAge: 62, from: 'traditionalIRA', hsaOwner: 'spouse', amount: 5400, at: 80 }, o);
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
   p.limitPolicy = 'redirect';
   Object.assign(p.profile, { age: 80, retireAge: 65, endAge: 81, spouseOn: x.spouse, filing: x.spouse ? 'mfj' : 'single' });
-  if (x.spouse) Object.assign(p.profile, { spouseAge: 78, spouseRetireAge: 65, spouseEndAge: 79 });
+  if (x.spouse) Object.assign(p.profile, { spouseAge: x.spouseAge, spouseRetireAge: 65, spouseEndAge: 79 });
   Object.assign(p.assumptions, { method: 'simple', returnRate: 0, inflation: 0, fee: 0, volatility: 0, withdrawalTiming: 'monthly' });
   Object.assign(p.employment, { salary: 0, spouseSalary: 0, growth: 0 });
   Object.assign(p.retirement, { strategy: 'fixedNominal', spending: 0, dividendOn: false, pension: 60000, pensionCola: 0, ssBenefit: 0,
@@ -55,7 +62,7 @@ function rmdPlan(o) {
   Object.assign(p.advanced, { rmdOn: true, conversionOn: false, healthOn: false, ltcOn: false, networthOn: true, otherAssets: [], debts: [],
     assetsOn: true, assetClasses: [{ id: 'flat', name: 'Flat', returnRate: 0, volatility: 0 }], rule55: false, penaltyException: false,
     transferOn: true, transferFrom: 'src', transferTo: 'dst', transferAmount: x.amount, transferAge: x.at });
-  p.accounts = [account('cash', 'taxable', 100000, { cashHolding: true, allocation: {} }), account('src', x.from, 100000),
+  p.accounts = [account('cash', 'taxable', 100000, { cashHolding: true, allocation: {} }), account('src', x.from, 100000, { spouseSoleBeneficiary: false }),
     account('dst', 'hsa', 0, { owner: x.hsaOwner })];
   return p;
 }
@@ -73,15 +80,16 @@ const RMD = 100000 / 20.2;
 test('ChatGPT\'s example: $9,750 from the IRA into the spouse\'s HSA at 80 pays the $4,950.50 requirement -- nothing more is drawn', () => {
   // A distribution ($9,750 of income) and a deductible HSA contribution (-$9,750): AGI is the $60,000 pension. The IRA keeps
   // $90,250 (it was $85,299.50, with AGI $64,950.50).
-  const r = run(rmdPlan({ spouse: true, hsaOwner: 'spouse', amount: 9750 }));
+  const r = run(rmdPlan({ amount: 9750 }));
   near(r.hsa, 9750, 'the spouse\'s HSA');
   near(r.preTax, 90250, 'the IRA');
   near(r.federalAgi, 60000, 'AGI');
   near(r.rmdUnmet, 0, 'the requirement is met');
 });
 
-test('A qualified HSA funding distribution counts too: $5,400 into the owner\'s own HSA pays the requirement', () => {
-  // Excluded from income (408(d)(9)), and it is still an amount distributed from the IRA. The IRA keeps $94,600; AGI $60,000.
+test('A smaller distribution into the spouse\'s HSA counts too: $5,400 pays the requirement', () => {
+  // R44: was the owner's own HSA (a qualified HSA funding distribution), which an owner of 80 can no longer fund; the subject -- a
+  // pre-tax amount into an HSA counts toward the requirement -- is kept with the spouse's HSA. The IRA keeps $94,600; AGI $60,000.
   const r = run(rmdPlan());
   near(r.hsa, 5400, 'the HSA');
   near(r.preTax, 94600, 'the IRA');
@@ -100,6 +108,14 @@ test('A 401(k) into an HSA counts toward the 401(k)\'s own requirement', () => {
   const r = run(rmdPlan({ from: 'traditional401k' }));
   near(r.preTax, 94600, 'the 401(k)');
   near(r.federalAgi, 60000, 'AGI');
+});
+
+test('R44 (R43-01): an owner of 80 has no HSA room, so a transfer into their own HSA moves nothing and the requirement is drawn in full', () => {
+  // The limit is zero from 65 (IRC 223(b)(7)). The IRA pays the $4,950.50 requirement and keeps $100,000 - $4,950.50; AGI $60,000 + $4,950.50.
+  const r = run(rmdPlan({ spouse: false, hsaOwner: 'self' }));
+  near(r.hsa, 0, 'the HSA');
+  near(r.preTax, 100000 - RMD, 'the IRA');
+  near(r.federalAgi, 60000 + RMD, 'AGI');
 });
 
 test('CONTROL: a transfer dated after the year\'s draw is not credited -- the draw has already paid the requirement', () => {

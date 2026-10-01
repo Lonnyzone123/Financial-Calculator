@@ -1,0 +1,6 @@
+# S5AA R44 (R43-04): plans MEASURED to move in each R43 part. Expanded composition (71 plans, the control's 36 included), captured
+# at each commit in a clean worktree (tools/capture-baseline.js capture --composition expanded), compared entry by entry.
+tax d11017f -> b131aeb: expansion:monte-carlo-sensitive-band
+contrib b131aeb -> dd18f31: seed:4
+life dd18f31 -> 960eb11: expansion:s5aa-r6-gap-survivor-health-roth
+flows 960eb11 -> ae93a43: golden:reserve-and-bond-tent, seed:1, seed:2, seed:3, seed:4, seed:5, seed:6, seed:7, seed:9, seed:11, seed:12, seed:15, seed:16, seed:19, targeted:spouse-cola-income
