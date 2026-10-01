@@ -1,0 +1,28 @@
+== control (36 plans)
+  ira: none
+  hsa65: 
+    seed:4 [(historical); 68 self 67+1.00; 69 self 68+1.00; +5]
+  f12: none
+  f13: none
+  f15: none
+  f25: none
+== expanded (71 plans)
+  ira: none
+  hsa65: 
+    seed:4 [(historical); 68 self 67+1.00; 69 self 68+1.00; +5]
+  f12: none
+  f13: none
+  f15: none
+  f25: none
+== positive control
+  ruling IRA, higher earner: ira [46 self higher earner asks 7500 on 4000]
+  ruling IRA control, lower earner alone: none
+  ruling IRA, both: ira [46 spouse higher earner asks 7500 on 4000; 46 both ask; lower self]
+  ruling HSA at 65: hsa65 [61 spouse 64.5+1.00; 62 spouse 65.5+1.00]
+  ruling HSA control, 63: none
+  SA42F-12 witness: f12 [46 k 32000 > 30000]
+  SA42F-12 control, $60,000: none
+  SA42F-13 witness: f13 [k death 47 before 50]
+  SA42F-15 witness: f15 [45 windows 1.00/0.50]
+  SA42F-25 witness, 46.5: f25 [47 k change at 46.5]
+  SA42F-25 control, 47: none
