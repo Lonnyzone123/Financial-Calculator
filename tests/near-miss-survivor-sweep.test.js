@@ -540,16 +540,12 @@ test('near-miss: SA-01\'s own case is now REJECTED by the validator, so it never
   assert.deepEqual(missing, ['end', 'mode', 'start', 'value'],
     'all four required stage fields must be named; got ' + JSON.stringify(missing));
 
-  /* And the engine WOULD still have been moved by it -- so the validator is
-     doing the whole job here, with nothing behind it. Recorded because it
-     means the rule above is load-bearing rather than belt-and-braces. */
+  /* The engine WOULD still have been moved by it, silently, until S5AA R43 (SA42F-06): its input gate now refuses the incomplete
+     stage too (src/plan-value-contract.json), so the rule above is no longer the only thing behind it. Recorded as the change it is. */
   const withStage = engine.runPlan(clone(plan));
-  const noStage = clone(plan);
-  noStage.retirement.stages = [];
-  assert.notEqual(hashOf(canonical(withStage)), hashOf(canonical(engine.runPlan(noStage))),
-    'the incomplete stage still changes engine output; only the validator stops it');
-  assert.ok(!withStage.calculationError,
-    'and it does so silently -- no calculationError. That is the SA-01 signature.');
+  assert.equal(withStage.calculationErrorCode, 'SCENARIO_NONNUMBER_PLAN_VALUE',
+    'the engine refuses the incomplete stage at its input gate');
+  assert.ok(withStage.calculationError, 'loudly, as a calculation error -- never the silent SA-01 signature again');
 });
 
 // ---------------------------------------------------------------------------

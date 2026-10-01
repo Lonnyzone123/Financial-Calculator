@@ -33,7 +33,7 @@ function planWith(edit) {
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;
   Object.assign(p.profile, { age: 60, retireAge: 62, endAge: 95, filing: 'single', spouseOn: false });
-  p.accounts = [{ id: 't', name: 'IRA', type: 'traditionalIra', taxClass: 'pretax', owner: 'self', balance: 400000, contribution: 0 }];
+  p.accounts = [{ id: 't', name: 'IRA', type: 'customTraditional', taxClass: 'pretax', owner: 'self', balance: 400000, contribution: 0 }];
   p.advanced.rmdOn = true;
   edit(p);
   return p;
@@ -97,7 +97,7 @@ test('R37 app: the results page shows the filing, expense and 1959 warnings as c
     Object.assign(scenario.profile, { age: 67, retireAge: 67, endAge: 90, filing: 'single', spouseOn: true, spouseAge: 66 });
     scenario.advanced.rmdOn = true;
     scenario.accounts = [{
-      id: 'a1', name: 'IRA', type: 'traditionalIra', taxClass: 'pretax', owner: 'self', balance: 800000, contribution: 0,
+      id: 'a1', name: 'IRA', type: 'customTraditional', taxClass: 'pretax', owner: 'self', balance: 800000, contribution: 0,
       contributionMode: 'amount', priority: 1, basisPct: 100, annualChange: 0, annualChangeMode: 'amount', frequency: 1,
       changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0, profitShare: 0, vesting: 100,
     }];

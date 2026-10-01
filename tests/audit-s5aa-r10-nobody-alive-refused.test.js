@@ -65,8 +65,21 @@ test('fifth audit, finding 3: runScenario() refuses it too', () => {
   assert.equal(result.calculationErrorCode, CODE);
 });
 
-test('fifth audit, finding 3, control: a lifespan EQUAL to the starting age is a death inside the first row, and is projected', () => {
+/* S5AA R43 (Claude's R42F audit, SA42F-30; the owner 2026-09-30: repair all 34): THIS CONTROL'S READING IS CHANGED. It read
+   "alive" through householdSurvivorship(), which counts the row opening at a lifespan as the year of death (decision 7), so a lifespan
+   EQUAL to the starting age was projected. But a death at a whole-number lifespan happens as that row opens for the income side (no
+   wages, no benefit in it), so the person was dead for the whole projected row while a full year of spending was charged (R42F's
+   witness: income $0, spending $30,000). The input gate now reads alive at the start as a lifespan ABOVE the starting age, and refuses
+   the equal case as nobody alive; a lifespan inside the first row is still a death inside it, and is projected. The owner's decision of
+   2026-09-22 ("refuse") covered a lifespan before the start; this extends it to the equal case, as SA42F-30 asks. */
+test('fifth audit, finding 3, as changed at R43: a lifespan EQUAL to the starting age leaves nobody alive -- refused', () => {
   const r = engine.runPlan(plan({ age: 90, selfLife: 90 }));
+  assert.equal(r.calculationErrorCode, CODE);
+  assert.equal(r.rows, null);
+});
+
+test('fifth audit, finding 3, control: a lifespan inside the first row is a death inside it, and is projected', () => {
+  const r = engine.runPlan(plan({ age: 90, selfLife: 90.5 }));
   assert.equal(r.status, 'ok', r.calculationErrorCode);
   assert.deepEqual(r.rows.map((x) => x.age), [90, 91]);
 });

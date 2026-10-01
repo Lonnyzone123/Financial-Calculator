@@ -36,7 +36,7 @@ function run(over) {
   Object.assign(p.assumptions, { method: 'simple', returnRate: 0, inflation: 0, fee: 0, volatility: 0 });
   Object.assign(p.employment, { salary: 0, spouseSalary: 0, growth: 0 });
   Object.assign(p.retirement, { strategy: 'fixedNominal', spending: 0, ssBenefit: 0, spouseSS: 0, pension: 12000,
-    stages: [], expenses: [], otherIncomes: [], selfLife: 80, spouseLife: 95, survivor: false }, over.retirement);
+    stages: [], expenses: [], otherIncomes: [], selfLife: 80.5, spouseLife: 95, survivor: false }, over.retirement);
   Object.assign(p.advanced, { rmdOn: false, qcd: 0, transferOn: false, conversionOn: false, healthOn: false, ltcOn: false,
     otherAssets: [], debts: [] }, over.advanced);
   p.accounts = [{ id: 'cash', name: 'cash', type: 'taxable', taxClass: 'taxable', owner: 'self', balance: 500000, basisPct: 100, contribution: 0, priority: 1 }];

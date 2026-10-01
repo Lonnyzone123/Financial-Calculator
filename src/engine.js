@@ -1497,11 +1497,38 @@ function endAgeBeforeStartCode(p){
   if(!profile||typeof profile!=="object"||typeof profile.age!=="number"||!Number.isFinite(profile.age)||typeof profile.endAge!=="number"||!Number.isFinite(profile.endAge))return null;
   return profile.endAge<profile.age?"END_AGE_BEFORE_START":null;
 }
+/* S5AA R43 (SA42F-05, SA42F-06): the first value that breaks PLAN_VALUE_CONTRACT, as {code, path}, or null. A number must be a finite JSON
+   number when present (null is present); `required`, `requiredUnlessType` and `requiredWhen` make absence a breach; `min`/`max` bound it;
+   an enum value must be listed. R42 typed two Social Security fields; R42F found at least 25 more that both layers coerced (a conversion of
+   "abc" converted $0, an LTC probability of -10 turned care into income), ten text fields unchecked, and ten plans the validator refused
+   that ran here (a stage with only a name spent nothing; a fixed loan's payoffAge null forced the balance out in a year). */
+function planValueContractViolation(p){
+  var C=PLAN_VALUE_CONTRACT,at=function(o,dotted){var ks=dotted.split("."),x=o;for(var i=0;i<ks.length;i++){if(x==null||typeof x!=="object")return undefined;x=x[ks[i]]}return x},
+      fin=function(v){return typeof v==="number"&&isFinite(v)},
+      breach=function(rule,v,where){if(v===undefined)return null;if(rule.type==="enum")return rule.values.indexOf(v)>=0?null:{code:"UNKNOWN_PLAN_VALUE",path:where};
+        if(v===null&&rule.nullable)return null;if(!fin(v))return {code:"NONNUMBER_PLAN_VALUE",path:where};
+        if(rule.min!==undefined&&(rule.minExclusive?!(v>rule.min):v<rule.min))return {code:"PLAN_VALUE_OUT_OF_RANGE",path:where};
+        if(rule.max!==undefined&&v>rule.max)return {code:"PLAN_VALUE_OUT_OF_RANGE",path:where};return null};
+  for(var i=0;i<C.scalars.length;i++){var rule=C.scalars[i],v=at(p,rule.path),when=rule.requiredWhen===undefined?[]:[].concat(rule.requiredWhen);
+    if(v===undefined){for(var w=0;w<when.length;w++)if(at(p,when[w])===true)return {code:"NONNUMBER_PLAN_VALUE",path:rule.path};continue}
+    var b=breach(rule,v,rule.path);if(b)return b}
+  for(var l=0;l<C.lists.length;l++){var L=C.lists[l],list=at(p,L.list);if(!Array.isArray(list))continue;
+    for(var j=0;j<list.length;j++){var rec=list[j];if(!rec||typeof rec!=="object")continue;
+      for(var f=0;f<L.fields.length;f++){var fd=L.fields[f],fv=rec[fd.name],where=L.list+"["+j+"]."+fd.name,need=fd.required||(fd.requiredUnlessType&&fd.requiredUnlessType.indexOf(rec.type)<0);
+        if(fv===undefined){if(need)return {code:"NONNUMBER_PLAN_VALUE",path:where};continue}
+        var fb=breach(fd,fv,where);if(fb)return fb}}}
+  return null;
+}
 function nobodyAliveAtStartCode(p){
   var profile=p&&p.profile;
   if(!profile||typeof profile!=="object"||typeof profile.age!=="number"||!Number.isFinite(profile.age))return null;
-  var alive=householdSurvivorship(p,profile.age);
-  return alive.selfAlive||alive.spouseAlive?null:"NOBODY_ALIVE_AT_START";
+  /* S5AA R43 (SA42F-30): ALIVE AT THE START MEANS A LIFESPAN ABOVE THE STARTING AGE. A death at a whole-number lifespan L happens as the row
+     opening at L begins (no wages, no benefit in that row), so a single person whose lifespan equals the starting age is dead for the whole
+     projected row; such a plan ran a year of spending for nobody (income $0, spending $30,000). householdSurvivorship() keeps its own
+     reading for the rows (decision 7: the year of death is costed); this test is about whether anyone is alive to plan for at all. */
+  var r=p.retirement||{},selfLife=Number(r.selfLife),spouseLife=Number(r.spouseLife),spouseAge=Number(profile.spouseAge),
+      selfAlive=!(Number.isFinite(selfLife)&&selfLife<=profile.age),spouseAlive=profile.spouseOn===true&&!(Number.isFinite(spouseLife)&&Number.isFinite(spouseAge)&&spouseLife<=spouseAge);
+  return selfAlive||spouseAlive?null:"NOBODY_ALIVE_AT_START";
 }
 /* Q48: the one input class the finiteness gate above cannot see, because it
    fails INSIDE clone() rather than after it.
@@ -1580,6 +1607,9 @@ function nonSerializableScenarioInputCode(p,serialized){
    shell serializes the parsed contract into the Worker. Nothing here repeats
    the flag list. */
 var BOOLEAN_FLAG_CONTRACT=JSON.parse(require("fs").readFileSync(require("path").join(__dirname,"boolean-flag-contract.json"),"utf8"));
+/* S5AA R43 (SA42F-05, SA42F-06; Claude's R42F audit; the owner 2026-09-30): THE PLAN-VALUE CONTRACT, read here and by the validator as the flag
+   contract is (src/plan-value-contract.json; the build inlines it, the Worker receives it). */
+var PLAN_VALUE_CONTRACT=JSON.parse(require("fs").readFileSync(require("path").join(__dirname,"plan-value-contract.json"),"utf8"));
 
 /* Every place one contract path, such as "advanced.debts[].includePayment",
    lands in a plan: the object that holds the flag, the flag's key, the steps
@@ -4826,6 +4856,7 @@ function scenarioInputGate(p){var serialized=[],flagPath=null,rejectedInput=null
       rejectedInput=nonListSerializedOutputCode(p,identityPlan)||nonArrayListInputCode(identityPlan)||nonRecordListElementCode(identityPlan);
       if(!rejectedInput){flagPath=nonBooleanFlagPath(identityPlan);if(flagPath!==null)rejectedInput="NONBOOLEAN_FLAG"}
       if(!rejectedInput){flagPath=nonNumberPlanValuePath(identityPlan);if(flagPath!==null)rejectedInput="NONNUMBER_PLAN_VALUE"}
+      if(!rejectedInput){var contractBreach=planValueContractViolation(identityPlan);if(contractBreach){rejectedInput=contractBreach.code;flagPath=contractBreach.path}}
       rejectedInput=rejectedInput||nonFiniteScenarioInputCode(identityPlan)||nonFiniteHoldingInputCode(identityPlan)||replacedPlanInputCode(identityPlan)||accountContractCode(identityPlan);
       if(!rejectedInput)plan=serializedSnapshot(withDocumentedFlagDefaults(identityPlan,serialized),serialized);
       if(!rejectedInput)plan=withSoleAccountOwner(plan,serialized);
@@ -4864,6 +4895,11 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"A feature switch in the scenario ("+flagPath+") is not true or false, so whether that feature is on cannot be determined."
             :rejectedInput==="NONNUMBER_PLAN_VALUE"
             ?"A value in the plan ("+flagPath+") is not a number, so the projection cannot use it."
+            /* S5AA R43 (SA42F-05, -06): the plan-value contract's two other refusals */
+            :rejectedInput==="PLAN_VALUE_OUT_OF_RANGE"
+            ?"A value in the plan ("+flagPath+") is outside the range the projection accepts, so it cannot be used."
+            :rejectedInput==="UNKNOWN_PLAN_VALUE"
+            ?"A setting in the plan ("+flagPath+") is not one of the values the projection recognises, so it cannot be used."
             :rejectedInput==="NONFINITE_ACCOUNT"
             ?"Scenario account values are not usable numbers."
             :rejectedInput==="NONSERIALIZABLE_INPUT"
@@ -4908,7 +4944,7 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"A number in the scenario's accounts, other assets or debts is not finite (NaN or infinite); copied for simulation it would silently become null, so no projection can be computed."
             :rejectedInput==="DUPLICATE_ACCOUNT_ID"
             ?"Two accounts share an id, so contributions, transfers and tax funding cannot be routed unambiguously."
-            :"An account declares itself a household cash holding without meeting that category's contract (boolean flag, taxable class, cash basis).",rejectedInput==="NONBOOLEAN_FLAG"||rejectedInput==="NONNUMBER_PLAN_VALUE"?{path:flagPath}:{});}
+            :"An account declares itself a household cash holding without meeting that category's contract (boolean flag, taxable class, cash basis).",rejectedInput==="NONBOOLEAN_FLAG"||rejectedInput==="NONNUMBER_PLAN_VALUE"||rejectedInput==="PLAN_VALUE_OUT_OF_RANGE"||rejectedInput==="UNKNOWN_PLAN_VALUE"?{path:flagPath}:{});}
 /* What a direct simulatePlan() call returns when a gate refuses its input: simulatePlan()'s own fields, with no
    rows and no figures, calculationErrorAge at the plan's starting age (what classifyHistoricalCell() reads to mark
    a heat-map cell invalid), and the refusal's code. It carries no issues field: the refusal issue goes to the

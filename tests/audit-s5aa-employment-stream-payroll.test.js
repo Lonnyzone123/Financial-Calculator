@@ -57,7 +57,7 @@ function plan(selfSalary, spouseSalary, streams) {
     stages: [], expenses: [], ssBenefit: 0, spouseSS: 0, survivor: false,
     otherIncomes: (streams || []).map((s) => ({
       name: s.type + ':' + s.owner, type: s.type, owner: s.owner, amount: s.amount,
-      start: 45, end: 60, growthMode: 'none', growth: 0,
+      start: 45, end: 60, growthMode: 'fixed', growth: 0,   // S5AA R43: 'none' is not an income growth mode; fixed at 0% is the same
     })),
   });
   p.accounts = [{

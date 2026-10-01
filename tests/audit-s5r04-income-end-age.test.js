@@ -81,7 +81,10 @@ test('control: whole-year incomes and a mid-row start are paid as before', () =>
   near(incomeByRow({ incomes: [income({ start: 60.5, end: 70 })] })[0], AMOUNT * 0.5, 'a start at 60.5 pays half of the row 60-61');
 });
 
-test('control: an income with no end age keeps paying', () => {
-  const paid = incomeByRow({ incomes: [income({ start: 60, end: undefined })] });
+/* S5AA R43 (SA42F-06): a recurring income with NO end age was paid without end; the validator already refused it, and the engine now
+   refuses it too (src/plan-value-contract.json, SCENARIO_NONNUMBER_PLAN_VALUE at the end's path). The control keeps the point -- an
+   income runs to its end -- with an end age past the horizon. */
+test('control: an income whose end is past the horizon keeps paying', () => {
+  const paid = incomeByRow({ incomes: [income({ start: 60, end: 120 })] });
   paid.slice(0, 3).forEach((x, i) => near(x, AMOUNT, 'row ' + (60 + i)));
 });

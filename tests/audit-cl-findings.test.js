@@ -237,7 +237,7 @@ test('CL-02: an obligation that was not distributed must not report ordinary suc
 const OWED_AT_95 = 100000 / 8.9;
 function insufficientPlan() {
   const p = rmdConversionPlan('annual', -99);
-  Object.assign(p.profile, { age: 95, endAge: 96 });
+  Object.assign(p.profile, { age: 95, endAge: 96 }); p.retirement.selfLife = 95.5;   // S5AA R43 (SA42F-30): alive at the start
   p.advanced.conversionAmount = 50000;
   p.accounts.push(account({ id: 'k401', name: '401(k)', type: 'traditional401k', taxClass: 'preTax', balance: 100000, priority: 4 }));
   return p;

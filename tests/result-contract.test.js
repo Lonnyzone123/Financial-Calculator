@@ -147,16 +147,24 @@ test('contract: invalid results conform, for each way a result becomes invalid',
      TAX_QUOTE_NONFINITE_CONTEXT in every mode before and after that repair.
      S5AA R25 (R24F-04): the gate now refuses a non-number employment.salary by name (SCENARIO_NONNUMBER_PLAN_VALUE), so
      the three cases reach the same invalid path with p.retirement.pension = NaN, a field the validator does not type,
-     which gives TAX_QUOTE_NONFINITE_CONTEXT in every mode (measured at the R25 repair). */
+     which gives TAX_QUOTE_NONFINITE_CONTEXT in every mode (measured at the R25 repair).
+     S5AA R43 (SA42F-05): the plan-value contract types every top-level number now, retirement.pension included, so no non-number
+     reaches a projection; the three cases reach a calculation error with a FINITE employment.salary of 1e308 instead, whose tax
+     cannot be quoted (measured at the R43 repair: the code is a TAX_QUOTE_ one, which one depends on the mode), and the cases now
+     assert a calculation error rather than one code. */
   const cases = [
     ['rejected before simulation', handPlan((p) => { p.accounts[0].contribution = NaN; }), 'SCENARIO_NONFINITE_CONTRIBUTION'],
-    ['calculation error in a simple run', handPlan((p) => { p.retirement.pension = NaN; }), 'TAX_QUOTE_NONFINITE_CONTEXT'],
-    ['calculation error in a historical run', handPlan((p) => { p.retirement.pension = NaN; p.assumptions.method = 'historical'; p.assumptions.historyStart = 1970; }), 'TAX_QUOTE_NONFINITE_CONTEXT'],
-    ['calculation error on every Monte Carlo path', handPlan((p) => { p.retirement.pension = NaN; p.assumptions.method = 'monteCarlo'; p.assumptions.runs = 3; }), 'TAX_QUOTE_NONFINITE_CONTEXT'],
+    ['calculation error in a simple run', handPlan((p) => { p.employment.salary = 1e308; }), 'a calculation error'],
+    ['calculation error in a historical run', handPlan((p) => { p.employment.salary = 1e308; p.assumptions.method = 'historical'; p.assumptions.historyStart = 1970; }), 'a calculation error'],
+    ['calculation error on every Monte Carlo path', handPlan((p) => { p.employment.salary = 1e308; p.assumptions.method = 'monteCarlo'; p.assumptions.runs = 3; }), 'a calculation error'],
   ];
   for (const [name, plan, code] of cases) {
     const result = engine.runPlan(plan);
-    assert.equal(result.calculationErrorCode, code, `${name}: the fixture must reach this invalid path`);
+    if (code === 'a calculation error') {
+      // which arithmetic breaks first is not the point; that it is a calculation error and not an input refusal is
+      assert.ok(result.calculationError === true && /^[A-Z_]+$/.test(result.calculationErrorCode || '') && !/^SCENARIO_/.test(result.calculationErrorCode),
+        `${name}: the fixture must reach a calculation error, got ${result.calculationErrorCode}`);
+    } else assert.equal(result.calculationErrorCode, code, `${name}: the fixture must reach this invalid path`);
     const c = checkResult(result, { plan });
     assert.equal(c.outcome, 'invalid', name);
     assert.deepEqual(c.violations, [], `${name}: ${JSON.stringify(c.violations)}`);

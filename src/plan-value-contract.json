@@ -88,7 +88,7 @@
     { "list": "advanced.otherAssets", "fields": [
       { "name": "growth", "type": "number" },
       { "name": "availableAge", "type": "number" },
-      { "name": "accessPct", "type": "number", "min": 0, "max": 100 },
+      { "name": "accessPct", "type": "number" },
       { "name": "liquidity", "type": "enum", "values": ["liquid", "limited", "illiquid"] }
     ] },
     { "list": "advanced.debts", "fields": [

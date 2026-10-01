@@ -177,6 +177,25 @@ const SETUPS = {
     Object.assign(p.accounts[1], { matchOn: true, vesting: 100 });
     return p;
   },
+  /* S5AA R43 (SA42F-07): an owner of 74 still working at the employer whose 401(k) (accounts[1], contributing) is deferred by the
+     still-working exception -- unless they are a 5-percent owner, who owes the RMD now (IRC 401(a)(9)(C)(ii)). */
+  stillWorking401k: () => {
+    const p = basePlan();
+    Object.assign(p.profile, { age: 74, retireAge: 77, endAge: 78 });
+    Object.assign(p.employment, { salary: 100000, contributionStop: 77 });
+    p.advanced.rmdOn = true;
+    return p;
+  },
+  /* S5AA R43 (SA42F-07): an owner of 75 whose spouse is 60, more than ten years younger: the joint-life Table II divisor applies only
+     while the spouse is the sole beneficiary (1.401(a)(9)-5(c)(2)), so true and false give different RMDs from accounts[1]. */
+  youngSoleSpouse: () => {
+    const p = basePlan();
+    Object.assign(p.profile, { age: 75, retireAge: 60, endAge: 77, spouseOn: true, spouseAge: 60, filing: 'mfj' });
+    Object.assign(p.employment, { salary: 0, spouseSalary: 0, contributionStop: 60 });
+    p.accounts[1].contribution = 0;
+    p.advanced.rmdOn = true;
+    return p;
+  },
 };
 
 /* The plan the value witnesses run on: every record flag has a record to sit
@@ -447,6 +466,7 @@ test('Q53 accepted, validateScenario(): true, false and absent raise no error on
    default-TRUE flag is contract openQuestions.absentOnEngineRoutes. */
 const ABSENT_WITNESSES = [
   ['accounts[].cashHolding', 'cash', 0],
+  ['accounts[].fivePercentOwner', 'stillWorking401k', 1],   // S5AA R43 (SA42F-07)
   ['accounts[].matchOn', 'rich', 1],
   /* S5AA task 5.1 (Q94) RETIRED advanced.armRecastOnReset as a switch: an adjustable loan always
      re-amortises now and nothing reads the flag, so its reader is "migration" and it is no longer a
@@ -484,6 +504,7 @@ const NO_DIVERGENT_SETUP = {
     + 'FM-09 repair, so the reader stays "engine" rather than being tidied to "migration"',
   'retirement.preserveRoth': 'no setup S4 tried (base, rich, a Roth-heavy plan, a plan near the IRMAA threshold) makes true and false differ; it only adjusts an account-order score. Carried to S5 2l.4 as unverified',
   'assumptions.rollingHistory': 'the engine reads it only into runScenario()\'s identity (historicalPeriod.rolling); no projection differs',
+  'accounts[].currentEmployerPlan': 'S5AA R43 (SA42F-07): absent is not one value. rmdObligations() and earlyWithdrawalPenaltyRate() read an absent flag as yes when the account receives contributions (a deferral, a match or profit sharing) and as no otherwise, so on a contributing account absent gives the TRUE result and on an idle one the FALSE result; no single default witness can stand for both. True and false are each typed and a non-boolean is refused (tests/audit-s5aa-r43-plan-value-contract.test.js)',
 };
 
 test('Q53 absent: every default-false engine-read flag has an absent witness or a recorded reason it cannot', () => {
@@ -543,6 +564,7 @@ SETUPS.irmaaHousehold = () => {
 /* [flag, setup, record index]. includeHousingCosts sits on the rich plan's
    mortgage, where its documented default is true. */
 const ABSENT_TRUE_WITNESSES = [
+  ['accounts[].spouseSoleBeneficiary', 'youngSoleSpouse', 1],   // S5AA R43 (SA42F-07)
   ['advanced.debts[].includeHousingCosts', 'rich', 0],
   ['advanced.debts[].includePayment', 'rich', 0],
   ['retirement.guytonSkipInflation', 'guytonMonteCarlo', 0],

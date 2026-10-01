@@ -238,7 +238,7 @@ test('FM-03: the same holds for Social Security and for other-income surplus, no
 
   const other = plan();
   other.retirement.pension = 0;
-  other.retirement.otherIncomes = [{ type: 'recurring', owner: 'self', amount: 60000, start: 65, end: 95, growthMode: 'none', growth: 0 }];
+  other.retirement.otherIncomes = [{ type: 'recurring', owner: 'self', amount: 60000, start: 65, end: 95, growthMode: 'fixed', growth: 0 }];   // S5AA R43: 'none' is not an income growth mode; fixed at 0% is the same
   assert.ok(Math.abs(householdResidual(lastRow(other).row, OPENING)) < 0.01, 'other-income surplus must close the identity');
 });
 

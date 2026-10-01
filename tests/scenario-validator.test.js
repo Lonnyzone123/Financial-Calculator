@@ -268,14 +268,17 @@ test('validateScenario: a well-formed otherAsset entry produces no issues', () =
   assert.deepEqual(result.issues, []);
 });
 
-test('validateScenario: an otherAsset\'s accessPct outside [0,100] is a WARNING, and an invalid liquidity tier is a WARNING', () => {
+/* S5AA R43 (SA42F-05): an unlisted liquidity tier moved results (the fallback ranks it as liquid), so it is an ERROR in both layers now
+   (src/plan-value-contract.json); accessPct stays a WARNING -- the engine clamps it to [0,100], so it cannot move a figure. */
+test('validateScenario: an otherAsset\'s accessPct outside [0,100] is a WARNING, and an invalid liquidity tier is an ERROR', () => {
   const result = validateScenario(validPlan({ advanced: {
     assetsOn: false, correlation: 0.25, assetClasses: [],
     otherAssets: [{ value: 10000, liquidity: 'somewhat-liquid', accessPct: 150 }],
   } }));
-  assert.equal(result.valid, true);
-  assert.ok(result.issues.some((i) => i.code === 'OUT_OF_RANGE' && i.path === 'advanced.otherAssets[0].accessPct'));
-  assert.ok(result.issues.some((i) => i.code === 'INVALID_ENUM' && i.path === 'advanced.otherAssets[0].liquidity'));
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((i) => i.code === 'OUT_OF_RANGE' && i.severity === 'WARNING' && i.path === 'advanced.otherAssets[0].accessPct'));
+  assert.ok(result.issues.some((i) => i.code === 'INVALID_ENUM' && i.severity === 'ERROR' && i.path === 'advanced.otherAssets[0].liquidity'));
+  assert.equal(result.issues.filter((i) => i.path === 'advanced.otherAssets[0].liquidity').length, 1, 'reported once');
 });
 
 test('validateScenario: a negative otherAsset value is a WARNING', () => {

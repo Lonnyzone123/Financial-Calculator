@@ -446,12 +446,7 @@ function validateAccount(c, account, index) {
   /* S5AA R35 (SA32F-13): the vesting schedule and the credited service at the plan's start. */
   if (account.vestingSchedule !== undefined && ['graded6', 'cliff3'].indexOf(account.vestingSchedule) < 0) c.error('INVALID_ENUM', `${path}.vestingSchedule`, 'vestingSchedule must be graded6 or cliff3');
   if (account.yearsOfService !== undefined && account.yearsOfService !== null && !(isFiniteNumber(account.yearsOfService) && account.yearsOfService >= 0)) c.error('OUT_OF_RANGE', `${path}.yearsOfService`, 'yearsOfService must be a number, 0 or more');
-  ['currentEmployerPlan', 'fivePercentOwner'].forEach((k) => {
-    if (account[k] !== undefined && typeof account[k] !== 'boolean') c.error('WRONG_TYPE', `${path}.${k}`, `${k} must be a boolean, got ${JSON.stringify(account[k])}`);
-  });
-  if (account.spouseSoleBeneficiary !== undefined && typeof account.spouseSoleBeneficiary !== 'boolean') {
-    c.error('WRONG_TYPE', `${path}.spouseSoleBeneficiary`, `spouseSoleBeneficiary must be a boolean, got ${JSON.stringify(account.spouseSoleBeneficiary)}`);
-  }
+  /* S5AA R43 (SA42F-07): currentEmployerPlan, fivePercentOwner and spouseSoleBeneficiary are typed by the flag contract now (validateBooleanFlags()). */
   if (account.cashHolding !== undefined) {
     if (typeof account.cashHolding !== 'boolean') {
       c.error('WRONG_TYPE', `${path}.cashHolding`,
@@ -643,6 +638,8 @@ function validateRetirement(c, retirement) {
    in Node, so it reads the file itself, as data; build.js replaces that read
    with the file's JSON in the page, as it does for the engine. */
 const VALIDATOR_FLAG_CONTRACT = JSON.parse(require("fs").readFileSync(require("path").join(__dirname,"boolean-flag-contract.json"),"utf8"));
+/* S5AA R43 (SA42F-05, SA42F-06): the plan-value contract, the engine's own file (engine.js planValueContractViolation()). */
+const VALIDATOR_VALUE_CONTRACT = JSON.parse(require("fs").readFileSync(require("path").join(__dirname,"plan-value-contract.json"),"utf8"));
 
 function validateBooleanFlags(c, plan) {
   VALIDATOR_FLAG_CONTRACT.flags.forEach(function (flag) {
@@ -1099,6 +1096,57 @@ function validateTransferEndpoints(c, plan) {
     'same tax character, or a conversion to its owner\'s own Roth account. A transfer into it from a ' + from.taxClass + ' account is not allowed.');
 }
 
+/* S5AA R43 (SA42F-05, SA42F-06; Claude's R42F audit; the owner 2026-09-30): every value src/plan-value-contract.json names, held to its type,
+ * presence, range or listed text -- the rules the engine's gate refuses, from the same file. A path an earlier check already reported as an
+ * ERROR is not reported twice. */
+function validatePlanValueContract(c, plan) {
+  const C = VALIDATOR_VALUE_CONTRACT;
+  const at = (o, dotted) => dotted.split('.').reduce((x, k) => (x == null || typeof x !== 'object' ? undefined : x[k]), o);
+  const done = new Set(c.issues.filter((i) => i.severity === 'ERROR').map((i) => i.path));
+  /* A path an earlier check reported only as a WARNING (an otherAsset's liquidity, a debt's rateType) is upgraded to the contract's ERROR in
+     place, so it is reported once. */
+  const report = (code, where, message) => {
+    if (done.has(where)) return;
+    done.add(where);
+    const earlier = c.issues.find((i) => i.path === where && i.severity === 'WARNING');
+    if (earlier) { earlier.severity = 'ERROR'; earlier.code = code; earlier.message = message; return; }
+    c.error(code, where, message);
+  };
+  const check = (rule, v, where) => {
+    if (v === undefined) return;
+    if (rule.type === 'enum') { if (rule.values.indexOf(v) < 0) report('INVALID_ENUM', where, `"${where}" is ${JSON.stringify(v)}, expected one of ${rule.values.join(', ')}`); return; }
+    if (v === null && rule.nullable) return;
+    if (!isFiniteNumber(v)) { report('WRONG_TYPE', where, `expected a finite number at "${where}", got ${JSON.stringify(v)}`); return; }
+    const low = rule.min !== undefined && (rule.minExclusive ? !(v > rule.min) : v < rule.min), high = rule.max !== undefined && v > rule.max;
+    if (low || high) report('OUT_OF_RANGE', where, `"${where}" is ${v}, expected ${rule.min !== undefined ? (rule.minExclusive ? 'more than ' : 'at least ') + rule.min : ''}${rule.min !== undefined && rule.max !== undefined ? ' and ' : ''}${rule.max !== undefined ? 'at most ' + rule.max : ''}`);
+  };
+  C.scalars.forEach((rule) => {
+    const v = at(plan, rule.path), when = rule.requiredWhen === undefined ? [] : [].concat(rule.requiredWhen);
+    if (v === undefined) { if (when.some((w) => at(plan, w) === true)) report('MISSING_FIELD', rule.path, `"${rule.path}" is required while ${when.join(' or ')} is on`); return; }
+    check(rule, v, rule.path);
+  });
+  C.lists.forEach((L) => {
+    const list = at(plan, L.list);
+    if (!Array.isArray(list)) return;
+    list.forEach((rec, i) => {
+      if (!isPlainObject(rec)) return;
+      L.fields.forEach((f) => {
+        const where = `${L.list}[${i}].${f.name}`, need = f.required || (f.requiredUnlessType && f.requiredUnlessType.indexOf(rec.type) < 0);
+        if (rec[f.name] === undefined) { if (need) report('MISSING_FIELD', where, `"${L.list}[${i}]" is missing "${f.name}"`); return; }
+        check(f, rec[f.name], where);
+      });
+    });
+  });
+}
+/* S5AA R43 (SA42F-30, SA42F-32): the engine refuses a plan with nobody alive at the start (a lifespan at or below the starting age), and the
+ * validator accepted it. */
+function validateSomeoneAlive(c, plan) {
+  const pr = plan.profile, r = plan.retirement;
+  if (!isPlainObject(pr) || !isPlainObject(r) || !isFiniteNumber(pr.age)) return;
+  const selfGone = isFiniteNumber(r.selfLife) && r.selfLife <= pr.age;
+  const spouseGone = pr.spouseOn !== true || (isFiniteNumber(r.spouseLife) && isFiniteNumber(pr.spouseAge) && r.spouseLife <= pr.spouseAge);
+  if (selfGone && spouseGone) c.error('NOBODY_ALIVE_AT_START', 'retirement.selfLife', `nobody in the plan is alive at the start: a lifespan of ${r.selfLife} at a starting age of ${pr.age} ends before the first year`);
+}
 function validateScenario(plan) {
   const c = makeCollector();
 
@@ -1141,6 +1189,8 @@ function validateScenario(plan) {
   validatePlannedContributions(c, plan); // Q59 (S5 2q)
   validateTransferEndpoints(c, plan); // S5AA R29
   validateNestedRecords(c, plan); // R2-006
+  validatePlanValueContract(c, plan); // S5AA R43 (SA42F-05, -06)
+  validateSomeoneAlive(c, plan); // S5AA R43 (SA42F-30, -32)
 
   const valid = !c.issues.some((i) => i.severity === 'ERROR');
   return { valid, issues: c.issues };

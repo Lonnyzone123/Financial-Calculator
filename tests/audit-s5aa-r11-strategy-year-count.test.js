@@ -31,7 +31,7 @@ const defaultPlan = require(path.join(ROOT, 'tests', 'lib', 'golden-scenario-def
 
 /* A household that holds ONE tax-free account, earns nothing, owes nothing and pays no tax: every dollar the strategy
    asks for is a dollar drawn, so the rows are the strategy's own arithmetic. */
-function run({ strategy, age = 80, retireAge = null, endAge = 100, selfLife = 80, balance = 100000, returnRate = 0,
+function run({ strategy, age = 80, retireAge = null, endAge = 100, selfLife = 80.5, balance = 100000, returnRate = 0,
   vpwMinRate = 0, vpwMaxRate = 100, rmdMultiplier = 100, rmdFloor = 0, method = 'simple', volatility = 0 }) {
   const p = JSON.parse(JSON.stringify(defaultPlan));
   p.setupComplete = true;

@@ -153,8 +153,10 @@ test('third audit: an employment or self-employment stream ends at its owner\'s 
    Number(i.end) === NaN, Math.min(NaN, x) is NaN, and every comparison with NaN is false: the death bound
    silently switched off and the stream paid to the end of the plan. MEASURED at 623cf64: $40,000 at 66
    for a spouse who died at 63.5. An absent end means "no end of its own", so the death is the only bound. */
-test('DeepSeek 2d/02: an employment or self-employment stream with no end age still ends at its owner\'s death', () => {
-  for (const end of [undefined, 'none']) {
+/* S5AA R43 (SA42F-06): a stream with no end age, or a non-numeric one, is refused at the input gate now (src/plan-value-contract.json),
+   so this guard reaches otherIncomeFor()'s death bound with an end age far past the death, which is what the bound is for. */
+test('DeepSeek 2d/02: an employment or self-employment stream with an end age past the death still ends at its owner\'s death', () => {
+  for (const end of [120, 200]) {
     for (const type of ['employment', 'selfEmployment']) {
       const s = { name: 'x', type, owner: 'spouse', amount: 40000, start: 60, growth: 0 };
       if (end !== undefined) s.end = end;

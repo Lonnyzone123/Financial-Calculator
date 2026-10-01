@@ -106,7 +106,7 @@ test('Q96 public route: an elected match costs exactly what the same pension inc
   const pensioned = seen(household('roth401k', 'roth', null, (p) => {
     p.retirement.otherIncomes = [{
       name: 'pension', type: 'pension', amount: MATCH, start: 40, end: 41,
-      owner: 'self', growthMode: 'percent', growth: 0,
+      owner: 'self', growthMode: 'fixed', growth: 0,   // S5AA R43: 'percent' is not an income growth mode; the engine read it as fixed
     }];
   }));
 
