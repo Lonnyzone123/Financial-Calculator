@@ -303,6 +303,21 @@ The validator reports that last case, and a present non-number reset rate (the e
 `NEGATIVE_AMOUNT` (R37 `e923123`) on a negative debt amount; and `DEBT_RESET_TERMS_MISSING` (R40 `d4fd3a9`) on the
 missing `resetRate` or `payoffAge` of an adjustable debt with a reset age.
 
+### What S5AA R41 added (2026-09-30)
+
+*Found by the task 6.5 browser check; the owner decided "Repair now". The commit is named in
+`audit/S5AA/R41/`.* **`contractVersion` stays at 5,** on the reasoning in the R29 to R39.1 subsection above: a refusal is
+an existing outcome reached by one more cause.
+
+| `calculationErrorCode` | refused when | introduced |
+|---|---|---|
+| `SCENARIO_END_AGE_BEFORE_START` | `profile.endAge` is below `profile.age`, both finite numbers. An end age equal to the starting age is projected (one row) | R41 |
+
+Until R41 such a plan returned `status` `"ok"` with rows running backwards, and the validator only warned. The validator
+now reports it as `END_AGE_BEFORE_START`, an `error` at `profile.endAge`, so the app's import refuses the backup; the
+existing `INCONSISTENT_AGES` warnings (an end age before the retirement age, a retirement age before the start) are
+unchanged.
+
 ---
 
 ## 7a. Failure policies — stated BEFORE any new scheduler is built (S5AA task 8.2)

@@ -832,7 +832,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-30 (S5AA R40: the app states the Part D premium and the care cost's growth), so the tracked
 // file was rebuilt, again installed only after two builds agreed. The pin before it,
 // b97a79cc52ac1555346da27244fd1f43554df24fe22ea2e0bd484b1b84f66da3, described the previous rebuild.
-const EXPECTED_SHA256 = '498e6b740e3dc7ebd3451740a5b91c88e0897f856406ff5881431ee89af33d93';
+//
+// Changed again 2026-09-29 (S5AA R41: an end age before the starting age is refused), so the tracked file was rebuilt,
+// again installed only after two builds agreed. The pin before it,
+// 498e6b740e3dc7ebd3451740a5b91c88e0897f856406ff5881431ee89af33d93, described the previous rebuild.
+const EXPECTED_SHA256 = '7e2e5aaf31f86a97080c0488a7d5e6905253ec9a8d01ac855cc26929486f43f8';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
