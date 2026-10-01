@@ -1120,6 +1120,12 @@ function validateScenario(plan) {
   } else {
     plan.accounts.forEach((a, i) => validateAccount(c, a, i));
     validateAccountIdentity(c, plan.accounts);
+    // S5AA R43 (SA42F-04): with no spouse in the plan, the engine reads a "spouse" account as the only person's.
+    if (!(isPlainObject(plan.profile) && plan.profile.spouseOn === true)) {
+      plan.accounts.forEach((a, i) => {
+        if (isPlainObject(a) && a.owner === 'spouse') c.warn('SPOUSE_ACCOUNT_WITHOUT_SPOUSE', `accounts[${i}].owner`, 'this account is marked as the spouse\'s, but the plan has no spouse; it is read as yours');
+      });
+    }
   }
 
   if (employment !== null) {

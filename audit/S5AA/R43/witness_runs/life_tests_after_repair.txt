@@ -1,0 +1,20 @@
+✔ R43 (SA42F-03): an IRA owner who dies in the first distribution year owes no RMD for it (10.5754ms)
+✔ R43 (SA42F-03) control: the owner lives -- the first RMD is 500,000 / 26.5 (2.363ms)
+✔ R43 (SA42F-03): a 401(k) owner who retires at 75.3 and dies at 75.6 owes no RMD for that first year (1.8734ms)
+✔ R43 (SA42F-04): with no spouse in the plan, a "spouse" account is the only person's -- RMD, QCD and no 10% (2.303ms)
+✔ R43 (SA42F-04): the validator says such an account is read as the only person's (0.4397ms)
+✔ R43 (SA42F-04): the form offers a spouse owner only while a spouse is included (1.5367ms)
+✔ R43 (SA42F-11): a retired spouse of 68 is charged Medicare while the self still works (1.1072ms)
+✔ R43 (SA42F-11) control: the same household with the roles swapped is charged the same, as before (0.7881ms)
+✔ R43 (owner ruling, survivor costs): the self dies before retiring and the spouse has no salary -- spending starts at the death (2.8837ms)
+✔ R43 (owner ruling, survivor costs) control: the surviving spouse still has a salary -- spending waits for the retirement age (1.2016ms)
+✔ R43 (SA42F-29): the year of death is costed for two, read at the row's opening -- $40,000, not $20,000 (1.1631ms)
+✔ R43 (SA42F-29) control: retiring at the row's opening, the year of death is $80,000 (0.7922ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 154.1376
