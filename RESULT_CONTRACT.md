@@ -318,6 +318,13 @@ now reports it as `END_AGE_BEFORE_START`, an `error` at `profile.endAge`, so the
 existing `INCONSISTENT_AGES` warnings (an end age before the retirement age, a retirement age before the start) are
 unchanged.
 
+### What S5AA R42 added (2026-09-30)
+
+*ChatGPT's R41F whole-model audit; the owner decided "Repair all five in R42". The commits are named in
+`audit/S5AA/R42/`.* No new code. `retirement.ssBenefit` and `retirement.spouseSS` join the plan fields refused as
+`SCENARIO_NONNUMBER_PLAN_VALUE` (§3) when present and not a finite number (R41F-05), and the validator reports them as
+`WRONG_TYPE`. Until R42 such a value ran as a zero benefit with `status` `"ok"`. `contractVersion` stays at 5.
+
 ---
 
 ## 7a. Failure policies — stated BEFORE any new scheduler is built (S5AA task 8.2)

@@ -1,0 +1,1763 @@
+{
+ "env": {
+  "artifactSha256": "1e44b9ae91b11ab0b4ee6ca6f90349ed0b525c3370c50c9a43ed25abf5bf16cd",
+  "artifactBytes": 986255,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Claude/2.16120.0 Chrome/152.0.7977.130 Safari/537.36 MSIX",
+  "hardwareConcurrency": 32,
+  "secureContext": true,
+  "workerSourceSha256": "8ec8b8de73447c797e8e0c47f34a0885e203b72bd288b06977dc3fb245623479",
+  "workerSourceChars": 510668,
+  "plans": 75,
+  "mathProbeMain": {
+   "log": "6175c957",
+   "cos": "5488896d",
+   "exp": "db7e652f",
+   "pow": "4ab70b8f",
+   "sqrt": "993c8ed1"
+  },
+  "mathProbeWorker": {
+   "log": "6175c957",
+   "cos": "5488896d",
+   "exp": "db7e652f",
+   "pow": "4ab70b8f",
+   "sqrt": "993c8ed1"
+  }
+ },
+ "A": [
+  {
+   "name": "golden:baseline",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "golden:monte-carlo-fixed-seed",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": false,
+   "mainEqualsNode": false,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "golden:rmd-and-roth-conversion",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "golden:reserve-and-bond-tent",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "golden:guardrails-withdrawal-strategy",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:1",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:2",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:3",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:4",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:5",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:6",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:7",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:8",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:9",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": false,
+   "mainEqualsNode": false,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:10",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:11",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:12",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:13",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:14",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:15",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:16",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:17",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:18",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:19",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "seed:20",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:historical-spouse-ss",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:spouse-cola-income",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:historical-1929",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:historical-1966",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:historical-2000",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:arm-flag-on",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:collision-household-cash",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:explicit-cash-holding",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:funded-qcd",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:survivor-stateful",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "targeted:collision-rmd-retained-cash",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:other-asset-draw-growth-0",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:other-asset-draw-growth-4",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:other-asset-draw-historical",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:other-asset-two-assets-late-access",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-ordinary-amortizing-15y",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-ordinary-amortizing-5y",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-ordinary-zero-interest",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-ordinary-zero-balance",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-ordinary-payoff",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-adversarial-q54-worst",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-adversarial-interest-only",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:debt-adversarial-a-cent-below",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:monte-carlo-sensitive-band",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": false,
+   "mainEqualsNode": false,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-gap-working-household",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-gap-retired-couple",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-gap-early-retiree",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-gap-widowed-before-fra",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-gap-death-while-working",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-survivor-health-roth",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-basis-conversion",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-basis-one-owner-draw",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-conversion-under-loss",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-two-iras-distinct-returns",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-prototype-ids",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r15-rmd-transfer-to-taxable",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-sa18-loss-under-deduction",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-sa18-decedent-loss",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-contribution-conversion-same-year",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-conversion-and-qcd",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-charity-then-rollover",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-qcd-offset",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r20-spouse-owner-early-tax",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r20-rule55-ira-ranking",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r35-rule55-separation-at-55",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "expansion:s5aa-r20-all-stock-glide",
+   "code": null,
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "refusal:debt-reset-age-string",
+   "code": "SCENARIO_NONFINITE_DEBT_RESET_AGE",
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "refusal:health-inflation-string",
+   "code": "SCENARIO_NONNUMBER_PLAN_VALUE",
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  },
+  {
+   "name": "refusal:missing-retirement-section",
+   "code": "SCENARIO_MISSING_SCENARIO_SECTION",
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "absent",
+   "runIdsDiffer": null
+  },
+  {
+   "name": "edge:end-age-before-start",
+   "code": "SCENARIO_END_AGE_BEFORE_START",
+   "workerEqualsMain": true,
+   "workerEqualsNode": true,
+   "mainEqualsNode": true,
+   "keyOrderWorker": true,
+   "keyOrderMain": true,
+   "runId": "string",
+   "runIdsDiffer": true
+  }
+ ],
+ "B": {
+  "rows": [
+   {
+    "name": "golden:baseline",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "175ef9217687f9bedd5b03b333dbb8dd3755e9273737168be7c7f1edb935f261",
+    "csvBytes": 10562,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "175ef9217687f9bedd5b03b333dbb8dd3755e9273737168be7c7f1edb935f261",
+    "csvEqual": true
+   },
+   {
+    "name": "golden:monte-carlo-fixed-seed",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "212187c1320b89de4346a685866b449bf90f79fb53136f81d02c00a3ce207d35",
+    "csvBytes": 9670,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "212187c1320b89de4346a685866b449bf90f79fb53136f81d02c00a3ce207d35",
+    "csvEqual": true
+   },
+   {
+    "name": "golden:rmd-and-roth-conversion",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "7d90dd024b83d45285daecc14107a930e34cda20b9404d2bc2d17e48bebb7739",
+    "csvBytes": 4401,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "7d90dd024b83d45285daecc14107a930e34cda20b9404d2bc2d17e48bebb7739",
+    "csvEqual": true
+   },
+   {
+    "name": "golden:reserve-and-bond-tent",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "b7374e4ceb5f34d46193a4ea45bfc08e0afa859b99206e132596ffbe86a1a477",
+    "csvBytes": 10547,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "b7374e4ceb5f34d46193a4ea45bfc08e0afa859b99206e132596ffbe86a1a477",
+    "csvEqual": true
+   },
+   {
+    "name": "golden:guardrails-withdrawal-strategy",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "cc848b960a193fb189b47284fe4e720730d9affd0a650f4bea9feea56b45f9e6",
+    "csvBytes": 10582,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "cc848b960a193fb189b47284fe4e720730d9affd0a650f4bea9feea56b45f9e6",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:1",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "16244c9b9579d1d6b9522a20759854327291e84a9b6b068b66331139c1778d6d",
+    "csvBytes": 2936,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "16244c9b9579d1d6b9522a20759854327291e84a9b6b068b66331139c1778d6d",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:2",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "df17a191e5fab7f4eedfa4be6d4ae696587b3d6abe37af2dbd59af54a687e779",
+    "csvBytes": 3238,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "df17a191e5fab7f4eedfa4be6d4ae696587b3d6abe37af2dbd59af54a687e779",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:3",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "c8d5832196ef08c1077146e9aa53fe8097960c16e0d3008b48aa2e40eb5bb0bf",
+    "csvBytes": 2964,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "c8d5832196ef08c1077146e9aa53fe8097960c16e0d3008b48aa2e40eb5bb0bf",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:4",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "468e39a92e845d0fea38abec2df76ae321cfecd4701a9c63b5d1147e235247bd",
+    "csvBytes": 3645,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "468e39a92e845d0fea38abec2df76ae321cfecd4701a9c63b5d1147e235247bd",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:5",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "0912d27ab46a547a7835249f1681bbe7d0931210783908f853f28e52d6f16e90",
+    "csvBytes": 4568,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "0912d27ab46a547a7835249f1681bbe7d0931210783908f853f28e52d6f16e90",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:6",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "4b09f12ac1edefaf3f767083b7d272995f47025296ae45cd2cf63640148cb384",
+    "csvBytes": 3364,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "4b09f12ac1edefaf3f767083b7d272995f47025296ae45cd2cf63640148cb384",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:7",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "e1b5bb0c11fc6a92fad7615b81aee09c4fdeed8748469360589ee5595db8448f",
+    "csvBytes": 4926,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "e1b5bb0c11fc6a92fad7615b81aee09c4fdeed8748469360589ee5595db8448f",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:8",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "2de52592246b3a6f91e134a76c9963aab6b43f6b2c36dacd79f775e84457ee5f",
+    "csvBytes": 4663,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "2de52592246b3a6f91e134a76c9963aab6b43f6b2c36dacd79f775e84457ee5f",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:9",
+    "refusedAtImport": "That backup was not restored because it contains a structural problem that would break the projection. Scenario 1: A 401(k) can only receive payroll contributions, a rollover of the same tax character, or a conversion to its owner's own Roth account. A transfer into it from a hsa account is not allowed.. Your current scenarios were left unchanged."
+   },
+   {
+    "name": "seed:10",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "8c5d992ebbcda77c3e84f6c86a2a0dc8056952288e2d984743df99b6b6ab30ee",
+    "csvBytes": 6031,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "8c5d992ebbcda77c3e84f6c86a2a0dc8056952288e2d984743df99b6b6ab30ee",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:11",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "de7382fed4ce728663a40974e2f6a6f2b68836b5c2a91ef49bfeae3c6a8357cf",
+    "csvBytes": 4869,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "de7382fed4ce728663a40974e2f6a6f2b68836b5c2a91ef49bfeae3c6a8357cf",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:12",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "62d064d16fc4fdbd5d88c27dcac92032760a552efbabb8c632ba2370892de583",
+    "csvBytes": 2566,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "62d064d16fc4fdbd5d88c27dcac92032760a552efbabb8c632ba2370892de583",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:13",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "568006a416b2c92ea257e9e6546b64876601b65afc6febe8e40f2413803b0b46",
+    "csvBytes": 2674,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "568006a416b2c92ea257e9e6546b64876601b65afc6febe8e40f2413803b0b46",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:14",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "f20812c637c9fd3711dba4e31d876a1e077f32f750c5d7cfc2a2c63fb694941d",
+    "csvBytes": 4008,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "f20812c637c9fd3711dba4e31d876a1e077f32f750c5d7cfc2a2c63fb694941d",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:15",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "63a4f5a505db807d5695cc7ab9c3f3f91ac658c95d249ba428ff06be9cdf6afb",
+    "csvBytes": 3875,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "63a4f5a505db807d5695cc7ab9c3f3f91ac658c95d249ba428ff06be9cdf6afb",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:16",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "f117352bf8db474472e3c01253e9900d1362b9601767fa6e4990f406f2b052ae",
+    "csvBytes": 4234,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "f117352bf8db474472e3c01253e9900d1362b9601767fa6e4990f406f2b052ae",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:17",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "5e15693f61f6f1f03e1a1d1f554d4800d16616d6f05dd9d8c65ee5d03e0df15b",
+    "csvBytes": 3481,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "5e15693f61f6f1f03e1a1d1f554d4800d16616d6f05dd9d8c65ee5d03e0df15b",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:18",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "965c0f05fcf08aad9de5d0f73e2b068576df55a464941799347438ab9852e1cc",
+    "csvBytes": 4933,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "965c0f05fcf08aad9de5d0f73e2b068576df55a464941799347438ab9852e1cc",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:19",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "157178c6f82df8652971a154f1efdf2b5895a9f1b620d79b1dc77e1a1f3286b1",
+    "csvBytes": 3953,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "157178c6f82df8652971a154f1efdf2b5895a9f1b620d79b1dc77e1a1f3286b1",
+    "csvEqual": true
+   },
+   {
+    "name": "seed:20",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "9bcb5329a07ce565db4d41c9a37d45b9b48e9b59038c6a0e9c7e2aa440e756b6",
+    "csvBytes": 5062,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "9bcb5329a07ce565db4d41c9a37d45b9b48e9b59038c6a0e9c7e2aa440e756b6",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:historical-spouse-ss",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "6ead73ad4b53b3d8807798eaae6e774d6d3ca606ad0ce2f6c8c3d1fd67ddd2db",
+    "csvBytes": 2076,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "6ead73ad4b53b3d8807798eaae6e774d6d3ca606ad0ce2f6c8c3d1fd67ddd2db",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:spouse-cola-income",
+    "refusedAtImport": "That backup was not restored because it contains a structural problem that would break the projection. Scenario 1: \"retirement.otherIncomes[0].type\" is \"recurring\", which is not one of pension, rental, employment, investment, socialSecurity, taxFree, other, oneTime, selfEmployment, oneTimeTaxFree. Your current scenarios were left unchanged."
+   },
+   {
+    "name": "targeted:historical-1929",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "121a3642e61035bcedb52326a48aa19696d56c7da5eced220e3f07988031460e",
+    "csvBytes": 3455,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "121a3642e61035bcedb52326a48aa19696d56c7da5eced220e3f07988031460e",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:historical-1966",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "b39b3497a393953521efc040d519b2f3cbe9adde3228cc8f9f7dedaf36ba6f07",
+    "csvBytes": 3650,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "b39b3497a393953521efc040d519b2f3cbe9adde3228cc8f9f7dedaf36ba6f07",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:historical-2000",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "c678cb24edfd97e9a15134a7863786ddd51ac2102a7f8a16e642351a2aa97413",
+    "csvBytes": 3617,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "c678cb24edfd97e9a15134a7863786ddd51ac2102a7f8a16e642351a2aa97413",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:arm-flag-on",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "d70cdb2bf066b8bf3bc590aa034bcab288cd4062ed351428f1e07a0144fbdcd0",
+    "csvBytes": 1208,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "d70cdb2bf066b8bf3bc590aa034bcab288cd4062ed351428f1e07a0144fbdcd0",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:collision-household-cash",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "41c8616a237462c103767e39139719fb91cc38c1eb4f642ac30805b18d0c6659",
+    "csvBytes": 1881,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "41c8616a237462c103767e39139719fb91cc38c1eb4f642ac30805b18d0c6659",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:explicit-cash-holding",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "7b42797d320ce40613ccf2c2a136153722e27b2a9ad775367f976de8ae0ef3dc",
+    "csvBytes": 1036,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "7b42797d320ce40613ccf2c2a136153722e27b2a9ad775367f976de8ae0ef3dc",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:funded-qcd",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "2536f82940e7a531ffb850ccd3bcf2daf4808bab84ad6ca9385f48be7df697a8",
+    "csvBytes": 1118,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "2536f82940e7a531ffb850ccd3bcf2daf4808bab84ad6ca9385f48be7df697a8",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:survivor-stateful",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "1ce8877c12e15833266142d10fb4e111015d89a8f262343762772228ef558b9e",
+    "csvBytes": 1135,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "1ce8877c12e15833266142d10fb4e111015d89a8f262343762772228ef558b9e",
+    "csvEqual": true
+   },
+   {
+    "name": "targeted:collision-rmd-retained-cash",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "7ff959c75ee2fc6d046c83d2669bafcdbe3c1aaa919db9ed97d2a6e6be4c5e26",
+    "csvBytes": 1882,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "7ff959c75ee2fc6d046c83d2669bafcdbe3c1aaa919db9ed97d2a6e6be4c5e26",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:other-asset-draw-growth-0",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "3b9c612bb610dfc358c70983afea9c03e156e4ed2be3570ec42c5487119365b9",
+    "csvBytes": 1544,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "3b9c612bb610dfc358c70983afea9c03e156e4ed2be3570ec42c5487119365b9",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:other-asset-draw-growth-4",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "1d900aa5acc6537d031d06a7bec8bc4fdc31740322766a585da5713bdbe17767",
+    "csvBytes": 1634,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "1d900aa5acc6537d031d06a7bec8bc4fdc31740322766a585da5713bdbe17767",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:other-asset-draw-historical",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "3b1463ed0f2d4d320359a01fd3471f8d5c34545ae353a08619c5d4b108a0009a",
+    "csvBytes": 1716,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "3b1463ed0f2d4d320359a01fd3471f8d5c34545ae353a08619c5d4b108a0009a",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:other-asset-two-assets-late-access",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "32ef120201ddb80a9f20070368e353888fd9ceb7a8d7e7f6e292bdc94639b1e8",
+    "csvBytes": 1622,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "32ef120201ddb80a9f20070368e353888fd9ceb7a8d7e7f6e292bdc94639b1e8",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-ordinary-amortizing-15y",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "48ccda48040fc1ec0939210ef8ce7c13b6813e08146fb8fbddbbaf4a7220aed6",
+    "csvBytes": 2724,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "48ccda48040fc1ec0939210ef8ce7c13b6813e08146fb8fbddbbaf4a7220aed6",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-ordinary-amortizing-5y",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "8381ecce83ceb6e149915f8928a816228f3826418ac079959149adef485f31c9",
+    "csvBytes": 2669,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "8381ecce83ceb6e149915f8928a816228f3826418ac079959149adef485f31c9",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-ordinary-zero-interest",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "471235129a11794d387df3e6d4e63984123ef9a7a27d8591c3a3ccd656f48779",
+    "csvBytes": 2604,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "471235129a11794d387df3e6d4e63984123ef9a7a27d8591c3a3ccd656f48779",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-ordinary-zero-balance",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "dfe7b82488f771e8815ad1bc8dd7d0c6cd8149713d7a6ffaa092042801b3a398",
+    "csvBytes": 2573,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "dfe7b82488f771e8815ad1bc8dd7d0c6cd8149713d7a6ffaa092042801b3a398",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-ordinary-payoff",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "cbce6768e89240b1b102821c4e70c7385523a446184eb8ae53a81f072777799c",
+    "csvBytes": 2719,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "cbce6768e89240b1b102821c4e70c7385523a446184eb8ae53a81f072777799c",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-adversarial-q54-worst",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "323d282d5dbca41556e5bb9ebc76aa91c9ac8ea178349e5f1eddf9e86e4b7073",
+    "csvBytes": 2609,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "323d282d5dbca41556e5bb9ebc76aa91c9ac8ea178349e5f1eddf9e86e4b7073",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-adversarial-interest-only",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "0b2762897a9fac5f0a9b9a12ddbfc87423cb8103b50021cffda30e79c774668a",
+    "csvBytes": 2686,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "0b2762897a9fac5f0a9b9a12ddbfc87423cb8103b50021cffda30e79c774668a",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:debt-adversarial-a-cent-below",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "e002f3bbe6fe91868acd7b978a6f86670b79278c9bb875f912b8aaae020f30d7",
+    "csvBytes": 2871,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "e002f3bbe6fe91868acd7b978a6f86670b79278c9bb875f912b8aaae020f30d7",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:monte-carlo-sensitive-band",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "061d37a4b749a043111302a8c5bb1526f49b4b8d056574202f76f749db6ebcb4",
+    "csvBytes": 9697,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "061d37a4b749a043111302a8c5bb1526f49b4b8d056574202f76f749db6ebcb4",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-gap-working-household",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "22cd9185f0c8637f2359726f9f52984065605da88352bc04c15c93e9b1aa106e",
+    "csvBytes": 3514,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "22cd9185f0c8637f2359726f9f52984065605da88352bc04c15c93e9b1aa106e",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-gap-retired-couple",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "8b1a27849e8be50f0f02b96279a8bf384d41b778267196dfb755d4d5cb54f7bb",
+    "csvBytes": 1679,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "8b1a27849e8be50f0f02b96279a8bf384d41b778267196dfb755d4d5cb54f7bb",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-gap-early-retiree",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "9375e8060acba7d35f55bffe04a26e109db763c20151b1a5102127c58a5a9de6",
+    "csvBytes": 1942,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "9375e8060acba7d35f55bffe04a26e109db763c20151b1a5102127c58a5a9de6",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-gap-widowed-before-fra",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "a386e30b66ed6eee49e951770b0b716239f657d7e3bcabd08f87e701600d2271",
+    "csvBytes": 2722,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "a386e30b66ed6eee49e951770b0b716239f657d7e3bcabd08f87e701600d2271",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-gap-death-while-working",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "50868d81c3b22ad37184375d71e1220468f987db1ae3118efed062cd9a8f6f90",
+    "csvBytes": 2447,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "50868d81c3b22ad37184375d71e1220468f987db1ae3118efed062cd9a8f6f90",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r6-gap-survivor-health-roth",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "b3bec9f712db2638e4b6af24207e2946c7c5f2bb88ff47d146be683e5ced4e15",
+    "csvBytes": 2512,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "b3bec9f712db2638e4b6af24207e2946c7c5f2bb88ff47d146be683e5ced4e15",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r6-gap-basis-conversion",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "0157f5090813fd0a9374cf4f4f73f5284c56b81ccb7e636dce5eab5d2f92509f",
+    "csvBytes": 3150,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "0157f5090813fd0a9374cf4f4f73f5284c56b81ccb7e636dce5eab5d2f92509f",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r6-gap-basis-one-owner-draw",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "219fcecabb4d0e219055d984a76d907b3044ee55a3d5137750dba83ea2fd621a",
+    "csvBytes": 1756,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "219fcecabb4d0e219055d984a76d907b3044ee55a3d5137750dba83ea2fd621a",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r14-rmd-conversion-under-loss",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "97725dea6a6d3e19de2df86690206a306a713f4a13f7bc44c69d73bd95cb479c",
+    "csvBytes": 1120,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "97725dea6a6d3e19de2df86690206a306a713f4a13f7bc44c69d73bd95cb479c",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r14-rmd-two-iras-distinct-returns",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "28b91c55be1aec32950a0f2bd80c1b63c64194ffb4211860670da8eeaf03cb45",
+    "csvBytes": 1230,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "28b91c55be1aec32950a0f2bd80c1b63c64194ffb4211860670da8eeaf03cb45",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r14-rmd-prototype-ids",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "baee1eef93b0bfe8c58bf7bdca091457a521a41f3aba11a779251a20d7b554d5",
+    "csvBytes": 1156,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "baee1eef93b0bfe8c58bf7bdca091457a521a41f3aba11a779251a20d7b554d5",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r15-rmd-transfer-to-taxable",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "851d0158644adc4ee44a5db6ba13815ed8d1d14e49a783cae1043135ad3d7689",
+    "csvBytes": 1091,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "851d0158644adc4ee44a5db6ba13815ed8d1d14e49a783cae1043135ad3d7689",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-sa18-loss-under-deduction",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "e705317bcdfb981e463411a82f82f0fabd4f025083ffc51d5f63638bb48838f4",
+    "csvBytes": 609,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "e705317bcdfb981e463411a82f82f0fabd4f025083ffc51d5f63638bb48838f4",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-sa18-decedent-loss",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "ceceef137bd8ec5459603d0edb254fcf2510bb2d3cb67f73f672e561fc1492ad",
+    "csvBytes": 587,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "ceceef137bd8ec5459603d0edb254fcf2510bb2d3cb67f73f672e561fc1492ad",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r19-ira-contribution-conversion-same-year",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "c54c6cd871af1eb8b3952de14b37bed8739fffbb18547c8923c0041fecb7dfb9",
+    "csvBytes": 611,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "c54c6cd871af1eb8b3952de14b37bed8739fffbb18547c8923c0041fecb7dfb9",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r19-ira-conversion-and-qcd",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "876c7c5a537ab754bc166c780070e34ef0b0cb4603b8c84795253eba6a91df92",
+    "csvBytes": 643,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "876c7c5a537ab754bc166c780070e34ef0b0cb4603b8c84795253eba6a91df92",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r19-ira-charity-then-rollover",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "86d8ca7640748debf7416f11f02622ae159ba20d832c4ddb052f2e5880bdf3cc",
+    "csvBytes": 649,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "86d8ca7640748debf7416f11f02622ae159ba20d832c4ddb052f2e5880bdf3cc",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r19-ira-qcd-offset",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "60d6741c8774a14ff703ba3f0d532a3f78f22fe0c94d62262290e0ba5d5e6759",
+    "csvBytes": 588,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "60d6741c8774a14ff703ba3f0d532a3f78f22fe0c94d62262290e0ba5d5e6759",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r20-spouse-owner-early-tax",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "e12c3434a26cd6030b691c161f45dd4956b7e666883e5a3f03d4ed519102985a",
+    "csvBytes": 536,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "e12c3434a26cd6030b691c161f45dd4956b7e666883e5a3f03d4ed519102985a",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r20-rule55-ira-ranking",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "9d2e69ce37ce1915478c05f89e4ed97bcfdc8251c4253d3c647673388811cf13",
+    "csvBytes": 505,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "9d2e69ce37ce1915478c05f89e4ed97bcfdc8251c4253d3c647673388811cf13",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r35-rule55-separation-at-55",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "81cae9f77da0d10a1a64e75dc72d386ac8f0b8a07927094354ac7317a5e29576",
+    "csvBytes": 538,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "81cae9f77da0d10a1a64e75dc72d386ac8f0b8a07927094354ac7317a5e29576",
+    "csvEqual": true
+   },
+   {
+    "name": "expansion:s5aa-r20-all-stock-glide",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "408889f87100473898d98ac2dd63f4f353ec0b4874314199b2132bdfd9af0286",
+    "csvBytes": 583,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "408889f87100473898d98ac2dd63f4f353ec0b4874314199b2132bdfd9af0286",
+    "csvEqual": true
+   },
+   {
+    "name": "refusal:debt-reset-age-string",
+    "refusedAtImport": "That backup was not restored because it contains a structural problem that would break the projection. Scenario 1: expected a finite number at \"advanced.debts[0].nextRateResetAge\", got \"35\". Your current scenarios were left unchanged."
+   },
+   {
+    "name": "refusal:health-inflation-string",
+    "refusedAtImport": "That backup was not restored because it contains a structural problem that would break the projection. Scenario 1: expected a finite number at \"advanced.healthInflation\", got \"5\". Your current scenarios were left unchanged."
+   },
+   {
+    "name": "refusal:missing-retirement-section",
+    "worker": "background-worker | Background calculation complete",
+    "workerMessages": 1,
+    "csvWorker": "175ef9217687f9bedd5b03b333dbb8dd3755e9273737168be7c7f1edb935f261",
+    "csvBytes": 10562,
+    "main": "compatibility | Calculation complete",
+    "csvMain": "175ef9217687f9bedd5b03b333dbb8dd3755e9273737168be7c7f1edb935f261",
+    "csvEqual": true
+   },
+   {
+    "name": "edge:end-age-before-start",
+    "refusedAtImport": "That backup was not restored because it contains a structural problem that would break the projection. Scenario 1: endAge (28.5) is before the current age (29.5), so there are no years to project. Your current scenarios were left unchanged."
+   }
+  ],
+  "appWorkerMessagesVsMainEngine": {
+   "pairs": 70,
+   "equal": 70
+  }
+ },
+ "C": {
+  "golden:baseline": {
+   "reference": {
+    "mode": "background-worker",
+    "csv": "175ef9217687f9bedd5b03b333dbb8dd3755e9273737168be7c7f1edb935f261"
+   },
+   "throw-in-run": {
+    "mode": "compatibility",
+    "perf": "Calculation complete",
+    "status": "Projection updated · saved in this browser",
+    "workerMessages": [
+     "error: Error: R41 injected Worker fault: runScenario threw"
+    ],
+    "csvEqualsReference": true
+   },
+   "throw-at-load": {
+    "mode": "compatibility",
+    "perf": "Calculation complete",
+    "status": "Projection updated · saved in this browser",
+    "workerMessages": [],
+    "csvEqualsReference": true
+   },
+   "bothFail": {
+    "mode": "compatibility",
+    "perf": "Calculation stopped",
+    "status": "The projection could not be completed. Your inputs remain saved — use Download debug info to capture what happened.",
+    "errorCard": "Calculation error detected: This projection could not be fully verified -- one or more projection years hit an internal reconciliation problem (code ENGINE_RUN_FAILED). No retirement figures, success ",
+    "visibleDollarFigures": 0,
+    "visibleTables": 0,
+    "chartChildren": 0,
+    "csvExport": "No CSV exported: this scenario reported a calculation error (ENGINE_RUN_FAILED), so it has no projection figures.",
+    "debugFileName": "investment-calculator-debug_2026-10-01T03-10-48Z_ENGINE_RUN_FAILED.json",
+    "debugEnvironmentComputeMode": "compatibility",
+    "debugIssue": {
+     "code": "ENGINE_RUN_FAILED",
+     "severity": "CRITICAL",
+     "message": "The calculation engine threw before producing a result.",
+     "error": "R41 injected main-thread fault: Math.pow threw",
+     "computeMode": "compatibility"
+    }
+   },
+   "recovery": {
+    "mode": "background-worker",
+    "perf": "Background calculation complete",
+    "status": "Projection updated · saved in this browser",
+    "csvEqualsReference": true
+   }
+  },
+  "golden:monte-carlo-fixed-seed": {
+   "reference": {
+    "mode": "background-worker",
+    "csv": "212187c1320b89de4346a685866b449bf90f79fb53136f81d02c00a3ce207d35"
+   },
+   "throw-in-run": {
+    "mode": "compatibility",
+    "perf": "Calculation complete",
+    "status": "500 simulations · seed 123456 · saved in this browser",
+    "workerMessages": [
+     "error: Error: R41 injected Worker fault: runScenario threw"
+    ],
+    "csvEqualsReference": true
+   },
+   "throw-at-load": {
+    "mode": "compatibility",
+    "perf": "Calculation complete",
+    "status": "500 simulations · seed 123456 · saved in this browser",
+    "workerMessages": [],
+    "csvEqualsReference": true
+   },
+   "bothFail": {
+    "mode": "compatibility",
+    "perf": "Calculation stopped",
+    "status": "The projection could not be completed. Your inputs remain saved — use Download debug info to capture what happened.",
+    "errorCard": "Calculation error detected: This projection could not be fully verified -- one or more projection years hit an internal reconciliation problem (code ENGINE_RUN_FAILED). No retirement figures, success ",
+    "visibleDollarFigures": 0,
+    "visibleTables": 0,
+    "chartChildren": 0,
+    "csvExport": "No CSV exported: this scenario reported a calculation error (ENGINE_RUN_FAILED), so it has no projection figures.",
+    "debugFileName": "investment-calculator-debug_2026-10-01T03-10-52Z_ENGINE_RUN_FAILED.json",
+    "debugEnvironmentComputeMode": "compatibility",
+    "debugIssue": {
+     "code": "ENGINE_RUN_FAILED",
+     "severity": "CRITICAL",
+     "message": "The calculation engine threw before producing a result.",
+     "error": "R41 injected main-thread fault: Math.pow threw",
+     "computeMode": "compatibility"
+    }
+   },
+   "recovery": {
+    "mode": "background-worker",
+    "perf": "Background calculation complete",
+    "status": "500 simulations · seed 123456 · saved in this browser",
+    "csvEqualsReference": true
+   }
+  }
+ },
+ "D": {
+  "scenarios": [
+   "golden:baseline",
+   "golden:monte-carlo-fixed-seed",
+   "targeted:historical-1929",
+   "expansion:s5aa-gap-retired-couple"
+  ],
+  "worker": {
+   "mode": "background-worker",
+   "perf": "Background calculation complete",
+   "workersAnnounced": 4,
+   "posted": 4,
+   "received": 4,
+   "perScenario": [
+    {
+     "id": 0,
+     "workerEqualsMain": true
+    },
+    {
+     "id": 1,
+     "workerEqualsMain": true
+    },
+    {
+     "id": 2,
+     "workerEqualsMain": true
+    },
+    {
+     "id": 3,
+     "workerEqualsMain": true
+    }
+   ]
+  },
+  "main": {
+   "mode": "compatibility",
+   "perf": "Calculation complete"
+  },
+  "activeScenarioCsvEqual": true
+ },
+ "E": {
+  "golden:monte-carlo-fixed-seed": {
+   "workerEqualsMain": true,
+   "numbersDiffering": 122,
+   "maxRelative": 6.253061611973074e-16,
+   "maxAt": ".rows.34.q90",
+   "nonContinuousDifferences": [],
+   "successRate": [
+    100,
+    100
+   ],
+   "validPathCount": [
+    500,
+    500
+   ]
+  },
+  "seed:9": {
+   "workerEqualsMain": true,
+   "numbersDiffering": 27,
+   "maxRelative": 4.3874870537406573e-16,
+   "maxAt": ".rows.28.taxes",
+   "nonContinuousDifferences": [],
+   "successRate": [
+    100,
+    100
+   ],
+   "validPathCount": [
+    52,
+    52
+   ]
+  },
+  "expansion:monte-carlo-sensitive-band": {
+   "workerEqualsMain": true,
+   "numbersDiffering": 107,
+   "maxRelative": 1.8287756590871247e-15,
+   "maxAt": ".rows.64.taxable",
+   "nonContinuousDifferences": [],
+   "successRate": [
+    85,
+    85
+   ],
+   "validPathCount": [
+    500,
+    500
+   ]
+  }
+ },
+ "capturedAt": "2026-10-01T03:11:00.543Z"
+}

@@ -1793,8 +1793,13 @@ function ownerContributionWindow(p,age,spouseAge,duration){
       self=Math.max(0,Math.min(stop-age,work.self)),
       spouse=Math.max(0,Math.min(stop-spouseAge,work.spouse)),
       joint=!!(p.profile&&p.profile.spouseOn)&&householdFilingFor(p,age)==="mfj",
-      selfIra=self>0?self:joint?Math.max(0,Math.min(stop-age,work.spouse,alive(r.selfLife,age))):0,
-      spouseIra=spouse>0?spouse:joint?Math.max(0,Math.min(stop-spouseAge,work.self,alive(r.spouseLife,spouseAge))):0;
+      /* S5AA R42 (ChatGPT's R41F-03; the owner 2026-09-30: "Repair all five in R42"): the spousal window is the LONGER of the
+         owner's own work and the spouse's. It counted the spouse's work only when the owner did not work at all, so an owner
+         who stopped halfway through a row the spouse worked in full got half a year: a $7,500 IRA deposited $3,750. Both
+         windows open at the row's start, so their union is the longer one. Where the owner's own work is the longer, this is
+         the same figure as before. */
+      selfIra=Math.max(self,joint?Math.max(0,Math.min(stop-age,work.spouse,alive(r.selfLife,age))):0),
+      spouseIra=Math.max(spouse,joint?Math.max(0,Math.min(stop-spouseAge,work.self,alive(r.spouseLife,spouseAge))):0);
   return {self:self>0,spouse:spouse>0,selfIra:selfIra>0,spouseIra:spouseIra>0,durations:{self:self,spouse:spouse,selfIra:selfIra,spouseIra:spouseIra}};
 }
 function ownerContributionEligibility(p,age,spouseAge,duration){var w=ownerContributionWindow(p,age,spouseAge,duration);return {self:w.self,spouse:w.spouse}}
@@ -1844,7 +1849,7 @@ function rothCatchupStatus(a){var records=RULES.retirement.workplace.rothCatchup
    and each owner's contribution duration: compensation is the salary over the work duration plus the other income received
    over the row, and `selfDuration`/`spouseDuration` let auditContributions() turn a capped dollar amount back into the rate
    the row credits once. Without `span` (a direct caller) every duration is one year, as before. */
-function ownerCompensation(p,age,salary,spouseSalary,inflationFactor,startHistoryIndex,span){var s=span||{},num=function(k,d){return Number.isFinite(Number(s[k]))?Number(s[k]):d},len=num("duration",1),o=p&&p.retirement&&Array.isArray(p.retirement.otherIncomes)&&p.retirement.otherIncomes.length?otherIncomeFor(p,age,age+len,Number.isFinite(Number(inflationFactor))?Number(inflationFactor):1,startHistoryIndex||0):{};return {self:Math.max(0,(Number(salary)||0)*num("selfWork",len)+(o.wageSelf||0)+(o.seSelf||0)),spouse:Math.max(0,(Number(spouseSalary)||0)*num("spouseWork",len)+(o.wageSpouse||0)+(o.seSpouse||0)),selfDuration:num("selfContribution",len),spouseDuration:num("spouseContribution",len),selfIraDuration:num("selfIraContribution",num("selfContribution",len)),spouseIraDuration:num("spouseIraContribution",num("spouseContribution",len)),rowDuration:len}}
+function ownerCompensation(p,age,salary,spouseSalary,inflationFactor,startHistoryIndex,span){var s=span||{},num=function(k,d){return Number.isFinite(Number(s[k]))?Number(s[k]):d},len=num("duration",1),o=p&&p.retirement&&Array.isArray(p.retirement.otherIncomes)&&p.retirement.otherIncomes.length?otherIncomeFor(p,age,age+len,Number.isFinite(Number(inflationFactor))?Number(inflationFactor):1,startHistoryIndex||0):{};return {self:Math.max(0,(Number(salary)||0)*num("selfWork",len)+(o.wageSelf||0)+(o.seSelf||0)),spouse:Math.max(0,(Number(spouseSalary)||0)*num("spouseWork",len)+(o.wageSpouse||0)+(o.seSpouse||0)),selfDuration:num("selfContribution",len),spouseDuration:num("spouseContribution",len),selfIraDuration:num("selfIraContribution",num("selfContribution",len)),spouseIraDuration:num("spouseIraContribution",num("spouseContribution",len)),rowDuration:len,selfWork:num("selfWork",len),spouseWork:num("spouseWork",len)}}
 /* S5AA R32 (raised in ChatGPT's R30A account audit; the owner 2026-09-28: "Use the year-end age"): A CATCH-UP READS THE AGE REACHED BY
    THE YEAR'S CLOSE. IRC 219(b)(5)(B) ("attained the age of 50 before the close of the taxable year"), 414(v)(5)(A) ("would attain
    age 50 by the end of the taxable year"), 414(v)(2)(B)(i) (60 "but would not attain age 64 before the close") and 223(b)(3)(A)
@@ -1861,7 +1866,9 @@ function ownerCompensation(p,age,salary,spouseSalary,inflationFactor,startHistor
    whole row, and for a row that is itself part of a tax year (a plan opening at 45.5) that share, because the plan does not know what
    was deposited before it opened -- the owner's decision. The HSA is left prorated: its limit is a sum of monthly limits for the
    months of eligibility (IRC 223(b)(2)), which the model reads from the contribution window. */
-function auditContributions(p,age,salary,spouseSalary,ownerEligible,compensation,oneTime){var rowSpan=compensation&&Number.isFinite(Number(compensation.rowDuration))?Math.max(0,Number(compensation.rowDuration)):1,stretchFor=function(owner,ira){var c=compensation||{},w=Number(owner==="spouse"?c.spouseDuration:c.selfDuration),i=Number(owner==="spouse"?c.spouseIraDuration:c.selfIraDuration),d=ira&&Number.isFinite(i)?i:(Number.isFinite(w)?w:rowSpan);return d>1e-9?Math.max(1,rowSpan/d):1},used={},usedRoth={},hsaBaseUsed=0,hsaCatchUsed={self:0,spouse:0},warnings=[],items=[],hsaBase=p.profile.filing==="mfj"?RULES.retirement.hsa.family:RULES.retirement.hsa.self;p.accounts.slice().sort(function(a,b){return a.priority-b.priority}).forEach(function(a){var catchUpShare=0,owner=a.owner==="spouse"?"spouse":"self",/* S5AA R37 (SA32F-45; R32V: "Define joint ownership's compensation base once for UI and engine"): a joint account belongs to the household, so its percent of salary reads the household's salary -- the primary person's plus the spouse's when a spouse is included, each zero in a year its earner does not work -- the figure the form shows. Its deposits still follow the primary person's contribution window. */ownerSalary=owner==="spouse"?spouseSalary:a.owner==="joint"?salary+(p.profile.spouseOn===true?(Number(spouseSalary)||0):0):salary,ownerAge=owner==="spouse"?p.profile.spouseAge+(age-p.profile.age):age,requested=accountPlannedContribution(a,ownerSalary,age,p),group=accountType(a.type).limitGroup,allowed=requested,eligibleKey=group==="ira"&&ownerEligible&&ownerEligible[owner+"Ira"]!==undefined?owner+"Ira":owner;if(ownerEligible&&ownerEligible[eligibleKey]===false){items.push({account:a,requested:requested,allowed:0,lawful:0,excess:0});return}if(group==="hsa"){var baseRoom=Math.max(0,hsaBase-hsaBaseUsed),catchLimit=ownerAge+rowSpan>=RULES.retirement.hsa.catchupAge?RULES.retirement.hsa.catchup:0,catchRoom=Math.max(0,catchLimit-hsaCatchUsed[owner]),basePart=Math.min(requested,baseRoom),catchPart=Math.min(Math.max(0,requested-basePart),catchRoom);allowed=basePart+catchPart;hsaBaseUsed+=basePart;hsaCatchUsed[owner]+=catchPart}else if(group){var key=group+":"+owner,stretch=stretchFor(owner,group==="ira"),limit=contributionLimit(group,ownerAge+rowSpan,p.profile.filing);var rothRoom=Infinity;if(a.type==="rothIRA"){var rothLimit=rothContributionLimit(p,a,salary,spouseSalary,age,limit);rothRoom=rothLimit*stretch-(usedRoth[key]||0);if(rothLimit<limit)warnings.push(a.name+" Roth IRA limit is reduced using salary as a MAGI proxy.")}allowed=Math.max(0,Math.min(requested,limit*stretch-(used[key]||0),rothRoom));used[key]=(used[key]||0)+allowed;if(a.type==="rothIRA")usedRoth[key]=(usedRoth[key]||0)+allowed;/* S5AA task 3.3 (Q95, F9): the ONE definition of this account's share of the catch-up room, and it is now
+function auditContributions(p,age,salary,spouseSalary,ownerEligible,compensation,oneTime){var rowSpan=compensation&&Number.isFinite(Number(compensation.rowDuration))?Math.max(0,Number(compensation.rowDuration)):1,stretchFor=function(owner,ira){var c=compensation||{},w=Number(owner==="spouse"?c.spouseDuration:c.selfDuration),i=Number(owner==="spouse"?c.spouseIraDuration:c.selfIraDuration),d=ira&&Number.isFinite(i)?i:(Number.isFinite(w)?w:rowSpan);return d>1e-9?Math.max(1,rowSpan/d):1},used={},usedRoth={},hsaBaseUsed=0,hsaCatchUsed={self:0,spouse:0},warnings=[],items=[],hsaBase=p.profile.filing==="mfj"?RULES.retirement.hsa.family:RULES.retirement.hsa.self;p.accounts.slice().sort(function(a,b){return a.priority-b.priority}).forEach(function(a){var catchUpShare=0,owner=a.owner==="spouse"?"spouse":"self",/* S5AA R37 (SA32F-45; R32V: "Define joint ownership's compensation base once for UI and engine"): a joint account belongs to the household, so its percent of salary reads the household's salary -- the primary person's plus the spouse's when a spouse is included, each zero in a year its earner does not work -- the figure the form shows. Its deposits still follow the primary person's contribution window. */ownerSalary=owner==="spouse"?spouseSalary:a.owner==="joint"?salary+(p.profile.spouseOn===true?(Number(spouseSalary)||0):0):salary,ownerAge=owner==="spouse"?p.profile.spouseAge+(age-p.profile.age):age,requested=accountPlannedContribution(a,ownerSalary,age,p),group=accountType(a.type).limitGroup,allowed=requested,eligibleKey=group==="ira"&&ownerEligible&&ownerEligible[owner+"Ira"]!==undefined?owner+"Ira":owner;if(ownerEligible&&ownerEligible[eligibleKey]===false){items.push({account:a,requested:requested,allowed:0,lawful:0,excess:0});return}if(group==="hsa"){var baseRoom=Math.max(0,hsaBase-hsaBaseUsed),catchLimit=ownerAge+rowSpan>=RULES.retirement.hsa.catchupAge?RULES.retirement.hsa.catchup:0,catchRoom=Math.max(0,catchLimit-hsaCatchUsed[owner]),basePart=Math.min(requested,baseRoom),catchPart=Math.min(Math.max(0,requested-basePart),catchRoom);allowed=basePart+catchPart;hsaBaseUsed+=basePart;hsaCatchUsed[owner]+=catchPart}else if(group){var key=group+":"+owner,stretch=stretchFor(owner,group==="ira"),limit=contributionLimit(group,ownerAge+rowSpan,p.profile.filing);var rothRoom=Infinity;if(a.type==="rothIRA"){/* S5AA R42 (ChatGPT's R41F-04): the declared salary-only MAGI proxy reads each salary at its share actually worked
+   in the row, as the row's wages and AGI do. At the annual rate, $260,000 a year earned for half a row ($130,000 of AGI) read as
+   $260,000 and refused a $7,500 Roth deposit. A caller with no compensation (no row) reads the annual rate, as before. */var proxyWork=function(k){var v=compensation?Number(compensation[k]):NaN;return Number.isFinite(v)?Math.max(0,v):1},rothLimit=rothContributionLimit(p,a,salary*proxyWork("selfWork"),(Number(spouseSalary)||0)*proxyWork("spouseWork"),age,limit);rothRoom=rothLimit*stretch-(usedRoth[key]||0);if(rothLimit<limit)warnings.push(a.name+" Roth IRA limit is reduced using salary as a MAGI proxy.")}allowed=Math.max(0,Math.min(requested,limit*stretch-(used[key]||0),rothRoom));used[key]=(used[key]||0)+allowed;if(a.type==="rothIRA")usedRoth[key]=(usedRoth[key]||0)+allowed;/* S5AA task 3.3 (Q95, F9): the ONE definition of this account's share of the catch-up room, and it is now
    computed for EVERY workplace account rather than only inside the pre-tax Roth warning below. Two callers
    need it and they must not drift apart: the Roth warning (S5 task 11, ACCOUNT section 7.4), and the
    section 415(c) room, because IRC 414(v)(3)(A)(ii) DISREGARDS a catch-up contribution for 415(c). The
@@ -2935,7 +2942,10 @@ function nonNumberPlanValuePath(p){
        never what the app's form stores. */
     ["assumptions","inflation"],["assumptions","fee"],["assumptions","historyStart"],
     /* S5AA R40 (the audit of PR #35): healthcare inflation, which the validator now types, grows the health and care costs. */
-    ["advanced","healthInflation"]];
+    ["advanced","healthInflation"],
+    /* S5AA R42 (ChatGPT's R41F-05): the entered Social Security benefits, which the validator now types. A string ran as a zero
+       benefit (ssPiaBase(): Number(x) || 0) with status ok. */
+    ["retirement","ssBenefit"],["retirement","spouseSS"]];
   for(var i=0;i<FIELDS.length;i++){
     var section=p&&p[FIELDS[i][0]];
     if(!section||typeof section!=="object")continue;
@@ -3835,7 +3845,13 @@ function ssSpousalFactor(p,owner,startAge){var fra=ssFullRetirementAge(p,owner),
    capped at 70). It is reduced for the survivor's age when it starts (survivorReductionFactor), and if the deceased received a REDUCED
    benefit it is limited to the larger of that benefit and 82.5% of the PIA, applied after the age reduction (POMS RS 00615.320, RIB-LIM).
    The engine multiplied the deceased's already-reduced benefit by the survivor factor, and paid nothing on a worker who died before claiming. */
-function ssSurvivorMonthly(p,deceased,piaNow,claimedBeforeDeath,survivorFactor){var r=p.retirement,fra=ssFullRetirementAge(p,deceased),death=Number(deceased==="spouse"?r.spouseLife:r.selfLife),own=claimedBeforeDeath?ssClaimFactor(p,deceased):1,ob=claimedBeforeDeath?Math.max(1,own):(death>fra?1+Math.round((Math.min(death,RULES.socialSecurity.latestClaimAge)-fra)*12)*2/300:1),amount=piaNow*ob*survivorFactor;if(claimedBeforeDeath&&own<1)amount=Math.min(amount,Math.max(piaNow*own,.825*piaNow));return ssFloorDollar(Math.max(0,amount))}
+/* S5AA R42 (ChatGPT's R41F-02; the owner 2026-09-30: "Repair all five in R42"): the limit's reduced benefit is the one the deceased "would have been
+   entitled [to] if they had lived" (RS 00615.320), so it carries the adjustment of the reduction factor for the months the earnings test withheld while
+   the deceased was alive, effective with the month they attained, or would have attained, full retirement age (RS 00615.598). `creditedMonths` is the
+   deceased's count, which stops growing at the death; `deceasedAgeNow` is the age they would have reached at the row's opening. Omitted, or with no
+   months, the limit is the unadjusted one, as before. A worker of 62 who had every early month withheld and died at 67.5 had left the survivor 82.5% of
+   the PIA ($2,475 a month) where the adjusted benefit was the full $3,000. */
+function ssSurvivorMonthly(p,deceased,piaNow,claimedBeforeDeath,survivorFactor,creditedMonths,deceasedAgeNow){var r=p.retirement,fra=ssFullRetirementAge(p,deceased),death=Number(deceased==="spouse"?r.spouseLife:r.selfLife),own=claimedBeforeDeath?ssClaimFactor(p,deceased,creditedMonths,deceasedAgeNow):1,ob=claimedBeforeDeath?Math.max(1,own):(death>fra?1+Math.round((Math.min(death,RULES.socialSecurity.latestClaimAge)-fra)*12)*2/300:1),amount=piaNow*ob*survivorFactor;if(claimedBeforeDeath&&own<1)amount=Math.min(amount,Math.max(piaNow*own,.825*piaNow));return ssFloorDollar(Math.max(0,amount))}
 /* S5AA R33 (SA32F-23): CMS's 2026 table puts "Greater than or equal to $500,000" ($750,000 joint) in the top tier; every lower tier
    starts "greater than" its threshold. */
 function irmaaMonthly(magi,filing){var m=RULES.medicare.irmaa,thresholds=filing==="mfj"?m.jointThresholds:m.singleThresholds,index=0;while(index<thresholds.length&&(index===thresholds.length-1?magi>=thresholds[index]:magi>thresholds[index]))index++;return m.partBMonthly[index]+m.partDMonthlySurcharge[index]}
@@ -4819,8 +4835,8 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       selfSpousalStart=spouseOn?Math.max(selfClaim,spouseClaimAtSelfAge):Infinity,
       selfPlusSpousalM=spouseOn?ssFloorDollar(selfPia*ssClaimFactor(p,"self",credited&&credited.self,age)+Math.max(0,.5*spousePia-selfPia)*ssSpousalFactor(p,"self",selfSpousalStart)):selfOwnM,
       spousePlusSpousalM=spouseOn?ssFloorDollar(spousePia*ssClaimFactor(p,"spouse",credited&&credited.spouse,spouseAge)+Math.max(0,.5*selfPia-spousePia)*ssSpousalFactor(p,"spouse",spouseAge+(selfSpousalStart-age))):0,
-      selfSurvivorM=survivorOn?ssSurvivorMonthly(p,"spouse",spousePia,spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,survivorReductionFactor(p,selfSurvivorStart,"self")):0,
-      spouseSurvivorM=survivorOn?ssSurvivorMonthly(p,"self",selfPia,selfClaim<selfDeath-1e-9,survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age)),"spouse")):0,
+      selfSurvivorM=survivorOn?ssSurvivorMonthly(p,"spouse",spousePia,spouseClaimAtSelfAge<spouseDeathAtSelfAge-1e-9,survivorReductionFactor(p,selfSurvivorStart,"self"),credited&&credited.spouse,spouseAge):0,
+      spouseSurvivorM=survivorOn?ssSurvivorMonthly(p,"self",selfPia,selfClaim<selfDeath-1e-9,survivorReductionFactor(p,survivorStartAge(p,spouseAge+(selfDeath-age)),"spouse"),credited&&credited.self,age):0,
       /* R2-003(b) fix (R2-T03): a benefit amount exists only if the person
          actually reached their claim age while still alive. Entitlement was
          being tested by comparing an ADVANCING segment age against a claim
@@ -4835,6 +4851,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       /* Q91: the gross paid to each person and the months each was entitled in, accumulated beside the
          household total so the earnings test can be applied PER PERSON to THEIR OWN earnings. */
       selfGross=0,spouseGross=0,selfMonths=0,spouseMonths=0,selfServiceGross=0,spouseServiceGross=0,
+      /* S5AA R42 (R41F-01): the spousal part of each person's pay, which is paid on the OTHER's record, and how much of it falls in the other's service
+         months (for the grace year). */
+      selfAuxGross=0,spouseAuxGross=0,selfAuxInSpouseService=0,spouseAuxInSelfService=0,
       total=0;
   for(var i=0;i<points.length-1;i++){
     var segStart=points[i],segDuration=points[i+1]-segStart;
@@ -4845,7 +4864,7 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
         spouseAliveHere=spouseOn&&segStart<spouseDeathAtSelfAge-1e-9,
         spouseClaimedHere=spouseOn&&segStart>=spouseClaimAtSelfAge-1e-9,
         spouseAmount=spouseClaimedHere?12*(segStart<selfDeath-1e-9&&segStart>=selfSpousalStart-1e-9?spousePlusSpousalM:spouseOwnM):0,
-        selfPay=0,spousePay=0;
+        selfPay=0,spousePay=0,selfAuxPay=0,spouseAuxPay=0;
     if(survivorOn&&selfAliveHere!==spouseAliveHere){
       /* R2-003(a) fix (R2-T03): restore the RECIPIENT's own claim gate.
          T04 replaced the prior own-claim-duration gate with an
@@ -4878,7 +4897,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
       }
     }else{
       selfPay=selfAliveHere?selfAmount:0;
-      spousePay=spouseOn&&spouseAliveHere?spouseAmount:0
+      spousePay=spouseOn&&spouseAliveHere?spouseAmount:0;
+      if(selfPay>0&&selfPlusSpousalM>selfOwnM&&selfAmount===12*selfPlusSpousalM)selfAuxPay=12*(selfPlusSpousalM-selfOwnM);
+      if(spousePay>0&&spousePlusSpousalM>spouseOwnM&&spouseAmount===12*spousePlusSpousalM)spouseAuxPay=12*(spousePlusSpousalM-spouseOwnM)
     }
     total+=(selfPay+spousePay)*segDuration;
     selfGross+=selfPay*segDuration;spouseGross+=spousePay*segDuration;
@@ -4886,6 +4907,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
     if(segStart<spouseRetireAtSelfAge-1e-9)spouseServiceGross+=spousePay*segDuration;
     if(selfPay>0)selfMonths+=segDuration*12;
     if(spousePay>0)spouseMonths+=segDuration*12;
+    selfAuxGross+=selfAuxPay*segDuration;spouseAuxGross+=spouseAuxPay*segDuration;
+    if(segStart<selfRetireAge-1e-9)spouseAuxInSelfService+=spouseAuxPay*segDuration;
+    if(segStart<spouseRetireAtSelfAge-1e-9)selfAuxInSpouseService+=selfAuxPay*segDuration;
   }
   /* Q91 (F5): the test is applied to the ROW's totals, per person, on that person's own age clock and
      that person's own earnings. THE SUBTRACTION IS CONDITIONAL AND THAT IS DELIBERATE: `total` is
@@ -4898,10 +4922,39 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
      benefits for the months after the stop are not withheld, whatever the year's earnings. */
   var selfGrace=selfRetireAge>age+1e-9&&selfRetireAge<=rowAge+1e-9&&!(earnings&&earnings.streamSelf>0),
       spouseGrace=spouseOn&&spouseRetireAtSelfAge>age+1e-9&&spouseRetireAtSelfAge<=rowAge+1e-9&&!(earnings&&earnings.streamSpouse>0);
-  var selfTest=ssEarningsTestWithholding(p,age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined),
-      spouseTest=spouseOn
-        ?ssEarningsTestWithholding(p,spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined)
-        :{withheld:0,creditMonths:0};
+  /* S5AA R42 (ChatGPT's R41F-01; the owner 2026-09-30: "Repair all five in R42"): A WORKER'S EXCESS EARNINGS REACH THE FAMILY. POMS RS 02501.095:
+     "Withhold the excess earnings of the NH from the total family benefit" (the one exception, an entitled divorced spouse, the model has no such
+     person). Each person was tested against their own pay only, so a worker of 62 earning $200,000 lost their own $25,200 while the spouse's $18,000
+     spousal benefit on the worker's record was still paid. Now the worker's excess is charged against the worker's own pay and the spousal pay on the
+     worker's record as one pool, in the family's whole months: each is withheld in proportion, and the worker is credited the months charged
+     (RS 00615.482: months of full or partial deduction). The grace year spares the family's non-service months. The other person's own test then
+     applies to what is left of their pay (their own benefit is not on the worker's record and only their spousal part is taken; their own credited
+     months are counted on their full monthly rate). Only one direction can carry a spousal part at once (each would need over twice the other's
+     PIA). With no spousal part on a worker's record, or no withholding, each figure is exactly as before. Not modelled: the adjustment of the
+     SPOUSAL reduction factor for spousal months withheld before the recipient's full retirement age. */
+  var selfTest,spouseTest,none={withheld:0,creditMonths:0},
+      familyTest=function(nhAgeStart,nhAgeEnd,nhEarnings,nhGross,nhMonths,nhOwner,nhCap,auxGross,auxInService){
+        var pool=nhGross+auxGross,t=ssEarningsTestWithholding(p,nhAgeStart,nhAgeEnd,nhEarnings,pool,nhMonths,nhOwner,nhCap===undefined?undefined:nhCap+auxInService);
+        return {nh:{withheld:t.withheld,creditMonths:t.withheld>1e-9&&nhMonths>0?Math.min(nhMonths,Math.ceil(t.withheld/(pool/nhMonths)-1e-9)):0},aux:t.withheld*auxGross/pool};
+      },
+      remainderTest=function(ageStart,ageEnd,ownEarnings,gross,taken,months,owner,cap){
+        var t=ssEarningsTestWithholding(p,ageStart,ageEnd,ownEarnings,gross-taken,months,owner,cap===undefined?undefined:Math.max(0,cap-taken));
+        return taken>1e-9&&t.withheld>1e-9&&months>0?{withheld:t.withheld,creditMonths:Math.min(months,Math.ceil(t.withheld/(gross/months)-1e-9))}:t;
+      };
+  if(spouseOn&&spouseAuxGross>1e-9){
+    var fa=familyTest(age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined,spouseAuxGross,spouseAuxInSelfService);
+    selfTest=fa.nh;
+    spouseTest=remainderTest(spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,fa.aux,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined);
+  }else if(spouseOn&&selfAuxGross>1e-9){
+    var fb=familyTest(spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined,selfAuxGross,selfAuxInSpouseService);
+    spouseTest=fb.nh;
+    selfTest=remainderTest(age,rowAge,earnings&&earnings.self,selfGross,fb.aux,selfMonths,"self",selfGrace?selfServiceGross:undefined);
+  }else{
+    selfTest=ssEarningsTestWithholding(p,age,rowAge,earnings&&earnings.self,selfGross,selfMonths,"self",selfGrace?selfServiceGross:undefined);
+    spouseTest=spouseOn
+      ?ssEarningsTestWithholding(p,spouseAge,spouseAge+duration,earnings&&earnings.spouse,spouseGross,spouseMonths,"spouse",spouseGrace?spouseServiceGross:undefined)
+      :none;
+  }
   if(selfTest.withheld>0||spouseTest.withheld>0)total-=selfTest.withheld+spouseTest.withheld;
   return {total:total,withheld:selfTest.withheld+spouseTest.withheld,
           creditMonths:{self:selfTest.creditMonths,spouse:spouseTest.creditMonths}};
@@ -7387,6 +7440,12 @@ function validateRetirement(c, retirement) {
     checkType(c, retirement.spouseClaim, 'retirement.spouseClaim', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
     checkRange(c, retirement.spouseClaim, 'retirement.spouseClaim', 62, 70, 'SS_CLAIM_OUT_OF_RANGE', 'error');
   }
+  /* S5AA R42 (ChatGPT's R41F-05; the owner 2026-09-30: "Repair all five in R42"): the entered monthly benefit at full retirement
+     age, self and spouse. A present value that was not a number ran as a zero benefit (Number("abc") || 0) with status ok, and
+     Restore backup accepted it. Present and not a finite number: WRONG_TYPE, and the engine refuses it by path. Absent is unchanged. */
+  ['ssBenefit', 'spouseSS'].forEach((key) => {
+    checkType(c, retirement[key], `retirement.${key}`, isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+  });
   /* Q50: retirement.dividendQualified is a percentage OF the dividend cash, and nothing here checked it. The UI
      input carries min 0 and max 100, but an imported or hand-edited plan skipped that. Above 100 the engine's
      ordinary share of dividends went negative and understated tax; below 0 it overstated tax. A range WARNING:

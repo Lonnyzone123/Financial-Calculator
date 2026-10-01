@@ -1,0 +1,21 @@
+== control (36 plans)
+  R41F-05: none
+  R41F-03: none
+  R41F-04: none
+  R41F-01: none
+  R41F-02: none
+  notes: seed:10 has an employment-type stream | seed:12 has an employment-type stream | seed:15 has an employment-type stream
+== expanded (71 plans)
+  R41F-05: none
+  R41F-03: none
+  R41F-04: none
+  R41F-01: none
+  R41F-02: none
+  notes: seed:10 has an employment-type stream | seed:12 has an employment-type stream | seed:15 has an employment-type stream
+DONE
+== positive control (ChatGPT's witnesses)
+  R41F-03 FLAGGED [46:self-ira 0.500->1.000]
+  R41F-04 FLAGGED [45:self-roth limit 0.00->7500.00]
+  R41F-01 FLAGGED [63 self-capped; 64 self-capped; 65 self-capped]
+  R41F-02 FLAGGED [69 self died, credited 60; 70 self died, credited 60]
+  R41F-05 FLAGGED [ssBenefit]
