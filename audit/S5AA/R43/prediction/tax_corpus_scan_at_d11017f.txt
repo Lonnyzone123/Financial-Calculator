@@ -1,0 +1,26 @@
+== control (36 plans)
+  f01: none
+  f08: 
+    seed:3 [62 roth 1440->400; 63 roth 3390->2540; 64 roth 5470->4180; +2]
+    seed:17 [61 roth 6910->6760; 62 roth 8200->8140]
+  f09: none
+  f10: none
+  f22: none
+  f23: none
+== expanded (71 plans)
+  f01: none
+  f08: 
+    seed:3 [62 roth 1440->400; 63 roth 3390->2540; 64 roth 5470->4180; +2]
+    seed:17 [61 roth 6910->6760; 62 roth 8200->8140]
+  f09: none
+  f10: none
+  f22: none
+  f23: none
+== positive control
+  SA42F-01 witness, $80,000: f01 [51 Consulting; 52 Consulting]
+  SA42F-08 witness: f08 [45 ira 6230->810 at 151380; 46 ira 6190->340 at 155750]
+  SA42F-09 witness, 55.5: f09 [56 separation 55.5]
+  SA42F-09 control, 54.5: none
+  SA42F-10 witness: f10 [TwoYearsBefore 150000; OneYearBefore 150000]
+  SA42F-22 witness: f22 [68 tier 0 223000-224000]
+  SA42F-23 witness: f23 [90.5 spouse]
