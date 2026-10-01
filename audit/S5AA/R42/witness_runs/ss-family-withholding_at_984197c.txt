@@ -1,0 +1,100 @@
+✖ R42 (R41F-01): the worker's $87,760 excess exceeds the family's $43,200, so the spousal benefit is withheld too (10.3677ms)
+✖ R42 (R41F-01): an excess between the worker's own benefit and the family's reaches the spousal benefit for the rest (1.8758ms)
+✔ R42 (R41F-01) control: no earnings -- the worker and the spouse are both paid in full (1.5291ms)
+✔ R42 (R41F-01) control: an excess below the worker's own benefit withholds the same total as before (1.1959ms)
+✖ R42 (R41F-02): every early month withheld -- the survivor's limit is the adjusted full PIA, $3,000 a month (2.2082ms)
+✔ R42 (R41F-02) control: the worker lives -- $3,000 own and $1,500 spousal, $54,000 a year (1.0278ms)
+✔ R42 (R41F-02) control: nothing withheld -- the limit stays 82.5% of the PIA, $2,475 a month (1.2085ms)
+✖ R42 (R41F-02): a death BEFORE full retirement age -- the adjustment starts when the worker would have reached 67 (1.1454ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 4
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 138.6824
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:41:1
+✖ R42 (R41F-01): the worker's $87,760 excess exceeds the family's $43,200, so the spousal benefit is withheld too (10.3677ms)
+  AssertionError [ERR_ASSERTION]: row 63
+  
+  218000 !== 200000
+  
+      at TestContext.<anonymous> (<worktree of 984197c>\tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:44:50)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 218000,
+    expected: 200000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:47:1
+✖ R42 (R41F-01): an excess between the worker's own benefit and the family's reaches the spousal benefit for the rest (1.8758ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  108000 !== 100440
+  
+      at TestContext.<anonymous> (<worktree of 984197c>\tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:50:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 108000,
+    expected: 100440,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:64:1
+✖ R42 (R41F-02): every early month withheld -- the survivor's limit is the adjusted full PIA, $3,000 a month (2.2082ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  29700 !== 36000
+  
+      at TestContext.<anonymous> (<worktree of 984197c>\tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:66:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 29700,
+    expected: 36000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:81:1
+✖ R42 (R41F-02): a death BEFORE full retirement age -- the adjustment starts when the worker would have reached 67 (1.1454ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  123850 !== 114850
+  
+      at TestContext.<anonymous> (<worktree of 984197c>\tests\audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js:85:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 123850,
+    expected: 114850,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

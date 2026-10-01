@@ -1,0 +1,67 @@
+✔ R42 (R41F-05) control: a numeric benefit of $2,500 a month claimed at 67 pays $30,000 in the age-68 row (11.0634ms)
+✖ R42 (R41F-05): ssBenefit "abc" is WRONG_TYPE in the validator and refused by the engine, by path (3.2116ms)
+✖ R42 (R41F-05): the spouse's benefit is typed the same way (0.5071ms)
+✔ R42 (R41F-05) control: an ABSENT benefit field is not an error, and the plan runs as before (1.8726ms)
+✖ R42 (R41F-05): Restore backup refuses a backup whose ssBenefit is not a number, and leaves the saved plan alone (925.004ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 2
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1911.5965
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r42-ss-benefit-typed.test.js:47:1
+✖ R42 (R41F-05): ssBenefit "abc" is WRONG_TYPE in the validator and refused by the engine, by path (3.2116ms)
+  AssertionError [ERR_ASSERTION]: "abc": 
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r42-ss-benefit-typed.test.js:50:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r42-ss-benefit-typed.test.js:59:1
+✖ R42 (R41F-05): the spouse's benefit is typed the same way (0.5071ms)
+  AssertionError [ERR_ASSERTION]
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r42-ss-benefit-typed.test.js:61:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r42-ss-benefit-typed.test.js:75:1
+✖ R42 (R41F-05): Restore backup refuses a backup whose ssBenefit is not a number, and leaves the saved plan alone (925.004ms)
+  AssertionError [ERR_ASSERTION]: Backup restored and upgraded to Version 2C.
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r42-ss-benefit-typed.test.js:90:12)
+      at runNextTicks (node:internal/process/task_queues:65:5)
+      at process.processTimers (node:internal/timers:538:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'Backup restored and upgraded to Version 2C.',
+    expected: /not restored/,
+    operator: 'match',
+    diff: 'simple'
+  }

@@ -1,0 +1,5 @@
+R41F-03 spousal IRA: {"contributions":7500,"federalAgi":97500,"taxes":17005}
+R41F-04 Roth phaseout: {"income":130000,"federalAgi":130000,"contributions":7500,"roth":7500}
+R41F-01 family earnings test: {"age":63,"income":200000}
+R41F-02 survivor ARF: {"age":69,"income":36000,"row68":45000,"livingFamilyIncome":54000}
+R41F-05 invalid SS input: {"validBenefitIncome":30000,"validatorAccepted":false,"validatorIssue":"WRONG_TYPE","engineStatus":"calculation_error","engineCode":"SCENARIO_NONNUMBER_PLAN_VALUE"}

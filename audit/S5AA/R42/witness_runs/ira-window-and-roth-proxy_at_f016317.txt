@@ -1,0 +1,76 @@
+✖ R42 (R41F-03): the spouse works the whole row, the owner half -- the owner's $7,500 IRA is deposited in full (17.1033ms)
+✖ R42 (R41F-03), reciprocal: the spouse owns the IRA and works half the row while the self works all of it (2.4675ms)
+✔ R42 (R41F-03) control: both stop halfway through the row -- half a year's window, $3,750, as before (4.2584ms)
+✖ R42 (R41F-04): $260,000 a year earned for half the row is a $130,000 proxy -- the Roth deposit of $7,500 is allowed (22.9677ms)
+✔ R42 (R41F-04) control: $260,000 earned for the whole row is above the $252,000 end of the phaseout -- no Roth deposit (2.3698ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 2
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 307.3131
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r42-ira-window-and-roth-proxy.test.js:44:1
+✖ R42 (R41F-03): the spouse works the whole row, the owner half -- the owner's $7,500 IRA is deposited in full (17.1033ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3750 !== 7500
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r42-ira-window-and-roth-proxy.test.js:46:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3750,
+    expected: 7500,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r42-ira-window-and-roth-proxy.test.js:52:1
+✖ R42 (R41F-03), reciprocal: the spouse owns the IRA and works half the row while the self works all of it (2.4675ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3750 !== 7500
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r42-ira-window-and-roth-proxy.test.js:55:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3750,
+    expected: 7500,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r42-ira-window-and-roth-proxy.test.js:63:1
+✖ R42 (R41F-04): $260,000 a year earned for half the row is a $130,000 proxy -- the Roth deposit of $7,500 is allowed (22.9677ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 7500
+  
+      at TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r42-ira-window-and-roth-proxy.test.js:66:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 7500,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
