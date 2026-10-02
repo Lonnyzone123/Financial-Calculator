@@ -2627,6 +2627,82 @@ explanations, 3 corrected precision/scope claims, 1 verification note
 
 ---
 
+## 2026-10-02 -- Batch 30 (ten full household simulations on the S5AA GO source)
+
+**Model version:** `main` at `c05208c` ("Merge pull request #51 ..."), whose `src/`, `tests/`, `tools/` and built HTML are
+those of `s5aa-r44-source` (`06e551e`). That is the source ChatGPT determined GO (administrative) at R44.1. The working tree
+was clean apart from an untracked planning draft that touches no engine file.
+
+**Harness:** an ad-hoc Node script (session scratch, not committed) built each plan with the R40 conservation grid's
+builder (`audit/S5AA/R40/S5AA_R40_CONSERVATION_GRID/lib.js`). For every plan it:
+- ran `validateScenario()`, which must find no ERROR;
+- ran `engine.runPlan()`;
+- for the simple and historical plans, reconciled money row by row on the grid's tapped, output-neutral engine variant (the
+  portfolio and household identities, tolerance max(1 cent, 1e-9 of the row's scale)). The two Monte Carlo plans rely on the
+  engine's own per-path invariant check, under which a failed path makes the batch a calculation error.
+
+Each scenario also checked one hand-derived figure or a control run. The scenarios aim at the areas S5AA R42 to R44 changed,
+which no earlier batch exercised.
+
+**Harness mistakes, caught before any finding was drawn** (Batch 28's lesson: read the real field first):
+- **Social Security units.** The first run entered *yearly* benefits ($34,000, $30,000, $36,000) into
+  `retirement.ssBenefit` / `spouseSS`, which are **monthly** (the default plan's `ssBenefit` is 3000). That inflated
+  scenarios 1, 5 and 8, for example a $17.1M ending total in scenario 5. Re-run with monthly figures; every result below is
+  from the corrected run.
+- **Income growth mode.** Scenario 10 first gave an income stream `growthMode: "none"`. The validator refused it
+  (`UNRECOGNIZED_VALUE`): streams take `fixed`, `inflation` or `cola`, and `none` is a spending stage's value. Re-run with
+  `fixed` at 0%, which means the same.
+- **A field that does not exist.** Scenarios 1, 4 and 5 set `profile.spouseRetireAge`. No engine, validator, app or contract
+  code reads it, and the validator accepts it silently. The engine has one `profile.retireAge`, read on each person's own age
+  (`householdWorkDurations()`, `engine.js:79`). So in scenario 1 the spouse (58) works to their own 66, when the self is 68,
+  not to 64 as the harness intended. Scenario 4 intended the same age the engine uses, and scenario 5's spouse has no salary,
+  so only scenario 1 runs a different plan from the one intended. Its results are reported as the plan the engine reads, and
+  its witness (full withholding while working) holds either way.
+
+**Scenarios run (10):**
+
+| # | Scenario | Result |
+|---|---|---|
+| 1 | Dual-career couple (60 and 58, $120k + $70k pay), each claims Social Security at their own 62 while still working; $1.8M | clean. Rows 61 to 66 have income of exactly the $190,000 of wages, the same as the claim-at-67 control's. Each early benefit (about $23.5k and $15k a year at 62) is fully withheld by the earnings test (excess about $48k and $23k a year). Row 67, with the self retired and the spouse still working (see the third harness mistake), shows $27,756 of Social Security and $70,000 of spouse wages. Lifetime income is $3.65M, against $3.77M for claiming at 67. Conservation 0 rows over tolerance |
+| 2 | Self-employed consultant, $150k profit 45 to 62, then retired | clean. Row 46 taxes $39,858 on AGI $135,764. Hand estimate: SE tax $21,194.33; 199A deduction $23,933 (20% of taxable income binds, under 20% of QBI $27,881); federal $15,773 on 2026 brackets; Arizona ~$2,992; total $39,959, within $101 (0.25%) treating all AGI as ordinary. Without the deduction, federal tax would be ~$5,265 higher. Conservation clean. **Validator observation below** |
+| 3 | Couple on $4,000 + $3,000 pay, each asks the full $8,600 traditional IRA | clean. Exactly $7,000 deposited (the higher earner held to their own $4,000; the lower to $3,000 + $4,000 − $4,000), IRC 219(c)(2) as the owner ruled in R43. `CONTRIBUTIONS_ABOVE_EARNED_INCOME` warns, correctly |
+| 4 | Family HSA; the spouse turns 65 halfway through the first row; planned $12,000 plus a one-time $6,000 at 61 | clean. Row 61's HSA is $47,119: $40,000 grown 5% plus the prorated (8,750 + 1,000) × 0.5 = $4,875 grown 5%. The one-time $6,000 falls in the next row, with the spouse 65.5, and moves $0 with the R44 note ("more than the $0 of HSA contribution limit left this year"). Conservation clean |
+| 5 | Breadwinner (52, $110k) dies at 56 before retiring; the spouse has no salary; health costs on; 30% survivor cut | clean. Spending starts at the death (row 57, $62,129 = the strategy's $52,219 plus health), not at 65. The control in which the spouse earns $50,000 has $0 spending in that row, as the R43 ruling's salary exception says. The 30% cut starts the next year: $52,219 × 1.025 × 0.7 = $37,467, exactly the engine's figure with health off |
+| 6 | Monte Carlo, 1,000 paths, guardrails, $1.8M, 62 to 95, volatility 14 | clean. Success: seed 42 96.4%, seed 43 97.7%, seed 44 97.1%. Neighbouring seeds no longer share shifted paths (R43, SA42F-31), and the rates differ by sampling noise only. Median ending totals $2.44M and $2.46M |
+| 7 | Historical replay from 1966, $1.5M, 4% real withdrawals, RMDs on | clean. Depleted by 95 (`failed`, success 0), while a 1982 start ends at $7.49M real: the known 1966 sequence. A start of 1966.5 is refused (`SCENARIO_HISTORY_START_NOT_A_DATA_YEAR`, R43). Conservation clean |
+| 8 | IRA owner of 72 ($1.2M) with a $10,000 QCD dies at 73.5; spouse 70 | clean. No RMD in the owner's death year, their first distribution year (R43, SA42F-03). The spouse, rolling over, owes $1,356,846 ÷ 26.5 = **$51,202** in the row they are 73, exact to the dollar. `INCONSISTENT_AGES` warns that a retire age of 65 is before the current 72 (see below) |
+| 9 | Part-time pay $30,000; $20,000 401(k) deferral, 100% match to 6%, 20% profit sharing | clean. $27,800 (20,000 + 1,800 + 6,000), under 100% of pay. Control with 40% profit sharing: exactly $30,000, employer money held to $10,000 with the 415(c)(1)(B) warning (R43, SA42F-12) |
+| 10 | Retired couple: pension $30,000 from 65 (no increases) and rental $20,000 from 62 (+2%), both in today's dollars; spending stages; 2-year reserve; 3% inflation | clean. Row 66 income **$57,295** = pension $30,000 × 1.03^5 = $34,778 plus rental $20,000 × 1.03^2 × 1.02^3 = $22,517, exact (R43, SA42F-20). Row 70 $59,151, also exact |
+
+**Findings:** no engine defect. Every plan is valid, no run reports an ERROR issue, both identities hold on every row of
+every simple and historical plan (worst residual 1.25e-9, scenario 1's portfolio identity), and every hand witness or control
+agrees.
+
+Two validator observations, not filed:
+- **`CONTRIBUTIONS_ABOVE_EARNED_INCOME` counts only `employment.salary` as earned income** (`scenario-validator.js:1050`).
+  The engine counts employment and self-employment income streams as compensation (MODEL_ASSUMPTIONS §20, R26). So scenario
+  2, with $150,000 of self-employment profit and a $7,500 IRA, is warned that "planned contributions of 7500 ... exceed the
+  earned income of 0". A false warning only; the engine's figures are right. For whenever the Q59 warnings are next touched.
+- **`INCONSISTENT_AGES` warns whenever `retireAge` is below the current age** (scenario 8: "retireAge (65) is before the
+  current age (72)"). For someone already retired, a past retirement age is an ordinary entry. A wording question only; the
+  plan runs correctly.
+
+Two more observations, also not filed:
+- **One retirement age for both spouses, undocumented.** `householdWorkDurations()` stops each person's work at
+  `profile.retireAge` on their own age, so a spouse two years younger works two years longer than the self. MODEL_ASSUMPTIONS
+  and FEATURES do not say so, and there is no separate spouse retirement age. A modelling simplification worth a sentence in
+  MODEL_ASSUMPTIONS, or a FEATURES entry (eb's files).
+- **Nine test files set the inert `profile.spouseRetireAge`** (R24, R26, R28, R30, R31 among them, and R44's
+  `audit-s5aa-r44-contribution-routes.test.js`, Claude's own). Each reads as if it set the spouse's retirement, but none does.
+  Their expectations hold under the engine's real rule; the fixtures mislead a reader, not the result.
+
+**Running total across all 30 batches:** 376 scenarios/checks/probes. Batch 30 adds no filed finding, 4 unfiled observations
+(2 validator, 1 undocumented modelling rule, 1 test-fixture hygiene) and 3 harness-only setup mistakes (all found before any
+conclusion). The rest of Batch 29's tally is
+unchanged.
+
+---
+
 ## Template for future entries
 
 ```
