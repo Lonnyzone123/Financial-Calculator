@@ -25,26 +25,26 @@ repository's `main` at `ee9757d`, with the changes listed in its first commit's 
 tags and audit records from before that date. Those are in the private archive, not here. A test that reads that
 history checks whether the recorded commits are present and stands down only when none of them are.
 
-## Current status (2026-09-30)
+## Current status (2026-10-02)
 
-- **S5AA is GO by ChatGPT's determination at the R41 source, and is not closed.** Since 2026-09-25 ChatGPT determines
-  the GO / NO-GO status. Every determination it made from R29 through R40.1 was NO-GO (its R32 and R39.1 change audits
-  accepted their repairs and said they did not determine it). Its R41 audit (PR #40, merged 2026-09-30 at `70766a8`)
-  found no new finding and determined **GO at `984197c` under amendments A-01 to A-10**. The GO is administrative: it is
-  not release or household-reference qualification, and A-09's exceptions (E2, E7 and E14), the disclosed model limits
-  and the unqualified corpus results stay in force. The owner has not decided to close the milestone, set `s5aa-closed`
-  or start S5b.
-- The latest merged round is **R41** (PR #38, merged 2026-09-30 at `020c6f3`; source `s5aa-r41-source` = `984197c`).
-  It follows **R40** (PR #35, `54d6a9e`), which closed the exit-gate gaps found on the way to a status determination.
-  ChatGPT's R40.1 change audit and status determination (PR #36, 2026-09-30) found no new source finding and
-  determined **NO-GO at `978a6e4` because exit-gate line E15 is unmet**: the task 6.5 comparison of the main thread
-  against an actual Worker in a desktop browser, with an exception and a raw export, had not been run. R41 ran it, on
-  one desktop browser, and it passed: the Worker and the main thread agree on all 75 plans, and the exception paths and
-  the raw export behave as designed. The check also found one defect, an end age before the starting age that a backup
-  could carry and that projected backwards, and R41 repairs it by refusing it. ChatGPT's R41 audit accepted that
-  evidence: it found E15 met under the archive close record's revised second-machine condition, on one Chromium build,
-  and did not rerun the browser check itself (its browser tool failed; it verified the scripts, the source, the artifact
-  hash and a regenerated Node reference). The round index is [`audit/S5AA/README.md`](audit/S5AA/README.md).
+- **S5AA is GO for administrative close at R44.1 by ChatGPT's determination, and is not closed.** Since 2026-09-25
+  ChatGPT determines the GO / NO-GO status. Every determination it made from R29 through R40.1 was NO-GO. Its R41 audit
+  determined GO on 2026-09-30, and that GO was superseded within hours by its R41F whole-model audit (NO-GO, five
+  findings). The R42 audit (two findings), the R43 audit (four) and the R44 audit (one, a process finding) were each
+  NO-GO. Its R44.1 audit (PR #51, merged 2026-10-01 at `c05208c`) made no finding and determined **GO at `06e551e`
+  (`s5aa-r44-source`) under amendments A-01 to A-11**, with E10 met under A-11. The GO is administrative: it is not
+  release or household-reference qualification, and A-09's exceptions (E2, E7 and E14), the disclosed model limits and
+  the unqualified corpus results stay in force. The expanded baseline S5b task 4 builds on is r23
+  (`tools/baseline-20261001-s5aa-expanded-r23.json`). The owner has not decided to close the milestone, set
+  `s5aa-closed` or start S5b.
+- The latest merged repair rounds are **R42** (PR #43, `0537493`), **R43** (PR #46, `247635c`) and **R44** (PR #48,
+  `9ce336a`); **R44.1** (PR #50, `894e0ff`) changed no source and recorded amendment A-11 (a Monte Carlo plan's
+  prediction is made at the path level). They repaired the five R41F findings (Social Security's earnings test and
+  survivor cap, the spousal IRA window, the Roth phase-out proxy, and a malformed Social Security input), the 34
+  findings of Claude's own R42F full-model audit, and ChatGPT's R43 findings (a one-time HSA contribution after 65, a
+  one-time IRA compensation limit, and negative employer percentages). ChatGPT's R41 audit before them had accepted
+  the task 6.5 browser evidence for E15 (one Chromium build; it did not rerun the browser itself). The round index is
+  [`audit/S5AA/README.md`](audit/S5AA/README.md).
 - **S5b has not started.** It needs the owner's own go.
 - A passing test run is evidence for what the tests cover. It is not certification of the whole model.
 

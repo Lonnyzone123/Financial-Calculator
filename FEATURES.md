@@ -192,6 +192,18 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
   age reached in the year by the engine's own birth year, so a spouse's first RMD year is no longer skipped with a
   fractional start; the validator types healthcare inflation and refuses a malformed debt reset rate or age. A partial
   row is still taxed as a whole tax year, a disclosed limit (see "Features — wanted").
+- **S5AA R42 to R44 additions, 2026-09-30 to 2026-10-01** (repairing ChatGPT's R41F whole-model findings, Claude's own 34 R42F findings and
+  ChatGPT's R43 findings; detail in `MODEL_ASSUMPTIONS.md` §§18, 19, 20, 22, 23, 25 and 26): a worker's earnings-test
+  excess is charged to the spouse's benefit on the worker's record, month by month, and each benefit is credited for
+  its own months; a survivor's 82.5% limit carries the deceased's withheld months; COLAs no longer lose a year to a
+  mid-year claim; the spousal IRA follows IRC 219(c)(2) and its window is the longer of the owner's work and the
+  spouse's; the self-employment profit earns the 199A deduction; HSA deposits stop at 65, with the limit prorated in the
+  row an owner turns 65; employer money is held to the owner's pay; a survivor's spending, health and debt costs start
+  at the death when the survivor has no salary; each living person of 65 or over is charged Medicare; a Social
+  Security benefit that is present and not a number is refused, and one contract now checks every plan value in both
+  the validator and the engine; a Monte Carlo path's seed is a mix of the seed, the path and the stream. The expanded
+  baseline is r23. Not modelled and disclosed: the spousal reduction-factor adjustment for months withheld before the
+  recipient's full retirement age, and whether a spouse on a working partner's group plan would pay Part B.
 
 ## Features — wanted (not yet built)
 
