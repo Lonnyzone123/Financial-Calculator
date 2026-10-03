@@ -896,7 +896,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R45: each spouse's own retirement date, and the household date), so the tracked file
 // was rebuilt, again installed only after two builds agreed. The pin before it,
 // 720834cd9e695c50023963582070b92a94d0fdf9425b21d42f55ed3a85a2811d, described the previous rebuild.
-const EXPECTED_SHA256 = '9602382a7cb2c881b15a3807803160772c69fc4f59bf7ebfcdb2596f5bd3b77f';
+//
+// Changed again 2026-09-29 (S5AA R45: the generated Worker carries the two new engine helpers), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 9602382a7cb2c881b15a3807803160772c69fc4f59bf7ebfcdb2596f5bd3b77f, described the previous rebuild.
+const EXPECTED_SHA256 = '72e64e28d10462b856a49cb5d8807bf8197af136f06968a3824d49d260b2ff67';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
