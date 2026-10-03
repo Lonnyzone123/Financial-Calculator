@@ -10,6 +10,8 @@
  * opening (decision 7).
  * The owner's ruling, survivor costs: when the self dies before the household's retirement age and the surviving spouse has no
  * salary, the survivor's spending and health costs start at the death; with a salary, at the retirement age, as before.
+ * S5AA R45 (the owner, 2026-10-03, rule 4): a death before retiring is a stop WHATEVER the survivor earns, and the survivor's pay funds
+ * spending first. The salary control and SA42F-29's year of death below are adapted to it (R45 prediction record).
  *
  * Rows are labelled by their closing age. Every expected figure is hand-derived from the rules and the inputs.
  */
@@ -108,22 +110,27 @@ test('R43 (owner ruling, survivor costs): the self dies before retiring and the 
   assert.equal(cents(at(r, 58).spending), 50000);
   assert.equal(cents(at(r, 60).spending), 50000);
 });
-test('R43 (owner ruling, survivor costs) control: the surviving spouse still has a salary -- spending waits for the retirement age', () => {
+test('R43 (owner ruling, survivor costs), as R45 rule 4 makes it: the surviving spouse still has a salary -- spending starts at the death too', () => {
+  // R43 kept spending at 0 here (the salary exception). R45: the death at 56.5 is the first stop whatever the survivor earns.
   const r = run(early(40000));
-  for (const age of [57, 58, 60]) assert.equal(at(r, age).spending, 0, 'row ' + age);
+  assert.equal(at(r, 56).spending, 0);
+  assert.equal(cents(at(r, 57).spending), 25000);
+  assert.equal(cents(at(r, 58).spending), 50000);
+  assert.equal(cents(at(r, 60).spending), 50000);
 });
 
 // SA42F-29: a same-age couple of 60; the self dies at 60.25, the household retires at 60.5; $80,000 incomeFirst spending, a 50%
-// survivor reduction. The spouse keeps a small salary to 60.5, so the survivor-costs ruling does not move the start.
+// survivor reduction. R45 (rule 4): the death at 60.25 is itself the first stop, so the household's costs start there, before the
+// mid-row retirement at 60.5; the year of death is still costed for two, read at the row's opening.
 function cut(retireAge) {
   const p = L.basePlan({ couple: true, age: 60, spouseAge: 60, retireAge, endAge: 63, strategy: 'incomeFirst', spending: 80000, spouseSalary: 10000,
     accounts: [L.account('roth', 'rothIRA', 900000), L.account('sroth', 'rothIRA', 900000, { owner: 'spouse' })] });
   Object.assign(p.retirement, { survivor: true, survivorSpendingReduction: 50, selfLife: 60.25 });
   return p;
 }
-test('R43 (SA42F-29): the year of death is costed for two, read at the row\'s opening -- $40,000, not $20,000', () => {
+test('R43 (SA42F-29), with R45\'s start at the death: the year of death is costed for two, read at the row\'s opening -- $60,000, not $30,000', () => {
   const r = run(cut(60.5));
-  assert.equal(cents(at(r, 61).spending), 40000);    // retired half the row, for two
+  assert.equal(cents(at(r, 61).spending), 60000);    // from the death at 60.25: 0.75 of the row, for two (R43: $40,000 from 60.5)
   assert.equal(cents(at(r, 62).spending), 40000);    // a survivor row: 80,000 x 50%
 });
 test('R43 (SA42F-29) control: retiring at the row\'s opening, the year of death is $80,000', () => {

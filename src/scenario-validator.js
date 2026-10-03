@@ -220,7 +220,7 @@ function validateMaterialRecordFields(c, retirement) {
   });
 }
 
-function validateProfile(c, profile) {
+function validateProfile(c, profile, employment) {
   if (!profile) return;
   checkEnum(c, profile.filing, 'profile.filing', FILING_STATUSES);
   checkType(c, profile.age, 'profile.age', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
@@ -228,8 +228,14 @@ function validateProfile(c, profile) {
   checkType(c, profile.endAge, 'profile.endAge', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
   checkRange(c, profile.age, 'profile.age', 0, 120);
   checkRange(c, profile.endAge, 'profile.endAge', 0, 120);
-  if (isFiniteNumber(profile.age) && isFiniteNumber(profile.retireAge) && profile.retireAge < profile.age) {
-    c.warn('INCONSISTENT_AGES', 'profile.retireAge', `retireAge (${profile.retireAge}) is before the current age (${profile.age})`);
+  /* S5AA R45 (the owner, 2026-10-03: "Warn only if a salary is entered"): a retirement age before the current age is how a retired
+     household is entered, so it warns only beside a salary, which would contradict it -- for each spouse on their own clock. */
+  const salaryOf = (k) => (employment && isFiniteNumber(employment[k]) ? employment[k] : 0);
+  if (isFiniteNumber(profile.age) && isFiniteNumber(profile.retireAge) && profile.retireAge < profile.age && salaryOf('salary') > 0) {
+    c.warn('INCONSISTENT_AGES', 'profile.retireAge', `retireAge (${profile.retireAge}) is before the current age (${profile.age}), but a salary is entered`);
+  }
+  if (profile.spouseOn === true && isFiniteNumber(profile.spouseAge) && isFiniteNumber(profile.spouseRetireAge) && profile.spouseRetireAge < profile.spouseAge && salaryOf('spouseSalary') > 0) {
+    c.warn('INCONSISTENT_AGES', 'profile.spouseRetireAge', `spouseRetireAge (${profile.spouseRetireAge}) is before the spouse's current age (${profile.spouseAge}), but a spouse salary is entered`);
   }
   /* S5AA R41 (found by the task 6.5 browser check; the owner 2026-09-30: "Repair now"): an end age before the starting age
      projected backwards, and the warning below compares the end age with the retirement age only. An ERROR, so the app's
@@ -798,7 +804,10 @@ const ADVANCED_MIGRATION_KEYS = ['v210Migrated'];
 /* S5AA R35 (SA32F-24): OPTIONAL INPUTS the default does not carry -- the MAGI and filing status of the two tax returns before the plan,
    for the IRMAA lookback. Absent means not entered (the plan then assumes no surcharge in its first two years, and says so), which is why
    they are not in the default: a default of 0 would read as entered. */
-const ADVANCED_OPTIONAL_KEYS = ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore', 'irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore'];
+const ADVANCED_OPTIONAL_KEYS = ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore', 'irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore',
+  /* S5AA R45 (the owner's AA1 decisions on AA1-40): absent means "at the default date" (conversions: profile.retireAge; pre-Medicare
+     health: the household date), which is why the default does not carry them. */
+  'conversionStartAge', 'healthCoverageEndAge'];
 
 function validateAdvancedKnownKeys(c, advanced) {
   Object.keys(advanced).forEach((k) => {
@@ -1021,7 +1030,10 @@ function validatePlannedContributions(c, plan) {
   /* S5AA R33 (decisions 5a and 5c): the stop age is read on each owner's own age, and on a joint return an owner not working can
      fund an IRA while the other spouse works (the engine's ownerContributionEligibility()). */
   const age = num(profile.age), retireAge = num(profile.retireAge), stopAge = num(employment.contributionStop), spouseAge = num(profile.spouseAge);
-  const work = { self: Math.max(0, Math.min(1, retireAge - age)), spouse: profile.spouseOn === true ? Math.max(0, Math.min(1, retireAge - spouseAge)) : 0 };
+  /* S5AA R45: the spouse works to their own retirement age (profile.spouseRetireAge; absent, profile.retireAge), as the engine's
+     householdWorkDurations() reads it. */
+  const spouseRetireAge = isFiniteNumber(profile.spouseRetireAge) ? profile.spouseRetireAge : retireAge;
+  const work = { self: Math.max(0, Math.min(1, retireAge - age)), spouse: profile.spouseOn === true ? Math.max(0, Math.min(1, spouseRetireAge - spouseAge)) : 0 };
   const eligible = { self: Math.max(0, Math.min(stopAge - age, work.self)) > 0, spouse: profile.spouseOn === true && Math.max(0, Math.min(stopAge - spouseAge, work.spouse)) > 0 };
   const joint = profile.spouseOn === true && profile.filing === 'mfj';
   const iraEligible = { self: eligible.self || (joint && stopAge - age > 0 && work.spouse > 0), spouse: eligible.spouse || (joint && stopAge - spouseAge > 0 && work.self > 0) };
@@ -1047,7 +1059,18 @@ function validatePlannedContributions(c, plan) {
     }
     planned += Math.max(0, amount);
   }
-  const earned = (eligible.self ? salaryOf('self') : 0) + (eligible.spouse ? salaryOf('spouse') : 0);
+  /* S5AA R45 (the owner, 2026-10-03): earned income also counts employment and self-employment streams paying at the starting age, by
+     owner (the engine's ownerCompensation() counts both). An amount entered as today's dollars is read at its face value here. */
+  const streams = isPlainObject(plan.retirement) && Array.isArray(plan.retirement.otherIncomes) ? plan.retirement.otherIncomes : [];
+  const streamPay = (owner) => streams.reduce((t, s) => {
+    if (!isPlainObject(s) || (s.type !== 'employment' && s.type !== 'selfEmployment') || !isFiniteNumber(s.amount)) return t;
+    const own = s.owner === 'spouse' && profile.spouseOn === true ? 'spouse' : 'self', start = startAgeOf(own);
+    if (own !== owner) return t;
+    if (isFiniteNumber(s.start) && s.start > start) return t;
+    if (isFiniteNumber(s.end) && s.end <= start) return t;
+    return t + Math.max(0, s.amount);
+  }, 0);
+  const earned = (eligible.self ? salaryOf('self') + streamPay('self') : 0) + (eligible.spouse ? salaryOf('spouse') + streamPay('spouse') : 0);
   if (planned > 0 && (planned > earned)) {
     c.warn('CONTRIBUTIONS_ABOVE_EARNED_INCOME', 'accounts',
       `planned contributions of ${Math.round(planned)} a year at the starting age exceed the earned income of ${Math.round(earned)} of the household members contributing, and nothing the plan models funds the difference`);
@@ -1185,7 +1208,7 @@ function validateScenario(plan) {
     checkType(c, employment.salary, 'employment.salary', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
   }
 
-  validateProfile(c, profile);
+  validateProfile(c, profile, employment);
   validateAssumptions(c, assumptions);
   validateRetirement(c, retirement);
   validateAdvanced(c, advanced);

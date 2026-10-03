@@ -892,7 +892,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R44 (R43-01, -02, -03): the contribution routes), so the tracked file was rebuilt,
 // again installed only after two builds agreed. The pin before it,
 // eea770ab2b5c45bde41513c065fd5c457ed61acbd0e862ab122b7029df5ae94f, described the previous rebuild.
-const EXPECTED_SHA256 = '720834cd9e695c50023963582070b92a94d0fdf9425b21d42f55ed3a85a2811d';
+//
+// Changed again 2026-09-29 (S5AA R45: each spouse's own retirement date, and the household date), so the tracked file
+// was rebuilt, again installed only after two builds agreed. The pin before it,
+// 720834cd9e695c50023963582070b92a94d0fdf9425b21d42f55ed3a85a2811d, described the previous rebuild.
+const EXPECTED_SHA256 = '9602382a7cb2c881b15a3807803160772c69fc4f59bf7ebfcdb2596f5bd3b77f';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
