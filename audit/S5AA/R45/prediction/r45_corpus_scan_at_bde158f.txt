@@ -1,0 +1,15 @@
+== control (36 plans)
+  own (0): none
+  household (0): none
+  health (0): none
+  reserve (0): none
+  inputs (0): none
+  conversion (0): none
+== expanded (71 plans)
+  own (0): none
+  household (1): 
+    expansion:s5aa-gap-working-household [67 -> 56]
+  health (0): none
+  reserve (0): none
+  inputs (0): none
+  conversion (0): none

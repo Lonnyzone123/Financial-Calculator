@@ -1,0 +1,46 @@
+S5AA R45 test exposure, run on bde158f (the tree before the R45 edits): every runPlan/simulatePlan call made through src/engine.js by the full test suite, with r45_test_exposure_hook.js.
+Format: calls | test file | method | conditions. 400 calls flagged. Not seen: runs through an engine variant loaded with vm.
+Under the hook, tests/capture-boundary.test.js 5.4 fails because the hook is itself a loaded file; it passes without it (7/0). The other failures are carried or P19-excluded, as on main.
+2 | audit-s5aa-post-death-household.test.js | simple | household 70 -> 65
+4 | audit-s5aa-r24-transfer-age-at-59-half.test.js | simple | own spouse 59 vs 60 (spouse salary 0, spouseAge 59, age 60, end 61)
+3 | audit-s5aa-r39-survivor-inherits-no-employer-flag.test.js | simple | household 85 -> 74.5
+3 | audit-s5aa-r42-ira-window-and-roth-proxy.test.js | simple | household 45.5 -> 44.5
+2 | audit-s5aa-r43-contributions.test.js | simple | household 45.5 -> 44.5
+1 | audit-s5aa-r43-contributions.test.js | simple | household 50 -> 47
+1 | audit-s5aa-r43-life-events.test.js | simple | household 60.5 -> 60.25
+1 | audit-s5aa-r43-life-events.test.js | simple | household 65 -> 56.5
+1 | audit-s5aa-r44-contribution-routes.test.js | simple | own spouse 75 vs 70 (spouse salary 100000, spouseAge 63, age 60, end 61)
+3 | audit-s5aa-r44-contribution-routes.test.js | simple | own spouse 75 vs 70 (spouse salary 100000, spouseAge 64.5, age 60, end 61)
+1 | audit-s5aa-r6-roth-phaseout-filing.test.js | simple | household 65 -> 53
+1 | audit-s5aa-r7-executed-succession.test.js | simple | household 75 -> 70
+2 | audit-s5aa-spousal-rollover.test.js | simple | household 66 -> 65
+1 | audit-s5aa-wages-end-at-death.test.js | simple | household 70 -> 52
+1 | audit-s5aa-wages-end-at-death.test.js | simple | household 70 -> 64
+3 | audit-s5aa-wages-end-at-death.test.js | simple | household 70 -> 65
+1 | audit-s5aa-wages-end-at-death.test.js | simple | household 70 -> 65.5
+1 | build-routes.test.js | simple | household 67 -> 56
+4 | corpus-composition.test.js | simple | household 67 -> 56
+9 | corpus-configured-paths.test.js | historical | own spouse 56 vs 66 (spouse salary 0, spouseAge 37, age 66, end 74)
+10 | corpus-configured-paths.test.js | simple | household 67 -> 56
+1 | household-ledger.test.js | historical | household 59 -> 54
+1 | household-ledger.test.js | historical | household 66 -> 61
+47 | household-ledger.test.js | monteCarlo | household 56 -> 53
+43 | household-ledger.test.js | monteCarlo | household 77 -> 75
+1 | household-ledger.test.js | simple | household 32 -> 30
+1 | household-ledger.test.js | simple | household 50 -> 49
+1 | household-ledger.test.js | simple | household 54 -> 46
+1 | household-ledger.test.js | simple | household 67 -> 56
+11 | near-miss-survivor-sweep.test.js | historical | household 70 -> 69
+6 | near-miss-survivor-sweep.test.js | historical | household 72 -> 70
+2 | near-miss-survivor-sweep.test.js | monteCarlo | household 58 -> 56
+3 | near-miss-survivor-sweep.test.js | monteCarlo | household 66 -> 60
+12 | near-miss-survivor-sweep.test.js | monteCarlo | household 66 -> 61
+8 | near-miss-survivor-sweep.test.js | monteCarlo | household 70 -> 68
+3 | networth-reconciliation.test.js | simple | household 67 -> 56
+4 | reconciliation-invariant.test.js | historical | household 59 -> 54
+4 | reconciliation-invariant.test.js | historical | household 66 -> 61
+96 | reconciliation-invariant.test.js | monteCarlo | household 56 -> 53
+88 | reconciliation-invariant.test.js | monteCarlo | household 77 -> 75
+4 | reconciliation-invariant.test.js | simple | household 32 -> 30
+4 | reconciliation-invariant.test.js | simple | household 50 -> 49
+4 | reconciliation-invariant.test.js | simple | household 54 -> 46
