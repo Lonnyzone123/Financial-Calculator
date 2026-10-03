@@ -717,3 +717,229 @@ for (const n of [1, 2, 5, 10, 20]) {
 ```
 
 This supplement supplies new measured evidence for AA1-24 and the spending-metric caveat. It does not alter the original 47 rule-group verdict counts or authorize an engine change. The owner decides which recommendations to implement.
+
+## Second empirical follow-up: 60 additional families and 10 stress comparisons
+
+Completed 60 additional household families and ten baseline-versus-stress comparisons, using **404,000 additional Monte Carlo paths**. Account partition still changes modeled risk and success; deterministic controls identify reserve sensitivity and an implicit RMD/basis-pooling policy. No essential accounting/numerical invariant or ordinary calculation error was reported in these runs.
+
+Engine audited: `9327bf6520457ddc2035f0ebaa859e1d16f48202`; SHA-256 `8b7ad07e8a1c4fd2fc23378bcfa36132118ef62a9d87c1941c257653e36bcd24`. Source and embedded rules match the first experiment. This is synthetic engine evidence, not a return forecast, tax-law certification or recommendation for a real household.
+
+### What was run
+
+- **60 new regular families:** 12 allocations × 5 household configurations, IDs MC31–MC90. Each runs 1, 2, 5, 10 and 20 accounts per original sleeve, with 1,000 paths per batch: **300 batches / 300,000 paths**. These are additional input cases, rather than reusing the previous thirty.
+- **10 stress comparisons:** each has baseline and stressed plans at both n=1 and n=20, with 2,000 paths per cell: **40 batches / 80,000 paths**. “n” always denotes accounts per original sleeve; the three-sleeve survivor household has 3 and 60 input accounts, while the other stress cases have 1 and 20.
+- **Seed replications:** six of the new allocation families (MC31/41/51/61/71/81, all small-Roth configurations), two additional seeds, two partitions: **24 batches / 24,000 paths**. Primary seed 42791; replication seeds 19073 and 20261003. These check allocation sensitivity, not every ownership/feature combination.
+- **120 deterministic control paths** compare n=1 and n=20 for every regular family. Six feature-combination batches gave exactly matching complete tapped and uninstrumented results. An additional **104 selected paths** across regular and all stress cells were independently recomputed through the uninstrumented engine; terminal values, tax totals, shortfalls, requested spending and first two closing balances match exactly. Small verification runs are excluded from the 404,000 headline count.
+- Across both rounds: **90 regular household families, ten stress comparisons and 682,000 primary/follow-up Monte Carlo paths**. This excludes small reproduction and verification reruns. All 364 new Monte Carlo cells have valid ordinary results and preserve their full path denominator; ordinary depleted households remain valid financial outcomes.
+- Nine supported **input** account types now covered: taxable, traditional IRA, traditional 401(k), Roth IRA, Roth 401(k), HSA, custom taxable, custom traditional and custom Roth. 1–80 input accounts, $100,000–$10 million opening assets, self/spouse/joint ownership, manual and optimized ordering, RMDs, dividend payout/reinvestment, nonqualified HSA draws, reserve blends, guardrails and floor/ceiling spending. The engine can create additional retained or RMD accounts during settlement.
+- Every partition preserves account type, owner, tax class, allocation, HSA-qualified share, aggregate balance, basis dollars and contributions. No inputs are refused or dropped. Random draws remain assigned per account, so changing n is not a matched annual market-path comparison. Same-seed comparisons are distribution comparisons; seed reuse across cases does not make the sixty families statistically independent observations.
+- Wilson 95% intervals accompany every success estimate. At 1,000 paths the maximum single-rate margin is approximately 3.1 percentage points; at 2,000 it is 2.2 points. Small point-estimate differences are not treated as statistically significant. These intervals describe simulation sampling only, not model uncertainty or forecast reliability.
+
+### New input grid
+
+Asset-class mean/volatility assumptions remain stocks 7%/20%, bonds 3.5%/6%, cash 3%/1%, international stocks 7%/22%, REITs 6%/18%. Within-account cross-asset correlation is 0.25; returns are nominal. These are fixed test assumptions. The twelve allocation rows are: 100% stocks; 90/10; 80/20; 70/30; 60/40; 50/50; 40/60; 20/80 stock/bond; 100% bonds; 50/50 US/international stocks; 35/20/25/10/10 stocks/international/bonds/cash/REITs; and 40/30/30 stocks/REITs/bonds.
+
+The five configurations are:
+
+| Configuration | Opening assets / initial spending | Sleeves and balance shares | Horizon and feature variations |
+|---|---|---|---|
+| A: Small Roth | $100,000 / $4,500 | Roth IRA 100% | Age 65→85; fixed real, no flexibility |
+| B: IRA + workplace | $750,000 / $30,000 | Traditional IRA / traditional401k 50/50, self-owned | Age 65→95; RMDs enabled |
+| C: Joint, separate owners | $1.5m / $67,500 | Joint taxable 20%, self IRA 50%, spouse Roth IRA 30% | Primary 65, spouse 64; 30 years; allocation row mod 3 selects fixed real, guardrails, or floor/ceiling. Odd allocation rows use optimized order, even rows manual order |
+| D: Four tax classes | $3m / $120,000 | Joint taxable 25%, self traditional401k 45%, spouse Roth401k 25%, spouse HSA 5% | Primary 70, spouse 66; 30 years; HSA medical share 25%. Allocation row mod 3 = 0 uses a three-year reserve; = 1 enables 3% dividends with 85% qualified share; = 2 uses neither |
+| E: Custom wrappers | $10m / $200,000 | Custom taxable 25%, custom traditional 50%, custom Roth 25%, self-owned | Age 65→100; RMDs on; taxable basis 20%; fee 0.5%; inflation 3.5% |
+
+Allocation rows are indexed from zero. Other cases use 2.5% fixed inflation, zero fee and 100% taxable basis. RMDs are on for B/C/D/E. All accounts within a family hold the same allocation; this is the controlled partition variable. Salaries, contributions, Social Security, pensions, health costs, debts, LTC, conversions and transfers are off in the regular grid. Life ages 120 preserve the entered horizon. Fixed-real and floor/ceiling plans have flexibility zero; guardrails use the inherited 10% down-year cut, 20% upper/lower bands, 10% adjustment, a real floor of 60% and ceiling of 150% of initial spending. No early Roth ordering issue is introduced in this grid because Roth owners are at least 64 at entry. HSA draws assume 25% qualifying expenses where present; this is a test input, not proof that medical expenses exist.
+
+### Findings from the sixty additional families
+
+#### Account-driven diversification persists across wrappers and owners
+
+Among the new n=1 versus n=20 comparisons, success increases in **58**, decreases in **2**, and is unchanged in **0**. The largest increase is **MC48: 40.6 percentage points**; the largest decrease is **MC72: -24.1 points**. These counts describe point estimates, not sixty separate significance tests.
+
+For joint separate owners with all-equity holdings, MC33 reports **59.8% → 99.8%** and median terminal wealth **$720,667 → $2,445,350** when the same three economic sleeves become sixty input accounts. Their owners, tax treatment, aggregate basis and economic allocations are unchanged. For the custom-account equity case, MC35 reports **87.2% → 100.0%**, demonstrating that the defect is not confined to IRA labels.
+
+The largest absolute median-wealth difference is **MC35: $15,300,673**. A high-dollar effect is a consequence of the selected synthetic capital and horizon, not a forecast of an investor's achievable benefit. Opening risk follows the previously demonstrated independent-account covariance formula; later portfolio weights evolve with returns, withdrawals, tax settlement and retained accounts. The [portfolio covariance identity in Markowitz's lecture](https://www.nobelprize.org/uploads/2018/06/markowitz-lecture.pdf) requires identical exposures to share their shocks regardless of account label or owner.
+
+#### Deterministic controls and reserve locality
+
+**8 of 60** deterministic partition pairs differ by more than one cent in terminal wealth or lifetime taxes. Changed cases are MC34, MC45, MC49, MC50, MC64, MC79, MC85, MC90. The table below gives the exact attribution evidence; reserve-enabled cases are checked against their feature definitions, rather than inferring a reserve cause from the Monte Carlo outcome alone.
+
+| Family | n=20 minus n=1 terminal wealth | Difference in lifetime taxes | Reserve enabled |
+|---|---:|---:|---|
+| MC34 | $1,312,033 | $50,421 | Yes |
+| MC45 | $3,919 | $-3,762 | No |
+| MC49 | $826,553 | $20,942 | Yes |
+| MC50 | $22,300 | $-20,534 | No |
+| MC64 | $442,474 | $11,631 | Yes |
+| MC79 | $1,312,033 | $50,421 | Yes |
+| MC85 | $255 | $-125 | No |
+| MC90 | $1,666 | $-997 | No |
+
+Account partition changes the per-account reserve blend even with deterministic returns. The household reserve should be computed once and assigned to actual reserve exposure; its amount should not depend on record count. Four reserve-enabled cases reproduce the reserve rule. The other four discrepancies are traced separately below to RMD deposit routing and taxable-basis pooling; they are not reserve defects. No tax-law correctness conclusion is implied by a balanced or invariant ledger.
+
+
+#### RMD reinvestment creates an implicit tax-lot policy — JUDGMENT CALL for pooling; SHOULD CHANGE disclosure, M, high confidence
+
+Four non-reserve custom-wrapper cases also change under deterministic returns: MC45, MC50, MC85 and MC90. The engine reinvests excess RMD cash into the first taxable account by priority (`retainExcessRmdCash()`, lines 2679–2689). New cash adds full dollar basis to that account. Later sales recover basis pro rata within each account (`withdrawFromAccountList()`, line 2365), and manual withdrawals take the first-priority account. Splitting the original taxable balance concentrates the RMD's new, higher-basis purchases in one small pool, rather than mixing them into the entire original account. The investments remain the same, but the engine has implicitly changed the basis pool selected for sale.
+
+In deterministic MC50, at age 95, both partitions have taxable balance **$2,557,712.71** and aggregate basis **$875,440.14**. In n=1 the account's basis fraction is **34.23%**; in n=20 the first-selected taxable account's fraction is **78.68%**. A sale from that pool therefore realizes a different gain. The first material annual divergence is the row ending at age 96. By the horizon, n=20 has **$22,299.73 more wealth and $20,534.42 less lifetime tax**, despite no random returns and no reserve.
+
+The causal controls turn RMDs off, retain the RMD surplus as dedicated cash, or add an initially empty dedicated taxable RMD-investment destination at priority zero to both partitions. **Each control removes all four differences to less than one cent.** Four modes × two partitions × four families give 32 further deterministic cases; every tapped result exactly matches an uninstrumented run. The third control keeps RMD investing active and isolates the destination/basis-pooling mechanism rather than merely removing the distribution.
+
+This is not sufficient evidence of faulty tax arithmetic. [IRS Publication 550](https://www.irs.gov/publications/p550) distinguishes specific-share identification and permitted average-basis treatment for qualifying mutual-fund/DRIP shares; a pooled basis method is not a universal method for every taxable security. Actual lot selection, basis elections, and purchase routing can legitimately affect realized gains. The experiment demonstrates an **implicit account-based lot-selection assumption**, so these four discrepancies must not be attributed to the reserve bug or presented as proof that any real-world account split is tax-neutral.
+
+**Recommendation:** disclose the per-account pooled-basis sales method and the automatic RMD deposit destination. Make purchase routing/basis treatment explicit, or track tax lots independently of account partitions. If a partition-invariance guarantee is offered, preserve the same lot-selection and purchase-routing policy within that guarantee. Scope M for disclosure and destination controls; XL for a full security/tax-lot ledger. This refines AA1-21's supported pro-rata-basis convention and AA1-24's partition checks, without relabeling lawful tax-lot choices as an arithmetic error.
+
+### Ten stress comparisons
+
+Except ST08 ($2m and three sleeves) and ST10 (taxable, retirement at 60), each stress baseline uses a $1m Roth portfolio, age 65→95, fixed-real $40,000 initial spending, zero flexibility/fee, and 2.5% inflation. ST08 has $80,000 initial spending; ST10 has $40,000 plus pre-Medicare health costs. Holdings remain unchanged between baseline/stress except the specified market-assumption changes; both n partitions preserve the same exposure in each cell.
+
+| ID | Stress | Exact change from baseline |
+|---|---|---|
+| ST01 | Persistently lower returns | Stock/international 7%→3%, bonds 3.5%→2%, cash 3%→1%, REITs 6%→2.5% |
+| ST02 | Double annual volatility | Stock volatility 20%→40%; same mean return |
+| ST03 | Persistent 7% inflation | Inflation 2.5%→7%; same nominal returns |
+| ST04 | Early common market losses | First annual equity returns −35% and −15% in every account, then ordinary Monte Carlo |
+| ST05 | Large early expenses | Add $200,000 at age 65 and $100,000 at age 70 |
+| ST06 | Severe long-term care | LTC probability 25%→100%, annual cost $100k→$200k, duration 3→5 years |
+| ST07 | Fifty-year retirement | Horizon 30→50 years; life ages remain 120 |
+| ST08 | Early spouse death | Spouse lifespan 100→75; keep 25% survivor spending reduction |
+| ST09 | Two-percent annual fee | Fee 0%→2%; same gross asset assumptions |
+| ST10 | Pre-Medicare healthcare costs | Retire at 60; pre-Medicare health cost $12k→$60k, medical inflation 5.5%→8% |
+
+ST01/03/05/06/08/09/10 use 60/40 holdings; ST02/04 use equity; ST07 uses 80/20. ST06 baseline already enables LTC at 25% probability, $100k/year and three years; the stressed version raises those inputs to 100%, $200k and five years, with 5.5% medical inflation and no insurance in both. The engine's drawn onset range is retained. ST08 enables self/spouse Social Security inputs of $2,500/$1,500 monthly, claimed at 65; self lifespan 100, spouse baseline lifespan 100, survivor spending cut 25%, RMDs enabled, taxable/IRA/Roth shares 30/40/30 and joint/self/spouse owners respectively. ST10 retires at 60 and ends at 95; its medical-cost field is exercised before Medicare eligibility, rather than assuming the field charges the same expense after age 65. Pre-plan IRMAA MAGI inputs are explicitly zero.
+
+#### Special method for the early-loss sequence
+
+ST04's two prescribed market years are a **conditional stress**, not draws from the unconditioned normal forecast. The public `simulatePlan()` accepts a caller-supplied market RNG. For every account, the first two Box–Muller pairs are chosen to generate z=−2.1 and z=−1.1; with mean 7% and sigma 20%, these give exactly −35% and −15%. The same shocks apply across every identical holding. The underlying seeded RNG is advanced for each substituted uniform, then ordinary Monte Carlo resumes. No engine source or return formula is changed. Only this all-Roth, no-synthetic-account case uses the prescribed sequence, and the observer asserts the account count remains constant in the affected periods.
+
+Every observed first-two-period return matches the prescription within 1e−12, and the independently rerun paths match their saved first/second-year balances. Results are aggregated with the shipped `aggregateMonteCarloRuns()`; every direct path gets the essential invariant checks. The other 38 stress cells use ordinary `runPlan()`. Market independence after the forced two years still exists in the current engine, so the stress results do not repair the covariance defect or describe the correctly correlated probability.
+
+#### Stress results
+
+Each cell has 2,000 paths. Figures are success percentages. “Stress split gap” is stressed n=20 minus stressed n=1; it measures the current engine's account sensitivity under that stress, not a benefit from opening more accounts.
+
+| ID | Baseline n=1 | Stressed n=1 | Baseline n=20 | Stressed n=20 | Stress split gap, points |
+|---|---:|---:|---:|---:|---:|
+| ST01 | 64.3 | 22.6 | 99.0 | 6.3 | -16.3 |
+| ST02 | 59.1 | 23.3 | 99.1 | 65.9 | 42.7 |
+| ST03 | 64.3 | 11.1 | 99.0 | 0.1 | -11.0 |
+| ST04 | 59.1 | 12.3 | 99.1 | 1.1 | -11.2 |
+| ST05 | 64.3 | 29.8 | 99.0 | 22.9 | -6.9 |
+| ST06 | 55.3 | 3.9 | 78.3 | 0.0 | -3.9 |
+| ST07 | 62.3 | 35.3 | 99.1 | 65.2 | 30.0 |
+| ST08 | 100.0 | 100.0 | 100.0 | 100.0 | 0.0 |
+| ST09 | 64.3 | 34.9 | 99.0 | 38.9 | 4.0 |
+| ST10 | 40.5 | 16.0 | 61.4 | 1.8 | -14.2 |
+
+The largest absolute stressed account-split gap is **ST02: 42.7 points**. Early common losses change n=1 success **59.1% → 12.3%**, and n=20 **99.1% → 1.1%**. Even when both partitions receive the same first two losses, the later account-wise independence changes their conditional outcomes.
+
+The survivor comparison requires particular care: an early death removes income, but also activates the entered 25% spending reduction and the modeled account succession/basis conventions. Its success can rise despite the loss of a spouse. That direction alone is not an arithmetic bug; inspect the income and spending assumptions, and the existing AA1 survivor-tax limitations, before drawing a household conclusion. ST02 uses the engine's −95%/+200% return clamp; stress outcomes reflect that truncation rather than an unconstrained Gaussian distribution. ST06's large late-life expenses are inflated from the plan start at the health-cost rate and are deliberately severe. Zero success under a stress is ordinary depletion, not evidence of a calculation failure.
+
+#### Stress terminal wealth and unmet obligations
+
+Median shortfall sums are nominal dollars over the simulated horizon, not discounted liabilities. Lifetime taxes and portfolio values are separate marginal medians. A zero median shortfall does not mean every path succeeds.
+
+| ID | Median wealth, baseline n=1 | Stressed n=1 | Baseline n=20 | Stressed n=20 | Median cumulative shortfall, stressed n=1 | Stressed n=20 |
+|---|---:|---:|---:|---:|---:|---:|
+| ST01 | $478,119 | $0 | $1,050,024 | $0 | $520,429 | $365,065 |
+| ST02 | $512,877 | $0 | $2,256,925 | $561,370 | $973,143 | $0 |
+| ST03 | $478,119 | $0 | $1,050,024 | $0 | $2,039,642 | $1,803,773 |
+| ST04 | $512,877 | $0 | $2,256,925 | $0 | $994,991 | $868,598 |
+| ST05 | $478,119 | $0 | $1,050,024 | $0 | $515,507 | $287,947 |
+| ST06 | $165,886 | $0 | $837,392 | $0 | $2,383,142 | $2,249,465 |
+| ST07 | $544,983 | $0 | $1,588,849 | $984,645 | $1,505,359 | $0 |
+| ST08 | $5,500,052 | $5,456,681 | $6,156,425 | $6,090,938 | $0 | $0 |
+| ST09 | $478,119 | $0 | $1,050,024 | $0 | $316,532 | $77,406 |
+| ST10 | $0 | $0 | $185,888 | $0 | $1,193,135 | $1,019,453 |
+
+### All sixty regular comparisons
+
+n is accounts per sleeve. The configuration key A–E supplies balance, tax types, owners, horizon and feature flags above. All success figures are percentages.
+
+| ID | Allocation | Config | Original sleeves | n=1 | n=2 | n=5 | n=10 | n=20 | Δ points | Median wealth n=1 | Median wealth n=20 |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| MC31 | Equity | A | 1 | 74.8 | 84.2 | 96.6 | 99.5 | 100.0 | 25.2 | $71,513 | $146,610 |
+| MC32 | Equity | B | 2 | 69.4 | 79.1 | 93.8 | 99.0 | 100.0 | 30.6 | $794,580 | $1,518,666 |
+| MC33 | Equity | C | 3 | 59.8 | 71.8 | 85.7 | 95.2 | 99.8 | 40.0 | $720,667 | $2,445,350 |
+| MC34 | Equity | D | 4 | 73.9 | 88.5 | 98.2 | 99.7 | 100.0 | 26.1 | $2,698,793 | $6,162,979 |
+| MC35 | Equity | E | 3 | 87.2 | 96.4 | 99.9 | 100.0 | 100.0 | 12.8 | $21,733,671 | $37,034,344 |
+| MC36 | 90/10 | A | 1 | 77.2 | 86.9 | 97.4 | 99.7 | 100.0 | 22.8 | $73,428 | $133,258 |
+| MC37 | 90/10 | B | 2 | 69.3 | 79.9 | 94.3 | 99.1 | 100.0 | 30.7 | $704,208 | $1,292,819 |
+| MC38 | 90/10 | C | 3 | 94.0 | 99.0 | 100.0 | 100.0 | 100.0 | 6.0 | $1,903,972 | $2,338,593 |
+| MC39 | 90/10 | D | 4 | 77.8 | 89.9 | 98.2 | 99.8 | 100.0 | 22.2 | $3,390,218 | $5,436,425 |
+| MC40 | 90/10 | E | 3 | 88.9 | 97.3 | 100.0 | 100.0 | 100.0 | 11.1 | $20,226,058 | $31,837,765 |
+| MC41 | 80/20 | A | 1 | 79.7 | 88.7 | 98.1 | 99.9 | 100.0 | 20.3 | $74,387 | $120,052 |
+| MC42 | 80/20 | B | 2 | 69.6 | 80.5 | 94.1 | 98.9 | 100.0 | 30.4 | $658,182 | $1,074,639 |
+| MC43 | 80/20 | C | 3 | 93.7 | 98.9 | 100.0 | 100.0 | 100.0 | 6.3 | $1,716,942 | $2,318,093 |
+| MC44 | 80/20 | D | 4 | 77.9 | 89.4 | 98.0 | 99.7 | 100.0 | 22.1 | $2,877,464 | $4,435,261 |
+| MC45 | 80/20 | E | 3 | 90.3 | 97.8 | 100.0 | 100.0 | 100.0 | 9.7 | $18,344,809 | $27,399,133 |
+| MC46 | 70/30 | A | 1 | 81.8 | 90.6 | 98.6 | 99.9 | 100.0 | 18.2 | $73,874 | $107,529 |
+| MC47 | 70/30 | B | 2 | 70.0 | 80.0 | 93.5 | 98.6 | 100.0 | 30.0 | $585,845 | $883,805 |
+| MC48 | 70/30 | C | 3 | 58.2 | 67.8 | 78.5 | 91.3 | 98.8 | 40.6 | $396,461 | $1,065,077 |
+| MC49 | 70/30 | D | 4 | 73.6 | 87.0 | 97.0 | 99.7 | 100.0 | 26.4 | $1,595,044 | $3,329,664 |
+| MC50 | 70/30 | E | 3 | 91.1 | 98.4 | 100.0 | 100.0 | 100.0 | 8.9 | $16,608,744 | $23,159,417 |
+| MC51 | 60/40 | A | 1 | 84.6 | 91.9 | 99.0 | 100.0 | 100.0 | 15.4 | $71,263 | $95,308 |
+| MC52 | 60/40 | B | 2 | 69.2 | 78.8 | 92.7 | 97.9 | 100.0 | 30.8 | $451,698 | $695,897 |
+| MC53 | 60/40 | C | 3 | 96.2 | 99.7 | 100.0 | 100.0 | 100.0 | 3.8 | $1,510,554 | $1,652,405 |
+| MC54 | 60/40 | D | 4 | 76.9 | 87.9 | 97.0 | 99.7 | 100.0 | 23.1 | $1,875,804 | $2,694,151 |
+| MC55 | 60/40 | E | 3 | 92.4 | 98.8 | 100.0 | 100.0 | 100.0 | 7.6 | $14,528,446 | $19,144,160 |
+| MC56 | 50/50 | A | 1 | 87.7 | 92.8 | 99.5 | 100.0 | 100.0 | 12.3 | $66,748 | $84,316 |
+| MC57 | 50/50 | B | 2 | 67.8 | 76.6 | 90.8 | 96.4 | 99.5 | 31.7 | $348,905 | $513,812 |
+| MC58 | 50/50 | C | 3 | 97.9 | 99.9 | 100.0 | 100.0 | 100.0 | 2.1 | $1,426,860 | $1,733,563 |
+| MC59 | 50/50 | D | 4 | 74.7 | 85.7 | 94.9 | 99.3 | 100.0 | 25.3 | $1,414,458 | $1,999,616 |
+| MC60 | 50/50 | E | 3 | 93.0 | 99.0 | 100.0 | 100.0 | 100.0 | 7.0 | $12,347,338 | $15,643,731 |
+| MC61 | 40/60 | A | 1 | 89.6 | 94.8 | 99.6 | 100.0 | 100.0 | 10.4 | $61,618 | $73,520 |
+| MC62 | 40/60 | B | 2 | 65.2 | 72.8 | 86.9 | 93.8 | 98.8 | 33.6 | $226,557 | $347,738 |
+| MC63 | 40/60 | C | 3 | 43.1 | 48.8 | 50.6 | 54.5 | 60.7 | 17.6 | $0 | $85,119 |
+| MC64 | 40/60 | D | 4 | 63.7 | 74.2 | 88.6 | 97.9 | 100.0 | 36.3 | $556,863 | $1,268,284 |
+| MC65 | 40/60 | E | 3 | 93.6 | 99.2 | 100.0 | 100.0 | 100.0 | 6.4 | $10,178,516 | $12,275,282 |
+| MC66 | 20/80 | A | 1 | 92.7 | 96.9 | 99.9 | 100.0 | 100.0 | 7.3 | $48,847 | $54,459 |
+| MC67 | 20/80 | B | 2 | 51.7 | 55.7 | 63.2 | 68.8 | 75.6 | 23.9 | $16,570 | $66,786 |
+| MC68 | 20/80 | C | 3 | 99.1 | 100.0 | 100.0 | 100.0 | 100.0 | 0.9 | $876,218 | $905,876 |
+| MC69 | 20/80 | D | 4 | 52.7 | 59.2 | 64.4 | 73.1 | 82.0 | 29.3 | $116,790 | $282,755 |
+| MC70 | 20/80 | E | 3 | 93.0 | 98.9 | 100.0 | 100.0 | 100.0 | 7.0 | $6,024,883 | $6,970,470 |
+| MC71 | Bonds | A | 1 | 90.0 | 95.0 | 99.5 | 100.0 | 100.0 | 10.0 | $33,951 | $37,826 |
+| MC72 | Bonds | B | 2 | 26.6 | 22.2 | 12.6 | 6.6 | 2.5 | -24.1 | $0 | $0 |
+| MC73 | Bonds | C | 3 | 97.5 | 99.8 | 100.0 | 100.0 | 100.0 | 2.5 | $669,510 | $761,614 |
+| MC74 | Bonds | D | 4 | 23.5 | 17.9 | 8.4 | 2.8 | 0.2 | -23.3 | $0 | $0 |
+| MC75 | Bonds | E | 3 | 80.0 | 90.2 | 98.7 | 99.8 | 100.0 | 20.0 | $2,523,696 | $3,102,352 |
+| MC76 | US/international | A | 1 | 83.0 | 91.5 | 99.0 | 100.0 | 100.0 | 17.0 | $94,843 | $150,305 |
+| MC77 | US/international | B | 2 | 76.2 | 89.0 | 98.0 | 99.6 | 100.0 | 23.8 | $1,123,054 | $1,570,390 |
+| MC78 | US/international | C | 3 | 70.6 | 81.9 | 93.8 | 98.9 | 100.0 | 29.4 | $1,324,634 | $2,495,493 |
+| MC79 | US/international | D | 4 | 84.3 | 94.3 | 99.3 | 100.0 | 100.0 | 15.7 | $3,439,849 | $6,278,829 |
+| MC80 | US/international | E | 3 | 94.5 | 99.3 | 100.0 | 100.0 | 100.0 | 5.5 | $26,293,187 | $37,550,743 |
+| MC81 | Five assets | A | 1 | 91.5 | 96.4 | 99.9 | 100.0 | 100.0 | 8.5 | $80,598 | $97,144 |
+| MC82 | Five assets | B | 2 | 75.2 | 86.7 | 96.6 | 99.4 | 100.0 | 24.8 | $552,133 | $706,415 |
+| MC83 | Five assets | C | 3 | 98.5 | 100.0 | 100.0 | 100.0 | 100.0 | 1.5 | $1,618,715 | $1,654,094 |
+| MC84 | Five assets | D | 4 | 86.0 | 94.2 | 98.9 | 100.0 | 100.0 | 14.0 | $2,240,566 | $2,780,904 |
+| MC85 | Five assets | E | 3 | 97.0 | 99.9 | 100.0 | 100.0 | 100.0 | 3.0 | $16,200,991 | $19,603,434 |
+| MC86 | Stocks/REITs/bonds | A | 1 | 89.1 | 94.4 | 99.6 | 100.0 | 100.0 | 10.9 | $78,039 | $97,777 |
+| MC87 | Stocks/REITs/bonds | B | 2 | 73.2 | 84.6 | 95.7 | 99.2 | 100.0 | 26.8 | $555,861 | $726,829 |
+| MC88 | Stocks/REITs/bonds | C | 3 | 98.2 | 100.0 | 100.0 | 100.0 | 100.0 | 1.8 | $1,655,007 | $1,954,711 |
+| MC89 | Stocks/REITs/bonds | D | 4 | 83.2 | 92.4 | 98.4 | 99.9 | 100.0 | 16.8 | $2,166,344 | $2,828,430 |
+| MC90 | Stocks/REITs/bonds | E | 3 | 95.9 | 99.4 | 100.0 | 100.0 | 100.0 | 4.1 | $15,990,211 | $19,799,545 |
+
+### Additional seed checks
+
+Each entry is n=1 → n=20, in percent; 1,000 paths per cell.
+
+| Family | Seed 42791 | Seed 19073 | Seed 20261003 |
+|---|---:|---:|---:|
+| MC31 | 74.8 → 100.0 | 74.6 → 100.0 | 74.3 → 100.0 |
+| MC41 | 79.7 → 100.0 | 79.9 → 100.0 | 79.1 → 100.0 |
+| MC51 | 84.6 → 100.0 | 84.3 → 100.0 | 84.9 → 100.0 |
+| MC61 | 89.6 → 100.0 | 90.6 → 100.0 | 89.4 → 100.0 |
+| MC71 | 90.0 → 100.0 | 91.2 → 100.0 | 90.2 → 100.0 |
+| MC81 | 91.5 → 100.0 | 92.0 → 100.0 | 91.6 → 100.0 |
+
+### Recommendations and limitations
+
+The new evidence supports the existing recommendations: use shared correlated asset-class shocks; compute a household reserve once; validate covariance feasibility; preserve market streams when records are split/reordered; and show the spending/shortfall meaning beside success. Implement partition-equivalence checks for identical type/owner/holding sleeves with ordinary and stress sequences, including taxable basis, RMDs, spouse owners, custom types, dividends and HSA shares. Revalidate distributions after that repair rather than treating the current success rates as benchmarks to preserve.
+
+The basis-method paragraph cites the IRS distinction between permitted methods; no additional 2026 tax-table validation or universal withdrawal recommendation is made. These simulations exercise the audited snapshot, not a later R45 implementation; optimized order is included as implemented, without establishing it solves a lifetime tax optimum. The reserve attribution is based on deterministic controls; changes in taxes between different household configurations can be legitimate and are not classified as split-only errors. The stress cases are illustrative and not assigned real-world likelihoods. No production engine, rules package or tests are changed; the owner still decides repairs.
+
+### Reproducibility
+
+The local bundle contains `expand-experiment.cjs`, `verify-expansion.cjs`, `trace-rmd-basis.cjs`, `analyze-expansion.cjs`, `plot-expansion.py` and `expanded-results/` with all 364 full input plans, source hash, complete parameter definitions, primary/stress/replication results, Wilson intervals, deterministic controls and first thirty path summaries per Monte Carlo cell. From the bundle folder, run `node expand-experiment.cjs`, then `node verify-expansion.cjs`, then `node trace-rmd-basis.cjs`, then `node analyze-expansion.cjs`. The nine input types and parameter grid above are sufficient to construct the ordinary comparisons using the earlier report's root-level witness. The ST04 prescription and path-seed calls are specified above. Generated runtimes and personal local paths are excluded from the public report-only PR.
