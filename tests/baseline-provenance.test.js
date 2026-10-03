@@ -88,7 +88,7 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
   assert.deepEqual(provenance.registryProblems(REGISTRY, { history: false }), []);
   const counts = {};
   REGISTRY.baselines.forEach((b) => { counts[b.provenance.class] = (counts[b.provenance.class] || 0) + 1; });
-  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 29, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
+  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 30, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
     'measured 2026-09-13: eight record no commit, five reproduce byte for byte, one reproduces its output, one names the wrong commit. ' +
     'On 2026-09-14 the successor control capture joined the byte-for-byte class, replayed in a clean clone of its recorded commit, so six. ' +
     'On 2026-09-20 S5AA task 6.2 added the first EXPANDED capture, baseline-20260920-s5aa-expanded.json, replayed the same way, so seven. ' +
@@ -129,7 +129,8 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
     + 'worktrees, so twenty-six. After R42 repaired ChatGPT\'s R41F-01 to R41F-05 it was re-captured at 82856a3, in two clean '
     + 'worktrees, so twenty-seven. After R43 repaired ChatGPT\'s R42 finding and Claude\'s R42F findings it was re-captured at 96006c1, in two '
     + 'clean worktrees, so twenty-eight. After R44 repaired ChatGPT\'s R43 findings it was re-captured at bb5e7f3, in two clean '
-    + 'worktrees, so twenty-nine');
+    + 'worktrees, so twenty-nine. After R45 gave each spouse their own retirement date it was re-captured at 265347a, in two clean '
+    + 'worktrees, so thirty');
 });
 
 test('5.1: held to history -- reproduced captures match their recorded commit, and the wrong commit still does not', () => {
