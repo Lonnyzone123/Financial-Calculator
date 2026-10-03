@@ -641,7 +641,10 @@ function generateScenario(defaultPlan, seed) {
   const profile = { filing, age, retireAge, endAge, spouseOn };
   if (spouseOn) {
     profile.spouseAge = Math.max(0, age + d.int(-8, 8));
-    profile.spouseRetireAge = retireAge;
+    /* S5AA R45: spouseRetireAge is read since R45 (the spouse's own retirement age; absent, retireAge). For a spouse already past
+       the shared age it is left out: the engine then reads retireAge, exactly the value written before, and the validator does not
+       report a spouse "retired before today" beside a generated spouse salary. */
+    if (retireAge >= profile.spouseAge) profile.spouseRetireAge = retireAge;
   }
 
   const plan = buildScenario(defaultPlan, { profile, assumptions, retirement, advanced, employment });

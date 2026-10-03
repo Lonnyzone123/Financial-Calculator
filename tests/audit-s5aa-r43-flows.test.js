@@ -95,8 +95,10 @@ test('R43 (SA42F-21): the reserve is two years of the spending the plan projects
   assert.equal(cents(row.roth), cents(3000000 * 1.0668));
 });
 
-test('R43 (SA42F-26): the form says the annual conversion runs from the retirement age', () => {
-  assert.match(shell(), /Annual conversion amount \(each year from your retirement age\)/);
+test('R43 (SA42F-26), as R45 makes it: the form says when the annual conversion runs, and that it defaults to the retirement age', () => {
+  // S5AA R45 (the owner's AA1 decision on AA1-40): conversions start at their own input, defaulting to the retirement age.
+  assert.match(shell(), /Annual conversion amount \(each year from the conversion start age\)/);
+  assert.match(shell(), /Conversions start at \(your age\)<input class="form-control" id="v2-conversion-start"[^>]*placeholder="your retirement age"/);
 });
 
 // SA42F-28: a one-time income at the plan's end age.

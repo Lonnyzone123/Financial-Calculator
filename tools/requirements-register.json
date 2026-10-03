@@ -127,6 +127,7 @@
      "tests/audit-s5aa-r45-spouse-retirement-dates.test.js :: R45 (AA1-40) control: with no coverage age, the cost starts at the household date, 62"
     ],
     "files": [
+     "tests/audit-s5aa-r43-flows.test.js",
      "tests/audit-s5aa-r45-spouse-retirement-dates.test.js"
     ],
     "onlyTodo": false
