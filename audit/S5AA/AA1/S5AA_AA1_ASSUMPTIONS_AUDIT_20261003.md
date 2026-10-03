@@ -9,7 +9,7 @@ The 43 rule groups below are the counting units. A section or question can cite 
 
 ## Ten findings with the greatest household consequence
 
-1. **AA1-24 — SHOULD CHANGE, L.** Monte Carlo draws independently by account. Ten identical accounts with 20% volatility then have about 6.3% portfolio volatility; the repository's controlled example changes success from 35.9% to 48.3% by account splitting alone. Use common market shocks with explicit asset-class correlation before presenting probability as household evidence.
+1. **AA1-24 — SHOULD CHANGE, L.** Monte Carlo draws independently by account. A new 30-family experiment ran 278,000 Monte Carlo paths: a $1 million Roth equity case changes success from 59.8% to 99.2% when one account becomes twenty; measured first-year risk falls from 19.68% to 4.46%. The appended empirical follow-up also reproduces a deterministic reserve error and invalid covariance silently becoming zero risk. Use common market shocks with explicit asset-class correlation before presenting probability as household evidence.
 2. **AA1-07 — SHOULD CHANGE, XL.** The plan has no pre-retirement household cash-flow ledger. Contributions or excluded debt can be paid without corresponding cash, and R45's first-stop rule creates a sharp cost transition. Build a continuous wage, tax, expense and debt ledger across working and retired years.
 3. **AA1-33 — SHOULD CHANGE, M.** The default “standard” expected return is 10% with zero fee. $100,000 compounded 20 years is about $673,000 at 10% versus $321,000 at 6%, before withdrawals. Present net-of-fee assumptions and an explicit range or stress case; do not imply 10% is a professional forecast.
 4. **AA1-30 — SHOULD CHANGE, M.** The enhanced $6,000-per-eligible-senior federal deduction continues after its statutory 2028 sunset. A two-senior household below the phaseout can show about $2,640 too little federal tax in 2029 at a 22% marginal rate. End it after 2028 unless law changes.
@@ -528,3 +528,192 @@ The **1959 birth cohort** deserves explicit provenance: the package labels age 7
 3. The entire Uniform Lifetime and Joint and Last Survivor divisor matrices were not rekeyed cell by cell; the listed ages were sampled against IRS Publication 590-B. This is the boundary of the figure check, not a positive finding against the matrix.
 4. I did not construct household tax returns, obtain an SSA earnings record, a Medicare Part D plan quote, mortgage note, beneficiary designation, property-character documents, or employer vesting/HDHP records. The conditional examples above illustrate direction and scale; actual household figures require those facts.
 5. `SPRINT_QUESTIONS.md` has RB-01 through RB-09; the brief's tenth RB entry was absent at the audited commit. I did not infer its content.
+
+## Empirical follow-up: 30 household families and account partitions
+
+30 household families and 150 primary batches reproduce materially incorrect account-dependent risk; reserve sizing also changes deterministic results, and an invalid correlation setting silently becomes zero risk. No essential accounting or numerical invariant failed in the exercised batches.
+
+Audited engine: `9327bf6520457ddc2035f0ebaa859e1d16f48202`; engine SHA-256: `8b7ad07e8a1c4fd2fc23378bcfa36132118ef62a9d87c1941c257653e36bcd24`. The report branch contains an earlier documentation-only commit; engine and rules remain those of the audited commit. These are synthetic scenarios, not forecasts or household recommendations.
+
+### Method and coverage
+
+- Run the shipped `runPlan()` Monte Carlo engine. A separately compiled, unchanged source with two read-only observation hooks captures first-period balance-weighted rates and path summaries. Four small batches returned exactly the same complete results as the uninstrumented engine. Twenty-four saved paths were also rerun directly through uninstrumented `simulatePlan()`, with exact matching terminal wealth, tax totals, failures and first-shortfall ages.
+- 30 families × 5 partitions × 1,000 paths = **150,000 primary paths**. Partitions contain 1, 2, 5, 10 or 20 accounts **per original sleeve**, giving **1–80 total accounts**. Each sleeve preserves account type, owner, holdings, aggregate balance, basis dollars and contributions. Maximum checked input-dollar drift: 0.
+- **128,000 supplemental paths**, including three additional seeds for five families; unequal 95/5 and 50/20/15/10/5 partitions; rename, repeat, ordering and empty-account checks; default spending flexibility; fifteen 5,000-path one-year distributions; RMD-enabled pretax comparisons; allocation-equivalence and correlation probes. Total: **218 Monte Carlo batches / 278,000 paths**, plus 65 deterministic control paths. Small instrumentation-equivalence runs and the 24 direct verification paths are excluded from that headline count.
+- Six input account types: taxable brokerage, traditional IRA, traditional 401(k), Roth IRA, Roth 401(k), and HSA. RMD scenarios also exercise engine-generated taxable holdings. Tax classes cover taxable, pretax, Roth and HSA. Single and joint filing; balances $250,000–$5 million; starting annual portfolio spending $0–$100,000; initial spending rates 0–9%; horizons 5, 30 and 40 years.
+- Asset assumptions: stocks 7% mean / 20% volatility; bonds 3.5% / 6%; cash 3% / 1%; international stocks 7% / 22%; REITs 6% / 18%. Within-account cross-asset correlation = 0.25. These values are test inputs, deliberately held constant rather than validated capital-market forecasts. MC16 raises stock volatility to 35%; MC01/02 set cash volatility to zero. Holdings use the engine's asset-class interface, not individual security prices.
+- Default age/retirement age 65, terminal age 95, 2.5% fixed inflation, no fees, no employment, contributions, Social Security, pensions, debts, health expenses, LTC, conversions or transfers. Life ages 120 keep the entered projection horizon active. MC21 starts and retires at 55 and ends at 95 (early Roth draws trigger the engine's UNSUPPORTED_ROTH_ORDERING warning, so its tax treatment is a disclosed limitation); MC26 starts at 55, retires at 65 and ends at 95. MC22 uses 4.5% inflation and 1% fee. MC12/30 are married; all input accounts belong to self to avoid an owner-change confound.
+- Spending is fixed real with **flexibility = 0** except MC27/28, which use guardrails/Guyton with the default 10% down-year cut, a 60%-of-initial-real-spend floor and 150% ceiling. MC29 uses constant percentage, no flexibility. Manual tax-class order taxable → pretax → Roth → HSA avoids mixing the withdrawal optimizer question into the primary test. RMDs are enabled for MC12/13/14/24/28/30; disabled in isolated pretax MC05/09, with explicit RMD-enabled follow-ups below. MC06 HSA qualified-medical share = 50%; MC14 HSA uses the engine default 100%. MC08 taxable basis = 30%; other taxable inputs have 100% basis. Dividend payouts are disabled and dividendYield is explicitly zero; the engine's separately disclosed imputed 1.5% taxable yield remains applicable. No tax-law accuracy claim follows from these simulations.
+- MC12/24 wrapper balance shares taxable/IRA/Roth = 20/50/30; MC13 taxable/traditional401k/Roth401k = 40/40/20; MC14 taxable/IRA/Roth/HSA = 35/35/25/5; MC26 taxable/Roth = 50/50; MC28 taxable/traditional401k/Roth401k = 30/40/30; MC30 taxable stock / IRA bond / Roth cash = 50/40/10. Other families have one original sleeve.
+- Seed = 42791. Additional seeds = 19073, 880301, 20261003. Public engine path-seeding is reused. Changing account count consumes different RNG draws, so matching seeds are **not matching annual market paths**; success comparisons are distribution comparisons, not paired-path statistical tests. Wilson 95% intervals are stored for every ordinary Monte Carlo batch. At 1,000 paths, the worst-case single-rate sampling margin is approximately 3.1 percentage points; do not interpret the displayed tenth of a point as forecast precision.
+
+### Findings
+
+#### MC-A — Identical holdings receive independent shocks — SHOULD CHANGE, L, high confidence
+
+`accountReturnForPeriod()` (engine line 3695) draws one independent normal shock per account; the account mapping is at line 4114. The correlation input affects `accountVolatility()` within an account (line 2274), but does not correlate the realized returns of separate accounts. Tax wrappers and record partitions are treated as different economic exposures.
+
+For identical holdings with weights `w_i`, the engine's opening portfolio volatility is `sigma * sqrt(sum(w_i²))`; shared identical holdings should remain `sigma` because their pairwise correlation is 1. Equal splits give `sigma/sqrt(n)`. This follows the portfolio covariance identity described in [Markowitz's Nobel lecture](https://www.nobelprize.org/uploads/2018/06/markowitz-lecture.pdf): portfolio variance includes covariance terms. It is a mathematical modeling principle, not a tax-law question.
+
+In the 5,000-path one-year equity experiment, measured volatility falls **19.68% → 4.46%** when one account becomes twenty, close to the erroneous theoretical 20%/√20 = 4.47%. The mean remains about 7%, so the narrower distribution is caused by omitted covariance, not lower requested risk or lower mean return. The 60/40 experiment falls **12.61% → 2.86%**, despite unchanged aggregate holdings.
+
+MC03 ($1 million Roth equity, $40,000 initial spending, 30 years) reports success **59.8% → 99.2%**, a **39.4 percentage-point increase**. Median terminal nominal wealth rises **$527,065 → $2,256,435**. Baseline Wilson intervals are 56.7%–62.8% and 98.4%–99.6%. Across all four seeds, one-account success is 57.1–60.4%, while twenty-account success is 98.6–99.6%. This is materially larger than sampling noise.
+
+Unequal splits behave as the incorrect balance-weighted formula predicts. With 95/5 shares, measured equity risk is 18.38% and success 61.9%; with 50/20/15/10/5 shares, risk is 11.19% and success 86.3%. The artificial diversification depends on balance distribution, not merely the account counter. For different sleeve holdings, the model can additionally lose cross-asset correlation: a single 60/40 Roth account theoretically has 12.8125% volatility at rho 0.25, whereas separate stock and bond Roth accounts receive independent returns and theoretically have 12.2376%. The measured 1,000-path values are 12.39% and 11.81%; the analytic formula, rather than this small sample difference, establishes the omission.
+
+**Recommendation:** generate one vector of correlated asset-class shocks per path and year; apply each account's allocation to that vector, including cross-wrapper identical exposures. Test partition equivalence on the same class shocks before tax settlement, and for ordinary identical tax/owner sleeves through settlement. Account-level genuinely independent risk, if desired, requires a separate explicit input. Scope L: RNG contract, returns, asset covariance, fixtures and Worker parity.
+
+#### MC-B — Reserve fraction changes with account partition — SHOULD CHANGE, M, high confidence
+
+The reserve rule (line 3695) computes `min(account.balance, household annual spending × reserveYears) / household portfolioTotal` for **each account's** blend toward a 3% return. A $1 million portfolio with $40,000 spending and three reserve years should retain a 12% household reserve under the stated interpretation. One account gets a 12% blend; twenty $50,000 accounts each get a 5% blend. With equal account weights this is an effective 5% household blend, not 12%.
+
+The direct deterministic rate is **6.52% in one account versus 6.80% in twenty** (equity mean 7%, reserve return 3%). An actual one-year deterministic projection ends at **$1,023,916.59 versus $1,026,662.37**, a $2,745.78 difference after the same monthly-timed $40,000 spending. The 30-year deterministic reserve controls differ by **$190,597** for Roth equity and **$221,359** for the mixed 60/40 household. The latter's cumulative taxes also differ by **$5,009**. Twenty-eight of thirty deterministic controls agree within one cent; these two reserve cases fail the partition check. This is independent of random sampling.
+
+**Recommendation:** compute the household reserve amount once and allocate reserve dollars across accounts using an explicit policy; use each account's assigned reserve divided by that account's balance when blending its return. Preserve the total assigned reserve and avoid double allocation. Scope M if the current blend convention is retained; L for an actual cash sleeve and liquidation policy. This expands AA1-24/Q66 with measured evidence.
+
+#### MC-C — Impossible covariance silently becomes zero risk — SHOULD CHANGE, M, high confidence
+
+Five equal asset allocations, each with 20% volatility, accept a constant pairwise correlation of −0.5. The implied correlation matrix has eigenvalues **−1, 1.5, 1.5, 1.5, 1.5**, so it cannot be a covariance/correlation matrix. The calculated portfolio variance is `0.20² × [1/5 + (4/5) × (−0.5)] = −0.008`. `Math.sqrt(Math.max(0,variance))` silently yields zero rather than refusing the invalid assumptions.
+
+The uninstrumented public engine returns **status ok**, no issues, and identical one-year q10/median/q90 of **$1,070,000** on a $1 million no-spending plan. It presents five individually volatile assets as certain 7% growth. For five active classes, an equicorrelation matrix requires rho ≥ −1/(5−1) = −0.25. At −0.25, zero portfolio variance for these exactly equal inputs is a mathematically valid boundary; that control is distinct from the invalid −0.5 case.
+
+**Recommendation:** validate covariance feasibility for active classes; refuse impossible matrices with a usable diagnostic. Only tiny negative roundoff near zero should be clamped. Scope M: input gate, covariance calculation and precise boundary controls. Q45/AA1-24 already identifies covariance limits; this is the executable failure size.
+
+#### MC-D — Input order and empty accounts shift seeded outcomes — SHOULD CHANGE for reproducibility, M, high confidence
+
+MC12 repeats and account renames return exactly identical metrics and all retained path summaries. Reversing the account array, with economic inputs and priorities preserved, changes success **69.8% → 71.4%**. Adding an empty Roth account changes it to **72.2%**, and median terminal wealth changes **$1,579,967 → $1,748,933**. These differences are compatible with sample variation; they are **not evidence of a systematic economic gain** from an empty account. They demonstrate that unused and reordered records consume/assign market draws differently and defeat common-random-path comparisons.
+
+**Recommendation:** key shocks to the economic exposure and period, using a canonical asset-class list; keep empty record creation and tax-routing bookkeeping from shifting the market stream. Fold this into MC-A's repair. Reported same-seed account comparisons must not be described as identical market paths until that contract is fixed.
+
+#### MC-E — Success is not a constant-lifestyle probability — JUDGMENT CALL for the metric; SHOULD CHANGE if presented as lifestyle adequacy, M, high confidence
+
+The failure criterion is any modeled spending/tax shortfall exceeding one cent (line 4548), not an externally fixed desired-income floor. MC29 spends 9% of the current portfolio annually, so the target shrinks with assets. It reports **100% success** in every tested seed and partition. With one account, median final-year requested spending is **$6,375.73 nominal**, about **$3,040 in starting purchasing power**, compared with $22,500 initially: an approximately **86.5% real lifestyle decline**, despite 100% success. Guardrails and Guyton also change the amount requested; their success numbers cannot be compared to fixed spending as though the lifestyle promise were equal.
+
+Separately, default flexibility can lower spending by 10% after a negative prior-period return even when `strategy = fixedReal`. Enabling it in MC03 changes one-account success **59.8% → 62.7%**. That is a declared spending policy, not an arithmetic error; it needs to appear in the probability's meaning. The primary fixed-spending matrix explicitly turns it off.
+
+**Recommendation:** display the criterion as “all modeled obligations funded,” alongside real spending distributions, shortfall amounts and a user-entered minimum real lifestyle threshold. Distinguish adaptive-spending success from maintaining a fixed target. Scope M: outcome summaries and presentation; no need to redefine depletion silently.
+
+### Direction and limits of the distortion
+
+Twenty-account partitions increase success in **20** families, decrease it in **4**, and leave it unchanged in **6**. The maximum increase is MC21, **45.4 points** (subject to its unsupported early-Roth tax treatment); the largest decrease is MC13, **-23.4 points**. Suppressed risk can remove favorable tail outcomes from an underfunded plan: MC17 falls **8.7% → 0.3%** and does so under every follow-up seed. This rejects the blanket assumption that the error always makes success look better.
+
+These counts describe observed point estimates, not thirty separate claims of statistical significance; MC16's 0.8-point increase, for example, is within ordinary sampling uncertainty. An unchanged success rate does not prove invariance. MC19, with no withdrawals, stays at 100% while median terminal wealth moves **$4,304,688 → $7,234,531**. Long-horizon values include evolving independent account balances and account-level withdrawal selection; the initial sigma/√n formula describes opening risk, not a claim that constant equal account weights are maintained for thirty years.
+
+All primary batches retain 1,000 valid paths. No essential ledger/numerical invariant or ordinary calculation error is reported. Twenty-seven existing return-generation, RNG-seeding and Monte Carlo-invariant tests pass. Those tests verify the implemented formulas and guards; their passing does not validate the financial independence assumption. The deterministic controls strongly localize the split-only systematic return difference to the reserve feature in these cases. This audit does not establish full tax-law correctness, calibration to actual securities, optimization correctness or safety for household reliance.
+
+### Thirty-family result matrix
+
+“n” means accounts per original sleeve; a three-sleeve household has 3n accounts. Success figures are percentages. Δ compares n=20 with n=1. Initial spending is before inflation; MC26's first retired spending is further inflated by its ten-year wait.
+
+| ID | Holdings / household variation | Opening assets | Initial spend | Years | Original sleeves | n=1 | n=2 | n=5 | n=10 | n=20 | Δ points |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| MC01 | Zero-volatility cash, Roth | $1,000,000 | $40,000 | 30 | 1 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| MC02 | Zero-volatility cash, taxable | $1,000,000 | $40,000 | 30 | 1 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| MC03 | Equity, Roth, 4% spending | $1,000,000 | $40,000 | 30 | 1 | 59.8 | 70.7 | 85.5 | 95.1 | 99.2 | 39.4 |
+| MC04 | Equity, taxable, full basis | $1,000,000 | $40,000 | 30 | 1 | 59.7 | 70.4 | 85.2 | 95.0 | 99.2 | 39.5 |
+| MC05 | Equity, traditional IRA | $1,000,000 | $40,000 | 30 | 1 | 54.9 | 64.2 | 78.7 | 91.2 | 96.9 | 42.0 |
+| MC06 | Equity, HSA, 50% qualified draws | $1,000,000 | $40,000 | 30 | 1 | 59.7 | 70.5 | 85.3 | 95.0 | 99.2 | 39.5 |
+| MC07 | 60/40, Roth | $1,000,000 | $40,000 | 30 | 1 | 65.1 | 72.4 | 86.5 | 94.8 | 99.0 | 33.9 |
+| MC08 | 60/40, taxable, 30% basis | $1,000,000 | $40,000 | 30 | 1 | 63.9 | 71.0 | 85.5 | 94.1 | 98.2 | 34.3 |
+| MC09 | 60/40, traditional 401(k) | $1,000,000 | $40,000 | 30 | 1 | 56.9 | 64.8 | 74.8 | 87.2 | 94.8 | 37.9 |
+| MC10 | Bonds, Roth, 5% spending | $500,000 | $25,000 | 30 | 1 | 4.0 | 1.6 | 0.4 | 0.0 | 0.0 | -4.0 |
+| MC11 | Cash, Roth, small household | $250,000 | $10,000 | 30 | 1 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| MC12 | 80/20, three tax classes, joint | $2,000,000 | $80,000 | 30 | 3 | 69.8 | 83.3 | 95.5 | 99.3 | 100.0 | 30.2 |
+| MC13 | 40/60, three tax classes, 5% | $500,000 | $25,000 | 30 | 3 | 26.7 | 24.3 | 17.3 | 10.2 | 3.3 | -23.4 |
+| MC14 | Five assets, four tax classes | $2,000,000 | $80,000 | 30 | 4 | 85.6 | 93.5 | 99.0 | 99.9 | 100.0 | 14.4 |
+| MC15 | US/international equity, Roth | $750,000 | $37,500 | 30 | 1 | 50.4 | 57.7 | 67.3 | 79.9 | 89.9 | 39.5 |
+| MC16 | 35% volatility, 7% spending | $250,000 | $17,500 | 30 | 1 | 14.2 | 15.5 | 15.0 | 16.7 | 15.0 | 0.8 |
+| MC17 | Underfunded equity, 9% spending | $250,000 | $22,500 | 30 | 1 | 8.7 | 5.9 | 3.0 | 1.5 | 0.3 | -8.4 |
+| MC18 | Equity, wealthy, 2% spending | $5,000,000 | $100,000 | 30 | 1 | 90.2 | 97.2 | 100.0 | 100.0 | 100.0 | 9.8 |
+| MC19 | Equity, no withdrawals | $1,000,000 | $0 | 30 | 1 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 0.0 |
+| MC20 | Equity, five-year horizon | $1,000,000 | $40,000 | 5 | 1 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 0.0 |
+| MC21 | Equity, forty-year horizon | $2,000,000 | $80,000 | 40 | 1 | 45.4 | 53.5 | 66.3 | 80.5 | 90.8 | 45.4 |
+| MC22 | 60/40, 1% fee, 4.5% inflation | $1,000,000 | $40,000 | 30 | 1 | 22.7 | 21.4 | 16.2 | 11.9 | 6.4 | -16.3 |
+| MC23 | Equity, three-year cash reserve | $1,000,000 | $40,000 | 30 | 1 | 58.0 | 68.1 | 85.3 | 94.5 | 99.3 | 41.3 |
+| MC24 | 60/40 mixed wrappers, cash reserve | $1,000,000 | $40,000 | 30 | 3 | 65.7 | 78.2 | 92.7 | 98.5 | 100.0 | 34.3 |
+| MC25 | Equity with bond tent | $1,000,000 | $40,000 | 30 | 1 | 62.3 | 70.6 | 86.1 | 95.7 | 99.3 | 37.0 |
+| MC26 | 80/20 with ten-year glide | $1,000,000 | $40,000 | 40 | 2 | 69.9 | 79.4 | 92.0 | 98.0 | 99.9 | 30.0 |
+| MC27 | Equity with guardrails | $1,000,000 | $50,000 | 30 | 1 | 69.2 | 78.7 | 94.5 | 98.6 | 100.0 | 30.8 |
+| MC28 | 60/40 mixed wrappers, Guyton | $1,000,000 | $50,000 | 30 | 3 | 91.4 | 97.8 | 100.0 | 100.0 | 100.0 | 8.6 |
+| MC29 | Equity, 9% constant percentage | $250,000 | $22,500 | 30 | 1 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 0.0 |
+| MC30 | Separate stock/bond/cash sleeves | $2,000,000 | $80,000 | 30 | 3 | 49.5 | 51.5 | 65.0 | 77.2 | 82.9 | 33.4 |
+
+#### Terminal nominal wealth and taxes, all families
+
+Median values are separate marginal medians, not a single realizable path. Do not add separately aggregated tax-class medians or reconcile median rows as though they were one household ledger.
+
+| ID | Wealth n=1 | Wealth n=20 | Wealth q10 n=1 | Wealth q10 n=20 | Wealth q90 n=1 | Wealth q90 n=20 | Lifetime taxes n=1 | Lifetime taxes n=20 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| MC01 | $0 | $0 | $0 | $0 | $0 | $0 | $0 | $0 |
+| MC02 | $0 | $0 | $0 | $0 | $0 | $0 | $0 | $0 |
+| MC03 | $527,065 | $2,256,435 | $0 | $810,445 | $7,858,162 | $4,520,647 | $0 | $0 |
+| MC04 | $515,161 | $2,199,830 | $0 | $797,201 | $7,702,580 | $4,468,299 | $9,711 | $19,309 |
+| MC05 | $287,858 | $1,900,865 | $0 | $486,894 | $7,401,410 | $4,118,461 | $126,127 | $126,127 |
+| MC06 | $522,989 | $2,243,518 | $0 | $805,517 | $7,850,589 | $4,513,640 | $2,758 | $2,758 |
+| MC07 | $486,073 | $1,055,493 | $0 | $404,204 | $3,650,131 | $1,915,549 | $0 | $0 |
+| MC08 | $443,643 | $993,948 | $0 | $358,335 | $3,537,291 | $1,851,226 | $21,376 | $24,855 |
+| MC09 | $242,992 | $771,371 | $0 | $148,063 | $3,266,388 | $1,592,614 | $126,127 | $126,127 |
+| MC10 | $0 | $0 | $0 | $0 | $0 | $0 | $0 | $0 |
+| MC11 | $0 | $0 | $0 | $0 | $0 | $0 | $0 | $0 |
+| MC12 | $1,579,967 | $2,983,726 | $0 | $1,658,115 | $8,872,231 | $4,579,075 | $114,493 | $168,661 |
+| MC13 | $0 | $0 | $0 | $0 | $307,284 | $0 | $6,317 | $7,513 |
+| MC14 | $1,432,729 | $1,754,171 | $0 | $1,184,188 | $4,261,251 | $2,368,586 | $194,348 | $226,285 |
+| MC15 | $7,625 | $825,713 | $0 | $0 | $4,118,161 | $2,048,131 | $0 | $0 |
+| MC16 | $0 | $0 | $0 | $0 | $384,867 | $183,101 | $0 | $0 |
+| MC17 | $0 | $0 | $0 | $0 | $0 | $0 | $0 | $0 |
+| MC18 | $11,789,916 | $24,059,909 | $23,909 | $15,048,390 | $62,529,354 | $37,360,306 | $0 | $0 |
+| MC19 | $4,304,688 | $7,234,531 | $1,054,935 | $5,105,105 | $16,970,303 | $10,448,511 | $0 | $0 |
+| MC20 | $1,063,287 | $1,148,524 | $542,217 | $997,399 | $1,902,471 | $1,323,987 | $0 | $0 |
+| MC21 | $0 | $5,354,035 | $0 | $82,779 | $27,058,713 | $15,959,425 | $0 | $0 |
+| MC22 | $0 | $0 | $0 | $0 | $1,145,143 | $0 | $0 | $0 |
+| MC23 | $342,018 | $1,905,986 | $0 | $685,316 | $6,524,535 | $3,814,807 | $0 | $0 |
+| MC24 | $354,318 | $859,754 | $0 | $478,082 | $2,275,912 | $1,280,013 | $54,115 | $68,930 |
+| MC25 | $511,001 | $2,012,813 | $0 | $811,734 | $7,097,092 | $4,052,174 | $0 | $0 |
+| MC26 | $739,722 | $1,399,029 | $0 | $687,790 | $4,390,925 | $2,362,412 | $2,950 | $7,176 |
+| MC27 | $642,838 | $1,536,559 | $0 | $725,537 | $5,102,649 | $2,883,179 | $0 | $0 |
+| MC28 | $737,279 | $845,418 | $36,856 | $613,453 | $1,930,362 | $1,085,485 | $39,039 | $51,014 |
+| MC29 | $67,305 | $101,088 | $15,228 | $45,003 | $282,617 | $217,991 | $0 | $0 |
+| MC30 | $0 | $676,940 | $0 | $0 | $4,079,466 | $2,127,328 | $65,997 | $63,496 |
+
+#### Independent seed replications
+
+Each cell contains success n=1 → n=20, in percent; 1,000 paths per batch.
+
+| Family | 42791 | 19073 | 880301 | 20261003 |
+|---|---:|---:|---:|---:|
+| MC03 | 59.8 → 99.2 | 60.4 → 98.6 | 57.1 → 99.6 | 59.6 → 99.4 |
+| MC07 | 65.1 → 99.0 | 64.3 → 98.5 | 61.9 → 99.6 | 64.3 → 99.3 |
+| MC17 | 8.7 → 0.3 | 9.4 → 0.4 | 8.8 → 0.2 | 9.0 → 0.0 |
+| MC23 | 58.0 → 99.3 | 58.1 → 99.1 | 56.2 → 99.6 | 57.9 → 99.5 |
+| MC29 | 100.0 → 100.0 | 100.0 → 100.0 | 100.0 → 100.0 | 100.0 → 100.0 |
+
+#### RMD-enabled follow-ups
+
+Isolated pretax MC05/09 primary cases deliberately disable RMDs for a tax-wrapper probe. With RMDs enabled, MC05 reports 56.0% → 96.8%, and MC09 57.3% → 95.8%. The account-splitting distortion persists with the mandatory-distribution feature active. These are different modeling cases; do not substitute those values into the primary matrix.
+
+### Reproduction and artifacts
+
+The local experiment bundle contains `run-experiment.cjs`, `diagnostics.cjs`, `verify.cjs`, all 150 full input plans, machine-readable primary and supplemental results, first 30 path summaries for every observed batch, seed data, source hashes and confidence intervals. Run with Node from the experiment folder: `node run-experiment.cjs`, then `node diagnostics.cjs`, then `node verify.cjs`. Source files are never modified. The public report-only PR contains this written evidence rather than personal local paths or generated runtime files.
+
+The following minimal witness can be saved in the repository root as a temporary .cjs file to reproduce the primary equity endpoints without the observation hooks:
+
+```js
+const fs = require('node:fs');
+const shell = fs.readFileSync('src/app-shell.html', 'utf8');
+global.RULES = JSON.parse(shell.match(/<script type="application\/json" id="v2b-rules-2026">([\s\S]*?)<\/script>/)[1]);
+require('./tools/capture-baseline.js').installDebtModules();
+const engine = require('./src/engine.js');
+const base = require('./tests/lib/golden-scenario-defs.js').extractDefaultPlan(shell);
+for (const n of [1, 2, 5, 10, 20]) {
+  const p = JSON.parse(JSON.stringify(base)); p.setupComplete = true;
+  Object.assign(p.profile, {age:65, retireAge:65, endAge:95, filing:'single', spouseOn:false});
+  Object.assign(p.assumptions, {method:'monteCarlo', runs:1000, seed:42791, returnRate:7, volatility:20, inflation:2.5, fee:0});
+  Object.assign(p.retirement, {strategy:'fixedReal', spending:40000, withdrawalRate:4, flexibility:0, ssBenefit:0, spouseSS:0, pension:0, selfLife:120, spouseLife:120, dividendOn:false, dividendYield:0, withdrawalOrder:'manual', manualOrder:'taxable,preTax,roth,hsa'});
+  Object.assign(p.advanced, {assetsOn:true, correlation:0.25, assetClasses:[{id:'stocks',name:'stocks',returnRate:7,volatility:20}], rmdOn:false});
+  p.accounts = Array.from({length:n}, (_,i)=>({id:'a'+i, name:'Roth '+i, type:'rothIRA', taxClass:'roth', owner:'self', balance:1e6/n, basisPct:0, contribution:0, contributionMode:'amount', annualChange:0, annualChangeMode:'amount', frequency:1, changeTiming:'year', futureChanges:[], allocation:{stocks:100}, matchOn:false, matchCap:0, matchRate:0, profitShare:0, vesting:100, priority:i+1}));
+  const r = engine.runPlan(p);
+  console.log(n, r.successRate, r.rows.at(-1).total, r.calculationError);
+}
+```
+
+This supplement supplies new measured evidence for AA1-24 and the spending-metric caveat. It does not alter the original 47 rule-group verdict counts or authorize an engine change. The owner decides which recommendations to implement.
