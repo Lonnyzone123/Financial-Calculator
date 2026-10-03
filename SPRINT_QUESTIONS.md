@@ -6074,3 +6074,81 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **A correction to Q172's source.** The R40 relay's three wrong commit citations are also recorded in the R41 evidence document, §7; Q172 already carries the corrected commits. Modelling text: `MODEL_ASSUMPTIONS.md` §26.
 
 **Update 2026-09-30, later that evening:** ChatGPT's R41 change audit and status determination (PR #40, merged `70766a8`) found no new R41-NN finding, accepted the repair, found E15 met on the task 6.5 record under the archive close record's revised second-machine condition (one Chromium build; ChatGPT did not rerun the browser itself), and **determined S5AA GO at `984197c` under amendments A-01 to A-10**. The GO is administrative. Closing the milestone, setting `s5aa-closed` and starting S5b are the owner's, and none has been decided.
+
+**Update 2026-09-30, the same evening (8:15 pm):** ChatGPT's R41F whole-model audit (PR #42, merged `dedcb7d`) of the same source (`984197c`) **superseded this GO for status purposes with a NO-GO**, on five findings the R41 audit had not looked for; see Q174. The R41 browser record for E15 and A-09's exceptions stand. S5AA later reached GO again at R44.1 (Q181).
+
+## 2026-09-30 — Q174. Repair all five whole-model findings in R42 (ChatGPT's R41F audit, the owner, 2026-09-30)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the S5AA session's R42 relay (`audit/S5AA/R42/S5AA_R42_RELAY_TO_EB_20260930.md`). Late-placed: R42's decisions were made on 2026-09-30 and the round merged that evening as PR #43 (`0537493`, 8:22 pm), so this entry is dated by its decisions. The relay's claims were read against the merged reports, commits and tests before this entry was written.
+
+**The context.** ChatGPT's R41F whole-model audit (PR #42, merged `dedcb7d`, 8:15 pm on 2026-09-30) audited the unchanged R41 source (`984197c`) and **determined NO-GO**, with five new reproducible findings. It said this supersedes the R41 GO for status purposes: the R41 GO had covered only the R41 change and E15. E15's browser record and the A-09 exceptions stand. Claude reproduced all five and read the two Social Security rules at SSA's POMS.
+
+**The decision (the owner, 2026-09-30): "Repair all five in R42".**
+- **R41F-01 (P1).** A worker's earnings-test excess is charged against the benefits on the worker's record, the worker's own and the spouse's spousal benefit, in whole months (POMS RS 02501.095). Before, the spousal benefit was still paid: $18,000 a year too much income in the witness.
+- **R41F-02 (P2).** A survivor's 82.5% limit reads the deceased's reduced benefit with the months the earnings test withheld while the deceased was alive, effective from the deceased's (would-be) full retirement age (RS 00615.320, RS 00615.598). Before, the survivor got $6,300 a year too little in the witness.
+- **R41F-03 (P2).** On a joint return, an IRA owner's contribution window is the longer of the owner's own work and the spouse's. This completes Q162 5c. Before, an owner who stopped halfway through a row the spouse worked in full got half a year ($3,750 less in the witness).
+- **R41F-04 (P2).** The Roth IRA limit's salary-only MAGI proxy reads each salary at its share actually worked in the row. It confirms and repairs the suspicion the R40 unrepaired list named ("the Roth MAGI proxy's partial row").
+- **R41F-05 (P2).** A Social Security benefit (`ssBenefit`, `spouseSS`) that is present and not a number is refused: the validator reports `WRONG_TYPE` and the engine refuses it with `SCENARIO_NONNUMBER_PLAN_VALUE`. Before, it ran as a zero benefit with no error.
+
+**Status: IMPLEMENTED 2026-09-30 (S5AA R42; merged as #43 at `0537493`; source tag `s5aa-r42-source` = `c67c713`).** ChatGPT's independent replay of the five witnesses at R42 reproduced the predicted figures; its R42 audit nevertheless found a new regression in the R41F-01 repair (R42-01, Q175). Modelling text: `MODEL_ASSUMPTIONS.md` §20, §22, §23 and §26.
+
+## 2026-09-30 — Q175. R42's audit, Claude's own R42F audit, and what R43 repairs (S5AA R43, the owner, 2026-09-30)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the S5AA session's R43 relay (`audit/S5AA/R43/S5AA_R43_RELAY_TO_EB_20261001.md`), read against `main`. Dated by its decisions. R43 merged as PR #46 at `247635c` (12:21 am on 2026-10-01).
+
+**The context.** Two reports merged at 9:41 pm on 2026-09-30:
+- **ChatGPT's R42 change audit** (PR #44, merged `054fd73`) determined **NO-GO** at `c67c713` on two findings. **R42-01 (P2):** a staggered spousal claim averaged the worker's credited withholding months over the row, so one month too few was credited and the worker's benefit after full retirement age was $144 a year too low in the witness. **R42-02:** R42's pre-edit prediction ("no corpus plan moves") missed `seed:20`, whose 313 control differences were declared only after the edit; under A-01 (A-10 relaxed it only for R29 to R39.1) an after-the-fact declaration does not make the prediction correct.
+- **Claude's R42F full-model audit** (PR #45, merged `7d5340d`): 34 findings, SA42F-01 to SA42F-34 (2 P1, 19 P2, 13 P3), from eight area audits to one written standard. The two P1s: no IRC 199A deduction on self-employment profit, and a half-year Social Security claim permanently losing one COLA. SA42F-16 is R42's own Roth repair missing its one-time mirror.
+
+**The decisions (the owner, 2026-09-30):**
+- **R42-01:** repair it.
+- **R42-02:** accept it as a disclosed miss (for R42 only).
+- **R42F:** repair all 34 in one round, R43, together with R42's local one-time Roth fix (SA42F-16). ChatGPT reviews the R42F findings and audits their repairs in one report (no separate R42V report). A finding it refutes has its repair reverted in a later round if the owner agrees.
+- **Three declared items change** (Q176, Q177, Q178 below).
+- **Three choices on how findings are repaired:** SA42F-20 uses today's dollars in every growth mode; SA42F-11 charges Medicare to each person 65 or over (**as built:** each living person of 65 or over from the household's retirement, and a spouse who stopped working earlier from the date they stopped, while the self still works; a working person is not charged while they work; `MODEL_ASSUMPTIONS.md` §18.1); survivor costs start at the death unless the surviving spouse has a salary.
+
+**Status: IMPLEMENTED 2026-10-01 (S5AA R43; merged as #46 at `247635c`; source tag `s5aa-r43-source` = `5b8f0d5`), except R42-02, which is an accepted disclosed miss.** All 34 R42F findings and R42-01 are repaired. A new expanded baseline, **r22**, is registered (19 movements from r21), and S5b task 4 builds on it in place of r21; its input hash also moves, because the Monte Carlo band member was re-chosen by its rule under the new seeds. Every Monte Carlo figure moved once (the per-path seed mix, `MODEL_ASSUMPTIONS.md` §18.6). The R40 unrepaired list's "Medicare coverage is not modelled" item, as it applied to HSA contributions past 65, is closed by Q177. The R43 prediction records are dated 2026-10-01 but were written on 2026-09-30 between 9:58 and 11:37 pm Arizona (SA43-J); the commit timestamps are authoritative. Modelling text: `MODEL_ASSUMPTIONS.md` §18.1, §18.6, §19, §20, §22, §23, §25 and §26; the full list of repairs is in the R43 change handover and `audit/S5AA/R42F/`.
+
+**Update 2026-10-01:** ChatGPT's R43 audit (PR #47, merged `38640aa`) **determined NO-GO** at `5b8f0d5`. It confirmed all 34 R42F findings (SA42F-20 qualified) and refuted none, so every R43 repair stands, and it found four R43 defects: R43-01, R43-02 and R43-03 (Q179) and R43-04, five prediction misses under A-01 (Q180). R42-02's disposition covers R42 only, not these.
+
+## 2026-09-30 — Q176. The spousal IRA follows IRC 219(c)(2) (the owner, 2026-09-30)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the R43 relay. On a joint return, the spouse with the higher (or equal) compensation is limited to their own compensation, after workplace deferrals and HSA contributions. The spouse with less is limited to their own plus the other's, less the other's IRA contributions. Before R43 the couple shared one pool, so the higher earner could use the lower earner's pay. This replaces the shared-pool sentence in `MODEL_ASSUMPTIONS.md` §20 and refines Q162 5c.
+
+**Status: IMPLEMENTED 2026-10-01 (S5AA R43; merged #46 at `247635c`).**
+
+## 2026-09-30 — Q177. HSA contributions stop at 65 (the owner, 2026-09-30)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the R43 relay. An owner's HSA deposits stop at their 65th birthday, prorated within the row (IRC 223(b)(7), assuming Medicare enrolment at 65; disclosed). A deposit stopped this way is not a limit excess, so it is not redirected. Before R43 an HSA owner could keep contributing past 65. This closes the age part of §21's "Not modelled: HSA eligibility (coverage, or Medicare from 65)" and the matching R40 unrepaired-list item. Q179 corrects how the limit is prorated.
+
+**Status: IMPLEMENTED 2026-10-01 (S5AA R43; merged #46 at `247635c`); proration refined in R44 (Q179).**
+
+## 2026-09-30 — Q178. Survivor costs start at the death, unless the survivor has a salary (the owner, 2026-09-30)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the R43 relay. The rule applies when the self dies after the start and before the retirement age, the spouse is alive at that death, and the spouse has no salary in their work window at that death. Then these costs start at the death instead of at the retirement age: the spending strategy with its anchor and inflation latches, health costs, and the retirement-span debt payments. Pensions, wages and contributions still follow the retirement age, and with a salary nothing changes. Before R43, the survivor's spending and health costs waited for the dead self's retirement age, within the declared Q59 / §7 boundary (R42F §4).
+
+**Status: IMPLEMENTED 2026-10-01 (S5AA R43; merged #46 at `247635c`).** This changes declared text in Q59 and `MODEL_ASSUMPTIONS.md` §7 and §18.1. **A correction to the relay, checked in the code on 2026-10-02:** the R43 relay, and a comment in the engine, say long-term-care costs start at the death too. They do not: the long-term-care cost's start reads the retirement age (the later of 65 and ten years after it, `ltcStart`) and is not moved by this ruling, and the "years of spending in reserve" is still sized only from the retirement age. `MODEL_ASSUMPTIONS.md` §18.1 says so. **The owner, 2026-10-02 ("Leave both as they are", as reported by the S5AA session): long-term-care onset and the cash reserve are not part of the ruling and stay keyed to the retirement age.** The ruling covers what was built: the spending strategy, health costs and the retirement-span debt payments. An engine comment that says long-term-care costs move is wrong and is for the next source round.
+
+## 2026-10-01 — Q179. The HSA limit in the 65th-birthday row, and the other R43 repairs (S5AA R44, the owner, 2026-10-01)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the R44 relay (`audit/S5AA/R44/S5AA_R44_RELAY_TO_EB_20261001.md`), read against `main`. R44 merged as PR #48 at `9ce336a` (2:19 am on 2026-10-01).
+
+**The context.** ChatGPT's R43 audit determined NO-GO on R43-01 (a one-time HSA contribution after 65), R43-02 (one-time IRA compensation without the income latch) and R43-03 (negative employer percentages accepted), plus the process finding R43-04 (Q180).
+
+**The decision (the owner, 2026-10-01): "Prorate the limit, both routes".** IRC 223(b)(1) to (3) and (7): in the row an owner turns 65, the HSA limit is the share of the row before 65 times (base + catch-up), for planned and one-time contributions alike, and from 65 it is zero. R43-01 to R43-03 are repaired: a one-time contribution's compensation limit reads income streams the way the planned contributions do (today's dollars latched at the stream's start); an employer match rate, match cap or profit-sharing percentage below zero is refused.
+
+**Status: IMPLEMENTED 2026-10-01 (S5AA R44; merged as #48 at `9ce336a`; source tag `s5aa-r44-source` = `06e551e`).** The expanded baseline is **r23** (S5b task 4 builds on it in place of r22). ChatGPT's R44 audit (PR #49, merged `2c68b29`) requalified R43-01, R43-02 and R43-03 and found no new financial defect. Modelling text: `MODEL_ASSUMPTIONS.md` §23 and §26. One correction to R43's own records, which needs no model-text change: R43 attributed the Monte Carlo band member's movement to an IRMAA charge (SA43-B); it moved through the optimized withdrawal order's IRMAA guard, as `audit/S5AA/R44/S5AA_R44_R43_04_RETRO_PROOF_20261001.md` records.
+
+## 2026-10-01 — Q180. R43-04, the prediction misses: a written checklist and a proof, not a disclosed miss (S5AA R44, the owner, 2026-10-01)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the R44 relay. ChatGPT's R43 audit recorded five prediction misses in R43 under A-01 (two unpredicted expanded-corpus movements, one in the opposite direction). The owner decided **not to accept them as a disclosed miss**, as was done for R42-02 (Q175), and instead chose: **"Fix the scan method"**, a written checklist (`audit/S5AA/R44/S5AA_R44_PREDICTION_CHECKLIST_20261001.md`) that every prediction from R44 on follows; and **"Prove it on R43"**, corrected scans run on R43's own pre-repair trees.
+
+**Status: DONE 2026-10-01 (S5AA R44; merged #48).** ChatGPT's R44 audit found the checklist in place and the retrospective scans correct for R43 parts 3, 4a and 4b, but the part 2 scan named two Monte Carlo plans where only one published result moved, so R43-04 stayed open and **R44-01** (a process finding) blocked E10. Q181 resolves it.
+
+## 2026-10-01 — Q181. Monte Carlo predictions are made at the path level: amendment A-11 (S5AA R44.1, the owner, 2026-10-01)
+
+**Registered 2026-10-02 (UTC−7) by the plan owner**, from the R44.1 relay (`audit/S5AA/R44.1/S5AA_R44_1_RELAY_TO_EB_20261001.md`), read against `main`. R44.1 changes no source. It merged as PR #50 at `894e0ff` (4:23 am on 2026-10-01).
+
+**The decision (the owner, 2026-10-01): "Owner exception for Monte Carlo"**, recorded as amendment **A-11** in `S5AA_TASK_CHECKLIST.md` after A-10 (added by the S5AA session, as A-10 was, with nothing above it rewritten). Under A-11, a Monte Carlo plan's prediction is made at the path level: it names the plan, its exposed paths (by a necessary-condition test on every path) and a published result that "may move". After the build, both levels are compared: a named plan that does not move is not a miss, and an unnamed plan that moves, or a changed path not named, is. Every other plan keeps A-01 as written. The revised prediction checklist (`audit/S5AA/R44.1/S5AA_R44_1_PREDICTION_CHECKLIST_20261001.md`) supersedes R44's. If an amendments list is kept elsewhere: **A-11 (2026-10-01): A-01's prediction for a Monte Carlo plan is path-level; the published result may move (R44-01).**
+
+**Status: DECIDED and recorded 2026-10-01 (S5AA R44.1; merged #50 at `894e0ff`).** ChatGPT's R44.1 audit (PR #51, merged `c05208c`) ruled **R44-01 resolved under A-11 and R43-04 requalified**, made no R44.1-NN finding, found E10 met under A-11, and **determined S5AA GO for administrative close at R44.1**; see the README and `ROADMAP_EXTERNAL_REVIEW.md`. The GO is administrative, not a release or household-reference qualification. S5AA is not closed.

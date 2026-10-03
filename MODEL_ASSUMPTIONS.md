@@ -636,6 +636,30 @@ added at R8).
   like an IRA of their tax class.
 - An IRA, workplace plan or HSA belongs to one person. The validator refuses any other owner (joint is allowed only
   on taxable and custom accounts).
+- **Refinements, S5AA R43** (the owner, 2026-09-30; registered as Q175 and Q178; written 2026-10-02 from the R43 relay,
+  each sentence checked against the code and its test at `c05208c`):
+  - **Survivor costs start at the death when the survivor has no salary** (the owner's ruling, Q178). If the self dies
+    after the start and before the retirement age, and the spouse is alive at that death with no salary in their work
+    window, the household's retired spending (with its anchor and inflation latches), health costs and retirement-span
+    debt payments start at the death, not at the dead self's retirement age. Pensions, wages and contributions still
+    follow the retirement age, and with a salary nothing changes. This does not depend on the "include simplified
+    survivor benefit" switch. **Not moved by it:** the long-term-care cost keeps its own start (the later of 65 and ten
+    years after the retirement age), and the "years of spending in reserve" is still sized only from the retirement age.
+    Before R43 these costs waited for the dead self's retirement age, within the declared Q59 and §7 boundary.
+  - **The survivor test in the row of a death.** With the survivor-spending switch on and a spouse in the plan, the
+    spending strategy's survivor test reads who is alive at the row's opening, even when a retirement falls inside the
+    row (SA42F-29).
+  - **A required distribution in the first distribution year.** The rule above, that an untaken required distribution
+    is still due on the deceased's schedule, has an exception: an owner who dies inside the first distribution year (the
+    year they reach their start age, or, for a still-working participant's current-employer 401(k), the year they
+    retire) owes none for it, because they died before the required beginning date (26 CFR 1.401(a)(9)-2 and -3;
+    SA42F-03). A 401(k) that is not a current-employer plan follows the IRA first-year rule.
+  - **Medicare.** Each living person of 65 or over is charged Medicare from the household's retirement; a spouse who
+    stopped working earlier is charged from the date they stopped, while the self still works (SA42F-11). A working
+    person of 65 or over is not charged while they work. Costs before Medicare keep their household rule. Whether a
+    spouse on a working partner's group plan would pay Part B is not modelled, and is disclosed.
+  - **A spouse's account with no spouse.** With no spouse in the plan, an account owned by "spouse" is read as the only
+    person's account, and the validator warns `SPOUSE_ACCOUNT_WITHOUT_SPOUSE` (SA42F-04).
 
 ### 18.2 Cost basis and capital gains
 
@@ -777,6 +801,11 @@ not re-derived here). Monte Carlo percentiles and success rates overstate divers
 accounts. This is to be replaced by shared market shocks in the CPU engine rebuild. It relates to Q45's correlation
 calibration and Q66's per-account reserve; it is carried as row U6 of `S2_CARRIED_WORK_REGISTER.md`.
 
+**Refinement, S5AA R43 (SA42F-31; written 2026-10-02):** each path's market and care generators are seeded with a 32-bit mix of
+(seed, path, stream). They were seed + 2i and seed + 2i + 1, so two seeds 2 apart shared all paths but one. Every Monte
+Carlo figure moved once, and the expanded baseline is r22 (then r23, Q179). This is a change of seeding, not of the
+distribution.
+
 *Decided 2026-09-21 to 2026-09-23 (the owner), in the S5AA session's chat, as itemised in the relay's §6 (the verdict's
 Q3–Q5 and Q7–Q8, the D-1 to D-12 answers, the R9 round's Q3–Q5, and the 2026-09-22 and 2026-09-23 decisions); none
 was a `SPRINT_QUESTIONS.md` entry when this section was first written; they are now Q115 to Q134. Landing commits named above; the rounds are indexed in `audit/S5AA/README.md`.*
@@ -812,6 +841,11 @@ dollar figures are the S5AA session's and were not re-run here. S5AA is NO-GO an
 - **The engine refuses a plan value the validator rejects as not a number** (the owner, 2026-09-25; `95bf5d0`, R24F-04):
   `SCENARIO_NONNUMBER_PLAN_VALUE`, an ERROR that names the field and returns no rows (`RESULT_CONTRACT.md`). A NaN
   Monte Carlo seed is now refused; an absent seed still means 0.
+- **A stage amount or income stream is in today's dollars in every growth mode** (S5AA R43, SA42F-20; the owner, 2026-09-30,
+  Q175): one that starts after the plan's start latches the inflation factor at its start, and a one-time income keeps its
+  entered amount. "Years of spending in reserve" is sized on the projected spending once the household is retired
+  (SA42F-21), and an other asset that becomes available inside a row covers the part of that row's need after its date
+  (SA42F-19).
 
 *Decided 2026-09-25 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q138 to Q142.*
 
@@ -831,7 +865,7 @@ Publication 590-A reading are the S5AA session's and were not re-derived, and IR
 - **IRA contributions and compensation** (the owner, 2026-09-26: "Enforce it"; `5a928d5`). Traditional and Roth IRA
   contributions together are limited to the owner's taxable compensation (IRS Publication 590-A). Compensation is
   salary, plus employment and self-employment income, less the owner's pre-tax workplace and HSA contributions. On a
-  joint return the couple shares their combined compensation (the spousal IRA). An amount over the limit is handled as
+  ~~joint return the couple shares their combined compensation (the spousal IRA).~~ *Replaced by S5AA R43 (the owner, 2026-09-30; Q176): on a joint return the spouse with the higher (or equal) compensation is limited to their own compensation, after pre-tax workplace deferrals and HSA contributions, and the spouse with less is limited to their own plus the other's, less the other's IRA contributions (IRC 219(c)(2)). Before R43 the couple shared one pool, so the higher earner could use the lower earner's pay. A joint return here means married filing jointly with the spouse in the plan.* An amount over the limit is handled as
   a dollar-limit excess is: under the default redirect policy it goes to a taxable account. Self-employment income is
   counted in full, without subtracting the deductible half of self-employment tax. It moved 4 of 70 corpus members
   (`seed:2`, `seed:10`, `seed:14`, `seed:17`), each of which had contributed to a Roth IRA on a $0 salary; baseline r17.
@@ -942,7 +976,7 @@ checked against `main` at `bf9c6ef` (the three R30 commits exist and the test fi
 - **Out of a taxable account into a non-taxable one, it is a sale:** the moved dollars realise their gain at the
   account's pro-rata basis. Witness: `tests/audit-s5aa-r29-transfer-realises-gain.test.js`.
 
-**Not modelled:** HSA eligibility (coverage, or Medicare from 65), and limits on custom accounts.
+~~**Not modelled:** HSA eligibility (coverage, or Medicare from 65), and limits on custom accounts.~~ *Since S5AA R43 (the owner, 2026-09-30; Q177), Medicare from 65 is modelled as a stop on HSA deposits (§23). The rest stands:* **not modelled:** HSA coverage, and limits on custom accounts.
 
 *Decided 2026-09-28 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q149 to Q152. R32's
 refinements (2026-09-28, placed 2026-09-30): Q171.*
@@ -1025,6 +1059,28 @@ session directly, as reported by it. Registered as `SPRINT_QUESTIONS.md` Q158–
   claimant's death leaves the PIA at the year's opening price, so a planned claim the worker never reaches does not
   change the survivor's benefit.
 
+**Refinements, S5AA R42 and R43** (written 2026-10-02 from the R42 and R43 relays, each sentence checked against the code and
+its test at `c05208c`; Q174 and Q175):
+- **The earnings test is charged to the family's benefits on the worker's record** (R42, R41F-01; refined in R43, R42-01
+  and SA42F-18). A worker's earnings-test excess is charged against the benefits payable on the worker's record, the
+  worker's own and a spouse's spousal benefit, as SSA withholds them (POMS RS 02501.095). The charge runs month by month,
+  in order, to the benefit payable in each month, and the other person's own earnings test applies to what is left of
+  their benefit. Each benefit is credited for its own months: a month with a full or partial deduction credits the
+  person's own retirement benefit if it is entitled in that month, and their survivor benefit if that is entitled. The
+  survivor benefit's reduction is adjusted at the survivor's full retirement age (20 CFR 404.412; RS 00615.482). **Not
+  modelled:** the adjustment of the spousal reduction factor for spousal months withheld before the recipient's full
+  retirement age.
+- **The survivor's 82.5% limit carries the deceased's adjustment** (R42, R41F-02). The reduced benefit in that limit
+  carries the deceased's adjustment for months the earnings test withheld while they were alive, effective from the
+  month they reached, or would have reached, full retirement age (RS 00615.320, RS 00615.598), where they had claimed
+  before it.
+- **COLAs** (R43, SA42F-02). A benefit takes every COLA from its anchor to the age, whatever the claim date, so a claim
+  inside a year no longer loses one. The anchor is age 62 on the AIME path, and otherwise the plan's start (or the claim,
+  if it is before the start).
+- **The AIME path** (R43, SA42F-17). The self, on the AIME path, already past 62 at the start gets the bend points of the
+  year they turned 62, with the AIME indexed back to that year. The salary-growth rate stands in for the wage index, and
+  the age is taken as a whole year.
+
 *Decided 2026-09-29 (the owner), as reported by the S5AA session. Landed at `7b61b88`; the claim-year COLA repair
 added 2026-09-29 (S5AA R39) at `f6dbb2a`, narrowed to living claimants 2026-09-30 (S5AA R39.1) at `a2ee714`.
 Registered as `SPRINT_QUESTIONS.md` Q169.*
@@ -1048,8 +1104,8 @@ limit and the limit less the year's other IRA contributions (Worksheet 2-2, line
   counts as income (402(g)(1)(A)).
 - **Each person's contributions stop at that person's own stop age** — a spouse's future contribution changes now
   read the spouse's own age, not the primary person's.
-- On a joint return, a spouse who is not working can fund an IRA while the other spouse works, up to that spouse's
-  own stop age.
+- ~~On a joint return, a spouse who is not working can fund an IRA while the other spouse works, up to that spouse's
+  own stop age.~~ *Replaced, in two steps, by S5AA R42 and R43: an IRA owner can contribute while either spouse works, and the limit follows IRC 219(c)(2); see §20 and the block below.*
 - Profit sharing is paid without the employer-match switch.
 - **Annual limits hold the dollars deposited in the tax year** (the IRA and 401(k) limits, catch-ups, 415(c)'s total
   additions and 401(a)(17)'s compensation limit) — they are not cut because someone worked part of it (S5AA R39,
@@ -1062,6 +1118,31 @@ limit and the limit less the year's other IRA contributions (Worksheet 2-2, line
   tax year and its close is the opening age plus the row's length. Before R32 the age at the row's opening was tested,
   so the row an owner turned 50, 55 or 60 in was denied the catch-up and the row they turned 64 in kept the 60-63
   amount. Witness: `tests/audit-s5aa-r32-catch-up-age-at-year-end.test.js`. Registered as Q171.
+
+**Refinements, S5AA R42 to R44** (the owner, 2026-09-30 and 2026-10-01; registered as `SPRINT_QUESTIONS.md` Q174 to Q181;
+written 2026-10-02 from the S5AA session's R42 to R44.1 relays, each sentence checked against the code and its test at
+`c05208c`):
+- **The spousal IRA window.** On a joint return, an IRA owner can contribute while either spouse works: the window is
+  the longer of the owner's own work and the spouse's, up to the owner's own stop age and life (R42, R41F-03). The limit
+  follows IRC 219(c)(2); see §20 (R43).
+- **The Roth limit's MAGI proxy.** The salary-only proxy reads each salary at the share of the row actually worked
+  (R42, R41F-04).
+- **Employer money.** Employer money (match and profit sharing) is limited so that the owner's non-catch-up deferrals
+  plus employer money do not exceed the owner's pay for the row (415(c)(1)(B)), and a "Contribution limit" warning says
+  so (R43, SA42F-12).
+- **The HSA.** The family limit is shared in dollars across both owners' accounts (R43, SA42F-15). HSA contributions
+  stop at 65, assuming Medicare enrolment at 65 (coverage is still not modelled). In the row an owner turns 65, their
+  HSA limit is the share of the row before 65 times the annual amount plus the catch-up (IRC 223(b)(1) to (3) and (7);
+  Publication 969), for planned and one-time contributions alike, and from 65 the limit is zero. A flow stopped by the
+  age is not a limit excess and is not redirected; an amount above the prorated limit is. A one-time HSA contribution
+  also gives up what the owner's planned HSA contributions already used (R43, R44; the owner, 2026-09-30 and
+  2026-10-01, "Prorate the limit, both routes").
+- **One-time contributions.** A one-time IRA contribution's compensation limit reads income streams the way planned
+  contributions do, in today's dollars latched at the stream's start (R44, R43-02).
+- **Timing.** A planned contribution change dated inside a row is time-weighted across the owner's contribution window
+  within the row (R43, SA42F-25).
+- **Forfeiture.** A deceased owner's unvested employer money is not forfeited at the survivor's retirement (R43,
+  SA42F-13).
 
 **Tax.**
 - The age-65 amounts — the additional standard deduction, the senior deduction, and Arizona's $2,100 exemption — read
@@ -1147,6 +1228,21 @@ a $100,000 expense in a row a tenth of a year long was taxed $56,958 against $20
 recurring income at its rate and one-time items once, is for the engine rebuild (`FEATURES.md`, "Features — wanted").
 Witness, pinning the disclosed behaviour and the one-time case: `tests/audit-s5aa-r40-partial-row-whole-year-convention.test.js`.
 
+**Refinements, S5AA R43** (SA42F-08, -10, -22, -23 and -01; written 2026-10-02 from the R43 relay, each checked against the code):
+- The IRA-deduction and Roth phase-out ranges keep their statutory widths: only the start of each range is indexed.
+- Later-year joint IRMAA thresholds are twice the indexed single thresholds, except the top tier, which is indexed on its
+  own.
+- A pre-plan lookback return entered as married filing separately is priced on CMS's separate table. The plan's own
+  return stays joint.
+- A row's age-65 amounts are read at its tax year's close, which in practice changes only a partial last row.
+- **The 199A deduction.** Self-employment profit earns the IRC 199A deduction: the lesser of 20% of qualified business
+  income (profit less the deductible half of SE tax) and 20% of the ordinary part of taxable income (taxable income
+  less net capital gain), with the 199A(i) $400 minimum, which applies once the qualified business income reaches
+  $1,000. The deduction phases out over the threshold, because the modelled business has no W-2 wages or qualified
+  property. The threshold and the minimum index with the plan's inflation. It is taken below the line, so AGI, MAGI and
+  Arizona are unchanged. Assumed and disclosed, in the app's methodology text: the business is not a specified service
+  business, and the owner materially participates.
+
 *Decided 2026-09-29 (the owner), "Index, own round", with D8 "Keep it even after 2028"; as reported by the S5AA
 session. Landed at `cf643a8`. The Part D note and the partial-row limit were added 2026-09-30 (S5AA R40), registered
 as `SPRINT_QUESTIONS.md` Q172.*
@@ -1174,10 +1270,26 @@ exists. Some items below are the S5AA session's own reading, adopted by the owne
   carrying it is not restored. The form cannot produce it, since it raises the ending age to at least the retirement
   age and the retirement age to at least the starting age. An ending age equal to the starting age is projected as one
   row (`984197c`; Q173). Witness: `tests/audit-s5aa-r41-end-age-before-start-refused.test.js`.
+  **Since S5AA R42 to R44** (Q174 to Q181):
+  - an entered Social Security benefit (`ssBenefit`, `spouseSS`) that is present and not a number is refused: the
+    validator reports `WRONG_TYPE`, and the engine refuses it with `SCENARIO_NONNUMBER_PLAN_VALUE` (R42, R41F-05);
+  - every plan value the engine reads is checked by one contract, `src/plan-value-contract.json`, in both the
+    validator and the engine. A wrong type, a missing value, an out-of-range value or unknown text is refused
+    (`SCENARIO_NONNUMBER_PLAN_VALUE`, `SCENARIO_PLAN_VALUE_OUT_OF_RANGE`, `SCENARIO_UNKNOWN_PLAN_VALUE`), and the
+    validator reports its own codes for the same cases (R43, SA42F-05 and -06). An employer match rate, match cap or
+    profit-sharing percentage below zero is refused (R44);
+  - two validator-only rules stay declared divergences: the legacy `"recurring"` income type, which the validator
+    refuses and the engine reads as ordinary income, and `TRANSFER_INTO_WORKPLACE_PLAN`, a validator error where the
+    engine moves nothing and the plan still runs;
+  - a lifespan equal to the starting age is not alive at the start, and a plan with nobody alive is refused by both
+    layers (R43, SA42F-30 and -32);
+  - a historical start before 1928, or between data years, is refused with `SCENARIO_HISTORY_START_NOT_A_DATA_YEAR`
+    (R43, SA42F-34), which completes "a historical start must be a data year" above.
 - **Disclosure warnings.** A joint return with no spouse included, or a single or head-of-household return with one,
   is reported. So is an expense at or after the plan's end age, which no year charges, and each person born in 1959
   whom the plan carries to age 73 — the 1959 card stays visible for both spouses (Q167). The results page shows all
-  three.
+  three. *Since S5AA R43,* a one-time income at or after the plan's end age is also warned
+  (`INCOME_AFTER_PLAN_END`, the engine only) and shown as a card (SA42F-28).
 - **Monte Carlo.**
   - The expected return stays the arithmetic mean, disclosed as such (Q164). Each year's draw is held to
     [−95%, +200%], which raises the realised mean only at very high volatility.
