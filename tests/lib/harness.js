@@ -916,7 +916,11 @@ function artifactFor(lane) {
 // Changed again 2026-10-03 (S5AA R51 decision 1: spending flexibility defaults to off (defaultPlan and the form
 // fallback)), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 3c75b4e720a83b3878bb438ba4fae296edf301ea3a9a4ccd3d027134d654b8dc, described the previous rebuild.
-const EXPECTED_SHA256 = '895135a02b112d93795b9019cf1b18c5d4c53cbfd62cc520d4023a21329aa476';
+//
+// Changed again 2026-10-03 (S5AA R51 decisions 2-4: one Medicare date, streams as pay in the working-years check, the
+// 401(k) Roth checkbox), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, 895135a02b112d93795b9019cf1b18c5d4c53cbfd62cc520d4023a21329aa476, described the previous rebuild.
+const EXPECTED_SHA256 = 'cc076c2993ee61d9f53ea1113df24f84f302331f1319c93a53059128ab5e6688';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
