@@ -6185,6 +6185,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Status: IMPLEMENTED 2026-10-03 to 2026-10-04 (S5AA R45 to R51; PRs #58 to #64, merged between 12:25 am and 1:53 am on 2026-10-04), except the items not chosen.** The rounds, their source tags and baselines are in Q183 to Q190. **ChatGPT has not audited R45 to R51.** The owner chose one combined ChatGPT audit over R46 to R51 (`audit/S5AA/R51/S5AA_R46_R51_CHANGE_AUDIT_HANDOVER_20261003.md`), and the R44.1 GO is reopened until it reports. S5AA is to be closed after it, on the owner's decision.
 
+**Update 2026-10-04, later:** ChatGPT's sequential audit of R46 to R51 has reported (PR #66, merged `2fb8c6f`): R46 GO, R47 to R51 NO-GO, overall NO-GO, on four P2 findings the owner decided to repair in round R52 (Q192). The R44.1 GO is superseded.
+
 ## 2026-10-03 — Q183. Each spouse's own retirement date (S5AA R45, the owner, 2026-10-03)
 
 **Registered 2026-10-04 (UTC−7) by the plan owner**, from the R45 relay, read against `main`. R45 merged as PR #58 at `df93f10` (12:25 am on 2026-10-04); source tag `s5aa-r45-source` = `9c7790e`; expanded baseline r24.
@@ -6267,3 +6269,23 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **Builders' readings, recorded in each build report for the auditor and not yet ruled on by the owner:** R46's "Decisions" 3 to 5 (what counts as an "active" asset class, the refusal's scope, the summary's definition); R47 §7 (the IRC 4973(b)(2)(A) conversion reading); R48 §7, items 2, 3, 5 and 6.
 
 **Status: recorded 2026-10-04 (S5AA R46 to R51); the builders' readings await the owner's ruling.**
+
+## 2026-10-04 — Q192. ChatGPT's R46 to R51 audit: four P2 findings, and R52 (the owner, 2026-10-04)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the S5AA session's message of that morning and the report itself on `main` (PR #66, merged `2fb8c6f` at 3:51 am; `audit/S5AA/R51/S5AA_R46_R51_EXTERNAL_AUDIT_AND_CLAUDE_HANDOVER_20261004.md`). The S5AA session reproduced all four findings at `s5aa-r51-source`. The owner's decisions below reached me through that session, so they are recorded as reported by it; the R52 relay will follow when R52 merges.
+
+**The audit.** ChatGPT read R46 to R51 in order, each on its own source tag, ran 20 focused simulations (16 pass, 4 fail), and found an independent R51 expanded capture equal to r30. **Verdict: R46 GO; R47, R48, R49, R50 and R51 NO-GO; S5AA overall NO-GO** (administrative, under A-01 to A-11). R49 and R51 carry no separate finding and inherit the blockers.
+
+**The four findings** (all P2, each present at R51):
+- **R47-01.** One year's unused IRA room is spent twice against carried traditional and Roth excess: after $12,500 of combined excess and a correct first-year excise of $750, the second year books $150 where $300 is due.
+- **R47-02.** `qbiCut` subtracts household wages from household pre-tax deferrals, so a spouse's salary shields a business owner's deferral from the qualified business income deduction: tax $35,032.62 where $35,912.62 is due.
+- **R48-01.** A scheduled rollover from an inherited IRA into the survivor's own IRA strands its Form 8606 basis: AGI $37,500 and tax $2,855 where $30,000 and $1,767.50 are due. The validator refuses the same transfer as `TRANSFER_BETWEEN_OWNERS` from the original account owners, although the death precedes it; the engine accepts it.
+- **R50-01.** The Roth conversion ledger records the provisional taxable split at conversion time and never reconciles it with the final Form 8606 settlement, so a nondeductible conversion made and settled in the same year bears a false 10% on a later draw ($500 in the witness).
+
+**The decisions (the owner, 2026-10-04, as reported by the S5AA session):** repair all four in one round, **R52**.
+- **R47-01:** the traditional excess absorbs the room first (IRC 219(f)(6)); the Roth gets the rest.
+- **R48-01:** allow the rollover and carry the matching basis; the validator accepts transfers dated after the death.
+- **R47-02 and R50-01:** fix both fully, including the true-up of a 10% already charged on a same-year draw.
+- **Also in R52:** app cards for `ROTH_IRA_BASIS_NOT_ENTERED` and `ROTH_FIVE_YEAR_ASSUMED`, which the engine records and the app does not show (`MODEL_ASSUMPTIONS.md` §28.5; Q189 gets a refinement note when R52 lands).
+
+**Status: DECIDED 2026-10-04; assigned to S5AA R52 (`sprint/s5aa-r52`, being built); not yet built.** ChatGPT has not audited R52. S5AA is NO-GO and not closed.

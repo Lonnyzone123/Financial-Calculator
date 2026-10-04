@@ -27,15 +27,20 @@ history checks whether the recorded commits are present and stands down only whe
 
 ## Current status (2026-10-04)
 
-- **S5AA is not closed, and its last GO is reopened.** Since 2026-09-25 ChatGPT determines the GO / NO-GO status. Its R44.1
-  audit (PR #51, merged 2026-10-01 at `c05208c`) determined GO for administrative close at `06e551e`
-  (`s5aa-r44-source`) under amendments A-01 to A-11: administrative, not release or household-reference qualification,
-  with A-09's exceptions (E2, E7 and E14) and the disclosed limits standing. Since then the owner asked for an
-  assumptions audit (AA1, 2026-10-03), decided the repairs, and R45 to R51 (PRs #58 to #64, merged 2026-10-04) built
-  them. **They change the model after that GO, so the GO does not carry over.** ChatGPT's combined audit of R46 to R51
-  has not been sent or reported. S5AA is to be closed after it, on the owner's decision. The expanded baseline S5b task 4
-  builds on is r30 (`tools/baseline-20261003-s5aa-expanded-r30.json`); control 4.7's corpus is now `s5aa-r51-control`,
-  with `s5-control` kept as its predecessor.
+- **S5AA is NO-GO and not closed.** Since 2026-09-25 ChatGPT determines the GO / NO-GO status. Its R44.1 audit (PR #51,
+  merged 2026-10-01 at `c05208c`) determined GO for administrative close at `06e551e` (`s5aa-r44-source`). The owner then
+  asked for an assumptions audit (AA1, 2026-10-03), decided the repairs, and R45 to R51 (PRs #58 to #64, merged 2026-10-04)
+  built them, changing the model after that GO. **ChatGPT's sequential audit of R46 to R51** (PR #66, merged 2026-10-04 at
+  `2fb8c6f`) **determined R46 GO, R47 to R51 NO-GO, and S5AA overall NO-GO**, under amendments A-01 to A-11 and
+  administrative only. R49 and R51 carry no separate finding and inherit the blockers: **four P2 findings**, each still
+  present at R51: **R47-01**, one year's unused IRA room is spent twice against carried traditional and Roth excess;
+  **R47-02**, a spouse's salary shields a business owner's deferral from the qualified business income deduction;
+  **R48-01**, a scheduled rollover from an inherited IRA into the survivor's own IRA strands its Form 8606 basis; and
+  **R50-01**, the Roth conversion ledger keeps the provisional taxable split after the final Form 8606 settlement. The owner
+  decided on 2026-10-04 to repair all four in one round, **R52**, which is being built. The expanded baseline S5b task 4
+  builds on is still r30 (`tools/baseline-20261003-s5aa-expanded-r30.json`) until R52 moves it; control 4.7's corpus is
+  `s5aa-r51-control`, with `s5-control` kept as its predecessor. Closing the milestone, setting `s5aa-closed` and starting
+  S5b are the owner's, and none has been decided.
 - The latest merged rounds are **R45** to **R51**. R45 gave each spouse their own retirement date. R46 made Monte Carlo
   draw one set of market shocks per year shared by every account, and the reserve the household's. R47 ended the
   enhanced senior deduction after 2028 and added the designated-Roth catch-up, IRC 4973's excise, the
