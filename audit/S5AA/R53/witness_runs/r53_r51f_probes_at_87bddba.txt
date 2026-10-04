@@ -1,0 +1,7 @@
+{
+  "cases": 36,
+  "checks": 175,
+  "executions": 36,
+  "passed": 36,
+  "failed": []
+}
