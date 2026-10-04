@@ -157,7 +157,8 @@ test('B1 (c): a loss offsets qualified dividends too, when there is no ordinary 
     accounts: [{ id: 'loser', balance: 20000, basisPct: 100, priority: 1, allocation: { down: 100 } },
       { id: 'income', balance: 1000000, basisPct: 100, priority: 2, allocation: { flat: 100 } }] })[1];
   near(row.federalAgi, 40400 - 3000);
-  near(row.taxes, (37400 - 16100 - 2100) * 0.025);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)), the full $6,000 at AGI 37,400: (37,400 - 16,100 - 2,100 - 6,000) x 2.5% = 330 (was 480). */
+  near(row.taxes, (37400 - 16100 - 2100 - 6000) * 0.025);
 });
 
 const { liveWorkerSource, postToWorker, cleanup } = require('./lib/worker-source.js');

@@ -173,7 +173,9 @@ test('RA-01: the default restores the pre-repair figure exactly', () => {
      simply added once: each year's smaller tax leaves more invested, and the difference compounds to
      $541.71 over the horizon. The figure this test pins is the DEFAULT restoring the pre-repair value
      exactly, and that property is unchanged -- only the value both sides now agree on has moved. */
-  assert.equal(round2(ending(p)), 1193319.21);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)): each year's smaller Arizona tax leaves more invested, $330.31 more by the end (1,193,319.21 before R48). The default
+     still restores the pre-repair value exactly -- both sides moved together. */
+  assert.equal(round2(ending(p)), 1193649.52);
 });
 
 test('RA-01: `spend` must not convert forced RMD proceeds into lifestyle spending', () => {

@@ -108,7 +108,10 @@ test('R7-02D control: a funded IRA and workplace plan still pass under the cited
   assert.deepEqual(issue.state.assumptionsAwaitingDecision, []);
 });
 
-const JOINT = 'a joint account stays with the survivor, and half of its cost basis, the share assumed to be the decedent\'s (IRC 2040(b)), resets to half its value when it passes; community property, which can reset both halves (IRC 1014(b)(6)), is not modelled';
+/* ADAPTED BY INTENT at S5AA R48 (AA1-20, the owner's AA1 decision of 2026-10-03: "A plan-level Arizona community-property switch"):
+   community property is no longer "not modelled"; the text now says it applies only when the plan says so. It ended "community property,
+   which can reset both halves (IRC 1014(b)(6)), is not modelled". With the switch off -- every plan here -- the treatment is unchanged. */
+const JOINT = 'a joint account stays with the survivor, and half of its cost basis, the share assumed to be the decedent\'s (IRC 2040(b)), resets to half its value when it passes; community property, which resets both halves (IRC 1014(b)(6)), applies only when the plan says the household\'s property is community property';
 
 test('R7-03A: a joint taxable account, the SPOUSE dying first, is disclosed -- it does not pass silently', () => {
   const r = run({ accounts: [acct('joint-cash', 'taxable', 'joint', 100000, { priority: 5 }), acct('self-cash', 'taxable', 'self', 400000)] });
@@ -128,7 +131,7 @@ test('R7-03B: the SELF dying first gives the joint account the same treatment --
   const [issue] = rolled(r);
   const j = entry(issue, 'joint-cash');
   assert.equal(j.owner, 'joint');
-  assert.deepEqual(j.authority, ['IRC 2040(b)', 'IRC 1014(a)']); // R35: the decedent's half (2040(b)) resets (1014(a)); community property (1014(b)(6)) is named as not modelled
+  assert.deepEqual(j.authority, ['IRC 2040(b)', 'IRC 1014(a)']); // R35: the decedent's half (2040(b)) resets (1014(a)); community property (1014(b)(6)) is named as the plan's switch (R48)
   assert.equal(j.assumed, JOINT, 'symmetric with R7-03A');
   assert.equal(entry(issue, 'self-cash').assumed, TAXABLE_BASIS, 'CONTROL: the self\'s own taxable account keeps its own rule');
 });

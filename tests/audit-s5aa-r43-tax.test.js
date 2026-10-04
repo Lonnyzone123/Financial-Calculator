@@ -176,9 +176,12 @@ test('R43 (SA42F-23): a partial last row reads the age-65 amounts at the tax yea
   const r = SH.check(p);
   // the last row (90 to 90.5, spouse 64 to 64.5) is a tax year closing with the spouse 65: federal 60,000 - (32,200 + 2 x 1,650
   // + 2 x 6,000) = 12,500 x 10% = 1,250; Arizona (60,000 - 32,200 - 2 x 2,100) x 2.5% = 590
-  assert.equal(cents(SH.row(r, 90.5).taxes), 1840);
-  // control: the full row closing at 90 (spouse 64 at its close): 120,000 - 39,850 = 80,150 -> 9,122; Arizona 2,142.50
-  assert.equal(cents(SH.row(r, 90).taxes), 11264.5);
+  // S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S.
+  // 43-1022(35)), the same 2 x 6,000: Arizona (60,000 - 32,200 - 4,200 - 12,000) x 2.5% = 290, total 1,540 (was 1,840)
+  assert.equal(cents(SH.row(r, 90.5).taxes), 1540);
+  // control: the full row closing at 90 (spouse 64 at its close): 120,000 - 39,850 = 80,150 -> 9,122; Arizona 2,142.50, less 2.5% of
+  // the self's own $6,000 senior deduction (R48): 1,992.50, total 11,114.50 (was 11,264.50); the spouse's amounts stay out of it
+  assert.equal(cents(SH.row(r, 90).taxes), 11114.5);
 });
 
 test('R43 (SA42F-01): draws that carry taxable income through the whole phase-in range still settle, single and joint', () => {

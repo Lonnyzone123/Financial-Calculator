@@ -40,7 +40,11 @@ test('estimateTaxes() returns the named income measures, none called bare magi, 
   const r = engine.estimateTaxes(person('single', 67), 67, 50000, 10000, 20000, 0, 0, 0);
   assert.ok(r.measures && typeof r.measures === 'object', 'a measures object');
   assert.deepEqual(Object.keys(r.measures).sort(), NAMES);
-  assert.ok(near(r.measures.arizona_agi, r.measures.federal_agi - r.ssTaxable), 'arizona_agi is federal AGI less taxable Social Security');
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona AGI is also less the federal senior deduction (A.R.S. 43-1022(35)):
+     $6,000 for one person 65 or older, less 6% of MAGI (federal AGI) over $75,000. It was federal AGI less taxable Social Security alone. */
+  const senior = Math.max(0, 6000 - 0.06 * Math.max(0, r.measures.federal_agi - 75000));
+  assert.ok(senior > 0, 'premise: a senior deduction is taken');
+  assert.ok(near(r.measures.arizona_agi, r.measures.federal_agi - r.ssTaxable - senior), 'arizona_agi is federal AGI less taxable Social Security and the federal senior deduction');
 });
 
 test('federal_agi is ordinary income plus investment income plus taxable Social Security', () => {

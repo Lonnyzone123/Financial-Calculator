@@ -757,7 +757,11 @@ function lossHousehold(plan, over) {
   });
 }
 /* The Arizona-funded 71 row: AGI = base + (5/9)x with x = 2.5% x (AGI - 18,200). */
-const lossRowAgi = (base) => base + (5 / 9) * 0.025 * (base - 18200) / (1 - 0.025 * 5 / 9);
+/* ADAPTED BY INTENT at S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction
+   (A.R.S. 43-1022(35)), the full $6,000 for each of these single 71-year-olds (every AGI under $75,000), so the Arizona tax funded at the
+   5/9 gain fraction is figured on base - 24,200, not base - 18,200: 31,957.75 and 50,363.38 (were 32,042.25 and 50,447.89). The plans,
+   and what each member reaches, are unchanged. */
+const lossRowAgi = (base) => base + (5 / 9) * 0.025 * (base - 18200 - 6000) / (1 - 0.025 * 5 / 9);
 const LOSS_FAMILY = {
   id: 's5aa-capital-loss',
   covers: 'S5AA R18 self-audit SA18-01 (a loss year\'s carryover used only up to its taxable income, by the Capital Loss ' +
@@ -780,7 +784,7 @@ const LOSS_FAMILY = {
     {
       name: 'expansion:s5aa-sa18-decedent-loss',
       reaches: 'SA18-02. A couple at 70; the self dies in the 70 row holding a $50,000 carried loss, and the survivor sells ' +
-        'a $50,000 gain at 71. The loss ended with the final return: AGI at 71 is 50,447.89. MEASURED: 0 at 6e8f31e, ' +
+        'a $50,000 gain at 71. The loss ended with the final return: AGI at 71 is 50,363.38 (50,447.89 before S5AA R48). MEASURED: 0 at 6e8f31e, ' +
         'where the survivor deducted it.',
       build: (plan) => lossHousehold(plan, {
         profile: { age: 70, retireAge: 60, endAge: 72, spouseOn: true, spouseAge: 70, filing: 'mfj' },

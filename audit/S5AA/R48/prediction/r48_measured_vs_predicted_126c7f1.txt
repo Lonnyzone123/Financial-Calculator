@@ -1,0 +1,51 @@
+moved: 37 of 71
+  golden:monte-carlo-fixed-seed [azSenior] first moved row 65; lifetime taxes -$22.87; final total +$300.90
+  golden:rmd-and-roth-conversion [azSenior] first moved row 69; lifetime taxes -$2,795.16; final total +$15,094.82
+  seed:1 [azSenior] first moved row 66; lifetime taxes -$473.49; final total +$559.31
+  seed:2 [azSenior] first moved row 65; lifetime taxes -$1,377.79; final total +$218.47
+  seed:5 [azSenior] first moved row 78; lifetime taxes -$13.75; final total +$23.74
+  seed:6 [azSenior] first moved row 65; lifetime taxes -$164.59; final total +$70.51
+  seed:10 [medicare,azSenior] first moved row 72; lifetime taxes -$237.80; final total +$0.00
+  seed:16 [medicare,azSenior] first moved row 65; lifetime taxes -$695.23; final total +$0.00
+  seed:20 [NOT FLAGGED] first moved row 65; lifetime taxes -$184.14; final total -$4,643.32
+  targeted:historical-1929 [azSenior] first moved row 85; lifetime taxes -$1,047.02; final total +$1,648.22
+  targeted:historical-1966 [azSenior] first moved row 70; lifetime taxes -$1,650.81; final total +$9,661.16
+  targeted:historical-2000 [azSenior] first moved row 69; lifetime taxes -$2,938.14; final total +$10,503.04
+  targeted:collision-household-cash [azSenior] first moved row 68; lifetime taxes -$1,950.00; final total +$1,950.00
+  targeted:explicit-cash-holding [azSenior] first moved row 68; lifetime taxes -$638.97; final total +$638.97
+  targeted:funded-qcd [azSenior] first moved row 76; lifetime taxes -$877.19; final total +$993.35
+  targeted:survivor-stateful [rolloverText,azSenior] rows unchanged; issue text only
+  targeted:collision-rmd-retained-cash [azSenior] first moved row 76; lifetime taxes -$1,257.01; final total +$1,664.89
+  expansion:debt-ordinary-amortizing-15y [azSenior] first moved row 71; lifetime taxes -$224.69; final total +$312.58
+  expansion:debt-ordinary-amortizing-5y [azSenior] first moved row 73; lifetime taxes -$574.35; final total +$652.03
+  expansion:debt-ordinary-zero-interest [azSenior] first moved row 73; lifetime taxes -$677.48; final total +$777.98
+  expansion:debt-ordinary-zero-balance [azSenior] first moved row 73; lifetime taxes -$739.18; final total +$854.48
+  expansion:debt-ordinary-payoff [azSenior] first moved row 70; lifetime taxes -$159.01; final total +$260.21
+  expansion:debt-adversarial-q54-worst [azSenior] first moved row 72; lifetime taxes -$197.94; final total +$0.00
+  expansion:debt-adversarial-interest-only [azSenior] first moved row 72; lifetime taxes -$264.22; final total +$358.27
+  expansion:debt-adversarial-a-cent-below [azSenior] first moved row 72; lifetime taxes -$372.80; final total +$464.70
+  expansion:monte-carlo-sensitive-band [azSenior] first moved row 74; lifetime taxes +$0.00; final total +$0.00
+  expansion:s5aa-gap-working-household [azSenior] first moved row 54; lifetime taxes -$2,005.07; final total +$2,396.92
+  expansion:s5aa-gap-death-while-working [rolloverText,azSenior] first moved row 71; lifetime taxes -$2,621.90; final total +$3,672.43
+  expansion:s5aa-r6-gap-survivor-health-roth [azSenior] first moved row 64; lifetime taxes -$1,747.85; final total +$1,655.70
+  expansion:s5aa-r6-gap-basis-conversion [rolloverText,azSenior] first moved row 65; lifetime taxes -$905.69; final total +$1,021.07
+  expansion:s5aa-r14-rmd-conversion-under-loss [azSenior] first moved row 76; lifetime taxes -$596.29; final total +$512.31
+  expansion:s5aa-r14-rmd-two-iras-distinct-returns [azSenior] first moved row 79; lifetime taxes -$128.19; final total +$128.19
+  expansion:s5aa-r14-rmd-prototype-ids [azSenior] first moved row 81; lifetime taxes -$1,335.65; final total +$1,195.37
+  expansion:s5aa-r15-rmd-transfer-to-taxable [azSenior] first moved row 79; lifetime taxes -$150.05; final total +$168.89
+  expansion:s5aa-sa18-loss-under-deduction [azSenior] first moved row 72; lifetime taxes -$152.11; final total +$152.11
+  expansion:s5aa-sa18-decedent-loss [azSenior] first moved row 72; lifetime taxes -$152.11; final total +$152.11
+  expansion:s5aa-r19-ira-qcd-offset [azSenior] first moved row 72; lifetime taxes -$150.00; final total +$0.00
+moved and not flagged (1): seed:20
+flagged and not moved (11):
+  targeted:historical-spouse-ss [azSenior]
+  targeted:spouse-cola-income [azSenior]
+  targeted:arm-flag-on [azSenior]
+  expansion:other-asset-draw-growth-0 [azSenior]
+  expansion:other-asset-draw-growth-4 [azSenior]
+  expansion:other-asset-draw-historical [azSenior]
+  expansion:other-asset-two-assets-late-access [azSenior]
+  expansion:s5aa-gap-widowed-before-fra [azSenior]
+  expansion:s5aa-r19-ira-conversion-and-qcd [azSenior]
+  expansion:s5aa-r19-ira-charity-then-rollover [azSenior]
+  expansion:s5aa-r20-spouse-owner-early-tax [azSenior]

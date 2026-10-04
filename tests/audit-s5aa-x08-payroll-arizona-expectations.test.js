@@ -177,17 +177,21 @@ test('X08: the old-age coordination is PER PERSON -- a spouse\'s wages do not co
 
 test('X08: Arizona, single, 65 or older -- flat rate on AGI less the standard deduction and one exemption', () => {
   const income = 100000;
-  const base = income - AZ_STD('single') - AZ_65;          // 100,000 - 16,100 - 2,100 = 81,800
-  const derived = base * RULES.arizona.rate;               // x 2.5% = 2,045.00
-  assert.equal(derived.toFixed(2), '2045.00', 'CONTROL: the derived figure');
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)):
+     6,000 - 6% x (100,000 - 75,000) = 4,500. Was 81,800 x 2.5% = 2,045.00. */
+  const base = income - AZ_STD('single') - AZ_65 - 4500;   // 100,000 - 16,100 - 2,100 - 4,500 = 77,300
+  const derived = base * RULES.arizona.rate;               // x 2.5% = 1,932.50
+  assert.equal(derived.toFixed(2), '1932.50', 'CONTROL: the derived figure');
   near(engine.estimateTaxes(person('single', 70), 70, income, 0, 0, 0, 0, 0, 0, 0, 0).az, derived, 'Arizona');
 });
 
 test('X08: Arizona, joint, both 65 or older -- the joint deduction and TWO exemptions', () => {
   const income = 200000;
-  const base = income - AZ_STD('mfj') - 2 * AZ_65;         // 200,000 - 32,200 - 4,200 = 163,600
-  const derived = base * RULES.arizona.rate;               // x 2.5% = 4,090.00
-  assert.equal(derived.toFixed(2), '4090.00', 'CONTROL: the derived figure');
+  /* S5AA R48 (AA1-16): less the federal senior deduction, 6,000 - 6% x (200,000 - 150,000) = 3,000 for each spouse (43-1022(35)).
+     Was 163,600 x 2.5% = 4,090.00. */
+  const base = income - AZ_STD('mfj') - 2 * AZ_65 - 2 * 3000; // 200,000 - 32,200 - 4,200 - 6,000 = 157,600
+  const derived = base * RULES.arizona.rate;               // x 2.5% = 3,940.00
+  assert.equal(derived.toFixed(2), '3940.00', 'CONTROL: the derived figure');
   near(engine.estimateTaxes(person('mfj', 70, true, 70), 70, income, 0, 0, 0, 0, 0, 0, 0, 0).az, derived, 'Arizona');
 });
 
@@ -206,8 +210,9 @@ test('X08: Arizona excludes taxable Social Security entirely, and the exclusion 
 
   const federalAgi = ordinary + taxableSS;                               // 62,350
   const azAgi = federalAgi - taxableSS;                                  // 40,000 -- the benefit is out
-  const derived = (azAgi - AZ_STD('single') - AZ_65) * RULES.arizona.rate; // (40,000-16,100-2,100) x 2.5% = 545.00
-  assert.equal(derived.toFixed(2), '545.00', 'CONTROL: the derived figure');
+  /* S5AA R48 (AA1-16): less the federal senior deduction (43-1022(35)), the full 6,000 (MAGI 62,350 is under 75,000). Was 545.00. */
+  const derived = (azAgi - AZ_STD('single') - AZ_65 - 6000) * RULES.arizona.rate; // (40,000-16,100-2,100-6,000) x 2.5% = 395.00
+  assert.equal(derived.toFixed(2), '395.00', 'CONTROL: the derived figure');
 
   const t = engine.estimateTaxes(person('single', 70), 70, ordinary, 0, benefit, 0, 0, 0, 0, 0, 0);
   near(t.ssTaxable, taxableSS, 'the taxable benefit');

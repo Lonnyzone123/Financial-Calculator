@@ -83,7 +83,7 @@
     "rowCount": 29,
     "failed": false,
     "successRate": 100,
-    "lifetimeTaxes": 133787.19,
+    "lifetimeTaxes": 133455.83,
     "lifetimeContributions": 0,
     "firstRow": {
       "age": 68,
@@ -98,25 +98,25 @@
     },
     "midRow": {
       "age": 82,
-      "total": 2017478.8,
-      "taxable": 895216.51,
-      "preTax": 240987.77,
+      "total": 2018592.25,
+      "taxable": 895100.68,
+      "preTax": 242217.06,
       "roth": 881274.52,
-      "taxes": 7079.79,
-      "withdrawals": 46521.16,
-      "networth": 2017478.8,
-      "magi": 125561.09
+      "taxes": 7079.74,
+      "withdrawals": 46521.11,
+      "networth": 2018592.25,
+      "magi": 125559.38
     },
     "lastRow": {
       "age": 96,
-      "total": 5954139.2,
-      "taxable": 2342674.39,
+      "total": 5957856.59,
+      "taxable": 2345347.7,
       "preTax": 0,
-      "roth": 3611464.81,
-      "taxes": 1863.25,
-      "withdrawals": 153757.28,
-      "networth": 5954139.2,
-      "magi": 158130
+      "roth": 3612508.89,
+      "taxes": 1864.23,
+      "withdrawals": 153758.25,
+      "networth": 5957856.59,
+      "magi": 158169.02
     }
   },
   "reserve-and-bond-tent": {

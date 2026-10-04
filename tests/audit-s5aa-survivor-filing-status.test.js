@@ -64,6 +64,17 @@ const run = (edit) => {
   return r;
 };
 const taxAt = (r, age) => Number(r.rows.find((row) => row.age === age).taxes);
+/* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): the joint row's tax was $12,039.77. Arizona now subtracts the federal senior
+   deduction (A.R.S. 43-1022(35)), 2 x $6,000 on the joint return (MAGI under $150,000): $300 less Arizona tax, and $300 / (1 - 0.12 - 0.025)
+   = $350.88 less once the smaller draw is grossed up at the 12% bracket and Arizona's 2.5%: $11,688.89. The single row after a death
+   was $26,082.43: at its MAGI of about $146,000 the federal senior deduction is 6,000 - 6% x (146,022.11 - 75,000) = 1,738.67, and
+   Arizona subtracts it: 2.5% x 1,738.67 = $43.47 less, grossed up at 24% x 1.06 (the phase-out) + 2.5% = 27.94%: $60.32 less,
+   $26,022.11. */
+const JOINT_ROW = '11688.89';
+const SINGLE_ROW = '26022.11';
+/* S5AA R48 x R47, integrated: JOINT_ROW and SINGLE_ROW above are the tax years to 2028, when the federal senior deduction applies
+   and Arizona subtracts it (R48). From 2029 there is no federal senior deduction (R47), so nothing for Arizona to subtract, and R47's
+   hand-derived figures below hold. */
 
 test('F-02: a surviving spouse is taxed as single from the year after the death, not jointly forever', () => {
   const r = run();
@@ -98,7 +109,7 @@ test('F-02: a household where nobody dies inside the horizon does not move by a 
   /* S5AA R47 (AA1-30): flat within each law -- 12,039.77 through tax year 2028 (rows 71-73), 13,723.98 from 2029 (re-derived in the
      first test). */
   for (const row of alive.rows.slice(1)) {
-    assert.equal(Number(row.taxes).toFixed(2), row.age <= 73 ? '12039.77' : '13723.98', 'at age ' + row.age);
+    assert.equal(Number(row.taxes).toFixed(2), row.age <= 73 ? JOINT_ROW : '13723.98', 'at age ' + row.age);
   }
 });
 

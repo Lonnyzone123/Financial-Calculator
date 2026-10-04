@@ -57,20 +57,24 @@ test('R47 AA1-30: a single 70-year-old keeps the $6,000 senior deduction in 2028
   // 2028: deduction 16,100 + 2,050 + 6,000 (MAGI 50,000 under 75,000) = 24,150; taxable 25,850; 1,240 + 12% x 13,450 = 2,854.
   // Arizona: 50,000 - 16,100 - 2,100 = 31,800 x 2.5% = 795. Total 3,649.
   // 2029: deduction 18,150; taxable 31,850; 1,240 + 12% x 19,450 = 3,574; Arizona 795 (unchanged). Total 4,369.
+  // S5AA R48 integrated (A.R.S. 43-1022(35)): in 2028 Arizona also subtracts the federal $6,000: 25,800 x 2.5% = 645, total 3,499.
+  // From 2029 there is no federal deduction for Arizona to subtract, so 2029 and 2030 are unchanged.
   const r = run(pensioner(70));
-  assert.equal(cents(at(r, 73).taxes), 3649, 'tax year 2028');
-  assert.equal(cents(at(r, 74).taxes), 4369, 'tax year 2029: $6,000 x 12% = $720 more');
+  assert.equal(cents(at(r, 73).taxes), 3499, 'tax year 2028');
+  assert.equal(cents(at(r, 74).taxes), 4369, 'tax year 2029: the federal $6,000 x 12% and the Arizona $150 gone');
   assert.equal(cents(at(r, 75).taxes), 4369, 'tax year 2030');
 });
 test('R47 AA1-30: the funding solver quotes the draw without the deduction after 2028 (taxSegmentLocal mirrors it)', () => {
   // A single 70-year-old drawing $40,000 of spending from a traditional IRA; the draw X also pays its own tax T = X - 40,000.
   // 2029: X = 40,000 + 1,240 + 12% (X - 18,150 - 12,400) + 2.5% (X - 16,100 - 2,100) -> 0.855 X = 37,119 -> X = 43,414.04, T = 3,414.04.
   // (R47 build miss: first derived as 43,413.45, a division slip; 0.855 x 43,414.04 = 37,119.00.)
-  // 2028: 0.855 X = 41,240 - 12% x 36,550 - 455 = 36,399 -> X = 42,571.93, T = 2,571.93.
+  // 2028: 0.855 X = 41,240 - 12% x 36,550 - 455 = 36,399 -> X = 42,571.93, T = 2,571.93 (R47 alone).
+  // S5AA R48 integrated (A.R.S. 43-1022(35)): Arizona also subtracts the federal $6,000 in 2028, so its term is 2.5% (X - 24,200):
+  // 0.855 X = 41,240 - 4,386 - 605 = 36,249 -> X = 42,396.49, T = 2,396.49. 2029 has no federal deduction, so it is unchanged.
   const p = L.basePlan({ age: 70, endAge: 75, spending: 40000, order: 'manual', manualOrder: 'preTax,taxable,roth,hsa', accounts: [L.account('ira', 'traditionalIRA', 1000000)] });
   const r = run(p);
   assert.ok(!(r.issues || []).some((x) => /QUOTE|SETTLEMENT/.test(x.code)), JSON.stringify((r.issues || []).map((x) => x.code)));
-  assert.equal(cents(at(r, 73).taxes), 2571.93);
+  assert.equal(cents(at(r, 73).taxes), 2396.49);
   assert.equal(cents(at(r, 74).taxes), 3414.04);
   assert.equal(cents(at(r, 74).withdrawals), 43414.04);
 });

@@ -905,19 +905,14 @@ function artifactFor(lane) {
 // file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 72e64e28d10462b856a49cb5d8807bf8197af136f06968a3824d49d260b2ff67, described the previous rebuild.
 //
-// Changed again 2026-10-03 (S5AA R47: the senior deduction ends after 2028, the designated Roth catch-up, the 4973
-// excise, SE compensation and QBI, the HSA's Medicare start), so the tracked file was rebuilt, again installed only
-// after two builds agreed. The pin before it, f27d1a6b56936ca50792c5c70d41182c996b71ba1c74c9e30d96af353f933894,
-// described the previous rebuild.
+// Changed again 2026-09-29 (S5AA R48: Medicare growth, the prior-income card, inherited IRAs, community property,
+// Arizona subtractions), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
+// it, f27d1a6b56936ca50792c5c70d41182c996b71ba1c74c9e30d96af353f933894, described the previous rebuild.
 //
-// Changed again 2026-10-03 (S5AA R47: medicareStartAge() reads a plan without a retirement section as 65), so the
-// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
-// 940e0fabdbd05bbcaf417384cdf3fce1a12197f2fd69c3ae1e99797dd17495ab, described the previous rebuild.
-//
-// Changed again 2026-09-29 (S5AA R47 integrated on R46), so the tracked file was rebuilt, again installed only after
-// two builds agreed. The pin before it, e355afa02ecf19c0808df65e3736154f486ae153e696277c0a11219fa748c7c7, described the
+// Changed again 2026-09-29 (S5AA R48 integrated on R47), so the tracked file was rebuilt, again installed only after
+// two builds agreed. The pin before it, 04d2ea96f73c6b033cbc11c9e10bcf48e6765a74a5c8f3963fd92f7f6d8d20fe, described the
 // previous rebuild.
-const EXPECTED_SHA256 = 'f2aa2dfec2eb3b1f28a92afd36fd0b8b311e53f0de8bf8114bdbd737d73cfe51';
+const EXPECTED_SHA256 = '998c7cbde50d5bc26ebb4a83396e40a9a570f6f3890feecf52ffe78fc4e2c85a';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

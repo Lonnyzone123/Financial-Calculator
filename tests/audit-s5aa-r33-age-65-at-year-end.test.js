@@ -48,9 +48,11 @@ test('R33 SA32F-16: the row a single person turns 65 in carries the age-65 amoun
   /* Opens 64, closes 65; pension 60,000. Federal: 16,100 + 2,050 + 6,000 (MAGI under 75,000) = 24,150; taxable 35,850; tax
      1,240 + 12% x 23,450 = 4,054. Arizona: 2.5% x (60,000 - 16,100 - 2,100) = 1,045. Total 5,099. The engine read 64:
      5,020 + 1,097.50 = 6,117.50. */
-  assert.strictEqual(firstRowTax({ age: 64, pension: 60000 }), 5099);
-  /* CONTROL: the row opening at 65 is the same 5,099. */
-  assert.strictEqual(firstRowTax({ age: 65, pension: 60000 }), 5099);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)), the same $6,000 the federal return deducts: Arizona 2.5% x (60,000 - 16,100 - 2,100 - 6,000) = 895, total
+     4,949 (was 5,099). */
+  assert.strictEqual(firstRowTax({ age: 64, pension: 60000 }), 4949);
+  /* CONTROL: the row opening at 65 is the same 4,949. */
+  assert.strictEqual(firstRowTax({ age: 65, pension: 60000 }), 4949);
   /* CONTROL: the row closing at 64 has none: 5,020 + 1,097.50. */
   assert.strictEqual(firstRowTax({ age: 63, pension: 60000 }), 6117.5);
 });
@@ -58,11 +60,13 @@ test('R33 SA32F-16: the row a single person turns 65 in carries the age-65 amoun
 test('R33 SA32F-16: a couple both turning 65 in the row get both amounts on the joint return', () => {
   /* Joint, 90,000: 32,200 + 2 x 1,650 + 2 x 6,000 (MAGI under 150,000) = 47,500; taxable 42,500; tax 2,480 + 12% x 17,700 =
      4,604. Arizona: 2.5% x (90,000 - 32,200 - 4,200) = 1,340. Total 5,944. */
-  assert.strictEqual(firstRowTax({ age: 64, spouseAge: 64, pension: 90000 }), 5944);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)): 2 x 6,000, so Arizona 2.5% x (90,000 - 32,200 - 4,200 - 12,000) = 1,040, total 5,644 (was 5,944). */
+  assert.strictEqual(firstRowTax({ age: 64, spouseAge: 64, pension: 90000 }), 5644);
 });
 
 test('R33 SA32F-16: a half-year first row that closes at 65 is a tax year the person reaches 65 in', () => {
   /* Opens 64.5, closes 65: pension 30,000 for the half year. Federal: 30,000 - 24,150 = 5,850 at 10% = 585. Arizona: 2.5% x
      (30,000 - 16,100 - 2,100) = 295. Total 880. The engine read 64.5: 1,420 + 347.50 = 1,767.50. */
-  assert.strictEqual(firstRowTax({ age: 64.5, pension: 60000 }), 880);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)): Arizona 2.5% x (30,000 - 16,100 - 2,100 - 6,000) = 145, total 730 (was 880). */
+  assert.strictEqual(firstRowTax({ age: 64.5, pension: 60000 }), 730);
 });

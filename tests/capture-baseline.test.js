@@ -662,12 +662,25 @@ test('S3-03: changing a loaded debt module changes its manifest entry, even when
   const original = fs.readFileSync(target, 'utf8');
   const before = capture().meta.sourceHashes;
 
+  /* The edit is seen by THIS process only, through fs.readFileSync (the read sourceHashes() hashes), as
+     capture-boundary 5.4 does. It used to be written to src/debt-amortization.js on disk for the length of a
+     capture, and the gate runs test files in parallel: any capture in another process that spanned the window
+     saw the file change, and capture-boundary 5.4 failed in CI with changedDuringCapture ['build.js',
+     'src/debt-amortization.js'] (2026-10-04, run 37187286021 on R48's branch, its in-job re-run; run 37185921182 on
+     the same commit failed the same test, but its logs name the test without an assertion message). */
+  const real = fs.readFileSync;
+  const edit = '\n/* S3-03 provenance probe */\n';
   try {
     /* A COMMENT-ONLY edit. The card is specific that byte provenance must move
        even when financial output does not -- the two are independent claims,
        and a manifest that only notices behaviour changes is not a manifest. */
-    fs.writeFileSync(target, original + '\n/* S3-03 provenance probe */\n');
+    fs.readFileSync = function (p, ...rest) {
+      const out = real.call(this, p, ...rest);
+      if (typeof p !== 'string' || path.resolve(p) !== target) return out;
+      return typeof out === 'string' ? out + edit : Buffer.concat([out, Buffer.from(edit)]);
+    };
     const after = capture().meta.sourceHashes;
+    assert.equal(real(target, 'utf8'), original, 'the file on disk is never edited, so no other process can see the probe');
 
     assert.notEqual(after['src/debt-amortization.js'], before['src/debt-amortization.js'],
       'the edited module must have a different hash');
@@ -679,7 +692,7 @@ test('S3-03: changing a loaded debt module changes its manifest entry, even when
       assert.equal(after[f], before[f], f + ' was untouched and must hash the same');
     });
   } finally {
-    fs.writeFileSync(target, original);
+    fs.readFileSync = real;
   }
 
   /* Control: restoring the file restores the hash, so the check above was
