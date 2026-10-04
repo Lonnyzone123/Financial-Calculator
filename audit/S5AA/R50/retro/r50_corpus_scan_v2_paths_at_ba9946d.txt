@@ -1,0 +1,29 @@
+S5AA R50 corrected scan (v2) on the pre-repair tree; 71 expanded plans (the control 36 among them)
+named (8):
+  golden:monte-carlo-fixed-seed [control]
+    figures: Monte Carlo, 16 of 500 paths exposed; the published result may move [3,31,59,155,170,217,222,240,256,282,310,341,408,427,462,496]
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: may add ROTH_IRA_BASIS_NOT_ENTERED
+  seed:3 [control]
+    figures move from row opening 58 (taxed Roth IRA draw 18732)
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: adds ROTH_IRA_BASIS_NOT_ENTERED
+    issues: adds ROTH_FIVE_YEAR_ASSUMED
+  seed:9 [control]
+    figures: Monte Carlo, 52 of 52 paths exposed; the published result may move [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51]
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: adds ROTH_IRA_BASIS_NOT_ENTERED
+  seed:14 [control]
+    figures move from row opening 56 (order taxable>preTax>roth>hsa => taxable>preTax>hsa>roth, a roth draw at or past the change)
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: may add ROTH_IRA_BASIS_NOT_ENTERED
+  seed:19 [control]
+    switch: retirement.preserveRoth off is exposed (order taxable>preTax>roth>hsa => taxable>preTax>hsa>roth, a roth draw at or past the change): whether the switch still executes may change -- tests/corpus-configured-paths.test.js
+  targeted:survivor-stateful [control]
+    issues: adds ROTH_FIVE_YEAR_ASSUMED
+  expansion:monte-carlo-sensitive-band
+    figures: Monte Carlo, 111 of 500 paths exposed; the published result may move [3,7,11,21,23,26,28,31,37,40,44,49,55,59,61,64,66,99,101,113,123,125,142,146,147,155,157,159,163,164,169,170,171,174,175,178,181,182,188,199,201,212,215,217,218,222,223,225,228,231,240,252,253,256,260,263,264,271,272,273,274,280,282,284,296,299,301,303,304,308,310,312,314,321,325,329,339,340,341,342,347,353,355,359,364,368,375,376,384,386,388,398,407,408,415,416,419,421,426,427,437,440,442,446,458,462,463,474,493,496,499]
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: may add ROTH_IRA_BASIS_NOT_ENTERED
+  expansion:s5aa-r19-ira-contribution-conversion-same-year
+    issues: UNSUPPORTED_ROTH_ORDERING removed

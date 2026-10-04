@@ -1,0 +1,40 @@
+S5AA R48 corrected scan, expanded composition (71 plans), on basewt
+named: 37
+  golden:monte-carlo-fixed-seed [monteCarlo] Arizona senior subtraction by age, 32 rows (Monte Carlo: every path exposed) => Monte Carlo: named, every path exposed; the published result may move
+  golden:rmd-and-roth-conversion [simple] return: Arizona falls in 23 rows, $3073.16; BASELINE (wages): Arizona falls in 1 rows, $150.00 => total DOWN from the row closing at 69 (first-order effect -$46.84)
+  seed:1 [simple] return: Arizona falls in 4 rows, $410.55 => total UP from the row closing at 66 (first-order effect $150.00)
+  seed:2 [historical] return: Arizona falls in 14 rows, $1395.70 => total UP from the row closing at 68 (first-order effect $122.12)
+  seed:5 [historical] return: Arizona falls in 3 rows, $14.02 => total UP from the row closing at 78 (first-order effect $9.30)
+  seed:6 [simple] return: Arizona falls in 3 rows, $164.59 => total UP from the row closing at 65 (first-order effect $70.51)
+  seed:10 [historical] return: Arizona falls in 3 rows, $237.80; Medicare 22 rows, about $203394.18 more charged => total DOWN from the row closing at 72 (first-order effect -$4753.40)
+  seed:16 [simple] return: Arizona falls in 7 rows, $695.23; Medicare 16 rows, about $292106.36 more charged => spending and taxes only: every exposed row is absorbed by surplus spending
+  seed:20 [simple] BASELINE (wages): Arizona falls in 9 rows, $1968.82 => total DOWN from the row closing at 65 (first-order effect -$135.96)
+  targeted:historical-1929 [historical] return: Arizona falls in 6 rows, $900.00 => total UP from the row closing at 85 (first-order effect $150.00)
+  targeted:historical-1966 [historical] return: Arizona falls in 14 rows, $1498.30 => total UP from the row closing at 70 (first-order effect $150.00)
+  targeted:historical-2000 [historical] return: Arizona falls in 18 rows, $2554.24 => total UP from the row closing at 69 (first-order effect $6.33)
+  targeted:collision-household-cash [simple] return: Arizona falls in 13 rows, $1950.00 => total UP from the row closing at 68 (first-order effect $150.00)
+  targeted:explicit-cash-holding [simple] return: Arizona falls in 5 rows, $638.97 => total UP from the row closing at 68 (first-order effect $128.60)
+  targeted:funded-qcd [simple] return: Arizona falls in 5 rows, $750.00 => total UP from the row closing at 76 (first-order effect $150.00)
+  targeted:survivor-stateful [simple] rollover message => issue text only
+  targeted:collision-rmd-retained-cash [simple] return: Arizona falls in 10 rows, $1277.69 => total UP from the row closing at 76 (first-order effect $150.00)
+  expansion:debt-ordinary-amortizing-15y [simple] return: Arizona falls in 5 rows, $224.69 => total UP from the row closing at 71 (first-order effect $8.89)
+  expansion:debt-ordinary-amortizing-5y [simple] return: Arizona falls in 8 rows, $574.35 => total UP from the row closing at 73 (first-order effect $1.55)
+  expansion:debt-ordinary-zero-interest [simple] return: Arizona falls in 8 rows, $676.12 => total UP from the row closing at 73 (first-order effect $13.13)
+  expansion:debt-ordinary-zero-balance [simple] return: Arizona falls in 8 rows, $737.85 => total UP from the row closing at 73 (first-order effect $20.71)
+  expansion:debt-ordinary-payoff [simple] return: Arizona falls in 2 rows, $158.07 => total UP from the row closing at 70 (first-order effect $150.00)
+  expansion:debt-adversarial-q54-worst [simple] return: Arizona falls in 5 rows, $223.37 => total UP from the row closing at 72 (first-order effect $3.85)
+  expansion:debt-adversarial-interest-only [simple] return: Arizona falls in 4 rows, $262.96 => total UP from the row closing at 72 (first-order effect $19.34)
+  expansion:debt-adversarial-a-cent-below [simple] return: Arizona falls in 8 rows, $371.54 => total UP from the row closing at 72 (first-order effect $9.36)
+  expansion:monte-carlo-sensitive-band [monteCarlo] Arizona senior subtraction by age, 32 rows (Monte Carlo: every path exposed) => Monte Carlo: named, every path exposed; the published result may move
+  expansion:s5aa-gap-working-household [simple] return: Arizona falls in 19 rows, $1839.17; BASELINE (wages): Arizona falls in 14 rows, $2550.00 => total UP from the row closing at 57 (first-order effect $150.00)
+  expansion:s5aa-gap-death-while-working [simple] rollover message; return: Arizona falls in 14 rows, $2270.06; BASELINE (wages): Arizona falls in 1 rows, $300.00 => total UP from the row closing at 71 (first-order effect $300.00)
+  expansion:s5aa-r6-gap-survivor-health-roth [simple] return: Arizona falls in 15 rows, $1745.59; BASELINE (wages): Arizona falls in 4 rows, $375.00 => total DOWN from the row closing at 64 (first-order effect -$18.37)
+  expansion:s5aa-r6-gap-basis-conversion [simple] rollover message; return: Arizona falls in 6 rows, $900.00 => total UP from the row closing at 65 (first-order effect $150.00)
+  expansion:s5aa-r14-rmd-conversion-under-loss [simple] return: Arizona falls in 4 rows, $600.00 => total UP from the row closing at 76 (first-order effect $150.00)
+  expansion:s5aa-r14-rmd-two-iras-distinct-returns [simple] return: Arizona falls in 1 rows, $128.19 => total UP from the row closing at 79 (first-order effect $128.19)
+  expansion:s5aa-r14-rmd-prototype-ids [simple] return: Arizona falls in 5 rows, $1338.48 => total UP from the row closing at 81 (first-order effect $300.00)
+  expansion:s5aa-r15-rmd-transfer-to-taxable [simple] return: Arizona falls in 1 rows, $150.00 => total UP from the row closing at 79 (first-order effect $150.00)
+  expansion:s5aa-sa18-loss-under-deduction [simple] return: Arizona falls in 1 rows, $150.00 => total UP from the row closing at 72 (first-order effect $150.00)
+  expansion:s5aa-sa18-decedent-loss [simple] return: Arizona falls in 1 rows, $150.00 => total UP from the row closing at 72 (first-order effect $150.00)
+  expansion:s5aa-r19-ira-qcd-offset [simple] return: Arizona falls in 1 rows, $150.00; BASELINE (wages): Arizona falls in 1 rows, $150.00 => spending and taxes only: every exposed row is absorbed by surplus spending
+not named (34): golden:baseline, golden:reserve-and-bond-tent, golden:guardrails-withdrawal-strategy, seed:3, seed:4, seed:7, seed:8, seed:9, seed:11, seed:12, seed:13, seed:14, seed:15, seed:17, seed:18, seed:19, targeted:historical-spouse-ss, targeted:spouse-cola-income, targeted:arm-flag-on, expansion:other-asset-draw-growth-0, expansion:other-asset-draw-growth-4, expansion:other-asset-draw-historical, expansion:other-asset-two-assets-late-access, expansion:s5aa-gap-retired-couple, expansion:s5aa-gap-early-retiree, expansion:s5aa-gap-widowed-before-fra, expansion:s5aa-r6-gap-basis-one-owner-draw, expansion:s5aa-r19-ira-contribution-conversion-same-year, expansion:s5aa-r19-ira-conversion-and-qcd, expansion:s5aa-r19-ira-charity-then-rollover, expansion:s5aa-r20-spouse-owner-early-tax, expansion:s5aa-r20-rule55-ira-ranking, expansion:s5aa-r35-rule55-separation-at-55, expansion:s5aa-r20-all-stock-glide

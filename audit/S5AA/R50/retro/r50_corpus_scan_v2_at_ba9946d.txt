@@ -1,0 +1,29 @@
+S5AA R50 corrected scan (v2) on the pre-repair tree; 71 expanded plans (the control 36 among them)
+named (8):
+  golden:monte-carlo-fixed-seed [control]
+    figures: Monte Carlo, 16 of 500 paths exposed; the published result may move
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: may add ROTH_IRA_BASIS_NOT_ENTERED
+  seed:3 [control]
+    figures move from row opening 58 (taxed Roth IRA draw 18732)
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: adds ROTH_IRA_BASIS_NOT_ENTERED
+    issues: adds ROTH_FIVE_YEAR_ASSUMED
+  seed:9 [control]
+    figures: Monte Carlo, 52 of 52 paths exposed; the published result may move
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: adds ROTH_IRA_BASIS_NOT_ENTERED
+  seed:14 [control]
+    figures move from row opening 56 (order taxable>preTax>roth>hsa => taxable>preTax>hsa>roth, a roth draw at or past the change)
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: may add ROTH_IRA_BASIS_NOT_ENTERED
+  seed:19 [control]
+    switch: retirement.preserveRoth off is exposed (order taxable>preTax>roth>hsa => taxable>preTax>hsa>roth, a roth draw at or past the change): whether the switch still executes may change -- tests/corpus-configured-paths.test.js
+  targeted:survivor-stateful [control]
+    issues: adds ROTH_FIVE_YEAR_ASSUMED
+  expansion:monte-carlo-sensitive-band
+    figures: Monte Carlo, 111 of 500 paths exposed; the published result may move
+    issues: UNSUPPORTED_ROTH_ORDERING removed
+    issues: may add ROTH_IRA_BASIS_NOT_ENTERED
+  expansion:s5aa-r19-ira-contribution-conversion-same-year
+    issues: UNSUPPORTED_ROTH_ORDERING removed
