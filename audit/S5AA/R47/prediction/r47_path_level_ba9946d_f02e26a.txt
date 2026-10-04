@@ -1,0 +1,2 @@
+golden:monte-carlo-fixed-seed -- paths 500, exposed 500, changed 179 (changed but not exposed: 0) | published result equal: false | success 100 -> 100
+expansion:monte-carlo-sensitive-band -- paths 500, exposed 500, changed 18 (changed but not exposed: 0) | published result equal: false | success 84.6 -> 84.6
