@@ -219,6 +219,11 @@ test('5.4: an input whose bytes change while the capture runs disqualifies it', 
   }
   assert.ok(editedReads > 0, 'CONTROL: the capture read build.js again after hashing it');
   assert.equal(snap.meta.boundary.qualified, false);
-  assert.deepEqual(snap.meta.boundary.changedDuringCapture, ['build.js']);
+  /* Exactly build.js. Any other name is a REAL edit to that input on disk while this capture ran -- in the gate,
+     another test file in a concurrent process writing to the shared working tree. capture-baseline S3-03 did, and
+     two real test processes started 1.2-1.6 s apart reproduced this failure naming src/debt-amortization.js, the
+     likely cause of the intermittent CI failures (R34 dispatch, 2026-10-04). Repair the writer; never widen this. */
+  assert.deepEqual(snap.meta.boundary.changedDuringCapture, ['build.js'],
+    'only the edited input changed; any other name was written to the working tree by another process during the capture');
   assert.match(snap.meta.boundary.reason, /inputs changed while the capture ran/);
 });

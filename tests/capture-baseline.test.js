@@ -659,16 +659,28 @@ test('S3-03: changing a loaded debt module changes its manifest entry, even when
   const { capture } = require('../tools/capture-baseline.js');
 
   const target = path.join(__dirname, '..', 'src', 'debt-amortization.js');
-  const original = fs.readFileSync(target, 'utf8');
+  const real = fs.readFileSync;
+  const original = real(target, 'utf8');
   const before = capture().meta.sourceHashes;
 
+  /* The edit is made to what THIS process reads, never to the file. The gate runs test files in concurrent
+     processes over one working tree, and this module is a capture input: written to disk, the edit could land
+     inside another file's capture, whose boundary rightly reported an input changed mid-run (reproduced against
+     capture-boundary 5.4, the test that failed intermittently in CI). */
+  fs.readFileSync = function (p, ...rest) {
+    const out = real.call(this, p, ...rest);
+    if (typeof p !== 'string' || path.resolve(p) !== target) return out;
+    const edit = '\n/* S3-03 provenance probe */\n';
+    return typeof out === 'string' ? out + edit : Buffer.concat([out, Buffer.from(edit)]);
+  };
   try {
     /* A COMMENT-ONLY edit. The card is specific that byte provenance must move
        even when financial output does not -- the two are independent claims,
        and a manifest that only notices behaviour changes is not a manifest. */
-    fs.writeFileSync(target, original + '\n/* S3-03 provenance probe */\n');
     const after = capture().meta.sourceHashes;
 
+    assert.equal(real(target, 'utf8'), original,
+      'CONTROL: the working tree still holds the committed bytes while the edited capture runs');
     assert.notEqual(after['src/debt-amortization.js'], before['src/debt-amortization.js'],
       'the edited module must have a different hash');
 
@@ -679,10 +691,10 @@ test('S3-03: changing a loaded debt module changes its manifest entry, even when
       assert.equal(after[f], before[f], f + ' was untouched and must hash the same');
     });
   } finally {
-    fs.writeFileSync(target, original);
+    fs.readFileSync = real;
   }
 
-  /* Control: restoring the file restores the hash, so the check above was
+  /* Control: removing the edit restores the hash, so the check above was
      measuring the edit and not the clock. */
   const restored = capture().meta.sourceHashes;
   assert.equal(restored['src/debt-amortization.js'], before['src/debt-amortization.js'],
