@@ -1,0 +1,8 @@
+moved by A alone (39): golden:monte-carlo-fixed-seed, golden:rmd-and-roth-conversion, seed:1, seed:2, seed:3, seed:4, seed:5, seed:6, seed:9, seed:10, seed:12, seed:13, seed:14, seed:15, seed:16, seed:17, seed:20, targeted:spouse-cola-income, targeted:historical-1929, targeted:historical-1966, targeted:historical-2000, targeted:arm-flag-on, targeted:collision-household-cash, targeted:explicit-cash-holding, targeted:funded-qcd, targeted:survivor-stateful, targeted:collision-rmd-retained-cash, expansion:monte-carlo-sensitive-band, expansion:s5aa-gap-working-household, expansion:s5aa-gap-death-while-working, expansion:s5aa-r6-gap-survivor-health-roth, expansion:s5aa-r6-gap-basis-conversion, expansion:s5aa-r14-rmd-conversion-under-loss, expansion:s5aa-r14-rmd-two-iras-distinct-returns, expansion:s5aa-r14-rmd-prototype-ids, expansion:s5aa-r15-rmd-transfer-to-taxable, expansion:s5aa-sa18-loss-under-deduction, expansion:s5aa-sa18-decedent-loss, expansion:s5aa-r19-ira-qcd-offset
+moved by B alone (7): golden:monte-carlo-fixed-seed, seed:3, seed:9, seed:14, targeted:survivor-stateful, expansion:monte-carlo-sensitive-band, expansion:s5aa-r19-ira-contribution-conversion-same-year
+moved by the merge vs base (40)
+merge moved, neither alone did (0): 
+moved by both rounds (6): golden:monte-carlo-fixed-seed, seed:3, seed:9, seed:14, targeted:survivor-stateful, expansion:monte-carlo-sensitive-band
+A-only entries where the merge differs from A alone (0): 
+B-only entries where the merge differs from B alone (0): 
+entries neither moved where the merge differs from base (0): 
