@@ -653,7 +653,7 @@ added at R8).
     follow the retirement age, and with a salary nothing changes. This does not depend on the "include simplified
     survivor benefit" switch. **Not moved by it:** the long-term-care cost keeps its own start (the later of 65 and ten
     years after the retirement age), and the "years of spending in reserve" is still sized only from the retirement age.
-    Before R43 these costs waited for the dead self's retirement age, within the declared Q59 and §7 boundary.~~ *Replaced 2026-10-03 by S5AA R45 (§27; Q183): a death before retiring starts the household's costs at the death whatever the survivor earns, and the cash reserve and the spending strategy's starting balance now read the household date. Long-term-care onset still keys to the primary's retirement age (the owner, 2026-10-02).*
+    Before R43 these costs waited for the dead self's retirement age, within the declared Q59 and §7 boundary.~~ *Replaced 2026-10-03 by S5AA R45 (§27; Q183): a death before retiring starts the household's costs at the death (the primary's, whatever the spouse earns; an earning spouse's, whatever the primary earns), and the cash reserve and the spending strategy's starting balance now read the household date. Long-term-care onset still keys to the primary's retirement age (the owner, 2026-10-02).*
   - **The survivor test in the row of a death.** With the survivor-spending switch on and a spouse in the plan, the
     spending strategy's survivor test reads who is alive at the row's opening, even when a retirement falls inside the
     row (SA42F-29).
