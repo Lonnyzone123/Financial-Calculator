@@ -128,7 +128,8 @@
     "tests": [],
     "files": [
      "tests/audit-s5aa-r50-roth-ledger-and-prior-income.test.js",
-     "tests/audit-s5aa-r52-audit-repairs.test.js"
+     "tests/audit-s5aa-r52-audit-repairs.test.js",
+     "tests/audit-s5aa-r53-restore-keeps-values.test.js"
     ],
     "onlyTodo": false
    },
