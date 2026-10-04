@@ -1,0 +1,52 @@
+entries 71; corpus inputs moved 51; outputs moved 8
+  golden:baseline: input moved, output same
+  golden:monte-carlo-fixed-seed: input moved, output moved -- final total 304502979 -> 303070379, success 100 -> 100, lifetime taxes 2242034 -> 2281011
+  golden:rmd-and-roth-conversion: input moved, output same
+  golden:reserve-and-bond-tent: input moved, output same
+  golden:guardrails-withdrawal-strategy: input moved, output same
+  targeted:historical-spouse-ss: input moved, output same
+  targeted:spouse-cola-income: input moved, output same
+  targeted:historical-1929: input moved, output moved -- final total 2887915 -> 2587857, success 100 -> 100, lifetime taxes 17821 -> 18634
+  targeted:historical-1966: input moved, output moved -- final total 5203633 -> 4788666, success 100 -> 100, lifetime taxes 109773 -> 100571
+  targeted:historical-2000: input moved, output moved -- final total 3869168 -> 3601559, success 100 -> 100, lifetime taxes 53243 -> 56961
+  targeted:arm-flag-on: input moved, output same
+  targeted:collision-household-cash: input moved, output same
+  targeted:explicit-cash-holding: input moved, output same
+  targeted:funded-qcd: input moved, output same
+  targeted:survivor-stateful: input moved, output same
+  targeted:collision-rmd-retained-cash: input moved, output same
+  expansion:other-asset-draw-growth-0: input moved, output same
+  expansion:other-asset-draw-growth-4: input moved, output same
+  expansion:other-asset-draw-historical: input moved, output moved -- final total 0 -> 0, success 0 -> 0, lifetime taxes 0 -> 0
+  expansion:other-asset-two-assets-late-access: input moved, output same
+  expansion:debt-ordinary-amortizing-15y: input moved, output same
+  expansion:debt-ordinary-amortizing-5y: input moved, output same
+  expansion:debt-ordinary-zero-interest: input moved, output same
+  expansion:debt-ordinary-zero-balance: input moved, output same
+  expansion:debt-ordinary-payoff: input moved, output same
+  expansion:debt-adversarial-q54-worst: input moved, output same
+  expansion:debt-adversarial-interest-only: input moved, output same
+  expansion:debt-adversarial-a-cent-below: input moved, output same
+  expansion:monte-carlo-sensitive-band: input moved, output moved -- final total 147352119 -> 140047808, success 84.6 -> 83, lifetime taxes 5428997 -> 5651585
+  expansion:s5aa-gap-working-household: input moved, output same
+  expansion:s5aa-gap-retired-couple: input moved, output same
+  expansion:s5aa-gap-early-retiree: input moved, output same
+  expansion:s5aa-gap-widowed-before-fra: input moved, output same
+  expansion:s5aa-gap-death-while-working: input moved, output same
+  expansion:s5aa-r6-gap-survivor-health-roth: input moved, output same
+  expansion:s5aa-r6-gap-basis-conversion: input moved, output same
+  expansion:s5aa-r6-gap-basis-one-owner-draw: input moved, output same
+  expansion:s5aa-r14-rmd-conversion-under-loss: input moved, output moved -- final total 263039 -> 252082, success 100 -> 100, lifetime taxes 23497 -> 23491
+  expansion:s5aa-r14-rmd-two-iras-distinct-returns: input moved, output same
+  expansion:s5aa-r14-rmd-prototype-ids: input moved, output moved -- final total 294121 -> 275589, success 100 -> 100, lifetime taxes 2893 -> 2875
+  expansion:s5aa-r15-rmd-transfer-to-taxable: input moved, output same
+  expansion:s5aa-sa18-loss-under-deduction: input moved, output same
+  expansion:s5aa-sa18-decedent-loss: input moved, output same
+  expansion:s5aa-r19-ira-contribution-conversion-same-year: input moved, output same
+  expansion:s5aa-r19-ira-conversion-and-qcd: input moved, output same
+  expansion:s5aa-r19-ira-charity-then-rollover: input moved, output same
+  expansion:s5aa-r19-ira-qcd-offset: input moved, output same
+  expansion:s5aa-r20-spouse-owner-early-tax: input moved, output same
+  expansion:s5aa-r20-rule55-ira-ranking: input moved, output same
+  expansion:s5aa-r35-rule55-separation-at-55: input moved, output same
+  expansion:s5aa-r20-all-stock-glide: input moved, output same

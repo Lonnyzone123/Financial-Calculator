@@ -1,0 +1,639 @@
+✖ R49 AA1-25: floor and ceiling -- after a down year the floor holds ($30,000), the 10% cut does not take it to $27,000 (12.4709ms)
+✖ R49 AA1-25: floor and ceiling -- a cut that would cross the floor stops at it (1.6877ms)
+✔ R49 AA1-25 control: floor and ceiling well above the floor -- the full 10% cut, 0.9 x 4% of the opening balance (1.8453ms)
+✖ R49 AA1-25: the remaining-life strategy -- its minimum withdrawal ($30,000) holds after a down year (2.8927ms)
+✖ R49 AA1-25: VPW -- its 5% minimum rate holds after a down year (5% of the opening balance, not 4.5%) (3.6688ms)
+✖ R49 AA1-25: spending already below the floor by a stage is not cut further ($15,000, not $13,500) (1.4919ms)
+✔ R49 AA1-25 control: a strategy with no floor keeps the full cut ($40,000 -> $36,000) (0.9024ms)
+✖ R49 AA1-25: overlapping percentage stages warn (they multiply); stages that only touch do not (0.8476ms)
+✖ R49 AA1-25: flexibility stacked on guardrails or Guyton-Klinger warns; at 0, or on another strategy, it does not (0.5589ms)
+✖ R49 AA1-37: an onset age of 72 charges the weighted care cost in the two rows from 72, not from 70 (1.7221ms)
+✖ R49 AA1-37: an onset age is used as entered, not rounded (72.5: half, whole, half) (1.4256ms)
+✔ R49 AA1-37 control: with no onset age, care starts at max(65, round(retireAge + 10)) = 70, as before (1.9137ms)
+✖ R49 AA1-37: Monte Carlo centres the draw on the onset age -- 76 with u = 0.25 starts care at 76 - 10 + 5 = 71 (1.8768ms)
+✖ R49 AA1-37: Monte Carlo never starts care before the plan -- 72 with u = 0 gives 62, held at the starting age 66 (1.2227ms)
+✔ R49 AA1-37 control: Monte Carlo with no onset age -- max(65, round(60 + 5 + 0.25 x 20)) = 70, as before (0.8968ms)
+✖ R49 AA1-34: PMI ends at the entered age -- 61.5 charges $1,200, $600, then nothing (2.5843ms)
+✖ R49 AA1-34: a conventional loan with no end age stops at the HPA midpoint -- 30-year term, 16 left: 61 and one month (1.1286ms)
+✖ R49 AA1-34: a conventional loan already past its midpoint owes no PMI (30-year term, 10 left: midpoint 5 years ago) (1.1451ms)
+✖ R49 AA1-34: an entered end age overrides the midpoint (62.5 on the same conventional loan: $1,200, $1,200, $600) (1.0855ms)
+✔ R49 AA1-34 controls: FHA, a conventional loan without its terms, and no program keep PMI while owed ($1,200 a row) (2.0557ms)
+✖ R49 AA1-44: a payment that leaves $4,000 at the payoff age warns, and the residual function says $4,000 (0.2375ms)
+✖ R49 AA1-44: an interest-only payment ($100 a month on $10,000 at 12%) leaves the whole $10,000 (0.1004ms)
+✖ R49 AA1-44: a payment that clears the debt by the payoff age ($200 a month) has no residual (0.0911ms)
+✔ R49 AA1-44 control: $200 a month clears $10,000 in 50 payments (at 64 and two months) -- no warning, nothing forced out (0.9192ms)
+✖ R49 AA1-07: $72,000 of debt payments against a $60,000 salary -- the working years are not funded by pay, from 50 (1.6265ms)
+✖ R49 AA1-07: contributions above pay ($40,000 into a taxable account on a $30,000 salary) are not funded by pay (1.9122ms)
+✔ R49 AA1-07 controls: $12,000 of payments on a $60,000 salary is funded; a retired household with debt has no working rows (1.6348ms)
+✖ R49 AA1-08: insurance counted from the first year (the plan starts after the insured's death age) warns (0.4022ms)
+✖ R49: the new values are numbers -- text or a negative age is refused by the validator and the engine (0.3853ms)
+✖ R49: the hidden engine disclosures are shown as cards -- and the IRMAA default stays with its own round (0.359ms)
+✖ R49: the relabels -- the return, the fee, Social Security, the optimizer, dividends, insurance, the life ages, care onset (0.7407ms)
+✖ R49 app: the working-years card, the plan checks and the lump sum beside a payoff age (723.5406ms)
+✖ R49 app: the plan checks follow edits -- flexibility on guardrails warns, and the warning clears at 0 (419.985ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 7
+ℹ fail 26
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1982.0555
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:61:1
+✖ R49 AA1-25: floor and ceiling -- after a down year the floor holds ($30,000), the 10% cut does not take it to $27,000 (12.4709ms)
+  AssertionError [ERR_ASSERTION]: row 67: the floor: 27000 vs 30000
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:66:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:68:1
+✖ R49 AA1-25: floor and ceiling -- a cut that would cross the floor stops at it (1.6877ms)
+  AssertionError [ERR_ASSERTION]: row 67: the cut stops at the floor: 29482.201248266894 vs 30000
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:75:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:84:1
+✖ R49 AA1-25: the remaining-life strategy -- its minimum withdrawal ($30,000) holds after a down year (2.8927ms)
+  AssertionError [ERR_ASSERTION]: row 67: the minimum: 27000 vs 30000
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:90:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:92:1
+✖ R49 AA1-25: VPW -- its 5% minimum rate holds after a down year (5% of the opening balance, not 4.5%) (3.6688ms)
+  AssertionError [ERR_ASSERTION]: row 67: the minimum rate: 38365.46257938634 vs 42628.29175487371
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:98:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:100:1
+✖ R49 AA1-25: spending already below the floor by a stage is not cut further ($15,000, not $13,500) (1.4919ms)
+  AssertionError [ERR_ASSERTION]: row 67: 13500 vs 15000
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:105:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:114:1
+✖ R49 AA1-25: overlapping percentage stages warn (they multiply); stages that only touch do not (0.8476ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:118:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:124:1
+✖ R49 AA1-25: flexibility stacked on guardrails or Guyton-Klinger warns; at 0, or on another strategy, it does not (0.5589ms)
+  AssertionError [ERR_ASSERTION]: guardrails
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:125:59)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:140:1
+✖ R49 AA1-37: an onset age of 72 charges the weighted care cost in the two rows from 72, not from 70 (1.7221ms)
+  AssertionError [ERR_ASSERTION]: row 71: 25000 vs 0
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:143:84)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:145:1
+✖ R49 AA1-37: an onset age is used as entered, not rounded (72.5: half, whole, half) (1.4256ms)
+  AssertionError [ERR_ASSERTION]: row 72: 25000 vs 0
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:148:88)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:161:1
+✖ R49 AA1-37: Monte Carlo centres the draw on the onset age -- 76 with u = 0.25 starts care at 76 - 10 + 5 = 71 (1.8768ms)
+  AssertionError [ERR_ASSERTION]: row 71: 50000 vs 0
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:163:75)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:165:1
+✖ R49 AA1-37: Monte Carlo never starts care before the plan -- 72 with u = 0 gives 62, held at the starting age 66 (1.2227ms)
+  AssertionError [ERR_ASSERTION]: row 68: 0 vs 50000
+      at near (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:50:48)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:168:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:186:1
+✖ R49 AA1-34: PMI ends at the entered age -- 61.5 charges $1,200, $600, then nothing (2.5843ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      1200,
+  +   1200,
+  +   1200
+  -   600,
+  -   0
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:187:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1200, 1200, 1200 ],
+    expected: [ 1200, 600, 0 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:189:1
+✖ R49 AA1-34: a conventional loan with no end age stops at the HPA midpoint -- 30-year term, 16 left: 61 and one month (1.1286ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      1200,
+  +   1200,
+  +   1200
+  -   100,
+  -   0
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:192:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1200, 1200, 1200 ],
+    expected: [ 1200, 100, 0 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:195:1
+✖ R49 AA1-34: a conventional loan already past its midpoint owes no PMI (30-year term, 10 left: midpoint 5 years ago) (1.1451ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   1200,
+  +   1200,
+  +   1200
+  -   0,
+  -   0,
+  -   0
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:196:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1200, 1200, 1200 ],
+    expected: [ 0, 0, 0 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:198:1
+✖ R49 AA1-34: an entered end age overrides the midpoint (62.5 on the same conventional loan: $1,200, $1,200, $600) (1.0855ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      1200,
+      1200,
+  +   1200
+  -   600
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:199:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1200, 1200, 1200 ],
+    expected: [ 1200, 1200, 600 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:215:1
+✖ R49 AA1-44: a payment that leaves $4,000 at the payoff age warns, and the residual function says $4,000 (0.2375ms)
+  TypeError: validator.debtPayoffResidual is not a function
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:217:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:225:1
+✖ R49 AA1-44: an interest-only payment ($100 a month on $10,000 at 12%) leaves the whole $10,000 (0.1004ms)
+  TypeError: validator.debtPayoffResidual is not a function
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:226:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:228:1
+✖ R49 AA1-44: a payment that clears the debt by the payoff age ($200 a month) has no residual (0.0911ms)
+  TypeError: validator.debtPayoffResidual is not a function
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:229:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:248:1
+✖ R49 AA1-07: $72,000 of debt payments against a $60,000 salary -- the working years are not funded by pay, from 50 (1.6265ms)
+  AssertionError [ERR_ASSERTION]: raised once
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:251:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:257:1
+✖ R49 AA1-07: contributions above pay ($40,000 into a taxable account on a $30,000 salary) are not funded by pay (1.9122ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:260:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:270:1
+✖ R49 AA1-08: insurance counted from the first year (the plan starts after the insured's death age) warns (0.4022ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:274:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:283:1
+✖ R49: the new values are numbers -- text or a negative age is refused by the validator and the engine (0.3853ms)
+  AssertionError [ERR_ASSERTION]: case 0 = "30"
+  
+  true !== false
+  
+      at C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:294:14
+      at Array.forEach (<anonymous>)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:290:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:305:1
+✖ R49: the hidden engine disclosures are shown as cards -- and the IRMAA default stays with its own round (0.359ms)
+  AssertionError [ERR_ASSERTION]: UNSUPPORTED_ROTH_ORDERING
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:311:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:315:1
+✖ R49: the relabels -- the return, the fee, Social Security, the optimizer, dividends, insurance, the life ages, care onset (0.7407ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Standard · 10% \(historical US stocks\)/. Input:
+  
+  '<!doctype html>\n' +
+    '<html lang="en">\n' +
+    '<head>\n' +
+    '<meta charset="utf-8">\n' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+    '<meta name="referrer" content="no-referrer">\n' +
+    '<meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">\n' +
+    '<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">\n' +
+    '<meta name="apple-mobile-web-app-capable" content="yes">\n' +
+    '<meta name="apple-mobile-web-app-status-bar-style" content="default">\n' +
+    '<title>Investment Calculator</title>\n' +
+    '<script>\n' +
+    '(function(){\n' +
+    `  var ICON_SVG='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#0f766e"/><rect x="92" y="280" width="64" height="110" rx="10" fill="#99f6e4"/><rect x="180" y="220" width="64" height="170" rx="10" fill="#5eead4"/><rect x="268" y="160" width="64" height="230" rx="10" fill="#2dd4bf"/><rect x="356" y="90" width="64" height="300" rx="10" fill="#fbbf24"/><path d="M124 280 L212 220 L300 160 L388 90" fill="none" stroke="#f0fdfa" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="388" cy="90" r="16" fill="#fbbf24" stroke="#f0fdfa" stroke-width="6"/></svg>';\n` +
+    '  var iconHref="data:image/svg+xml,"+encodeURIComponent(ICON_SVG);\n' +
+    '  var manifest={name:"Investment Calculator",short_name:"Retirement",id:".",description:"Offline retirement and investment projection planner — Monte Carlo and historical replay, entirely on-device.",start_url:".",display:"standalone",background_color:"#0f766e",theme_color:"#0f766e",icons:[{src:iconHref,sizes:"any",type:"image/svg+xml",purpose:"any"},{src:iconHref,sizes:"any",type:"image/svg+xml",purpose:"maskable"}]};\n' +
+    '  var manifestHref="data:application/manifest+json,"+encodeURIComponent(JSON.stringify(manifest));\n' +
+    '  function link(rel,href,extra){var l=document.createElement("link");l.rel=rel;l.href=href;if(extra)for(var k in extra)l.setAttribute(k,extra[k]);document.head.appendChild(l)}\n' +
+    '  link("manifest",manifestHref);\n' +
+    '  link("icon",iconHref,{type:"image/svg+xml"});\n' +
+    '  link("apple-touch-icon",iconHref);\n' +
+    '})();\n' +
+    '</script>\n' +
+    '</head>\n' +
+    '<body>\n' +
+    '<div id="investment-calculator-v2c">\n' +
+    '  <style>\n' +
+    '    #investment-calculator-v2c { color: var(--foreground); color-scheme: light dark; }\n' +
+    '    #investment-calculator-v2c * { box-sizing: border-box; }\n' +
+    '    #investment-calculator-v2c .v2-shell { display: grid; gap: 1rem; }\n' +
+    '    #investment-calculator-v2c .v2-header { display: grid; gap: .7rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border); }\n' +
+    '    #investment-calculator-v2c .v2-top, #investment-calculator-v2c .v2-nav, #investment-calculator-v2c .v2-actions, #investment-calculator-v2c .v2-inline { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }\n' +
+    '    #investment-calculator-v2c .v2-top { justify-content: space-between; }\n' +
+    '    #investment-calculator-v2c .v2-title { font-size: 1.1rem; font-weight: 500; }\n' +
+    '    #investment-calculator-v2c .v2-nav { overflow-x: auto; flex-wrap: nowrap; padding-bottom: .15rem; }\n' +
+    '    #investment-calculator-v2c .v2-nav .btn { flex: 0 0 auto; }\n' +
+    '    #investment-calculator-v2c .v2-page { display: none; }\n' +
+    '    #investment-calculator-v2c .v2-page.is-active { display: grid; gap: 1rem; }\n' +
+    '    #investment-calculator-v2c .v2-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }\n' +
+    '    #investment-calculator-v2c .v2-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }\n' +
+    '    #investment-calculator-v2c .v2-wide { grid-column: 1 / -1; }\n' +
+    '    #investment-calculator-v2c .v2-stack { display: grid; gap: .65rem; }\n' +
+    '    #investment-calculator-v2c .v2-card { padding: .9rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--card); color: var(--card-foreground); }\n' +
+    '    #investment-calculator-v2c .v2-card h3, #investment-calculator-v2c .v2-card h4 { margin: 0 0 .6rem; font-size: 1rem; }\n' +
+    '    #investment-calculator-v2c .v2-card p { margin: .35rem 0; }\n' +
+    '    #investment-calculator-v2c .v2-muted { color: var(--muted-foreground); }\n' +
+    '    #investment-calculator-v2c .v2-note { color: var(--muted-foreground); font-size: 12px; }\n' +
+    '    #investment-calculator-v2c .v2-warning { border-left: 4px solid var(--destructive); background: color-mix(in srgb, var(--destructive) 9%, transparent); }\n' +
+    '    #investment-calculator-v2c .v2-info { border-left: 4px solid var(--primary); background: color-mix(in srgb, var(--primary) 8%, transparent); }\n' +
+    '    #investment-calculator-v2c .v2-good { border-left: 4px solid var(--viz-series-2); }\n' +
+    '    #investment-calculator-v2c .v2-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }\n' +
+    '    #investment-calculator-v2c .v2-account-list, #investment-calculator-v2c .v2-rule-list { display: grid; gap: .7rem; }\n' +
+    '    #investment-calculator-v2c .v2-account-head { display: flex; gap: .6rem; align-items: center; justify-content: space-between; }\n' +
+    '    #investment-calculator-v2c .v2-account-meta { display: flex; flex-wrap: wrap; gap: .35rem; }\n' +
+    '    #investment-calculator-v2c .v2-pill { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 999px; padding: .18rem .5rem; font-size: 12px; color: var(--muted-foreground); }\n' +
+    '    #investment-calculator-v2c .v2-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }\n' +
+    '    #investment-calculator-v2c .v2-stat { min-width: 0; }\n' +
+    '    #investment-calculator-v2c .v2-stat-value { margin-top: .25rem; font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 500; overflow-wrap: anywhere; }\n' +
+    '    #investment-calculator-v2c .v2-chart-tools { display: flex; flex-wrap: wrap; gap: .65rem; align-items: end; }\n' +
+    '    #investment-calculator-v2c .v2-chart-wrap { min-height: 340px; }\n' +
+    '    #investment-calculator-v2c svg { width: 100%; height: 340px; display: block; overflow: hidden; }\n' +
+    '    #investment-calculator-v2c .v2-gridline { stroke: var(--border); stroke-width: 1; }\n' +
+    '    #investment-calculator-v2c .v2-axis { fill: var(--muted-foreground); font-size: 11px; }\n' +
+    '    #investment-calculator-v2c .v2-line-1 { fill: none; stroke: var(--viz-series-1); stroke-width: 3; }\n' +
+    '    #investment-calculator-v2c .v2-line-2 { fill: none; stroke: var(--viz-series-2); stroke-width: 2.4; }\n' +
+    '    #investment-calculator-v2c .v2-line-3 { fill: none; stroke: var(--viz-series-3); stroke-width: 2.4; }\n' +
+    '    #investment-calculator-v2c .v2-line-4 { fill: none; stroke: var(--viz-series-4); stroke-width: 2.4; }\n' +
+    '    #investment-calculator-v2c .v2-band { fill: var(--viz-series-1); opacity: .12; }\n' +
+    '    #investment-calculator-v2c .v2-retire { stroke: var(--muted-foreground); stroke-width: 1.4; stroke-dasharray: 5 4; }\n' +
+    '    #investment-calculator-v2c .v2-legend { display: flex; flex-wrap: wrap; gap: .75rem; font-size: 12px; }\n' +
+    '    #investment-calculator-v2c .v2-dot { width: .7rem; height: .7rem; border-radius: 999px; display: inline-block; margin-right: .3rem; }\n' +
+    '    #investment-calculator-v2c .v2-table-wrap { max-height: 480px; overflow: auto; position: relative; }\n' +
+    '    #investment-calculator-v2c table { width: 100%; border-collapse: collapse; }\n' +
+    '    #investment-calculator-v2c th, #investment-calculator-v2c td { padding: .45rem .4rem; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }\n' +
+    '    #investment-calculator-v2c th:first-child, #investment-calculator-v2c td:first-child { text-align: left; }\n' +
+    '    #investment-calculator-v2c .v2-table-wrap thead th { position: sticky; top: 0; z-index: 3; background: var(--popover); color: var(--popover-foreground); box-shadow: 0 1px 0 var(--border); }\n' +
+    '    #investment-calculator-v2c details { border-bottom: 1px solid var(--border); padding-bottom: .55rem; }\n' +
+    '    #investment-calculator-v2c summary { cursor: pointer; list-style: none; min-height: 40px; display: flex; align-items: center; justify-content: space-between; gap: .7rem; font-weight: 500; }\n' +
+    '    #investment-calculator-v2c summary::-webkit-details-marker { display: none; }\n' +
+    '    #investment-calculator-v2c details > summary::after { content: "▾"; color: var(--muted-foreground); transition: transform 160ms ease; }\n' +
+    '    #investment-calculator-v2c details[open] > summary::after { transform: rotate(180deg); }\n' +
+    '    #investment-calculator-v2c .v2-advanced-label { color: var(--primary); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }\n' +
+    '    #investment-calculator-v2c .v2-status { min-height: 1.2em; color: var(--muted-foreground); font-size: 12px; }\n' +
+    '    #investment-calculator-v2c .v2-performance { display: inline-flex; align-items: center; gap: .35rem; min-height: 32px; padding: .2rem .55rem; border: 1px solid var(--border); border-radius: 999px; color: var(--muted-foreground); font-size: 12px; }\n' +
+    '    #investment-calculator-v2c .v2-performance::before { content: ""; width: .55rem; height: .55rem; border-radius: 999px; background: var(--viz-series-2); }\n' +
+    '    #investment-calculator-v2c .v2-performance.is-running::before { background: var(--primary); animation: v2c-pulse 1s ease-in-out infinite alternate; }\n' +
+    '    @keyframes v2c-pulse { to { opacity: .3; transform: scale(.8); } }\n' +
+    '    #investment-calculator-v2c { width: min(100%, 1540px); margin: 0 auto; }\n' +
+    '    #investment-calculator-v2c .v2-standalone-tools { padding: .65rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--card) 78%, transparent); }\n' +
+    '    #investment-calculator-v2c .v2-file-button { position: relative; overflow: hidden; }\n' +
+    '    #investment-calculator-v2c .v2-file-button input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; pointer-events: none; }\n' +
+    '    #investment-calculator-v2c .v2-local-note { display: inline-flex; align-items: center; min-height: 36px; color: var(--muted-foreground); font-size: 12px; }\n' +
+    '    #investment-calculator-v2c .v2-unit { position: relative; display: block; margin-top: .25rem; }\n' +
+    '    #investment-calculator-v2c .v2-unit .form-control { margin-top: 0; }\n' +
+    '    #investment-calculator-v2c .v2-unit-token { position: absolute; top: 50%; transform: translateY(-50%); color: var(--muted-foreground); pointer-e'... 269779 more characters
+  
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:316:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: `<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="referrer" content="no-referrer">\n<meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">\n<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-status-bar-style" content="default">\n<title>Investment Calculator</title>\n<script>\n(function(){\n  var ICON_SVG='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#0f766e"/><rect x="92" y="280" width="64" height="110" rx="10" fill="#99f6e4"/><rect x="180" y="220" width="64" height="170" rx="10" fill="#5eead4"/><rect x="268" y="160" width="64" height="230" rx="10" fill="#2dd4bf"/><rect x="356" y="90" width="64" height="300" rx="10" fill="#fbbf24"/><path d="M124 280 L212 220 L300 160 L388 90" fill="none" stroke="#f0fdfa" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="388" cy="90" r="16" fill="#fbbf24" stroke="#f0fdfa" stroke-width="6"/></svg>';\n  var iconHref="data:image/svg+xml,"+encodeURIComponent(ICON_SVG);\n  var manifest={name:"Investment Calculator",short_name:"Retirement",id:".",description:"Offline retirement and investment projection planner — Monte Carlo and historical replay, entirely on-device.",start_url:".",display:"standalone",background_color:"#0f766e",theme_color:"#0f766e",icons:[{src:iconHref,sizes:"any",type:"image/svg+xml",purpose:"any"},{src:iconHref,sizes:"any",type:"image/svg+xml",purpose:"maskable"}]};\n  var manifestHref="data:application/manifest+json,"+encodeURIComponent(JSON.stringify(manifest));\n  function link(rel,href,extra){var l=document.createElement("link");l.rel=rel;l.href=href;if(extra)for(var k in extra)l.setAttribute(k,extra[k]);document.head.appendChild(l)}\n  link("manifest",manifestHref);\n  link("icon",iconHref,{type:"image/svg+xml"});\n  link("apple-touch-icon",iconHref);\n})();\n</script>\n</head>\n<body>\n<div id="investment-calculator-v2c">\n  <style>\n    #investment-calculator-v2c { color: var(--foreground); color-scheme: light dark; }\n    #investment-calculator-v2c * { box-sizing: border-box; }\n    #investment-calculator-v2c .v2-shell { display: grid; gap: 1rem; }\n    #investment-calculator-v2c .v2-header { display: grid; gap: .7rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border); }\n    #investment-calculator-v2c .v2-top, #investment-calculator-v2c .v2-nav, #investment-calculator-v2c .v2-actions, #investment-calculator-v2c .v2-inline { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }\n    #investment-calculator-v2c .v2-top { justify-content: space-between; }\n    #investment-calculator-v2c .v2-title { font-size: 1.1rem; font-weight: 500; }\n    #investment-calculator-v2c .v2-nav { overflow-x: auto; flex-wrap: nowrap; padding-bottom: .15rem; }\n    #investment-calculator-v2c .v2-nav .btn { flex: 0 0 auto; }\n    #investment-calculator-v2c .v2-page { display: none; }\n    #investment-calculator-v2c .v2-page.is-active { display: grid; gap: 1rem; }\n    #investment-calculator-v2c .v2-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }\n    #investment-calculator-v2c .v2-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }\n    #investment-calculator-v2c .v2-wide { grid-column: 1 / -1; }\n    #investment-calculator-v2c .v2-stack { display: grid; gap: .65rem; }\n    #investment-calculator-v2c .v2-card { padding: .9rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--card); color: var(--card-foreground); }\n    #investment-calculator-v2c .v2-card h3, #investment-calculator-v2c .v2-card h4 { margin: 0 0 .6rem; font-size: 1rem; }\n    #investment-calculator-v2c .v2-card p { margin: .35rem 0; }\n    #investment-calculator-v2c .v2-muted { color: var(--muted-foreground); }\n    #investment-calculator-v2c .v2-note { color: var(--muted-foreground); font-size: 12px; }\n    #investment-calculator-v2c .v2-warning { border-left: 4px solid var(--destructive); background: color-mix(in srgb, var(--destructive) 9%, transparent); }\n    #investment-calculator-v2c .v2-info { border-left: 4px solid var(--primary); background: color-mix(in srgb, var(--primary) 8%, transparent); }\n    #investment-calculator-v2c .v2-good { border-left: 4px solid var(--viz-series-2); }\n    #investment-calculator-v2c .v2-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }\n    #investment-calculator-v2c .v2-account-list, #investment-calculator-v2c .v2-rule-list { display: grid; gap: .7rem; }\n    #investment-calculator-v2c .v2-account-head { display: flex; gap: .6rem; align-items: center; justify-content: space-between; }\n    #investment-calculator-v2c .v2-account-meta { display: flex; flex-wrap: wrap; gap: .35rem; }\n    #investment-calculator-v2c .v2-pill { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 999px; padding: .18rem .5rem; font-size: 12px; color: var(--muted-foreground); }\n    #investment-calculator-v2c .v2-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }\n    #investment-calculator-v2c .v2-stat { min-width: 0; }\n    #investment-calculator-v2c .v2-stat-value { margin-top: .25rem; font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 500; overflow-wrap: anywhere; }\n    #investment-calculator-v2c .v2-chart-tools { display: flex; flex-wrap: wrap; gap: .65rem; align-items: end; }\n    #investment-calculator-v2c .v2-chart-wrap { min-height: 340px; }\n    #investment-calculator-v2c svg { width: 100%; height: 340px; display: block; overflow: hidden; }\n    #investment-calculator-v2c .v2-gridline { stroke: var(--border); stroke-width: 1; }\n    #investment-calculator-v2c .v2-axis { fill: var(--muted-foreground); font-size: 11px; }\n    #investment-calculator-v2c .v2-line-1 { fill: none; stroke: var(--viz-series-1); stroke-width: 3; }\n    #investment-calculator-v2c .v2-line-2 { fill: none; stroke: var(--viz-series-2); stroke-width: 2.4; }\n    #investment-calculator-v2c .v2-line-3 { fill: none; stroke: var(--viz-series-3); stroke-width: 2.4; }\n    #investment-calculator-v2c .v2-line-4 { fill: none; stroke: var(--viz-series-4); stroke-width: 2.4; }\n    #investment-calculator-v2c .v2-band { fill: var(--viz-series-1); opacity: .12; }\n    #investment-calculator-v2c .v2-retire { stroke: var(--muted-foreground); stroke-width: 1.4; stroke-dasharray: 5 4; }\n    #investment-calculator-v2c .v2-legend { display: flex; flex-wrap: wrap; gap: .75rem; font-size: 12px; }\n    #investment-calculator-v2c .v2-dot { width: .7rem; height: .7rem; border-radius: 999px; display: inline-block; margin-right: .3rem; }\n    #investment-calculator-v2c .v2-table-wrap { max-height: 480px; overflow: auto; position: relative; }\n    #investment-calculator-v2c table { width: 100%; border-collapse: collapse; }\n    #investment-calculator-v2c th, #investment-calculator-v2c td { padding: .45rem .4rem; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }\n    #investment-calculator-v2c th:first-child, #investment-calculator-v2c td:first-child { text-align: left; }\n    #investment-calculator-v2c .v2-table-wrap thead th { position: sticky; top: 0; z-index: 3; background: var(--popover); color: var(--popover-foreground); box-shadow: 0 1px 0 var(--border); }\n    #investment-calculator-v2c details { border-bottom: 1px solid var(--border); padding-bottom: .55rem; }\n    #investment-calculator-v2c summary { cursor: pointer; list-style: none; min-height: 40px; display: flex; align-items: center; justify-content: space-between; gap: .7rem; font-weight: 500; }\n    #investment-calculator-v2c summary::-webkit-details-marker { display: none; }\n    #investment-calculator-v2c details > summary::after { content: "▾"; color: var(--muted-foreground); transition: transform 160ms ease; }\n    #investment-calculator-v2c details[open] > summary::after { transform: rotate(180deg); }\n    #investment-calculator-v2c .v2-advanced-label { color: var(--primary); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }\n    #investment-calculator-v2c .v2-status { min-height: 1.2em; color: var(--muted-foreground); font-size: 12px; }\n    #investment-calculator-v2c .v2-performance { display: inline-flex; align-items: center; gap: .35rem; min-height: 32px; padding: .2rem .55rem; border: 1px solid var(--border); border-radius: 999px; color: var(--muted-foreground); font-size: 12px; }\n    #investment-calculator-v2c .v2-performance::before { content: ""; width: .55rem; height: .55rem; border-radius: 999px; background: var(--viz-series-2); }\n    #investment-calculator-v2c .v2-performance.is-running::before { background: var(--primary); animation: v2c-pulse 1s ease-in-out infinite alternate; }\n    @keyframes v2c-pulse { to { opacity: .3; transform: scale(.8); } }\n    #investment-calculator-v2c { width: min(100%, 1540px); margin: 0 auto; }\n    #investment-calculator-v2c .v2-standalone-tools { padding: .65rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--card) 78%, transparent); }\n    #investment-calculator-v2c .v2-file-button { position: relative; overflow: hidden; }\n    #investment-calculator-v2c .v2-file-button input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; pointer-events: none; }\n    #investment-calculator-v2c .v2-local-note { display: inline-flex; align-items: center; min-height: 36px; color: var(--muted-foreground); font-size: 12px; }\n    #investment-calculator-v2c .v2-unit { position: relative; display: block; margin-top: .25rem; }\n    #investment-calculator-v2c .v2-unit .form-control { margin-top: 0; }\n    #investment-calculator-v2c .v2-unit-token { position: absolute; top: 50%; transform: translateY(-50%); color: var(--muted-foreground); pointer-e`... 269779 more characters,
+    expected: /Standard · 10% \(historical US stocks\)/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:351:1
+✖ R49 app: the working-years card, the plan checks and the lump sum beside a payoff age (723.5406ms)
+  TypeError: Cannot read properties of null (reading 'textContent')
+      at waitFor.window (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:365:74)
+      at waitFor (C:\fc-wt-r49\tests\lib\harness.js:977:9)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:365:11)
+      at runNextTicks (node:internal/process/task_queues:65:5)
+      at process.processTimers (node:internal/timers:538:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tests\audit-s5aa-r49-spending-debt-disclosure.test.js:376:1
+✖ R49 app: the plan checks follow edits -- flexibility on guardrails warns, and the warning clears at 0 (419.985ms)
+  TypeError: Cannot read properties of null (reading 'textContent')
+      at checks (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:381:62)
+      at TestContext.<anonymous> (C:\fc-wt-r49\tests\audit-s5aa-r49-spending-debt-disclosure.test.js:383:25)
+      at runNextTicks (node:internal/process/task_queues:65:5)
+      at process.processTimers (node:internal/timers:538:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)

@@ -1,0 +1,13 @@
+audit-q58-strategy-resolution.test.js {"flex with guardrails":1}
+audit-q74-stage-percent-range.test.js {"residual debt":61,"flex with guardrails":29}
+audit-s5aa-r25-debt-payoff-at-its-month.test.js {"residual debt":4}
+audit-s5aa-r27-pmi-while-owed.test.js {"residual debt":3}
+audit-s5aa-r37-validator-gaps.test.js {"residual debt":3}
+boolean-flag-contract.test.js {"flex with guardrails":475}
+corpus-composition.test.js {"residual debt":5}
+near-miss-survivor-sweep.test.js {"residual debt":543,"flex with guardrails":445}
+scenario-generator.test.js {"residual debt":175,"flex with guardrails":104}
+scenario-validator-no-false-positives.test.js {"flex with guardrails":2}
+scenario-validator.test.js {"residual debt":2}
+
+[exited with code 0]
