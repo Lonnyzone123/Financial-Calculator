@@ -666,7 +666,8 @@ test('S3-03: changing a loaded debt module changes its manifest entry, even when
      capture-boundary 5.4 does. It used to be written to src/debt-amortization.js on disk for the length of a
      capture, and the gate runs test files in parallel: any capture in another process that spanned the window
      saw the file change, and capture-boundary 5.4 failed in CI with changedDuringCapture ['build.js',
-     'src/debt-amortization.js'] (2026-10-04, runs 37185921182 and 37187286021, R48's branch). */
+     'src/debt-amortization.js'] (2026-10-04, run 37187286021 on R48's branch, its in-job re-run; run 37185921182 on
+     the same commit failed the same test, but its logs name the test without an assertion message). */
   const real = fs.readFileSync;
   const edit = '\n/* S3-03 provenance probe */\n';
   try {
