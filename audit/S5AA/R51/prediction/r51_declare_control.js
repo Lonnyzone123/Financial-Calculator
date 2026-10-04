@@ -52,8 +52,8 @@ if (process.argv[2] === '--write') {
     .filter((d) => !(drop.has(key(d)) && !used.has(key(d))))
     .concat(match.unpredicted.filter((d) => !used.has(key(d))));
   prediction.changes = (prediction.changes || []).concat([{
-    change: 'S5AA R51 (decisions of the owner, 2026-10-03, on R46-R50): spending flexibility defaults to off (defaultPlan.retirement.flexibility 10 -> 0, AA1-25(c)); the Medicare charge of each person starts at their own medicareStartAge() (one Medicare date); employment and self-employment streams count as pay in the working-years check',
-    why: 'predicted by audit/S5AA/R51/S5AA_R51_PREDICTION_RECORD_20261003.md (d663f16); measured in audit/S5AA/R51/S5AA_R51_BUILD_REPORT_20261003.md',
+    change: 'S5AA R51 against the successor control s5aa-r51-control (captured at b722884, which already holds decision 1, flexibility off by default): the owner\'s decisions of 2026-10-03 -- the Medicare charge of each person starts at their own medicareStartAge() (one Medicare date); employment and self-employment streams count as pay in the working-years check, net of the payroll, self-employment and income tax they add (the owner\'s D3 ruling); the optimizer\'s Roth weight is the cost of the next dollar drawn (rothNextDollarWeight, the owner\'s ruling on R50 section 8 item 2)',
+    why: 'predicted by audit/S5AA/R51/S5AA_R51_PREDICTION_RECORD_20261003.md (d663f16) and S5AA_R51_PREDICTION_ADDENDUM_20261003.md (7f1e131); measured in audit/S5AA/R51/S5AA_R51_BUILD_REPORT_20261003.md. The nine working-years message texts and seed:16\'s last-bit spending come from 8732bb8; golden:monte-carlo-fixed-seed\'s eleven (its published median and 10th-percentile rows and the carried-up Roth basis disclosure) from 2f73b85',
     differences: match.unpredicted.length,
     replacedDeclarations: replaced,
   }]);

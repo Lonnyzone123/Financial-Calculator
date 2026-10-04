@@ -3,6 +3,161 @@
   "about": "Question 10 (A), decided by the owner on 2026-09-16. Control test 4.7 holds today's engine to this written prediction of how its capture of the control corpus differs from the stored control capture (tools/control-corpus.json, controlCapture): every difference with its kind, scenario, path, and reference and candidate values, exactly as tools/differential-harness.js reports them. A difference found and not declared, or declared and not found, fails 4.7; a category or a pattern approves nothing. An output-moving commit declares its differences here, with its reason under changes, before it lands. Historical integrity, whether the stored capture is what its own engine computed, is a separate check (tools/historical-replay.js). Restarted on 2026-10-03 against s5aa-r51-control (S5AA R51, the owner's successor-control decision): every declaration made against s5-control (62 changes, 15971 differences, S5 R5 to S5AA R50) is kept in this file's history at 5119d03; against the successor, only movement since b722884 is declared.",
   "control": "s5aa-r51-control",
   "composition": "control",
-  "changes": [],
-  "differences": []
+  "changes": [
+    {
+      "change": "S5AA R51 against the successor control s5aa-r51-control (captured at b722884, which already holds decision 1, flexibility off by default): the owner's decisions of 2026-10-03 -- the Medicare charge of each person starts at their own medicareStartAge() (one Medicare date); employment and self-employment streams count as pay in the working-years check, net of the payroll, self-employment and income tax they add (the owner's D3 ruling); the optimizer's Roth weight is the cost of the next dollar drawn (rothNextDollarWeight, the owner's ruling on R50 section 8 item 2)",
+      "why": "predicted by audit/S5AA/R51/S5AA_R51_PREDICTION_RECORD_20261003.md (d663f16) and S5AA_R51_PREDICTION_ADDENDUM_20261003.md (7f1e131); measured in audit/S5AA/R51/S5AA_R51_BUILD_REPORT_20261003.md. The nine working-years message texts and seed:16's last-bit spending come from 8732bb8; golden:monte-carlo-fixed-seed's eleven (its published median and 10th-percentile rows and the carried-up Roth basis disclosure) from 2f73b85",
+      "differences": 21,
+      "replacedDeclarations": 0
+    }
+  ],
+  "differences": [
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "LENGTH",
+      "path": "issues",
+      "reference": 2,
+      "candidate": 3
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].federalAgi",
+      "reference": 176218.70543504588,
+      "candidate": 175552.36316428898
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].irmaaMagi",
+      "reference": 176218.70543504588,
+      "candidate": 175552.36316428898
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].magi",
+      "reference": 176218.70543504588,
+      "candidate": 175552.36316428898
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].niitMagi",
+      "reference": 176218.70543504588,
+      "candidate": 175552.36316428898
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].seniorDeductionMagi",
+      "reference": 176218.70543504588,
+      "candidate": 175552.36316428898
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].ssProvisionalIncome",
+      "reference": 176218.70543504588,
+      "candidate": 175552.36316428898
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].taxes",
+      "reference": 2188.1713903169793,
+      "candidate": 2135.5794799766545
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[31].withdrawals",
+      "reference": 167723.83312815946,
+      "candidate": 167671.24121781913
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[37].q10",
+      "reference": 4847183.588229955,
+      "candidate": 4849233.07962585
+    },
+    {
+      "scenario": "golden:monte-carlo-fixed-seed",
+      "kind": "VALUE",
+      "path": "rows[40].q10",
+      "reference": 4989251.8133916985,
+      "candidate": 5026602.812725302
+    },
+    {
+      "scenario": "seed:2",
+      "kind": "VALUE",
+      "path": "issues[0].message",
+      "reference": "The working years are not funded by pay: at age 58 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $71,030. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 58 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $71,030. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "seed:3",
+      "kind": "VALUE",
+      "path": "issues[2].message",
+      "reference": "The working years are not funded by pay: at age 58 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $2,541,441. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 58 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $2,541,441. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "seed:4",
+      "kind": "VALUE",
+      "path": "issues[4].message",
+      "reference": "The working years are not funded by pay: at age 67 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $596,262. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 67 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $596,262. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "seed:10",
+      "kind": "VALUE",
+      "path": "issues[1].message",
+      "reference": "The working years are not funded by pay: at age 48 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $4,400. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 48 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $4,400. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "seed:12",
+      "kind": "VALUE",
+      "path": "issues[2].message",
+      "reference": "The working years are not funded by pay: at age 38 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $4,400. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 38 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $4,400. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "seed:14",
+      "kind": "VALUE",
+      "path": "issues[2].message",
+      "reference": "The working years are not funded by pay: at age 45 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $21,425. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 45 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $21,425. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "seed:15",
+      "kind": "VALUE",
+      "path": "issues[2].message",
+      "reference": "The working years are not funded by pay: at age 35 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $3,849,697. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 35 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $3,849,697. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "seed:16",
+      "kind": "VALUE",
+      "path": "rows[15].spending",
+      "reference": 213698.61245257227,
+      "candidate": 213698.61245257233
+    },
+    {
+      "scenario": "seed:20",
+      "kind": "VALUE",
+      "path": "issues[0].message",
+      "reference": "The working years are not funded by pay: at age 59 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $2,695,967. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 59 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $2,695,967. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    },
+    {
+      "scenario": "targeted:arm-flag-on",
+      "kind": "VALUE",
+      "path": "issues[2].message",
+      "reference": "The working years are not funded by pay: at age 60 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $17,187. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+      "candidate": "The working years are not funded by pay: at age 60 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $17,187. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of the payroll, self-employment and income tax it adds."
+    }
+  ]
 }
