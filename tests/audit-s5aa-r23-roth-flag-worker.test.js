@@ -81,11 +81,13 @@ function plan(o) {
 
 const rothFlags = (reply) => (reply.result.issues || []).filter((i) => i.code === 'UNSUPPORTED_ROTH_ORDERING');
 
+/* S5AA R50 (AA1-36): a Roth IRA is modelled by its ledger now and is no longer flagged; the flag marks a Roth 401(k) or custom Roth
+   drawn early. Adapted by intent: both Worker cases draw a Roth 401(k) (before R50, a Roth IRA); the balances are unchanged (untaxed). */
 test('R22-01 in the Worker: a Roth that pays an expense at 45 is flagged there, with no error', uiTest, async () => {
   const source = await generatedWorkerSource();
   const reply = runInIsolatedWorker(source, plan({ age: 45, endAge: 46,
     expenses: [{ name: 'Roof', kind: 'expense', age: 45, amount: 20000 }],
-    accounts: [account('cash', 'taxable', 'taxable', 0, 1), Object.assign(account('roth', 'rothIRA', 'roth', 100000, 2), { basisPct: 0 })] }));
+    accounts: [account('cash', 'taxable', 'taxable', 0, 1), Object.assign(account('roth', 'roth401k', 'roth', 100000, 2), { basisPct: 0 })] }));
   assert.ok(reply, 'the worker produced no reply');
   assert.equal(reply.error, undefined, 'the worker errored: ' + reply.error);
   assert.equal(reply.result.rows[1].roth, 80000);
@@ -98,7 +100,7 @@ test('R22-01 in the Worker: Monte Carlo carries a later path\'s draw up to the r
   const source = await generatedWorkerSource();
   const reply = runInIsolatedWorker(source, plan({ method: 'monteCarlo', age: 55, endAge: 60, spending: 40000, returnRate: 5,
     volatility: 25, runs: 50,
-    accounts: [account('cash', 'taxable', 'taxable', 150000, 1), Object.assign(account('roth', 'rothIRA', 'roth', 500000, 2), { basisPct: 0 })] }));
+    accounts: [account('cash', 'taxable', 'taxable', 150000, 1), Object.assign(account('roth', 'roth401k', 'roth', 500000, 2), { basisPct: 0 })] }));
   assert.ok(reply, 'the worker produced no reply');
   assert.equal(reply.error, undefined, 'the worker errored: ' + reply.error);
   assert.equal(rothFlags(reply).length, 1);

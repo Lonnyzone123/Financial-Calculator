@@ -5,10 +5,12 @@
  "pinnedAtMeans": "The commit whose corpus was measured when the list was pinned. A file cannot name the commit that contains it.",
  "composition": "expanded",
  "gaps": [
-  "retirement.guytonSkipInflation"
+  "retirement.guytonSkipInflation",
+  "retirement.preserveRoth"
  ],
  "why": {
-  "retirement.guytonSkipInflation": "Set in 40 scenarios and executed in none. The corpus holds one guyton plan, and no negative prior-year return reaches its decision."
+  "retirement.guytonSkipInflation": "Set in 40 scenarios and executed in none. The corpus holds one guyton plan, and no negative prior-year return reaches its decision.",
+  "retirement.preserveRoth": "Set in 5 scenarios and executed in none since S5AA R50. seed:19 was the one that executed it: its owner's Roth IRA holds no entered basis, and with preserveRoth off the optimizer drew the Roth at 45, which turning it on moved later. Since R50 (AA1-36, the Roth IRA basis ledger) such a draw is taxed earnings with the 10%, and the optimizer's ledger weight already ranks the Roth behind the HSA for that owner, so the switch no longer changes seed:19's draws. The path itself still executes on a plan built to reach it (the test's reaching plan, at 66)."
  },
  "shrunk": [
   {
@@ -25,6 +27,15 @@
    ],
    "in": "S5AA task 2.1's corpus commit (Q108)",
    "why": "The carried spending base is now the unadjusted amount, so a stage adjusts the year it applies to instead of compounding into every later year. Staged fixedReal plans no longer collapse toward zero spending, so they reach the withdrawal-ordering branch this path controls. The same cause removed advanced.rule55 and the preTax -> taxable transfer in S5 2s.1's corpus commit: a spending defect was suppressing corpus coverage of real code, and repairing it restores the coverage rather than reducing it. tests/corpus-configured-paths.test.js measures it executing in the repaired corpus."
+  }
+ ],
+ "regrown": [
+  {
+   "added": [
+    "retirement.preserveRoth"
+   ],
+   "in": "S5AA R50's repair commit",
+   "why": "Not a corpus change: an engine rule (the R50 Roth ledger's optimizer weight) made the switch's only corpus counterfactual coincide with the plan. It was removed in S5AA task 2.1's corpus commit and is re-pinned here, within the test's frozen copy (GAPS_WHEN_PINNED), so the shrink-only test still holds; a corpus scenario that reaches the switch again removes it."
   }
  ]
 }

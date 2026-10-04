@@ -13,6 +13,13 @@
  * transfer out to a non-Roth account -- while ITS OWNER is under 59 1/2. A conversion INTO a Roth is not a Roth draw. In
  * Monte Carlo, a draw on any path flags the run once (path 0 alone reports its own issues; the others are summarised).
  * All through runPlan() on validator-valid plans; balances are hand arithmetic at a 0% return.
+ *
+ * S5AA R50 (AA1-36; the owner's AA1 decisions, 2026-10-03): A ROTH IRA IS MODELLED NOW -- a basis ledger, conversions by year and
+ * the five-year periods -- so a Roth IRA drawn before 59 1/2 is taxed by its ledger and no longer flagged. The flag now marks only a
+ * Roth 401(k) or a custom tax-free account drawn early, which the model still treats as untaxed. Adapted by intent: the cases that
+ * prove the flag follows a draw (the expense at 45, the spouse at 50 and its control at 62, the transfer at 45, the Monte Carlo
+ * carry) now draw a Roth 401(k), whose balances are the same hand arithmetic as before (untaxed); before R50 they drew a Roth IRA.
+ * The Roth IRA cases with no early draw (never drawn; Roth IRA to Roth IRA; a conversion only) are unchanged.
  */
 'use strict';
 
@@ -77,13 +84,13 @@ test('R22-01: a Roth that pays a one-time expense at 45 is flagged, once, naming
   /* ChatGPT's second witness. $100,000 Roth, nothing else, no recurring spending, a $20,000 expense at 45: the Roth
      pays it and ends the year at $80,000. */
   const r = run(plan({ age: 45, endAge: 46, expenses: [{ name: 'Roof', kind: 'expense', age: 45, amount: 20000 }],
-    accounts: [account('cash', 'taxable', 'taxable', 0), account('roth', 'rothIRA', 'roth', 100000, { basisPct: 0, priority: 2 })] }));
+    accounts: [account('cash', 'taxable', 'taxable', 0), account('roth', 'roth401k', 'roth', 100000, { basisPct: 0, priority: 2 })] }));
   assert.equal(r.rows[1].roth, 80000);
   const f = flags(r);
   assert.equal(f.length, 1, 'raised once per run, not once per draw');
   assert.equal(f[0].severity, 'WARNING');
   assert.equal(f[0].state.outsideSupportedDomain, true);
-  assert.equal(f[0].state.exclusion, 'non-qualified Roth withdrawals');
+  assert.equal(f[0].state.exclusion, 'non-qualified Roth 401(k) and custom Roth withdrawals', 'S5AA R50: the exclusion names what remains unsupported (was "non-qualified Roth withdrawals")');
   assert.equal(f[0].state.carriedTo, 'new-engine Roth block');
   assert.equal(f[0].state.firstDrawOwnerAge, 45);
 });
@@ -92,7 +99,7 @@ test('R22-01: the OWNER\'s age decides -- a spouse\'s Roth drawn at 50 is flagge
   /* The old predicate read the primary's retirement age (62) and so said nothing. Spending $30,000 a year from the
      spouse's $200,000 Roth, 0% return: $200,000 - 2 x $30,000 = $140,000 after two years. */
   const r = run(plan({ age: 62, endAge: 64, spouseAge: 50, spending: 30000,
-    accounts: [account('roth', 'rothIRA', 'roth', 200000, { basisPct: 0, owner: 'spouse' })] }));
+    accounts: [account('roth', 'roth401k', 'roth', 200000, { basisPct: 0, owner: 'spouse' })] }));
   assert.equal(r.rows[2].roth, 140000);
   const f = flags(r);
   assert.equal(f.length, 1);
@@ -103,7 +110,7 @@ test('R22-01: CONTROL -- a spouse\'s Roth drawn at 62 is not flagged though the 
   /* The mirror: the primary retires at 50 with spending, which the old predicate flagged, but every draw is from a Roth
      whose owner is past 59 1/2. $200,000 - 2 x $30,000 = $140,000. */
   const r = run(plan({ age: 50, endAge: 52, spouseAge: 62, spending: 30000,
-    accounts: [account('roth', 'rothIRA', 'roth', 200000, { basisPct: 0, owner: 'spouse' })] }));
+    accounts: [account('roth', 'roth401k', 'roth', 200000, { basisPct: 0, owner: 'spouse' })] }));
   assert.equal(r.rows[2].roth, 140000);
   assert.deepEqual(flags(r), []);
 });
@@ -112,7 +119,7 @@ test('R22-01: a manual transfer out of a Roth to taxable at 45 is a Roth draw, a
   /* $10,000 moved at 45 from a $100,000 Roth into an empty taxable account: $90,000 and $10,000. */
   const r = run(plan({ age: 45, endAge: 46,
     advanced: { transferOn: true, transferFrom: 'roth', transferTo: 'cash', transferAmount: 10000, transferAge: 45 },
-    accounts: [account('cash', 'taxable', 'taxable', 0), account('roth', 'rothIRA', 'roth', 100000, { basisPct: 0, priority: 2 })] }));
+    accounts: [account('cash', 'taxable', 'taxable', 0), account('roth', 'roth401k', 'roth', 100000, { basisPct: 0, priority: 2 })] }));
   assert.equal(r.rows[1].roth, 90000);
   assert.equal(r.rows[1].taxable, 10000);
   const f = flags(r);
@@ -146,7 +153,7 @@ test('R22-01: Monte Carlo -- a draw on a LATER path flags the run once, though p
      With runs 50, poorer paths empty the taxable account before 59 1/2 and draw the Roth: the run is flagged once. Path
      0 alone reports its own issues, so a flag raised only on a later path must be carried up to the run. */
   const mc = (runs) => plan({ method: 'monteCarlo', age: 55, endAge: 60, spending: 40000, returnRate: 5, volatility: 25, seed: 1, runs,
-    accounts: [account('cash', 'taxable', 'taxable', 150000), account('roth', 'rothIRA', 'roth', 500000, { basisPct: 0, priority: 2 })] });
+    accounts: [account('cash', 'taxable', 'taxable', 150000), account('roth', 'roth401k', 'roth', 500000, { basisPct: 0, priority: 2 })] });
   assert.deepEqual(flags(run(mc(1))), [], 'CONTROL: path 0 alone draws nothing early');
   const f = flags(run(mc(50)));
   assert.equal(f.length, 1, 'one flag for the run, not one per path');

@@ -71,9 +71,12 @@ function base(age, edit) {
   return p;
 }
 
+/* S5AA R50 (AA1-36; the owner's AA1 decisions, 2026-10-03): a Roth IRA is modelled by its basis ledger now, so X02 is reached only by a Roth
+   401(k) or a custom tax-free account drawn before 59 1/2. Adapted by intent: the household's Roth is a Roth 401(k) (it was a Roth IRA), so the
+   automatic policy, the conversion household and the enumeration below still reach the exclusion. */
 const withRoth = (p, priority) => {
   p.accounts.push(Object.assign({}, p.accounts[0], {
-    id: 'roth', type: 'rothIRA', taxClass: 'roth', balance: 300000, basisPct: 0,
+    id: 'roth', type: 'roth401k', taxClass: 'roth', balance: 300000, basisPct: 0,
     priority: priority || 2, allocation: {},
   }));
 };
@@ -165,11 +168,14 @@ test('S5AA 5.5 (X02): a conversion household that then draws its Roth before 59.
     x.retirement.spending = 20000;
     withRoth(x);
     x.accounts[0].balance = 0;
+    /* S5AA R50: the Roth is a Roth 401(k) (withRoth, above), so the converting account is the same plan's traditional 401(k): a traditional
+       IRA may convert only into a Roth IRA, and before R50 this was a traditional IRA converting into a Roth IRA. */
     x.accounts.push(Object.assign({}, x.accounts[0], {
-      id: 'pre', type: 'traditionalIRA', taxClass: 'preTax', balance: 300000, basisPct: 0, priority: 3, allocation: {},
+      id: 'pre', type: 'traditional401k', taxClass: 'preTax', balance: 300000, basisPct: 0, priority: 3, allocation: {},
     }));
   });
   assertExclusion(said(p, 'UNSUPPORTED_ROTH_ORDERING'), 'X02 via conversion');
+  assert.equal(said(p, 'CONVERSION_IRA_NEEDS_ROTH_IRA'), undefined, 'CONTROL: the conversion is lawful and runs');
 });
 
 test('S5AA 5.5 (X02) control: past 59.5 the restriction does not apply and is not claimed', () => {
