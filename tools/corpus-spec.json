@@ -10,35 +10,35 @@
       "source": "golden",
       "mode": "simple",
       "status": "ok",
-      "inputFingerprint": "603c937c60d35e06e5ffcdfe74f3fd08e08add82676fb32ce7cc9237d844d8b4"
+      "inputFingerprint": "94b3937f749efcc1feac0e310ec0b225d5a063c88c9442ad824f31ee462c02c2"
     },
     {
       "name": "golden:monte-carlo-fixed-seed",
       "source": "golden",
       "mode": "monteCarlo",
       "status": "ok",
-      "inputFingerprint": "fcfd1a2942fdca184cd044dbb4be479ae2c90da63f46f4d6e2bbb0fd019f2c58"
+      "inputFingerprint": "0e7e970cefbc273673106fd53ba3178e6d529f26445c08b13c27015c3078f2fc"
     },
     {
       "name": "golden:rmd-and-roth-conversion",
       "source": "golden",
       "mode": "simple",
       "status": "ok",
-      "inputFingerprint": "a747940acdb4f8ce6dacd3381ba803fd5eddc31342dc792c83336641d898356e"
+      "inputFingerprint": "9f5a6a0a66c2736c3ce0d06adb199ba39d5e3976bbefa8c54dc2baab481ea8c1"
     },
     {
       "name": "golden:reserve-and-bond-tent",
       "source": "golden",
       "mode": "simple",
       "status": "ok",
-      "inputFingerprint": "503db1c13e1c2ee2b2632c0a60fc7090b5640d216af98815a0ae69f7bb10dafd"
+      "inputFingerprint": "35ea2d9863a39da03524310f0e6e9b9b9339703e17c3291423a9fa535cd85289"
     },
     {
       "name": "golden:guardrails-withdrawal-strategy",
       "source": "golden",
       "mode": "simple",
       "status": "ok",
-      "inputFingerprint": "7e8197bf408fa20f1303cd75363055710a52421ef4294cd5683b77c1da96bf05"
+      "inputFingerprint": "a5f1abf1781360f5e7ba0b0587669bef218345ff449a33c1786e510db5064533"
     },
     {
       "name": "seed:1",

@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "title": "Plan boolean flags: the one definition (Q53)",
+  "about": "Every boolean-shaped field of a scenario, and what each layer must do with a value that is not a boolean. Written in S4 task 2b.2e from a measured inventory (BOOLEAN_FLAG_CONTRACT.md). Enforced as of S5 block 2l (corrected 2026-09-14; this field previously read DEFINED HERE, ENFORCED NOWHERE YET): the engine boundary check and the validator check both read FROM THIS FILE, retiring ADVANCED_BOOLEAN_FIELDS in src/scenario-validator.js -- a second hand-written flag list was the defect shape of Q20/Q33/Q38. The refusal witnesses in tests/boolean-flag-contract.test.js are no longer todo. Nothing in the build reads this file.",
+  "valueRules": {
+    "accepted": "exactly the booleans true and false",
+    "rejected": "every other PRESENT value: null; every number, 0 and 1 included; every string, including \"\", \"true\", \"false\", \"0\" and \"1\"; arrays; objects",
+    "coercion": "never. Truthiness is the defect, and Boolean(value) is the same defect written differently: Boolean(\"false\") is true. A legacy non-boolean encoding is supported only through an explicit, versioned import migration.",
+    "null": "rejected, not treated as absent. Precedent, not a new choice: all three existing boolean checks already reject null (validateAdvancedBooleans() and the cashHolding check in src/scenario-validator.js, and accountContractCode() in src/engine.js).",
+    "absent": "legal. On the import route normalizedPlan() fills the documented default before anything reads the plan. On the engine routes an absent flag reads as false, which disagrees with the documented default wherever that default is true: see openQuestions.absentOnEngineRoutes."
+  },
+  "layers": {
+    "engine": {
+      "appliesTo": "flags whose reader is \"engine\"",
+      "refusalCode": "SCENARIO_NONBOOLEAN_FLAG",
+      "issue": "an ERROR issue carrying the refusal code, whose state.path names the offending flag, indexed for record fields (accounts[0].matchOn). A flag with its own refusalCode keeps its existing issue shape.",
+      "result": "the documented invalid-result shape every SCENARIO_* refusal already returns: calculationError true, calculationErrorCode set, rows null",
+      "routes": ["runPlan()", "runScenario()", "the generated Worker"],
+      "routesPending": "corrected 2026-09-14: the exported simulatePlan() and the historical heat map no longer bypass this gate. S5 2n.1 decided the gates move into simulatePlan() itself, which stays public, and 2n's repair landed the move -- both routes are covered now, not pending."
+    },
+    "validator": {
+      "appliesTo": "flags whose reader is \"engine\" or \"app\"",
+      "code": "WRONG_TYPE",
+      "severity": "ERROR",
+      "path": "the flag's indexed path, the form the validator already uses (accounts[0].cashHolding)"
+    },
+    "readers": {
+      "engine": "src/engine.js reads the flag, so a malformed value changes a projection",
+      "app": "only src/app-shell.html reads it, so a malformed value changes the app's behaviour but no projection; the engine boundary does not refuse it",
+      "migration": "normalizedPlan() overwrites it on every import before anything reads it; neither layer checks it"
+    }
+  },
+  "openQuestions": {
+    "absentOnEngineRoutes": "DECIDED 2026-09-13 (the owner): (b), the engine boundary applies the documented default -- same decision as Q53's own resolution (a truly absent flag takes its documented default; a present non-boolean value is refused, never coerced; an explicit false is preserved). Repair landed in S5 2l.2 (corrected 2026-09-14; this field previously read \"not yet landed\") -- whether witnesses for the five default-true flags were added per this contract's own §8 has not been independently re-verified here. (As it stood before the decision:) OPEN, not decided in S4 (ground rule 8); for the owner before S5 2l.2. The engine routes apply no defaults, so an absent flag reads as false. That matches the documented default for every default-false flag, and does not for the five flags whose default is true: advanced.debts[].includePayment, retirement.guytonSkipInflation, retirement.irmaaGuard, retirement.rmdSmoothing, and advanced.debts[].includeHousingCosts on a mortgage. Measured at ba657e2 in a setup where true and false diverge: absent gives the false result for all five. The import route is unaffected, because normalizedPlan() fills defaults. Options: (a) the engine boundary refuses a plan missing an engine-read flag; (b) the engine boundary applies the documented default; (c) absent stays false on engine routes, documented as the direct caller's responsibility. (b) and (c) give different results for a direct caller that omits a default-true flag; (a) turns that call into a refusal."
+  },
+  "flags": [
+    { "path": "accounts[].cashHolding", "default": false, "defaultSource": "none: normalizeAccount() does not fill it, and absent means not a household cash holding (isHouseholdCashHolding() requires === true)", "reader": "engine", "refusalCode": "SCENARIO_INVALID_CASH_HOLDING", "refusalNote": "Already enforced at both layers for type. Its category contract also refuses true off the taxable class or cash basis; that is RB-02's rule, not this file's." },
+    { "path": "accounts[].matchOn", "default": false, "defaultSource": "normalizeAccount()", "reader": "engine" },
+    { "path": "accounts[].matchRoth", "default": false, "defaultSource": "none: absent means the employer match keeps its statutory default, which is PRE-TAX. Under SECURE 2.0 section 604 a designated Roth match exists only by the employee's own election (IRS Notice 2024-2, section L answer 1), so absent and false are the same fact and neither needs filling in.", "reader": "engine", "refusalNote": "S5AA task 4.5 (Q96, F10). The election is refused on the merits as well as on type: Notice 2024-2, section L answer 3 permits it only if the employee is fully vested in matching contributions at allocation, so employerMatchIsRoth() requires vesting === 100 and a partially vested match falls back to pre-tax." },
+    { "path": "accounts[].fivePercentOwner", "default": false, "defaultSource": "none: absent means not a 5-percent owner (rmdObligations() asks === true)", "reader": "engine", "refusalNote": "S5AA R43 (SA42F-07): added to the contract. A string was read backwards by the engine (\"true\" took the RMD away) while the validator refused it." },
+    { "path": "accounts[].spouseSoleBeneficiary", "default": true, "defaultSource": "none: absent means the spouse is the sole beneficiary, as MODEL_ASSUMPTIONS 18.1 assumes (rmdObligations() asks === false)", "reader": "engine", "refusalNote": "S5AA R43 (SA42F-07): added to the contract. \"false\" chose Table II where the Uniform table applies." },
+    { "path": "accounts[].planOffersRoth", "default": true, "defaultSource": "none: absent means the workplace plan lets participants make designated Roth deferrals, the owner's default (auditContributions() asks === false)", "reader": "engine", "refusalNote": "S5AA R47 (AA1-13, the owner 2026-10-03): IRC 414(v)(7)(B). When the high-earner Roth catch-up rule applies to the participant, a plan that offers no designated Roth deferrals allows no catch-up, so false turns that catch-up into a limit excess." },
+    { "path": "accounts[].currentEmployerPlan", "default": false, "defaultSource": "none: absent is a derived reading, not a fixed value -- rmdObligations() and earlyWithdrawalPenaltyRate() read it as yes when the account receives contributions (a deferral, a match or profit sharing) and as no otherwise -- so nothing fills it", "reader": "engine", "refusalNote": "S5AA R43 (SA42F-07): added to the contract. \"false\" waived the 10% under the Rule of 55 while the RMD test read the same string the other way." },
+    { "path": "advanced.armRecastOnReset", "default": false, "defaultSource": "defaultPlan", "reader": "engine", "refusalNote": "S5AA task 5.1 (Q94, F8): RETIRED AS A SWITCH. An adjustable-rate loan now always re-amortises at its reset, as a real one does, so nothing reads this any more. The field is KEPT in the default plan and still type-checked, for two reasons: a saved scenario that carries it must still import, and removing it from the default plan changes every generated corpus scenario's input hash -- a versioned corpus change that belongs with task 6.2 and not here. Its removal is logged as a follow-up. The engine still READS it, for one purpose only: a plan that carries it and holds an adjustable-rate debt is told its projection has moved. That read is what keeps the validator's type check on it, which is FM-09's repair and is not given up." },
+    { "path": "advanced.assetsOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.bondTentOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.conversionOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.debts[].includeHousingCosts", "default": { "dependsOn": "type", "trueFor": ["mortgage"] }, "defaultSource": "normalizeDebt()", "reader": "engine" },
+    { "path": "advanced.debts[].includePayment", "default": true, "defaultSource": "normalizeDebt()", "reader": "engine" },
+    { "path": "advanced.debts[].taxDeductible", "default": { "dependsOn": "type", "trueFor": ["heloc", "mortgage"] }, "defaultSource": "normalizeDebt()", "reader": "app" },
+    { "path": "advanced.glideOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.healthOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.ltcOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.networthOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.otherAssets[].available", "default": false, "defaultSource": "normalizeOtherAsset()", "reader": "engine" },
+    { "path": "advanced.penaltyException", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.reserveOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.rmdOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.rule55", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.transferOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "advanced.v210Migrated", "default": false, "defaultSource": "none: normalizedPlan() sets it true after running the v2.1.0 home and debt migration, and absent means that migration has not run", "reader": "app" },
+    { "path": "assumptions.rollingHistory", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "profile.communityProperty", "default": false, "defaultSource": "none: absent means the household's property is not modelled as community property (the succession asks === true); the default plan does not carry it", "reader": "engine", "refusalNote": "S5AA R48 (AA1-20; the owner's AA1 decision of 2026-10-03): the plan-level Arizona community-property switch. True resets the whole basis of the joint and both spouses' own taxable accounts at the first death (IRC 1014(b)(6))." },
+    { "path": "profile.spouseOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.dividendOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.guytonSkipInflation", "default": true, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.homeEquityFallback", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.incomeOffset", "default": true, "defaultSource": "defaultPlan", "reader": "migration" },
+    { "path": "retirement.irmaaGuard", "default": true, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.preserveRoth", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.rmdSmoothing", "default": true, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.ssAdvanced", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "retirement.survivor", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "setupComplete", "default": false, "defaultSource": "defaultPlan", "reader": "app" }
+  ]
+}

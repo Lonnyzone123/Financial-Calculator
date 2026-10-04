@@ -1233,8 +1233,16 @@
               "state": {
                 "kind": "object",
                 "fields": {
+                  "approximation": {
+                    "kind": "boolean",
+                    "optional": true
+                  },
                   "filing": {
                     "kind": "string",
+                    "optional": true
+                  },
+                  "firstOwnerAge": {
+                    "kind": "number",
                     "optional": true
                   },
                   "horizonEndAge": {
@@ -1250,6 +1258,10 @@
                     "element": {
                       "kind": "string"
                     },
+                    "optional": true
+                  },
+                  "owner": {
+                    "kind": "string",
                     "optional": true
                   },
                   "path": {

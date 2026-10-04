@@ -1,0 +1,12 @@
+== generated 1-120: 120 plans; warned today 1 (seed 120)
+   today, validator against the engine condition: agree on all
+   R51 moves: none
+== generated 500-579: 80 plans; warned today 3 (seed 533, seed 539, seed 578)
+   today, validator against the engine condition: agree on all
+   R51 moves: none
+== corpus control: 36 plans; warned today 0 ()
+   today, validator against the engine condition: agree on all
+   R51 moves: none
+== corpus expanded: 71 plans; warned today 0 ()
+   today, validator against the engine condition: agree on all
+   R51 moves: none

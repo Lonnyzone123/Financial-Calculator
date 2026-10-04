@@ -1,0 +1,166 @@
+TAP version 13
+# Subtest: R51 AA1-25(c): a blank flexibility field reads as 0, not 10
+ok 1 - R51 AA1-25(c): a blank flexibility field reads as 0, not 10
+  ---
+  duration_ms: 1265.1643
+  type: 'test'
+  ...
+# Subtest: R51 AA1-13: a traditional 401(k) shows "This plan offers Roth contributions", checked when the field is absent
+ok 2 - R51 AA1-13: a traditional 401(k) shows "This plan offers Roth contributions", checked when the field is absent
+  ---
+  duration_ms: 389.5063
+  type: 'test'
+  ...
+# Subtest: R51 AA1-13: unchecking stores planOffersRoth false, checking again stores true
+ok 3 - R51 AA1-13: unchecking stores planOffersRoth false, checking again stores true
+  ---
+  duration_ms: 1803.6752
+  type: 'test'
+  ...
+# Subtest: R51 AA1-13: a plan stored with planOffersRoth false shows the box unchecked
+ok 4 - R51 AA1-13: a plan stored with planOffersRoth false shows the box unchecked
+  ---
+  duration_ms: 313.1022
+  type: 'test'
+  ...
+# Subtest: R51 AA1-25(c): the default plan carries no spending flexibility
+ok 5 - R51 AA1-25(c): the default plan carries no spending flexibility
+  ---
+  duration_ms: 0.8579
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: claiming at 70, Medicare starts at 69.5 -- the pre-Medicare cost runs until then, half a year of each in the row 69 -> 70
+ok 6 - R51 AA1-32: claiming at 70, Medicare starts at 69.5 -- the pre-Medicare cost runs until then, half a year of each in the row 69 -> 70
+  ---
+  duration_ms: 11.7866
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32 controls: a claim at 65, or a later claim with no benefit entered, keeps Medicare at 65
+ok 7 - R51 AA1-32 controls: a claim at 65, or a later claim with no benefit entered, keeps Medicare at 65
+  ---
+  duration_ms: 4.2543
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: an entered Medicare start age is the date for the charge too
+ok 8 - R51 AA1-32: an entered Medicare start age is the date for the charge too
+  ---
+  duration_ms: 1.4431
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: in a couple each person starts at their own Medicare date
+ok 9 - R51 AA1-32: in a couple each person starts at their own Medicare date
+  ---
+  duration_ms: 1.6757
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: R43's idle spouse is charged Medicare only from the spouse's own Medicare date
+ok 10 - R51 AA1-32: R43's idle spouse is charged Medicare only from the spouse's own Medicare date
+  ---
+  duration_ms: 1.9241
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32 control: an idle spouse already past their Medicare start is charged in full, as before
+ok 11 - R51 AA1-32 control: an idle spouse already past their Medicare start is charged in full, as before
+  ---
+  duration_ms: 0.8943
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: a spouse who reaches 65 inside a row starts Medicare there, not at the next row
+ok 12 - R51 AA1-32: a spouse who reaches 65 inside a row starts Medicare there, not at the next row
+  ---
+  duration_ms: 0.7015
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: the IRMAA first-years disclosure and its validator mirror follow the Medicare date
+ok 13 - R51 AA1-32: the IRMAA first-years disclosure and its validator mirror follow the Medicare date
+  ---
+  duration_ms: 2.2695
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32 control: claiming at 65 the IRMAA first-years disclosure and the validator prompt still apply at 66
+ok 14 - R51 AA1-32 control: claiming at 65 the IRMAA first-years disclosure and the validator prompt still apply at 66
+  ---
+  duration_ms: 1.0905
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: the partial-first-year IRMAA disclosure asks whether plan year 2 holds a Medicare start
+ok 15 - R51 AA1-32: the partial-first-year IRMAA disclosure asks whether plan year 2 holds a Medicare start
+  ---
+  duration_ms: 2.2976
+  type: 'test'
+  ...
+# Subtest: R51 AA1-32: the app says the Medicare start ages set when Medicare costs start, as well as the HSA stop
+ok 16 - R51 AA1-32: the app says the Medicare start ages set when Medicare costs start, as well as the HSA stop
+  ---
+  duration_ms: 0.6486
+  type: 'test'
+  ...
+# Subtest: R51 AA1-07: an employment stream is pay -- $30,000 salary plus a $40,000 job covers $36,000 of payments
+ok 17 - R51 AA1-07: an employment stream is pay -- $30,000 salary plus a $40,000 job covers $36,000 of payments
+  ---
+  duration_ms: 2.8436
+  type: 'test'
+  ...
+# Subtest: R51 AA1-07: a $12,000 job counts net of its payroll and income tax -- short 720.50
+ok 18 - R51 AA1-07: a $12,000 job counts net of its payroll and income tax -- short 720.50
+  ---
+  duration_ms: 11.9607
+  type: 'test'
+  ...
+# Subtest: R51 AA1-07: $12,000 of self-employment profit, net of its SE and income tax, leaves 1,107.47 short
+ok 19 - R51 AA1-07: $12,000 of self-employment profit, net of its SE and income tax, leaves 1,107.47 short
+  ---
+  duration_ms: 1.7336
+  type: 'test'
+  ...
+# Subtest: R51 AA1-07: $10,000 of self-employment profit leaves 2,599.97 short
+ok 20 - R51 AA1-07: $10,000 of self-employment profit leaves 2,599.97 short
+  ---
+  duration_ms: 1.2071
+  type: 'test'
+  ...
+# Subtest: R51 AA1-07 controls: with no stream, or a stream that is not pay (rental), the shortfall is the salary's, 10,062.50
+ok 21 - R51 AA1-07 controls: with no stream, or a stream that is not pay (rental), the shortfall is the salary's, 10,062.50
+  ---
+  duration_ms: 1.9939
+  type: 'test'
+  ...
+# Subtest: R51 AA1-07: the warning says employment and self-employment streams count as pay
+ok 22 - R51 AA1-07: the warning says employment and self-employment streams count as pay
+  ---
+  duration_ms: 1.4231
+  type: 'test'
+  ...
+# Subtest: R51 addendum: a Roth IRA whose next dollar is contribution basis costs nothing -- drawn before an early IRA draw
+ok 23 - R51 addendum: a Roth IRA whose next dollar is contribution basis costs nothing -- drawn before an early IRA draw
+  ---
+  duration_ms: 1.1993
+  type: 'test'
+  ...
+# Subtest: R51 addendum control: a Roth IRA of earnings only costs 30 + 45 -- it stays behind the early IRA draw, as before
+ok 24 - R51 addendum control: a Roth IRA of earnings only costs 30 + 45 -- it stays behind the early IRA draw, as before
+  ---
+  duration_ms: 0.8411
+  type: 'test'
+  ...
+# Subtest: R51 addendum: when the class's next account is a Roth 401(k), the next dollar costs nothing as modelled
+ok 25 - R51 addendum: when the class's next account is a Roth 401(k), the next dollar costs nothing as modelled
+  ---
+  duration_ms: 0.783
+  type: 'test'
+  ...
+# Subtest: R51 addendum control: a qualified owner's Roth weighs nothing either way -- at 60 the IRA (no 10%) is drawn first
+ok 26 - R51 addendum control: a qualified owner's Roth weighs nothing either way -- at 60 the IRA (no 10%) is drawn first
+  ---
+  duration_ms: 0.6717
+  type: 'test'
+  ...
+1..26
+# tests 26
+# suites 0
+# pass 26
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4402.8467

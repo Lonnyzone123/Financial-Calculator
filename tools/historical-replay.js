@@ -31,8 +31,8 @@
  * WHERE THE HISTORICAL SOURCE COMES FROM, in this order:
  *   1. a reference tree the caller names (options.referenceTree, --reference-tree, or CORPUS_REFERENCE_TREE); when one
  *      is named, nothing else is tried;
- *   2. this repository's git objects (the S5 control's commit is kept reachable by the local tag
- *      s5-u4-successor-control; a fresh clone carries it only if that tag was fetched);
+ *   2. this repository's git objects (the control's commit, b722884 since S5AA R51, is on the branch history; the S5
+ *      control's was kept by the private archive's local tag s5-u4-successor-control);
  *   3. reference-trees/<full commit>/ at the repository root, written by `materialize` for a source archive, which has
  *      no git objects.
  * A reference tree is verified file by file against the same recorded hashes, so a tree holding anything but the

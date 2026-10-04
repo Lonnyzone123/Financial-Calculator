@@ -1309,7 +1309,27 @@ function validatePlanValueContract(c, plan) {
    IRMAA_PRE_PLAN_MAGI_ASSUMED. The prompt fires where that assumption is used: health costs on, someone alive and 65 or older at the
    opening of plan year 0 or 1 with the household retired inside that row -- the engine's own condition (simulatePlanRows()'s disclosure),
    mirrored here, with the household date read as householdRetireAge() reads it (R45: the first stop; an entered spending start replaces it)
-   -- and either of the two incomes blank. A WARNING: the plan runs. */
+   -- and either of the two incomes blank. A WARNING: the plan runs.
+   S5AA R51 (the owner, 2026-10-03: "one Medicare date"): "65 or older" is now each person's Medicare start, as the engine's
+   medicareStartAge() reads it -- an entered profile.medicareStartAge / spouseMedicareStartAge; else 65 when no benefit is modelled or the
+   claim (no earlier than 62) is at 65 or before; else the claim less half a year -- and a person counts in a row when their Medicare span
+   there is positive: at or past the start at the opening, or reaching it before the row ends (medicareSpanInRow()). */
+function medicareStartMirror(plan, owner) {
+  const profile = isPlainObject(plan.profile) ? plan.profile : {}, r = isPlainObject(plan.retirement) ? plan.retirement : {};
+  const o = owner === 'spouse' ? profile.spouseMedicareStartAge : profile.medicareStartAge;
+  if (isFiniteNumber(o)) return o;
+  const dime = (x) => Math.floor(Math.max(0, Number(x) || 0) * 10 + 1e-6) / 10;
+  let benefit;
+  if (owner !== 'spouse' && r.ssAdvanced && r.aime > 0) {
+    // the PIA's first segment (90% of the AIME, indexed to the year of 62 by the salary growth) decides whether any benefit is modelled
+    const employment = isPlainObject(plan.employment) ? plan.employment : {}, age = Number(profile.age);
+    const w = Math.pow(Math.max(0.01, 1 + (Number(employment.growth) || 0) / 100), 62 - Math.floor(Number.isFinite(age) ? age : 62));
+    benefit = dime(0.9 * r.aime * w);
+  } else benefit = dime(owner === 'spouse' ? r.spouseSS : r.ssBenefit);
+  if (!(benefit > 0)) return 65;
+  const claim = Math.max(62, Number(owner === 'spouse' ? r.spouseClaim : r.ssClaim));
+  return !Number.isFinite(claim) || claim <= 65 ? 65 : Math.max(65, claim - 0.5);
+}
 function validateIrmaaPriorIncome(c, plan) {
   const profile = isPlainObject(plan.profile) ? plan.profile : {}, advanced = isPlainObject(plan.advanced) ? plan.advanced : {};
   const retirement = isPlainObject(plan.retirement) ? plan.retirement : {}, employment = isPlainObject(plan.employment) ? plan.employment : {};
@@ -1337,14 +1357,14 @@ function validateIrmaaPriorIncome(c, plan) {
   const aliveAt = (a) => ({ self: !(selfLife < a), spouse: couple && !(spouseLife < sa + (a - start)) });
   let reaches = end;
   for (let b = start; b < end; b = Math.floor(b + 1e-9) + 1) { const w = aliveAt(b); if (!w.self && !w.spouse) { reaches = b; break; } }
-  const openings = [start, Math.floor(start) + 1];
+  const openings = [start, Math.floor(start) + 1], selfStart = medicareStartMirror(plan, 'self'), spouseStart = medicareStartMirror(plan, 'spouse');
   for (let i = 0; i < openings.length; i++) {
     const opening = openings[i], rowEnds = i === 0 ? Math.min(Math.floor(start) + 1, reaches) : Math.min(Math.floor(start) + 2, reaches);
     if (!(rowEnds > opening) || !(household < rowEnds)) continue;
-    const w = aliveAt(opening);
-    if ((w.self && opening >= 65) || (w.spouse && sa + (opening - start) >= 65)) {
+    const w = aliveAt(opening), d = rowEnds - opening, onMedicare = (a, s) => a >= s || a + d > s;
+    if ((w.self && onMedicare(opening, selfStart)) || (w.spouse && onMedicare(sa + (opening - start), spouseStart))) {
       c.warn('IRMAA_PRIOR_INCOME_BLANK', blank(advanced.irmaaMagiTwoYearsBefore) ? 'advanced.irmaaMagiTwoYearsBefore' : 'advanced.irmaaMagiOneYearBefore',
-        'Health costs are on and someone is 65 or older and retired in the plan\'s first two years, but the income (MAGI) on ' +
+        'Health costs are on and someone\'s Medicare has started while the household is retired in the plan\'s first two years, but the income (MAGI) on ' +
         (blank(advanced.irmaaMagiTwoYearsBefore) && blank(advanced.irmaaMagiOneYearBefore) ? 'the two tax returns before the plan is' : blank(advanced.irmaaMagiTwoYearsBefore) ? 'the tax return two years ago is' : 'last year\'s tax return is') +
         ' blank. Medicare\'s income-related surcharge (IRMAA) reads the return from two years earlier; a blank year is assumed to be below the first surcharge tier.');
       return;

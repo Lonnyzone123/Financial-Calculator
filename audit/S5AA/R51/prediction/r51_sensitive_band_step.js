@@ -1,0 +1,7 @@
+// S5AA R51: one step of the sensitive-band grid: success, final total, lifetime taxes, and success at half and 1.5x volatility. Run inside a tree. Usage: node r51_sensitive_band_step.js <step>
+const fs=require('fs'),path=require('path');const SHELL=fs.readFileSync('src/app-shell.html','utf8');global.RULES=JSON.parse(SHELL.match(/<script type="application\/json" id="v2b-rules-2026">([\s\S]*?)<\/script>/)[1]);
+require(path.resolve('tools/capture-baseline.js')).installDebtModules();const engine=require(path.resolve('src/engine.js'));const golden=require(path.resolve('tests/lib/golden-scenario-defs.js'));
+const D=golden.extractDefaultPlan(SHELL);const def=golden.GOLDEN_SCENARIOS.find(([n])=>n==='monte-carlo-fixed-seed');const g=golden.buildScenario(D,def[1]||{});
+const step=+process.argv[2];const p=JSON.parse(JSON.stringify(g));p.retirement.spending=Math.round(g.retirement.spending*(1+0.05*step)*100)/100;
+const r=engine.runPlan(JSON.parse(JSON.stringify(p)));console.log('step',step,'spending',p.retirement.spending,'success',r.successRate,'final',r.rows[r.rows.length-1].total.toFixed(2),'lifetimeTaxes',r.lifetimeTaxes.toFixed(2));
+for(const k of [0.5,1.5]){const q=JSON.parse(JSON.stringify(p));q.assumptions.volatility=p.assumptions.volatility*k;if(q.advanced.assetClasses)q.advanced.assetClasses=q.advanced.assetClasses.map(c=>Object.assign({},c,{volatility:c.volatility*k}));console.log(' volatility x'+k,engine.runPlan(q).successRate)}

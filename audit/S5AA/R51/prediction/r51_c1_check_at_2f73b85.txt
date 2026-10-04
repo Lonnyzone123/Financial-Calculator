@@ -1,0 +1,5 @@
+(a) health: 13 corpus plans with health on, 3427 rows (all paths): the scan equals the engine in every row
+(c) working-years issue: 107 corpus plans: the engine's issue equals the first tapped row with R51 pay below zero on every plan
+(b) generated 1-120: 114 plans run; validator warns on 1; agrees with the engine on all
+(b) generated 500-579: 78 plans run; validator warns on 3; agrees with the engine on all
+(b) corpus: 107 plans run; validator warns on 0; agrees with the engine on all

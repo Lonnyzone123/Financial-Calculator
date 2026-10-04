@@ -1,0 +1,4 @@
+golden:monte-carlo-fixed-seed -- flexibility 10 -> 0, spending 60000 -> 60000; paths 500, changed 500 | published result equal: false | success 96.8 -> 95.8, final total 179657969.08 -> 176871037.76, lifetime taxes 2512709.86 -> 2585931.82
+seed:9 -- flexibility 22 -> 22, spending 36942.1 -> 36942.1; paths 52, changed 0 | published result equal: true | success 100 -> 100, final total 3720575.66 -> 3720575.66, lifetime taxes 6346640.08 -> 6346640.08
+seed:17 -- flexibility 2 -> 2, spending 41846.39 -> 41846.39; paths 24, changed 0 | published result equal: true | success 4.166666666666666 -> 4.166666666666666, final total 441725.26 -> 441725.26, lifetime taxes 808265.81 -> 808265.81
+expansion:monte-carlo-sensitive-band -- flexibility 10 -> 0, spending 102000 -> 96000; paths 500, changed 500 | published result equal: false | success 84.2 -> 85, final total 116536399.93 -> 119653546.22, lifetime taxes 4115471.87 -> 3924772.11

@@ -1,0 +1,163 @@
+# R51 addendum witnesses on 678c60f (no src edit for the addendum), 2026-10-03 11:22 PM Arizona
+5309b154b6c0a2a166a88f358a3c74c7842fd77d7b9a91488a6303bc394ef0a9 *tests/audit-s5aa-r51-owner-follow-ups.test.js
+✔ R51 AA1-25(c): the default plan carries no spending flexibility (0.8568ms)
+✔ R51 AA1-32: claiming at 70, Medicare starts at 69.5 -- the pre-Medicare cost runs until then, half a year of each in the row 69 -> 70 (12.6575ms)
+✔ R51 AA1-32 controls: a claim at 65, or a later claim with no benefit entered, keeps Medicare at 65 (4.1492ms)
+✔ R51 AA1-32: an entered Medicare start age is the date for the charge too (1.3124ms)
+✔ R51 AA1-32: in a couple each person starts at their own Medicare date (1.5395ms)
+✔ R51 AA1-32: R43's idle spouse is charged Medicare only from the spouse's own Medicare date (2.0413ms)
+✔ R51 AA1-32 control: an idle spouse already past their Medicare start is charged in full, as before (0.9252ms)
+✔ R51 AA1-32: a spouse who reaches 65 inside a row starts Medicare there, not at the next row (0.7175ms)
+✔ R51 AA1-32: the IRMAA first-years disclosure and its validator mirror follow the Medicare date (2.3003ms)
+✔ R51 AA1-32 control: claiming at 65 the IRMAA first-years disclosure and the validator prompt still apply at 66 (1.404ms)
+✔ R51 AA1-32: the partial-first-year IRMAA disclosure asks whether plan year 2 holds a Medicare start (2.1632ms)
+✔ R51 AA1-32: the app says the Medicare start ages set when Medicare costs start, as well as the HSA stop (0.7158ms)
+✔ R51 AA1-07: an employment stream is pay -- $30,000 salary plus a $40,000 job covers $36,000 of payments (3.055ms)
+✖ R51 AA1-07: a $12,000 job counts net of its payroll and income tax -- short 720.50 (1.7864ms)
+✖ R51 AA1-07: $12,000 of self-employment profit, net of its SE and income tax, leaves 1,107.47 short (1.4615ms)
+✖ R51 AA1-07: $10,000 of self-employment profit leaves 2,599.97 short (11.3734ms)
+✔ R51 AA1-07 controls: with no stream, or a stream that is not pay (rental), the shortfall is the salary's, 10,062.50 (2.7516ms)
+✖ R51 AA1-07: the warning says employment and self-employment streams count as pay (1.6575ms)
+✖ R51 addendum: a Roth IRA whose next dollar is contribution basis costs nothing -- drawn before an early IRA draw (1.6529ms)
+✔ R51 addendum control: a Roth IRA of earnings only costs 30 + 45 -- it stays behind the early IRA draw, as before (0.6796ms)
+✖ R51 addendum: when the class's next account is a Roth 401(k), the next dollar costs nothing as modelled (0.7676ms)
+✔ R51 addendum control: a qualified owner's Roth weighs nothing either way -- at 60 the IRA (no 10%) is drawn first (0.6648ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 16
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 199.2418
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:182:1
+✖ R51 AA1-07: a $12,000 job counts net of its payroll and income tax -- short 720.50 (1.7864ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:186:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:190:1
+✖ R51 AA1-07: $12,000 of self-employment profit, net of its SE and income tax, leaves 1,107.47 short (1.4615ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:197:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:201:1
+✖ R51 AA1-07: $10,000 of self-employment profit leaves 2,599.97 short (11.3734ms)
+  AssertionError [ERR_ASSERTION]: short 1475.455
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:208:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:217:1
+✖ R51 AA1-07: the warning says employment and self-employment streams count as pay (1.6575ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /net of the payroll, self-employment and income tax it adds/. Input:
+  
+  "The working years are not funded by pay: at age 50 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $10,063. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of its payroll and self-employment tax."
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:221:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "The working years are not funded by pay: at age 50 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $10,063. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary and any employment and self-employment income paid while working, net of its payroll and self-employment tax.",
+    expected: /net of the payroll, self-employment and income tax it adds/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:240:1
+✖ R51 addendum: a Roth IRA whose next dollar is contribution basis costs nothing -- drawn before an early IRA draw (1.6529ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   100000,
+  +   100000
+  -   80000,
+  -   60000
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:244:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 100000, 100000 ],
+    expected: [ 80000, 60000 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:254:1
+✖ R51 addendum: when the class's next account is a Roth 401(k), the next dollar costs nothing as modelled (0.7676ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  100000 !== 80000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:259:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 100000,
+    expected: 80000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

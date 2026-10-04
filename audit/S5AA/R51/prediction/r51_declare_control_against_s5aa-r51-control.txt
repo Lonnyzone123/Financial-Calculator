@@ -1,0 +1,27 @@
+found       : 21
+undeclared  : 21
+notFound    : 0
+scenarios   : 11 ["golden:monte-carlo-fixed-seed","seed:10","seed:12","seed:14","seed:15","seed:16","seed:2","seed:20","seed:3","seed:4","targeted:arm-flag-on"]
+undeclared by scenario: {"golden:monte-carlo-fixed-seed":11,"seed:2":1,"seed:3":1,"seed:4":1,"seed:10":1,"seed:12":1,"seed:14":1,"seed:15":1,"seed:16":1,"seed:20":1,"targeted:arm-flag-on":1}
+undeclared fields: 20
+  golden:monte-carlo-fixed-seed issues x1
+  golden:monte-carlo-fixed-seed rows[].federalAgi x1
+  golden:monte-carlo-fixed-seed rows[].irmaaMagi x1
+  golden:monte-carlo-fixed-seed rows[].magi x1
+  golden:monte-carlo-fixed-seed rows[].niitMagi x1
+  golden:monte-carlo-fixed-seed rows[].q10 x2
+  golden:monte-carlo-fixed-seed rows[].seniorDeductionMagi x1
+  golden:monte-carlo-fixed-seed rows[].ssProvisionalIncome x1
+  golden:monte-carlo-fixed-seed rows[].taxes x1
+  golden:monte-carlo-fixed-seed rows[].withdrawals x1
+  seed:10 issues[].message x1
+  seed:12 issues[].message x1
+  seed:14 issues[].message x1
+  seed:15 issues[].message x1
+  seed:16 rows[].spending x1
+  seed:2 issues[].message x1
+  seed:20 issues[].message x1
+  seed:3 issues[].message x1
+  seed:4 issues[].message x1
+  targeted:arm-flag-on issues[].message x1
+written: 21 added, 0 removed (0 replaced in place)

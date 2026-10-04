@@ -1,0 +1,4 @@
+golden:monte-carlo-fixed-seed: flexibility 10; runs 500; exposed paths 500; every path exposed
+seed:9: flexibility 22; runs 52; exposed paths 34; not exposed (18): 4,5,7,11,12,16,21,24,25,26,27,30,32,33,37,39,48,50
+seed:17: flexibility 2; runs 24; exposed paths 23; not exposed (1): 15
+expansion:monte-carlo-sensitive-band: flexibility 10; runs 500; exposed paths 500; every path exposed

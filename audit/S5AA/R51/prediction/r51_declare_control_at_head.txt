@@ -1,0 +1,1 @@
+REFUSED -- the stored control capture and this tree ran different corpus inputs; nothing declared: the two sides captured different corpus inputs, so their outputs are not comparable (for example golden:baseline, golden:monte-carlo-fixed-seed, golden:rmd-and-roth-conversion, golden:reserve-and-bond-tent, golden:guardrails-withdrawal-strategy)

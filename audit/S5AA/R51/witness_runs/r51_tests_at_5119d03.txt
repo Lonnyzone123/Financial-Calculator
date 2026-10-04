@@ -1,0 +1,398 @@
+# R51 witnesses run on the base 5119d03 (no src edit), 2026-10-03 07:50 PM Arizona
+532e14a109aed120bb9babeb771fe929990e794094e2522f2912c9da579ac10d *tests/audit-s5aa-r51-owner-follow-ups.test.js
+3756f5074a165c81e49ac8d0c6d168240656c5c2461833256e7a6ae80c8103cc *tests/audit-s5aa-r51-app-inputs.test.js
+✖ R51 AA1-25(c): a blank flexibility field reads as 0, not 10 (1317.2134ms)
+✖ R51 AA1-13: a traditional 401(k) shows "This plan offers Roth contributions", checked when the field is absent (412.6298ms)
+✖ R51 AA1-13: unchecking stores planOffersRoth false, checking again stores true (355.0224ms)
+✖ R51 AA1-13: a plan stored with planOffersRoth false shows the box unchecked (343.8154ms)
+✖ R51 AA1-25(c): the default plan carries no spending flexibility (1.2668ms)
+✖ R51 AA1-32: claiming at 70, Medicare starts at 69.5 -- the pre-Medicare cost runs until then, half a year of each in the row 69 -> 70 (13.143ms)
+✔ R51 AA1-32 controls: a claim at 65, or a later claim with no benefit entered, keeps Medicare at 65 (4.3748ms)
+✖ R51 AA1-32: an entered Medicare start age is the date for the charge too (1.8241ms)
+✖ R51 AA1-32: in a couple each person starts at their own Medicare date (2.151ms)
+✖ R51 AA1-32: R43's idle spouse is charged Medicare only from the spouse's own Medicare date (2.4757ms)
+✔ R51 AA1-32 control: an idle spouse already past their Medicare start is charged in full, as before (1.0237ms)
+✖ R51 AA1-32: a spouse who reaches 65 inside a row starts Medicare there, not at the next row (0.8961ms)
+✖ R51 AA1-32: the IRMAA first-years disclosure and its validator mirror follow the Medicare date (1.1857ms)
+✔ R51 AA1-32 control: claiming at 65 the IRMAA first-years disclosure and the validator prompt still apply at 66 (1.4194ms)
+✖ R51 AA1-32: the partial-first-year IRMAA disclosure asks whether plan year 2 holds a Medicare start (1.1453ms)
+✖ R51 AA1-32: the app says the Medicare start ages set when Medicare costs start, as well as the HSA stop (0.2941ms)
+✖ R51 AA1-07: an employment stream is pay -- $30,000 salary plus a $40,000 job covers $36,000 of payments (13.5139ms)
+✖ R51 AA1-07: self-employment counts net of its SE tax -- $12,000 of profit just covers the gap (2.7692ms)
+✖ R51 AA1-07: $10,000 of self-employment profit leaves a smaller shortfall, 1,475.46 (1.6259ms)
+✔ R51 AA1-07 controls: with no stream, or a stream that is not pay (rental), the shortfall is the salary's, 10,062.50 (2.2212ms)
+✖ R51 AA1-07: the warning says employment and self-employment streams count as pay (1.4406ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 4
+ℹ fail 17
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3118.188
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r51-app-inputs.test.js:48:1
+✖ R51 AA1-25(c): a blank flexibility field reads as 0, not 10 (1317.2134ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  10 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-app-inputs.test.js:60:12)
+      at runNextTicks (node:internal/process/task_queues:65:5)
+      at process.processTimers (node:internal/timers:538:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-app-inputs.test.js:64:1
+✖ R51 AA1-13: a traditional 401(k) shows "This plan offers Roth contributions", checked when the field is absent (412.6298ms)
+  AssertionError [ERR_ASSERTION]: one checkbox: the 401(k) only (not the Roth IRA or the brokerage account)
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-app-inputs.test.js:69:12)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-app-inputs.test.js:74:1
+✖ R51 AA1-13: unchecking stores planOffersRoth false, checking again stores true (355.0224ms)
+  TypeError: Cannot set properties of undefined (setting 'checked')
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-app-inputs.test.js:80:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tests\audit-s5aa-r51-app-inputs.test.js:88:1
+✖ R51 AA1-13: a plan stored with planOffersRoth false shows the box unchecked (343.8154ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-app-inputs.test.js:93:12)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:52:1
+✖ R51 AA1-25(c): the default plan carries no spending flexibility (1.2668ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  10 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:54:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:70:1
+✖ R51 AA1-32: claiming at 70, Medicare starts at 69.5 -- the pre-Medicare cost runs until then, half a year of each in the row 69 -> 70 (13.143ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  -   12000,
+  -   12000,
+  -   12000,
+  -   7592.84,
+      3185.68,
+  +   3185.68,
+  +   3185.68,
+  +   3185.68,
+  +   3185.68
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:74:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3185.68, 3185.68, 3185.68, 3185.68, 3185.68 ],
+    expected: [ 12000, 12000, 12000, 7592.84, 3185.68 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:82:1
+✖ R51 AA1-32: an entered Medicare start age is the date for the charge too (1.8241ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  -   12000,
+      3185.68,
+      3185.68,
+  +   3185.68
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:84:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3185.68, 3185.68, 3185.68 ],
+    expected: [ 12000, 3185.68, 3185.68 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:86:1
+✖ R51 AA1-32: in a couple each person starts at their own Medicare date (2.151ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  -   9185.68,
+  -   7778.52,
+      6371.36,
+  +   6371.36,
+  +   6371.36
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:95:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 6371.36, 6371.36, 6371.36 ],
+    expected: [ 9185.68, 7778.52, 6371.36 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:97:1
+✖ R51 AA1-32: R43's idle spouse is charged Medicare only from the spouse's own Medicare date (2.4757ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   3185.68,
+  +   3185.68,
+  +   3185.68,
+  +   3185.68
+  -   0,
+  -   0,
+  -   0,
+  -   1592.84
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:106:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3185.68, 3185.68, 3185.68, 3185.68 ],
+    expected: [ 0, 0, 0, 1592.84 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:116:1
+✖ R51 AA1-32: a spouse who reaches 65 inside a row starts Medicare there, not at the next row (0.8961ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   12000,
+  -   10592.84,
+      9185.68
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:122:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 12000, 9185.68 ],
+    expected: [ 10592.84, 9185.68 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:124:1
+✖ R51 AA1-32: the IRMAA first-years disclosure and its validator mirror follow the Medicare date (1.1857ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:128:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:140:1
+✖ R51 AA1-32: the partial-first-year IRMAA disclosure asks whether plan year 2 holds a Medicare start (1.1453ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:143:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:147:1
+✖ R51 AA1-32: the app says the Medicare start ages set when Medicare costs start, as well as the HSA stop (0.2941ms)
+  AssertionError [ERR_ASSERTION]: v2-medicare-start: HSA contributions stop here. Blank: 65 if you claim Social Security by 65 (or have no benefit entered), otherwise half a year before your claim, because Part A is backdated up to six months.
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:150:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:172:1
+✖ R51 AA1-07: an employment stream is pay -- $30,000 salary plus a $40,000 job covers $36,000 of payments (13.5139ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:175:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:177:1
+✖ R51 AA1-07: self-employment counts net of its SE tax -- $12,000 of profit just covers the gap (2.7692ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:179:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:181:1
+✖ R51 AA1-07: $10,000 of self-employment profit leaves a smaller shortfall, 1,475.46 (1.6259ms)
+  AssertionError [ERR_ASSERTION]: short 10062.5
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:186:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r51-owner-follow-ups.test.js:195:1
+✖ R51 AA1-07: the warning says employment and self-employment streams count as pay (1.4406ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /employment and self-employment income/. Input:
+  
+  "The working years are not funded by pay: at age 50 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $10,063. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting."
+  
+      at TestContext.<anonymous> (C:\fc-wt-r51\tests\audit-s5aa-r51-owner-follow-ups.test.js:197:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "The working years are not funded by pay: at age 50 the year's pay, after payroll and income tax, does not cover the contributions and debt payments (with any mortgage insurance) made while working, by about $10,063. The plan has no budget for the working years, so it does not say where that money comes from; check the contributions and debt payments against take-home pay. Pay here is salary: an employment or self-employment income entered as an income source is outside income, kept or invested by the surplus setting.",
+    expected: /employment and self-employment income/,
+    operator: 'match',
+    diff: 'simple'
+  }

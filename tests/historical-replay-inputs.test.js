@@ -20,7 +20,11 @@ const path = require('node:path');
 const ROOT = path.join(__dirname, '..');
 const { capturingEngineAbsent } = require('./lib/historical-source.js');
 const tool = () => require('../tools/historical-replay.js');
-const stored = () => JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'baseline-20260914-s5-control.json'), 'utf8'));
+/* S5AA R51: the control named by tools/control-corpus.json (s5aa-r51-control since the owner's successor-control decision of
+   2026-10-03), as tests/lib/historical-source.js reads it; this read the S5 capture by name, which stood down here only while
+   that capture's commit was absent. */
+const CONTROL = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'control-corpus.json'), 'utf8'));
+const stored = () => JSON.parse(fs.readFileSync(path.join(ROOT, CONTROL.controlCapture.file), 'utf8'));
 const spec = () => JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'corpus-spec.json'), 'utf8'));
 
 test('question 10 (A): a replay whose plan inputs differ from the reviewed fingerprints is a provenance mismatch naming each scenario, and hands ROUND-TRIP nothing', () => {
