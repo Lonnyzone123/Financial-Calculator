@@ -25,26 +25,32 @@ repository's `main` at `ee9757d`, with the changes listed in its first commit's 
 tags and audit records from before that date. Those are in the private archive, not here. A test that reads that
 history checks whether the recorded commits are present and stands down only when none of them are.
 
-## Current status (2026-10-02)
+## Current status (2026-10-04)
 
-- **S5AA is GO for administrative close at R44.1 by ChatGPT's determination, and is not closed.** Since 2026-09-25
-  ChatGPT determines the GO / NO-GO status. Every determination it made from R29 through R40.1 was NO-GO. Its R41 audit
-  determined GO on 2026-09-30, and that GO was superseded within hours by its R41F whole-model audit (NO-GO, five
-  findings). The R42 audit (two findings), the R43 audit (four) and the R44 audit (one, a process finding) were each
-  NO-GO. Its R44.1 audit (PR #51, merged 2026-10-01 at `c05208c`) made no finding and determined **GO at `06e551e`
-  (`s5aa-r44-source`) under amendments A-01 to A-11**, with E10 met under A-11. The GO is administrative: it is not
-  release or household-reference qualification, and A-09's exceptions (E2, E7 and E14), the disclosed model limits and
-  the unqualified corpus results stay in force. The expanded baseline S5b task 4 builds on is r23
-  (`tools/baseline-20261001-s5aa-expanded-r23.json`). The owner has not decided to close the milestone, set
-  `s5aa-closed` or start S5b.
-- The latest merged repair rounds are **R42** (PR #43, `0537493`), **R43** (PR #46, `247635c`) and **R44** (PR #48,
-  `9ce336a`); **R44.1** (PR #50, `894e0ff`) changed no source and recorded amendment A-11 (a Monte Carlo plan's
-  prediction is made at the path level). They repaired the five R41F findings (Social Security's earnings test and
-  survivor cap, the spousal IRA window, the Roth phase-out proxy, and a malformed Social Security input), the 34
-  findings of Claude's own R42F full-model audit, and ChatGPT's R43 findings (a one-time HSA contribution after 65, a
-  one-time IRA compensation limit, and negative employer percentages). ChatGPT's R41 audit before them had accepted
-  the task 6.5 browser evidence for E15 (one Chromium build; it did not rerun the browser itself). The round index is
-  [`audit/S5AA/README.md`](audit/S5AA/README.md).
+- **S5AA is NO-GO and not closed.** Since 2026-09-25 ChatGPT determines the GO / NO-GO status. Its R44.1 audit (PR #51,
+  merged 2026-10-01 at `c05208c`) determined GO for administrative close at `06e551e` (`s5aa-r44-source`). The owner then
+  asked for an assumptions audit (AA1, 2026-10-03), decided the repairs, and R45 to R51 (PRs #58 to #64, merged 2026-10-04)
+  built them, changing the model after that GO. **ChatGPT's sequential audit of R46 to R51** (PR #66, merged 2026-10-04 at
+  `2fb8c6f`) **determined R46 GO, R47 to R51 NO-GO, and S5AA overall NO-GO**, under amendments A-01 to A-11 and
+  administrative only. R49 and R51 carry no separate finding and inherit the blockers: **four P2 findings**, each still
+  present at R51: **R47-01**, one year's unused IRA room is spent twice against carried traditional and Roth excess;
+  **R47-02**, a spouse's salary shields a business owner's deferral from the qualified business income deduction;
+  **R48-01**, a scheduled rollover from an inherited IRA into the survivor's own IRA strands its Form 8606 basis; and
+  **R50-01**, the Roth conversion ledger keeps the provisional taxable split after the final Form 8606 settlement. The owner
+  decided on 2026-10-04 to repair all four in one round, **R52**, which is being built. The expanded baseline S5b task 4
+  builds on is still r30 (`tools/baseline-20261003-s5aa-expanded-r30.json`) until R52 moves it; control 4.7's corpus is
+  `s5aa-r51-control`, with `s5-control` kept as its predecessor. Closing the milestone, setting `s5aa-closed` and starting
+  S5b are the owner's, and none has been decided.
+- The latest merged rounds are **R45** to **R51**. R45 gave each spouse their own retirement date. R46 made Monte Carlo
+  draw one set of market shocks per year shared by every account, and the reserve the household's. R47 ended the
+  enhanced senior deduction after 2028 and added the designated-Roth catch-up, IRC 4973's excise, the
+  self-employment fixes and the HSA stop at Medicare. R48 grew Medicare premiums and added the inherited IRA for a
+  young survivor, an Arizona community-property switch and the Arizona subtractions. R49 made spending flexibility respect
+  the floor, added a long-term-care onset age, a PMI end age and a working-years check, and showed the engine
+  disclosures the app had hidden. R50 added a Roth IRA basis ledger and an input for income received earlier in the
+  first year. R51 applied the owner's follow-ups: flexibility off by default, one Medicare date, and a "plan offers Roth"
+  checkbox. Before them, R42 to R44.1 repaired the five whole-model findings of ChatGPT's R41F audit and the 34 findings
+  of Claude's own R42F audit. The round index is [`audit/S5AA/README.md`](audit/S5AA/README.md).
 - **S5b has not started.** It needs the owner's own go.
 - A passing test run is evidence for what the tests cover. It is not certification of the whole model.
 
