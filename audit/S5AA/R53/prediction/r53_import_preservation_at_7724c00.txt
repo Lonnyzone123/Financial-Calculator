@@ -1,0 +1,80 @@
+{
+ "plans": 71,
+ "refused": 2,
+ "changedPlans": 69,
+ "byField": {
+  "retirement.ssFra": 69,
+  "assumptions.runs": 1,
+  "retirement.pensionStart": 2,
+  "retirement.pensionAge": 1
+ }
+}
+golden:baseline: retirement.ssFra: 67 -> undefined
+golden:monte-carlo-fixed-seed: retirement.ssFra: 67 -> undefined
+golden:rmd-and-roth-conversion: retirement.ssFra: 67 -> undefined
+golden:reserve-and-bond-tent: retirement.ssFra: 67 -> undefined
+golden:guardrails-withdrawal-strategy: retirement.ssFra: 67 -> undefined
+seed:1: retirement.ssFra: 67 -> undefined
+seed:2: retirement.ssFra: 67 -> undefined
+seed:3: retirement.ssFra: 66 -> undefined
+seed:4: retirement.ssFra: 66 -> undefined
+seed:5: retirement.ssFra: 66 -> undefined
+seed:6: retirement.ssFra: 66 -> undefined
+seed:7: retirement.ssFra: 66 -> undefined
+seed:8: retirement.ssFra: 67 -> undefined
+seed:10: retirement.ssFra: 66 -> undefined
+seed:11: retirement.ssFra: 67 -> undefined
+seed:12: retirement.ssFra: 66 -> undefined
+seed:13: retirement.ssFra: 66 -> undefined
+seed:14: retirement.ssFra: 67 -> undefined
+seed:15: retirement.ssFra: 67 -> undefined
+seed:16: retirement.ssFra: 66 -> undefined
+seed:17: assumptions.runs: 24 -> 100; retirement.ssFra: 66 -> undefined
+seed:18: retirement.ssFra: 67 -> undefined
+seed:19: retirement.ssFra: 66 -> undefined
+seed:20: retirement.ssFra: 67 -> undefined
+targeted:historical-spouse-ss: retirement.ssFra: 67 -> undefined
+targeted:historical-1929: retirement.ssFra: 67 -> undefined
+targeted:historical-1966: retirement.ssFra: 67 -> undefined
+targeted:historical-2000: retirement.ssFra: 67 -> undefined
+targeted:arm-flag-on: retirement.ssFra: 67 -> undefined
+targeted:collision-household-cash: retirement.ssFra: 67 -> undefined; retirement.pensionStart: 67 -> undefined
+targeted:explicit-cash-holding: retirement.ssFra: 67 -> undefined; retirement.pensionStart: 67 -> undefined
+targeted:funded-qcd: retirement.ssFra: 67 -> undefined
+targeted:survivor-stateful: retirement.ssFra: 67 -> undefined
+targeted:collision-rmd-retained-cash: retirement.ssFra: 67 -> undefined
+expansion:other-asset-draw-growth-0: retirement.ssFra: 67 -> undefined
+expansion:other-asset-draw-growth-4: retirement.ssFra: 67 -> undefined
+expansion:other-asset-draw-historical: retirement.ssFra: 67 -> undefined
+expansion:other-asset-two-assets-late-access: retirement.ssFra: 67 -> undefined
+expansion:debt-ordinary-amortizing-15y: retirement.ssFra: 67 -> undefined
+expansion:debt-ordinary-amortizing-5y: retirement.ssFra: 67 -> undefined
+expansion:debt-ordinary-zero-interest: retirement.ssFra: 67 -> undefined
+expansion:debt-ordinary-zero-balance: retirement.ssFra: 67 -> undefined
+expansion:debt-ordinary-payoff: retirement.ssFra: 67 -> undefined
+expansion:debt-adversarial-q54-worst: retirement.ssFra: 67 -> undefined
+expansion:debt-adversarial-interest-only: retirement.ssFra: 67 -> undefined
+expansion:debt-adversarial-a-cent-below: retirement.ssFra: 67 -> undefined
+expansion:monte-carlo-sensitive-band: retirement.ssFra: 67 -> undefined
+expansion:s5aa-gap-working-household: retirement.ssFra: 67 -> undefined
+expansion:s5aa-gap-retired-couple: retirement.ssFra: 67 -> undefined
+expansion:s5aa-gap-early-retiree: retirement.ssFra: 67 -> undefined
+expansion:s5aa-gap-widowed-before-fra: retirement.ssFra: 67 -> undefined
+expansion:s5aa-gap-death-while-working: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r6-gap-survivor-health-roth: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r6-gap-basis-conversion: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r6-gap-basis-one-owner-draw: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r14-rmd-conversion-under-loss: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r14-rmd-two-iras-distinct-returns: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r14-rmd-prototype-ids: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r15-rmd-transfer-to-taxable: retirement.ssFra: 67 -> undefined
+expansion:s5aa-sa18-loss-under-deduction: retirement.ssFra: 67 -> undefined; retirement.pensionAge: 60 -> undefined
+expansion:s5aa-sa18-decedent-loss: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r19-ira-contribution-conversion-same-year: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r19-ira-conversion-and-qcd: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r19-ira-charity-then-rollover: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r19-ira-qcd-offset: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r20-spouse-owner-early-tax: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r20-rule55-ira-ranking: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r35-rule55-separation-at-55: retirement.ssFra: 67 -> undefined
+expansion:s5aa-r20-all-stock-glide: retirement.ssFra: 67 -> undefined
