@@ -1,0 +1,113 @@
+measured movers: 37; named with the measured direction: 37; not: 0
+OK   golden:monte-carlo-fixed-seed
+       predicted: Monte Carlo: named, every path exposed; the published result may move
+       measured:  total UP from the row closing at 65 (+13.13)
+OK   golden:rmd-and-roth-conversion
+       predicted: total DOWN from the row closing at 69 (first-order effect -$46.84)
+       measured:  total DOWN from the row closing at 69 (-46.84)
+OK   seed:1
+       predicted: total UP from the row closing at 66 (first-order effect $150.00)
+       measured:  total UP from the row closing at 66 (+171.43)
+OK   seed:2
+       predicted: total UP from the row closing at 68 (first-order effect $122.12)
+       measured:  total UP from the row closing at 68 (+104.08)
+OK   seed:5
+       predicted: total UP from the row closing at 78 (first-order effect $9.30)
+       measured:  total UP from the row closing at 78 (+9.75)
+OK   seed:6
+       predicted: total UP from the row closing at 65 (first-order effect $70.51)
+       measured:  total UP from the row closing at 65 (+70.51)
+OK   seed:10
+       predicted: total DOWN from the row closing at 72 (first-order effect -$4753.40)
+       measured:  total DOWN from the row closing at 72 (-4791.47)
+OK   seed:16
+       predicted: spending and taxes only: every exposed row is absorbed by surplus spending
+       measured:  spending and taxes only
+OK   seed:20
+       predicted: total DOWN from the row closing at 65 (first-order effect -$135.96)
+       measured:  total DOWN from the row closing at 65 (-142.54)
+OK   targeted:historical-1929
+       predicted: total UP from the row closing at 85 (first-order effect $150.00)
+       measured:  total UP from the row closing at 85 (+195.21)
+OK   targeted:historical-1966
+       predicted: total UP from the row closing at 70 (first-order effect $150.00)
+       measured:  total UP from the row closing at 70 (+174.45)
+OK   targeted:historical-2000
+       predicted: total UP from the row closing at 69 (first-order effect $6.33)
+       measured:  total UP from the row closing at 69 (+7.18)
+OK   targeted:collision-household-cash
+       predicted: total UP from the row closing at 68 (first-order effect $150.00)
+       measured:  total UP from the row closing at 68 (+150.00)
+OK   targeted:explicit-cash-holding
+       predicted: total UP from the row closing at 68 (first-order effect $128.60)
+       measured:  total UP from the row closing at 68 (+128.60)
+OK   targeted:funded-qcd
+       predicted: total UP from the row closing at 76 (first-order effect $150.00)
+       measured:  total UP from the row closing at 76 (+179.77)
+OK   targeted:survivor-stateful
+       predicted: issue text only
+       measured:  issue text only
+OK   targeted:collision-rmd-retained-cash
+       predicted: total UP from the row closing at 76 (first-order effect $150.00)
+       measured:  total UP from the row closing at 76 (+153.70)
+OK   expansion:debt-ordinary-amortizing-15y
+       predicted: total UP from the row closing at 71 (first-order effect $8.89)
+       measured:  total UP from the row closing at 71 (+9.11)
+OK   expansion:debt-ordinary-amortizing-5y
+       predicted: total UP from the row closing at 73 (first-order effect $1.55)
+       measured:  total UP from the row closing at 73 (+1.58)
+OK   expansion:debt-ordinary-zero-interest
+       predicted: total UP from the row closing at 73 (first-order effect $13.13)
+       measured:  total UP from the row closing at 73 (+13.46)
+OK   expansion:debt-ordinary-zero-balance
+       predicted: total UP from the row closing at 73 (first-order effect $20.71)
+       measured:  total UP from the row closing at 73 (+21.23)
+OK   expansion:debt-ordinary-payoff
+       predicted: total UP from the row closing at 70 (first-order effect $150.00)
+       measured:  total UP from the row closing at 70 (+154.67)
+OK   expansion:debt-adversarial-q54-worst
+       predicted: total UP from the row closing at 72 (first-order effect $3.85)
+       measured:  total UP from the row closing at 72 (+3.94)
+OK   expansion:debt-adversarial-interest-only
+       predicted: total UP from the row closing at 72 (first-order effect $19.34)
+       measured:  total UP from the row closing at 72 (+19.82)
+OK   expansion:debt-adversarial-a-cent-below
+       predicted: total UP from the row closing at 72 (first-order effect $9.36)
+       measured:  total UP from the row closing at 72 (+9.59)
+OK   expansion:monte-carlo-sensitive-band
+       predicted: Monte Carlo: named, every path exposed; the published result may move
+       measured:  total UP from the row closing at 87 (+170.51)
+OK   expansion:s5aa-gap-working-household
+       predicted: total UP from the row closing at 57 (first-order effect $150.00)
+       measured:  total UP from the row closing at 57 (+155.69)
+OK   expansion:s5aa-gap-death-while-working
+       predicted: total UP from the row closing at 71 (first-order effect $300.00)
+       measured:  total UP from the row closing at 71 (+357.83)
+OK   expansion:s5aa-r6-gap-survivor-health-roth
+       predicted: total DOWN from the row closing at 64 (first-order effect -$18.37)
+       measured:  total DOWN from the row closing at 64 (-18.75)
+OK   expansion:s5aa-r6-gap-basis-conversion
+       predicted: total UP from the row closing at 65 (first-order effect $150.00)
+       measured:  total UP from the row closing at 65 (+153.97)
+OK   expansion:s5aa-r14-rmd-conversion-under-loss
+       predicted: total UP from the row closing at 76 (first-order effect $150.00)
+       measured:  total UP from the row closing at 76 (+146.59)
+OK   expansion:s5aa-r14-rmd-two-iras-distinct-returns
+       predicted: total UP from the row closing at 79 (first-order effect $128.19)
+       measured:  total UP from the row closing at 79 (+128.19)
+OK   expansion:s5aa-r14-rmd-prototype-ids
+       predicted: total UP from the row closing at 81 (first-order effect $300.00)
+       measured:  total UP from the row closing at 81 (+297.49)
+OK   expansion:s5aa-r15-rmd-transfer-to-taxable
+       predicted: total UP from the row closing at 79 (first-order effect $150.00)
+       measured:  total UP from the row closing at 79 (+150.05)
+OK   expansion:s5aa-sa18-loss-under-deduction
+       predicted: total UP from the row closing at 72 (first-order effect $150.00)
+       measured:  total UP from the row closing at 72 (+152.11)
+OK   expansion:s5aa-sa18-decedent-loss
+       predicted: total UP from the row closing at 72 (first-order effect $150.00)
+       measured:  total UP from the row closing at 72 (+152.11)
+OK   expansion:s5aa-r19-ira-qcd-offset
+       predicted: spending and taxes only: every exposed row is absorbed by surplus spending
+       measured:  spending and taxes only
+named and not moved: 0

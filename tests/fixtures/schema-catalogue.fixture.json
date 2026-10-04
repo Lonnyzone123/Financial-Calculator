@@ -1233,20 +1233,8 @@
               "state": {
                 "kind": "object",
                 "fields": {
-                  "carriedTo": {
-                    "kind": "string",
-                    "optional": true
-                  },
-                  "exclusion": {
-                    "kind": "string",
-                    "optional": true
-                  },
                   "filing": {
                     "kind": "string",
-                    "optional": true
-                  },
-                  "firstDrawOwnerAge": {
-                    "kind": "number",
                     "optional": true
                   },
                   "horizonEndAge": {
@@ -1262,10 +1250,6 @@
                     "element": {
                       "kind": "string"
                     },
-                    "optional": true
-                  },
-                  "outsideSupportedDomain": {
-                    "kind": "boolean",
                     "optional": true
                   },
                   "path": {

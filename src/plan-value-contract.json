@@ -5,6 +5,9 @@
   "scalars": [
     { "path": "profile.spouseAge", "type": "number", "requiredWhen": "profile.spouseOn" },
     { "path": "profile.spouseRetireAge", "type": "number", "min": 0, "max": 120 },
+    { "path": "profile.priorIncomeThisYear", "type": "number", "min": 0 },
+    { "path": "profile.rothFirstContributionYear", "type": "number", "min": 1998, "max": 2200 },
+    { "path": "profile.spouseRothFirstContributionYear", "type": "number", "min": 1998, "max": 2200 },
     { "path": "retirement.spendingStartAge", "type": "number", "min": 0, "max": 120 },
     { "path": "advanced.conversionStartAge", "type": "number", "min": 0, "max": 120 },
     { "path": "advanced.healthCoverageEndAge", "type": "number", "min": 0, "max": 120 },
@@ -72,7 +75,8 @@
       { "name": "vesting", "type": "number", "min": 0, "max": 100 },
       { "name": "basisPct", "type": "number" },
       { "name": "priority", "type": "number" },
-      { "name": "yearsOfService", "type": "number", "nullable": true }
+      { "name": "yearsOfService", "type": "number", "nullable": true },
+      { "name": "contributionBasis", "type": "number", "min": 0 }
     ] },
     { "list": "retirement.stages", "mirrors": "NESTED_RECORD_SPECS.stages", "fields": [
       { "name": "start", "type": "number", "required": true },

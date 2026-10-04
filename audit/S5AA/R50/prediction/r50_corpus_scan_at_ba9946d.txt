@@ -1,0 +1,40 @@
+== control (36 plans)
+  move (4): 
+    golden:monte-carlo-fixed-seed (monteCarlo): 7 of 500 paths exposed; first 240,256,282,341,408,427,496; path 0 not exposed
+    seed:3 (historical): first at row opening 58 (owner self 58, draw $18,732); 3 exposed draws; on the pre-R50 draws: taxed earnings $70,173, dollars bearing the 10% $70,173
+    seed:9 (monteCarlo): 52 of 52 paths exposed; first 0,1,2,3,4,5,6,7,8,9,10,11,...; path 0 exposed
+    seed:14 (historical): first at row opening 56 (owner self 56, draw $148,361); 4 exposed draws; on the pre-R50 draws: taxed earnings $700,750, dollars bearing the 10% $700,750
+  Roth 401(k) / custom Roth draws before 59 1/2, left as today and still flagged (0): none
+  issues move (9): 
+    golden:monte-carlo-fixed-seed: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    golden:monte-carlo-fixed-seed: adds ROTH_IRA_BASIS_NOT_ENTERED
+    seed:3: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    seed:3: adds ROTH_FIVE_YEAR_ASSUMED, ROTH_IRA_BASIS_NOT_ENTERED
+    seed:9: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    seed:9: adds ROTH_IRA_BASIS_NOT_ENTERED
+    seed:14: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    seed:14: adds ROTH_IRA_BASIS_NOT_ENTERED
+    targeted:survivor-stateful: adds ROTH_FIVE_YEAR_ASSUMED
+  carry an R50 input (0): none
+== expanded (71 plans)
+  move (5): 
+    golden:monte-carlo-fixed-seed (monteCarlo): 7 of 500 paths exposed; first 240,256,282,341,408,427,496; path 0 not exposed
+    seed:3 (historical): first at row opening 58 (owner self 58, draw $18,732); 3 exposed draws; on the pre-R50 draws: taxed earnings $70,173, dollars bearing the 10% $70,173
+    seed:9 (monteCarlo): 52 of 52 paths exposed; first 0,1,2,3,4,5,6,7,8,9,10,11,...; path 0 exposed
+    seed:14 (historical): first at row opening 56 (owner self 56, draw $148,361); 4 exposed draws; on the pre-R50 draws: taxed earnings $700,750, dollars bearing the 10% $700,750
+    expansion:monte-carlo-sensitive-band (monteCarlo): 95 of 500 paths exposed; first 3,7,11,21,23,26,28,31,37,40,44,49,...; path 0 not exposed
+  Roth 401(k) / custom Roth draws before 59 1/2, left as today and still flagged (0): none
+  issues move (12): 
+    golden:monte-carlo-fixed-seed: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    golden:monte-carlo-fixed-seed: adds ROTH_IRA_BASIS_NOT_ENTERED
+    seed:3: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    seed:3: adds ROTH_FIVE_YEAR_ASSUMED, ROTH_IRA_BASIS_NOT_ENTERED
+    seed:9: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    seed:9: adds ROTH_IRA_BASIS_NOT_ENTERED
+    seed:14: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    seed:14: adds ROTH_IRA_BASIS_NOT_ENTERED
+    targeted:survivor-stateful: adds ROTH_FIVE_YEAR_ASSUMED
+    expansion:monte-carlo-sensitive-band: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+    expansion:monte-carlo-sensitive-band: adds ROTH_IRA_BASIS_NOT_ENTERED
+    expansion:s5aa-r19-ira-contribution-conversion-same-year: UNSUPPORTED_ROTH_ORDERING removed (every early Roth draw is a Roth IRA draw, now modelled)
+  carry an R50 input (0): none

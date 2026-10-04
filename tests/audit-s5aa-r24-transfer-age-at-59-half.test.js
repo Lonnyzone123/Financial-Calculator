@@ -66,7 +66,10 @@ function run(p) {
   return r;
 }
 const flags = (r) => (r.issues || []).filter((i) => i.code === CODE);
-const roth = (owner) => [account('cash', 'taxable', 'taxable', 0), account('src', 'rothIRA', 'roth', 100000, { basisPct: 0, priority: 2, owner })];
+/* S5AA R50 (AA1-36; the owner's AA1 decisions, 2026-10-03): a Roth IRA is modelled by its basis ledger now and is no longer flagged; the flag
+   marks only a Roth 401(k) or a custom tax-free account drawn before 59 1/2. Adapted by intent: the flag cases below move from a Roth IRA to a
+   Roth 401(k), still untaxed, so their balances are unchanged; the age each is judged at is what they test. */
+const roth = (owner) => [account('cash', 'taxable', 'taxable', 0), account('src', 'roth401k', 'roth', 100000, { basisPct: 0, priority: 2, owner })];
 const ira = (owner) => [account('cash', 'taxable', 'taxable', 0), account('src', 'traditionalIRA', 'preTax', 100000, { basisPct: 0, priority: 2, owner })];
 
 test('R23-01: a Roth-to-taxable transfer AT 59 1/2, in a year that opens at 59, is not flagged (was flagged at 59)', () => {

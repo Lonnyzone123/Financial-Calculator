@@ -905,18 +905,14 @@ function artifactFor(lane) {
 // file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 72e64e28d10462b856a49cb5d8807bf8197af136f06968a3824d49d260b2ff67, described the previous rebuild.
 //
-// Changed again 2026-09-29 (S5AA R49: spending floor for flexibility, LTC onset age, PMI end, working-years check,
-// disclosures and plan checks), so the tracked file was rebuilt, again installed only after two builds agreed. The pin
-// before it, f27d1a6b56936ca50792c5c70d41182c996b71ba1c74c9e30d96af353f933894, described the previous rebuild.
+// Changed again 2026-10-03 (S5AA R50: the Roth IRA basis ledger, and income earlier in the first tax year), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// f27d1a6b56936ca50792c5c70d41182c996b71ba1c74c9e30d96af353f933894, described the previous rebuild.
 //
-// Changed again 2026-09-29 (S5AA R49 integrated on R48), so the tracked file was rebuilt, again installed only after
-// two builds agreed. The pin before it, 27b7f1d44fe00b3812565c429b48cdbfbd7b638e00e8d78223d6803e9ab17eb1, described the
+// Changed again 2026-09-29 (S5AA R50 integrated on R49), so the tracked file was rebuilt, again installed only after
+// two builds agreed. The pin before it, e579c02295801467bec192451618e48e14befcac3978574b05890c5c42d2eb2f, described the
 // previous rebuild.
-//
-// Changed again 2026-09-29 (S5AA R49 integrated on R48 (stray merge markers removed)), so the tracked file was rebuilt,
-// again installed only after two builds agreed. The pin before it,
-// 55c0de8e5eedc6c9360db2866e4ff72d7b8ccbfd1893aeae213ac26fd1de093f, described the previous rebuild.
-const EXPECTED_SHA256 = '73133135d53a778349170ef370de486c05f11940de6b9dc8be42e4bfd2ae7a80';
+const EXPECTED_SHA256 = '3c75b4e720a83b3878bb438ba4fae296edf301ea3a9a4ccd3d027134d654b8dc';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

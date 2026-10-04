@@ -1,0 +1,1 @@
+The two expanded captures this proof compares (`expanded_ba9946d.json`, `expanded_126c7f1.json`) are R48's own, committed at `audit/S5AA/R48/prediction/`; they are not copied here. Run `r48_compare_v2.js` with those paths.

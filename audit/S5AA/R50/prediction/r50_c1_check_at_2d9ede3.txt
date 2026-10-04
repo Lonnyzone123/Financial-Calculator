@@ -1,0 +1,2 @@
+opening ledger: 71 corpus plans, 71 equal
+ordering: 3456 cases, 3456 equal
