@@ -1,0 +1,204 @@
+S5AA R48 test exposure, run on ba9946d (the tree before the R48 edits): a targeted run of the 176 test files in r48_test_exposure_files.txt with r48_test_exposure_hook.js (NODE_OPTIONS=--require; node --test --test-concurrency=2). 1,560 tests: 1,556 pass, 3 authorized todos, 1 fail -- tests/capture-boundary.test.js 5.4, which fails because the hook is itself a loaded file (as at R45). Not seen: runs through an engine variant loaded with vm; test files outside the list.
+Format: calls | test file | function | method | first conditions.
+== azSenior (125 files)
+  11 | arizona-return-partial.test.js | estimateTaxes/quoteTaxFunding |  | azSenior direct; azSenior quote (by age)
+  20 | audit-cl-findings.test.js | runPlan | simple/monteCarlo/historical | azSenior 2 rows; azSenior 32 rows
+  10 | audit-cq6-gate-bypass-residuals.test.js | runPlan/simulatePlan | simple | azSenior 26 rows
+  5 | audit-fm02-senior-deduction.test.js | estimateTaxes |  | azSenior direct
+  18 | audit-fm03-outside-cash.test.js | runPlan | simple | azSenior 2 rows; azSenior 1 rows
+  2 | audit-q22-retained-cash-order.test.js | runPlan | simple | azSenior 5 rows
+  1 | audit-q53-boolean-flag-boundary.test.js | runPlan | simple | azSenior 27 rows
+  25 | audit-q67-prototype-named-asset-class.test.js | runPlan | monteCarlo/simple | azSenior 11 rows
+  3 | audit-q68-filing-table-own-keys.test.js | estimateTaxes | simple | azSenior direct
+  18 | audit-q70-claim-age-bounds.test.js | runPlan | simple | azSenior 21 rows
+  24 | audit-r2-cash-settlement.test.js | runPlan/estimateTaxes/simulatePlan | simple | azSenior 2 rows; azSenior direct
+  1 | audit-r2-import-records.test.js | simulatePlan | simple | azSenior 2 rows
+  4 | audit-r2-rmd-holding.test.js | runPlan/simulatePlan | simple | azSenior 3 rows
+  382 | audit-r2-tax-quote.test.js | estimateTaxes/quoteTaxFunding |  | azSenior direct; azSenior quote (by age)
+  78 | audit-ra02-destination-growth.test.js | runPlan | simple | azSenior 2 rows
+  9 | audit-rc-findings.test.js | runPlan | simple | azSenior 2 rows; azSenior 6 rows
+  5 | audit-rmd-cash-internals.test.js | runPlan/estimateTaxes/simulatePlan | simple | azSenior 3 rows; azSenior direct
+  10 | audit-rmd-cash.test.js | runPlan | simple | azSenior 3 rows; azSenior 2 rows
+  6 | audit-s5aa-additional-standard-deduction.test.js | estimateTaxes | simple | azSenior direct
+  4 | audit-s5aa-hsa-qualified-share.test.js | runPlan | simple | azSenior 1 rows; azSenior 2 rows
+  5 | audit-s5aa-pension-after-death.test.js | runPlan | simple | azSenior 15 rows; azSenior 14 rows
+  14 | audit-s5aa-post-death-household.test.js | runPlan | simple | azSenior 8 rows; azSenior 4 rows
+  3 | audit-s5aa-r10-nobody-alive-refused.test.js | runPlan | simple | azSenior 2 rows; azSenior 20 rows
+  12 | audit-s5aa-r10-strategy-horizon-at-last-death.test.js | runPlan | simple/monteCarlo | azSenior 17 rows; azSenior 25 rows
+  6 | audit-s5aa-r11-contract-enforces-death-cut.test.js | runPlan | simple | azSenior 7 rows; azSenior 11 rows
+  6 | audit-s5aa-r11-conversion-reservation.test.js | runPlan | simple | azSenior 2 rows; azSenior 1 rows
+  8 | audit-s5aa-r11-disclosures-match-execution.test.js | runPlan | simple | azSenior 2 rows; azSenior 17 rows
+  15 | audit-s5aa-r11-strategy-year-count.test.js | runPlan | simple/monteCarlo | azSenior 2 rows; azSenior 3 rows
+  1 | audit-s5aa-r12-contract-version-four.test.js | runPlan | simple | azSenior 7 rows
+  5 | audit-s5aa-r12-pension-needs-a-survivor.test.js | runPlan | simple | azSenior 2 rows; azSenior 11 rows
+  9 | audit-s5aa-r12-rmd-reserve-under-loss.test.js | runPlan | simple | azSenior 2 rows
+  10 | audit-s5aa-r13-rmd-protection-follows-payment-order.test.js | runPlan | simple | azSenior 2 rows
+  80 | audit-s5aa-r14-account-id-maps.test.js | runPlan | simple | azSenior 2 rows
+  29 | audit-s5aa-r15-distribution-to-taxable-counts-toward-rmd.test.js | runPlan | simple | azSenior 2 rows
+  10 | audit-s5aa-r16-partial-transfer-shortfall-is-ordinary.test.js | runPlan | simple | azSenior 2 rows
+  8 | audit-s5aa-r17-rmd-shortfall-per-obligation.test.js | runPlan | simple | azSenior 2 rows
+  6 | audit-s5aa-r18-rmd-paid-is-what-satisfied.test.js | runPlan | simple | azSenior 2 rows
+  4 | audit-s5aa-r18-self-audit-capital-loss.test.js | runPlan | simple | azSenior 3 rows
+  9 | audit-s5aa-r18-taxable-basis-in-dollars.test.js | runPlan | simple | azSenior 3 rows; azSenior 2 rows
+  5 | audit-s5aa-r19-capital-loss-social-security-internals.test.js | estimateTaxes | simple | azSenior direct
+  1 | audit-s5aa-r19-capital-loss-social-security.test.js | runPlan | simple | azSenior 2 rows
+  9 | audit-s5aa-r19-workstream-a-ira-settlement.test.js | runPlan | simple | azSenior 3 rows; azSenior 2 rows
+  4 | audit-s5aa-r20-early-tax-uses-owner-age.test.js | runPlan | simple | azSenior 2 rows
+  4 | audit-s5aa-r33-age-65-at-year-end.test.js | runPlan | simple | azSenior 1 rows; azSenior 2 rows
+  6 | audit-s5aa-r33-employer-money-and-owner-clocks.test.js | runPlan | simple | azSenior 2 rows
+  4 | audit-s5aa-r33-irmaa-lookback-status-and-top-tier.test.js | runPlan | simple | azSenior 7 rows; azSenior 1 rows
+  1 | audit-s5aa-r33-loss-carryover-adds-back-151.test.js | runPlan | simple | azSenior 3 rows
+  2 | audit-s5aa-r33-married-on-a-non-joint-return.test.js | runPlan | simple | azSenior 2 rows
+  1 | audit-s5aa-r34-earnings-test-and-streams.test.js | runPlan | simple | azSenior 6 rows
+  7 | audit-s5aa-r34-fra-by-birth-year.test.js | runPlan | simple | azSenior 4 rows
+  9 | audit-s5aa-r34-social-security-core.test.js | runPlan | simple | azSenior 10 rows; azSenior 5 rows
+  5 | audit-s5aa-r35-basis-resets-at-death.test.js | runPlan | simple | azSenior 5 rows
+  3 | audit-s5aa-r35-fixed-nominal-today-dollars.test.js | runPlan | simple | azSenior 4 rows
+  6 | audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js | runPlan | simple | azSenior 6 rows
+  2 | audit-s5aa-r35-other-asset-accessible-stock.test.js | runPlan | simple | azSenior 6 rows
+  5 | audit-s5aa-r35-pension-stream-survivor.test.js | runPlan | simple | azSenior 7 rows
+  5 | audit-s5aa-r35-portfolio-return-signals.test.js | runPlan | simple | azSenior 31 rows; azSenior 4 rows
+  5 | audit-s5aa-r35-rmd-table-ii.test.js | runPlan | simple | azSenior 4 rows
+  3 | audit-s5aa-r35-stage-before-survivor-reduction.test.js | runPlan | simple | azSenior 5 rows
+  8 | audit-s5aa-r35-still-working-exception.test.js | runPlan | simple | azSenior 6 rows
+  4 | audit-s5aa-r35-working-spouse-wages-fund-spending.test.js | runPlan | simple | azSenior 2 rows
+  2 | audit-s5aa-r36-later-year-tax-indexing.test.js | runPlan | simple | azSenior 4 rows
+  4 | audit-s5aa-r38-vesting-normal-retirement-age.test.js | runPlan | simple | azSenior 3 rows
+  10 | audit-s5aa-r39-1-posthumous-claim-not-priced.test.js | runPlan | simple | azSenior 3 rows
+  4 | audit-s5aa-r39-claim-inside-row-cola.test.js | runPlan | simple | azSenior 3 rows; azSenior 5 rows
+  1 | audit-s5aa-r39-qcd-opening-age.test.js | runPlan | simple | azSenior 3 rows
+  3 | audit-s5aa-r39-roth-match-effective-vesting.test.js | runPlan | simple | azSenior 2 rows; azSenior 3 rows
+  3 | audit-s5aa-r39-survivor-inherits-no-employer-flag.test.js | runPlan | simple | azSenior 3 rows
+  4 | audit-s5aa-r40-ltc-cost-inflated.test.js | runPlan | simple | azSenior 10 rows
+  2 | audit-s5aa-r40-part-d-base-premium.test.js | runPlan | simple | azSenior 4 rows
+  5 | audit-s5aa-r40-spouse-rmd-age-reached.test.js | runPlan | simple | azSenior 5 rows; azSenior 4 rows
+  2 | audit-s5aa-r41-end-age-before-start-refused.test.js | runPlan | simple | azSenior 1 rows; azSenior 3 rows
+  2 | audit-s5aa-r42-ss-benefit-typed.test.js | runPlan | simple | azSenior 3 rows
+  8 | audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js | runPlan | simple | azSenior 9 rows
+  5 | audit-s5aa-r43-contributions.test.js | runPlan | simple | azSenior 3 rows; azSenior 1 rows
+  9 | audit-s5aa-r43-life-events.test.js | runPlan | simple | azSenior 5 rows; azSenior 4 rows
+  7 | audit-s5aa-r43-plan-value-contract.test.js | runPlan | simple | azSenior 6 rows; azSenior 2 rows
+  3 | audit-s5aa-r43-seeds-contract-history.test.js | runPlan | monteCarlo | azSenior 26 rows
+  11 | audit-s5aa-r43-social-security.test.js | runPlan | simple | azSenior 7 rows; azSenior 8 rows
+  4 | audit-s5aa-r43-tax.test.js | runPlan | simple | azSenior 4 rows; azSenior 3 rows
+  14 | audit-s5aa-r45-spouse-retirement-dates.test.js | runPlan | simple | azSenior 2 rows; azSenior 1 rows
+  17 | audit-s5aa-r6-health-population.test.js | runPlan | simple | azSenior 11 rows; azSenior 8 rows
+  9 | audit-s5aa-r6-no-survivor.test.js | runPlan | simple | azSenior 12 rows; azSenior 21 rows
+  9 | audit-s5aa-r6-succession-scope.test.js | runPlan | simple | azSenior 11 rows
+  11 | audit-s5aa-r7-executed-succession.test.js | runPlan | simple/monteCarlo | azSenior 16 rows; azSenior 10 rows
+  5 | audit-s5aa-r9-health-per-person.test.js | runPlan | simple | azSenior 2 rows
+  14 | audit-s5aa-r9-qcd-from-seventy-and-a-half.test.js | runPlan | simple | azSenior 4 rows; azSenior 2 rows
+  3 | audit-s5aa-r9-spending-survivor-boundary.test.js | runPlan | simple | azSenior 7 rows
+  10 | audit-s5aa-r9-stop-at-last-death.test.js | runPlan | simple/monteCarlo | azSenior 7 rows; azSenior 9 rows
+  11 | audit-s5aa-spousal-rollover.test.js | runPlan | simple | azSenior 11 rows; azSenior 13 rows
+  10 | audit-s5aa-stage-carried-base.test.js | runPlan | simple | azSenior 16 rows; azSenior 11 rows
+  2 | audit-s5aa-supported-domain.test.js | runPlan | simple/historical | azSenior 6 rows; azSenior 4 rows
+  17 | audit-s5aa-survivor-age-60.test.js | runPlan | simple | azSenior 4 rows; azSenior 3 rows
+  17 | audit-s5aa-survivor-filing-status.test.js | runPlan/estimateTaxes | simple | azSenior 11 rows; azSenior direct
+  17 | audit-s5aa-wages-end-at-death.test.js | runPlan | simple | azSenior 8 rows; azSenior 6 rows
+  4 | audit-s5aa-x08-payroll-arizona-expectations.test.js | estimateTaxes |  | azSenior direct
+  1 | audit-sa05-shared-eligibility.test.js | simulatePlan | simple | azSenior 1 rows
+  149 | boolean-flag-contract.test.js | runPlan | historical/simple/monteCarlo | azSenior 17 rows; azSenior 30 rows
+  70 | capture-baseline.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  19 | capture-boundary-module-walk.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  38 | capture-boundary.test.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  348 | corpus-configured-paths.test.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  16 | corpus-invariant.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  81 | corpus-invariant.test.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  19 | debt-classes.test.js | runPlan | simple | azSenior 16 rows; azSenior 15 rows
+  140 | device-benchmark.test.js | simulatePlan | monteCarlo | azSenior 32 rows
+  4 | effective-marginal-rate.test.js | estimateTaxes/quoteTaxFunding |  | azSenior direct; azSenior quote (by age)
+  2 | golden-scenarios.test.js | runPlan | monteCarlo/simple | azSenior 32 rows; azSenior 29 rows
+  11 | irmaa-pre-plan-lookback.test.js | runPlan | simple | azSenior 9 rows; azSenior 8 rows
+  207 | near-miss-survivor-sweep.test.js | runPlan | historical/monteCarlo/simple | azSenior 11 rows; azSenior 32 rows
+  213 | networth-reconciliation.test.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  4 | public-route-aud002.test.js | runPlan | simple | azSenior 4 rows
+  12 | public-route-f02.test.js | runPlan | simple | azSenior 11 rows; azSenior 7 rows
+  8 | public-route-fm02.test.js | runPlan | simple | azSenior 4 rows; azSenior 2 rows
+  14 | public-route-q89.test.js | runPlan | simple | azSenior 1 rows; azSenior 5 rows
+  8 | public-route-q92.test.js | runPlan | simple | azSenior 3 rows; azSenior 5 rows
+  20 | public-route-r2-003.test.js | runPlan | simple | azSenior 4 rows; azSenior 2 rows
+  2 | public-route-r2-004.test.js | runPlan | simple | azSenior 4 rows
+  2 | public-route-rc02.test.js | runPlan | simple | azSenior 8 rows
+  1 | result-contract-v3.test.js | runPlan | simple | azSenior 2 rows
+  14 | result-contract.test.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+  3 | self-employment-tax.test.js | estimateTaxes |  | azSenior direct
+  121 | spec-vectors-2026.test.js | estimateTaxes/runPlan | /simple | azSenior direct; azSenior 4 rows
+  197 | tax-named-income-measures.test.js | estimateTaxes/quoteTaxFunding |  | azSenior direct; azSenior quote (by age)
+  19 | worker-parity.test.js | runPlan | monteCarlo/simple/historical | azSenior 32 rows; azSenior 29 rows
+== inherited (3 files)
+  1 | audit-s5aa-r20-early-tax-uses-owner-age.test.js | runPlan | simple | inherited sp survivor 51.00
+  1 | audit-s5aa-r6-basis-per-owner.test.js | runPlan | simple | inherited ira-spouse survivor 47.00
+  1 | audit-s5aa-spousal-rollover.test.js | runPlan | simple | inherited ira survivor 47.00
+== irmaaWarn (9 files)
+  2 | audit-s5aa-r11-disclosures-match-execution.test.js | runPlan | simple | irmaaWarn
+  4 | audit-s5aa-r33-irmaa-lookback-status-and-top-tier.test.js | runPlan | simple | irmaaWarn
+  4 | audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js | runPlan/validateScenario | simple | irmaaWarn
+  4 | audit-s5aa-r40-part-d-base-premium.test.js | validateScenario/runPlan | simple | irmaaWarn
+  2 | audit-s5aa-r43-life-events.test.js | validateScenario/runPlan | simple | irmaaWarn
+  17 | audit-s5aa-r6-health-population.test.js | runPlan | simple | irmaaWarn
+  5 | audit-s5aa-r9-health-per-person.test.js | runPlan | simple | irmaaWarn
+  9 | corpus-configured-paths.test.js | runPlan | historical | irmaaWarn
+  10 | irmaa-pre-plan-lookback.test.js | runPlan | simple | irmaaWarn
+== medicare (16 files)
+  3 | audit-s5aa-r11-disclosures-match-execution.test.js | runPlan | simple | medicare 3 rows at 5.5%; medicare 5 rows at 5.5%
+  4 | audit-s5aa-r33-irmaa-lookback-status-and-top-tier.test.js | runPlan | simple | medicare 5 rows at 5.5%; medicare 2 rows at 5.5%
+  6 | audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js | runPlan | simple | medicare 4 rows at 5.5%
+  2 | audit-s5aa-r40-part-d-base-premium.test.js | runPlan | simple | medicare 2 rows at 5%
+  5 | audit-s5aa-r43-plan-value-contract.test.js | runPlan | simple | medicare 5 rows at 5%
+  2 | boolean-flag-contract.test.js | runPlan | historical/simple | medicare 16 rows at 5.5%; medicare 25 rows at 5.5%
+  6 | capture-baseline.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+  2 | capture-boundary-module-walk.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+  4 | capture-boundary.test.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+  27 | corpus-configured-paths.test.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+  4 | corpus-invariant.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+  12 | corpus-invariant.test.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+  10 | irmaa-pre-plan-lookback.test.js | runPlan | simple | medicare 7 rows at 5.5%
+  109 | near-miss-survivor-sweep.test.js | runPlan | simple/monteCarlo/historical | medicare 10 rows at 8.69%; medicare 15 rows at 8.64%
+  12 | networth-reconciliation.test.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+  2 | worker-parity.test.js | runPlan | historical/simple | medicare 22 rows at 4.05%; medicare 16 rows at 7.39%
+== rolloverText (44 files)
+  1 | audit-cl-findings.test.js | runPlan | simple | rolloverText
+  1 | audit-rc-findings.test.js | runPlan | simple | rolloverText
+  4 | audit-s5aa-pension-after-death.test.js | runPlan | simple | rolloverText
+  6 | audit-s5aa-post-death-household.test.js | runPlan | simple | rolloverText
+  2 | audit-s5aa-r10-strategy-horizon-at-last-death.test.js | runPlan | simple | rolloverText
+  2 | audit-s5aa-r11-disclosures-match-execution.test.js | runPlan | simple | rolloverText
+  2 | audit-s5aa-r12-pension-needs-a-survivor.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r19-workstream-a-ira-settlement.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r20-early-tax-uses-owner-age.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r33-irmaa-lookback-status-and-top-tier.test.js | runPlan | simple | rolloverText
+  4 | audit-s5aa-r34-social-security-core.test.js | runPlan | simple | rolloverText
+  5 | audit-s5aa-r35-basis-resets-at-death.test.js | runPlan | simple | rolloverText
+  3 | audit-s5aa-r39-survivor-inherits-no-employer-flag.test.js | runPlan | simple | rolloverText
+  3 | audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r43-contributions.test.js | runPlan | simple | rolloverText
+  6 | audit-s5aa-r43-life-events.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r43-plan-value-contract.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r43-social-security.test.js | runPlan | simple | rolloverText
+  2 | audit-s5aa-r45-spouse-retirement-dates.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r6-basis-per-owner.test.js | runPlan | simple | rolloverText
+  2 | audit-s5aa-r6-health-population.test.js | runPlan | simple | rolloverText
+  4 | audit-s5aa-r6-no-survivor.test.js | runPlan | simple | rolloverText
+  9 | audit-s5aa-r6-succession-scope.test.js | runPlan | simple | rolloverText
+  9 | audit-s5aa-r7-executed-succession.test.js | runPlan | simple/monteCarlo | rolloverText
+  1 | audit-s5aa-r9-health-per-person.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r9-spending-survivor-boundary.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-r9-stop-at-last-death.test.js | runPlan | simple | rolloverText
+  10 | audit-s5aa-spousal-rollover.test.js | runPlan | simple | rolloverText
+  1 | audit-s5aa-supported-domain.test.js | runPlan | historical | rolloverText
+  2 | audit-s5aa-survivor-filing-status.test.js | runPlan | simple | rolloverText
+  3 | audit-s5aa-wages-end-at-death.test.js | runPlan | simple | rolloverText
+  5 | boolean-flag-contract.test.js | runPlan | historical | rolloverText
+  4 | capture-baseline.js | runPlan | simple | rolloverText
+  1 | capture-boundary-module-walk.js | runPlan | simple | rolloverText
+  2 | capture-boundary.test.js | runPlan | simple | rolloverText
+  17 | corpus-configured-paths.test.js | runPlan | simple | rolloverText
+  3 | corpus-invariant.test.js | runPlan | simple | rolloverText
+  13 | networth-reconciliation.test.js | runPlan | simple | rolloverText
+  2 | public-route-aud002.test.js | runPlan | simple | rolloverText
+  1 | public-route-f02.test.js | runPlan | simple | rolloverText
+  20 | public-route-r2-003.test.js | runPlan | simple | rolloverText
+  2 | public-route-rc02.test.js | runPlan | simple | rolloverText
+  2 | result-contract.test.js | runPlan | simple | rolloverText
+  1 | worker-parity.test.js | runPlan | simple | rolloverText
