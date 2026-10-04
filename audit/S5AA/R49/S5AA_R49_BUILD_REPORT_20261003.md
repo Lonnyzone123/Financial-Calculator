@@ -101,7 +101,10 @@ Targeted runs (no full gate, per the rules), at the repair's tree before the spl
 every jsdom/app file, every file naming `strategySpending`, `projectDebts`, the contract, LTC, PMI, flexibility, `staticIds`, the
 Worker list, `planWarningTitles`, the registers or closeout): 1,844 tests, 1,835 pass, 0 fail, 9 authorized todos
 (`witness_runs/r49_targeted_tests_summary.txt`, file list beside it). `control-corpus.test.js` run alone: 13 pass, the declaration
-test fails as predicted.
+test fails as predicted. After the split, the two witness files (34 of 34), `requirements-register`, `test-classification` and
+`registry-single-definition` pass, and closeout reads accepted 12, refused 0, errors 0. A jsdom probe of the built app (not a
+committed test): the PMI end input and the onset input each store on change and recalculate, and blanking removes the field; the
+lump-sum note reads correctly. The browser check (task 6.5) is the coordinator's.
 
 ## 5. The misses
 
