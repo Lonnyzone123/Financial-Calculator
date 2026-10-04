@@ -1,0 +1,2 @@
+advanced.penaltyException -> false [{"path":0,"yi":0,"age":45,"pool":"self","owner":"self","via":"conversion","amount":3750,"provisionalNt":0,"settledNt":3750,"laterEarlyRothDraws":1,"laterEarlyRothDrawAmount":1104.1666666666667}]
+flags 28

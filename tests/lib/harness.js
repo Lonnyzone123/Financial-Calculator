@@ -924,7 +924,20 @@ function artifactFor(lane) {
 // Changed again 2026-10-03 (S5AA R51 addendum: the streams' income tax in the working-years check, and the Roth
 // next-dollar weight), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before
 // it, cc076c2993ee61d9f53ea1113df24f84f302331f1319c93a53059128ab5e6688, described the previous rebuild.
-const EXPECTED_SHA256 = '769391690f42143082cdfbaeeebfdab7daff91c4d30194429a9781f6d6dfbe57';
+//
+// Changed again 2026-10-04 (S5AA R52: the four audit repairs -- R47-01 one IRA room per owner, R47-02 per-owner QBI
+// attribution, R48-01 basis on a pool-changing transfer, R50-01 the Roth conversion ledger settled), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 769391690f42143082cdfbaeeebfdab7daff91c4d30194429a9781f6d6dfbe57, described the previous rebuild.
+//
+// Changed again 2026-10-04 (S5AA R52: R50's two Roth IRA ledger disclosures shown as cards), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 2076668a45cc3c9a740246569fbbb799b3c56f44dfd85d64980c2aa595235a87, described the previous rebuild.
+//
+// Changed again 2026-10-04 (S5AA R52: an engine comment's regulation citation corrected (1.408A-6 A-8(b))), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 91875f0f96d95f66a40b78ac71a35b71a7ece23190fd4bcdfee7a7f536db7e1c, described the previous rebuild.
+const EXPECTED_SHA256 = '5a2093f5ac21d81167224e468e5da787a67a65bda544835a912a8d6d00c4845b';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

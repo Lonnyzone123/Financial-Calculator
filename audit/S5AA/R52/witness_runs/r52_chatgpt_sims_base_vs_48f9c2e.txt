@@ -1,0 +1,26 @@
+S01 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/2 
+S02 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S03 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/2 
+S04 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S05 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/2 
+S06 FAIL -> PASS | checks moved: 1 | executions with rows moved: 1/1 
+   second-year carried excise: 150 -> 300
+S07 FAIL -> PASS | checks moved: 1 | executions with rows moved: 1/1 
+   tax with business-attributable plan deduction: 35032.62418 -> 35912.62418
+S08 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S09 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S10 FAIL -> PASS | checks moved: 3 | executions with rows moved: 1/1 
+   valid supported input: false -> true
+   AGI after basis distribution: 37500 -> 30000
+   pension-only tax: 2855 -> 1767.5
+S11 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S12 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/2 
+S13 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/2 
+S14 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S15 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/2 
+S16 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S17 FAIL -> PASS | checks moved: 1 | executions with rows moved: 1/3 
+   nontaxable conversion distribution has no penalty: 500 -> 0
+S18 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/2 
+S19 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 
+S20 PASS -> PASS | checks moved: 0 | executions with rows moved: 0/1 

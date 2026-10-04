@@ -1,0 +1,4 @@
+OK   expansion:s5aa-r6-gap-basis-conversion: tax year 2 record after settlement {"year":2,"taxable":6118.591017488077,"nontaxable":3881.4089825119227} (scan: nontaxable 3881.41 of 10000; drawn in its year 0); 10% true-up 0
+OK   expansion:s5aa-r19-ira-contribution-conversion-same-year: tax year 0 record after settlement {"year":0,"taxable":0,"nontaxable":2756.25} (scan: nontaxable 3750 of 3750; drawn in its year 993.75); 10% true-up 0
+OK   expansion:s5aa-r19-ira-conversion-and-qcd: tax year 1 record after settlement {"year":1,"taxable":1000,"nontaxable":4000} (scan: nontaxable 4000 of 5000; drawn in its year 0); 10% true-up 0
+all three records hold the scan's settled split
