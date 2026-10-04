@@ -59,6 +59,7 @@
     { "path": "advanced.transferOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
     { "path": "advanced.v210Migrated", "default": false, "defaultSource": "none: normalizedPlan() sets it true after running the v2.1.0 home and debt migration, and absent means that migration has not run", "reader": "app" },
     { "path": "assumptions.rollingHistory", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
+    { "path": "profile.communityProperty", "default": false, "defaultSource": "none: absent means the household's property is not modelled as community property (the succession asks === true); the default plan does not carry it", "reader": "engine", "refusalNote": "S5AA R48 (AA1-20; the owner's AA1 decision of 2026-10-03): the plan-level Arizona community-property switch. True resets the whole basis of the joint and both spouses' own taxable accounts at the first death (IRC 1014(b)(6))." },
     { "path": "profile.spouseOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
     { "path": "retirement.dividendOn", "default": false, "defaultSource": "defaultPlan", "reader": "engine" },
     { "path": "retirement.guytonSkipInflation", "default": true, "defaultSource": "defaultPlan", "reader": "engine" },

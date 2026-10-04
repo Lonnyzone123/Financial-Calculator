@@ -807,7 +807,10 @@ const ADVANCED_MIGRATION_KEYS = ['v210Migrated'];
 const ADVANCED_OPTIONAL_KEYS = ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore', 'irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore',
   /* S5AA R45 (the owner's AA1 decisions on AA1-40): absent means "at the default date" (conversions: profile.retireAge; pre-Medicare
      health: the household date), which is why the default does not carry them. */
-  'conversionStartAge', 'healthCoverageEndAge'];
+  'conversionStartAge', 'healthCoverageEndAge',
+  /* S5AA R48 (the owner's AA1 decision on AA1-23): absent means the Medicare charge grows at advanced.healthInflation and the Part D
+     plan premium is the CMS base premium. Typed and ranged by src/plan-value-contract.json. */
+  'medicareInflation', 'partDPremium'];
 
 function validateAdvancedKnownKeys(c, advanced) {
   Object.keys(advanced).forEach((k) => {
@@ -847,6 +850,11 @@ function validateAdvanced(c, advanced) {
     } else {
       checkRange(c, advanced.healthInflation, 'advanced.healthInflation', 0, 20, 'OUT_OF_RANGE', 'warning');
     }
+  }
+  /* S5AA R48 (AA1-23): the Medicare growth rate, when entered, is held like healthcare inflation -- the contract refuses -100 or below and
+     above 100; outside the form's 0 to 20 it warns. */
+  if (isFiniteNumber(advanced.medicareInflation) && advanced.medicareInflation > -100 && advanced.medicareInflation <= 100) {
+    checkRange(c, advanced.medicareInflation, 'advanced.medicareInflation', 0, 20, 'OUT_OF_RANGE', 'warning');
   }
   if (advanced.correlation !== undefined) {
     checkType(c, advanced.correlation, 'advanced.correlation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
@@ -1168,6 +1176,55 @@ function validatePlanValueContract(c, plan) {
 }
 /* S5AA R43 (SA42F-30, SA42F-32): the engine refuses a plan with nobody alive at the start (a lifespan at or below the starting age), and the
  * validator accepted it. */
+/* S5AA R48 (AA1-11; the owner's AA1 decision of 2026-10-03: "The prior-income warning shown and prompted"): THE TWO RETURNS BEFORE THE PLAN.
+   Medicare's income-related surcharge for a year reads the return from two years before it (20 CFR 418.1135(a)), so the plan's first two
+   years read returns from before it starts. Blank, the engine assumes the lowest tier (no surcharge) and says so in
+   IRMAA_PRE_PLAN_MAGI_ASSUMED. The prompt fires where that assumption is used: health costs on, someone alive and 65 or older at the
+   opening of plan year 0 or 1 with the household retired inside that row -- the engine's own condition (simulatePlanRows()'s disclosure),
+   mirrored here, with the household date read as householdRetireAge() reads it (R45: the first stop; an entered spending start replaces it)
+   -- and either of the two incomes blank. A WARNING: the plan runs. */
+function validateIrmaaPriorIncome(c, plan) {
+  const profile = isPlainObject(plan.profile) ? plan.profile : {}, advanced = isPlainObject(plan.advanced) ? plan.advanced : {};
+  const retirement = isPlainObject(plan.retirement) ? plan.retirement : {}, employment = isPlainObject(plan.employment) ? plan.employment : {};
+  if (advanced.healthOn !== true) return;
+  const blank = (v) => v === undefined || v === null;
+  if (!blank(advanced.irmaaMagiTwoYearsBefore) && !blank(advanced.irmaaMagiOneYearBefore)) return;
+  const start = profile.age, end = profile.endAge, retire = profile.retireAge;
+  if (![start, end, retire].every(isFiniteNumber)) return;
+  const couple = profile.spouseOn === true && isFiniteNumber(profile.spouseAge);
+  const sa = couple ? profile.spouseAge : NaN, toSelf = (x) => start + (x - sa);
+  const selfLife = isFiniteNumber(retirement.selfLife) ? retirement.selfLife : Infinity;
+  const spouseLife = couple && isFiniteNumber(retirement.spouseLife) ? retirement.spouseLife : Infinity;
+  // the household date (engine householdRetireAge())
+  let household = retire;
+  if (isFiniteNumber(retirement.spendingStartAge)) household = retirement.spendingStartAge;
+  else if (couple) {
+    const sRet = isFiniteNumber(profile.spouseRetireAge) ? profile.spouseRetireAge : retire, sd = toSelf(spouseLife), earning = (isFiniteNumber(employment.spouseSalary) ? employment.spouseSalary : 0) > 0;
+    const stops = [retire];
+    if (earning) stops.push(Math.max(start, toSelf(sRet)));
+    if (selfLife > start && selfLife < retire && sd > selfLife) stops.push(selfLife);
+    if (earning && sd > start && sd < toSelf(sRet) && selfLife > sd) stops.push(sd);
+    household = Math.min(...stops);
+  }
+  // the engine's openings and its cut at the last death (lastDeathCutAge(), householdSurvivorship(): dead once the lifespan is below the age)
+  const aliveAt = (a) => ({ self: !(selfLife < a), spouse: couple && !(spouseLife < sa + (a - start)) });
+  let reaches = end;
+  for (let b = start; b < end; b = Math.floor(b + 1e-9) + 1) { const w = aliveAt(b); if (!w.self && !w.spouse) { reaches = b; break; } }
+  const openings = [start, Math.floor(start) + 1];
+  for (let i = 0; i < openings.length; i++) {
+    const opening = openings[i], rowEnds = i === 0 ? Math.min(Math.floor(start) + 1, reaches) : Math.min(Math.floor(start) + 2, reaches);
+    if (!(rowEnds > opening) || !(household < rowEnds)) continue;
+    const w = aliveAt(opening);
+    if ((w.self && opening >= 65) || (w.spouse && sa + (opening - start) >= 65)) {
+      c.warn('IRMAA_PRIOR_INCOME_BLANK', blank(advanced.irmaaMagiTwoYearsBefore) ? 'advanced.irmaaMagiTwoYearsBefore' : 'advanced.irmaaMagiOneYearBefore',
+        'Health costs are on and someone is 65 or older and retired in the plan\'s first two years, but the income (MAGI) on ' +
+        (blank(advanced.irmaaMagiTwoYearsBefore) && blank(advanced.irmaaMagiOneYearBefore) ? 'the two tax returns before the plan is' : blank(advanced.irmaaMagiTwoYearsBefore) ? 'the tax return two years ago is' : 'last year\'s tax return is') +
+        ' blank. Medicare\'s income-related surcharge (IRMAA) reads the return from two years earlier; a blank year is assumed to be below the first surcharge tier.');
+      return;
+    }
+  }
+}
+
 function validateSomeoneAlive(c, plan) {
   const pr = plan.profile, r = plan.retirement;
   if (!isPlainObject(pr) || !isPlainObject(r) || !isFiniteNumber(pr.age)) return;
@@ -1219,6 +1276,7 @@ function validateScenario(plan) {
   validateNestedRecords(c, plan); // R2-006
   validatePlanValueContract(c, plan); // S5AA R43 (SA42F-05, -06)
   validateSomeoneAlive(c, plan); // S5AA R43 (SA42F-30, -32)
+  validateIrmaaPriorIncome(c, plan); // S5AA R48 (AA1-11)
 
   const valid = !c.issues.some((i) => i.severity === 'ERROR');
   return { valid, issues: c.issues };

@@ -190,7 +190,7 @@ test('R2-T01-C: SS phase-in fixture -- exact $1,212.121212 sale, $212.121212 tax
   assert.ok(Math.abs(totalGross - 1212.121212) < 0.01, `expected total sale $1,212.121212, got ${totalGross}`);
 });
 
-test('R2-T01-C: RMD checkpoint -- $40,000 RMD at age 75 retains exactly $35,801.00 with zero new sales', () => {
+test('R2-T01-C: RMD checkpoint -- $40,000 RMD at age 75 retains exactly $35,951.00 with zero new sales', () => {
   const p = profile('single', 75);
   const age = 75;
   const taxCtx = {
@@ -215,10 +215,12 @@ test('R2-T01-C: RMD checkpoint -- $40,000 RMD at age 75 retains exactly $35,801.
        Arizona                               545     UNCHANGED: Arizona keeps its own exemption and its own
                                                      standard deduction record, and does not read the federal figure
        total                                2,199   (was 2,445), so retained rises by the same $246 to 35,801
+     S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona now subtracts the federal senior deduction (A.R.S.
+     43-1022(35)), the full $6,000 here: Arizona 545 - 150 = 395, total 2,049, retained 35,951 (were 2,199 and 35,801).
      THE MECHANISM THIS FIXTURE PINS IS UNCHANGED: an RMD whose cash alone covers the obligation still makes
      zero new sales and retains the remainder. Only the tax rate table's output moved. */
-  assert.ok(Math.abs(realTax - 2199) < 0.01, `expected the RMD's real tax to be $2,199.00, got ${realTax}`);
-  assert.ok(Math.abs(quote.retained - 35801) < 0.01, `expected $35,801.00 retained, got ${quote.retained}`);
+  assert.ok(Math.abs(realTax - 2049) < 0.01, `expected the RMD's real tax to be $2,049.00, got ${realTax}`);
+  assert.ok(Math.abs(quote.retained - 35951) < 0.01, `expected $35,951.00 retained, got ${quote.retained}`);
 });
 
 // ---------------------------------------------------------------------------
@@ -407,20 +409,26 @@ test('R2V-001: cash-only settlement (every class at a zero balance) reports "fun
        Arizona                               545     UNCHANGED: Arizona keeps its own exemption and its own
                                                      standard deduction record, and does not read the federal figure
        total                                2,199   (was 2,445), so retained rises by the same $246 to 35,801
+     S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona now subtracts the federal senior deduction (A.R.S.
+     43-1022(35)), the full $6,000 here: Arizona 545 - 150 = 395, total 2,049, retained 35,951 (were 2,199 and 35,801).
      THE MECHANISM THIS FIXTURE PINS IS UNCHANGED: an RMD whose cash alone covers the obligation still makes
      zero new sales and retains the remainder. Only the tax rate table's output moved. */
-  assert.ok(Math.abs(realTax - 2199) < 0.01, `sanity check: expected the stored tax formula to give $2,199.00, got ${realTax}`);
+  assert.ok(Math.abs(realTax - 2049) < 0.01, `sanity check: expected the stored tax formula to give $2,049.00, got ${realTax}`);
   assert.equal(quote.status, 'funded', 'cash alone already covers the obligation and must be reported as funded');
   assert.equal(quote.transactions.length, 0, 'no account had a positive balance, so no new sale should occur');
-  assert.ok(Math.abs(quote.retained - 35801) < 0.01, `expected $35,801.00 retained, got ${quote.retained}`);
+  assert.ok(Math.abs(quote.retained - 35951) < 0.01, `expected $35,951.00 retained, got ${quote.retained}`);
 });
 
 test('R2V-001: cash-only settlement below, exactly at, and above the liability all reconcile correctly', () => {
   const p = profile('single', 70);
   const age = 70;
-  const T0 = engine.estimateTaxes(p, age, 20000, 0, 0, 0, 0, 0).total;
+  /* S5AA R48 (AA1-16): at $20,000 Arizona's senior-deduction subtraction (A.R.S. 43-1022(35)) took the liability to 0 (it was $45, all
+     Arizona), so no cash could fall below it. At $30,000 there is one: federal 10% x (30,000 - 24,150) = 585, Arizona 2.5% x (30,000 -
+     16,100 - 2,100 - 6,000) = 145. */
+  const T0 = engine.estimateTaxes(p, age, 30000, 0, 0, 0, 0, 0).total;
+  assert.ok(Math.abs(T0 - 730) < 0.01, 'premise: a $730 liability, got ' + T0);
   const taxCtx = {
-    ordinaryIncome: 20000, capitalGains: 0, qualifiedDividends: 0, ssBenefit: 0,
+    ordinaryIncome: 30000, capitalGains: 0, qualifiedDividends: 0, ssBenefit: 0,
     filing: 'single', seniorAges: seniorAgesFor(p, age), Tbase: 0,
     payrollConst: 0, penalties: 0, penaltyApplies: false,
   };

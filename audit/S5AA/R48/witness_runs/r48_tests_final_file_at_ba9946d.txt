@@ -1,0 +1,505 @@
+✖ R48 AA1-23: the Medicare charge grows at the health-inflation rate from 2026 (11.5427ms)
+✔ R48 AA1-23 control: at 0% health inflation the charge stays at 2026's (1.6341ms)
+✖ R48 AA1-23: an entered Medicare growth rate replaces health inflation for the Medicare charge (1.5078ms)
+✖ R48 AA1-23: an entered Part D premium replaces the base premium, and grows with the rest (1.2349ms)
+✖ R48 AA1-23: the IRMAA amounts grow too, and the Part D surcharge stays on top of an entered premium (1.0556ms)
+✖ R48 AA1-23: a retired spouse of 68 beside a working self is charged the grown amount too (R43's idle-spouse charge) (1.3796ms)
+✖ R48 AA1-23: both new inputs are typed by both layers (0.3579ms)
+✖ R48 AA1-11: the validator warns when a retired 65-year-old's prior-year incomes are blank (0.306ms)
+✔ R48 AA1-11 controls: no warning with both entered, with health costs off, under 65 in the first two years, or still working (0.7139ms)
+✖ R48 AA1-11: the app shows the engine's warning as a card, and the two inputs say what blank means (1.9315ms)
+✖ R48 AA1-19: a survivor of 51 draws the inherited IRA with no 10% additional tax (2.4698ms)
+✔ R48 AA1-19 control: the survivor's OWN IRA still carries the 10% before 59 1/2 (0.8756ms)
+✔ R48 AA1-19 control: a survivor of 59 1/2 or older at the death takes the IRA as their own, unchanged (0.9688ms)
+✖ R48 AA1-19: a death before the beginning date -- the inherited IRA owes from the year the deceased would have reached 73 (1.4271ms)
+✖ R48 AA1-19: at 59 1/2 the survivor treats it as their own -- no RMD until their own applicable age (1.005ms)
+✔ R48 AA1-19 control: a survivor 59 1/2 or older owes nothing until their own applicable age, as before (1.0011ms)
+✖ R48 AA1-19: a death after the beginning date -- the longer of the survivor's and the deceased's remaining life expectancy (1.3485ms)
+✖ R48 AA1-19: the inherited IRA keeps the deceased's basis in its own pool (1.6339ms)
+✔ R48 AA1-19 control: a survivor of 60 combines the basis, as before -- AGI 5,454.55 (1.2364ms)
+✖ R48 AA1-19: a contribution to the inherited IRA makes it the survivor's own from the next year (1.408-8(c), deemed election) (1.5851ms)
+✖ R48 AA1-19: the disclosure says the IRA is held as inherited until 59 1/2 (0.7563ms)
+✖ R48 AA1-20: with community property every taxable account resets in full at the first death (IRC 1014(b)(6)) (9.8947ms)
+✔ R48 AA1-20 control: without it, the decedent's resets, the joint account half (2040(b)), the survivor's not at all (3.5307ms)
+✖ R48 AA1-20: the switch is a boolean at both layers (2.8502ms)
+✖ R48 AA1-16(a): Arizona subtracts the federal senior deduction (A.R.S. 43-1022(35)) (1.1595ms)
+✔ R48 AA1-16(a) control: under 65 there is no federal senior deduction, and nothing to subtract (0.5997ms)
+✖ R48 AA1-16(a): through a projection, the funding solver and the estimator agree (0.6691ms)
+✖ R48 AA1-16(b): through a projection, a taxable account's gains (0.5923ms)
+✔ R48 AA1-16(b) control: with no share entered nothing is subtracted (0.5204ms)
+✔ R48 AA1-16(b) control: a net capital loss subtracts nothing, whatever the share (0.8498ms)
+✖ R48 AA1-16(b): the share is a percent from 0 to 100 at both layers (0.2822ms)
+✖ R48: each new input is read, written and recalculates on change (2.15ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 10
+ℹ fail 22
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 211.4106
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:70:1
+✖ R48 AA1-23: the Medicare charge grows at the health-inflation rate from 2026 (11.5427ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      3185.68,
+  +   3185.68,
+  +   3185.68
+  -   3344.96,
+  -   3512.21
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:73:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3185.68, 3185.68, 3185.68 ],
+    expected: [ 3185.68, 3344.96, 3512.21 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:79:1
+✖ R48 AA1-23: an entered Medicare growth rate replaces health inflation for the Medicare charge (1.5078ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      3185.68,
+  +   3185.68,
+  +   3185.68
+  -   3281.25,
+  -   3379.69
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:82:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3185.68, 3185.68, 3185.68 ],
+    expected: [ 3185.68, 3281.25, 3379.69 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:84:1
+✖ R48 AA1-23: an entered Part D premium replaces the base premium, and grows with the rest (1.2349ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   3185.68,
+  +   3185.68,
+  +   3185.68
+  -   3317.8,
+  -   3450.51,
+  -   3588.53
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:87:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3185.68, 3185.68, 3185.68 ],
+    expected: [ 3317.8, 3450.51, 3588.53 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:89:1
+✖ R48 AA1-23: the IRMAA amounts grow too, and the Part D surcharge stays on top of an entered premium (1.0556ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      6070.48,
+  +   6070.48,
+  +   3185.68
+  -   6374,
+  -   3512.21
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:94:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 6070.48, 6070.48, 3185.68 ],
+    expected: [ 6070.48, 6374, 3512.21 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:99:1
+✖ R48 AA1-23: a retired spouse of 68 beside a working self is charged the grown amount too (R43's idle-spouse charge) (1.3796ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      3185.68,
+  +   3185.68
+  -   3344.96
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:105:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 3185.68, 3185.68 ],
+    expected: [ 3185.68, 3344.96 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:107:1
+✖ R48 AA1-23: both new inputs are typed by both layers (0.3579ms)
+  AssertionError [ERR_ASSERTION]: medicareInflation = "abc": [{"code":"UNKNOWN_ADVANCED_KEY","severity":"WARNING","path":"advanced.medicareInflation","message":"\"advanced.medicareInflation\" is not a field this version knows. If it is a typo for a real setting, that setting is silently keeping its default -- a misspelled \"networthOn\" leaves net worth excluding the house with nothing to say so."}]
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:111:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:122:1
+✖ R48 AA1-11: the validator warns when a retired 65-year-old's prior-year incomes are blank (0.306ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:124:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:138:1
+✖ R48 AA1-11: the app shows the engine's warning as a card, and the two inputs say what blank means (1.9315ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /IRMAA_PRE_PLAN_MAGI_ASSUMED:"/. Input:
+  
+  'RETIREMENT_STRATEGY_UNRECOGNIZED:"Withdrawal strategy",FILING_HOUSEHOLD_MISMATCH:"Filing status",EXPENSE_AFTER_PLAN_END:"Expense after plan end",INCOME_AFTER_PLAN_END:"One-time income after plan end",PROPOSED_RULE_USED:"Required distributions"'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:141:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'RETIREMENT_STRATEGY_UNRECOGNIZED:"Withdrawal strategy",FILING_HOUSEHOLD_MISMATCH:"Filing status",EXPENSE_AFTER_PLAN_END:"Expense after plan end",INCOME_AFTER_PLAN_END:"One-time income after plan end",PROPOSED_RULE_USED:"Required distributions"',
+    expected: /IRMAA_PRE_PLAN_MAGI_ASSUMED:"/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:160:1
+✖ R48 AA1-19: a survivor of 51 draws the inherited IRA with no 10% additional tax (2.4698ms)
+  AssertionError [ERR_ASSERTION]: withdrawals: 49559.60264900662 against 43763.16
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:165:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:189:1
+✖ R48 AA1-19: a death before the beginning date -- the inherited IRA owes from the year the deceased would have reached 73 (1.4271ms)
+  AssertionError [ERR_ASSERTION]: row 74: 0 against 14164.31
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:194:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:197:1
+✖ R48 AA1-19: at 59 1/2 the survivor treats it as their own -- no RMD until their own applicable age (1.005ms)
+  AssertionError [ERR_ASSERTION]: row 74, inherited: 0 against 17857.14
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:201:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:211:1
+✖ R48 AA1-19: a death after the beginning date -- the longer of the survivor's and the deceased's remaining life expectancy (1.3485ms)
+  AssertionError [ERR_ASSERTION]: the first inherited year: 0 against 15835.55
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:218:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:235:1
+✖ R48 AA1-19: the inherited IRA keeps the deceased's basis in its own pool (1.6339ms)
+  AssertionError [ERR_ASSERTION]: AGI: 5454.545454545455 against 0
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:240:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:246:1
+✖ R48 AA1-19: a contribution to the inherited IRA makes it the survivor's own from the next year (1.408-8(c), deemed election) (1.5851ms)
+  TypeError: Cannot read properties of undefined (reading 'map')
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:256:25)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:263:1
+✖ R48 AA1-19: the disclosure says the IRA is held as inherited until 59 1/2 (0.7563ms)
+  AssertionError [ERR_ASSERTION]: the election is modelled now
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:267:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:292:1
+✖ R48 AA1-20: with community property every taxable account resets in full at the first death (IRC 1014(b)(6)) (9.8947ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   70000,
+      100000,
+  +   40000
+  -   100000,
+  -   100000
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:294:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 70000, 100000, 40000 ],
+    expected: [ 100000, 100000, 100000 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:302:1
+✖ R48 AA1-20: the switch is a boolean at both layers (2.8502ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(validateScenario(structuredClone(p)).issues.some((i) => i.severity === 'ERROR' && i.path === 'profile.communityProperty'))
+  
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:304:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:316:1
+✖ R48 AA1-16(a): Arizona subtracts the federal senior deduction (A.R.S. 43-1022(35)) (1.1595ms)
+  AssertionError [ERR_ASSERTION]: $60,000: 5099 against 4949
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:320:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:329:1
+✖ R48 AA1-16(a): through a projection, the funding solver and the estimator agree (0.6691ms)
+  AssertionError [ERR_ASSERTION]: withdrawals: 42571.929824561405 against 42396.49
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:334:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:337:1
+✖ R48 AA1-16(b): through a projection, a taxable account's gains (0.5923ms)
+  AssertionError [ERR_ASSERTION]: withdrawals: 80605.06329113925 against 80350.79
+      at near (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:45:60)
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:344:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:365:1
+✖ R48 AA1-16(b): the share is a percent from 0 to 100 at both layers (0.2822ms)
+  AssertionError [ERR_ASSERTION]: 150
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:368:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:376:1
+✖ R48: each new input is read, written and recalculates on change (2.15ms)
+  AssertionError [ERR_ASSERTION]: v2-medicare-inflation exists
+      at TestContext.<anonymous> (C:\fc-wt-r48-base\tests\audit-s5aa-r48-medicare-survivors-arizona.test.js:382:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

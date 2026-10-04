@@ -64,14 +64,22 @@ const run = (edit) => {
   return r;
 };
 const taxAt = (r, age) => Number(r.rows.find((row) => row.age === age).taxes);
+/* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): the joint row's tax was $12,039.77. Arizona now subtracts the federal senior
+   deduction (A.R.S. 43-1022(35)), 2 x $6,000 on the joint return (MAGI under $150,000): $300 less Arizona tax, and $300 / (1 - 0.12 - 0.025)
+   = $350.88 less once the smaller draw is grossed up at the 12% bracket and Arizona's 2.5%: $11,688.89. The single row after a death
+   was $26,082.43: at its MAGI of about $146,000 the federal senior deduction is 6,000 - 6% x (146,022.11 - 75,000) = 1,738.67, and
+   Arizona subtracts it: 2.5% x 1,738.67 = $43.47 less, grossed up at 24% x 1.06 (the phase-out) + 2.5% = 27.94%: $60.32 less,
+   $26,022.11. */
+const JOINT_ROW = '11688.89';
+const SINGLE_ROW = '26022.11';
 
 test('F-02: a surviving spouse is taxed as single from the year after the death, not jointly forever', () => {
   const r = run();
   /* The row reported at age 76 is the one that OPENS at 75, which is the year the spouse dies, and it
      still files jointly -- IRC 6013(a)(3). The row reported at 77 opens at 76 and is the first one
      entirely after the death. */
-  assert.equal(taxAt(r, 76).toFixed(2), '12039.77', 'the year of the death is still a joint return');
-  assert.equal(taxAt(r, 77).toFixed(2), '26082.43', 'and the year after it is a single one');
+  assert.equal(taxAt(r, 76).toFixed(2), JOINT_ROW, 'the year of the death is still a joint return');
+  assert.equal(taxAt(r, 77).toFixed(2), SINGLE_ROW, 'and the year after it is a single one');
   assert.ok(taxAt(r, 77) > 2 * taxAt(r, 76) - 1,
     'the survivor pays more than double, which is the size of the defect: it was $12,039.77 in every row');
 });
@@ -91,7 +99,7 @@ test('F-02: a household where nobody dies inside the horizon does not move by a 
      differently, which is not what it claims to do. */
   const alive = run((p) => { p.retirement.spouseLife = 99; p.retirement.selfLife = 99; });
   for (const row of alive.rows.slice(1)) {
-    assert.equal(Number(row.taxes).toFixed(2), '12039.77', 'at age ' + row.age);
+    assert.equal(Number(row.taxes).toFixed(2), JOINT_ROW, 'at age ' + row.age);
   }
 });
 
@@ -99,8 +107,8 @@ test('F-02: the SELF dying widows the household the same way the spouse dying do
   /* The defect was symmetric and so is the repair. Rows run on the self\'s clock and continue past the
      self\'s death; the surviving spouse is a single filer from the following year. */
   const r = run((p) => { p.retirement.selfLife = 75; p.retirement.spouseLife = 95; });
-  assert.equal(taxAt(r, 76).toFixed(2), '12039.77', 'the year of the death is still a joint return');
-  assert.equal(taxAt(r, 77).toFixed(2), '26082.43', 'and the year after it is a single one');
+  assert.equal(taxAt(r, 76).toFixed(2), JOINT_ROW, 'the year of the death is still a joint return');
+  assert.equal(taxAt(r, 77).toFixed(2), SINGLE_ROW, 'and the year after it is a single one');
 });
 
 test('F-02: a deceased spouse stops counting toward the age-65 amounts', () => {

@@ -66,9 +66,12 @@ function run(o) {
   assert.equal(r.status, 'ok', r.status + '/' + r.calculationErrorCode);
   return r.rows;
 }
-/* The Arizona-funded row: AGI = base + (5/9)x, x = 2.5% x (AGI - 16,100 - 2,100)  =>  x = 0.025 (base - 18,200) / (1 - 0.025 x 5/9). */
+/* The Arizona-funded row: AGI = base + (5/9)x, x = 2.5% x (AGI - 16,100 - 2,100)  =>  x = 0.025 (base - 18,200) / (1 - 0.025 x 5/9).
+   S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)),
+   the full $6,000 for each single 71-year-old here (every AGI below is under $75,000): x = 0.025 (base - 24,200) / (1 - 0.025 x 5/9).
+   At 31,850: Arizona tax 193.94 and AGI 31,957.75 (32,042.25 before R48). */
 function azFunded(base) {
-  const x = 0.025 * (base - 18200) / (1 - 0.025 * 5 / 9);
+  const x = 0.025 * (base - 18200 - 6000) / (1 - 0.025 * 5 / 9);
   return { taxes: x, agi: base + x * 5 / 9 };
 }
 

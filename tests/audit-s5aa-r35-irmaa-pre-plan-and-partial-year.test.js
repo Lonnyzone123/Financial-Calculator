@@ -41,7 +41,10 @@ function plan(o) {
   Object.assign(p.assumptions, { method: 'simple', returnRate: 0, inflation: 0, fee: 0, volatility: 0 });
   Object.assign(p.retirement, { strategy: 'fixedNominal', spending: 30000, ssBenefit: 0, spouseSS: 0, pension: o.pension || 0, pensionCola: 0,
     stages: [], expenses: [], otherIncomes: [], dividendOn: false });
-  Object.assign(p.advanced, { healthOn: true, rmdOn: false, conversionOn: false, transferOn: false, ltcOn: false, otherAssets: [], debts: [] }, o.advanced || {});
+  /* S5AA R48 (AA1-23, the owner's AA1 decision of 2026-10-03): the Medicare charge now grows from 2026 at healthcare inflation (the
+     default 5.5%); these tests are about which return a year reads, so the fixture holds it at 0% and each surcharge stays 2026's (at
+     5.5% plan year 1's surcharge difference was 1.055 times the tier's). The growth is witnessed in the R48 test file. */
+  Object.assign(p.advanced, { healthOn: true, healthInflation: 0, rmdOn: false, conversionOn: false, transferOn: false, ltcOn: false, otherAssets: [], debts: [] }, o.advanced || {});
   p.accounts = [{ id: 'roth', name: 'Roth', type: 'rothIRA', taxClass: 'roth', owner: 'self', balance: 5000000, contribution: 0, contributionMode: 'amount',
     annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0,
     matchRate: 0, profitShare: 0, vesting: 100, priority: 1 }];

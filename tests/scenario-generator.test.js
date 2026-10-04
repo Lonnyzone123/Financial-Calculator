@@ -108,7 +108,10 @@ test('generateScenarios: generated scenarios raise no WARNING-level issues eithe
      payments outside spending -- not a range violation, which is what this test holds the generator to.
      Every other warning still counts, and the exempt codes are asserted to occur, so the exemption hides
      something real rather than nothing. */
-  const EXEMPT = ['CONTRIBUTIONS_ABOVE_EARNED_INCOME', 'DEBT_PAYMENT_OUTSIDE_SPENDING'];
+  /* S5AA R48 (AA1-11, the owner's AA1 decision of 2026-10-03: "The prior-income warning shown and prompted"): IRMAA_PRIOR_INCOME_BLANK is
+     a prompt for two optional inputs the generator never fills (the incomes on the two returns before the plan), not a range violation;
+     seed 120 trips it (health costs on, 65 or older and retired at the start). Exempt for the same reason as Q59's two, and asserted to occur. */
+  const EXEMPT = ['CONTRIBUTIONS_ABOVE_EARNED_INCOME', 'DEBT_PAYMENT_OUTSIDE_SPENDING', 'IRMAA_PRIOR_INCOME_BLANK'];
   const batch = generateScenarios(defaultPlan, { count: 120, startSeed: 1 });
   const warned = [];
   const exemptSeen = new Set();

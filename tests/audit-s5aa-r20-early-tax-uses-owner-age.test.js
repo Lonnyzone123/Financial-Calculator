@@ -132,5 +132,10 @@ test('R18F-02, found at the R20 self-audit: after a death the survivor\'s age go
   assert.equal(r.status, 'ok');
   const at = (age) => r.rows.find((x) => x.age === age);
   assert.deepEqual([round(at(71).withdrawals), round(at(71).taxes)], [10000, 0], 'the year of death, at the decedent\'s age');
-  assert.deepEqual([round(at(72).withdrawals), round(at(72).taxes), round(at(72).total)], [11111.11, 1111.11, 78888.89], 'the survivor\'s first year');
+  /* ADAPTED BY INTENT at S5AA R48 (AA1-19, the owner's AA1 decision of 2026-10-03: "A survivor under 59 1/2 keeps the deceased's IRA as
+     inherited until 59 1/2"): the survivor is 51, so the decedent's IRA is held as an inherited IRA and a distribution from it is made
+     to a beneficiary after the death -- no 10% (IRC 72(t)(2)(A)(ii)): $10,000 drawn, no tax (a single filer's standard deduction covers
+     it), $80,000 left. Before R48 it was the survivor's own: $11,111.11 drawn, $1,111.11 of tax, $78,888.89 left. The survivor's age
+     still governs the account (accountOwnerAge()); the R48 witnesses hold the survivor's OWN IRA to the 10% before 59 1/2. */
+  assert.deepEqual([round(at(72).withdrawals), round(at(72).taxes), round(at(72).total)], [10000, 0, 80000], 'the survivor\'s first year');
 });
