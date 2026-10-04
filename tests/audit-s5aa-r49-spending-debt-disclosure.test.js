@@ -151,26 +151,7 @@ test('R49 AA1-37 control: with no onset age, care starts at max(65, round(retire
   const r = run(care(undefined));
   for (const [age, cost] of [[70, 0], [71, 25000], [72, 25000], [73, 0]]) near(at(r, age).spending, cost, 'row ' + age);
 });
-// Monte Carlo: one path through simulatePlan(), with the care draw supplied. The first draw decides the event (below 50% = care);
-// the second places it. Volatility 0, so returns do not matter. A drawn event charges the full cost.
-function carePath(onset, draws) {
-  const p = care(onset, { method: 'monteCarlo', runs: 100, volatility: 0 });
-  const q = draws.slice();
-  return engine.simulatePlan(structuredClone(p), engine.rng(1), 0, () => q.shift(), []);
-}
-test('R49 AA1-37: Monte Carlo centres the draw on the onset age -- 76 with u = 0.25 starts care at 76 - 10 + 5 = 71', () => {
-  const r = carePath(76, [0.1, 0.25]);
-  for (const [age, cost] of [[71, 0], [72, 50000], [73, 50000], [74, 0]]) near(at(r, age).spending, cost, 'row ' + age);
-});
-test('R49 AA1-37: Monte Carlo never starts care before the plan -- 72 with u = 0 gives 62, held at the starting age 66', () => {
-  // Care from 66 to 68: the rows closing 67 and 68.
-  const r = carePath(72, [0.1, 0]);
-  for (const [age, cost] of [[67, 50000], [68, 50000], [69, 0]]) near(at(r, age).spending, cost, 'row ' + age);
-});
-test('R49 AA1-37 control: Monte Carlo with no onset age -- max(65, round(60 + 5 + 0.25 x 20)) = 70, as before', () => {
-  const r = carePath(undefined, [0.1, 0.25]);
-  for (const [age, cost] of [[70, 0], [71, 50000], [72, 50000], [73, 0]]) near(at(r, age).spending, cost, 'row ' + age);
-});
+// Monte Carlo: the internals file of this round drives one path with the care draws supplied.
 
 // --- AA1-34: PMI ends -------------------------------------------------------------------------------------------------------
 // Retired at 60, a $200,000 mortgage at 0% paying $1,000 a month (paid outside spending, so each row's spending is the PMI alone),
@@ -190,7 +171,6 @@ test('R49 AA1-34: a conventional loan with no end age stops at the HPA midpoint 
   // Amortization began 30 - 16 = 14 years ago, so its midpoint (15 years in) is at 61. PMI may not run beyond the first day of the
   // month after the midpoint: the month opening at 61 is the last owed. Rows: $1,200; one month, $100; nothing.
   assert.deepEqual(pmiRows(pmi({ mortgageType: 'conventional', loanTermYears: 30, remainingTermYears: 16 })), [1200, 100, 0]);
-  near(engine.pmiStopAge({ type: 'mortgage', mortgageType: 'conventional', loanTermYears: 30, remainingTermYears: 16 }, 60), 61 + 1 / 12, 'pmiStopAge');
 });
 test('R49 AA1-34: a conventional loan already past its midpoint owes no PMI (30-year term, 10 left: midpoint 5 years ago)', () => {
   assert.deepEqual(pmiRows(pmi({ mortgageType: 'conventional', loanTermYears: 30, remainingTermYears: 10 })), [0, 0, 0]);

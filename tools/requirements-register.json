@@ -152,6 +152,7 @@
    "guard": {
     "class": "GUARDED_BY_TEST_NAME",
     "tests": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure-internals.test.js :: R49 AA1-34: pmiStopAge() -- a 30-year conventional loan with 16 years left, from 60: the month after the midpoint, 61 and one month",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34: PMI ends at the entered age -- 61.5 charges $1,200, $600, then nothing",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34: a conventional loan with no end age stops at the HPA midpoint -- 30-year term, 16 left: 61 and one month",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34: a conventional loan already past its midpoint owes no PMI (30-year term, 10 left: midpoint 5 years ago)",
@@ -160,6 +161,7 @@
     ],
     "files": [
      "tests/audit-s5aa-r37-inert-mortgage-fields.test.js",
+     "tests/audit-s5aa-r49-spending-debt-disclosure-internals.test.js",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js"
     ],
     "onlyTodo": false
@@ -177,14 +179,15 @@
    "guard": {
     "class": "GUARDED_BY_TEST_NAME",
     "tests": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure-internals.test.js :: R49 AA1-37: Monte Carlo centres the draw on the onset age -- 76 with u = 0.25 starts care at 76 - 10 + 5 = 71",
+     "tests/audit-s5aa-r49-spending-debt-disclosure-internals.test.js :: R49 AA1-37: Monte Carlo never starts care before the plan -- 72 with u = 0 gives 62, held at the starting age 66",
+     "tests/audit-s5aa-r49-spending-debt-disclosure-internals.test.js :: R49 AA1-37 control: Monte Carlo with no onset age -- max(65, round(60 + 5 + 0.25 x 20)) = 70, as before",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: an onset age of 72 charges the weighted care cost in the two rows from 72, not from 70",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: an onset age is used as entered, not rounded (72.5: half, whole, half)",
-     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37 control: with no onset age, care starts at max(65, round(retireAge + 10)) = 70, as before",
-     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: Monte Carlo centres the draw on the onset age -- 76 with u = 0.25 starts care at 76 - 10 + 5 = 71",
-     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: Monte Carlo never starts care before the plan -- 72 with u = 0 gives 62, held at the starting age 66",
-     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37 control: Monte Carlo with no onset age -- max(65, round(60 + 5 + 0.25 x 20)) = 70, as before"
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37 control: with no onset age, care starts at max(65, round(retireAge + 10)) = 70, as before"
     ],
     "files": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure-internals.test.js",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js"
     ],
     "onlyTodo": false
