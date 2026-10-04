@@ -1,0 +1,5 @@
+HEAD 87bddba
+r51f exit 0 :: [R53 companion adapter] root C:\fc-wt-r53i2: 19 call(s) entered with the retirement age at the end age {"validator.validateScenario":9,"engine.runPlan":10}
+r52 exit 1 :: [R53 companion adapter] root C:\fc-wt-r53i2: 33 call(s) entered with the retirement age at the end age {"validator.validateScenario":11,"engine.runPlan":12,"variant.runPlan":10}
+r4651 exit 0 :: [R53 companion adapter] root C:\fc-wt-r53i2: 20 call(s) entered with the retirement age at the end age {"validator.validateScenario":10,"engine.runPlan":10}
+DONE

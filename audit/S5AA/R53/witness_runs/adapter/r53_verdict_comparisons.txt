@@ -1,0 +1,6 @@
+comp_i2/r51f.json vs adapt_i2/r51f.json: 175 identical, 0 different
+adapt_i2/r51f.json vs adapt_head/r51f.json: 175 identical, 0 different (excluding U01)
+comp_i2/r52.json vs adapt_i2/r52.json: 112 identical, 0 different
+adapt_i2/r52.json vs adapt_head/r52.json: 111 identical, 0 different (excluding U01)
+comp_i2/r4651.json vs adapt_i2/r4651.json: 176 identical, 0 different
+adapt_i2/r4651.json vs adapt_head/r4651.json: 176 identical, 0 different (excluding U01)
