@@ -194,8 +194,13 @@ const DEBT_FAMILIES = [
    golden plan's three accounts no longer diversify one another, so its spread widens and success falls along the whole grid: the
    golden plan itself is 96.8%. Measured: step 13 (x1.65) 85.2%, step 14 (x1.70, $102,000) 84.2%, step 15 83.6%; success still falls
    monotonically from step 0 (96.8%). The same rule, applied again with nothing else changed: step 14 is the first in [50, 85]. Step 14
-   gives 99.8% / 84.2% / 50.8% at half, full and one-and-a-half times the golden volatility; the golden plan 100% / 96.8% / 69.6%. */
-const MC_BAND_STEP = 14;   // S5AA R46 (MC-A): the rule re-applied under the shared market shocks (family version 8)
+   gives 99.8% / 84.2% / 50.8% at half, full and one-and-a-half times the golden volatility; the golden plan 100% / 96.8% / 69.6%.
+   RE-APPLIED, VERSION 9 (S5AA R51, the owner's decision of 2026-10-03 on AA1-25(c): spending flexibility defaults to off): the golden plan
+   inherits defaultPlan's flexibility, now 0, so no year after a down year is cut and success falls along the whole grid: the golden plan
+   itself is 95.8%. Measured: step 11 (x1.55) 85.4%, step 12 (x1.60, $96,000) 85.0% -- inside the band, which includes 85 -- step 13
+   83.8%, step 14 83.0%. The same rule, applied again with nothing else changed: step 12 is the first in [50, 85]. Step 12 gives
+   99.8% / 85.0% / 51.6% at half, full and one-and-a-half times the golden volatility; the golden plan 100% / 95.8% / 67.8%. */
+const MC_BAND_STEP = 12;   // S5AA R51 (AA1-25(c)): the rule re-applied with flexibility off by default (family version 9)
 const MC_BAND_FACTOR = 1 + 0.05 * MC_BAND_STEP;
 
 function goldenMonteCarlo(defaultPlan) {
@@ -205,7 +210,7 @@ function goldenMonteCarlo(defaultPlan) {
 
 const MC_BAND_FAMILY = {
   id: 'monte-carlo-sensitive-band',
-  version: 8,
+  version: 9,
   covers: 'S4 task 4.5: the Monte Carlo corpus is saturated against the success ceiling -- the golden Monte Carlo ' +
     'plan succeeds 99.8% -- so it cannot see a defect in the risk model, which only shows through failure. This ' +
     'member sits in the sensitive band (50-85%), chosen by a rule declared before measuring: the golden plan, same ' +
@@ -214,7 +219,7 @@ const MC_BAND_FAMILY = {
   reached: (result) => result.mode === 'monteCarlo' && result.successRate >= 50 && result.successRate <= 85,
   members: [
     { name: 'expansion:monte-carlo-sensitive-band',
-      reaches: '84.2% success at spending x1.70 (measured at version 8, after the S5AA R46 shared market shocks); 99.8% / 84.2% / 50.8% at half, full and one-and-a-half times the golden volatility',
+      reaches: '85.0% success at spending x1.60 (measured at version 9, with flexibility off by default, S5AA R51); 99.8% / 85.0% / 51.6% at half, full and one-and-a-half times the golden volatility',
       build: (plan) => {
         const p = goldenMonteCarlo(plan);
         p.retirement.spending = Math.round(p.retirement.spending * MC_BAND_FACTOR * 100) / 100;

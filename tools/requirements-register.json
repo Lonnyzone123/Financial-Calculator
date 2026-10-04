@@ -484,7 +484,9 @@
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: flexibility stacked on guardrails or Guyton-Klinger warns; at 0, or on another strategy, it does not"
     ],
     "files": [
+     "tests/audit-s5aa-r23-roth-flag-follows-draws.test.js",
      "tests/audit-s5aa-r49-spending-debt-disclosure.test.js",
+     "tests/monte-carlo-sensitive-band.test.js",
      "tests/scenario-generator.test.js"
     ],
     "onlyTodo": false

@@ -152,8 +152,13 @@ test('R22-01: Monte Carlo -- a draw on a LATER path flags the run once, though p
      seeds 1 + 2i. With runs 1 only path 0 runs, and it keeps the taxable account alive past 59 1/2: nothing is flagged.
      With runs 50, poorer paths empty the taxable account before 59 1/2 and draw the Roth: the run is flagged once. Path
      0 alone reports its own issues, so a flag raised only on a later path must be carried up to the run. */
-  const mc = (runs) => plan({ method: 'monteCarlo', age: 55, endAge: 60, spending: 40000, returnRate: 5, volatility: 25, seed: 1, runs,
+  /* S5AA R51 (the owner's decision of 2026-10-03 on AA1-25(c): spending flexibility defaults to off): this plan inherited the default's
+     10% flexibility, which cut path 0's spending after its down years and kept its taxable account alive past 59 1/2. At the new default
+     (0) path 0 empties it before 59 1/2 and is flagged itself, so the control lost its premise. The case is about carrying a later
+     path's flag up to the run, not about flexibility: it keeps the 10% it was built with, set here. */
+  const mc = (runs) => { const p = plan({ method: 'monteCarlo', age: 55, endAge: 60, spending: 40000, returnRate: 5, volatility: 25, seed: 1, runs,
     accounts: [account('cash', 'taxable', 'taxable', 150000), account('roth', 'roth401k', 'roth', 500000, { basisPct: 0, priority: 2 })] });
+    p.retirement.flexibility = 10; return p; };
   assert.deepEqual(flags(run(mc(1))), [], 'CONTROL: path 0 alone draws nothing early');
   const f = flags(run(mc(50)));
   assert.equal(f.length, 1, 'one flag for the run, not one per path');

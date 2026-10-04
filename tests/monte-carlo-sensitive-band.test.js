@@ -48,8 +48,11 @@ const BAND = [50, 85];
    31 (84.6%) is the first in band (family version 7). The rule and the band are unchanged.
    S5AA R46 (the owner's AA1 decision on MC-A: one set of market shocks per year shared by every account): the golden plan's accounts
    no longer diversify one another, so success falls along the whole grid (the golden plan 96.8%, step 13 85.2%), and step 14 (84.2%)
-   is the first in band (family version 8). The rule and the band are unchanged. */
-const DECLARED_STEP = 14;
+   is the first in band (family version 8). The rule and the band are unchanged.
+   S5AA R51 (the owner's decision of 2026-10-03 on AA1-25(c): flexibility defaults to off): the golden plan inherits flexibility 0, so success
+   falls along the grid (the golden plan 95.8%; step 11 85.4%), and step 12 (85.0%) is the first in band (family version 9; before R51 the
+   declared step was 14, 84.2%). The rule and the band are unchanged. */
+const DECLARED_STEP = 12;
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
 const goldenPlan = () => {
