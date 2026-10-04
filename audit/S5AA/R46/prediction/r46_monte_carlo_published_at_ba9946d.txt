@@ -1,0 +1,4 @@
+golden:monte-carlo-fixed-seed ok  success 100 final median 304502978.52 q10 82217335.88 q90 975336970.30 lifetimeTaxes 2242033.60 fyrs undefined
+seed:9 ok  success 100 final median 4499592.40 q10 3447226.68 q90 5620962.87 lifetimeTaxes 4883054.59 fyrs undefined
+seed:17 ok  success 4.166666666666666 final median 441725.26 q10 283584.94 q90 441884.35 lifetimeTaxes 808265.81 fyrs undefined
+expansion:monte-carlo-sensitive-band ok  success 84.6 final median 147352119.33 q10 0.00 q90 734401132.76 lifetimeTaxes 5428996.81 fyrs undefined
