@@ -5,12 +5,10 @@
  "pinnedAtMeans": "The commit whose corpus was measured when the list was pinned. A file cannot name the commit that contains it.",
  "composition": "expanded",
  "gaps": [
-  "retirement.guytonSkipInflation",
-  "retirement.preserveRoth"
+  "retirement.guytonSkipInflation"
  ],
  "why": {
-  "retirement.guytonSkipInflation": "Set in 40 scenarios and executed in none. The corpus holds one guyton plan, and no negative prior-year return reaches its decision.",
-  "retirement.preserveRoth": "Set in 5 scenarios and executed in none since S5AA R50. seed:19 was the one that executed it: its owner's Roth IRA holds no entered basis, and with preserveRoth off the optimizer drew the Roth at 45, which turning it on moved later. Since R50 (AA1-36, the Roth IRA basis ledger) such a draw is taxed earnings with the 10%, and the optimizer's ledger weight already ranks the Roth behind the HSA for that owner, so the switch no longer changes seed:19's draws. The path itself still executes on a plan built to reach it (the test's reaching plan, at 66)."
+  "retirement.guytonSkipInflation": "Set in 40 scenarios and executed in none. The corpus holds one guyton plan, and no negative prior-year return reaches its decision."
  },
  "shrunk": [
   {
@@ -27,6 +25,13 @@
    ],
    "in": "S5AA task 2.1's corpus commit (Q108)",
    "why": "The carried spending base is now the unadjusted amount, so a stage adjusts the year it applies to instead of compounding into every later year. Staged fixedReal plans no longer collapse toward zero spending, so they reach the withdrawal-ordering branch this path controls. The same cause removed advanced.rule55 and the preTax -> taxable transfer in S5 2s.1's corpus commit: a spending defect was suppressing corpus coverage of real code, and repairing it restores the coverage rather than reducing it. tests/corpus-configured-paths.test.js measures it executing in the repaired corpus."
+  },
+  {
+   "removed": [
+    "retirement.preserveRoth"
+   ],
+   "in": "S5AA R51 addendum's repair commit (the owner's ruling of 2026-10-03 on R50 section 8 item 2)",
+   "why": "Not a corpus change: the optimizer's Roth weight is now the cost of the next dollar drawn, not R50's exposed share, so a Roth IRA whose next dollar is basis or a Roth 401(k) weighs nothing, and the switch's +12 moves a corpus plan's draws again. tests/corpus-configured-paths.test.js measures it executing in the corpus."
   }
  ],
  "regrown": [

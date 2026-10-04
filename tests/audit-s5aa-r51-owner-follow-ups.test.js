@@ -169,21 +169,43 @@ function working(streams) {
   return p;
 }
 const workingIssue = (p) => issue(run(p), 'WORKING_YEARS_NOT_FUNDED_BY_PAY');
+/* R51 addendum (the owner's ruling of 2026-10-03, D3 rejected): the streams' pay is also net of the income tax they add -- federal and
+   Arizona -- taken as the salary's is: the wage-only return with the streams added, less the wage-only return (their marginal share).
+   The two self-employment cases below were first written to R51's payroll-and-SE-only rule (12,000: funded; 10,000: short 1,475.455);
+   they are re-expected by that ruling, not by a derivation error. */
 test('R51 AA1-07: an employment stream is pay -- $30,000 salary plus a $40,000 job covers $36,000 of payments', () => {
-  // The stream's own payroll tax: the full return's FICA on 70,000 (5,355) less the wage-only return's on 30,000 (2,295) = 3,060.
-  // Pay: 25,937.50 + 40,000 - 3,060 = 62,877.50 against 36,000: funded, no warning (before R51: short 10,062.50 from 50).
+  // The stream's tax: FICA 7.65% x 40,000 = 3,060; federal on 70,000: (70,000 - 16,100) = 53,900 taxable: 1,240 + 12% x 38,000 = 4,560,
+  // + 22% x 3,500 = 770 -> 6,570, less the salary's 1,420 = 5,150; Arizona 2.5% x 53,900 = 1,347.50, less 347.50 = 1,000. Total 9,210.
+  // Pay: 25,937.50 + 40,000 - 9,210 = 56,727.50 against 36,000: funded, no warning (before R51: short 10,062.50 from 50).
   assert.equal(workingIssue(working([{ type: 'employment', amount: 40000 }])).length, 0);
 });
-test('R51 AA1-07: self-employment counts net of its SE tax -- $12,000 of profit just covers the gap', () => {
-  // SE tax on 12,000: 12,000 x 0.9235 = 11,082; x 15.3% = 1,695.546. Pay: 25,937.50 + 12,000 - 1,695.546 = 36,241.954 >= 36,000.
-  assert.equal(workingIssue(working([{ type: 'selfEmployment', amount: 12000 }])).length, 0);
+test('R51 AA1-07: a $12,000 job counts net of its payroll and income tax -- short 720.50', () => {
+  // FICA 918; federal on 42,000: 25,900 taxable: 1,240 + 12% x 13,500 = 2,860, less 1,420 = 1,440; Arizona 2.5% x 25,900 = 647.50, less
+  // 347.50 = 300. Tax 2,658. Pay: 25,937.50 + 12,000 - 2,658 = 35,279.50; short 720.50 at 50 (net of FICA alone it was funded: 37,019.50).
+  const w = workingIssue(working([{ type: 'employment', amount: 12000 }]));
+  assert.equal(w.length, 1);
+  assert.equal(w[0].state.age, 50);
+  assert.ok(Math.abs(w[0].state.shortfall - 720.5) < 0.01, 'short ' + w[0].state.shortfall);
 });
-test('R51 AA1-07: $10,000 of self-employment profit leaves a smaller shortfall, 1,475.46', () => {
-  // SE tax on 10,000: 9,235 x 15.3% = 1,412.955. Pay: 25,937.50 + 10,000 - 1,412.955 = 34,524.545; short 1,475.455 at 50.
+test('R51 AA1-07: $12,000 of self-employment profit, net of its SE and income tax, leaves 1,107.47 short', () => {
+  // SE tax: 12,000 x 0.9235 = 11,082 x 15.3% = 1,695.546; its deductible half 847.773. Federal: ordinary 42,000 - 847.773 = 41,152.227,
+  // less 16,100 = 25,052.227; QBI deduction 20% x (12,000 - 847.773) = 2,230.4454 (under 20% of taxable income and the threshold) ->
+  // 22,821.7816 taxable: 1,240 + 12% x 10,421.7816 = 2,490.6138, less 1,420 = 1,070.6138. Arizona (no QBI deduction): 2.5% x 25,052.227
+  // = 626.3057, less 347.50 = 278.8057. Tax 1,695.546 + 1,070.6138 + 278.8057 = 3,044.9655. Pay 25,937.50 + 12,000 - 3,044.9655 =
+  // 34,892.5345; short 1,107.4655 at 50.
+  const w = workingIssue(working([{ type: 'selfEmployment', amount: 12000 }]));
+  assert.equal(w.length, 1);
+  assert.equal(w[0].state.age, 50);
+  assert.ok(Math.abs(w[0].state.shortfall - 1107.4655) < 0.01, 'short ' + w[0].state.shortfall);
+});
+test('R51 AA1-07: $10,000 of self-employment profit leaves 2,599.97 short', () => {
+  // SE tax 9,235 x 15.3% = 1,412.955, half 706.4775. Federal: 40,000 - 706.4775 - 16,100 = 23,193.5225; QBI 20% x 9,293.5225 =
+  // 1,858.7045 -> 21,334.818: 1,240 + 12% x 8,934.818 = 2,312.17816, less 1,420 = 892.17816. Arizona 2.5% x 23,193.5225 = 579.83806,
+  // less 347.50 = 232.33806. Tax 2,537.47122. Pay 25,937.50 + 10,000 - 2,537.47122 = 33,400.02878; short 2,599.97122 at 50.
   const w = workingIssue(working([{ type: 'selfEmployment', amount: 10000 }]));
   assert.equal(w.length, 1);
   assert.equal(w[0].state.age, 50);
-  assert.ok(Math.abs(w[0].state.shortfall - 1475.455) < 0.01, 'short ' + w[0].state.shortfall);
+  assert.ok(Math.abs(w[0].state.shortfall - 2599.97122) < 0.01, 'short ' + w[0].state.shortfall);
 });
 test('R51 AA1-07 controls: with no stream, or a stream that is not pay (rental), the shortfall is the salary\'s, 10,062.50', () => {
   for (const streams of [[], [{ type: 'rental', amount: 40000 }]]) {
@@ -196,4 +218,50 @@ test('R51 AA1-07: the warning says employment and self-employment streams count 
   const w = workingIssue(working([]));
   assert.match(w[0].message, /employment and self-employment income/);
   assert.doesNotMatch(w[0].message, /outside income/);
+  assert.match(w[0].message, /net of the payroll, self-employment and income tax it adds/);   // R51 addendum
+});
+
+// =====================================================================================================================================
+// R51 addendum (the owner's ruling of 2026-10-03 on R50 section 8 item 2): the optimizer's Roth weight is the cost of the next dollar
+// =====================================================================================================================================
+// The optimized order ranks the tax classes by score (lower first): taxable 10, preTax 20, roth 34, hsa 48 at the base. At 50 an IRA draw
+// bears the 10% (+45: preTax 65). R50's weight added each non-qualified owner's exposed Roth IRA dollars as a share of the Roth class --
+// earnings x (30 + 45 while the 10% applies), recent conversions x 45 -- so a Roth IRA of 100,000 holding 50,000 of contribution basis
+// scored 34 + 50,000 x 75 / 100,000 = 71.5 and ranked behind the IRA (65). The ruling: the weight is the cost of the NEXT dollar the draw
+// takes from the Roth class -- 0 while it is contribution basis (or a conversion's nontaxable part, or a conversion past five years),
+// 45 on a conversion's taxable part inside its five years while the 10% applies, 30 + 45 x [10% applies] on earnings, 0 once qualified;
+// 0 when the next account in the class's draw order is not a Roth IRA (a Roth 401(k) is modelled tax-free).
+// Single, retired at 50, $20,000 a year, 0% return and inflation, no taxable account or HSA: the first class with money pays.
+function rothOrder(o) {
+  const p = L.basePlan({ age: o.age ?? 50, endAge: (o.age ?? 50) + 2, spending: 20000, order: 'optimized', accounts: o.accounts });
+  return run(p);
+}
+const ira = () => L.account('ira', 'traditionalIRA', 200000);
+test('R51 addendum: a Roth IRA whose next dollar is contribution basis costs nothing -- drawn before an early IRA draw', () => {
+  // New weight 0 (basis 50,000 comes first): roth 34 < preTax 65. Rows to 51 and 52: the Roth pays 20,000 a year from basis, untaxed:
+  // Roth 80,000 then 60,000; the IRA untouched at 200,000; no tax. (R50's share form: 71.5 > 65, so the IRA paid with tax and the 10%.)
+  const r = rothOrder({ accounts: [ira(), L.account('roth', 'rothIRA', 100000, { contributionBasis: 50000 })] });
+  assert.deepEqual([51, 52].map((a) => cents(at(r, a).roth)), [80000, 60000]);
+  assert.deepEqual([51, 52].map((a) => cents(at(r, a).preTax)), [200000, 200000]);
+  assert.deepEqual([51, 52].map((a) => cents(at(r, a).taxSettled)), [0, 0]);
+});
+test('R51 addendum control: a Roth IRA of earnings only costs 30 + 45 -- it stays behind the early IRA draw, as before', () => {
+  // No basis entered: the next dollar is earnings, not qualified at 50: 75 (the share form gave 75 too). roth 109 > preTax 65: the IRA pays.
+  const r = rothOrder({ accounts: [ira(), L.account('roth', 'rothIRA', 100000, { contributionBasis: 0 })] });
+  assert.equal(cents(at(r, 51).roth), 100000);
+  assert.ok(at(r, 51).preTax < 200000 - 20000 + 0.005, 'the IRA paid the spending and its tax: ' + at(r, 51).preTax);
+});
+test('R51 addendum: when the class\'s next account is a Roth 401(k), the next dollar costs nothing as modelled', () => {
+  // Roth 401(k) 50,000 at priority 1, Roth IRA 50,000 of earnings at priority 2: the draw order takes the 401(k) first, so the weight is 0
+  // (the share form: 50,000 x 75 / 100,000 = 37.5, roth 71.5 > 65, so the IRA paid). Row to 51: the 401(k) pays 20,000 untaxed: 30,000
+  // left; the Roth IRA 50,000 and the IRA 200,000 untouched; no tax.
+  const r = rothOrder({ accounts: [ira(), L.account('r401', 'roth401k', 50000, { priority: 1 }), L.account('roth', 'rothIRA', 50000, { contributionBasis: 0 })] });
+  assert.equal(cents(at(r, 51).roth), 80000);
+  assert.equal(cents(at(r, 51).preTax), 200000);
+  assert.equal(cents(at(r, 51).taxSettled), 0);
+});
+test('R51 addendum control: a qualified owner\'s Roth weighs nothing either way -- at 60 the IRA (no 10%) is drawn first', () => {
+  // At 60, holding the Roth IRA at the start (its five years taken as run): qualified, weight 0; roth 34 > preTax 20: the IRA pays.
+  const r = rothOrder({ age: 60, accounts: [ira(), L.account('roth', 'rothIRA', 100000, { contributionBasis: 0 })] });
+  assert.equal(cents(at(r, 61).roth), 100000);
 });
