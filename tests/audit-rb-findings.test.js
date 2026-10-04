@@ -219,11 +219,11 @@ test('RB-02: a non-boolean cashHolding flag must be rejected, not silently honou
 /* PURE ORACLE, no projection. The expected scheduled payment comes from the
    annuity equation, not from the field under test. */
 test('RB-03: lumpSumRecast must write scheduled P&I, not the all-in outlay', { todo: 'EXCLUDED under decision register P19 -- mortgage-vs-investing.js / debt-strategy-adapter.js are unsupported and no longer bundled (tests/module-exclusion-registry.test.js enforces it). This witness is now the REVIVAL CONTRACT: it must go green before the module may ship again. Do not remove this marker to make the suite tidy.' }, () => {
-  const plan = basePlan({
+  const plan = retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js). Without it this revival contract is refused before it reaches the module, and RB-07's 'both refuse' branch passed vacuously
     id: 'rb03',
     profile: Object.assign(clone(defaultPlan.profile), { age: 40, retireAge: 65, endAge: 45 }),
     accounts: [account({ id: 'tax1', balance: 500000 })],
-  });
+  }));
   plan.advanced.debts = [mortgage({
     balance: 100000, rate: 6, remainingTermYears: 20, extraPrincipalMonthly: 500, paymentMonthly: 716.43,
   })];
@@ -258,11 +258,11 @@ test('RB-03: lumpSumRecast must write scheduled P&I, not the all-in outlay', { t
 /* PURE ORACLE. Interest at exactly $1,500/month on $300,000 at 6% equals the
    payment, so the balance never moves and a year costs exactly $18,000. */
 test('RB-04: the interest objective must use the entered payment, not a re-derived one', { todo: 'EXCLUDED under decision register P19 -- mortgage-vs-investing.js / debt-strategy-adapter.js are unsupported and no longer bundled (tests/module-exclusion-registry.test.js enforces it). This witness is now the REVIVAL CONTRACT: it must go green before the module may ship again. Do not remove this marker to make the suite tidy.' }, () => {
-  const plan = basePlan({
+  const plan = retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js). Without it this revival contract is refused before it reaches the module, and RB-07's 'both refuse' branch passed vacuously
     id: 'rb04',
     profile: Object.assign(clone(defaultPlan.profile), { age: 40, retireAge: 65, endAge: 45 }),
     accounts: [account({ id: 'tax1', balance: 500000 })],
-  });
+  }));
   plan.advanced.debts = [mortgage({ balance: 300000, rate: 6, paymentMonthly: 1500, remainingTermYears: 25 })];
 
   // Independent monthly recurrence: interest == payment, so nothing amortizes.
@@ -291,11 +291,11 @@ test('RB-04: the interest objective must use the entered payment, not a re-deriv
 // ===========================================================================
 
 test('RB-05: an invalid scenario must never yield a numeric objective or a winner', { todo: 'EXCLUDED under decision register P19 -- mortgage-vs-investing.js / debt-strategy-adapter.js are unsupported and no longer bundled (tests/module-exclusion-registry.test.js enforces it). This witness is now the REVIVAL CONTRACT: it must go green before the module may ship again. Do not remove this marker to make the suite tidy.' }, () => {
-  const plan = basePlan({
+  const plan = retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js). Without it this revival contract is refused before it reaches the module, and RB-07's 'both refuse' branch passed vacuously
     id: 'rb05',
     profile: Object.assign(clone(defaultPlan.profile), { age: 40, retireAge: 65, endAge: 45 }),
     accounts: [account({ id: 'tax1', balance: 'bad' })],
-  });
+  }));
   plan.advanced.debts = [mortgage({})];
 
   /* CONTROL: the ENGINE rejects this correctly. The defect is entirely in the
@@ -334,7 +334,7 @@ test('RB-05: an invalid scenario must never yield a numeric objective or a winne
 /* PURE ORACLE, reproduced to the dollar: 10 -> 6010, an increment of
    $7,200,000 a year instead of $6,000. */
 test('RB-06: $500/month must add $6,000 a year regardless of contribution mode', { todo: 'EXCLUDED under decision register P19 -- mortgage-vs-investing.js / debt-strategy-adapter.js are unsupported and no longer bundled (tests/module-exclusion-registry.test.js enforces it). This witness is now the REVIVAL CONTRACT: it must go green before the module may ship again. Do not remove this marker to make the suite tidy.' }, () => {
-  const plan = basePlan({
+  const plan = retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js). Without it this revival contract is refused before it reaches the module, and RB-07's 'both refuse' branch passed vacuously
     id: 'rb06',
     profile: Object.assign(clone(defaultPlan.profile), { age: 40, retireAge: 65, endAge: 45 }),
     employment: Object.assign(clone(defaultPlan.employment), { salary: 120000, spouseSalary: 0, growth: 0 }),
@@ -342,7 +342,7 @@ test('RB-06: $500/month must add $6,000 a year regardless of contribution mode',
       id: 'tax1', name: 'Brokerage', taxClass: 'taxable', balance: 200000,
       contribution: 10, contributionMode: 'salaryPct',
     })],
-  });
+  }));
 
   const before = engine.accountPlannedContribution(plan.accounts[0], 120000, 40, plan);
   assert.equal(before, 12000, 'oracle self-check: 10% of a $120,000 salary is $12,000');
@@ -367,11 +367,11 @@ test('RB-06: $500/month must add $6,000 a year regardless of contribution mode',
 // ===========================================================================
 
 test('RB-07: endingNetWorth must include debt, or refuse when net-worth accounting is off', { todo: 'EXCLUDED under decision register P19 -- mortgage-vs-investing.js / debt-strategy-adapter.js are unsupported and no longer bundled (tests/module-exclusion-registry.test.js enforces it). This witness is now the REVIVAL CONTRACT: it must go green before the module may ship again. Do not remove this marker to make the suite tidy.' }, () => {
-  const plan = basePlan({
+  const plan = retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js). Without it this revival contract is refused before it reaches the module, and RB-07's 'both refuse' branch passed vacuously
     id: 'rb07',
     profile: Object.assign(clone(defaultPlan.profile), { age: 40, retireAge: 65, endAge: 45 }),
     accounts: [account({ id: 'tax1', balance: 200000 })],
-  });
+  }));
   plan.advanced.debts = [mortgage({ balance: 300000 })];
   assert.equal(plan.advanced.networthOn, false,
     'precondition: the default flag is OFF, which is the whole point of this finding');
@@ -401,11 +401,11 @@ test('RB-07: endingNetWorth must include debt, or refuse when net-worth accounti
 // ===========================================================================
 
 test('RB-08: a horizon landing exactly on a row must select that row', { todo: 'EXCLUDED under decision register P19 -- mortgage-vs-investing.js / debt-strategy-adapter.js are unsupported and no longer bundled (tests/module-exclusion-registry.test.js enforces it). This witness is now the REVIVAL CONTRACT: it must go green before the module may ship again. Do not remove this marker to make the suite tidy.' }, () => {
-  const plan = basePlan({
+  const plan = retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js). Without it this revival contract is refused before it reaches the module, and RB-07's 'both refuse' branch passed vacuously
     id: 'rb08',
     profile: Object.assign(clone(defaultPlan.profile), { age: 40.5, retireAge: 65, endAge: 42 }),
     accounts: [account({ id: 'tax1', balance: 200000 })],
-  });
+  }));
   plan.advanced.debts = [mortgage({ balance: 300000 })];
   plan.advanced.networthOn = true;
 
