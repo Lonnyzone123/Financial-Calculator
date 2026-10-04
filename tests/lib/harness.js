@@ -904,7 +904,16 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (S5AA R45: the R45 inputs, and R35's IRMAA inputs, recalculate on change), so the tracked
 // file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 72e64e28d10462b856a49cb5d8807bf8197af136f06968a3824d49d260b2ff67, described the previous rebuild.
-const EXPECTED_SHA256 = 'f27d1a6b56936ca50792c5c70d41182c996b71ba1c74c9e30d96af353f933894';
+//
+// Changed again 2026-10-03 (S5AA R47: the senior deduction ends after 2028, the designated Roth catch-up, the 4973
+// excise, SE compensation and QBI, the HSA's Medicare start), so the tracked file was rebuilt, again installed only
+// after two builds agreed. The pin before it, f27d1a6b56936ca50792c5c70d41182c996b71ba1c74c9e30d96af353f933894,
+// described the previous rebuild.
+//
+// Changed again 2026-10-03 (S5AA R47: medicareStartAge() reads a plan without a retirement section as 65), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 940e0fabdbd05bbcaf417384cdf3fce1a12197f2fd69c3ae1e99797dd17495ab, described the previous rebuild.
+const EXPECTED_SHA256 = 'e355afa02ecf19c0808df65e3736154f486ae153e696277c0a11219fa748c7c7';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

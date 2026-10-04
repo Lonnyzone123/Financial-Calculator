@@ -58,7 +58,7 @@ test('R36: wage-linked amounts on the salary-growth field', () => {
 test('R36: the amounts the law fixes stay fixed, and a zero-inflation year is the 2026 rules themselves', () => {
   assert.deepStrictEqual(R.federal.niit.threshold, B.federal.niit.threshold);
   assert.deepStrictEqual(R.federal.socialSecurityTaxation, B.federal.socialSecurityTaxation);
-  assert.deepStrictEqual(R.federal.seniorDeduction, B.federal.seniorDeduction, 'kept, unindexed, after 2028 (D8)');
+  assert.deepStrictEqual(R.federal.seniorDeduction, B.federal.seniorDeduction, 'unindexed (S5AA R47, AA1-30: it ends after 2028 by the tax year the rules carry, not by its figures)');
   assert.deepStrictEqual(R.federal.payroll.additionalThreshold, B.federal.payroll.additionalThreshold);
   assert.strictEqual(engine.taxYearRules(B, 1, 1, 0, null), B);
 });

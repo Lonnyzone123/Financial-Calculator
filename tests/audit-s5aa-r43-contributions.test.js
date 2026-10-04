@@ -170,5 +170,7 @@ test('R43 (SA42F-25) control: a change dated on a row boundary is unchanged', ()
 test('R43 (owner rulings): the methodology page states the spousal IRA rule and the HSA stop at 65', () => {
   const shell = fs.readFileSync(path.join(__dirname, '..', 'src', 'app-shell.html'), 'utf8');
   assert.match(shell, /the spouse who earns more is limited to their own pay/);
-  assert.match(shell, /Contributions stop at each person’s 65th birthday/);
+  /* S5AA R47 (AA1-32; the owner's AA1 decision of 2026-10-03): the stop is each person's Medicare start, 65 by default. Before:
+     /Contributions stop at each person’s 65th birthday/. */
+  assert.match(shell, /Contributions stop when each person’s Medicare starts: at 65 for someone who claims Social Security by 65/);
 });
