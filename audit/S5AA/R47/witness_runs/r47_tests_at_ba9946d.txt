@@ -1,0 +1,651 @@
+✖ R47 AA1-30: a single 70-year-old keeps the $6,000 senior deduction in 2028 and loses it in 2029 (11.7284ms)
+✖ R47 AA1-30: the funding solver quotes the draw without the deduction after 2028 (taxSegmentLocal mirrors it) (2.8388ms)
+✔ R47 AA1-30 control: nobody 65 or older -- 2028 and 2029 tax the same draw the same (1.6966ms)
+✖ R47 AA1-30: the per-year rules carry the tax year, and seniorDeduction() reads expiresAfter from them (0.1905ms)
+✖ R47 AA1-30: the app says the senior deduction ends after 2028, not that the plan keeps it (0.1956ms)
+✖ R47 AA1-13: entered prior-year wages of $175,000 -- the $8,000 catch-up is Roth in the first row, and taxed (13.2576ms)
+✖ R47 AA1-13: after the first row the prior row's salary ($200,000) decides -- Roth again (1.4077ms)
+✖ R47 AA1-13: no wages entered -- the first row cannot be tested (pre-tax); the second reads the prior row's $200,000 (Roth) (1.2285ms)
+✖ R47 AA1-13: entered $175,000 but a $140,000 salary -- Roth in the first row, pre-tax once the prior row's wages are $140,000 (1.5502ms)
+✔ R47 AA1-13 control: wages exactly $150,000 do not exceed the threshold -- the catch-up stays pre-tax (0.785ms)
+✖ R47 AA1-13: an HSA salary reduction is not FICA wages -- $155,000 less $5,400 is $149,600, so the second row is pre-tax (1.1929ms)
+✖ R47 AA1-13 (414(v)(7)(B)): a plan with no Roth option allows no catch-up to this participant -- the $8,000 is an excess, redirected (1.1536ms)
+✔ R47 AA1-13 control: a Roth 401(k)'s catch-up is Roth already -- nothing moves (0.7771ms)
+✖ R47 AA1-13: a spouse's plan reads the spouse's own wages (1.0881ms)
+✖ R47 AA1-27: a $2,500 IRA excess left in the account owes 6% ($150) at the year's close, paid in the next row (1.3842ms)
+✖ R47 AA1-27: with no later compensation nothing absorbs it -- $150 again every year (1.2891ms)
+✖ R47 AA1-27: later unused room absorbs the excess -- nothing owed once a working year leaves $7,500 of room (1.3278ms)
+✖ R47 AA1-27: a taxable IRA distribution reduces the excess -- $1,150 drawn leaves $1,350, 6% = $81 (1.0227ms)
+✖ R47 AA1-27: a Roth IRA excess pays the same 6% (4973(f)) (1.3392ms)
+✖ R47 AA1-27: an HSA excess -- $5,400 against $4,400 owes $60; $4,400 the next year leaves no room ($60); $3,000 absorbs it (0.9084ms)
+✖ R47 AA1-27: the excise is capped at 6% of the accounts' year-end value (0.9075ms)
+✖ R47 AA1-27: a one-time contribution over the room, moved under "warn", owes the same 6% (1.6176ms)
+✔ R47 AA1-27 control: "redirect" sends the excess to taxable -- no excise (0.9292ms)
+✖ R47 AA1-27: the "warn" option and its warning say the 6% excise applies (0.3381ms)
+✖ R47 AA1-26: IRA compensation from $6,000 of self-employment is $5,576.11 (profit less half the SE tax) (0.896ms)
+✔ R47 AA1-26 control: $6,000 of wages (an employment stream) is compensation in full (0.6509ms)
+✖ R47 AA1-26: the one-time route reads the same compensation -- a $7,500 transfer moves $5,576.11 (0.7741ms)
+✖ R47 AA1-45: a deferral funded from self-employment pay reduces qualified business income -- $880 more tax (0.7761ms)
+✔ R47 AA1-45 control: wages absorb the deferral -- qualified business income keeps the whole profit (0.7814ms)
+✖ R47 AA1-32: a claim at 67 starts Medicare at 66.5 -- a full year at 65-66 and half a year at 66-67 (1.6435ms)
+✔ R47 AA1-32 controls: a claim at 65 or earlier, or no benefit modelled, keeps Medicare (and the stop) at 65 (2.7815ms)
+✖ R47 AA1-32: an entered Medicare start of 68 overrides the claim -- contributions through 68 (1.0056ms)
+✖ R47 AA1-32: the one-time route follows the same date -- $3,000 moved into the HSA at 65.5 fits (1.1255ms)
+✖ R47 AA1-32: a spouse's HSA reads the spouse's own claim (68 -> Medicare at 67.5) (0.7606ms)
+✖ R47 AA1-32: the two Medicare start ages are numbers -- text or a negative age is refused by the validator and the engine (0.3042ms)
+✖ R47 AA1-32: the form offers both Medicare start ages, and the HSA note no longer says contributions stop at 65 (0.1751ms)
+ℹ tests 36
+ℹ suites 0
+ℹ pass 7
+ℹ fail 29
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 198.1329
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:56:1
+✖ R47 AA1-30: a single 70-year-old keeps the $6,000 senior deduction in 2028 and loses it in 2029 (11.7284ms)
+  AssertionError [ERR_ASSERTION]: tax year 2029: $6,000 x 12% = $720 more
+  
+  3649 !== 4369
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:62:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3649,
+    expected: 4369,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:65:1
+✖ R47 AA1-30: the funding solver quotes the draw without the deduction after 2028 (taxSegmentLocal mirrors it) (2.8388ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 2571.93
+  - 3413.45
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:73:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2571.93,
+    expected: 3413.45,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:83:1
+✖ R47 AA1-30: the per-year rules carry the tax year, and seniorDeduction() reads expiresAfter from them (0.1905ms)
+  AssertionError [ERR_ASSERTION]: plan year 3 is tax year 2029
+  
+  6000 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:91:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 6000,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:95:1
+✖ R47 AA1-30: the app says the senior deduction ends after 2028, not that the plan keeps it (0.1956ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:96:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:113:1
+✖ R47 AA1-13: entered prior-year wages of $175,000 -- the $8,000 catch-up is Roth in the first row, and taxed (13.2576ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  32500 !== 24500
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:119:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 32500,
+    expected: 24500,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:123:1
+✖ R47 AA1-13: after the first row the prior row's salary ($200,000) decides -- Roth again (1.4077ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  65000 !== 49000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:125:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 65000,
+    expected: 49000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:128:1
+✖ R47 AA1-13: no wages entered -- the first row cannot be tested (pre-tax); the second reads the prior row's $200,000 (Roth) (1.2285ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  65000 !== 57000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:132:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 65000,
+    expected: 57000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:135:1
+✖ R47 AA1-13: entered $175,000 but a $140,000 salary -- Roth in the first row, pre-tax once the prior row's wages are $140,000 (1.5502ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 8000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:137:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 8000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:146:1
+✖ R47 AA1-13: an HSA salary reduction is not FICA wages -- $155,000 less $5,400 is $149,600, so the second row is pre-tax (1.1929ms)
+  AssertionError [ERR_ASSERTION]: row 57: prior FICA wages 149,600 -> pre-tax
+  
+  0 !== 8000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:149:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 8000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:153:1
+✖ R47 AA1-13 (414(v)(7)(B)): a plan with no Roth option allows no catch-up to this participant -- the $8,000 is an excess, redirected (1.1536ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  32500 !== 24500
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:156:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 32500,
+    expected: 24500,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:166:1
+✖ R47 AA1-13: a spouse's plan reads the spouse's own wages (1.0881ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  32500 !== 24500
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:172:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 32500,
+    expected: 24500,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:188:1
+✖ R47 AA1-27: a $2,500 IRA excess left in the account owes 6% ($150) at the year's close, paid in the next row (1.3842ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 150
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:191:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 150,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:195:1
+✖ R47 AA1-27: with no later compensation nothing absorbs it -- $150 again every year (1.2891ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 150
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:199:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 150,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:202:1
+✖ R47 AA1-27: later unused room absorbs the excess -- nothing owed once a working year leaves $7,500 of room (1.3278ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 150
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:205:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 150,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:208:1
+✖ R47 AA1-27: a taxable IRA distribution reduces the excess -- $1,150 drawn leaves $1,350, 6% = $81 (1.0227ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1000 !== 1150
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:212:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1000,
+    expected: 1150,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:215:1
+✖ R47 AA1-27: a Roth IRA excess pays the same 6% (4973(f)) (1.3392ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 150
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:217:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 150,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:219:1
+✖ R47 AA1-27: an HSA excess -- $5,400 against $4,400 owes $60; $4,400 the next year leaves no room ($60); $3,000 absorbs it (0.9084ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 60
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:227:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 60,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:231:1
+✖ R47 AA1-27: the excise is capped at 6% of the accounts' year-end value (0.9075ms)
+  AssertionError [ERR_ASSERTION]: row 41
+  
+  0 !== 60
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:240:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 60,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:243:1
+✖ R47 AA1-27: a one-time contribution over the room, moved under "warn", owes the same 6% (1.6176ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 150
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:249:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 150,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:256:1
+✖ R47 AA1-27: the "warn" option and its warning say the 6% excise applies (0.3381ms)
+  AssertionError [ERR_ASSERTION]: the option text
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:257:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:272:1
+✖ R47 AA1-26: IRA compensation from $6,000 of self-employment is $5,576.11 (profit less half the SE tax) (0.896ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6000 !== 5576.11
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:275:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6000,
+    expected: 5576.11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:280:1
+✖ R47 AA1-26: the one-time route reads the same compensation -- a $7,500 transfer moves $5,576.11 (0.7741ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6000 !== 5576.11
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:282:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6000,
+    expected: 5576.11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:294:1
+✖ R47 AA1-45: a deferral funded from self-employment pay reduces qualified business income -- $880 more tax (0.7761ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 26815.12
+  - 27695.12
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:299:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 26815.12,
+    expected: 27695.12,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:321:1
+✖ R47 AA1-32: a claim at 67 starts Medicare at 66.5 -- a full year at 65-66 and half a year at 66-67 (1.6435ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  5400 !== 10800
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:325:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 5400,
+    expected: 10800,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:336:1
+✖ R47 AA1-32: an entered Medicare start of 68 overrides the claim -- contributions through 68 (1.0056ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  5400 !== 16200
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:338:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 5400,
+    expected: 16200,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:341:1
+✖ R47 AA1-32: the one-time route follows the same date -- $3,000 moved into the HSA at 65.5 fits (1.1255ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 3000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:344:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 3000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:346:1
+✖ R47 AA1-32: a spouse's HSA reads the spouse's own claim (68 -> Medicare at 67.5) (0.7606ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  9750 !== 19500
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:354:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 9750,
+    expected: 19500,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:356:1
+✖ R47 AA1-32: the two Medicare start ages are numbers -- text or a negative age is refused by the validator and the engine (0.3042ms)
+  AssertionError [ERR_ASSERTION]: medicareStartAge = "66"
+  
+  true !== false
+  
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:361:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:367:1
+✖ R47 AA1-32: the form offers both Medicare start ages, and the HSA note no longer says contributions stop at 65 (0.1751ms)
+  AssertionError [ERR_ASSERTION]: v2-medicare-start
+      at TestContext.<anonymous> (C:\fc-wt-r47\tests\audit-s5aa-r47-federal-tax-and-accounts.test.js:369:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
