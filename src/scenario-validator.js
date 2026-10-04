@@ -1108,6 +1108,51 @@ function validateAllocationClasses(c, plan) {
   });
 }
 
+/* S5AA R46 (the owner, 2026-10-03, MC-C: "impossible correlations refused"; the engine's infeasibleCorrelation()): one correlation shared by
+ * every pair of m asset classes is possible only between -1/(m - 1) and 1; below it the classes' combined variance is negative, and the
+ * engine read it as zero risk (five 20% classes at -0.5 gave every path the same result). Checked where Monte Carlo reads it (method
+ * monteCarlo, asset classes on). m counts the ACTIVE classes: those some account, as entered, weights above zero at the start or the end
+ * of its glide -- the engine's accountGlideWeights() at progress 0 and 1, mirrored here (an account holding only stocks glides into bonds;
+ * every other class's weight scales with the non-stock share). A range WARNING already at the path is upgraded in place. */
+function activeAssetClassCount(plan) {
+  const adv = plan.advanced, pr = plan.profile;
+  const classes = adv.assetClasses.filter((ac) => isPlainObject(ac));
+  const ids = classes.map((ac) => ac.id), held = new Set();
+  const glide = adv.glideOn === true && ids.includes('stocks') && isFiniteNumber(adv.retirementStock);
+  (Array.isArray(plan.accounts) ? plan.accounts : []).forEach((a) => {
+    if (!isPlainObject(a) || !isPlainObject(a.allocation)) return;
+    const total = Object.keys(a.allocation).reduce((t, k) => t + Math.max(0, a.allocation[k] || 0), 0);
+    if (!(total > 0)) return;
+    const w = {};
+    ids.forEach((id) => { w[id] = Math.max(0, (Object.prototype.hasOwnProperty.call(a.allocation, id) ? a.allocation[id] : 0) || 0) / total; });
+    ids.forEach((id) => { if (w[id] > 0) held.add(id); });
+    if (!glide) return;
+    const target = w.stocks + (adv.retirementStock / 100 - w.stocks), nonStock = ids.reduce((t, id) => t + (id === 'stocks' ? 0 : w[id]), 0);
+    if (nonStock > 0) {
+      const scale = Math.max(0, 1 - target) / Math.max(0.0001, 1 - w.stocks);
+      ids.forEach((id) => { if ((id === 'stocks' ? target : w[id] * scale) > 0) held.add(id); });
+    } else if (ids.includes('bonds')) {
+      if (target > 0) held.add('stocks');
+      if (Math.max(0, 1 - target) > 0) held.add('bonds');
+    }
+  });
+  return classes.filter((ac) => held.has(ac.id)).length;
+}
+function validateCorrelationFeasible(c, plan) {
+  const a = plan.assumptions, adv = plan.advanced;
+  if (!isPlainObject(a) || !isPlainObject(adv) || a.method !== 'monteCarlo' || adv.assetsOn !== true) return;
+  if (!isFiniteNumber(adv.correlation) || !Array.isArray(adv.assetClasses)) return;
+  const rho = adv.correlation, m = activeAssetClassCount(plan);
+  if (rho <= 1 && rho >= -1 && !(m >= 2 && 1 + (m - 1) * rho < -1e-12)) return;
+  const low = m >= 2 ? -1 / (m - 1) : -1, shown = String(Math.round(low * 10000) / 10000);
+  const message = `"advanced.correlation" is ${rho}, which is not possible for the ${m} asset class${m === 1 ? '' : 'es'} the accounts hold: ` +
+    `one correlation shared by every pair of classes must be at least ${shown}${m >= 2 ? ' (-1/(' + m + '-1))' : ''} and at most 1, or the ` +
+    `classes' combined risk would be negative. Raise it to ${shown} or more, or hold fewer asset classes.`;
+  const earlier = c.issues.find((i) => i.path === 'advanced.correlation' && i.severity === 'WARNING');
+  if (earlier) { earlier.severity = 'ERROR'; earlier.code = 'INFEASIBLE_CORRELATION'; earlier.message = message; return; }
+  c.error('INFEASIBLE_CORRELATION', 'advanced.correlation', message);
+}
+
 /* S5AA R29: a transfer into a workplace plan must be a same-character rollover or a pre-tax to Roth conversion. Only while the
    transfer is on, and only when both endpoints resolve (their ids are checked elsewhere). S5AA R32: a rollover between the named
    sheltered accounts stays with one owner (R30A-03), and a Roth IRA cannot roll into a 401(k) (R30A-02; Publication 590-A). */
@@ -1270,6 +1315,7 @@ function validateScenario(plan) {
   validateRetirement(c, retirement);
   validateAdvanced(c, advanced);
   validateAllocationClasses(c, plan); // R20-01 (S5AA R21)
+  validateCorrelationFeasible(c, plan); // S5AA R46 (MC-C)
   validateBooleanFlags(c, plan); // Q53 (S5 2l)
   validatePlannedContributions(c, plan); // Q59 (S5 2q)
   validateTransferEndpoints(c, plan); // S5AA R29

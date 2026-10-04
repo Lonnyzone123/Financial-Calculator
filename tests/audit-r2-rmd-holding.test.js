@@ -264,7 +264,13 @@ function reservePlan() {
   return p;
 }
 
-test('Q2c: the reserve overlay is computed from EACH ACCOUNT\'s own balance over the portfolio total, so a $2m source and an empty destination get different rates', () => {
+/* S5AA R46 (the owner, 2026-10-03, MC-B: "the reserve computed once for the household"): ADAPTED BY INTENT. These two tests pinned the
+   per-account reserve -- min(account balance, spending x years) / portfolio total -- under which a $2m source reserved 3% and an empty
+   destination nothing (9.79% against 10%), and the holding inheriting the source's rate earned less than an explicit empty destination.
+   The reserve is now the household's: every account blends min(1, spending x years / portfolio total), so both rates are 9.79% and the
+   recorded policy (the holding inherits the source's realized rate) now coincides with the explicit destination's rate. Before R46 the
+   destination's rate was 0.10; after, 0.0979. */
+test("Q2c: the reserve overlay is the HOUSEHOLD's share of the portfolio (S5AA R46), so a $2m source and an empty destination get the same rate", () => {
   const p = reservePlan();
   const source = p.accounts[0];
   const emptyDestination = emptyTaxableAccount({ balance: 0 });
@@ -273,16 +279,13 @@ test('Q2c: the reserve overlay is computed from EACH ACCOUNT\'s own balance over
   const sourceRate = engine.accountReturnForPeriod(source, p, 80, 0, 0, null, portfolioTotal);
   const destinationRate = engine.accountReturnForPeriod(emptyDestination, p, 80, 0, 0, null, portfolioTotal);
 
-  // reserve = min(balance, spending * reserveYears) = min(2000000, 60000)
-  // share  = 60000 / 2000000 = 0.03
-  // rate   = 0.10 * 0.97 + 0.03 * 0.03 = 0.0979
+  // reserve = spending * reserveYears = 60000; share = min(1, 60000 / 2000000) = 0.03, for every account
+  // rate    = 0.10 * 0.97 + 0.03 * 0.03 = 0.0979
   assert.ok(Math.abs(sourceRate - 0.0979) < 1e-12, 'expected the source rate to be 9.79%, got ' + sourceRate);
-  assert.ok(Math.abs(destinationRate - 0.10) < 1e-12, 'an empty destination reserves nothing, so it keeps the full 10%, got ' + destinationRate);
-  assert.notEqual(sourceRate, destinationRate,
-    'these two rates MUST differ -- that is the whole reason exact equivalence cannot hold under reserveOn');
+  assert.ok(Math.abs(destinationRate - 0.0979) < 1e-12, 'an empty destination blends the same household share, 9.79%, got ' + destinationRate);
 });
 
-test('Q2c: the RECORDED policy is that the holding inherits the SOURCE\'s realized rate, reserve blend included -- not the rate an explicit destination would have got', () => {
+test("Q2c: the RECORDED policy is that the holding inherits the SOURCE's realized rate, reserve blend included -- since S5AA R46 the rate an explicit destination gets too", () => {
   const p = reservePlan();
   const source = p.accounts[0];
   const portfolioTotal = source.balance;
@@ -293,9 +296,10 @@ test('Q2c: the RECORDED policy is that the holding inherits the SOURCE\'s realiz
   engine.growAccounts([dest], [sourceRate], 0.5);
 
   assert.ok(Math.abs(dest.balance - 8000 * Math.pow(1 + sourceRate, 0.5)) < 1e-9,
-    'the holding must grow at the source account\'s own rate under the recorded policy');
-  assert.ok(dest.balance < 8000 * Math.pow(1.10, 0.5),
-    'and that is measurably LESS than an explicit empty destination would have earned -- the disclosed exception, stated numerically rather than glossed');
+    "the holding must grow at the source account's own rate under the recorded policy");
+  const explicitRate = engine.accountReturnForPeriod(emptyTaxableAccount({ balance: 0 }), p, 80, 0, 0, null, portfolioTotal);
+  assert.ok(Math.abs(dest.balance - 8000 * Math.pow(1 + explicitRate, 0.5)) < 1e-9,
+    'and an explicit empty destination now earns the same, so the disclosed exception no longer separates them');
 });
 
 test('Q2c: the equivalence acceptance test is scoped to reserveOn = false, and that scope is asserted rather than assumed', () => {

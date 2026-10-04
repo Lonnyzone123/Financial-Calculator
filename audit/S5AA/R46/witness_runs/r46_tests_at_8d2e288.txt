@@ -1,0 +1,36 @@
+✔ R46 rule 1: an account's return is its expected return plus its weighted class shocks (rho 0.5) (10.4939ms)
+✔ R46 rule 1: a negative correlation combines the class draws by the symmetric square root (rho -0.3, three classes) (1.2892ms)
+✔ R46 rule 1: with asset classes off every account shares the household shock (1.0299ms)
+✔ R46 rule 1 control: one account with asset classes off draws what it always drew (0.8508ms)
+✔ R46 rule 1: two accounts in different classes move together at the plan's correlation (237.9421ms)
+✔ R46 rule 1 (MC-A): one $1,000,000 account and twenty $50,000 accounts have the same paths (1068.1148ms)
+✔ R46 rule 1 control: the one-account AA1 plan keeps its 59.8% (372.2865ms)
+✔ R46 rule 1 (MC-D): reversing the accounts or adding an empty one leaves Monte Carlo unchanged (classes off) (479.6899ms)
+✔ R46 rule 1 (MC-D): the same with asset classes on (60/40 in every account) (632.0229ms)
+✔ R46 rule 1 (MC-D) control: in simple mode the order and the empty account already changed nothing (5.6863ms)
+✔ R46 rule 1 (MC-A): with asset classes on, one 60/40 account and twenty have the same paths (702.8536ms)
+✔ R46 rule 1: a created invest destination and an equivalent pre-existing one agree under Monte Carlo (the creation-period expectation retired) (14.2309ms)
+✔ R46 rule 2 (MC-C): rho -0.5 across five held classes is refused by both layers (1.3347ms)
+✔ R46 rule 2 (MC-C): rho -0.25 is possible -- a zero spread, every path earns the 8% expectation (30.7749ms)
+✔ R46 rule 2 controls: rho 0 has a spread; -0.2499 runs; simple mode never reads the correlation (61.3176ms)
+✔ R46 rule 2: only classes an account holds count -- a defined but unheld class does not (36.8616ms)
+✔ R46 rule 2: a class an account glides into counts (33.667ms)
+✔ R46 rule 2: a correlation above 1 is refused where Monte Carlo reads it (0.4728ms)
+✔ R46 rule 4 (MC-B): every account blends the same household reserve share (6.52%) (0.2756ms)
+✔ R46 rule 4 control: an account holding the whole portfolio already earned 6.52% (0.131ms)
+✔ R46 rule 4 (MC-B): a reserve above the portfolio holds all of it at the reserve rate (0.111ms)
+✔ R46 rule 4 (MC-B): one $1,000,000 account and twenty $50,000 accounts project the same (4.232ms)
+✔ R46 rule 4 control: accounts larger than the reserve are unchanged (1.6137ms)
+✔ R46 rule 3 (MC-E): the final year's real spending of an inflation-matched budget is $40,000 at the median and the 10th percentile (38.1135ms)
+✔ R46 rule 3 (MC-E): a constant-percentage budget's final-year median and 10th percentile, path by path (81.7137ms)
+✔ R46 rule 3 control: a simple or historical result carries no Monte Carlo summary (1.0589ms)
+✔ R46 rule 3 (MC-E): the app labels the figure "All modeled spending funded", with the note and the final-year summary (1071.6846ms)
+✔ R46 rule 3 control: simple mode keeps the label and shows no Monte Carlo summary (762.772ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6349.4632

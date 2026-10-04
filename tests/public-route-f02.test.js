@@ -62,14 +62,22 @@ const taxAt = (r, age) => Number(r.rows.find((row) => row.age === age).taxes);
    $26,022.11. */
 const JOINT_ROW = '11688.89';
 const SINGLE_ROW = '26022.11';
+/* S5AA R48 x R47, integrated: JOINT_ROW and SINGLE_ROW above are the tax years to 2028, when the federal senior deduction applies
+   and Arizona subtracts it (R48). From 2029 there is no federal senior deduction (R47), so nothing for Arizona to subtract, and R47's
+   hand-derived figures below hold. */
 
 test('F-02 public route: a surviving spouse is taxed as single from the year after the death', () => {
   /* The row reported at 76 is the one that OPENS at 75, the year the spouse dies, and it still files
      jointly. The row reported at 77 opens at 76 and is the first entirely after the death. Before the
      repair EVERY row of this plan reported $12,039.77. */
   const r = run();
-  assert.equal(taxAt(r, 76).toFixed(2), JOINT_ROW, 'the year of the death is still a joint return');
-  assert.equal(taxAt(r, 77).toFixed(2), SINGLE_ROW, 'and the year after it is a single one');
+  /* S5AA R47 (AA1-30; the owner's AA1 decision of 2026-10-03): the senior deduction ends after 2028, so rows 74 on (tax years 2029+)
+     have none. Re-derived by hand: MFJ, two 70-year-olds, $120,000 drawn from pre-tax, deduction 32,200 + 2 x 1,650 = 35,500;
+     T = 2,480 + 12% (X - 60,300) + 2.5% (X - 32,200 - 4,200), X = 120,000 + T -> 0.855 X = 114,334, T = 13,723.98 (was 12,039.77
+     with 2 x $6,000). Single survivor of 70: deduction 18,150; T = 17,966 + 24% (X - 123,850) + 2.5% (X - 18,200) -> 0.735 X =
+     107,787, T = 26,648.98 (was 26,082.43 with the phased-out deduction). */
+  assert.equal(taxAt(r, 76).toFixed(2), '13723.98', 'the year of the death is still a joint return');
+  assert.equal(taxAt(r, 77).toFixed(2), '26648.98', 'and the year after it is a single one');
 });
 
 test('F-02 public route: the survivor pays exactly what one person with the same income and accounts pays', () => {
@@ -80,22 +88,25 @@ test('F-02 public route: the survivor pays exactly what one person with the same
   for (const age of [77, 78, 79, 80]) {
     assert.equal(taxAt(widowed, age).toFixed(2), taxAt(single, age).toFixed(2), 'at age ' + age);
   }
-  assert.ok(taxAt(widowed, 77) > 2 * taxAt(widowed, 76) - 1,
-    'CONTROL: the two are genuinely different -- the survivor pays more than double what the couple did');
+  assert.ok(taxAt(widowed, 77) > 1.9 * taxAt(widowed, 76),
+    'CONTROL: the two are genuinely different -- the survivor pays nearly double what the couple did (S5AA R47: 1.94 times; it was more than double)');
 });
 
 test('F-02 public route: the SELF dying widows the household the same way the spouse dying does', () => {
   const r = run((p) => { p.retirement.selfLife = 75; p.retirement.spouseLife = 95; });
-  assert.equal(taxAt(r, 76).toFixed(2), JOINT_ROW, 'the year of the death');
-  assert.equal(taxAt(r, 77).toFixed(2), SINGLE_ROW, 'the year after');
+  /* S5AA R47 (AA1-30): re-derived figures, see the first test. */
+  assert.equal(taxAt(r, 76).toFixed(2), '13723.98', 'the year of the death');
+  assert.equal(taxAt(r, 77).toFixed(2), '26648.98', 'the year after');
 });
 
 test('F-02 public route: a household where nobody dies inside the horizon does not move by a cent', () => {
   /* The control that bounds the repair. If this moved, the change would be taxing living couples
      differently, which is not what it claims to do. */
   const alive = run((p) => { p.retirement.spouseLife = 99; p.retirement.selfLife = 99; });
+  /* S5AA R47 (AA1-30): flat within each law -- 12,039.77 through tax year 2028 (rows 71-73), 13,723.98 from 2029 (re-derived in the
+     first test). */
   for (const row of alive.rows.slice(1)) {
-    assert.equal(Number(row.taxes).toFixed(2), JOINT_ROW, 'at age ' + row.age);
+    assert.equal(Number(row.taxes).toFixed(2), row.age <= 73 ? JOINT_ROW : '13723.98', 'at age ' + row.age);
   }
 });
 
@@ -119,8 +130,11 @@ test('F-02 public route: a ONE-PERSON household is not widowed by its own death'
   assert.equal(dies.rows[dies.rows.length - 1].age, 76, 'CONTROL: the projection stops at the death');
   assert.deepEqual(dies.rows.map((r) => r.taxes), lives.rows.slice(0, dies.rows.length).map((r) => r.taxes),
     'a lone death moves no row');
-  const flat = new Set(dies.rows.slice(1).map((r) => Number(r.taxes).toFixed(2)));
-  assert.equal(flat.size, 1, 'and every retired row is the same figure: ' + [...flat].join(', '));
+  /* S5AA R47 (AA1-30): flat within each law -- the senior deduction ends after 2028 (rows 74 on). */
+  for (const part of [dies.rows.slice(1).filter((r) => r.age <= 73), dies.rows.slice(1).filter((r) => r.age > 73)]) {
+    const flat = new Set(part.map((r) => Number(r.taxes).toFixed(2)));
+    assert.equal(flat.size, 1, 'and every retired row under one law is the same figure: ' + [...flat].join(', '));
+  }
 });
 
 test('F-02 public route: the household is told what the transition models AND what it does not', () => {
