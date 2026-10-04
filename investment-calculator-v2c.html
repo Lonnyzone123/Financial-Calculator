@@ -5796,7 +5796,7 @@ function rothNextDollarWeight(p,age,accounts,L,priorReturn){if(!L)return 0;var f
    taxable here, and a $5,000 draw the next year paid $500 of 10% it does not owe (S17; 408A(d)(3)(F) and 1.408A-6 A-5(b) reach only the
    part included in income). Per Roth owner, the settled nontaxable part of each pool's conversions (amount x the settled fraction, which
    is how settleIraYear() splits them) less what was recorded is the correction; the year's records, with what this year's draws already
-   took from them, are re-formed with it: the draws re-split taxable part first (1.408A-6 A-8(b)(2)(ii); a year's conversions are one,
+   took from them, are re-formed with it: the draws re-split taxable part first (1.408A-6 A-8(b); a year's conversions are one,
    A-9(c)) and the rest kept as the year's record. The 10% the re-split adds or removes is returned, for the true-up the settlement already
    owes into the next row. A pool that was not settled has no correction; contribution basis is never touched. */
 function rothSettleConversions(L,settled){if(!L||!L.row||!settled)return 0;var trueUp=0;["self","spouse"].forEach(function(o){var tally=L.row.conv[o];if(!tally||!L[o])return;var delta=0;Object.keys(tally).forEach(function(k){var st=settled[k];if(st)delta+=tally[k].amount*st.fraction-tally[k].nontaxable});if(!(Math.abs(delta)>1e-9))return;

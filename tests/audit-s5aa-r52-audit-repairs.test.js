@@ -14,7 +14,7 @@
  *         refusal stays.
  * R50-01  At settlement each owner's Roth conversion record of the year is reconciled with the final Form 8606 conversion allocation
  *         (scheduled-transfer conversions included), and Roth IRA distributions already taken that year from those records are re-split
- *         taxable-first (1.408A-6 A-8(b)(2)(ii)) with their 10% trued up through the existing true-up ledger. Regular contribution basis
+ *         taxable-first (1.408A-6 A-8(b)) with their 10% trued up through the existing true-up ledger. Regular contribution basis
  *         stays apart from nontaxable conversion principal.
  *
  * Rows are labelled by their closing age. Returns and inflation are 0 unless stated. Every expected figure is hand-derived from the rule

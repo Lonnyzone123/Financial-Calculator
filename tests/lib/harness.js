@@ -933,7 +933,11 @@ function artifactFor(lane) {
 // Changed again 2026-10-04 (S5AA R52: R50's two Roth IRA ledger disclosures shown as cards), so the tracked file was
 // rebuilt, again installed only after two builds agreed. The pin before it,
 // 2076668a45cc3c9a740246569fbbb799b3c56f44dfd85d64980c2aa595235a87, described the previous rebuild.
-const EXPECTED_SHA256 = '91875f0f96d95f66a40b78ac71a35b71a7ece23190fd4bcdfee7a7f536db7e1c';
+//
+// Changed again 2026-10-04 (S5AA R52: an engine comment's regulation citation corrected (1.408A-6 A-8(b))), so the
+// tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 91875f0f96d95f66a40b78ac71a35b71a7ece23190fd4bcdfee7a7f536db7e1c, described the previous rebuild.
+const EXPECTED_SHA256 = '5a2093f5ac21d81167224e468e5da787a67a65bda544835a912a8d6d00c4845b';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
