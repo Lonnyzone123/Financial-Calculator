@@ -85,7 +85,7 @@ A result is exactly one of three shapes, selected by `status` and `mode`.
 
 ### Top level — ok, Monte Carlo
 
-As above, except: `calculationErrorAge` is **absent**; `successRate` is **continuous** in [0, 100] (valid paths funded ÷ valid paths × 100); `failed` is `successRate < 100`; the shortfall ages and lifetime totals are **medians across valid paths**; and three path counts are added — `requestedPathCount`, `validPathCount`, `calculationErrorPaths` (0 when ok).
+As above, except: `calculationErrorAge` is **absent**; `successRate` is **continuous** in [0, 100] (valid paths funded ÷ valid paths × 100); `failed` is `successRate < 100`; the shortfall ages and lifetime totals are **medians across valid paths**; and three path counts are added — `requestedPathCount`, `validPathCount`, `calculationErrorPaths` (0 when ok). From S5AA R46 an optional `finalYearRealSpending` — `{ median, q10 }`, the final row's spending of each valid path in today's dollars — is added (§ "What S5AA R46 added").
 
 ### Top level — invalid
 
@@ -341,6 +341,26 @@ unchanged.
 `audit/S5AA/R42/`.* No new code. `retirement.ssBenefit` and `retirement.spouseSS` join the plan fields refused as
 `SCENARIO_NONNUMBER_PLAN_VALUE` (§3) when present and not a finite number (R41F-05), and the validator reports them as
 `WRONG_TYPE`. Until R42 such a value ran as a zero benefit with `status` `"ok"`. `contractVersion` stays at 5.
+
+### What S5AA R46 added (2026-10-03)
+
+*The owner's AA1 decisions on AA1-24 (MC-A to MC-E). The commits are named in `audit/S5AA/R46/`.* **`contractVersion` stays at
+5,** on the reasoning in the R29 to R39.1 subsection above and §8: a refusal is an existing outcome reached by one more cause, and
+the new field is optional and changes no field's meaning, requirement or invariant. (Whether an optional field should bump the version
+is recorded in the R46 build report as a question for the owner.)
+
+**One refusal,** an `ERROR` issue and the same `calculationErrorCode`, with `status` `"calculation_error"` and no rows;
+`validateScenario()` refuses the same plans as `INFEASIBLE_CORRELATION` at `advanced.correlation`:
+
+| `calculationErrorCode` | refused when | introduced |
+|---|---|---|
+| `SCENARIO_INFEASIBLE_CORRELATION` | Monte Carlo with asset classes on, and `advanced.correlation` above 1, below -1, or below -1/(m-1) for the m active asset classes (those some account weights above zero at the start or the end of its glide): one correlation shared by every pair of classes cannot be lower, or the classes' combined variance is negative | R46 (MC-C) |
+
+**One optional top-level field** of an ok Monte Carlo result (`tools/result-contract.json` `topLevel.optional`):
+`finalYearRealSpending: { median, q10 }` — each valid path's final-row `spending` divided by the inflation factor at that row's
+opening (the price level the year's spending is set at), at the median and the 10th percentile (`quantile()`). It is absent on simple
+and historical results and removed from an invalid one. A valid Monte Carlo result therefore has 19 top-level keys
+(`tools/capture-baseline.js` `FIELD_COUNTS`). No row field changes.
 
 ---
 

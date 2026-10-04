@@ -140,7 +140,8 @@
       "calculationErrorAge": { "type": "number|null", "meaning": "Invalid results: the age of the first calculation error in a simple/historical run; null for a pre-simulation rejection; absent on a Monte Carlo aggregate.", "sources": ["S-R2V003"] },
       "calculationErrorPaths": { "type": "number", "meaning": "Invalid Monte Carlo results only.", "sources": ["S-ERRUI"] },
       "requestedPathCount": { "type": "number", "meaning": "Invalid Monte Carlo results only.", "sources": ["S-ERRUI"] },
-      "validPathCount": { "type": "number", "meaning": "Invalid Monte Carlo results only.", "sources": ["S-ERRUI"] }
+      "validPathCount": { "type": "number", "meaning": "Invalid Monte Carlo results only.", "sources": ["S-ERRUI"] },
+      "finalYearRealSpending": { "type": "object", "unit": "USD", "basis": "real", "meaning": "S5AA R46 (the owner, 2026-10-03, MC-E): ok Monte Carlo results only, from R46 on. { median, q10 }: the final row's spending of each valid path divided by the inflation factor at that row's opening, at the median and the 10th percentile (quantile()). Absent on simple and historical results and removed from an invalid one.", "sources": ["S-STATS"] }
     }
   },
   "invariants": [
