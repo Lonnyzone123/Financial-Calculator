@@ -1,0 +1,351 @@
+✖ R50 (AA1-36): no basis entered -- an early Roth IRA draw is all earnings: income and the 10%, grossed up (was untaxed) (11.8782ms)
+✖ R50 (AA1-36): an entered basis comes out first and free; the next year's draw passes it into earnings (1.5568ms)
+✔ R50 (AA1-36) control: a draw inside the entered basis is untaxed (1.187ms)
+✔ R50 (AA1-36) control: at 60 with a Roth IRA held at the start, the draw is qualified and untaxed (1.1467ms)
+✖ R50 (AA1-36): that qualification rests on the five-year period taken as met -- disclosed (was silent) (1.1957ms)
+✖ R50 (AA1-36): first Roth IRA contribution in 2024 -- at 60 in 2026 the period has not run: earnings are income, no 10% (0.8781ms)
+✔ R50 (AA1-36) control: first contribution in 2021 -- the period ran out by 2026, so the same draw is qualified (0.7888ms)
+✖ R50 (AA1-36): a conversion drawn in its own year at 50 bears the 10% on its taxable amount, and is not income again (1.4771ms)
+✔ R50 (AA1-36) control: the same at 60 -- the period has not run, but past 59 1/2 a conversion dollar bears nothing (0.9203ms)
+✖ R50 (AA1-36): a 2026 conversion drawn at 54 (2030, inside its five years) bears the 10% (2.5438ms)
+✔ R50 (AA1-36) control: drawn at 55 (2031), the conversion is past its five years -- free (1.0838ms)
+✖ R50 (AA1-36): a regular contribution made in the plan is basis -- an 8,000 draw is 7,000 free and 1,000 of earnings (1.1275ms)
+✔ R50 (AA1-36) control: a 7,000 draw is the contribution itself -- untaxed (0.64ms)
+✖ R50 (AA1-36): the surviving spouse takes over the decedent's basis -- the rest of it is free, then earnings (0.9453ms)
+✔ R50 (AA1-36) control: a basis covering both years leaves both untaxed (0.6419ms)
+✖ R50 (AA1-36): 10,000 moved from a Roth IRA to cash at 45 is a distribution -- earnings, so the 10% (was untaxed) (0.9049ms)
+✔ R50 (AA1-36) control: the same transfer out of 10,000 of basis is free (0.5756ms)
+✖ R50 (AA1-36): with every Roth IRA dollar taxable and penalized at 50, the optimizer draws the IRA first (was the Roth) (0.8319ms)
+✔ R50 (AA1-36) control: with the whole Roth IRA basis, the optimizer draws it first, free (0.6654ms)
+✖ R50 (AA1-36): a Roth IRA drawn at 50 is modelled now -- no longer outside the supported domain (0.5577ms)
+✖ R50 (AA1-36): a Roth 401(k) drawn at 50 is left as before (untaxed; its figures are the control) and stays flagged, the text now naming it (0.7368ms)
+✖ R50 (AA1-31): $30,000 earned before a half-year first row -- the row is taxed as the rest of a $60,000 year (was 1,767.50) (1.3886ms)
+✔ R50 (AA1-31) control: not entered -- the disclosed convention stands, 1,767.50 (0.5546ms)
+✔ R50 (AA1-31) control: a whole first row ignores it -- 6,117.50, and the second row is untouched (0.8919ms)
+✖ R50 (AA1-31): the funding draw is solved against the whole year -- an IRA draw at 12% + 2.5% (was untaxed) (0.8073ms)
+✖ R50: the new values are numbers in range -- text or a negative is refused by the validator and the engine (0.2806ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 11
+ℹ fail 15
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 211.924
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:59:1
+✖ R50 (AA1-36): no basis entered -- an early Roth IRA draw is all earnings: income and the 10%, grossed up (was untaxed) (11.8782ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 3209.68
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:64:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 3209.68,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:70:1
+✖ R50 (AA1-36): an entered basis comes out first and free; the next year's draw passes it into earnings (1.5568ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1111.11
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:77:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1111.11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:99:1
+✖ R50 (AA1-36): that qualification rests on the five-year period taken as met -- disclosed (was silent) (1.1957ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:101:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:104:1
+✖ R50 (AA1-36): first Roth IRA contribution in 2024 -- at 60 in 2026 the period has not run: earnings are income, no 10% (0.8781ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2067.25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:109:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2067.25,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:125:1
+✖ R50 (AA1-36): a conversion drawn in its own year at 50 bears the 10% on its taxable amount, and is not income again (1.4771ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 1767.5
+  - 4186.11
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:130:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1767.5,
+    expected: 4186.11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:148:1
+✖ R50 (AA1-36): a 2026 conversion drawn at 54 (2030, inside its five years) bears the 10% (2.5438ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 2222.22
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:152:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 2222.22,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:168:1
+✖ R50 (AA1-36): a regular contribution made in the plan is basis -- an 8,000 draw is 7,000 free and 1,000 of earnings (1.1275ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 111.11
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:172:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 111.11,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:188:1
+✖ R50 (AA1-36): the surviving spouse takes over the decedent's basis -- the rest of it is free, then earnings (0.9453ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1758.06
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:195:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1758.06,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:211:1
+✖ R50 (AA1-36): 10,000 moved from a Roth IRA to cash at 45 is a distribution -- earnings, so the 10% (was untaxed) (0.9049ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:214:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:232:1
+✖ R50 (AA1-36): with every Roth IRA dollar taxable and penalized at 50, the optimizer draws the IRA first (was the Roth) (0.8319ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  80000 !== 100000
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:235:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 80000,
+    expected: 100000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:246:1
+✖ R50 (AA1-36): a Roth IRA drawn at 50 is modelled now -- no longer outside the supported domain (0.5577ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:247:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:249:1
+✖ R50 (AA1-36): a Roth 401(k) drawn at 50 is left as before (untaxed; its figures are the control) and stays flagged, the text now naming it (0.7368ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Roth 401\(k\)/. Input:
+  
+  "A Roth account was drawn before its owner reached 59 1/2. A transfer is judged at its own age; a spending or tax-funding draw is judged at the age its projection year began, because the engine pools a year's draws, so part of such a draw may in fact fall after 59 1/2. A withdrawal from a Roth account is modelled as tax-free and penalty-free at every age: the contribution-then-earnings ordering, the recovery of basis and the five-year clocks are not modelled, so this projection is a reference only for QUALIFIED Roth withdrawals, and this draw may not be one."
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:256:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "A Roth account was drawn before its owner reached 59 1/2. A transfer is judged at its own age; a spending or tax-funding draw is judged at the age its projection year began, because the engine pools a year's draws, so part of such a draw may in fact fall after 59 1/2. A withdrawal from a Roth account is modelled as tax-free and penalty-free at every age: the contribution-then-earnings ordering, the recovery of basis and the five-year clocks are not modelled, so this projection is a reference only for QUALIFIED Roth withdrawals, and this draw may not be one.",
+    expected: /Roth 401\(k\)/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:266:1
+✖ R50 (AA1-31): $30,000 earned before a half-year first row -- the row is taxed as the rest of a $60,000 year (was 1,767.50) (1.3886ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1767.5 !== 4350
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:270:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1767.5,
+    expected: 4350,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:281:1
+✖ R50 (AA1-31): the funding draw is solved against the whole year -- an IRA draw at 12% + 2.5% (was untaxed) (0.8073ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1695.91
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:286:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1695.91,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:291:1
+✖ R50: the new values are numbers in range -- text or a negative is refused by the validator and the engine (0.2806ms)
+  AssertionError [ERR_ASSERTION]: "30000"
+  
+  true !== false
+  
+      at TestContext.<anonymous> (C:\fc-wt-r50\tests\audit-s5aa-r50-roth-ledger-and-prior-income.test.js:301:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,64 @@
+S5AA R50 test exposure on ba9946d (prediction/r50_test_exposure_hook.js, loaded into the candidate test files listed in
+r50_test_exposure_candidates.txt: every file naming a Roth, and every file that builds corpus or golden plans; device-benchmark and
+build-routes excluded as builds).
+Per file: exposed calls, of which Monte Carlo; then each exposure kind and its count. figures = a Roth IRA draw reaches a taxed or
+penalized segment under the R50 ledger.
+The hook run itself: 1610 tests, 1594 pass, 7 fail, 9 todo. The 7 failures are the hook's own (six Q80 toJSON-count tests: the hook
+serialises the plan once more; capture-boundary 5.4: the hook loads modules a fresh capture process does not); none is an engine failure.
+Not seen: tests that load an engine variant through vm, or build the app Worker; test files outside the candidate list were not hooked
+(the coordinator's gate runs them).
+
+tests/audit-cl-findings.test.js: 3 calls (2 Monte Carlo); figures x2; issues: UNSUPPORTED_ROTH_ORDERING removed x2; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x2; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-q70-claim-age-bounds.test.js: 18 calls; figures x18; issues: UNSUPPORTED_ROTH_ORDERING removed x18; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x18
+tests/audit-q72-holding-value-type.test.js: 1 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-q80-flag-defaults-serialize-once.test.js: 8 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x8; (replay rows differ from the test's own call: the test mutated the plan or the engine) x1
+tests/audit-q81-strategy-direct-routes.test.js: 35 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x11; inputs: a Roth IRA that holds or can receive money x24
+tests/audit-q81-strategy-public-routes.test.js: 4 calls (2 Monte Carlo); issues: adds ROTH_FIVE_YEAR_ASSUMED x4
+tests/audit-rb-findings.test.js: 1 calls (1 Monte Carlo); figures x1; issues: UNSUPPORTED_ROTH_ORDERING removed x1; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x1
+tests/audit-rc-findings.test.js: 1 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-s5aa-r11-strategy-year-count.test.js: 15 calls (1 Monte Carlo); issues: adds ROTH_FIVE_YEAR_ASSUMED x15
+tests/audit-s5aa-r19-workstream-a-ira-settlement.test.js: 1 calls; issues: UNSUPPORTED_ROTH_ORDERING removed x1
+tests/audit-s5aa-r23-roth-flag-follows-draws.test.js: 5 calls (1 Monte Carlo); figures x4; issues: UNSUPPORTED_ROTH_ORDERING removed x4; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x4; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-s5aa-r24-transfer-age-at-59-half.test.js: 5 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x2; figures x3; issues: UNSUPPORTED_ROTH_ORDERING removed x3; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x3
+tests/audit-s5aa-r28-transfer-after-the-draw.test.js: 4 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x4
+tests/audit-s5aa-r28-transfer-destination-at-date.test.js: 17 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x17
+tests/audit-s5aa-r28-transfer-dividends-by-holder.test.js: 3 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x3
+tests/audit-s5aa-r28-transfer-imputed-yield-by-holder.test.js: 3 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x3
+tests/audit-s5aa-r29-held-dollars-prototype-ids.test.js: 15 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x15
+tests/audit-s5aa-r30-transfer-dividends-follow-the-move.test.js: 1 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-s5aa-r35-fixed-nominal-today-dollars.test.js: 1 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js: 3 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x3
+tests/audit-s5aa-r35-portfolio-return-signals.test.js: 3 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x3
+tests/audit-s5aa-r35-stage-before-survivor-reduction.test.js: 3 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x3
+tests/audit-s5aa-r35-working-spouse-wages-fund-spending.test.js: 3 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x3
+tests/audit-s5aa-r37-strategy-text.test.js: 4 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x4
+tests/audit-s5aa-r43-flows.test.js: 2 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x2
+tests/audit-s5aa-r43-life-events.test.js: 2 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x2
+tests/audit-s5aa-r45-carried-test-gaps.test.js: 1 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-s5aa-r45-spouse-retirement-dates.test.js: 7 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x6; figures x1; issues: UNSUPPORTED_ROTH_ORDERING removed x1; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x1
+tests/audit-s5aa-r6-conversion-basis.test.js: 1 calls; issues: UNSUPPORTED_ROTH_ORDERING removed x1
+tests/audit-s5aa-supported-domain.test.js: 3 calls; figures x3; issues: UNSUPPORTED_ROTH_ORDERING removed x3; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x3; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/audit-s5r01-snapshot-acceptance.test.js: 5 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x5
+tests/boolean-flag-contract.test.js: 104 calls; figures x104; issues: UNSUPPORTED_ROTH_ORDERING removed x103; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x104
+tests/capture-baseline.test.js: 85 calls (34 Monte Carlo); figures x68; issues: UNSUPPORTED_ROTH_ORDERING removed x68; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x68; issues: adds ROTH_FIVE_YEAR_ASSUMED x34
+tests/capture-boundary.test.js: 10 calls (4 Monte Carlo); figures x8; issues: UNSUPPORTED_ROTH_ORDERING removed x8; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x8; issues: adds ROTH_FIVE_YEAR_ASSUMED x4
+tests/control-corpus.test.js: 34 calls (14 Monte Carlo); figures x28; issues: UNSUPPORTED_ROTH_ORDERING removed x28; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x28; issues: adds ROTH_FIVE_YEAR_ASSUMED x13
+tests/corpus-composition.test.js: 27 calls (12 Monte Carlo); figures x20; issues: UNSUPPORTED_ROTH_ORDERING removed x24; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x20; issues: adds ROTH_FIVE_YEAR_ASSUMED x7
+tests/corpus-configured-paths.test.js: 59 calls (20 Monte Carlo); figures x40; issues: UNSUPPORTED_ROTH_ORDERING removed x44; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x39; issues: adds ROTH_FIVE_YEAR_ASSUMED x24
+tests/corpus-invariant.test.js: 27 calls (12 Monte Carlo); figures x24; issues: UNSUPPORTED_ROTH_ORDERING removed x24; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x24; issues: adds ROTH_FIVE_YEAR_ASSUMED x9
+tests/debug-module.test.js: 4 calls (2 Monte Carlo); figures x3; issues: UNSUPPORTED_ROTH_ORDERING removed x3; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x3; inputs: a Roth IRA that holds or can receive money x1
+tests/golden-scenarios.test.js: 1 calls (1 Monte Carlo); figures x1; issues: UNSUPPORTED_ROTH_ORDERING removed x1; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x1
+tests/household-ledger.test.js: 682 calls (634 Monte Carlo); inputs: a Roth IRA that holds or can receive money x682
+tests/mathematical-oracles.test.js: 1 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x1
+tests/monte-carlo-sensitive-band.test.js: 8 calls (8 Monte Carlo); figures x8; issues: UNSUPPORTED_ROTH_ORDERING removed x8; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x8
+tests/near-miss-survivor-sweep.test.js: 35 calls (9 Monte Carlo); issues: adds ROTH_FIVE_YEAR_ASSUMED x20; figures x15; issues: UNSUPPORTED_ROTH_ORDERING removed x15; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x15
+tests/networth-reconciliation.test.js: 38 calls (14 Monte Carlo); figures x29; issues: UNSUPPORTED_ROTH_ORDERING removed x32; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x29; issues: adds ROTH_FIVE_YEAR_ASSUMED x13
+tests/public-route-ext03.test.js: 9 calls (1 Monte Carlo); issues: adds ROTH_FIVE_YEAR_ASSUMED x9
+tests/public-route-rc02.test.js: 2 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x2
+tests/public-route-risk001.test.js: 9 calls; issues: adds ROTH_FIVE_YEAR_ASSUMED x9
+tests/reconciliation-invariant.test.js: 2325 calls (2284 Monte Carlo); inputs: a Roth IRA that holds or can receive money x2311; (replay rows differ from the test's own call: the test mutated the plan or the engine) x8; issues: adds ROTH_FIVE_YEAR_ASSUMED x2; figures x4; issues: UNSUPPORTED_ROTH_ORDERING removed x4; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x4
+tests/result-contract.test.js: 1 calls (1 Monte Carlo); issues: UNSUPPORTED_ROTH_ORDERING removed x1
+tests/schema-catalogue.test.js: 1 calls (1 Monte Carlo); figures x1; issues: UNSUPPORTED_ROTH_ORDERING removed x1; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x1
+tests/worker-parity.test.js: 5 calls (2 Monte Carlo); figures x4; issues: UNSUPPORTED_ROTH_ORDERING removed x4; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x4; issues: adds ROTH_FIVE_YEAR_ASSUMED x2
+tools/capture-baseline.js: 17 calls (7 Monte Carlo); figures x13; issues: UNSUPPORTED_ROTH_ORDERING removed x13; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x13; issues: adds ROTH_FIVE_YEAR_ASSUMED x7
+tools/corpus-invariant.js: 8 calls (4 Monte Carlo); figures x8; issues: UNSUPPORTED_ROTH_ORDERING removed x8; issues: adds ROTH_IRA_BASIS_NOT_ENTERED x8; issues: adds ROTH_FIVE_YEAR_ASSUMED x2
