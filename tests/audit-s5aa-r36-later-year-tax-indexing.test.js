@@ -4,7 +4,7 @@
  * The rules package holds 2026's figures and every later year used them while incomes inflated (R32F: +$17,644 of tax over 14 years
  * on a $60k inflating pension). Each price-linked amount now rises with the plan's inflation and each statute's rounding (IRC
  * 1(f)(7): the increase down to $50; 63(c)(4): the increase down to $50; Arizona conforms); the senior deduction stays $6,000
- * (statutory, and kept after 2028 by D8).
+ * (statutory; D8 kept it after 2028 until S5AA R47, AA1-30, ended it after 2028 -- this test reads only plan years 0 and 1).
  *
  * A single 67-year-old, a $60,000 pension with no COLA, no other income, 3% inflation, a 0% return, taxes paid from a Roth. Plan
  * year 0 (2026): federal taxable 60,000 - 16,100 - 2,050 - 6,000 = 35,850: 10% of 12,400 + 12% of 23,450 = 4,054; Arizona

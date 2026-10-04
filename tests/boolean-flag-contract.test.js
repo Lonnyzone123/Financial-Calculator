@@ -196,6 +196,16 @@ const SETUPS = {
     p.advanced.rmdOn = true;
     return p;
   },
+  /* S5AA R47 (AA1-13): a 55-year-old earning $200,000 who defers $32,500 to the 401(k) (accounts[1]) with $175,000 of prior-year FICA wages
+     from its employer: the $8,000 catch-up must be designated Roth (IRC 414(v)(7)(A)). Absent or true, the plan offers Roth and the catch-up
+     goes to its Roth balance; false allows no catch-up (414(v)(7)(B)), so the $8,000 is an excess redirected to taxable savings. */
+  highEarnerCatchup: () => {
+    const p = basePlan();
+    Object.assign(p.profile, { age: 55, retireAge: 60, endAge: 58 });
+    Object.assign(p.employment, { salary: 200000, contributionStop: 60 });
+    Object.assign(p.accounts[1], { contribution: 32500, priorYearFicaWages: 175000 });
+    return p;
+  },
 };
 
 /* The plan the value witnesses run on: every record flag has a record to sit
@@ -564,6 +574,7 @@ SETUPS.irmaaHousehold = () => {
 /* [flag, setup, record index]. includeHousingCosts sits on the rich plan's
    mortgage, where its documented default is true. */
 const ABSENT_TRUE_WITNESSES = [
+  ['accounts[].planOffersRoth', 'highEarnerCatchup', 1],   // S5AA R47 (AA1-13)
   ['accounts[].spouseSoleBeneficiary', 'youngSoleSpouse', 1],   // S5AA R43 (SA42F-07)
   ['advanced.debts[].includeHousingCosts', 'rich', 0],
   ['advanced.debts[].includePayment', 'rich', 0],

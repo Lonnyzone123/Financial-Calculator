@@ -70,10 +70,15 @@ test('F-02: a surviving spouse is taxed as single from the year after the death,
   /* The row reported at age 76 is the one that OPENS at 75, which is the year the spouse dies, and it
      still files jointly -- IRC 6013(a)(3). The row reported at 77 opens at 76 and is the first one
      entirely after the death. */
-  assert.equal(taxAt(r, 76).toFixed(2), '12039.77', 'the year of the death is still a joint return');
-  assert.equal(taxAt(r, 77).toFixed(2), '26082.43', 'and the year after it is a single one');
-  assert.ok(taxAt(r, 77) > 2 * taxAt(r, 76) - 1,
-    'the survivor pays more than double, which is the size of the defect: it was $12,039.77 in every row');
+  /* S5AA R47 (AA1-30; the owner's AA1 decision of 2026-10-03): the senior deduction ends after 2028, so rows 74 on (tax years 2029+)
+     have none. Re-derived by hand: MFJ, two 70-year-olds, $120,000 drawn from pre-tax, deduction 32,200 + 2 x 1,650 = 35,500;
+     T = 2,480 + 12% (X - 60,300) + 2.5% (X - 32,200 - 4,200), X = 120,000 + T -> 0.855 X = 114,334, T = 13,723.98 (was 12,039.77
+     with 2 x $6,000). Single survivor of 70: deduction 18,150; T = 17,966 + 24% (X - 123,850) + 2.5% (X - 18,200) -> 0.735 X =
+     107,787, T = 26,648.98 (was 26,082.43 with the phased-out deduction). */
+  assert.equal(taxAt(r, 76).toFixed(2), '13723.98', 'the year of the death is still a joint return');
+  assert.equal(taxAt(r, 77).toFixed(2), '26648.98', 'and the year after it is a single one');
+  assert.ok(taxAt(r, 77) > 1.9 * taxAt(r, 76),
+    'the survivor pays nearly double (S5AA R47: 1.94 times since the senior deduction ended; it was more than double), which is the size of the defect: the joint figure was charged in every row');
 });
 
 test('F-02: the survivor pays exactly what one person with the same income and accounts pays', () => {
@@ -90,8 +95,10 @@ test('F-02: a household where nobody dies inside the horizon does not move by a 
   /* The control that bounds the repair. If this moved, the change would be taxing living couples
      differently, which is not what it claims to do. */
   const alive = run((p) => { p.retirement.spouseLife = 99; p.retirement.selfLife = 99; });
+  /* S5AA R47 (AA1-30): flat within each law -- 12,039.77 through tax year 2028 (rows 71-73), 13,723.98 from 2029 (re-derived in the
+     first test). */
   for (const row of alive.rows.slice(1)) {
-    assert.equal(Number(row.taxes).toFixed(2), '12039.77', 'at age ' + row.age);
+    assert.equal(Number(row.taxes).toFixed(2), row.age <= 73 ? '12039.77' : '13723.98', 'at age ' + row.age);
   }
 });
 
@@ -99,8 +106,13 @@ test('F-02: the SELF dying widows the household the same way the spouse dying do
   /* The defect was symmetric and so is the repair. Rows run on the self\'s clock and continue past the
      self\'s death; the surviving spouse is a single filer from the following year. */
   const r = run((p) => { p.retirement.selfLife = 75; p.retirement.spouseLife = 95; });
-  assert.equal(taxAt(r, 76).toFixed(2), '12039.77', 'the year of the death is still a joint return');
-  assert.equal(taxAt(r, 77).toFixed(2), '26082.43', 'and the year after it is a single one');
+  /* S5AA R47 (AA1-30; the owner's AA1 decision of 2026-10-03): the senior deduction ends after 2028, so rows 74 on (tax years 2029+)
+     have none. Re-derived by hand: MFJ, two 70-year-olds, $120,000 drawn from pre-tax, deduction 32,200 + 2 x 1,650 = 35,500;
+     T = 2,480 + 12% (X - 60,300) + 2.5% (X - 32,200 - 4,200), X = 120,000 + T -> 0.855 X = 114,334, T = 13,723.98 (was 12,039.77
+     with 2 x $6,000). Single survivor of 70: deduction 18,150; T = 17,966 + 24% (X - 123,850) + 2.5% (X - 18,200) -> 0.735 X =
+     107,787, T = 26,648.98 (was 26,082.43 with the phased-out deduction). */
+  assert.equal(taxAt(r, 76).toFixed(2), '13723.98', 'the year of the death is still a joint return');
+  assert.equal(taxAt(r, 77).toFixed(2), '26648.98', 'and the year after it is a single one');
 });
 
 test('F-02: a deceased spouse stops counting toward the age-65 amounts', () => {
