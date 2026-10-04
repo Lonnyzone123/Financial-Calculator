@@ -1,0 +1,11 @@
+seed:2: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+seed:3: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+seed:4: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+seed:5: rows from 85: final total 30410669 -> 30404613 (-6056); spending at 85 162374 -> 211445; lifetimeTaxes 2155131.6181854084 -> 2155201.471626033
+seed:10: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+seed:12: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+seed:14: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+seed:15: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+seed:17: rows from 62: final total 441725 -> 441725 (0); spending at 62 52945 -> 53051
+seed:20: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY
+targeted:arm-flag-on: rows unchanged; issues +WORKING_YEARS_NOT_FUNDED_BY_PAY

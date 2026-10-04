@@ -48,11 +48,14 @@ function row1(o) {
   assert.strictEqual(r.status, 'ok', r.status + ' / ' + r.calculationErrorCode);
   return r.rows[1];
 }
-const NET_WAGES = 60000 - 60000 * 0.0765 - 0.10 * (60000 - 32200 - 1650 - 6000) - 0.025 * (60000 - 32200 - 2100);   /* 52,752.50 */
+/* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona subtracts the federal senior deduction too (A.R.S. 43-1022(35)),
+   the same $6,000: the Arizona term falls by $150, net wages are 52,902.50 (were 52,752.50), the Roth pays 7,097.50 (was 7,247.50) and
+   3,548.75 in the crossing row (was 3,623.75). */
+const NET_WAGES = 60000 - 60000 * 0.0765 - 0.10 * (60000 - 32200 - 1650 - 6000) - 0.025 * (60000 - 32200 - 2100 - 6000);   /* 52,902.50 */
 
 test('R35 SA32F-19: the spouse\'s net wages pay the spending before the portfolio does', () => {
   const r = row1({});
-  assert.strictEqual(+r.withdrawals.toFixed(2), +(60000 - NET_WAGES).toFixed(2), 'the Roth pays 7,247.50, not 60,000');
+  assert.strictEqual(+r.withdrawals.toFixed(2), +(60000 - NET_WAGES).toFixed(2), 'the Roth pays 7,097.50, not 60,000');
   assert.strictEqual(+r.roth.toFixed(2), +(1000000 - (60000 - NET_WAGES)).toFixed(2));
   /* CONTROL: the same dollars as an employment stream (their tax paid from the portfolio): the same draw, as before. */
   assert.strictEqual(+row1({ stream: true }).withdrawals.toFixed(2), +(60000 - NET_WAGES).toFixed(2));
@@ -65,8 +68,8 @@ test('R35 SA32F-19: pay beyond the spending is not saved -- the portfolio pays n
 });
 
 test('R35 SA32F-19: only the pay earned after the retirement date counts, in a row that crosses it', () => {
-  /* The self retires at 65.5: half the row is retired, spending 30,000; half the year's net pay, 26,376.25, was earned after it.
-     The Roth pays 3,623.75. The wage-only tax is the whole row's (the self is 65 by the row's close either way). */
+  /* The self retires at 65.5: half the row is retired, spending 30,000; half the year's net pay, 26,451.25 (R48), was earned after it.
+     The Roth pays 3,548.75. The wage-only tax is the whole row's (the self is 65 by the row's close either way). */
   const r = row1({ retireAge: 65.5 });
   assert.strictEqual(+r.withdrawals.toFixed(2), +(30000 - NET_WAGES / 2).toFixed(2));
 });

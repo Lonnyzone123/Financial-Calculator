@@ -1,0 +1,10 @@
+seed:2: age 58, short 71030
+seed:3: age 58, short 2541441
+seed:4: age 67, short 596262
+seed:10: age 48, short 4400
+seed:12: age 38, short 4400
+seed:14: age 45, short 21425
+seed:15: age 35, short 3849697
+seed:20: age 59, short 2695967
+targeted:arm-flag-on: age 60, short 17187
+pmiStopAge equals the scan rule on 2 of 2 corpus mortgages

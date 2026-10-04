@@ -41,9 +41,9 @@
   },
   "monte-carlo-fixed-seed": {
     "rowCount": 68,
-    "failed": false,
-    "successRate": 100,
-    "lifetimeTaxes": 2242033.6,
+    "failed": true,
+    "successRate": 96.8,
+    "lifetimeTaxes": 2512709.86,
     "lifetimeContributions": 1138890.31,
     "firstRow": {
       "age": 29.5,
@@ -58,32 +58,32 @@
     },
     "midRow": {
       "age": 63,
-      "total": 19613423.44,
-      "taxable": 4344737.84,
-      "preTax": 8950413.62,
-      "roth": 2725692.3,
-      "taxes": 12810.48,
-      "withdrawals": 196057.78,
-      "networth": 19613423.44,
-      "magi": 246558.52
+      "total": 17597381.73,
+      "taxable": 4625045.79,
+      "preTax": 10276485.35,
+      "roth": 2735560.84,
+      "taxes": 14141.95,
+      "withdrawals": 197284.17,
+      "networth": 17597381.73,
+      "magi": 257647.79
     },
     "lastRow": {
       "age": 96,
-      "total": 304502978.52,
-      "taxable": 52242692.32,
-      "preTax": 103243254.57,
-      "roth": 37771605.4,
-      "taxes": 106238.1,
-      "withdrawals": 672502.14,
-      "networth": 304502978.52,
-      "magi": 1405598.94
+      "total": 179657969.08,
+      "taxable": 55167773.6,
+      "preTax": 92308559,
+      "roth": 34162739.03,
+      "taxes": 127130.59,
+      "withdrawals": 688325.86,
+      "networth": 179657969.08,
+      "magi": 1477360.22
     }
   },
   "rmd-and-roth-conversion": {
     "rowCount": 29,
     "failed": false,
     "successRate": 100,
-    "lifetimeTaxes": 123793.34,
+    "lifetimeTaxes": 133455.83,
     "lifetimeContributions": 0,
     "firstRow": {
       "age": 68,
@@ -98,25 +98,25 @@
     },
     "midRow": {
       "age": 82,
-      "total": 2029353.86,
-      "taxable": 895216.51,
-      "preTax": 252862.83,
+      "total": 2018592.25,
+      "taxable": 895100.68,
+      "preTax": 242217.06,
       "roth": 881274.52,
-      "taxes": 6237.69,
-      "withdrawals": 45679.05,
-      "networth": 2029353.86,
-      "magi": 124718.98
+      "taxes": 7079.74,
+      "withdrawals": 46521.11,
+      "networth": 2018592.25,
+      "magi": 125559.38
     },
     "lastRow": {
       "age": 96,
-      "total": 6006781.65,
-      "taxable": 2347025.91,
+      "total": 5957856.59,
+      "taxable": 2345347.7,
       "preTax": 0,
-      "roth": 3659755.74,
-      "taxes": 1864.84,
-      "withdrawals": 153758.86,
-      "networth": 6006781.65,
-      "magi": 158193.52
+      "roth": 3612508.89,
+      "taxes": 1864.23,
+      "withdrawals": 153758.25,
+      "networth": 5957856.59,
+      "magi": 158169.02
     }
   },
   "reserve-and-bond-tent": {

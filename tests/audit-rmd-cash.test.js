@@ -192,11 +192,14 @@ test('R2V-001 test gap: a positive RMD cash remainder below the tax obligation t
   /* S5AA task 3.1 (Q88): the $2,445.00 tax becomes $2,199.00 -- the IRC 63(f) additional deduction for the
      aged is $2,050 at the 12% bracket -- so the residual falls from $1,445.00 to $1,199.00 and takes THE SAME
      gross-up: 1199 / 0.855 = 1,402.339181, giving $2,402.339181 in total. The mechanism is untouched. */
-  const expectedAdditionalSale = 1199 / 0.855; // the same gross-up on the $1,199.00 residual ($1,445.00 before the 63(f) deduction)
-  assert.ok(Math.abs(expectedAdditionalSale - 1402.339181) < 0.001, `test setup sanity check: expected $1,402.339181 ($1,690.058480 before the 63(f) additional deduction), got ${expectedAdditionalSale}`);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona subtracts the federal senior deduction (A.R.S. 43-1022(35)), the
+     full $6,000 at $40,000: the tax falls by $150 to $2,049.00, the residual to $1,049.00, and the same gross-up gives 1049 / 0.855 =
+     1,226.900585, $2,226.900585 in total (were $1,402.339181 and $2,402.339181). */
+  const expectedAdditionalSale = 1049 / 0.855; // the same gross-up on the $1,049.00 residual ($1,445.00 before the 63(f) deduction, $1,199.00 before Arizona's senior subtraction)
+  assert.ok(Math.abs(expectedAdditionalSale - 1226.900585) < 0.001, `test setup sanity check: expected $1,226.900585 ($1,690.058480 before the 63(f) additional deduction, $1,402.339181 before Arizona's senior subtraction), got ${expectedAdditionalSale}`);
   assert.equal(row.calculationError, false);
   assert.equal(row.shortfall, 0);
-  assert.ok(Math.abs(row.taxes - (1000 + expectedAdditionalSale)) < 0.01, `expected total tax paid of exactly $2,402.339181 ($2,690.058480 before the 63(f) additional deduction), got ${row.taxes}`);
+  assert.ok(Math.abs(row.taxes - (1000 + expectedAdditionalSale)) < 0.01, `expected total tax paid of exactly $2,226.900585 ($2,690.058480 before the 63(f) additional deduction, $2,402.339181 before Arizona's senior subtraction), got ${row.taxes}`);
 });
 
 test('R2V-001 test gap: real cash exactly equal to the tax liability (to the cent) reconciles with exactly zero residual', () => {
@@ -210,7 +213,8 @@ test('R2V-001 test gap: real cash exactly equal to the tax liability (to the cen
   /* S5AA task 3.1 (Q88): the tax is now $2,199.00, so the spending that leaves EXACTLY the tax in cash is
      $37,801.00. This input is derived from the liability by construction -- the whole point of the fixture is
      that real cash equals the tax to the cent -- so it moves with the liability, as it did under S5 task 8. */
-  p.retirement.spending = 40000 - 2199;
+  /* S5AA R48 (AA1-16): Arizona's senior-deduction subtraction (43-1022(35)) takes the tax to $2,049.00, so the spending is $37,951.00. */
+  p.retirement.spending = 40000 - 2049;
   const result = engine.runPlan(p);
   const row = result.rows[1];
   assert.equal(row.calculationError, false);

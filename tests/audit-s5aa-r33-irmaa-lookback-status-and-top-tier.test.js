@@ -37,7 +37,11 @@ function run(o) {
   Object.assign(p.retirement, { strategy: 'fixedNominal', spending: 0, dividendOn: true, dividendYield: 0, stages: [], expenses: [],
     pension: 0, ssBenefit: 0, spouseSS: 0, survivor: false, irmaaGuard: false, selfLife: o.selfLife || 100, spouseLife: 100,
     otherIncomes: [{ name: 'Pension stream', type: 'pension', owner: o.owner || 'self', amount: o.magi, start: 0, end: 100, growth: 0, growthMode: 'fixed' }] });
-  Object.assign(p.advanced, { healthOn: true, healthCost: 0, rmdOn: false, conversionOn: false, transferOn: false });
+  /* S5AA R48 (AA1-23, the owner's AA1 decision of 2026-10-03): the Medicare charge now grows from 2026 at healthcare inflation, the
+     default plan's 5.5%; these tests are about which tier and which return a year reads, so the fixture holds it at 0% and every
+     figure stays 2026's (at 5.5% the row opening at 72 charged 3,545.74 for the 3,185.68 tier, 1.055^2 times it). The growth is
+     witnessed in tests/audit-s5aa-r48-medicare-survivors-arizona.test.js. */
+  Object.assign(p.advanced, { healthOn: true, healthCost: 0, healthInflation: 0, rmdOn: false, conversionOn: false, transferOn: false });
   p.accounts = [{ id: 'cash', name: 'cash', type: 'taxable', taxClass: 'taxable', owner: 'self', balance: 3000000, basisPct: 100, cashHolding: true,
     contribution: 0, contributionMode: 'amount', annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year',
     futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0, profitShare: 0, vesting: 100, priority: 0 }];

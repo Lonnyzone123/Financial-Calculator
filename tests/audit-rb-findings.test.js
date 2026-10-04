@@ -179,8 +179,9 @@ test('RB-02: a non-boolean cashHolding flag must be rejected, not silently honou
      The mechanism this pins is unchanged, and 34,602.50 returns exactly with the exemption set to $0. */
   /* S5AA task 3.1 (Q88): 34,655.00 before the IRC 63(f) additional deduction for the aged, which leaves
      $246 more cash -- $2,050 at the 12% bracket -- and that cash is retained as taxable. */
-  assert.ok(Math.abs(controlRow.taxable - 34901.00) < 0.01,
-    'CONTROL: without the flag the surplus is retained as taxable cash, $34,901.00; got ' + controlRow.taxable.toFixed(2));
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)): 34,901.00 before it, which leaves $150 more cash (2.5% of $6,000). */
+  assert.ok(Math.abs(controlRow.taxable - 35051.00) < 0.01,
+    'CONTROL: without the flag the surplus is retained as taxable cash, $35,051.00; got ' + controlRow.taxable.toFixed(2));
 
   const bad = build('false');
   const validated = validateScenario(clone(bad));

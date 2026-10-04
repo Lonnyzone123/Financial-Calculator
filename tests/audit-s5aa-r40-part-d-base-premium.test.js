@@ -6,7 +6,7 @@
  * Medicare now also pays the 2026 Part D base beneficiary premium, $38.99 a month: CMS, "Annual Release of Part D National Average
  * Monthly Bid Amount and Other Part C & D Bid Information", July 28, 2025 ("the Part D base beneficiary premium is $38.99"), computed
  * under 42 CFR 423.286(c). It is the statutory base plan premiums are set around, used as the proxy for a plan's premium, and like the
- * other Medicare premiums it stays at 2026's in later years.
+ * other Medicare premiums it stays at 2026's in later years (until S5AA R48, AA1-23: since then all grow from 2026 at the Medicare growth rate).
  *
  * Witness, by hand: retired at 66, health costs on with no pre-Medicare cost, no income (the lowest IRMAA tier). Each Medicare year:
  * Part B 202.90 x 12 + the 283 deductible = 2,717.80, plus Part D 38.99 x 12 = 467.88: 3,185.68 a person. No other spending, so row
@@ -46,11 +46,14 @@ function healthRows(profile) {
 }
 
 test('R40: one person on Medicare pays the Part D base premium each year', () => {
-  assert.deepStrictEqual(healthRows({ age: 66 }), [3185.68, 3185.68, 3185.68]);   // before: 2,717.80 a year
+  /* S5AA R48 (AA1-23, the owner's AA1 decision of 2026-10-03): the charge grows from 2026 at the plan's healthcare inflation, 5% here:
+     3,185.68, x 1.05 = 3,344.96, x 1.1025 = 3,512.21 (it stayed at 3,185.68). The Part D base premium is still charged in each. */
+  assert.deepStrictEqual(healthRows({ age: 66 }), [3185.68, 3344.96, 3512.21]);   // before R40: 2,717.80 a year; before R48: 3,185.68 each
 });
 
 test('R40: a couple on Medicare pays it twice', () => {
-  assert.deepStrictEqual(healthRows({ age: 66, spouseOn: true, spouseAge: 66, filing: 'mfj' }), [6371.36, 6371.36, 6371.36]);
+  /* S5AA R48: twice the grown charge, 6,371.36, 6,689.93, 7,024.42 (it stayed at 6,371.36). */
+  assert.deepStrictEqual(healthRows({ age: 66, spouseOn: true, spouseAge: 66, filing: 'mfj' }), [6371.36, 6689.93, 7024.42]);
 });
 
 test('R40: control -- before 65 there is no Medicare, so no Part D premium', () => {

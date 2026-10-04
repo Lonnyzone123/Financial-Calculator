@@ -1,0 +1,423 @@
+✖ R46 rule 1: an account's return is its expected return plus its weighted class shocks (rho 0.5) (13.0077ms)
+✖ R46 rule 1: a negative correlation combines the class draws by the symmetric square root (rho -0.3, three classes) (1.5796ms)
+✖ R46 rule 1: with asset classes off every account shares the household shock (1.3046ms)
+✔ R46 rule 1 control: one account with asset classes off draws what it always drew (1.2641ms)
+✖ R46 rule 1: two accounts in different classes move together at the plan's correlation (264.0545ms)
+✖ R46 rule 1 (MC-A): one $1,000,000 account and twenty $50,000 accounts have the same paths (1281.5355ms)
+✔ R46 rule 1 control: the one-account AA1 plan keeps its 59.8% (400.2374ms)
+✖ R46 rule 1 (MC-D): reversing the accounts or adding an empty one leaves Monte Carlo unchanged (classes off) (412.354ms)
+✖ R46 rule 1 (MC-D): the same with asset classes on (60/40 in every account) (515.316ms)
+✔ R46 rule 1 (MC-D) control: in simple mode the order and the empty account already changed nothing (5.6973ms)
+✖ R46 rule 1 (MC-A): with asset classes on, one 60/40 account and twenty have the same paths (645.359ms)
+✖ R46 rule 1 (Q19): a created invest destination and an equivalent pre-existing one agree under Monte Carlo (17.3317ms)
+✖ R46 rule 2 (MC-C): rho -0.5 across five held classes is refused by both layers (1.0078ms)
+✔ R46 rule 2 (MC-C): rho -0.25 is possible -- a zero spread, every path earns the 8% expectation (27.1704ms)
+✔ R46 rule 2 controls: rho 0 has a spread; -0.2499 runs; simple mode never reads the correlation (49.9765ms)
+✖ R46 rule 2: only classes an account holds count -- a defined but unheld class does not (59.1936ms)
+✖ R46 rule 2: a class an account glides into counts (72.5986ms)
+✖ R46 rule 2: a correlation above 1 is refused where Monte Carlo reads it (34.3955ms)
+✖ R46 rule 4 (MC-B): every account blends the same household reserve share (6.52%) (0.632ms)
+✔ R46 rule 4 control: an account holding the whole portfolio already earned 6.52% (0.3001ms)
+✖ R46 rule 4 (MC-B): a reserve above the portfolio holds all of it at the reserve rate (4.3159ms)
+✖ R46 rule 4 (MC-B): one $1,000,000 account and twenty $50,000 accounts project the same (4.6287ms)
+✔ R46 rule 4 control: accounts larger than the reserve are unchanged (2.1018ms)
+✖ R46 rule 3 (MC-E): the final year's real spending of an inflation-matched budget is $40,000 at the median and the 10th percentile (30.26ms)
+✖ R46 rule 3 (MC-E): a constant-percentage budget's final-year median and 10th percentile, path by path (82.0801ms)
+✔ R46 rule 3 control: a simple or historical result carries no Monte Carlo summary (1.0948ms)
+✖ R46 rule 3 (MC-E): the app labels the figure "All modeled spending funded", with the note and the final-year summary (1074.7258ms)
+✖ R46 rule 3 control: simple mode keeps the label and shows no Monte Carlo summary (791.2788ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 8
+ℹ fail 20
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6597.1972
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:73:1
+✖ R46 rule 1: an account's return is its expected return plus its weighted class shocks (rho 0.5) (13.0077ms)
+  AssertionError [ERR_ASSERTION]: expected 1061604.77, got 1030500.37
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:77:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:83:1
+✖ R46 rule 1: a negative correlation combines the class draws by the symmetric square root (rho -0.3, three classes) (1.5796ms)
+  AssertionError [ERR_ASSERTION]: expected 1078759.8, got 1036205.43
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:88:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:92:1
+✖ R46 rule 1: with asset classes off every account shares the household shock (1.3046ms)
+  AssertionError [ERR_ASSERTION]: expected 1025158.28, got 1014447.43
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:95:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:108:1
+✖ R46 rule 1: two accounts in different classes move together at the plan's correlation (264.0545ms)
+  AssertionError [ERR_ASSERTION]: sample correlation -0.0201
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:117:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:134:1
+✖ R46 rule 1 (MC-A): one $1,000,000 account and twenty $50,000 accounts have the same paths (1281.5355ms)
+  AssertionError [ERR_ASSERTION]: one 59.8%, twenty 99.2%
+  
+  99.2 !== 59.8
+  
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:136:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 99.2,
+    expected: 59.8,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:159:1
+✖ R46 rule 1 (MC-D): reversing the accounts or adding an empty one leaves Monte Carlo unchanged (classes off) (412.354ms)
+  AssertionError [ERR_ASSERTION]: reversed: success 76 vs 75
+  
+  76 !== 75
+  
+      at sameRows (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:157:44)
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:161:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 76,
+    expected: 75,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:164:1
+✖ R46 rule 1 (MC-D): the same with asset classes on (60/40 in every account) (515.316ms)
+  AssertionError [ERR_ASSERTION]: reversed: success 87.66666666666667 vs 84
+  + actual - expected
+  
+  + 87.66666666666667
+  - 84
+  
+      at sameRows (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:157:44)
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:166:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 87.66666666666667,
+    expected: 84,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:175:1
+✖ R46 rule 1 (MC-A): with asset classes on, one 60/40 account and twenty have the same paths (645.359ms)
+  AssertionError [ERR_ASSERTION]: twenty: success 74 vs 100
+  
+  74 !== 100
+  
+      at sameRows (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:157:44)
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:177:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 74,
+    expected: 100,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:185:1
+✖ R46 rule 1 (Q19): a created invest destination and an equivalent pre-existing one agree under Monte Carlo (17.3317ms)
+  AssertionError [ERR_ASSERTION]: created vs pre-existing: row 76 1103651.81 vs 1103541.69
+      at sameRows (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:158:50)
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:194:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:211:1
+✖ R46 rule 2 (MC-C): rho -0.5 across five held classes is refused by both layers (1.0078ms)
+  AssertionError [ERR_ASSERTION]
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:213:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:235:1
+✖ R46 rule 2: only classes an account holds count -- a defined but unheld class does not (59.1936ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'ok'
+  - 'SCENARIO_INFEASIBLE_CORRELATION'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:238:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ok',
+    expected: 'SCENARIO_INFEASIBLE_CORRELATION',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:244:1
+✖ R46 rule 2: a class an account glides into counts (72.5986ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'ok'
+  - 'SCENARIO_INFEASIBLE_CORRELATION'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:252:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ok',
+    expected: 'SCENARIO_INFEASIBLE_CORRELATION',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:255:1
+✖ R46 rule 2: a correlation above 1 is refused where Monte Carlo reads it (34.3955ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'ok'
+  - 'SCENARIO_INFEASIBLE_CORRELATION'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:257:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ok',
+    expected: 'SCENARIO_INFEASIBLE_CORRELATION',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:270:1
+✖ R46 rule 4 (MC-B): every account blends the same household reserve share (6.52%) (0.632ms)
+  AssertionError [ERR_ASSERTION]: a $50,000 account earns 0.068
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:273:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:280:1
+✖ R46 rule 4 (MC-B): a reserve above the portfolio holds all of it at the reserve rate (4.3159ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(Math.abs(engine.accountReturnForPeriod(p.accounts[0], p, 65, 0, 0, null, 100000, false, 40000) - 0.03) < 1e-12)
+  
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:282:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:284:1
+✖ R46 rule 4 (MC-B): one $1,000,000 account and twenty $50,000 accounts project the same (4.6287ms)
+  AssertionError [ERR_ASSERTION]: row 66: 1023916.59 vs 1026662.37
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:286:52)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:309:1
+✖ R46 rule 3 (MC-E): the final year's real spending of an inflation-matched budget is $40,000 at the median and the 10th percentile (30.26ms)
+  AssertionError [ERR_ASSERTION]: the Monte Carlo result carries the summary
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:311:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:320:1
+✖ R46 rule 3 (MC-E): a constant-percentage budget's final-year median and 10th percentile, path by path (82.0801ms)
+  TypeError: Cannot read properties of undefined (reading 'median')
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:327:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:373:1
+✖ R46 rule 3 (MC-E): the app labels the figure "All modeled spending funded", with the note and the final-year summary (1074.7258ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /All modeled spending funded/. Input:
+  
+  'Success probability100.0%'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:376:10)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Success probability100.0%',
+    expected: /All modeled spending funded/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:384:1
+✖ R46 rule 3 control: simple mode keeps the label and shows no Monte Carlo summary (791.2788ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /All modeled spending funded/. Input:
+  
+  'Success probability100.0%'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r46\tests\audit-s5aa-r46-monte-carlo-and-reserve.test.js:386:10)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Success probability100.0%',
+    expected: /All modeled spending funded/,
+    operator: 'match',
+    diff: 'simple'
+  }

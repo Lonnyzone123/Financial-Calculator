@@ -115,9 +115,10 @@ test('projectDebts: no debts returns a zeroed result and mutates nothing', () =>
   /* P9 added the interest/principal/housing breakdown Q35 asked for. Still a
      fully zeroed result, now with every component named rather than three of
      them being absent from the contract. */
+  /* S5AA R49 (AA1-07): workingService, what the debts cost in the working months, for the working-years check. */
   assert.deepEqual(result, {
     retirementPayments: 0, totalPayments: 0,
-    totalInterest: 0, totalPrincipal: 0, totalHousing: 0, perDebt: [],
+    totalInterest: 0, totalPrincipal: 0, totalHousing: 0, workingService: 0, perDebt: [],
   });
 });
 

@@ -618,6 +618,29 @@ function validateRetirement(c, retirement) {
         checkRange(c, stage.value, `retirement.stages[${i}].value`, 0, 200, 'STAGE_PERCENT_OUT_OF_RANGE');
       }
     });
+    /* S5AA R49 (AA1-25 (b); the owner's AA1 decision, 2026-10-03: "stacked stages warn"): two percent stages that are active at the
+       same age multiply there (stageAmountAt() in engine.js: 90% and 80% give 72%, not 70%). A stage is active from its start to its
+       end age inclusive, [start, end + 1). A WARNING, once per overlapping pair; an amount stage replaces the figure and is not a
+       multiplier. */
+    const pct = retirement.stages.map((stage, i) => ({ stage, i }))
+      .filter(({ stage }) => isPlainObject(stage) && stage.mode === 'percent' && isFiniteNumber(stage.start) && isFiniteNumber(stage.end));
+    for (let a = 0; a < pct.length; a++) {
+      for (let b = a + 1; b < pct.length; b++) {
+        const x = pct[a].stage, y = pct[b].stage;
+        if (x.start < y.end + 1 && y.start < x.end + 1) {
+          c.warn('SPENDING_STAGES_OVERLAP', `retirement.stages[${pct[b].i}]`,
+            `percentage stages ${pct[a].i + 1} (ages ${x.start}-${x.end}) and ${pct[b].i + 1} (ages ${y.start}-${y.end}) overlap, so where both apply ` +
+            `they multiply: ${x.value}% of ${y.value}% is ${Math.round(x.value * y.value) / 100}% of the planned spending`);
+        }
+      }
+    }
+  }
+  /* S5AA R49 (AA1-25 (b)): spending flexibility (a cut after a down year) stacks on guardrails' and Guyton-Klinger's own adjustments,
+     so a bad year can be cut twice. A WARNING; at 0 flexibility, or with another strategy, nothing is said. */
+  if ((retirement.strategy === 'guardrails' || retirement.strategy === 'guyton') && isFiniteNumber(retirement.flexibility) && retirement.flexibility > 0) {
+    c.warn('FLEXIBILITY_WITH_GUARDRAILS', 'retirement.flexibility',
+      `spending flexibility (${retirement.flexibility}% less after a down year) applies on top of the ${retirement.strategy === 'guyton' ? 'Guyton-Klinger' : 'guardrail'} ` +
+      'adjustments, so a bad year can be cut twice; set flexibility to 0 to let the strategy alone decide');
   }
 }
 
@@ -807,7 +830,11 @@ const ADVANCED_MIGRATION_KEYS = ['v210Migrated'];
 const ADVANCED_OPTIONAL_KEYS = ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefore', 'irmaaFilingTwoYearsBefore', 'irmaaFilingOneYearBefore',
   /* S5AA R45 (the owner's AA1 decisions on AA1-40): absent means "at the default date" (conversions: profile.retireAge; pre-Medicare
      health: the household date), which is why the default does not carry them. */
-  'conversionStartAge', 'healthCoverageEndAge'];
+  'conversionStartAge', 'healthCoverageEndAge',
+  /* S5AA R49 (the owner's AA1 decision on AA1-37): absent means the default onset rule (max(65, round(retireAge + 10))). */
+  'ltcOnsetAge',  /* S5AA R48 (the owner's AA1 decision on AA1-23): absent means the Medicare charge grows at advanced.healthInflation and the Part D
+     plan premium is the CMS base premium. Typed and ranged by src/plan-value-contract.json. */
+  'medicareInflation', 'partDPremium'];
 
 function validateAdvancedKnownKeys(c, advanced) {
   Object.keys(advanced).forEach((k) => {
@@ -847,6 +874,11 @@ function validateAdvanced(c, advanced) {
     } else {
       checkRange(c, advanced.healthInflation, 'advanced.healthInflation', 0, 20, 'OUT_OF_RANGE', 'warning');
     }
+  }
+  /* S5AA R48 (AA1-23): the Medicare growth rate, when entered, is held like healthcare inflation -- the contract refuses -100 or below and
+     above 100; outside the form's 0 to 20 it warns. */
+  if (isFiniteNumber(advanced.medicareInflation) && advanced.medicareInflation > -100 && advanced.medicareInflation <= 100) {
+    checkRange(c, advanced.medicareInflation, 'advanced.medicareInflation', 0, 20, 'OUT_OF_RANGE', 'warning');
   }
   if (advanced.correlation !== undefined) {
     checkType(c, advanced.correlation, 'advanced.correlation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
@@ -988,6 +1020,64 @@ function validateDebt(c, debt, index) {
   }
 }
 
+/* S5AA R49 (AA1-44; the owner's AA1 decision, 2026-10-03: "the residual shown beside a forced payoff date"): THE BALANCE LEFT AT A
+ * DEBT'S PAYOFF AGE by its scheduled payments, which projectDebts() in engine.js forces out in one payment there. The engine's monthly
+ * loop, from the plan's starting age: the entered payment plus extra principal; a credit card's revolving minimum (the greater of its
+ * percent of the balance and its dollar floor, 2% and $25 unless the debt carries others) as a floor on the payment; an adjustable
+ * rate's reset recasts the payment over the remaining term, which clears the balance by the payoff age. A payoff age at or before the
+ * start runs the first projection year's payments, as the engine does. Returns 0 for a debt with no balance or no payoff age. */
+function debtPayoffResidual(debt, startAge, endAge) {
+  if (!isPlainObject(debt) || !isFiniteNumber(debt.balance) || !(debt.balance > 0) || !isFiniteNumber(debt.payoffAge) || !isFiniteNumber(startAge)) return 0;
+  const firstRowEnd = Math.min(Math.floor(startAge + 1e-9) + 1, isFiniteNumber(endAge) ? endAge : Infinity);
+  const months = Math.max(0, Math.round(((debt.payoffAge > startAge ? debt.payoffAge : firstRowEnd) - startAge) * 12));
+  const resetMonth = debt.rateType === 'adjustable' && isFiniteNumber(debt.nextRateResetAge) && debt.nextRateResetAge < debt.payoffAge
+    ? Math.round((debt.nextRateResetAge - startAge) * 12) : Infinity;
+  const nonNegative = (v, d) => (isFiniteNumber(v) && v >= 0 ? v : d);
+  const monthlyRate = Math.max(0, isFiniteNumber(debt.rate) ? debt.rate : 0) / 1200;
+  const payment = Math.max(0, isFiniteNumber(debt.paymentMonthly) ? debt.paymentMonthly : 0);
+  const extra = Math.max(0, isFiniteNumber(debt.extraPrincipalMonthly) ? debt.extraPrincipalMonthly : 0);
+  let balance = debt.balance;
+  for (let m = 0; m < months && balance > 1e-9; m++) {
+    if (m >= resetMonth) return 0;
+    const interest = balance * monthlyRate;
+    let base = payment;
+    if (debt.type === 'creditCard') {
+      base = Math.max(base, Math.min(Math.max(balance * nonNegative(debt.minimumPercentOfBalance, 2) / 100, nonNegative(debt.minimumDollarFloor, 25)), balance + interest));
+    }
+    balance = Math.max(0, balance + interest - Math.min(base + extra, balance + interest));
+  }
+  return balance;
+}
+
+/* S5AA R49 (AA1-44): a WARNING when the scheduled payments leave a balance (50 cents or more) at a payoff age the plan reaches -- that
+ * balance is paid in one sum at that age. The debt editor shows the same figure beside the payoff age. */
+function validateDebtPayoffResiduals(c, plan) {
+  const profile = isPlainObject(plan.profile) ? plan.profile : {};
+  const debts = isPlainObject(plan.advanced) && Array.isArray(plan.advanced.debts) ? plan.advanced.debts : [];
+  if (!isFiniteNumber(profile.age) || !isFiniteNumber(profile.endAge)) return;
+  debts.forEach((debt, i) => {
+    if (!isPlainObject(debt) || !isFiniteNumber(debt.payoffAge) || debt.payoffAge > profile.endAge) return;
+    const left = debtPayoffResidual(debt, profile.age, profile.endAge);
+    if (left >= 0.5) {
+      c.warn('DEBT_PAYOFF_RESIDUAL', `advanced.debts[${i}].payoffAge`,
+        `the scheduled payments leave about ${Math.round(left).toLocaleString('en-US')} owed at the payoff age ${debt.payoffAge}, ` +
+        'and the plan pays it in one lump sum there; raise the payment or move the payoff age if that is not intended');
+    }
+  });
+}
+
+/* S5AA R49 (AA1-08; the owner's AA1 decision, 2026-10-03: "insurance as an estate measure"): with net worth on, the life insurance
+ * death benefit counts in net worth from the primary's lifespan onward (engine.js). A plan that starts at or after that age counts it
+ * from the first year, as though the benefit were already in hand. A WARNING. */
+function validateInsuranceTiming(c, plan) {
+  const a = isPlainObject(plan.advanced) ? plan.advanced : {}, r = isPlainObject(plan.retirement) ? plan.retirement : {}, pr = isPlainObject(plan.profile) ? plan.profile : {};
+  if (a.networthOn === true && isFiniteNumber(a.insurance) && a.insurance > 0 && isFiniteNumber(r.selfLife) && isFiniteNumber(pr.age) && r.selfLife <= pr.age) {
+    c.warn('INSURANCE_AFTER_INSURED_DEATH', 'advanced.insurance',
+      `the life insurance benefit counts in net worth from your lifespan (${r.selfLife}), which is at or before the plan's starting age (${pr.age}), ` +
+      'so it is counted from the first year; it is an estate measure, never paid into the portfolio');
+  }
+}
+
 function validateOtherAsset(c, asset, index) {
   const path = `advanced.otherAssets[${index}]`;
   if (!isPlainObject(asset)) {
@@ -1100,6 +1190,51 @@ function validateAllocationClasses(c, plan) {
   });
 }
 
+/* S5AA R46 (the owner, 2026-10-03, MC-C: "impossible correlations refused"; the engine's infeasibleCorrelation()): one correlation shared by
+ * every pair of m asset classes is possible only between -1/(m - 1) and 1; below it the classes' combined variance is negative, and the
+ * engine read it as zero risk (five 20% classes at -0.5 gave every path the same result). Checked where Monte Carlo reads it (method
+ * monteCarlo, asset classes on). m counts the ACTIVE classes: those some account, as entered, weights above zero at the start or the end
+ * of its glide -- the engine's accountGlideWeights() at progress 0 and 1, mirrored here (an account holding only stocks glides into bonds;
+ * every other class's weight scales with the non-stock share). A range WARNING already at the path is upgraded in place. */
+function activeAssetClassCount(plan) {
+  const adv = plan.advanced, pr = plan.profile;
+  const classes = adv.assetClasses.filter((ac) => isPlainObject(ac));
+  const ids = classes.map((ac) => ac.id), held = new Set();
+  const glide = adv.glideOn === true && ids.includes('stocks') && isFiniteNumber(adv.retirementStock);
+  (Array.isArray(plan.accounts) ? plan.accounts : []).forEach((a) => {
+    if (!isPlainObject(a) || !isPlainObject(a.allocation)) return;
+    const total = Object.keys(a.allocation).reduce((t, k) => t + Math.max(0, a.allocation[k] || 0), 0);
+    if (!(total > 0)) return;
+    const w = {};
+    ids.forEach((id) => { w[id] = Math.max(0, (Object.prototype.hasOwnProperty.call(a.allocation, id) ? a.allocation[id] : 0) || 0) / total; });
+    ids.forEach((id) => { if (w[id] > 0) held.add(id); });
+    if (!glide) return;
+    const target = w.stocks + (adv.retirementStock / 100 - w.stocks), nonStock = ids.reduce((t, id) => t + (id === 'stocks' ? 0 : w[id]), 0);
+    if (nonStock > 0) {
+      const scale = Math.max(0, 1 - target) / Math.max(0.0001, 1 - w.stocks);
+      ids.forEach((id) => { if ((id === 'stocks' ? target : w[id] * scale) > 0) held.add(id); });
+    } else if (ids.includes('bonds')) {
+      if (target > 0) held.add('stocks');
+      if (Math.max(0, 1 - target) > 0) held.add('bonds');
+    }
+  });
+  return classes.filter((ac) => held.has(ac.id)).length;
+}
+function validateCorrelationFeasible(c, plan) {
+  const a = plan.assumptions, adv = plan.advanced;
+  if (!isPlainObject(a) || !isPlainObject(adv) || a.method !== 'monteCarlo' || adv.assetsOn !== true) return;
+  if (!isFiniteNumber(adv.correlation) || !Array.isArray(adv.assetClasses)) return;
+  const rho = adv.correlation, m = activeAssetClassCount(plan);
+  if (rho <= 1 && rho >= -1 && !(m >= 2 && 1 + (m - 1) * rho < -1e-12)) return;
+  const low = m >= 2 ? -1 / (m - 1) : -1, shown = String(Math.round(low * 10000) / 10000);
+  const message = `"advanced.correlation" is ${rho}, which is not possible for the ${m} asset class${m === 1 ? '' : 'es'} the accounts hold: ` +
+    `one correlation shared by every pair of classes must be at least ${shown}${m >= 2 ? ' (-1/(' + m + '-1))' : ''} and at most 1, or the ` +
+    `classes' combined risk would be negative. Raise it to ${shown} or more, or hold fewer asset classes.`;
+  const earlier = c.issues.find((i) => i.path === 'advanced.correlation' && i.severity === 'WARNING');
+  if (earlier) { earlier.severity = 'ERROR'; earlier.code = 'INFEASIBLE_CORRELATION'; earlier.message = message; return; }
+  c.error('INFEASIBLE_CORRELATION', 'advanced.correlation', message);
+}
+
 /* S5AA R29: a transfer into a workplace plan must be a same-character rollover or a pre-tax to Roth conversion. Only while the
    transfer is on, and only when both endpoints resolve (their ids are checked elsewhere). S5AA R32: a rollover between the named
    sheltered accounts stays with one owner (R30A-03), and a Roth IRA cannot roll into a 401(k) (R30A-02; Publication 590-A). */
@@ -1168,6 +1303,55 @@ function validatePlanValueContract(c, plan) {
 }
 /* S5AA R43 (SA42F-30, SA42F-32): the engine refuses a plan with nobody alive at the start (a lifespan at or below the starting age), and the
  * validator accepted it. */
+/* S5AA R48 (AA1-11; the owner's AA1 decision of 2026-10-03: "The prior-income warning shown and prompted"): THE TWO RETURNS BEFORE THE PLAN.
+   Medicare's income-related surcharge for a year reads the return from two years before it (20 CFR 418.1135(a)), so the plan's first two
+   years read returns from before it starts. Blank, the engine assumes the lowest tier (no surcharge) and says so in
+   IRMAA_PRE_PLAN_MAGI_ASSUMED. The prompt fires where that assumption is used: health costs on, someone alive and 65 or older at the
+   opening of plan year 0 or 1 with the household retired inside that row -- the engine's own condition (simulatePlanRows()'s disclosure),
+   mirrored here, with the household date read as householdRetireAge() reads it (R45: the first stop; an entered spending start replaces it)
+   -- and either of the two incomes blank. A WARNING: the plan runs. */
+function validateIrmaaPriorIncome(c, plan) {
+  const profile = isPlainObject(plan.profile) ? plan.profile : {}, advanced = isPlainObject(plan.advanced) ? plan.advanced : {};
+  const retirement = isPlainObject(plan.retirement) ? plan.retirement : {}, employment = isPlainObject(plan.employment) ? plan.employment : {};
+  if (advanced.healthOn !== true) return;
+  const blank = (v) => v === undefined || v === null;
+  if (!blank(advanced.irmaaMagiTwoYearsBefore) && !blank(advanced.irmaaMagiOneYearBefore)) return;
+  const start = profile.age, end = profile.endAge, retire = profile.retireAge;
+  if (![start, end, retire].every(isFiniteNumber)) return;
+  const couple = profile.spouseOn === true && isFiniteNumber(profile.spouseAge);
+  const sa = couple ? profile.spouseAge : NaN, toSelf = (x) => start + (x - sa);
+  const selfLife = isFiniteNumber(retirement.selfLife) ? retirement.selfLife : Infinity;
+  const spouseLife = couple && isFiniteNumber(retirement.spouseLife) ? retirement.spouseLife : Infinity;
+  // the household date (engine householdRetireAge())
+  let household = retire;
+  if (isFiniteNumber(retirement.spendingStartAge)) household = retirement.spendingStartAge;
+  else if (couple) {
+    const sRet = isFiniteNumber(profile.spouseRetireAge) ? profile.spouseRetireAge : retire, sd = toSelf(spouseLife), earning = (isFiniteNumber(employment.spouseSalary) ? employment.spouseSalary : 0) > 0;
+    const stops = [retire];
+    if (earning) stops.push(Math.max(start, toSelf(sRet)));
+    if (selfLife > start && selfLife < retire && sd > selfLife) stops.push(selfLife);
+    if (earning && sd > start && sd < toSelf(sRet) && selfLife > sd) stops.push(sd);
+    household = Math.min(...stops);
+  }
+  // the engine's openings and its cut at the last death (lastDeathCutAge(), householdSurvivorship(): dead once the lifespan is below the age)
+  const aliveAt = (a) => ({ self: !(selfLife < a), spouse: couple && !(spouseLife < sa + (a - start)) });
+  let reaches = end;
+  for (let b = start; b < end; b = Math.floor(b + 1e-9) + 1) { const w = aliveAt(b); if (!w.self && !w.spouse) { reaches = b; break; } }
+  const openings = [start, Math.floor(start) + 1];
+  for (let i = 0; i < openings.length; i++) {
+    const opening = openings[i], rowEnds = i === 0 ? Math.min(Math.floor(start) + 1, reaches) : Math.min(Math.floor(start) + 2, reaches);
+    if (!(rowEnds > opening) || !(household < rowEnds)) continue;
+    const w = aliveAt(opening);
+    if ((w.self && opening >= 65) || (w.spouse && sa + (opening - start) >= 65)) {
+      c.warn('IRMAA_PRIOR_INCOME_BLANK', blank(advanced.irmaaMagiTwoYearsBefore) ? 'advanced.irmaaMagiTwoYearsBefore' : 'advanced.irmaaMagiOneYearBefore',
+        'Health costs are on and someone is 65 or older and retired in the plan\'s first two years, but the income (MAGI) on ' +
+        (blank(advanced.irmaaMagiTwoYearsBefore) && blank(advanced.irmaaMagiOneYearBefore) ? 'the two tax returns before the plan is' : blank(advanced.irmaaMagiTwoYearsBefore) ? 'the tax return two years ago is' : 'last year\'s tax return is') +
+        ' blank. Medicare\'s income-related surcharge (IRMAA) reads the return from two years earlier; a blank year is assumed to be below the first surcharge tier.');
+      return;
+    }
+  }
+}
+
 function validateSomeoneAlive(c, plan) {
   const pr = plan.profile, r = plan.retirement;
   if (!isPlainObject(pr) || !isPlainObject(r) || !isFiniteNumber(pr.age)) return;
@@ -1213,12 +1397,16 @@ function validateScenario(plan) {
   validateRetirement(c, retirement);
   validateAdvanced(c, advanced);
   validateAllocationClasses(c, plan); // R20-01 (S5AA R21)
+  validateCorrelationFeasible(c, plan); // S5AA R46 (MC-C)
   validateBooleanFlags(c, plan); // Q53 (S5 2l)
   validatePlannedContributions(c, plan); // Q59 (S5 2q)
   validateTransferEndpoints(c, plan); // S5AA R29
   validateNestedRecords(c, plan); // R2-006
   validatePlanValueContract(c, plan); // S5AA R43 (SA42F-05, -06)
   validateSomeoneAlive(c, plan); // S5AA R43 (SA42F-30, -32)
+  validateDebtPayoffResiduals(c, plan); // S5AA R49 (AA1-44)
+  validateInsuranceTiming(c, plan); // S5AA R49 (AA1-08)
+  validateIrmaaPriorIncome(c, plan); // S5AA R48 (AA1-11)
 
   const valid = !c.issues.some((i) => i.severity === 'ERROR');
   return { valid, issues: c.issues };
@@ -1446,7 +1634,7 @@ if (typeof module !== 'undefined' && module.exports) {
     LAST_HISTORY_YEAR,
   ADVANCED_KNOWN_KEYS,
   ADVANCED_MIGRATION_KEYS,
-    validateScenario, validateRawContainers,
+    validateScenario, validateRawContainers, debtPayoffResidual,
     TAX_CLASSES, FILING_STATUSES, METHODS, WITHDRAWAL_ORDERS, RATE_TYPES, LIQUIDITY_TIERS, STRATEGIES,
   };
 }

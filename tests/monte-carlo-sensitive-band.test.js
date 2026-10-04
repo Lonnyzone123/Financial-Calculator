@@ -45,8 +45,11 @@ const BAND = [50, 85];
    S5AA R36 (SA32F-D1: later years' tax figures index with inflation): step 31 is 85.6%, so step 32 (85.0%) is the first in band
    (family version 6). The rule and the band are unchanged.
    S5AA R43 (SA42F-31: each Monte Carlo path has its own seeds; seed + 2i let neighbouring seeds share paths): step 30 is 85.6%, so step
-   31 (84.6%) is the first in band (family version 7). The rule and the band are unchanged. */
-const DECLARED_STEP = 31;
+   31 (84.6%) is the first in band (family version 7). The rule and the band are unchanged.
+   S5AA R46 (the owner's AA1 decision on MC-A: one set of market shocks per year shared by every account): the golden plan's accounts
+   no longer diversify one another, so success falls along the whole grid (the golden plan 96.8%, step 13 85.2%), and step 14 (84.2%)
+   is the first in band (family version 8). The rule and the band are unchanged. */
+const DECLARED_STEP = 14;
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
 const goldenPlan = () => {

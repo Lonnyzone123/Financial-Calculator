@@ -26,6 +26,13 @@
 // confirming zero reconciliation issues, unchanged pass/fail classification,
 // and no calculationError, on every row of every scenario, not just the
 // three summarized here.
+//
+// S5AA R46 (the owner, 2026-10-03, on AA1-24: one set of market shocks per
+// Monte Carlo year, shared by every account): regenerated. Only
+// monte-carlo-fixed-seed moved -- its three accounts no longer diversify one
+// another, so success fell from 100% to 96.8% and the median final total from
+// $304,502,978.52 to $179,664,612.83; the other four entries are unchanged
+// (before and after in audit/S5AA/R46/S5AA_R46_BUILD_REPORT_20261003.md).
 
 const test = require('node:test');
 const assert = require('node:assert/strict');

@@ -4,7 +4,7 @@
  * The rules package holds 2026's figures and every later year used them while incomes inflated (R32F: +$17,644 of tax over 14 years
  * on a $60k inflating pension). Each price-linked amount now rises with the plan's inflation and each statute's rounding (IRC
  * 1(f)(7): the increase down to $50; 63(c)(4): the increase down to $50; Arizona conforms); the senior deduction stays $6,000
- * (statutory, and kept after 2028 by D8).
+ * (statutory; D8 kept it after 2028 until S5AA R47, AA1-30, ended it after 2028 -- this test reads only plan years 0 and 1).
  *
  * A single 67-year-old, a $60,000 pension with no COLA, no other income, 3% inflation, a 0% return, taxes paid from a Roth. Plan
  * year 0 (2026): federal taxable 60,000 - 16,100 - 2,050 - 6,000 = 35,850: 10% of 12,400 + 12% of 23,450 = 4,054; Arizona
@@ -45,13 +45,18 @@ function taxes(inflation) {
 
 test('R36 SA32F-D1: plan year 0 is 2026; plan year 1 indexes the standard deduction, the age-65 addition and the brackets', () => {
   const t = taxes(3);
-  assert.strictEqual(t[1], 5099, 'plan year 0: the 2026 figures');
-  assert.strictEqual(t[2], 5020.75, 'plan year 1: indexed with each statute\'s rounding. The engine charged 5,099 again.');
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)),
+     a fixed $6,000 here in both years: Arizona falls by $150 in each. Plan year 0: 4,054 + (60,000 - 16,100 - 2,100 - 6,000) x 2.5% =
+     4,054 + 895 = 4,949 (was 5,099); plan year 1: 3,987 + (60,000 - 16,550 - 2,100 - 6,000) x 2.5% = 3,987 + 883.75 = 4,870.75 (was
+     5,020.75). The indexing this pins is unchanged. */
+  assert.strictEqual(t[1], 4949, 'plan year 0: the 2026 figures');
+  assert.strictEqual(t[2], 4870.75, 'plan year 1: indexed with each statute\'s rounding. The engine charged 5,099 again.');
 });
 
 test('R36 SA32F-D1: with no inflation every year is 2026\'s', () => {
   const t = taxes(0);
-  assert.strictEqual(t[1], 5099);
-  assert.strictEqual(t[2], 5099);
-  assert.strictEqual(t[3], 5099);
+  /* S5AA R48 (AA1-16): 4,949 each (was 5,099), Arizona's senior-deduction subtraction as above. */
+  assert.strictEqual(t[1], 4949);
+  assert.strictEqual(t[2], 4949);
+  assert.strictEqual(t[3], 4949);
 });

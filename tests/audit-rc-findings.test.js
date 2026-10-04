@@ -136,10 +136,12 @@ test('RB-01 extension: duplicate ids must not strand taxable capacity behind a f
      The mechanism this pins is unchanged, and 27,910.90 returns exactly with the exemption set to $0. */
   /* S5AA task 3.1 (Q88): 27,858.40 before the IRC 63(f) additional deduction for the aged, which takes a
      further $492 -- $2,050 at the 24% bracket. */
-  assert.ok(Math.abs(control.rows[1].taxes - 27366.40) < 0.01,
-    'CONTROL: the tax obligation is 27,366.40 (27,858.40 before the 63(f) additional deduction); got ' + control.rows[1].taxes.toFixed(2));
-  assert.ok(Math.abs(control.rows[1].taxable - 172633.60) < 0.01, /* R6: 172,089.10 before the age-65 exemption's $52.50;
-      S5AA task 3.1: 172,141.60 before the 63(f) additional deduction left $492 more cash */
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona subtracts the federal senior deduction (A.R.S. 43-1022(35)): on
+     MAGI of $151,000 it is 6,000 - 6% x 76,000 = 1,440, so 2.5% x 1,440 = $36 less tax (27,330.40, was 27,366.40) and $36 more cash. */
+  assert.ok(Math.abs(control.rows[1].taxes - 27330.40) < 0.01,
+    'CONTROL: the tax obligation is 27,330.40 (27,858.40 before the 63(f) additional deduction, 27,366.40 before the Arizona senior subtraction); got ' + control.rows[1].taxes.toFixed(2));
+  assert.ok(Math.abs(control.rows[1].taxable - 172669.60) < 0.01, /* R6: 172,089.10 before the age-65 exemption's $52.50;
+      S5AA task 3.1: 172,141.60 before the 63(f) additional deduction left $492 more cash; S5AA R48: 172,633.60 before Arizona's senior subtraction */
     'CONTROL: taxable closes at 172,089.10 after funding; got ' + control.rows[1].taxable.toFixed(2));
 
   const duplicate = build(['same', 'same']);
@@ -240,8 +242,10 @@ test('RC-01 (QCD): an unfunded charitable distribution must not reduce taxable i
      The mechanism this pins is unchanged, and 14,277.50 returns exactly with the exemption set to $0. */
   /* S5AA task 3.1 (Q88): 14,225.00 before the IRC 63(f) additional deduction for the aged, which takes a
      further $451 -- $2,050 at the 22% bracket. */
-  assert.ok(Math.abs(without.taxes - 13774.00) < 0.01,
-    'precondition: the reserving case taxes 13,774.00 (14,225.00 before the 63(f) additional deduction); got ' + without.taxes.toFixed(2));
+  /* S5AA R48 (AA1-16): Arizona subtracts the federal senior deduction (43-1022(35)): 6,000 - 6% x (100,000 - 75,000) = 4,500, so
+     2.5% x 4,500 = $112.50 less: 13,661.50 (was 13,774.00). */
+  assert.ok(Math.abs(without.taxes - 13661.50) < 0.01,
+    'precondition: the reserving case taxes 13,661.50 (14,225.00 before the 63(f) additional deduction, 13,774.00 before the Arizona senior subtraction); got ' + without.taxes.toFixed(2));
 
   /* THE REQUEST IS NOT A PAYMENT. With RMD off there is no obligation, so the
      conversion legitimately takes the whole balance and nothing is distributed
@@ -274,8 +278,10 @@ test('RC-01 (QCD): an unfunded charitable distribution must not reduce taxable i
      The mechanism this pins is unchanged, and 14,019.30 returns exactly with the exemption set to $0. */
   /* S5AA task 3.1 (Q88): 13,966.80 before the IRC 63(f) additional deduction for the aged, which takes a
      further $451 -- $2,050 at the 22% bracket, the same step as the reserving case above. */
-  assert.ok(Math.abs(funded.taxes - 13515.80) < 0.01,
-    'CONTROL: and it must reduce tax to 13,966.80 (14,019.30 before the age-65 exemption); got ' + funded.taxes.toFixed(2));
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona subtracts the federal senior deduction (A.R.S. 43-1022(35)):
+     6,000 - 6% x (99,000 - 75,000) = 4,560, so 2.5% x 4,560 = $114 less: 13,401.80 (was 13,515.80). */
+  assert.ok(Math.abs(funded.taxes - 13401.80) < 0.01,
+    'CONTROL: and it must reduce tax to 13,401.80 (14,019.30 before the age-65 exemption, 13,515.80 before the Arizona senior subtraction); got ' + funded.taxes.toFixed(2));
 });
 
 // ===========================================================================

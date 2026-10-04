@@ -106,8 +106,9 @@ test('RA-03: the fictitious dividend is not taxed', () => {
   const rows = run(plan()).rows;
   const last = rows[rows.length - 1];
   assert.equal(
-    round(last.taxes, 6), 5099, /* R6: 5,397.50 before Arizona's age-65 exemption took $52.50 off; it returns exactly with the exemption at $0.
-       S5AA task 3.1: 5,345 before the IRC 63(f) additional deduction for the aged, which takes a further $246 -- $2,050 at the 12% bracket. */
+    round(last.taxes, 6), 4949, /* R6: 5,397.50 before Arizona's age-65 exemption took $52.50 off; it returns exactly with the exemption at $0.
+       S5AA task 3.1: 5,345 before the IRC 63(f) additional deduction for the aged, which takes a further $246 -- $2,050 at the 12% bracket.
+       S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)): 5,099 before it, which takes a further $150 -- 2.5% of the $6,000 federal amount. */
     'total tax rose to 5,423.451875 before the repair -- 25.951875 of it charged on ' +
     'cash principal reclassified as qualified dividend income'
   );

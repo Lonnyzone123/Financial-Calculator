@@ -87,8 +87,9 @@ test('CR2-01: a $50,000 IRA distribution to taxable cash is $50,000 of income', 
   assert.ok(Math.abs(row.magi - 50000) < 0.01, 'MAGI must be $50,000, got ' + row.magi);
   /* S5 task 8 (the owner's question 5, answer C): Arizona's $2,100 age-65 exemption (TAX section 5.3, ENACTED) takes $52.50
      off the auditor's $3,947.50, derived under the earlier tables with no exemption. The mechanism this pins is unchanged. */
-  assert.ok(Math.abs(row.taxes - 3649) < 0.01,
-    'tax must be $3,649.00 -- $2,854 federal plus $795.00 Arizona, after the age-65 exemption and the 63(f) additional deduction (the auditor derived ' +
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)), the full $6,000 at MAGI $50,000: Arizona $795.00 - $150.00 = $645.00, total $3,499.00 (was $3,649.00). */
+  assert.ok(Math.abs(row.taxes - 3499) < 0.01,
+    'tax must be $3,499.00 -- $2,854 federal plus $645.00 Arizona, after the age-65 exemption, the 63(f) additional deduction and Arizona\'s senior-deduction subtraction (the auditor derived ' +
     '$3,947.50 under the earlier tables, before seeing any repair). Got ' + row.taxes);
 });
 

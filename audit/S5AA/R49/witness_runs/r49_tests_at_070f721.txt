@@ -1,0 +1,42 @@
+✔ R49 AA1-37: Monte Carlo centres the draw on the onset age -- 76 with u = 0.25 starts care at 76 - 10 + 5 = 71 (8.5364ms)
+✔ R49 AA1-37: Monte Carlo never starts care before the plan -- 72 with u = 0 gives 62, held at the starting age 66 (1.36ms)
+✔ R49 AA1-37 control: Monte Carlo with no onset age -- max(65, round(60 + 5 + 0.25 x 20)) = 70, as before (1.157ms)
+✔ R49 AA1-34: pmiStopAge() -- a 30-year conventional loan with 16 years left, from 60: the month after the midpoint, 61 and one month (0.1562ms)
+✔ R49 AA1-25: floor and ceiling -- after a down year the floor holds ($30,000), the 10% cut does not take it to $27,000 (9.3391ms)
+✔ R49 AA1-25: floor and ceiling -- a cut that would cross the floor stops at it (1.0644ms)
+✔ R49 AA1-25 control: floor and ceiling well above the floor -- the full 10% cut, 0.9 x 4% of the opening balance (0.9346ms)
+✔ R49 AA1-25: the remaining-life strategy -- its minimum withdrawal ($30,000) holds after a down year (1.7387ms)
+✔ R49 AA1-25: VPW -- its 5% minimum rate holds after a down year (5% of the opening balance, not 4.5%) (2.1741ms)
+✔ R49 AA1-25: spending already below the floor by a stage is not cut further ($15,000, not $13,500) (0.9056ms)
+✔ R49 AA1-25 control: a strategy with no floor keeps the full cut ($40,000 -> $36,000) (0.6376ms)
+✔ R49 AA1-25: overlapping percentage stages warn (they multiply); stages that only touch do not (0.6491ms)
+✔ R49 AA1-25: flexibility stacked on guardrails or Guyton-Klinger warns; at 0, or on another strategy, it does not (0.5095ms)
+✔ R49 AA1-37: an onset age of 72 charges the weighted care cost in the two rows from 72, not from 70 (1.0438ms)
+✔ R49 AA1-37: an onset age is used as entered, not rounded (72.5: half, whole, half) (0.9368ms)
+✔ R49 AA1-37 control: with no onset age, care starts at max(65, round(retireAge + 10)) = 70, as before (0.9103ms)
+✔ R49 AA1-34: PMI ends at the entered age -- 61.5 charges $1,200, $600, then nothing (1.6351ms)
+✔ R49 AA1-34: a conventional loan with no end age stops at the HPA midpoint -- 30-year term, 16 left: 61 and one month (0.6677ms)
+✔ R49 AA1-34: a conventional loan already past its midpoint owes no PMI (30-year term, 10 left: midpoint 5 years ago) (0.5457ms)
+✔ R49 AA1-34: an entered end age overrides the midpoint (62.5 on the same conventional loan: $1,200, $1,200, $600) (0.6362ms)
+✔ R49 AA1-34 controls: FHA, a conventional loan without its terms, and no program keep PMI while owed ($1,200 a row) (1.7829ms)
+✔ R49 AA1-44: a payment that leaves $4,000 at the payoff age warns, and the residual function says $4,000 (10.6069ms)
+✔ R49 AA1-44: an interest-only payment ($100 a month on $10,000 at 12%) leaves the whole $10,000 (0.1103ms)
+✔ R49 AA1-44: a payment that clears the debt by the payoff age ($200 a month) has no residual (0.0665ms)
+✔ R49 AA1-44 control: $200 a month clears $10,000 in 50 payments (at 64 and two months) -- no warning, nothing forced out (0.9142ms)
+✔ R49 AA1-07: $72,000 of debt payments against a $60,000 salary -- the working years are not funded by pay, from 50 (1.7101ms)
+✔ R49 AA1-07: contributions above pay ($40,000 into a taxable account on a $30,000 salary) are not funded by pay (1.3601ms)
+✔ R49 AA1-07 controls: $12,000 of payments on a $60,000 salary is funded; a retired household with debt has no working rows (1.22ms)
+✔ R49 AA1-08: insurance counted from the first year (the plan starts after the insured's death age) warns (0.3572ms)
+✔ R49: the new values are numbers -- text or a negative age is refused by the validator and the engine (4.0581ms)
+✔ R49: the hidden engine disclosures are shown as cards -- and the IRMAA default stays with its own round (0.2775ms)
+✔ R49: the relabels -- the return, the fee, Social Security, the optimizer, dividends, insurance, the life ages, care onset (0.5142ms)
+✔ R49 app: the working-years card, the plan checks and the lump sum beside a payoff age (576.4161ms)
+✔ R49 app: the plan checks follow edits -- flexibility on guardrails warns, and the warning clears at 0 (1800.2846ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3023.5994

@@ -47,6 +47,9 @@ test('R37 SA32F-50: mortgageType, originalAmount, propertyValue and loanTermYear
   }
 });
 
+/* S5AA R49 (AA1-34; the owner's AA1 decision, 2026-10-03): the program and the original and remaining terms now set when a conventional
+   loan's PMI stops, when no PMI end age is entered (pmiStopAge() in engine.js); the plan above charges no PMI, so they still change
+   nothing in it. The note says so. */
 test('R37 SA32F-50: the debt page lists them', () => {
-  assert.match(shell, /<p class="v2-note">The mortgage program, original loan amount, property value and original loan term are recorded for reference and do not change the projection, which runs on the balance, rate, monthly payment and payoff age\. An interest-only loan is modelled by entering its interest-only payment\.<\/p>/);
+  assert.match(shell, /<p class="v2-note">The original loan amount and property value are recorded for reference and do not change the projection, which runs on the balance, rate, monthly payment and payoff age\. The mortgage program and the original and remaining terms change one thing: when no PMI end age is entered, a conventional loan's PMI stops after the midpoint of its original term\. An interest-only loan is modelled by entering its interest-only payment\.<\/p>/);
 });

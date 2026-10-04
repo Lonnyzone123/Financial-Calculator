@@ -64,9 +64,12 @@ test('control, E5 task 11: the Results page shows the Roth catch-up warning for 
    sprint, and it is recorded in the close record with what it blocks. What this file can do is PIN THE
    STATE, so the day someone wires the rest up, this test is what tells them the ground moved. */
 
-test("E14, S5AA: the Results page renders exactly one engine issue code, and it is not any of S5AA's", async () => {
+/* S5AA R49 (the owner's AA1 decisions, 2026-10-03: "hidden engine warnings shown as cards"): the ground moved, as the note above
+   said it would. The page now shows the engine's disclosures as cards (planWarningTitles), these three among them, so the test that
+   pinned their absence now holds their presence. */
+test("E14, S5AA R49: the Results page renders the engine's disclosures, S5AA's included", async () => {
   /* The household below raises three engine disclosures at once -- the survivor filing transition, the
-     revolving-debt minimum and the ARM recast -- and reads none of them. */
+     revolving-debt minimum and the ARM recast -- and now reads all three. */
   const cards = await resultsCards({
     name: 'Three disclosures', setupComplete: true,
     profile: { age: 70, retireAge: 70, endAge: 80, spouseOn: true, spouseAge: 70, filing: 'mfj' },
@@ -89,11 +92,10 @@ test("E14, S5AA: the Results page renders exactly one engine issue code, and it 
     [/REVOLVING balance/, 'X01, the revolving-debt minimum'],
     [/re-amortis/i, 'task 5.1, the ARM recast'],
   ]) {
-    assert.doesNotMatch(all, phrase,
-      what + ' is NOT rendered -- if this now fails, engine issues have been wired into the page and the '
-      + "close record's E14 entry is out of date, which is a good failure");
+    assert.match(all, phrase, what + ' is rendered');
   }
-  assert.ok(cards.length > 0, 'CONTROL: the page does render warning cards, just not these');
+  assert.ok(cards.some((t) => /^Survivor's filing status:/.test(t)) && cards.some((t) => /^Credit card minimum payment:/.test(t)) &&
+    cards.some((t) => /^Adjustable-rate loan:/.test(t)), 'each under its own title: ' + JSON.stringify(cards.map((t) => t.split(':')[0])));
 });
 
 test('E14, S5AA: the one engine issue code the page does render still renders', async () => {
