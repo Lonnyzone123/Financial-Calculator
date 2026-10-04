@@ -1,0 +1,32 @@
+== control (36 plans)
+  flex (2): 
+    seed:5 [(historical); 4 calls, 2 rows, ages 84,85; first-order spending restored $101,356 (first: spend 231963, floor 211445)]
+    seed:17 [(monteCarlo); Monte Carlo: 23 of 24 paths exposed (0,1,2,3,4,5,6,7,8,9,10,11,...)]
+  ltc (0): none
+  pmi (0): none
+  working (9): 
+    seed:2 [(historical); first age 58, short $71,030 (wages 0, contributions 71030, wage tax 0, debt service 0); 4 rows]
+    seed:3 [(historical); first age 58, short $2,541,441 (wages 287681, contributions 2696574, wage tax 88582, debt service 43966); 1 rows]
+    seed:4 [(historical); first age 67, short $596,262 (wages 154504, contributions 718704, wage tax 32063, debt service 0); 7 rows]
+    seed:10 [(historical); first age 48, short $4,400 (wages 0, contributions 4400, wage tax 0, debt service 0); 4 rows]
+    seed:12 [first age 38, short $4,400 (wages 0, contributions 4400, wage tax 0, debt service 0); 1 rows]
+    seed:14 [(historical); first age 45, short $21,425 (wages 0, contributions 4400, wage tax 0, debt service 17025); 11 rows]
+    seed:15 [(historical); first age 35, short $3,849,697 (wages 71343, contributions 3908414, wage tax 12626, debt service 0); 1 rows]
+    seed:20 [first age 59, short $2,695,967 (wages 148808, contributions 2780905, wage tax 22612, debt service 41258); 5 rows]
+    targeted:arm-flag-on [first age 60, short $17,187 (wages 0, contributions 0, wage tax 0, debt service 17187); 1 rows]
+== expanded (71 plans)
+  flex (2): 
+    seed:5 [(historical); 4 calls, 2 rows, ages 84,85; first-order spending restored $101,356 (first: spend 231963, floor 211445)]
+    seed:17 [(monteCarlo); Monte Carlo: 23 of 24 paths exposed (0,1,2,3,4,5,6,7,8,9,10,11,...)]
+  ltc (0): none
+  pmi (0): none
+  working (9): 
+    seed:2 [(historical); first age 58, short $71,030 (wages 0, contributions 71030, wage tax 0, debt service 0); 4 rows]
+    seed:3 [(historical); first age 58, short $2,541,441 (wages 287681, contributions 2696574, wage tax 88582, debt service 43966); 1 rows]
+    seed:4 [(historical); first age 67, short $596,262 (wages 154504, contributions 718704, wage tax 32063, debt service 0); 7 rows]
+    seed:10 [(historical); first age 48, short $4,400 (wages 0, contributions 4400, wage tax 0, debt service 0); 4 rows]
+    seed:12 [first age 38, short $4,400 (wages 0, contributions 4400, wage tax 0, debt service 0); 1 rows]
+    seed:14 [(historical); first age 45, short $21,425 (wages 0, contributions 4400, wage tax 0, debt service 17025); 11 rows]
+    seed:15 [(historical); first age 35, short $3,849,697 (wages 71343, contributions 3908414, wage tax 12626, debt service 0); 1 rows]
+    seed:20 [first age 59, short $2,695,967 (wages 148808, contributions 2780905, wage tax 22612, debt service 41258); 5 rows]
+    targeted:arm-flag-on [first age 60, short $17,187 (wages 0, contributions 0, wage tax 0, debt service 17187); 1 rows]

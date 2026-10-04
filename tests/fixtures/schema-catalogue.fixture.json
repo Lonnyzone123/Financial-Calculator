@@ -890,7 +890,34 @@
         },
         "issues": {
           "kind": "array",
-          "element": null
+          "element": {
+            "kind": "object",
+            "fields": {
+              "code": {
+                "kind": "string"
+              },
+              "message": {
+                "kind": "string"
+              },
+              "severity": {
+                "kind": "string"
+              },
+              "state": {
+                "kind": "object",
+                "fields": {
+                  "age": {
+                    "kind": "number"
+                  },
+                  "path": {
+                    "kind": "string"
+                  },
+                  "shortfall": {
+                    "kind": "number"
+                  }
+                }
+              }
+            }
+          }
         },
         "lifetimeContributions": {
           "kind": "number"

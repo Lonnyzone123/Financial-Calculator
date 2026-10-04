@@ -52,6 +52,7 @@
     { "path": "advanced.ltcProbability", "type": "number", "min": 0, "max": 100 },
     { "path": "advanced.ltcYears", "type": "number", "min": 0 },
     { "path": "advanced.ltcInsurance", "type": "number", "min": 0 },
+    { "path": "advanced.ltcOnsetAge", "type": "number", "min": 0, "max": 120 },
     { "path": "advanced.home", "type": "number", "min": 0 },
     { "path": "advanced.debt", "type": "number", "min": 0 },
     { "path": "advanced.homeGrowth", "type": "number" },
@@ -103,7 +104,10 @@
     { "list": "advanced.debts", "fields": [
       { "name": "type", "type": "enum", "values": ["mortgage", "creditCard", "autoLoan", "studentLoan", "personalLoan", "heloc", "businessLoan", "medicalDebt", "otherDebt"] },
       { "name": "rateType", "type": "enum", "values": ["fixed", "adjustable"] },
-      { "name": "payoffAge", "type": "number" }
+      { "name": "payoffAge", "type": "number" },
+      { "name": "pmiEndAge", "type": "number", "min": 0, "max": 120 },
+      { "name": "loanTermYears", "type": "number", "min": 0 },
+      { "name": "remainingTermYears", "type": "number", "min": 0 }
     ] },
     { "list": "advanced.assetClasses", "fields": [
       { "name": "returnRate", "type": "number", "required": true }

@@ -226,9 +226,12 @@ test('validateScenario: debts/otherAssets must be arrays when present', () => {
 });
 
 test('validateScenario: a well-formed debt entry produces no issues', () => {
+  /* S5AA R49 (AA1-44; the owner's AA1 decision, 2026-10-03): a payment that leaves a balance at the payoff age is now a WARNING
+     (DEBT_PAYOFF_RESIDUAL). $1,500 a month on $250,000 at 6% from 40 to 65 left about $76,752 to be forced out at 65; the amortizing
+     payment over those 300 months is $1,610.75, so the well-formed debt pays $1,611 and still raises nothing. */
   const result = validateScenario(validPlan({ advanced: {
     assetsOn: false, correlation: 0.25, assetClasses: [],
-    debts: [{ balance: 250000, rate: 6, rateType: 'fixed', paymentMonthly: 1500, payoffAge: 65 }],
+    debts: [{ balance: 250000, rate: 6, rateType: 'fixed', paymentMonthly: 1611, payoffAge: 65 }],
   } }));
   assert.equal(result.valid, true);
   assert.deepEqual(result.issues, []);
