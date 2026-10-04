@@ -10,7 +10,10 @@ integrated; r29). Not pushed, not tagged; no baseline registered, no control cap
 | `d663f16` | the prediction record, its scans and their outputs at `5119d03`, the test-exposure run, the witness run on the base (before any `src/` edit, A-01) |
 | `b722884` | **decision 1 alone** (an input change in its own commit, control rule 3 / ground rule 7): `defaultPlan.retirement.flexibility` 10 → 0 and the form fallback; reviewed fingerprints re-pinned; the sensitive band re-picked; the golden fixture regenerated; one test adapted; registers; the app rebuilt and repinned |
 | `8732bb8` | decisions 2–4: engine, validator, app; the two witness files; registers; the app rebuilt and repinned; the C1 check and the refusing control-declaration script |
-| (this commit) | this report, the expanded captures at `b722884` and `8732bb8`, the measured comparisons, the path-level check, the witness and targeted runs |
+| `678c60f` | this report (first version), the expanded captures at `b722884` and `8732bb8`, the measured comparisons, the path-level check, the witness and targeted runs |
+| `7f1e131` | **addendum** (the owner's rulings of 2026-10-03): `S5AA_R51_PREDICTION_ADDENDUM_20261003.md`, its scans, test exposure and the witness run on `678c60f` (A-01) |
+| `2f73b85` | the addendum's repair: the streams' income tax in the working-years check; `rothNextDollarWeight()`; the witness cases; two adaptations; registers; the app rebuilt and repinned |
+| (this commit) | the addendum's measurements (§10) and this report's update |
 
 The decision-1 commit is separate so a successor control capture can be taken at it (§5, pending).
 
@@ -104,7 +107,10 @@ medicare-, working- and text-exposed file passes as predicted; one flex10 file f
   only.
 - Within the prediction's allowance: seed:16's last-bit `spending`.
 
-## 5. Pending — the coordinator's (and the owner's) call
+## 5. Control 4.7 — ruled: a successor control snapshot at `b722884`, built by the coordinator
+
+*The owner's ruling of 2026-10-03 (§9): option 1 below. This round does not touch `tools/control-corpus.json`,
+`tools/control-candidate-prediction.json`, any `tools/baseline-*` file or reference trees; control 4.7's four failures stay as they are.*
 
 **Control 4.7 after decision 1.** Two ways forward:
 1. **A successor control (the S5 precedent).** Take a control capture at `b722884` (decision 1 on the pre-R51 engine; the commit exists
@@ -125,6 +131,9 @@ Either needs the coordinator; option 1 also creates a new stored capture, which 
 | `audit-s5aa-r23-roth-flag-follows-draws` R22-01 | inherited flexibility 10 | sets 10 |
 | `tests/fixtures/golden-scenarios.fixtures.json` | MC 96.8% | 95.8% (regenerated after reading its diff) |
 | `tools/corpus-spec.json`, `tools/corpus-spec-expanded.json` | — | 5 and 40 fingerprints re-pinned by review |
+| **addendum:** R51's witness file, the two self-employment cases | 12,000: funded; 10,000: short 1,475.455 (R51's payroll-and-SE-only rule) | short 1,107.4655 and 2,599.97122 (re-expected by the ruling; hand-derived in the file) |
+| **addendum:** `tools/corpus-path-gaps.json` | `retirement.preserveRoth` pinned as a gap (regrown at R50) | removed ("shrunk"): the corpus executes it again under the next-dollar weight |
+| **addendum:** `tests/fixtures/schema-catalogue.fixture.json` | Monte Carlo `issues[].state` without the Roth ledger disclosure's fields | gains `approximation`, `firstOwnerAge`, `owner` (optional): the Monte Carlo sample now raises `ROTH_IRA_BASIS_NOT_ENTERED`; regenerated with `node tests/lib/schema-catalogue.js --write`, diff read (those three fields only) |
 
 ## 7. Law checked at the primary source (2026-10-03)
 
@@ -143,21 +152,62 @@ Either needs the coordinator; option 1 also creates a new stored capture, which 
   their share of the pre-Medicare cost. The start falls inside a projection year where it falls, as the HSA's stop does. The Part B
   late-enrollment increase (42 USC 1395r(b)) is not modelled."
 - **MODEL_ASSUMPTIONS (section 7, working years):** "The working-years warning counts as pay the salary and any employment and
-  self-employment income paid while working, net of their payroll and self-employment tax (the income tax on the salary is subtracted;
-  the income tax on the streams is not)."
+  self-employment income paid while working, each net of the tax it adds: the salary of its wage-only payroll and income tax, the
+  streams of their marginal share of the same return with them added (federal and Arizona income tax, payroll and self-employment tax)."
+- **MODEL_ASSUMPTIONS (withdrawal ordering):** "The rule-based order ranks a Roth class by the cost of the next dollar it would pay: nothing
+  while a Roth IRA's next dollar is contribution basis, a conversion's nontaxable part or a conversion past five years, or the owner is
+  qualified, or the next account is a Roth 401(k); the 10% weight on a conversion's taxable part inside five years before 59 1/2; tax
+  and the 10% on earnings." (replacing R50's "by the share of the Roth class a draw would tax")
 - **MODEL_ASSUMPTIONS (spending flexibility):** "The default flexibility is 0 (off) since S5AA R51."
 - **FEATURES:** "Accounts: a traditional 401(k) can say whether its plan offers Roth contributions (it decides whether a catch-up that
   must be Roth is allowed)." "Medicare start ages now set when Medicare costs start, as well as the HSA stop."
 - **SPRINT_QUESTIONS:** AA1-25(c) answered (flexibility off by default, S5AA R51); "should streams count as pay" answered (yes, net of
-  payroll/SE tax); new: the control corpus after a `defaultPlan` change (§5); the decisions below.
+  payroll, SE and income tax, by the owner's ruling); R50 section 8 item 2 answered (the next-dollar weight); the control corpus after a
+  `defaultPlan` change (§5: a successor control); the rulings in §9.
 
-## 9. Decisions for the owner
+## 9. The owner's rulings (2026-10-03) and what remains
 
-- **D1.** The re-picked sensitive band sits at exactly 85.0%, the band's upper edge (it did at version 6 too).
-- **D2.** The literal reading of "start at their `medicareStartAge()`" also moves the default 65 for a spouse whose ages are fractional
-  relative to the primary's: Medicare from 65 exactly, inside the row, instead of from the first row opening at 65 or later (witness:
-  a spouse of 64.5 pays half a year of each). No corpus plan has such a spouse with health costs on.
-- **D3.** The streams' income tax is not subtracted from their pay (the decision named payroll and SE tax).
-- **D4.** Left at 63/65: the optimizer's IRMAA guard and its HSA weights (heuristics); the statutory 65s unchanged.
-- **D5.** The Part B late-enrollment increase is not charged to someone whose Medicare starts after 65 (§7).
-- **§5**, the control corpus.
+**Ruled by the owner on 2026-10-03** (relayed by the coordinator):
+- **§5, control 4.7:** a new successor control snapshot at `b722884` (the S5 precedent), built by the coordinator in a separate worktree.
+  This branch leaves `tools/control-corpus.json`, `tools/control-candidate-prediction.json`, the `tools/baseline-*` files and reference
+  trees alone; control 4.7's four failures stay until then.
+- **D1** (the re-picked sensitive band at exactly 85.0%, its upper edge): **keep.**
+- **D2** (Medicare from 65 exactly, inside the row, for a spouse whose ages are fractional relative to the primary's): **confirmed as built.**
+- **D3** (the streams' income tax not subtracted): **rejected — built** in `2f73b85`: the streams' marginal share of the wage-only return,
+  federal and Arizona income tax with their payroll and SE tax (§10).
+- **D4** (the optimizer's IRMAA guard and HSA weights left at 63/65): **confirmed as built.**
+- **D5** (no Part B late-enrollment increase): **confirmed as built.**
+- **R50 §8 item 2** (the optimizer's Roth weight): **rejected — the ordering-aware form built** in `2f73b85` (§10).
+- **R50 §8 items 3 and 4** (`ROTH_FIVE_YEAR_ASSUMED`; the first-row MAGI): **keep as built.**
+
+**For the owner, new from the addendum:**
+- **D6.** "The next dollar drawn from the Roth IRA" is built as the next dollar the draw takes from the Roth class: when a Roth 401(k)
+  comes first in the class's draw order the weight is 0 (it is modelled tax-free), so the class can rank ahead of an early pre-tax draw
+  (the addendum's third witness).
+
+## 10. The addendum: predicted against measured
+
+Prediction: `S5AA_R51_PREDICTION_ADDENDUM_20261003.md` (`7f1e131`). Measured: `prediction/r51b_measured_at_2f73b85.txt` (the expanded
+capture at `2f73b85` in a clean tree against `8732bb8`), `prediction/r51b_path_level_678c60f_vs_2f73b85.txt`.
+
+| | predicted | measured | verdict |
+|---|---|---|---|
+| working years, corpus | no first shortfall moves; the nine warned plans move by message text only | exactly those nine, text only | as predicted |
+| Roth, the four simple exposed plans (golden baseline, reserve-and-bond-tent, guardrails; s5aa-r6-gap-survivor-health-roth) | no draw reaches past the prefix: unchanged | unchanged | as predicted |
+| `golden:monte-carlo-fixed-seed` (C4) | 500 paths exposed; 9 ranked (36, 57, 184, 228, 265, 281, 296, 314, 471); published may move | changed paths exactly the 9 ranked; published moved (median row 31: taxes −$52.59, withdrawals −$52.59; q10 rows 37 and 40; `ROTH_IRA_BASIS_NOT_ENTERED` carried up from a later path); success 95.8 and the headline final total and lifetime taxes unchanged | as predicted |
+| `expansion:monte-carlo-sensitive-band` (C4) | 500 exposed; 32 ranked; published may move; re-pick if it leaves the band | 31 of the 32 ranked changed (path 265 did not), none unranked; published moved (median rows: Roth lower, pre-tax higher, taxes down; the disclosure's first age 57 → 58); success 85.0 unchanged, no re-pick | as predicted |
+| golden fixtures | the golden MC fixture may move | unchanged (its pinned fields hold) | within the prediction |
+| every other corpus plan | unchanged | unchanged | as predicted |
+| C1 after the build (`prediction/r51b_c1_check_at_2f73b85.txt`) | the engine's weight equals the scan's at every call; the engine's pay equals the scan's formula in every row | 102,139 calls equal; 106,826 working rows equal (22 with a stream); R51's own C1 still holds (`r51_c1_check_at_2f73b85.txt`) | as predicted |
+| witnesses | the six repair cases fail at `678c60f`, all pass after | six failed at `678c60f` with the pre-addendum figure; 26 of 26 pass at `2f73b85` (`witness_runs/r51b_tests_at_2f73b85.txt`); the file unchanged since the addendum (SHA-256 `5309b154…4ef0a9`) | as predicted |
+| tests | golden-scenarios, monte-carlo-sensitive-band, schema-catalogue and corpus-configured-paths expected to pass; audit-cl/rb-findings may fail | all 443 files at `2f73b85`'s source before the two adaptations (`witness_runs/r51b_targeted_all_files_before_the_two_adaptations.txt`): 3,473 tests, 3,458 pass, 9 todo, 6 fail — control 4.7's four, `corpus-configured-paths` (preserveRoth now executed) and `schema-catalogue` (the Monte Carlo sample's issue shape); after the two adaptations both pass; audit-cl/rb-findings pass | **misses SA51-D, SA51-E** |
+
+**Misses (addendum).**
+- **SA51-D, `corpus-configured-paths`.** The pinned gap `retirement.preserveRoth` is executed again: with the next-dollar weight the
+  switch's +12 changes a corpus plan's draws. Predicted "expected to pass"; the shrink-only list's own rule asks for the removal, done.
+- **SA51-E, `schema-catalogue`.** The Monte Carlo sample now raises `ROTH_IRA_BASIS_NOT_ENTERED` (a later path draws Roth earnings),
+  so the recorded issue shape gains three optional fields. Predicted "shapes: expected to pass"; the same lesson as SA49-D (a new issue
+  on a sample plan moves the catalogue).
+- The test-exposure counts (R51's and the addendum's) are distinct plans per test process, not every call (the cache recorded a plan once).
+
+Targeted runs only; the gate is the coordinator's. Closeout: accepted 12, refused 0, errors 0 at `2f73b85`.

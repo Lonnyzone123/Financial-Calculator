@@ -1,0 +1,2 @@
+(a) Roth weight: 102139 smartWithdrawalOrder() calls over both compositions (every path): the engine equals the scan at every call
+(b) working-years pay: 106826 working-check rows (22 with a stream): the engine equals the scan in every row
