@@ -18,6 +18,7 @@
  * zero returns and inflation so every balance is pure cash flow.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -55,6 +56,7 @@ function household(accounts, overrides) {
     rmdOn: false, healthOn: false, ltcOn: false, conversionOn: false, transferOn: false,
     reserveOn: false, bondTentOn: false, assetsOn: false, debts: [], otherAssets: [],
   });
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

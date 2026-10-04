@@ -21,6 +21,7 @@
  * engine does not track, so those dollars are taxed again on withdrawal.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -70,6 +71,7 @@ function plan(o) {
   if (o.spouseIra) p.accounts.push(acct('i2', 'traditionalIRA', 'preTax', 'spouse', o.spouseIra));
   if (o.rothIra) p.accounts.push(acct('r', 'rothIRA', 'roth', o.rothIraOwner || 'self', o.rothIra));
   if (o.workplace) p.accounts.push(acct('w', 'traditional401k', 'preTax', o.workplaceOwner || 'self', o.workplace));
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

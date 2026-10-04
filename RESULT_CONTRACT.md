@@ -362,6 +362,20 @@ opening (the price level the year's spending is set at), at the median and the 1
 and historical results and removed from an invalid one. A valid Monte Carlo result therefore has 19 top-level keys
 (`tools/capture-baseline.js` `FIELD_COUNTS`). No row field changes.
 
+### What S5AA R53 added (2026-10-04)
+
+*ChatGPT's R52-01; the owner decided an end age before the retirement age is "refused everywhere". The commits are named in
+`audit/S5AA/R53/`.* **`contractVersion` stays at 5,** on the reasoning in the R29 to R39.1 subsection above: a refusal is an existing
+outcome reached by one more cause.
+
+| `calculationErrorCode` | refused when | introduced |
+|---|---|---|
+| `SCENARIO_END_AGE_BEFORE_RETIREMENT` | `profile.endAge` is below `profile.retireAge`, both finite numbers, and not below `profile.age` (that is R41's `SCENARIO_END_AGE_BEFORE_START`, checked first). An end age equal to the retirement age is projected | R53 |
+
+Until R53 the validator only warned (`INCONSISTENT_AGES` at `profile.endAge`), so the app's import accepted such a plan and the form then
+lengthened it to the retirement age. The validator now reports it as `END_AGE_BEFORE_RETIREMENT`, an `error` at `profile.endAge`, so the
+import refuses the backup; the `INCONSISTENT_AGES` warning for a retirement age before the start (beside a salary) is unchanged.
+
 ---
 
 ## 7a. Failure policies — stated BEFORE any new scheduler is built (S5AA task 8.2)

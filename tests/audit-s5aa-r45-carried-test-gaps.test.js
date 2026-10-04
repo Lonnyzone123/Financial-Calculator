@@ -9,6 +9,7 @@
  * Returns are 0. Expectations are hand-derived.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -19,6 +20,7 @@ const engine = L.h.engine;
 const { validateScenario } = require(path.join(__dirname, '..', 'src', 'scenario-validator.js'));
 
 function run(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const v = validateScenario(structuredClone(p));
   assert.equal(v.valid, true, JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   const r = engine.runPlan(structuredClone(p));

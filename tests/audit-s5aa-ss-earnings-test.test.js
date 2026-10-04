@@ -34,6 +34,7 @@
  * benefit is `row.income - wages`, and wages are known exactly because salary growth is zero.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -80,6 +81,7 @@ function claimant(startAge, endAge, salary, claim, retireAge) {
   });
   Object.assign(p.advanced, { rmdOn: false, transferOn: false, conversionOn: false, healthOn: false });
   p.accounts = [account('cash', 'taxable', 'taxable', 400000)];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

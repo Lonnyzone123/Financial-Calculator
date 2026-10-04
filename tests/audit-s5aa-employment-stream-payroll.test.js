@@ -18,6 +18,7 @@
  * status, so neither of those is per person -- only OASDI is. Both are pinned.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -66,6 +67,7 @@ function plan(selfSalary, spouseSalary, streams) {
     frequency: 1, changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0,
     matchRate: 0, profitShare: 0, vesting: 100, priority: 1,
   }];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

@@ -29,6 +29,7 @@
  * withholding would fail side 2.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -108,6 +109,7 @@ function claimWhileWorking(salary) {
   }];
   p.advanced.debts = [];
   p.advanced.otherAssets = [];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const out = engine.runPlan(p);
   assert.equal(out.status, 'ok', `salary ${salary}: the fixture must run`);
   const row = out.rows.find((r) => r.age >= 62.5);

@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /*
  * RE-AUDIT 2 (RB-01…RB-09) — STEP 0: the red tests.
@@ -104,7 +105,7 @@ function mortgage(over) {
    published reproduction. The preTax/taxable routing, which IS the finding,
    agrees to the cent. Said plainly rather than tuned until it matched. */
 test('RB-01: a duplicate account id must not route a contribution into the wrong tax class', () => {
-  const build = (ids) => basePlan({
+  const build = (ids) => retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
     id: 'rb01',
     profile: Object.assign(clone(defaultPlan.profile), { filing: 'single', spouseOn: false, age: 40, retireAge: 65, endAge: 42 }),
     employment: Object.assign(clone(defaultPlan.employment), { salary: 120000, spouseSalary: 0, growth: 0 }),
@@ -112,7 +113,7 @@ test('RB-01: a duplicate account id must not route a contribution into the wrong
       account({ id: ids[0], name: '401k', type: 'traditional401k', taxClass: 'preTax', balance: 100000, contribution: 0, priority: 1 }),
       account({ id: ids[1], name: 'Brokerage', type: 'taxable', taxClass: 'taxable', balance: 100000, contribution: 12000, priority: 2 }),
     ],
-  });
+  }));
 
   const duplicate = build(['same', 'same']);
   const control = build(['a', 'b']);
@@ -430,11 +431,11 @@ test('RB-08: a horizon landing exactly on a row must select that row', { todo: '
 
 test('RB-09: the catalogue must detect a field added to an ordinary row', () => {
   const { buildCatalogue } = require('./lib/schema-catalogue.js');
-  const plan = basePlan({
+  const plan = retireAtEnd(basePlan({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
     id: 'rb09',
     profile: Object.assign(clone(defaultPlan.profile), { age: 40, retireAge: 65, endAge: 45 }),
     accounts: [account({ id: 'tax1', balance: 200000 })],
-  });
+  }));
 
   const result = engine.runPlan(clone(plan));
   assert.ok(result.rows.length > 2, 'precondition: more than an opening row');

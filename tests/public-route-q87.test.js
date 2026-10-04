@@ -10,6 +10,7 @@
  * rows[1], so nothing here depends on a particular rate or bracket.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -60,6 +61,7 @@ function plan(o) {
   if (o.roth) p.accounts.push(acct('r', 'rothIRA', 'roth', 'self', o.roth));
   if (o.coveredSelf) p.accounts.push(acct('w', 'traditional401k', 'preTax', 'self', 1));
   if (o.coveredSpouse) p.accounts.push(acct('w2', 'traditional401k', 'preTax', 'spouse', 1));
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

@@ -14,6 +14,7 @@
  * no $200 minimum or $10 rounding to the Roth limit. Every expectation below is worked from the rule, never read from
  * the engine. The Roth MAGI is the engine's declared salary proxy; that proxy is not changed here. */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -56,6 +57,7 @@ function plan(o) {
   if (o.workplace) p.accounts.push(acct('w', 'traditional401k', 'preTax', o.workplaceOwner || 'self', o.workplace, 1));
   if (o.ira) p.accounts.push(acct('i', 'traditionalIRA', 'preTax', 'self', o.ira, 2));
   if (o.roth) p.accounts.push(acct('r', 'rothIRA', 'roth', 'self', o.roth, 3));
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

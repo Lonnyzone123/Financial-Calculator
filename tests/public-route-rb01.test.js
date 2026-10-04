@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /*
  * S5 block 2r -- RB-01 through the public entry points.
@@ -45,6 +46,7 @@ function plan(ids) {
     account({ id: ids[0], name: '401k', type: 'traditional401k', taxClass: 'preTax', balance: 100000, priority: 1, basisPct: 0 }),
     account({ id: ids[1], name: 'Brokerage', type: 'taxable', taxClass: 'taxable', balance: 100000, contribution: 12000, priority: 2, basisPct: 100 }),
   ];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 const entryPoints = [['runPlan', engine.runPlan], ['runScenario', engine.runScenario]];

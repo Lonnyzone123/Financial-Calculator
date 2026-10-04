@@ -244,8 +244,14 @@ function validateProfile(c, profile, employment) {
   if (isFiniteNumber(profile.age) && isFiniteNumber(profile.endAge) && profile.endAge < profile.age) {
     c.error('END_AGE_BEFORE_START', 'profile.endAge', `endAge (${profile.endAge}) is before the current age (${profile.age}), so there are no years to project`);
   }
-  if (isFiniteNumber(profile.retireAge) && isFiniteNumber(profile.endAge) && profile.endAge < profile.retireAge) {
-    c.warn('INCONSISTENT_AGES', 'profile.endAge', `endAge (${profile.endAge}) is before retireAge (${profile.retireAge})`);
+  /* S5AA R53 (ChatGPT's R52-01; the owner 2026-10-04: "refused everywhere"): AN END AGE BEFORE THE RETIREMENT AGE IS REFUSED. It only warned, so the
+     app's import accepted such a backup and readStatic() then raised the end age to the retirement age: ChatGPT's U01 (age 40, retirement 60, end 41)
+     was projected for 20 years where 1 was asked. Now an ERROR, so the import refuses the backup and names why; the engine refuses it as
+     SCENARIO_END_AGE_BEFORE_RETIREMENT. The primary's retirement and end ages, both on the primary's clock: a spouse's own later retirement
+     (profile.spouseRetireAge) is not part of it -- a younger spouse may still work when the plan ends. An end age equal to the retirement age is
+     accepted, and an end age before the START keeps R41's error alone. */
+  if (isFiniteNumber(profile.age) && isFiniteNumber(profile.retireAge) && isFiniteNumber(profile.endAge) && profile.endAge >= profile.age && profile.endAge < profile.retireAge) {
+    c.error('END_AGE_BEFORE_RETIREMENT', 'profile.endAge', `endAge (${profile.endAge}) is before retireAge (${profile.retireAge}): the plan must run at least to the retirement age`);
   }
   if (profile.spouseOn === true && profile.spouseAge !== undefined) {
     checkType(c, profile.spouseAge, 'profile.spouseAge', isFiniteNumber, 'WRONG_TYPE', 'a finite number');

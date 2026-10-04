@@ -19,6 +19,7 @@
  * what it was allowed to receive.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -52,6 +53,7 @@ function run(o) {
     networthOn: true, otherAssets: [], debts: [] });
   p.limitPolicy = 'redirect';
   p.accounts = [acct('cash', 'taxable', 'taxable', 100000, 0, { priority: 9 })].concat(o.accounts);
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const v = validateScenario(JSON.parse(JSON.stringify(p)));
   assert.equal(v.valid, true, 'a valid plan: ' + JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   const r = engine.runPlan(p);

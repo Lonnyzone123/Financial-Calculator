@@ -945,7 +945,11 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (app: R53 restore keeps validated values (R52-01, R52-02)), so the tracked file was rebuilt,
 // again installed only after two builds agreed. The pin before it,
 // f59311fecfc71d28b55208df2e33ba5033ae6867172f0c972c6225208777b6a2, described the previous rebuild.
-const EXPECTED_SHA256 = 'ae99a798349d32f6c3e1a3b7a1f32e67a9cfd99e16c8ad9b091ae38e1b7ba476';
+//
+// Changed again 2026-09-29 (engine+validator+app: R53 end age before retirement refused (decision 3)), so the tracked
+// file was rebuilt, again installed only after two builds agreed. The pin before it,
+// ae99a798349d32f6c3e1a3b7a1f32e67a9cfd99e16c8ad9b091ae38e1b7ba476, described the previous rebuild.
+const EXPECTED_SHA256 = '945e98149a0c0b56ade99335e4be831d71b183531eef2046c34eeceda74ddbac';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

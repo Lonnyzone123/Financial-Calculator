@@ -24,6 +24,7 @@
  * $50,400, 22% to $105,700, 24% to $201,775; Arizona 2.5% after its $16,100 and $2,100 per person 65+; OASDI 6.2% to $184,500,
  * Medicare 1.45%; Schedule SE 92.35%, 12.4% + 2.9%. */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -37,6 +38,7 @@ const SHELL = fs.readFileSync(path.join(__dirname, '..', 'src', 'app-shell.html'
 
 const cents = (x) => Math.round(x * 100) / 100;
 function run(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const v = validateScenario(structuredClone(p));
   assert.equal(v.valid, true, JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   const r = engine.runPlan(structuredClone(p));

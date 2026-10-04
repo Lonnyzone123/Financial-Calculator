@@ -14,6 +14,7 @@
  * record, audit/S5AA/R42/), not read from another engine run.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -32,12 +33,14 @@ function spousal({ age = 45, spouseAge = 44, retireAge = 45.5, salary = 10000, s
   const p = L.basePlan({ couple: true, age, spouseAge, retireAge, endAge: age + 1, salary, spouseSalary, spending: 0, returnRate: 0, inflation: 0,
     accounts: [L.account('ira', 'traditionalIRA', 0, { contribution: 7500, owner }), L.account('cash', 'taxable', 0, { basisPct: 100 })] });
   p.employment.contributionStop = 55;
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 function roth({ spouseSalary = 260000, retireAge = 45.5 } = {}) {
   const p = L.basePlan({ couple: true, age: 44, spouseAge: 45, retireAge, endAge: 45, salary: 0, spouseSalary, spending: 0, returnRate: 0, inflation: 0,
     accounts: [L.account('self-roth', 'rothIRA', 0, { contribution: 7500 })] });
   p.employment.contributionStop = 55;
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 
@@ -78,6 +81,7 @@ test('R42 (R41F-04, the one-time path, found by the R42F audit): a one-time $7,5
   const p = L.basePlan({ couple: true, age: 44, spouseAge: 45, retireAge: 45.5, endAge: 45, salary: 0, spouseSalary: 260000, spending: 0, returnRate: 0, inflation: 0,
     accounts: [L.account('brok', 'taxable', 50000, { basisPct: 100 }), L.account('self-roth', 'rothIRA', 0)] });
   p.employment.contributionStop = 55;
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   Object.assign(p.advanced, { transferOn: true, transferFrom: 'brok', transferTo: 'self-roth', transferAmount: 7500, transferAge: 44.5 });
   // proxy 260,000 x 0.5 = 130,000, below the 242,000 start of the joint phase-out; joint compensation 130,000; nothing else contributed
   assert.equal(rowOf(p, 45).roth, 7500);

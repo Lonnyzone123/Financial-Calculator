@@ -16,6 +16,7 @@
  * Rows are labelled by their closing age. Every expected figure is hand-derived from the rules and the inputs.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -27,6 +28,7 @@ const L = require(path.join(__dirname, '..', 'audit', 'S5AA', 'R40', 'S5AA_R40_C
 
 const cents = (x) => Math.round(x * 100) / 100;
 function run(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   assert.equal(L.h.validateScenario(structuredClone(p)).valid, true);
   const r = L.h.engine.runPlan(structuredClone(p));
   assert.equal(r.status, 'ok', r.calculationErrorCode);
@@ -82,6 +84,7 @@ test('R43 (SA42F-04): the form offers a spouse owner only while a spouse is incl
 const MED = 202.90 * 12 + 283 + 38.99 * 12;
 test('R43 (SA42F-11): a retired spouse of 68 is charged Medicare while the self still works', () => {
   const a = SH.base({ age: 60, endAge: 63, retireAge: 67, filing: 'mfj', spouseOn: true, spouseAge: 68 });
+  retireAtEnd(a); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   Object.assign(a.employment, { salary: 80000, contributionStop: 101 });
   Object.assign(a.advanced, { healthOn: true, healthCost: 0, healthInflation: 0 });
   const r = SH.check(a);
