@@ -1,0 +1,430 @@
+TAP version 13
+# Subtest: R45 rules 1-2: the earning spouse stops at their own 63 (self 61) -- household spending starts there, the self's pay funds it
+not ok 1 - R45 rules 1-2: the earning spouse stops at their own 63 (self 61) -- household spending starts there, the self's pay funds it
+  ---
+  duration_ms: 9.788
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:51:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    from 61: $40,000 a year
+    
+    0 !== 40000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:55:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.start (node:internal/test_runner/test:1177:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+  ...
+# Subtest: R45 rule 3 control: the same spouse with no salary stops nothing -- spending waits for the self's 65
+ok 2 - R45 rule 3 control: the same spouse with no salary stops nothing -- spending waits for the self's 65
+  ---
+  duration_ms: 1.5904
+  type: 'test'
+  ...
+# Subtest: R45 rule 1 fallback: with no spouse date, the spouse retires at 65 on their own clock (self 63) -- spending from 63
+not ok 3 - R45 rule 1 fallback: with no spouse date, the spouse retires at 65 on their own clock (self 63) -- spending from 63
+  ---
+  duration_ms: 1.4842
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:63:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 40000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:67:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 rule 6: a younger spouse retiring at their own 58 earns to the self's 63, and no longer
+not ok 4 - R45 rule 6: a younger spouse retiring at their own 58 earns to the self's 63, and no longer
+  ---
+  duration_ms: 1.4812
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:79:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    and has stopped by the next
+    
+    50000 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 50000
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:83:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 rule 6 control: with no spouse date, the spouse works to their own 62 (self 67), past the end
+ok 5 - R45 rule 6 control: with no spouse date, the spouse works to their own 62 (self 67), past the end
+  ---
+  duration_ms: 0.9869
+  type: 'test'
+  ...
+# Subtest: R45 rule 4: the self dies at 55 before retiring; the spouse earns -- spending starts at the death, the survivor's pay first
+not ok 6 - R45 rule 4: the self dies at 55 before retiring; the spouse earns -- spending starts at the death, the survivor's pay first
+  ---
+  duration_ms: 1.7252
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:100:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 40000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:103:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 rule 4 control: with no salary the start is the death too (R43's rule, unchanged)
+ok 7 - R45 rule 4 control: with no salary the start is the death too (R43's rule, unchanged)
+  ---
+  duration_ms: 1.7986
+  type: 'test'
+  ...
+# Subtest: R45 rule 4, symmetric: an earning spouse dies at 62 before retiring -- spending starts there, the self's pay first
+not ok 8 - R45 rule 4, symmetric: an earning spouse dies at 62 before retiring -- spending starts there, the self's pay first
+  ---
+  duration_ms: 0.8427
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:120:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 40000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:123:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 rule 4 control: a spouse with no salary dying stops nothing -- spending waits for the self's 65
+ok 9 - R45 rule 4 control: a spouse with no salary dying stops nothing -- spending waits for the self's 65
+  ---
+  duration_ms: 0.7614
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-40): conversions start at the entered age, 62 -- $20,000 a year from then
+not ok 10 - R45 (AA1-40): conversions start at the entered age, 62 -- $20,000 a year from then
+  ---
+  duration_ms: 2.0457
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:140:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 20000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 20000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:143:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 (AA1-40) control: with no start age, conversions start at the retirement age, 65, as before
+ok 11 - R45 (AA1-40) control: with no start age, conversions start at the retirement age, 65, as before
+  ---
+  duration_ms: 1.2148
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-40): employer coverage to 64 -- no health cost until then, $12,000 a year from it
+not ok 12 - R45 (AA1-40): employer coverage to 64 -- no health cost until then, $12,000 a year from it
+  ---
+  duration_ms: 1.0397
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:158:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    still covered
+    
+    12000 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 12000
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:160:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 (AA1-40) control: with no coverage age, the cost starts at the household date, 62
+ok 13 - R45 (AA1-40) control: with no coverage age, the cost starts at the household date, 62
+  ---
+  duration_ms: 0.8541
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-38/39): "retired spending begins at" 63 replaces the first stop
+not ok 14 - R45 (AA1-38/39): "retired spending begins at" 63 replaces the first stop
+  ---
+  duration_ms: 0.985
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:174:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    40000 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 40000
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:176:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 (AA1-38/39): the override may also be earlier than the retirement -- 61
+not ok 15 - R45 (AA1-38/39): the override may also be earlier than the retirement -- 61
+  ---
+  duration_ms: 0.7958
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:179:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 40000
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 40000
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:182:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 (AA1-38/39) control: no override -- spending from the retirement age, 62
+ok 16 - R45 (AA1-38/39) control: no override -- spending from the retirement age, 62
+  ---
+  duration_ms: 0.6086
+  type: 'test'
+  ...
+# Subtest: R45 rule 6: the spouse left work at their own 50 -- the Rule of 55 does not apply to their 401(k)
+not ok 17 - R45 rule 6: the spouse left work at their own 50 -- the Rule of 55 does not apply to their 401(k)
+  ---
+  duration_ms: 0.9444
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:202:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 20000
+    - 22222.22
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 22222.22
+  actual: 20000
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:203:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 rule 6 control: the spouse left at their own 55 -- it applies
+ok 18 - R45 rule 6 control: the spouse left at their own 55 -- it applies
+  ---
+  duration_ms: 0.5673
+  type: 'test'
+  ...
+# Subtest: R45 rule 6: a spouse working to their own 76 owes no RMD from the current employer's 401(k) at 73
+not ok 19 - R45 rule 6: a spouse working to their own 76 owes no RMD from the current employer's 401(k) at 73
+  ---
+  duration_ms: 1.2183
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:215:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 18867.924528301886
+    - 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 18867.924528301886
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:216:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 rule 6 control: retired at their own 70, the spouse owes 500,000 / 26.5 = 18,867.92
+ok 20 - R45 rule 6 control: retired at their own 70, the spouse owes 500,000 / 26.5 = 18,867.92
+  ---
+  duration_ms: 0.541
+  type: 'test'
+  ...
+# Subtest: R45 rule 8: a past retirement age warns only beside a salary, for either spouse
+not ok 21 - R45 rule 8: a past retirement age warns only beside a salary, for either spouse
+  ---
+  duration_ms: 0.3083
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:223:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    retired, no salary
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:225:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45: the four new values are numbers -- text or a negative age is refused by the validator and the engine
+not ok 22 - R45: the four new values are numbers -- text or a negative age is refused by the validator and the engine
+  ---
+  duration_ms: 0.2661
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:236:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    profile.spouseRetireAge = "60"
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:242:14)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+# Subtest: R45 (the owner's also-include): self-employment income counts as earned income for the contribution warning
+not ok 23 - R45 (the owner's also-include): self-employment income counts as earned income for the contribution warning
+  ---
+  duration_ms: 0.3855
+  type: 'test'
+  location: 'C:\\Financial-Calculator\\tests\\audit-s5aa-r45-spouse-retirement-dates.test.js:248:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    $7,000 against $50,000 of self-employment income
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (C:\Financial-Calculator\tests\audit-s5aa-r45-spouse-retirement-dates.test.js:252:10)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1306:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+    Test.postRun (node:internal/test_runner/test:1447:19)
+    Test.run (node:internal/test_runner/test:1372:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 9
+# fail 14
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 156.2693

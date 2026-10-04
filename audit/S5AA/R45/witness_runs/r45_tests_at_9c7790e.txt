@@ -1,0 +1,190 @@
+TAP version 13
+# Subtest: R45 (SA42F-12 text): the 415(c)(1)(B) warning names the held amount and the rule
+ok 1 - R45 (SA42F-12 text): the 415(c)(1)(B) warning names the held amount and the rule
+  ---
+  duration_ms: 19.8258
+  type: 'test'
+  ...
+# Subtest: R45 (SA42F-12 text) control: on $60,000 of pay the $20,000 match is paid and nothing is said about 415(c)(1)(B)
+ok 2 - R45 (SA42F-12 text) control: on $60,000 of pay the $20,000 match is paid and nothing is said about 415(c)(1)(B)
+  ---
+  duration_ms: 1.3126
+  type: 'test'
+  ...
+# Subtest: R45 (SA42F-08, Roth): at the end of the indexed range ($221,000 in 2036) no Roth contribution is allowed -- the width stays $15,000
+ok 3 - R45 (SA42F-08, Roth): at the end of the indexed range ($221,000 in 2036) no Roth contribution is allowed -- the width stays $15,000
+  ---
+  duration_ms: 4.8379
+  type: 'test'
+  ...
+# Subtest: R45 (SA42F-08, Roth) control: $1,000 inside the range, the reduced limit is $760
+ok 4 - R45 (SA42F-08, Roth) control: $1,000 inside the range, the reduced limit is $760
+  ---
+  duration_ms: 2.8778
+  type: 'test'
+  ...
+# Subtest: R45 (R43 section 7, declared): the legacy "recurring" income type -- the validator refuses it, the engine runs it
+ok 5 - R45 (R43 section 7, declared): the legacy "recurring" income type -- the validator refuses it, the engine runs it
+  ---
+  duration_ms: 1.8266
+  type: 'test'
+  ...
+# Subtest: R45 (R43 section 7, declared): TRANSFER_INTO_WORKPLACE_PLAN -- the validator refuses a Roth IRA rolled into a 401(k), the engine runs it
+ok 6 - R45 (R43 section 7, declared): TRANSFER_INTO_WORKPLACE_PLAN -- the validator refuses a Roth IRA rolled into a 401(k), the engine runs it
+  ---
+  duration_ms: 1.2138
+  type: 'test'
+  ...
+# Subtest: R45 (task 6.5): every input the form reads recalculates on change -- including the R45 and R35 IRMAA inputs
+ok 7 - R45 (task 6.5): every input the form reads recalculates on change -- including the R45 and R35 IRMAA inputs
+  ---
+  duration_ms: 2.3727
+  type: 'test'
+  ...
+# Subtest: R45 rules 1-2: the earning spouse stops at their own 63 (self 61) -- household spending starts there, the self's pay funds it
+ok 8 - R45 rules 1-2: the earning spouse stops at their own 63 (self 61) -- household spending starts there, the self's pay funds it
+  ---
+  duration_ms: 9.8106
+  type: 'test'
+  ...
+# Subtest: R45 rule 3 control: the same spouse with no salary stops nothing -- spending waits for the self's 65
+ok 9 - R45 rule 3 control: the same spouse with no salary stops nothing -- spending waits for the self's 65
+  ---
+  duration_ms: 1.5129
+  type: 'test'
+  ...
+# Subtest: R45 rule 1 fallback: with no spouse date, the spouse retires at 65 on their own clock (self 63) -- spending from 63
+ok 10 - R45 rule 1 fallback: with no spouse date, the spouse retires at 65 on their own clock (self 63) -- spending from 63
+  ---
+  duration_ms: 1.2611
+  type: 'test'
+  ...
+# Subtest: R45 rule 6: a younger spouse retiring at their own 58 earns to the self's 63, and no longer
+ok 11 - R45 rule 6: a younger spouse retiring at their own 58 earns to the self's 63, and no longer
+  ---
+  duration_ms: 1.4923
+  type: 'test'
+  ...
+# Subtest: R45 rule 6 control: with no spouse date, the spouse works to their own 62 (self 67), past the end
+ok 12 - R45 rule 6 control: with no spouse date, the spouse works to their own 62 (self 67), past the end
+  ---
+  duration_ms: 1.1147
+  type: 'test'
+  ...
+# Subtest: R45 rule 4: the self dies at 55 before retiring; the spouse earns -- spending starts at the death, the survivor's pay first
+ok 13 - R45 rule 4: the self dies at 55 before retiring; the spouse earns -- spending starts at the death, the survivor's pay first
+  ---
+  duration_ms: 1.6354
+  type: 'test'
+  ...
+# Subtest: R45 rule 4 control: with no salary the start is the death too (R43's rule, unchanged)
+ok 14 - R45 rule 4 control: with no salary the start is the death too (R43's rule, unchanged)
+  ---
+  duration_ms: 1.9929
+  type: 'test'
+  ...
+# Subtest: R45 rule 4, symmetric: an earning spouse dies at 62 before retiring -- spending starts there, the self's pay first
+ok 15 - R45 rule 4, symmetric: an earning spouse dies at 62 before retiring -- spending starts there, the self's pay first
+  ---
+  duration_ms: 0.8591
+  type: 'test'
+  ...
+# Subtest: R45 rule 4 control: a spouse with no salary dying stops nothing -- spending waits for the self's 65
+ok 16 - R45 rule 4 control: a spouse with no salary dying stops nothing -- spending waits for the self's 65
+  ---
+  duration_ms: 0.9208
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-40): conversions start at the entered age, 62 -- $20,000 a year from then
+ok 17 - R45 (AA1-40): conversions start at the entered age, 62 -- $20,000 a year from then
+  ---
+  duration_ms: 2.5025
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-40) control: with no start age, conversions start at the retirement age, 65, as before
+ok 18 - R45 (AA1-40) control: with no start age, conversions start at the retirement age, 65, as before
+  ---
+  duration_ms: 1.2329
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-40): employer coverage to 64 -- no health cost until then, $12,000 a year from it
+ok 19 - R45 (AA1-40): employer coverage to 64 -- no health cost until then, $12,000 a year from it
+  ---
+  duration_ms: 1.1141
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-40) control: with no coverage age, the cost starts at the household date, 62
+ok 20 - R45 (AA1-40) control: with no coverage age, the cost starts at the household date, 62
+  ---
+  duration_ms: 0.9052
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-38/39): "retired spending begins at" 63 replaces the first stop
+ok 21 - R45 (AA1-38/39): "retired spending begins at" 63 replaces the first stop
+  ---
+  duration_ms: 1.3318
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-38/39): the override may also be earlier than the retirement -- 61
+ok 22 - R45 (AA1-38/39): the override may also be earlier than the retirement -- 61
+  ---
+  duration_ms: 0.7061
+  type: 'test'
+  ...
+# Subtest: R45 (AA1-38/39) control: no override -- spending from the retirement age, 62
+ok 23 - R45 (AA1-38/39) control: no override -- spending from the retirement age, 62
+  ---
+  duration_ms: 0.648
+  type: 'test'
+  ...
+# Subtest: R45 rule 6: the spouse left work at their own 50 -- the Rule of 55 does not apply to their 401(k)
+ok 24 - R45 rule 6: the spouse left work at their own 50 -- the Rule of 55 does not apply to their 401(k)
+  ---
+  duration_ms: 0.9659
+  type: 'test'
+  ...
+# Subtest: R45 rule 6 control: the spouse left at their own 55 -- it applies
+ok 25 - R45 rule 6 control: the spouse left at their own 55 -- it applies
+  ---
+  duration_ms: 0.6547
+  type: 'test'
+  ...
+# Subtest: R45 rule 6: a spouse working to their own 76 owes no RMD from the current employer's 401(k) at 73
+ok 26 - R45 rule 6: a spouse working to their own 76 owes no RMD from the current employer's 401(k) at 73
+  ---
+  duration_ms: 0.9335
+  type: 'test'
+  ...
+# Subtest: R45 rule 6 control: retired at their own 70, the spouse owes 500,000 / 26.5 = 18,867.92
+ok 27 - R45 rule 6 control: retired at their own 70, the spouse owes 500,000 / 26.5 = 18,867.92
+  ---
+  duration_ms: 0.8121
+  type: 'test'
+  ...
+# Subtest: R45 rule 8: a past retirement age warns only beside a salary, for either spouse
+ok 28 - R45 rule 8: a past retirement age warns only beside a salary, for either spouse
+  ---
+  duration_ms: 0.649
+  type: 'test'
+  ...
+# Subtest: R45: the four new values are numbers -- text or a negative age is refused by the validator and the engine
+ok 29 - R45: the four new values are numbers -- text or a negative age is refused by the validator and the engine
+  ---
+  duration_ms: 1.9973
+  type: 'test'
+  ...
+# Subtest: R45 (the owner's also-include): self-employment income counts as earned income for the contribution warning
+ok 30 - R45 (the owner's also-include): self-employment income counts as earned income for the contribution warning
+  ---
+  duration_ms: 0.4974
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 199.0131

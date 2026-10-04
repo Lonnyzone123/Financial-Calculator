@@ -86,12 +86,17 @@ test('R41, control: an end age between the start and the retirement age keeps it
   assert.equal(v.filter((s) => s.startsWith('ERROR')).length, 0, v.join(' | '));
 });
 
-test('R41, control: a retirement age below the start (already retired) keeps its warning and is projected', () => {
+test('R41, control: a retirement age below the start (already retired) is projected; since R45 it warns only beside a salary', () => {
+  // S5AA R45 (the owner, 2026-10-03, rule 8: "Warn only if a salary is entered"): an earlier retirement age is how a retired
+  // household is entered, so with no salary there is no warning (R41 pinned one); a salary beside it still warns.
   const p = plan({ age: 70, retireAge: 65, endAge: 72 });
+  p.employment.salary = 0;
   const r = engine.runPlan(p);
   assert.equal(r.status, 'ok', r.calculationErrorCode);
   assert.deepEqual(r.rows.map((x) => x.age), [70, 71, 72]);
   const v = validatorIssues(p);
-  assert.ok(v.includes('WARNING INCONSISTENT_AGES@profile.retireAge'), v.join(' | '));
+  assert.ok(!v.includes('WARNING INCONSISTENT_AGES@profile.retireAge'), v.join(' | '));
   assert.equal(v.filter((s) => s.startsWith('ERROR')).length, 0, v.join(' | '));
+  p.employment.salary = 50000;
+  assert.ok(validatorIssues(p).includes('WARNING INCONSISTENT_AGES@profile.retireAge'), 'a salary beside a past retirement age');
 });
