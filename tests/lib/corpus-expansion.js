@@ -189,8 +189,13 @@ const DEBT_FAMILIES = [
    RE-APPLIED, VERSION 6 (S5AA R36, SA32F-D1): later years' tax figures now index with inflation, so the tax on the same spending falls
    and success rises along the whole grid. Measured: step 30 86.6%, step 31 85.6%, step 32 (x2.60, $156,000) 85.0% -- inside the band, which includes 85. The same rule, applied
    again with nothing else changed: step 32 is the first in [50, 85]. The golden plan is 100%; step 32 gives 100% / 85.0% / 55.2% at
-   half, full and one-and-a-half times the golden volatility. */
-const MC_BAND_STEP = 31;   // S5AA R43 (SA42F-31): the rule re-applied under the new Monte Carlo seeds (family version 7)
+   half, full and one-and-a-half times the golden volatility.
+   RE-APPLIED, VERSION 8 (S5AA R46, the owner's AA1 decision on MC-A: one set of market shocks per year shared by all accounts): the
+   golden plan's three accounts no longer diversify one another, so its spread widens and success falls along the whole grid: the
+   golden plan itself is 96.8%. Measured: step 13 (x1.65) 85.2%, step 14 (x1.70, $102,000) 84.2%, step 15 83.6%; success still falls
+   monotonically from step 0 (96.8%). The same rule, applied again with nothing else changed: step 14 is the first in [50, 85]. Step 14
+   gives 99.8% / 84.2% / 50.8% at half, full and one-and-a-half times the golden volatility; the golden plan 100% / 96.8% / 69.6%. */
+const MC_BAND_STEP = 14;   // S5AA R46 (MC-A): the rule re-applied under the shared market shocks (family version 8)
 const MC_BAND_FACTOR = 1 + 0.05 * MC_BAND_STEP;
 
 function goldenMonteCarlo(defaultPlan) {
@@ -200,7 +205,7 @@ function goldenMonteCarlo(defaultPlan) {
 
 const MC_BAND_FAMILY = {
   id: 'monte-carlo-sensitive-band',
-  version: 7,
+  version: 8,
   covers: 'S4 task 4.5: the Monte Carlo corpus is saturated against the success ceiling -- the golden Monte Carlo ' +
     'plan succeeds 99.8% -- so it cannot see a defect in the risk model, which only shows through failure. This ' +
     'member sits in the sensitive band (50-85%), chosen by a rule declared before measuring: the golden plan, same ' +
@@ -209,7 +214,7 @@ const MC_BAND_FAMILY = {
   reached: (result) => result.mode === 'monteCarlo' && result.successRate >= 50 && result.successRate <= 85,
   members: [
     { name: 'expansion:monte-carlo-sensitive-band',
-      reaches: '84.6% success at spending x2.55 (measured at version 7, after the S5AA R43 Monte Carlo seeds); 100% / 84.6% / 52.2% at half, full and one-and-a-half times the golden volatility',
+      reaches: '84.2% success at spending x1.70 (measured at version 8, after the S5AA R46 shared market shocks); 99.8% / 84.2% / 50.8% at half, full and one-and-a-half times the golden volatility',
       build: (plan) => {
         const p = goldenMonteCarlo(plan);
         p.retirement.spending = Math.round(p.retirement.spending * MC_BAND_FACTOR * 100) / 100;
@@ -752,7 +757,11 @@ function lossHousehold(plan, over) {
   });
 }
 /* The Arizona-funded 71 row: AGI = base + (5/9)x with x = 2.5% x (AGI - 18,200). */
-const lossRowAgi = (base) => base + (5 / 9) * 0.025 * (base - 18200) / (1 - 0.025 * 5 / 9);
+/* ADAPTED BY INTENT at S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction
+   (A.R.S. 43-1022(35)), the full $6,000 for each of these single 71-year-olds (every AGI under $75,000), so the Arizona tax funded at the
+   5/9 gain fraction is figured on base - 24,200, not base - 18,200: 31,957.75 and 50,363.38 (were 32,042.25 and 50,447.89). The plans,
+   and what each member reaches, are unchanged. */
+const lossRowAgi = (base) => base + (5 / 9) * 0.025 * (base - 18200 - 6000) / (1 - 0.025 * 5 / 9);
 const LOSS_FAMILY = {
   id: 's5aa-capital-loss',
   covers: 'S5AA R18 self-audit SA18-01 (a loss year\'s carryover used only up to its taxable income, by the Capital Loss ' +
@@ -775,7 +784,7 @@ const LOSS_FAMILY = {
     {
       name: 'expansion:s5aa-sa18-decedent-loss',
       reaches: 'SA18-02. A couple at 70; the self dies in the 70 row holding a $50,000 carried loss, and the survivor sells ' +
-        'a $50,000 gain at 71. The loss ended with the final return: AGI at 71 is 50,447.89. MEASURED: 0 at 6e8f31e, ' +
+        'a $50,000 gain at 71. The loss ended with the final return: AGI at 71 is 50,363.38 (50,447.89 before S5AA R48). MEASURED: 0 at 6e8f31e, ' +
         'where the survivor deducted it.',
       build: (plan) => lossHousehold(plan, {
         profile: { age: 70, retireAge: 60, endAge: 72, spouseOn: true, spouseAge: 70, filing: 'mfj' },

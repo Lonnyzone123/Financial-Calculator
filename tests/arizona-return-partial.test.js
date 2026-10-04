@@ -29,20 +29,27 @@ const cents = (v) => Math.round(v * 100) / 100;
 
 test('Arizona taxable income subtracts the basic standard deduction and $2,100 for an owner 65 or older', () => {
   const r = engine.estimateTaxes(who('single', 67), 67, 60000, 0, 0, 0, 0, 0);
-  assert.equal(cents(r.az), cents((60000 - 16100 - 2100) * 0.025));
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona also subtracts the federal senior deduction (A.R.S. 43-1022(35)),
+     here the full $6,000 (MAGI $60,000, under $75,000): 895, was (60,000 - 16,100 - 2,100) x 2.5% = 1,045. */
+  assert.equal(cents(r.az), cents((60000 - 16100 - 2100 - 6000) * 0.025));
 });
 
 test('a married couple gets one $2,100 exemption for each spouse 65 or older, and none for a spouse under 65', () => {
   const both = engine.estimateTaxes(who('mfj', 70, 70), 70, 90000, 0, 0, 0, 0, 0);
   const one = engine.estimateTaxes(who('mfj', 70, 60), 70, 90000, 0, 0, 0, 0, 0);
-  assert.equal(cents(both.az), cents((90000 - 32200 - 4200) * 0.025), 'both 70');
-  assert.equal(cents(one.az), cents((90000 - 32200 - 2100) * 0.025), 'spouse 60');
+  /* S5AA R48 (AA1-16): less the federal senior deduction, $6,000 for each spouse 65 or older (joint MAGI $90,000, under $150,000):
+     1,040 and 1,242.50, were 1,340 and 1,392.50. */
+  assert.equal(cents(both.az), cents((90000 - 32200 - 4200 - 12000) * 0.025), 'both 70');
+  assert.equal(cents(one.az), cents((90000 - 32200 - 2100 - 6000) * 0.025), 'spouse 60');
 });
 
-test('arizona_agi is federal AGI less federally taxable Social Security', () => {
+test('arizona_agi is federal AGI less federally taxable Social Security -- and, since S5AA R48, less the federal senior deduction', () => {
   const r = engine.estimateTaxes(who('single', 67), 67, 40000, 5000, 24000, 0, 0, 0);
   assert.ok(r.ssTaxable > 0, 'premise: some Social Security is federally taxable');
-  assert.ok(Math.abs(r.measures.arizona_agi - (r.measures.federal_agi - r.ssTaxable)) <= 1e-6, 'arizona_agi ' + r.measures.arizona_agi);
+  /* S5AA R48 (AA1-16): Arizona AGI is Arizona gross income less the 43-1022 subtractions, which now include the federal senior deduction
+     (43-1022(35)): the full $6,000 here (federal AGI under $75,000). It was federal AGI less taxable Social Security alone. */
+  assert.ok(r.measures.federal_agi < 75000, 'premise: the full senior deduction');
+  assert.ok(Math.abs(r.measures.arizona_agi - (r.measures.federal_agi - r.ssTaxable - 6000)) <= 1e-6, 'arizona_agi ' + r.measures.arizona_agi);
 });
 
 test('the Arizona parameters are records with their authority statuses, and the proxy fields are gone', () => {
@@ -85,7 +92,10 @@ test('control: a funding quote for a 65+ household that crosses Arizona\'s zero-
 const azAt = (filing, age, spouseAge, ordinary) => engine.estimateTaxes(who(filing, age, spouseAge), age, ordinary, 0, 0, 0, 0, 0).az;
 
 test('the age-65 exemption saves its full $52.50 when Arizona taxable income covers it', () => {
-  assert.equal(cents(azAt('single', 64, undefined, 60000) - azAt('single', 67, undefined, 60000)), 52.5);
+  /* S5AA R48 (AA1-16): at 67 Arizona also subtracts the federal senior deduction (43-1022(35)), so at $60,000 the difference became
+     $202.50 ($52.50 + 2.5% x $6,000). The case isolates the exemption at $200,000, where the senior deduction is fully phased out
+     ($6,000 - 6% x (200,000 - 75,000) < 0). */
+  assert.equal(cents(azAt('single', 64, undefined, 200000) - azAt('single', 67, undefined, 200000)), 52.5);
 });
 
 test('the age-65 exemption saves only part of $52.50 when Arizona taxable income is smaller than the exemption', () => {

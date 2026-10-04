@@ -1200,10 +1200,21 @@
           "kind": "boolean"
         },
         "failureAge": {
-          "kind": "null"
+          "kind": "number"
+        },
+        "finalYearRealSpending": {
+          "kind": "object",
+          "fields": {
+            "median": {
+              "kind": "number"
+            },
+            "q10": {
+              "kind": "number"
+            }
+          }
         },
         "firstShortfallAge": {
-          "kind": "null"
+          "kind": "number"
         },
         "issues": {
           "kind": "array",
@@ -1303,13 +1314,13 @@
           "kind": "number"
         },
         "sustainedFailureAge": {
-          "kind": "null"
+          "kind": "number"
         },
         "validPathCount": {
           "kind": "number"
         }
       },
-      "topLevelCount": 18,
+      "topLevelCount": 19,
       "row": {
         "kind": "object",
         "fields": {

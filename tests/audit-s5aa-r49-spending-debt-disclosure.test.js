@@ -282,7 +282,7 @@ test('R49: the new values are numbers -- text or a negative age is refused by th
 });
 
 // --- Disclosure: the app ---------------------------------------------------------------------------------------------------
-test('R49: the hidden engine disclosures are shown as cards -- and the IRMAA default stays with its own round', () => {
+test('R49: the hidden engine disclosures are shown as cards -- and the IRMAA default is shown once, by its own round (R48)', () => {
   const titles = SHELL.match(/var planWarningTitles=(\{[^}]*\})/);
   assert.ok(titles, 'planWarningTitles');
   const codes = Object.keys(eval('(' + titles[1] + ')'));
@@ -290,7 +290,9 @@ test('R49: the hidden engine disclosures are shown as cards -- and the IRMAA def
     'RETIREMENT_STRATEGY_UNRECOGNIZED', 'FILING_HOUSEHOLD_MISMATCH', 'EXPENSE_AFTER_PLAN_END', 'INCOME_AFTER_PLAN_END', 'PROPOSED_RULE_USED']) {
     assert.ok(codes.includes(code), code);
   }
-  assert.ok(!codes.includes('IRMAA_PRE_PLAN_MAGI_ASSUMED'), 'R48 owns the IRMAA default');
+  // R49 left the IRMAA default to R48 (built in parallel); integrated on R48, the card is R48's, listed once.
+  assert.equal(codes.filter((c) => c === 'IRMAA_PRE_PLAN_MAGI_ASSUMED').length, 1, 'R48 shows the IRMAA default, once');
+  assert.equal(new Set(codes).size, codes.length, 'each disclosure listed once');
 });
 test('R49: the relabels -- the return, the fee, Social Security, the optimizer, dividends, insurance, the life ages, care onset', () => {
   assert.match(SHELL, /Standard · 10% \(historical US stocks\)/);

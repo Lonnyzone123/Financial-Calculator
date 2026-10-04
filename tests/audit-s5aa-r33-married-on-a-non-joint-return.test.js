@@ -56,7 +56,11 @@ test('R33 SA32F-33: married, filing head of household: the same three rules on t
 test('R33 SA32F-33 CONTROLS: the joint return, and a household with no spouse, are unchanged', () => {
   /* Joint: 32,200 + 2 x 1,650 + 2 x 6,000 = 47,500; taxable 12,500 at 10% = 1,250. Arizona 2.5% x (60,000 - 32,200 - 4,200) =
      590. Total 1,840. */
-  assert.strictEqual(firstRowTax({ spouseOn: true, filing: 'mfj', pension: 60000 }), 1840);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona subtracts the federal senior deduction (A.R.S. 43-1022(35)),
+     2 x 6,000 on the joint return: Arizona 2.5% x (60,000 - 32,200 - 4,200 - 12,000) = 290, total 1,540 (was 1,840). The non-joint
+     cases above take no federal senior deduction (151(d)(5)(C)(v)), so Arizona subtracts none and they are unchanged. */
+  assert.strictEqual(firstRowTax({ spouseOn: true, filing: 'mfj', pension: 60000 }), 1540);
   /* Single, no spouse: 16,100 + 2,050 + 6,000 = 24,150; taxable 35,850; 1,240 + 12% x 23,450 = 4,054; Arizona 1,045. 5,099. */
-  assert.strictEqual(firstRowTax({ spouseOn: false, filing: 'single', pension: 60000 }), 5099);
+  /* S5AA R48: Arizona 2.5% x (60,000 - 16,100 - 2,100 - 6,000) = 895, total 4,949 (was 5,099). */
+  assert.strictEqual(firstRowTax({ spouseOn: false, filing: 'single', pension: 60000 }), 4949);
 });

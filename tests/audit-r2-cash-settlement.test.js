@@ -132,7 +132,8 @@ test('R2-T02: the exact $35,502.50 RMD checkpoint holds end-to-end through runPl
   const realTax = engine.estimateTaxes(p, 75, row.rmd, 0, 0, 0, 0, 0).total;
   /* R6 (S5 task 8, the Arizona age-65 exemption, TAX section 5.3, ENACTED): $2,497.50 became $2,445.00 -- one $2,100 exemption for a single person 75 takes $52.50 off the Arizona tax.
      The mechanism this pins is unchanged, and $2,497.50 returns exactly with the exemption set to $0. */
-  assert.ok(Math.abs(realTax - 2199) < 0.5, `expected real tax near $2,199.00 for this fixture ($2,497.50 before Arizona's age-65 exemption, $2,445.00 before the 63(f) additional deduction), got ${realTax}`);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona subtracts the federal senior deduction (A.R.S. 43-1022(35)), the full $6,000 at $40,000: 2.5% x 6,000 = $150 less, $2,049.00 (was $2,199.00). */
+  assert.ok(Math.abs(realTax - 2049) < 0.5, `expected real tax near $2,049.00 for this fixture ($2,497.50 before Arizona's age-65 exemption, $2,445.00 before the 63(f) additional deduction, $2,199.00 before Arizona's senior-deduction subtraction), got ${realTax}`);
   assert.equal(row.shortfall, 0, 'no additional tax-funding sale should have been needed');
   assert.ok(Math.abs(row.taxable - (row.rmd - 2000 - realTax)) < 1, `expected retained cash to equal RMD minus spending minus real tax, got taxable=${row.taxable}`);
   assert.equal(result.issues.length, 0, 'expected a clean run with no reconciliation issues');
@@ -284,11 +285,12 @@ test('R2V-001: an RMD that drains its account to zero still retains the exact $4
   const expectedTax = engine.estimateTaxes(p, 90, preDistribution, 0, 0, 0, 0, 0).total;
   /* R6 (S5 task 8, the Arizona age-65 exemption, TAX section 5.3, ENACTED): the audit's $45,368.50 became $45,421.00 -- one $2,100 exemption for a single person 90 leaves $52.50 more after tax.
      The mechanism this pins is unchanged, and the audit's $45,368.50 returns exactly with the exemption set to $0. */
-  assert.ok(Math.abs(preDistribution - expectedTax - 45667) < 0.01, `test setup sanity check: expected $45,667.00 (the audit's $45,368.50 before the age-65 exemption, $45,421.00 before the 63(f) additional deduction), got ${preDistribution - expectedTax}`);
+  /* S5AA R48 (AA1-16): Arizona subtracts the federal senior deduction (43-1022(35)), the full $6,000 at $49,200: $150 more kept, $45,817.00 (was $45,667.00). */
+  assert.ok(Math.abs(preDistribution - expectedTax - 45817) < 0.01, `test setup sanity check: expected $45,817.00 (the audit's $45,368.50 before the age-65 exemption, $45,421.00 before the 63(f) additional deduction, $45,667.00 before Arizona's senior-deduction subtraction), got ${preDistribution - expectedTax}`);
   assert.equal(row.preTax, 0, 'sanity check: the account must actually be drained to zero for this fixture to exercise the cash-only settlement path');
   assert.equal(row.calculationError, false);
   assert.equal(row.shortfall, 0);
-  assert.ok(Math.abs(row.total - 45667) < 0.01, `expected the ending total to equal the genuine $45,667.00 retained cash, not $0, got ${row.total}`);
+  assert.ok(Math.abs(row.total - 45817) < 0.01, `expected the ending total to equal the genuine $45,817.00 retained cash, not $0, got ${row.total}`);
   assert.equal(result.issues.length, 0, 'expected a clean run with no reconciliation issues');
 });
 

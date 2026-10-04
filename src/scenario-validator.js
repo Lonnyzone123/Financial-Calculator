@@ -832,7 +832,9 @@ const ADVANCED_OPTIONAL_KEYS = ['irmaaMagiTwoYearsBefore', 'irmaaMagiOneYearBefo
      health: the household date), which is why the default does not carry them. */
   'conversionStartAge', 'healthCoverageEndAge',
   /* S5AA R49 (the owner's AA1 decision on AA1-37): absent means the default onset rule (max(65, round(retireAge + 10))). */
-  'ltcOnsetAge'];
+  'ltcOnsetAge',  /* S5AA R48 (the owner's AA1 decision on AA1-23): absent means the Medicare charge grows at advanced.healthInflation and the Part D
+     plan premium is the CMS base premium. Typed and ranged by src/plan-value-contract.json. */
+  'medicareInflation', 'partDPremium'];
 
 function validateAdvancedKnownKeys(c, advanced) {
   Object.keys(advanced).forEach((k) => {
@@ -872,6 +874,11 @@ function validateAdvanced(c, advanced) {
     } else {
       checkRange(c, advanced.healthInflation, 'advanced.healthInflation', 0, 20, 'OUT_OF_RANGE', 'warning');
     }
+  }
+  /* S5AA R48 (AA1-23): the Medicare growth rate, when entered, is held like healthcare inflation -- the contract refuses -100 or below and
+     above 100; outside the form's 0 to 20 it warns. */
+  if (isFiniteNumber(advanced.medicareInflation) && advanced.medicareInflation > -100 && advanced.medicareInflation <= 100) {
+    checkRange(c, advanced.medicareInflation, 'advanced.medicareInflation', 0, 20, 'OUT_OF_RANGE', 'warning');
   }
   if (advanced.correlation !== undefined) {
     checkType(c, advanced.correlation, 'advanced.correlation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
@@ -1183,6 +1190,51 @@ function validateAllocationClasses(c, plan) {
   });
 }
 
+/* S5AA R46 (the owner, 2026-10-03, MC-C: "impossible correlations refused"; the engine's infeasibleCorrelation()): one correlation shared by
+ * every pair of m asset classes is possible only between -1/(m - 1) and 1; below it the classes' combined variance is negative, and the
+ * engine read it as zero risk (five 20% classes at -0.5 gave every path the same result). Checked where Monte Carlo reads it (method
+ * monteCarlo, asset classes on). m counts the ACTIVE classes: those some account, as entered, weights above zero at the start or the end
+ * of its glide -- the engine's accountGlideWeights() at progress 0 and 1, mirrored here (an account holding only stocks glides into bonds;
+ * every other class's weight scales with the non-stock share). A range WARNING already at the path is upgraded in place. */
+function activeAssetClassCount(plan) {
+  const adv = plan.advanced, pr = plan.profile;
+  const classes = adv.assetClasses.filter((ac) => isPlainObject(ac));
+  const ids = classes.map((ac) => ac.id), held = new Set();
+  const glide = adv.glideOn === true && ids.includes('stocks') && isFiniteNumber(adv.retirementStock);
+  (Array.isArray(plan.accounts) ? plan.accounts : []).forEach((a) => {
+    if (!isPlainObject(a) || !isPlainObject(a.allocation)) return;
+    const total = Object.keys(a.allocation).reduce((t, k) => t + Math.max(0, a.allocation[k] || 0), 0);
+    if (!(total > 0)) return;
+    const w = {};
+    ids.forEach((id) => { w[id] = Math.max(0, (Object.prototype.hasOwnProperty.call(a.allocation, id) ? a.allocation[id] : 0) || 0) / total; });
+    ids.forEach((id) => { if (w[id] > 0) held.add(id); });
+    if (!glide) return;
+    const target = w.stocks + (adv.retirementStock / 100 - w.stocks), nonStock = ids.reduce((t, id) => t + (id === 'stocks' ? 0 : w[id]), 0);
+    if (nonStock > 0) {
+      const scale = Math.max(0, 1 - target) / Math.max(0.0001, 1 - w.stocks);
+      ids.forEach((id) => { if ((id === 'stocks' ? target : w[id] * scale) > 0) held.add(id); });
+    } else if (ids.includes('bonds')) {
+      if (target > 0) held.add('stocks');
+      if (Math.max(0, 1 - target) > 0) held.add('bonds');
+    }
+  });
+  return classes.filter((ac) => held.has(ac.id)).length;
+}
+function validateCorrelationFeasible(c, plan) {
+  const a = plan.assumptions, adv = plan.advanced;
+  if (!isPlainObject(a) || !isPlainObject(adv) || a.method !== 'monteCarlo' || adv.assetsOn !== true) return;
+  if (!isFiniteNumber(adv.correlation) || !Array.isArray(adv.assetClasses)) return;
+  const rho = adv.correlation, m = activeAssetClassCount(plan);
+  if (rho <= 1 && rho >= -1 && !(m >= 2 && 1 + (m - 1) * rho < -1e-12)) return;
+  const low = m >= 2 ? -1 / (m - 1) : -1, shown = String(Math.round(low * 10000) / 10000);
+  const message = `"advanced.correlation" is ${rho}, which is not possible for the ${m} asset class${m === 1 ? '' : 'es'} the accounts hold: ` +
+    `one correlation shared by every pair of classes must be at least ${shown}${m >= 2 ? ' (-1/(' + m + '-1))' : ''} and at most 1, or the ` +
+    `classes' combined risk would be negative. Raise it to ${shown} or more, or hold fewer asset classes.`;
+  const earlier = c.issues.find((i) => i.path === 'advanced.correlation' && i.severity === 'WARNING');
+  if (earlier) { earlier.severity = 'ERROR'; earlier.code = 'INFEASIBLE_CORRELATION'; earlier.message = message; return; }
+  c.error('INFEASIBLE_CORRELATION', 'advanced.correlation', message);
+}
+
 /* S5AA R29: a transfer into a workplace plan must be a same-character rollover or a pre-tax to Roth conversion. Only while the
    transfer is on, and only when both endpoints resolve (their ids are checked elsewhere). S5AA R32: a rollover between the named
    sheltered accounts stays with one owner (R30A-03), and a Roth IRA cannot roll into a 401(k) (R30A-02; Publication 590-A). */
@@ -1251,6 +1303,55 @@ function validatePlanValueContract(c, plan) {
 }
 /* S5AA R43 (SA42F-30, SA42F-32): the engine refuses a plan with nobody alive at the start (a lifespan at or below the starting age), and the
  * validator accepted it. */
+/* S5AA R48 (AA1-11; the owner's AA1 decision of 2026-10-03: "The prior-income warning shown and prompted"): THE TWO RETURNS BEFORE THE PLAN.
+   Medicare's income-related surcharge for a year reads the return from two years before it (20 CFR 418.1135(a)), so the plan's first two
+   years read returns from before it starts. Blank, the engine assumes the lowest tier (no surcharge) and says so in
+   IRMAA_PRE_PLAN_MAGI_ASSUMED. The prompt fires where that assumption is used: health costs on, someone alive and 65 or older at the
+   opening of plan year 0 or 1 with the household retired inside that row -- the engine's own condition (simulatePlanRows()'s disclosure),
+   mirrored here, with the household date read as householdRetireAge() reads it (R45: the first stop; an entered spending start replaces it)
+   -- and either of the two incomes blank. A WARNING: the plan runs. */
+function validateIrmaaPriorIncome(c, plan) {
+  const profile = isPlainObject(plan.profile) ? plan.profile : {}, advanced = isPlainObject(plan.advanced) ? plan.advanced : {};
+  const retirement = isPlainObject(plan.retirement) ? plan.retirement : {}, employment = isPlainObject(plan.employment) ? plan.employment : {};
+  if (advanced.healthOn !== true) return;
+  const blank = (v) => v === undefined || v === null;
+  if (!blank(advanced.irmaaMagiTwoYearsBefore) && !blank(advanced.irmaaMagiOneYearBefore)) return;
+  const start = profile.age, end = profile.endAge, retire = profile.retireAge;
+  if (![start, end, retire].every(isFiniteNumber)) return;
+  const couple = profile.spouseOn === true && isFiniteNumber(profile.spouseAge);
+  const sa = couple ? profile.spouseAge : NaN, toSelf = (x) => start + (x - sa);
+  const selfLife = isFiniteNumber(retirement.selfLife) ? retirement.selfLife : Infinity;
+  const spouseLife = couple && isFiniteNumber(retirement.spouseLife) ? retirement.spouseLife : Infinity;
+  // the household date (engine householdRetireAge())
+  let household = retire;
+  if (isFiniteNumber(retirement.spendingStartAge)) household = retirement.spendingStartAge;
+  else if (couple) {
+    const sRet = isFiniteNumber(profile.spouseRetireAge) ? profile.spouseRetireAge : retire, sd = toSelf(spouseLife), earning = (isFiniteNumber(employment.spouseSalary) ? employment.spouseSalary : 0) > 0;
+    const stops = [retire];
+    if (earning) stops.push(Math.max(start, toSelf(sRet)));
+    if (selfLife > start && selfLife < retire && sd > selfLife) stops.push(selfLife);
+    if (earning && sd > start && sd < toSelf(sRet) && selfLife > sd) stops.push(sd);
+    household = Math.min(...stops);
+  }
+  // the engine's openings and its cut at the last death (lastDeathCutAge(), householdSurvivorship(): dead once the lifespan is below the age)
+  const aliveAt = (a) => ({ self: !(selfLife < a), spouse: couple && !(spouseLife < sa + (a - start)) });
+  let reaches = end;
+  for (let b = start; b < end; b = Math.floor(b + 1e-9) + 1) { const w = aliveAt(b); if (!w.self && !w.spouse) { reaches = b; break; } }
+  const openings = [start, Math.floor(start) + 1];
+  for (let i = 0; i < openings.length; i++) {
+    const opening = openings[i], rowEnds = i === 0 ? Math.min(Math.floor(start) + 1, reaches) : Math.min(Math.floor(start) + 2, reaches);
+    if (!(rowEnds > opening) || !(household < rowEnds)) continue;
+    const w = aliveAt(opening);
+    if ((w.self && opening >= 65) || (w.spouse && sa + (opening - start) >= 65)) {
+      c.warn('IRMAA_PRIOR_INCOME_BLANK', blank(advanced.irmaaMagiTwoYearsBefore) ? 'advanced.irmaaMagiTwoYearsBefore' : 'advanced.irmaaMagiOneYearBefore',
+        'Health costs are on and someone is 65 or older and retired in the plan\'s first two years, but the income (MAGI) on ' +
+        (blank(advanced.irmaaMagiTwoYearsBefore) && blank(advanced.irmaaMagiOneYearBefore) ? 'the two tax returns before the plan is' : blank(advanced.irmaaMagiTwoYearsBefore) ? 'the tax return two years ago is' : 'last year\'s tax return is') +
+        ' blank. Medicare\'s income-related surcharge (IRMAA) reads the return from two years earlier; a blank year is assumed to be below the first surcharge tier.');
+      return;
+    }
+  }
+}
+
 function validateSomeoneAlive(c, plan) {
   const pr = plan.profile, r = plan.retirement;
   if (!isPlainObject(pr) || !isPlainObject(r) || !isFiniteNumber(pr.age)) return;
@@ -1296,6 +1397,7 @@ function validateScenario(plan) {
   validateRetirement(c, retirement);
   validateAdvanced(c, advanced);
   validateAllocationClasses(c, plan); // R20-01 (S5AA R21)
+  validateCorrelationFeasible(c, plan); // S5AA R46 (MC-C)
   validateBooleanFlags(c, plan); // Q53 (S5 2l)
   validatePlannedContributions(c, plan); // Q59 (S5 2q)
   validateTransferEndpoints(c, plan); // S5AA R29
@@ -1304,6 +1406,7 @@ function validateScenario(plan) {
   validateSomeoneAlive(c, plan); // S5AA R43 (SA42F-30, -32)
   validateDebtPayoffResiduals(c, plan); // S5AA R49 (AA1-44)
   validateInsuranceTiming(c, plan); // S5AA R49 (AA1-08)
+  validateIrmaaPriorIncome(c, plan); // S5AA R48 (AA1-11)
 
   const valid = !c.issues.some((i) => i.severity === 'ERROR');
   return { valid, issues: c.issues };

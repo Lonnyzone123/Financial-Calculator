@@ -56,7 +56,9 @@ function year2Tax(G, carry) {
   const senior = Math.max(0, 6000 - 0.06 * Math.max(0, agi - 75000));
   const ordinaryTaxable = 80000 - (16100 + 2050 + senior); // in the 22% bracket (50,400 to 105,700)
   const federal = 5800 + 0.22 * (ordinaryTaxable - 50400) + 0.15 * net;
-  const arizona = 0.025 * (agi - 16100 - 2100);
+  /* S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): Arizona subtracts the federal senior deduction too (A.R.S. 43-1022(35)).
+     The year-2 tax at the 11,150 carryover was 12,657.76; it is 12,521.71. */
+  const arizona = 0.025 * (agi - 16100 - 2100 - senior);
   return federal + arizona;
 }
 function solveTax(carry) {

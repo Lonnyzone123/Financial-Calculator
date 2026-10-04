@@ -1,0 +1,46 @@
+== control composition: 36 plans
+golden:monte-carlo-fixed-seed [monteCarlo]
+  mc: 500 of 500 paths exposed; asset classes off; normals drawn per row [3]; paths with a row not drawing exactly one: 500; paths with a suppressed draw: 0; paths with a reserve-share change: 0; 68 rows
+golden:reserve-and-bond-tent [simple]
+  reserve on, 41 reserve rows, no account below min(reserve, total): not flagged
+seed:1 [simple]
+  reserve: 18 reserve rows; an account below min(reserve, total) at ages 53, 54, 55, 56, 57, 58, 59, 63, 67, 68, 69, 70; an EMPTY account below it at ages 60, 61, 62, 64, 65, 66, 67, 68, 69, 70; first: balance $274,456.59 against reserve $331,017.78 of $2,347,837.03. With the owner's formula on the base engine: moves from age 54; final total $3,342,726.78 -> $3,340,988.84 (-$1,737.95); lifetime taxes $35,905.83 -> $35,905.83 ($0.00)
+seed:2 [historical]
+  reserve on, 12 reserve rows, no account below min(reserve, total): not flagged
+seed:4 [historical]
+  reserve on, 10 reserve rows, no account below min(reserve, total): not flagged
+seed:5 [historical]
+  reserve on, 10 reserve rows, no account below min(reserve, total): not flagged
+seed:9 [monteCarlo]
+  mc: 52 of 52 paths exposed; asset classes on (rho 0.39, active stocks/bonds/cash); normals drawn per row [5]; paths with a row not drawing exactly one: 52; paths with a suppressed draw: 0; paths with a reserve-share change: 0; 31 rows
+seed:12 [simple]
+  reserve: 20 reserve rows; an account below min(reserve, total) at ages 39; an EMPTY account below it at ages 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54; first: balance $88,529.26 against reserve $111,930.28 of $1,367,360.57. With the owner's formula on the base engine: moves from age 40; final total $0.00 -> $0.00 ($0.00); lifetime taxes $9,479.47 -> $9,479.47 ($0.00)
+seed:16 [simple]
+  reserve on, 24 reserve rows, no account below min(reserve, total): not flagged
+seed:17 [monteCarlo]
+  mc: 0 of 24 paths exposed; asset classes off; normals drawn per row [1]; paths with a row not drawing exactly one: 0; paths with a suppressed draw: 0; paths with a reserve-share change: 0; 24 rows
+-- 10 plans listed in the control composition
+== expanded composition: 71 plans
+golden:monte-carlo-fixed-seed [monteCarlo]
+  mc: 500 of 500 paths exposed; asset classes off; normals drawn per row [3]; paths with a row not drawing exactly one: 500; paths with a suppressed draw: 0; paths with a reserve-share change: 0; 68 rows
+golden:reserve-and-bond-tent [simple]
+  reserve on, 41 reserve rows, no account below min(reserve, total): not flagged
+seed:1 [simple]
+  reserve: 18 reserve rows; an account below min(reserve, total) at ages 53, 54, 55, 56, 57, 58, 59, 63, 67, 68, 69, 70; an EMPTY account below it at ages 60, 61, 62, 64, 65, 66, 67, 68, 69, 70; first: balance $274,456.59 against reserve $331,017.78 of $2,347,837.03. With the owner's formula on the base engine: moves from age 54; final total $3,342,726.78 -> $3,340,988.84 (-$1,737.95); lifetime taxes $35,905.83 -> $35,905.83 ($0.00)
+seed:2 [historical]
+  reserve on, 12 reserve rows, no account below min(reserve, total): not flagged
+seed:4 [historical]
+  reserve on, 10 reserve rows, no account below min(reserve, total): not flagged
+seed:5 [historical]
+  reserve on, 10 reserve rows, no account below min(reserve, total): not flagged
+seed:9 [monteCarlo]
+  mc: 52 of 52 paths exposed; asset classes on (rho 0.39, active stocks/bonds/cash); normals drawn per row [5]; paths with a row not drawing exactly one: 52; paths with a suppressed draw: 0; paths with a reserve-share change: 0; 31 rows
+seed:12 [simple]
+  reserve: 20 reserve rows; an account below min(reserve, total) at ages 39; an EMPTY account below it at ages 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54; first: balance $88,529.26 against reserve $111,930.28 of $1,367,360.57. With the owner's formula on the base engine: moves from age 40; final total $0.00 -> $0.00 ($0.00); lifetime taxes $9,479.47 -> $9,479.47 ($0.00)
+seed:16 [simple]
+  reserve on, 24 reserve rows, no account below min(reserve, total): not flagged
+seed:17 [monteCarlo]
+  mc: 0 of 24 paths exposed; asset classes off; normals drawn per row [1]; paths with a row not drawing exactly one: 0; paths with a suppressed draw: 0; paths with a reserve-share change: 0; 24 rows
+expansion:monte-carlo-sensitive-band [monteCarlo]
+  mc: 500 of 500 paths exposed; asset classes off; normals drawn per row [3]; paths with a row not drawing exactly one: 500; paths with a suppressed draw: 0; paths with a reserve-share change: 0; 68 rows
+-- 11 plans listed in the expanded composition

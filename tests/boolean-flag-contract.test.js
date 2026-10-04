@@ -188,12 +188,33 @@ const SETUPS = {
   },
   /* S5AA R43 (SA42F-07): an owner of 75 whose spouse is 60, more than ten years younger: the joint-life Table II divisor applies only
      while the spouse is the sole beneficiary (1.401(a)(9)-5(c)(2)), so true and false give different RMDs from accounts[1]. */
+  /* S5AA R48 (AA1-20; the owner's AA1 decision of 2026-10-03): a couple of 70 whose one account is a JOINT taxable account at 40% basis;
+     the self dies at 70.5 and the survivor draws on it. With community property the whole basis resets at the death (IRC 1014(b)(6)),
+     without it half (2040(b)), so the gain on every later draw differs. */
+  communityCouple: () => {
+    const p = basePlan();
+    Object.assign(p.profile, { age: 70, retireAge: 60, endAge: 74, spouseOn: true, spouseAge: 70, filing: 'mfj' });
+    Object.assign(p.employment, { salary: 0, spouseSalary: 0, contributionStop: 60 });
+    Object.assign(p.retirement, { selfLife: 70.5, spending: 60000 });
+    p.accounts = [account({ owner: 'joint', basisPct: 40, contribution: 0 })];
+    return p;
+  },
   youngSoleSpouse: () => {
     const p = basePlan();
     Object.assign(p.profile, { age: 75, retireAge: 60, endAge: 77, spouseOn: true, spouseAge: 60, filing: 'mfj' });
     Object.assign(p.employment, { salary: 0, spouseSalary: 0, contributionStop: 60 });
     p.accounts[1].contribution = 0;
     p.advanced.rmdOn = true;
+    return p;
+  },
+  /* S5AA R47 (AA1-13): a 55-year-old earning $200,000 who defers $32,500 to the 401(k) (accounts[1]) with $175,000 of prior-year FICA wages
+     from its employer: the $8,000 catch-up must be designated Roth (IRC 414(v)(7)(A)). Absent or true, the plan offers Roth and the catch-up
+     goes to its Roth balance; false allows no catch-up (414(v)(7)(B)), so the $8,000 is an excess redirected to taxable savings. */
+  highEarnerCatchup: () => {
+    const p = basePlan();
+    Object.assign(p.profile, { age: 55, retireAge: 60, endAge: 58 });
+    Object.assign(p.employment, { salary: 200000, contributionStop: 60 });
+    Object.assign(p.accounts[1], { contribution: 32500, priorYearFicaWages: 175000 });
     return p;
   },
 };
@@ -486,6 +507,7 @@ const ABSENT_WITNESSES = [
   ['advanced.rmdOn', 'base', 0],
   ['advanced.rule55', 'richRetire55', 0],
   ['advanced.transferOn', 'rich', 0],
+  ['profile.communityProperty', 'communityCouple', 0],   // S5AA R48 (AA1-20)
   ['profile.spouseOn', 'rich', 0],
   ['retirement.dividendOn', 'base', 0],
   ['retirement.homeEquityFallback', 'richShortfall', 0],
@@ -564,6 +586,7 @@ SETUPS.irmaaHousehold = () => {
 /* [flag, setup, record index]. includeHousingCosts sits on the rich plan's
    mortgage, where its documented default is true. */
 const ABSENT_TRUE_WITNESSES = [
+  ['accounts[].planOffersRoth', 'highEarnerCatchup', 1],   // S5AA R47 (AA1-13)
   ['accounts[].spouseSoleBeneficiary', 'youngSoleSpouse', 1],   // S5AA R43 (SA42F-07)
   ['advanced.debts[].includeHousingCosts', 'rich', 0],
   ['advanced.debts[].includePayment', 'rich', 0],

@@ -193,7 +193,7 @@ test('S5AA 3.1: the surviving-spouse boundary is EXCLUDED EXPLICITLY, because th
     'a surviving-spouse status must not resolve to a bracket table');
 });
 
-test('S5AA 3.1: Arizona is untouched -- its base does not read the federal deduction figure', () => {
+test('S5AA 3.1: the Arizona base does not read the federal 63(f) figure (since R48 it subtracts the 151(d)(5)(C) amount, A.R.S. 43-1022(35))', () => {
   /* The checklist: "check whether Arizona's base reads the federal deduction figure and keep the new amount
    * out of it unless the owner decides otherwise." It does not: Arizona subtracts its OWN az_basic_standard_deduction
    * record plus its own $2,100 per person 65 or over. This test pins that the new federal amount stays out. */
@@ -209,9 +209,11 @@ test('S5AA 3.1: Arizona is untouched -- its base does not read the federal deduc
   const at64 = run(64), at67 = run(67);
   const azRate = global.RULES.arizona.rate;
   assert.ok(azRate > 0, 'CONTROL: the Arizona rate must be non-zero for this test to say anything');
-  /* Arizona's own age-65 exemption is $2,100 per person and is the ONLY age effect its base may show.
-   * If the federal 63(f) amount leaked in, the Arizona difference would be larger by $2,050. */
+  /* Arizona's own age-65 exemption is $2,100 per person; the federal 63(f) amount must stay out (it would add $2,050).
+   * S5AA R48 (AA1-16, the owner's AA1 decision of 2026-10-03): A.R.S. 43-1022(35) now subtracts the federal senior deduction of IRC
+   * 151(d)(5)(C) -- the full $6,000 at $60,000 -- so the age effect is $2,100 + $6,000 = $8,100 (it was $2,100). The 63(f) amount
+   * still does not reach Arizona's base. */
   const azDiff = (at64.az - at67.az) / azRate;
-  assert.ok(Math.abs(azDiff - 2100) < 1,
-    'Arizona must change by its own $2,100 exemption alone, not by the federal amounts: got ' + Math.round(azDiff));
+  assert.ok(Math.abs(azDiff - 8100) < 1,
+    'Arizona must change by its own $2,100 exemption and the 151(d)(5)(C) subtraction, not by the 63(f) amount: got ' + Math.round(azDiff));
 });

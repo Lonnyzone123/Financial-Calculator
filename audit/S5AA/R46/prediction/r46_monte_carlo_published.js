@@ -1,0 +1,5 @@
+/* S5AA R46: each Monte Carlo plan of the expanded corpus, its status, success, final median and band, lifetime taxes and finalYearRealSpending. Usage: node r46_monte_carlo_published.js [<source tree>] */
+const path=require('path'),fs=require('fs');const ROOT=path.resolve(process.argv[2]||'.');
+const SHELL=fs.readFileSync(path.join(ROOT,'src','app-shell.html'),'utf8');global.RULES=JSON.parse(SHELL.match(/<script type="application\/json" id="v2b-rules-2026">([\s\S]*?)<\/script>/)[1]);
+const cap=require(ROOT+'/tools/capture-baseline.js');cap.installDebtModules();const E=require(ROOT+'/src/engine.js');
+for(const e of cap.corpusWithDiagnostics({composition:'expanded'}).entries){if(e.plan.assumptions.method!=='monteCarlo')continue;const r=E.runPlan(JSON.parse(JSON.stringify(e.plan)));const l=r.rows[r.rows.length-1];console.log(e.name,r.status,r.calculationErrorCode||'','success',r.successRate,'final median',l.total.toFixed(2),'q10',l.q10.toFixed(2),'q90',l.q90.toFixed(2),'lifetimeTaxes',r.lifetimeTaxes&&r.lifetimeTaxes.toFixed(2),'fyrs',JSON.stringify(r.finalYearRealSpending))}

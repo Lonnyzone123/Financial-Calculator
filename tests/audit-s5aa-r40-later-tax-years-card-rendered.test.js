@@ -40,7 +40,10 @@ test('R40: the results page shows R36\'s "Later tax years" card, with what it de
     assert.match(card, /rise with this plan's inflation rate, standing in for the official price index/);
     assert.match(card, /rise with the salary-growth rate, standing in for the national wage index/);
     assert.match(card, /Amounts the law fixes stay fixed/);
-    assert.match(card, /the senior deduction, which this plan keeps after 2028/, 'the owner\'s D8 choice must be stated');
+    /* S5AA R47 (AA1-30; the owner's AA1 decision of 2026-10-03, reversing D8/Q165): the card now says the senior deduction ends after
+       2028. Before: /the senior deduction, which this plan keeps after 2028/. */
+    assert.match(card, /the senior deduction ends after 2028, as the law says/, 'the owner\'s AA1-30 decision must be stated');
+    assert.doesNotMatch(card, /keeps after 2028/);
   } finally {
     w.close();
   }

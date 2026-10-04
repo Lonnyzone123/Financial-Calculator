@@ -1,0 +1,4 @@
+golden:monte-carlo-fixed-seed ok  success 96.8 final median 179664612.83 q10 16311916.11 q90 1192506726.37 lifetimeTaxes 2512709.86 fyrs {"median":60000.00000000001,"q10":54000.00000000001}
+seed:9 ok  success 100 final median 4420738.07 q10 2828061.41 q90 6170883.51 lifetimeTaxes 4966042.69 fyrs {"median":227810.5620356671,"q10":150698.50561093036}
+seed:17 ok  success 4.166666666666666 final median 441725.26 q10 283584.94 q90 441884.35 lifetimeTaxes 808265.81 fyrs {"median":307596.2115334008,"q10":258237.05034607984}
+expansion:monte-carlo-sensitive-band ok  success 84.2 final median 116536399.93 q10 0.00 q90 1041489731.27 lifetimeTaxes 4115471.87 fyrs {"median":102000,"q10":91800}

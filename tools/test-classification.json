@@ -11,9 +11,9 @@
   "coupledOnly": "file level (upper bound): a requirement, or one of the two flow identities, whose every guarding file depends on internals. testLevel (lower bound): for requirements a test names, whether that test's own body reaches internals; helpers it calls are not followed"
  },
  "counts": {
-  "total": 437,
-  "implementation-independent": 266,
-  "implementation-coupled": 136,
+  "total": 441,
+  "implementation-independent": 268,
+  "implementation-coupled": 138,
   "infrastructure": 35
  },
  "coupledOnlyBounds": {
@@ -25,27 +25,27 @@
  },
  "internalsByUse": {
   "estimateTaxes": 19,
-  "simulatePlan": 17,
+  "simulatePlan": 18,
   "src/ported/tax-engine": 15,
   "src/ported/social-security-valuation": 13,
-  "rng": 11,
+  "rng": 12,
   "src/debt-amortization": 11,
   "src/ported/social-security-mortality": 9,
   "projectDebts": 7,
   "quoteTaxFunding": 7,
+  "auditContributions": 6,
   "rmdStartAge": 6,
+  "accountReturnForPeriod": 5,
   "accountVolatility": 5,
-  "auditContributions": 5,
   "otherIncomeFor": 5,
+  "seniorDeduction": 5,
   "withdrawFromClass": 5,
   "accountExpected": 4,
-  "accountReturnForPeriod": 4,
   "capitalGainsMarginalRateAt": 4,
   "engine source text (tests/lib/engine-variant.js markers)": 4,
   "HIST_RETURNS": 4,
   "marginalRateAt": 4,
   "rmdFor": 4,
-  "seniorDeduction": 4,
   "src/mortgage-vs-investing": 4,
   "src/ported/lifetime-tax-optimizer": 4,
   "src/ported/social-security-bridge": 4,
@@ -55,6 +55,7 @@
   "householdFilingFor": 3,
   "householdSocialSecurityForPeriod": 3,
   "marginalTax": 3,
+  "ownerContributionEligibility": 3,
   "retainExcessRmdCash": 3,
   "smartWithdrawalOrder": 3,
   "src/debt-arm": 3,
@@ -77,7 +78,6 @@
   "HIST_COLA": 2,
   "householdSeniorAges": 2,
   "iraNontaxableFraction": 2,
-  "ownerContributionEligibility": 2,
   "RESULT_CONTRACT_VERSION": 2,
   "rothPhaseoutFactor": 2,
   "SCENARIO_SCHEMA_VERSION": 2,
@@ -94,6 +94,7 @@
   "src/ported/social-security-state": 2,
   "taxConfigForFilingStatus": 2,
   "taxSegmentLocal": 2,
+  "taxYearRules": 2,
   "ACCOUNT_TYPES": 1,
   "accountType": 1,
   "ageAmountAges": 1,
@@ -129,7 +130,6 @@
   "src/ported/model-types": 1,
   "stableStringify": 1,
   "survivorReductionFactor": 1,
-  "taxYearRules": 1,
   "verifyCashSettlement": 1,
   "verifyCommittedCashSettlement": 1,
   "verifyQuoteObligation": 1
@@ -2025,6 +2025,41 @@
   },
   {
    "file": "tests/audit-s5aa-r45-spouse-retirement-dates.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r46-monte-carlo-and-reserve.test.js",
+   "category": "implementation-coupled",
+   "internals": [
+    "accountReturnForPeriod",
+    "rng",
+    "simulatePlan"
+   ]
+  },
+  {
+   "file": "tests/audit-s5aa-r47-federal-tax-and-accounts.test.js",
+   "category": "implementation-independent",
+   "via": [
+    "runPlan/runScenario"
+   ],
+   "internals": []
+  },
+  {
+   "file": "tests/audit-s5aa-r47-internals.test.js",
+   "category": "implementation-coupled",
+   "internals": [
+    "auditContributions",
+    "ownerContributionEligibility",
+    "seniorDeduction",
+    "taxYearRules"
+   ]
+  },
+  {
+   "file": "tests/audit-s5aa-r48-medicare-survivors-arizona.test.js",
    "category": "implementation-independent",
    "via": [
     "runPlan/runScenario"
