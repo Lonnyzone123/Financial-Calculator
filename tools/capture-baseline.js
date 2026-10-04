@@ -139,7 +139,8 @@ const FIELD_COUNTS = {
      deterministic row. Monte Carlo rows unchanged. */
   simple: { row: 36, topLevel: 16 },
   historical: { row: 36, topLevel: 16 },
-  monteCarlo: { row: 30, topLevel: 18 },
+  /* S5AA R46 (MC-E): a valid Monte Carlo result carries finalYearRealSpending, an optional key of tools/result-contract.json. */
+  monteCarlo: { row: 30, topLevel: 19 },
   identity: 13,
 };
 

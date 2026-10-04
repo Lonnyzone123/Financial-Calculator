@@ -41,9 +41,9 @@
   },
   "monte-carlo-fixed-seed": {
     "rowCount": 68,
-    "failed": false,
-    "successRate": 100,
-    "lifetimeTaxes": 2242033.6,
+    "failed": true,
+    "successRate": 96.8,
+    "lifetimeTaxes": 2512709.86,
     "lifetimeContributions": 1138890.31,
     "firstRow": {
       "age": 29.5,
@@ -58,25 +58,25 @@
     },
     "midRow": {
       "age": 63,
-      "total": 19613423.44,
-      "taxable": 4344737.84,
-      "preTax": 8955407.79,
-      "roth": 2725692.3,
-      "taxes": 12810.48,
-      "withdrawals": 196057.78,
-      "networth": 19613423.44,
-      "magi": 246558.52
+      "total": 17597381.73,
+      "taxable": 4625045.79,
+      "preTax": 10276485.35,
+      "roth": 2735560.84,
+      "taxes": 14141.95,
+      "withdrawals": 197284.17,
+      "networth": 17597381.73,
+      "magi": 257647.79
     },
     "lastRow": {
       "age": 96,
-      "total": 304502978.52,
-      "taxable": 52242692.32,
-      "preTax": 103243254.57,
-      "roth": 37771605.4,
-      "taxes": 106238.1,
-      "withdrawals": 672502.14,
-      "networth": 304502978.52,
-      "magi": 1405598.94
+      "total": 179664612.83,
+      "taxable": 55167773.6,
+      "preTax": 92308559,
+      "roth": 34162739.03,
+      "taxes": 127130.59,
+      "withdrawals": 688325.86,
+      "networth": 179664612.83,
+      "magi": 1477360.22
     }
   },
   "rmd-and-roth-conversion": {
