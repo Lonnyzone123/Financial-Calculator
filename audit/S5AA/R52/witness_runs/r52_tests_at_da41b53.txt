@@ -1,0 +1,42 @@
+✔ R52: the planWarningTitles list holds both Roth ledger disclosures with their titles (2.3118ms)
+✔ R52: ROTH_IRA_BASIS_NOT_ENTERED shows its card at 50 with no basis entered (1492.6066ms)
+✔ R52 control: no ROTH_IRA_BASIS_NOT_ENTERED card once the contribution basis is entered (1320.6125ms)
+✔ R52: ROTH_FIVE_YEAR_ASSUMED shows its card at 60 with no first contribution year (1121.1344ms)
+✔ R52 control: no ROTH_FIVE_YEAR_ASSUMED card once the first contribution year is entered (1020.9411ms)
+✔ R52 R47-01 (S06): the traditional excess takes the room first; the Roth excess keeps the rest (31.1205ms)
+✔ R52 R47-01: with a current traditional contribution the room left is smaller still (2.7624ms)
+✔ R52 R47-01: a Roth distribution comes off the Roth excess before the room (2.9261ms)
+✔ R52 R47-01: two traditional accounts share one owner ledger (3.1919ms)
+✔ R52 R47-01: the HSA keeps its own room -- its excess is absorbed by HSA room, not IRA room (3.2354ms)
+✔ R52 R47-01 controls: one kind of excess alone, and the HSA beside a traditional excess, are absorbed as before (2.894ms)
+✔ R52 R47-01 control: the ledger is per owner -- one spouse's traditional excess does not use the other's room (2.7029ms)
+✔ R52 R47-02 (S07): a spouse's salary does not shield the business owner's deferral (1.9339ms)
+✔ R52 R47-02: both owners defer -- each deferral comes off its own owner's pay (1.1863ms)
+✔ R52 R47-02: salary, an employment stream and SE profit inside one owner keep the proportional convention (1.0187ms)
+✔ R52 R47-02: the funding quote and the committed return carry the owner-attributed QBI (1.2003ms)
+✔ R52 R47-02: the working-years check prices the streams with the owner-attributed QBI (2.245ms)
+✔ R52 R47-02 controls: no other earner, and a deferral the spouse's own salary covers, are unchanged (2.3605ms)
+✔ R52 R48-01 (S10): the inherited IRA rolled into the survivor's own IRA keeps its basis (3.0112ms)
+✔ R52 R48-01: a partial move carries its share of the basis (1.7951ms)
+✔ R52 R48-01: a draw from the inherited IRA earlier in the row, then the transfer of the rest (1.1358ms)
+✔ R52 R48-01: a partial move, a draw, and the later automatic election use the basis exactly once (2.4183ms)
+✔ R52 R48-01 control: the survivor's own taxable IRA money, a partial move and the election -- no basis counted twice (2.308ms)
+✔ R52 R48-01: the RMD reserve stays in the inherited IRA; what moves carries its basis (1.8779ms)
+✔ R52 R48-01: the validator accepts the post-death rollover and keeps every other between-owner refusal (2.8625ms)
+✔ R52 R50-01 (S17): a fully nontaxable conversion carries no 10% on a later draw (1.4494ms)
+✔ R52 R50-01: mixed basis -- the settled split, not the provisional one, decides the 10% (0.8716ms)
+✔ R52 R50-01: two years' conversions -- each year's record reconciled (1.018ms)
+✔ R52 R50-01: a scheduled-transfer conversion is reconciled too (0.97ms)
+✔ R52 R50-01: a pool that grows after the conversion makes part of it taxable (0.9989ms)
+✔ R52 R50-01 control: a pool that falls after the conversion leaves it nontaxable (1.1809ms)
+✔ R52 R50-01: the survivor takes the reconciled ledger (1.7534ms)
+✔ R52 R50-01: a draw taken the same year as the conversion is re-split, and its 10% refunded (0.9555ms)
+✔ R52 R50-01 control: past its five years a conversion's taxable part is free either way (1.3179ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6410.1456
