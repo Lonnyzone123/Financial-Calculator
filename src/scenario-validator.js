@@ -1235,6 +1235,24 @@ function validateCorrelationFeasible(c, plan) {
   c.error('INFEASIBLE_CORRELATION', 'advanced.correlation', message);
 }
 
+/* S5AA R52 (R48-01, ChatGPT's R46-R51 audit; the owner's decision of 2026-10-04: "allow it and carry the basis"): THE DECEASED'S
+   TRADITIONAL IRA MAY ROLL INTO THE SURVIVOR'S OWN TRADITIONAL IRA AFTER THE DEATH. The engine hands a decedent's accounts to the survivor
+   at the first row opening at which householdSurvivorship() calls the decedent dead (the lifespan below the age), so from that row the
+   two IRAs have one owner and the transfer moves the money and its Form 8606 basis; this check refused it on the original owners, so the
+   two layers disagreed (S10). It mirrors that dated succession: the transfer runs in the row whose opening is at or before its date (the
+   start, or a whole age of the primary after the first row, within the engine's 0.0001); there the source's original owner is dead and the
+   destination's alive. Only a traditional IRA into a traditional IRA, the owner's decision; every other rollover between the two owners
+   is still refused. */
+function inheritedIraRolloverAfterDeath(plan, from, to) {
+  const pr = plan.profile, r = plan.retirement, a = plan.advanced;
+  if (from.type !== 'traditionalIRA' || to.type !== 'traditionalIRA' || !isPlainObject(pr) || !isPlainObject(r) || pr.spouseOn !== true) return false;
+  if (![pr.age, pr.spouseAge, a.transferAge].every(isFiniteNumber)) return false;
+  const start = pr.age, opening = a.transferAge < Math.floor(start) + 1 - 0.0001 ? start : Math.floor(a.transferAge + 0.0001);
+  const side = (acct) => (acct.owner === 'spouse' ? 'spouse' : 'self');
+  const dead = (who) => { const life = who === 'spouse' ? r.spouseLife : r.selfLife; return isFiniteNumber(life) && life < (who === 'spouse' ? pr.spouseAge + (opening - start) : opening); };
+  return dead(side(from)) && !dead(side(to));
+}
+
 /* S5AA R29: a transfer into a workplace plan must be a same-character rollover or a pre-tax to Roth conversion. Only while the
    transfer is on, and only when both endpoints resolve (their ids are checked elsewhere). S5AA R32: a rollover between the named
    sheltered accounts stays with one owner (R30A-03), and a Roth IRA cannot roll into a 401(k) (R30A-02; Publication 590-A). */
@@ -1244,7 +1262,7 @@ function validateTransferEndpoints(c, plan) {
   const from = plan.accounts.find((x) => x && x.id === a.transferFrom), to = plan.accounts.find((x) => x && x.id === a.transferTo);
   if (!from || !to || from === to) return;
   if (from.taxClass === to.taxClass && ROLLOVER_OWNER_TYPES.includes(from.type) && ROLLOVER_OWNER_TYPES.includes(to.type) &&
-    (from.owner === 'spouse') !== (to.owner === 'spouse')) {
+    (from.owner === 'spouse') !== (to.owner === 'spouse') && !inheritedIraRolloverAfterDeath(plan, from, to)) {
     c.error('TRANSFER_BETWEEN_OWNERS', 'advanced.transferTo', 'A rollover between retirement or HSA accounts must stay with the same ' +
       'owner; one spouse\'s account cannot roll into the other\'s while both are living.');
   }
