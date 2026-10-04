@@ -1,0 +1,535 @@
+✖ R52: the planWarningTitles list holds both Roth ledger disclosures with their titles (2.8625ms)
+✖ R52: ROTH_IRA_BASIS_NOT_ENTERED shows its card at 50 with no basis entered (1335.2245ms)
+✔ R52 control: no ROTH_IRA_BASIS_NOT_ENTERED card once the contribution basis is entered (850.7562ms)
+✖ R52: ROTH_FIVE_YEAR_ASSUMED shows its card at 60 with no first contribution year (875.0727ms)
+✔ R52 control: no ROTH_FIVE_YEAR_ASSUMED card once the first contribution year is entered (865.6654ms)
+✖ R52 R47-01 (S06): the traditional excess takes the room first; the Roth excess keeps the rest (52.5215ms)
+✖ R52 R47-01: with a current traditional contribution the room left is smaller still (4.5574ms)
+✖ R52 R47-01: a Roth distribution comes off the Roth excess before the room (5.9584ms)
+✖ R52 R47-01: two traditional accounts share one owner ledger (4.0981ms)
+✖ R52 R47-01: the HSA keeps its own room -- its excess is absorbed by HSA room, not IRA room (4.3202ms)
+✔ R52 R47-01 controls: one kind of excess alone, and the HSA beside a traditional excess, are absorbed as before (5.6886ms)
+✔ R52 R47-01 control: the ledger is per owner -- one spouse's traditional excess does not use the other's room (4.2207ms)
+✖ R52 R47-02 (S07): a spouse's salary does not shield the business owner's deferral (3.7467ms)
+✖ R52 R47-02: both owners defer -- each deferral comes off its own owner's pay (2.4692ms)
+✖ R52 R47-02: salary, an employment stream and SE profit inside one owner keep the proportional convention (2.1653ms)
+✖ R52 R47-02: the funding quote and the committed return carry the owner-attributed QBI (2.7319ms)
+✖ R52 R47-02: the working-years check prices the streams with the owner-attributed QBI (3.66ms)
+✔ R52 R47-02 controls: no other earner, and a deferral the spouse's own salary covers, are unchanged (3.5782ms)
+✖ R52 R48-01 (S10): the inherited IRA rolled into the survivor's own IRA keeps its basis (5.8681ms)
+✖ R52 R48-01: a partial move carries its share of the basis (3.0162ms)
+✖ R52 R48-01: a draw from the inherited IRA earlier in the row, then the transfer of the rest (3.5682ms)
+✖ R52 R48-01: a partial move, a draw, and the later automatic election use the basis exactly once (5.3306ms)
+✔ R52 R48-01 control: the survivor's own taxable IRA money, a partial move and the election -- no basis counted twice (5.4144ms)
+✖ R52 R48-01: the RMD reserve stays in the inherited IRA; what moves carries its basis (4.2905ms)
+✖ R52 R48-01: the validator accepts the post-death rollover and keeps every other between-owner refusal (1.6029ms)
+✖ R52 R50-01 (S17): a fully nontaxable conversion carries no 10% on a later draw (4.7124ms)
+✖ R52 R50-01: mixed basis -- the settled split, not the provisional one, decides the 10% (2.1904ms)
+✖ R52 R50-01: two years' conversions -- each year's record reconciled (2.4255ms)
+✖ R52 R50-01: a scheduled-transfer conversion is reconciled too (2.5036ms)
+✖ R52 R50-01: a pool that grows after the conversion makes part of it taxable (2.7685ms)
+✔ R52 R50-01 control: a pool that falls after the conversion leaves it nontaxable (2.9443ms)
+✖ R52 R50-01: the survivor takes the reconciled ledger (3.1686ms)
+✖ R52 R50-01: a draw taken the same year as the conversion is re-split, and its 10% refunded (2.0858ms)
+✔ R52 R50-01 control: past its five years a conversion's taxable part is free either way (3.5244ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 8
+ℹ fail 26
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5382.211
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r52-app-cards.test.js:50:1
+✖ R52: the planWarningTitles list holds both Roth ledger disclosures with their titles (2.8625ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'Roth IRA contribution basis'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-app-cards.test.js:52:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'Roth IRA contribution basis',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-app-cards.test.js:56:1
+✖ R52: ROTH_IRA_BASIS_NOT_ENTERED shows its card at 50 with no basis entered (1335.2245ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Roth IRA contribution basis: A Roth IRA paid a distribution that is not qualified/. Input:
+  
+  "Later tax years: Each later year indexes the 2026 figures the way the law indexes them, with each statute's rounding: brackets, the standard deduction, capital-gains thresholds, contribution limits, IRMAA tiers and similar amounts rise with this plan's inflation rate, standing in for the official price index; the Social Security wage base, earnings-test amounts and benefit bend points rise with the salary-growth rate, standing in for the national wage index. Amounts the law fixes stay fixed: the investment-income tax and Additional Medicare thresholds, the Social Security taxation bases, the $3,000 loss limit, and the senior deduction while it lasts: the senior deduction ends after 2028, as the law says, so a plan year from 2029 on has none. Medicare premiums -- Part B, Part D, the IRMAA amounts and the Part B deductible -- grow from their 2026 figures at the Medicare growth rate, or at healthcare inflation when none is entered.Arizona estimate: Arizona tax applies the 2.5% rate (ENACTED) to federal AGI less federally taxable Social Security (ENACTED), after the 2026 basic standard deduction (INFERRED until the final Form 140) and $2,100 for each person 65 or older (ENACTED), and less the federal senior deduction taken (ENACTED, A.R.S. 43-1022); the 25% subtraction for gains on assets bought after 2011 applies only to the share entered, none here. Other Arizona subtractions are not modeled, and full tax-year 2026 individual instructions are not yet published.How the tax figures are estimated: A first or last projection year that covers only part of a calendar year is taxed with a whole year's brackets and deductions on the income inside the plan. Withdrawals pooled over a year are judged at the age the year begins: in the year you reach 59 1/2 they all count as before 59 1/2 (the 10% additional tax, and Roth draws), though some may fall after it; the 65 and 70 1/2 thresholds are read the same way. Every realized gain in a taxable account is taxed as long-term. The tax figures do not include the IRS excise tax on a required minimum distribution not taken in full. In Monte Carlo, debts follow one payment schedule on every path and the rows are medians, so they are not a debt ledger for any one path.Average return path: Simple projection earns the expected annual return every year, so it shows the path of the average return, not the typical outcome: with the same average and volatility, Monte Carlo's median path ends lower, because year-to-year swings lower compound growth.Sequence risk not measured: The smooth return path can hide poor early-retirement returns and inflation shocks. Compare Monte Carlo and historical replay before relying on the result.Healthcare transition gap: Pre-Medicare costs, Medicare premiums, IRMAA, and healthcare inflation are excluded even though they can materially change retirement funding."
+  
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-app-cards.test.js:58:10)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "Later tax years: Each later year indexes the 2026 figures the way the law indexes them, with each statute's rounding: brackets, the standard deduction, capital-gains thresholds, contribution limits, IRMAA tiers and similar amounts rise with this plan's inflation rate, standing in for the official price index; the Social Security wage base, earnings-test amounts and benefit bend points rise with the salary-growth rate, standing in for the national wage index. Amounts the law fixes stay fixed: the investment-income tax and Additional Medicare thresholds, the Social Security taxation bases, the $3,000 loss limit, and the senior deduction while it lasts: the senior deduction ends after 2028, as the law says, so a plan year from 2029 on has none. Medicare premiums -- Part B, Part D, the IRMAA amounts and the Part B deductible -- grow from their 2026 figures at the Medicare growth rate, or at healthcare inflation when none is entered.Arizona estimate: Arizona tax applies the 2.5% rate (ENACTED) to federal AGI less federally taxable Social Security (ENACTED), after the 2026 basic standard deduction (INFERRED until the final Form 140) and $2,100 for each person 65 or older (ENACTED), and less the federal senior deduction taken (ENACTED, A.R.S. 43-1022); the 25% subtraction for gains on assets bought after 2011 applies only to the share entered, none here. Other Arizona subtractions are not modeled, and full tax-year 2026 individual instructions are not yet published.How the tax figures are estimated: A first or last projection year that covers only part of a calendar year is taxed with a whole year's brackets and deductions on the income inside the plan. Withdrawals pooled over a year are judged at the age the year begins: in the year you reach 59 1/2 they all count as before 59 1/2 (the 10% additional tax, and Roth draws), though some may fall after it; the 65 and 70 1/2 thresholds are read the same way. Every realized gain in a taxable account is taxed as long-term. The tax figures do not include the IRS excise tax on a required minimum distribution not taken in full. In Monte Carlo, debts follow one payment schedule on every path and the rows are medians, so they are not a debt ledger for any one path.Average return path: Simple projection earns the expected annual return every year, so it shows the path of the average return, not the typical outcome: with the same average and volatility, Monte Carlo's median path ends lower, because year-to-year swings lower compound growth.Sequence risk not measured: The smooth return path can hide poor early-retirement returns and inflation shocks. Compare Monte Carlo and historical replay before relying on the result.Healthcare transition gap: Pre-Medicare costs, Medicare premiums, IRMAA, and healthcare inflation are excluded even though they can materially change retirement funding.",
+    expected: /Roth IRA contribution basis: A Roth IRA paid a distribution that is not qualified/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-app-cards.test.js:65:1
+✖ R52: ROTH_FIVE_YEAR_ASSUMED shows its card at 60 with no first contribution year (875.0727ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Roth IRA five-year period: A Roth IRA distribution at 59 1\/2 or older is treated as qualified/. Input:
+  
+  "Later tax years: Each later year indexes the 2026 figures the way the law indexes them, with each statute's rounding: brackets, the standard deduction, capital-gains thresholds, contribution limits, IRMAA tiers and similar amounts rise with this plan's inflation rate, standing in for the official price index; the Social Security wage base, earnings-test amounts and benefit bend points rise with the salary-growth rate, standing in for the national wage index. Amounts the law fixes stay fixed: the investment-income tax and Additional Medicare thresholds, the Social Security taxation bases, the $3,000 loss limit, and the senior deduction while it lasts: the senior deduction ends after 2028, as the law says, so a plan year from 2029 on has none. Medicare premiums -- Part B, Part D, the IRMAA amounts and the Part B deductible -- grow from their 2026 figures at the Medicare growth rate, or at healthcare inflation when none is entered.Arizona estimate: Arizona tax applies the 2.5% rate (ENACTED) to federal AGI less federally taxable Social Security (ENACTED), after the 2026 basic standard deduction (INFERRED until the final Form 140) and $2,100 for each person 65 or older (ENACTED), and less the federal senior deduction taken (ENACTED, A.R.S. 43-1022); the 25% subtraction for gains on assets bought after 2011 applies only to the share entered, none here. Other Arizona subtractions are not modeled, and full tax-year 2026 individual instructions are not yet published.How the tax figures are estimated: A first or last projection year that covers only part of a calendar year is taxed with a whole year's brackets and deductions on the income inside the plan. Withdrawals pooled over a year are judged at the age the year begins: in the year you reach 59 1/2 they all count as before 59 1/2 (the 10% additional tax, and Roth draws), though some may fall after it; the 65 and 70 1/2 thresholds are read the same way. Every realized gain in a taxable account is taxed as long-term. The tax figures do not include the IRS excise tax on a required minimum distribution not taken in full. In Monte Carlo, debts follow one payment schedule on every path and the rows are medians, so they are not a debt ledger for any one path.Average return path: Simple projection earns the expected annual return every year, so it shows the path of the average return, not the typical outcome: with the same average and volatility, Monte Carlo's median path ends lower, because year-to-year swings lower compound growth.Sequence risk not measured: The smooth return path can hide poor early-retirement returns and inflation shocks. Compare Monte Carlo and historical replay before relying on the result.Healthcare transition gap: Pre-Medicare costs, Medicare premiums, IRMAA, and healthcare inflation are excluded even though they can materially change retirement funding."
+  
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-app-cards.test.js:67:10)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "Later tax years: Each later year indexes the 2026 figures the way the law indexes them, with each statute's rounding: brackets, the standard deduction, capital-gains thresholds, contribution limits, IRMAA tiers and similar amounts rise with this plan's inflation rate, standing in for the official price index; the Social Security wage base, earnings-test amounts and benefit bend points rise with the salary-growth rate, standing in for the national wage index. Amounts the law fixes stay fixed: the investment-income tax and Additional Medicare thresholds, the Social Security taxation bases, the $3,000 loss limit, and the senior deduction while it lasts: the senior deduction ends after 2028, as the law says, so a plan year from 2029 on has none. Medicare premiums -- Part B, Part D, the IRMAA amounts and the Part B deductible -- grow from their 2026 figures at the Medicare growth rate, or at healthcare inflation when none is entered.Arizona estimate: Arizona tax applies the 2.5% rate (ENACTED) to federal AGI less federally taxable Social Security (ENACTED), after the 2026 basic standard deduction (INFERRED until the final Form 140) and $2,100 for each person 65 or older (ENACTED), and less the federal senior deduction taken (ENACTED, A.R.S. 43-1022); the 25% subtraction for gains on assets bought after 2011 applies only to the share entered, none here. Other Arizona subtractions are not modeled, and full tax-year 2026 individual instructions are not yet published.How the tax figures are estimated: A first or last projection year that covers only part of a calendar year is taxed with a whole year's brackets and deductions on the income inside the plan. Withdrawals pooled over a year are judged at the age the year begins: in the year you reach 59 1/2 they all count as before 59 1/2 (the 10% additional tax, and Roth draws), though some may fall after it; the 65 and 70 1/2 thresholds are read the same way. Every realized gain in a taxable account is taxed as long-term. The tax figures do not include the IRS excise tax on a required minimum distribution not taken in full. In Monte Carlo, debts follow one payment schedule on every path and the rows are medians, so they are not a debt ledger for any one path.Average return path: Simple projection earns the expected annual return every year, so it shows the path of the average return, not the typical outcome: with the same average and volatility, Monte Carlo's median path ends lower, because year-to-year swings lower compound growth.Sequence risk not measured: The smooth return path can hide poor early-retirement returns and inflation shocks. Compare Monte Carlo and historical replay before relying on the result.Healthcare transition gap: Pre-Medicare costs, Medicare premiums, IRMAA, and healthcare inflation are excluded even though they can materially change retirement funding.",
+    expected: /Roth IRA five-year period: A Roth IRA distribution at 59 1\/2 or older is treated as qualified/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:75:1
+✖ R52 R47-01 (S06): the traditional excess takes the room first; the Roth excess keeps the rest (52.5215ms)
+  AssertionError [ERR_ASSERTION]: year-2 excise: expected 300, got 150
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:80:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:82:1
+✖ R52 R47-01: with a current traditional contribution the room left is smaller still (4.5574ms)
+  AssertionError [ERR_ASSERTION]: year-2 excise: expected 420, got 270
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:86:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:88:1
+✖ R52 R47-01: a Roth distribution comes off the Roth excess before the room (5.9584ms)
+  AssertionError [ERR_ASSERTION]: year-2 excise: expected 240, got 90
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:94:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:96:1
+✖ R52 R47-01: two traditional accounts share one owner ledger (4.0981ms)
+  AssertionError [ERR_ASSERTION]: year-2 excise: expected 300, got 150
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:102:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:104:1
+✖ R52 R47-01: the HSA keeps its own room -- its excess is absorbed by HSA room, not IRA room (4.3202ms)
+  AssertionError [ERR_ASSERTION]: year-2 excise: expected 300, got 150
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:111:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:154:1
+✖ R52 R47-02 (S07): a spouse's salary does not shield the business owner's deferral (3.7467ms)
+  AssertionError [ERR_ASSERTION]: tax: expected 35912.62418, got 35032.62418
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:158:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:160:1
+✖ R52 R47-02: both owners defer -- each deferral comes off its own owner's pay (2.4692ms)
+  AssertionError [ERR_ASSERTION]: tax: expected 40024.530225, got 39144.530225
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:173:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:175:1
+✖ R52 R47-02: salary, an employment stream and SE profit inside one owner keep the proportional convention (2.1653ms)
+  AssertionError [ERR_ASSERTION]: tax: expected 34223.55146833333, got 33798.218135
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:187:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:189:1
+✖ R52 R47-02: the funding quote and the committed return carry the owner-attributed QBI (2.7319ms)
+  AssertionError [ERR_ASSERTION]: grossed-up withdrawal: expected 63858.96821374045, got 62515.45676335877
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:200:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:204:1
+✖ R52 R47-02: the working-years check prices the streams with the owner-attributed QBI (3.66ms)
+  AssertionError [ERR_ASSERTION]: the working years are short
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:212:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:244:1
+✖ R52 R48-01 (S10): the inherited IRA rolled into the survivor's own IRA keeps its basis (5.8681ms)
+  AssertionError [ERR_ASSERTION]: AGI: expected 30000, got 37500
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:248:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:250:1
+✖ R52 R48-01: a partial move carries its share of the basis (3.0162ms)
+  AssertionError [ERR_ASSERTION]: AGI: expected 30000, got 33750
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:254:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:256:1
+✖ R52 R48-01: a draw from the inherited IRA earlier in the row, then the transfer of the rest (3.5682ms)
+  AssertionError [ERR_ASSERTION]: AGI: expected 30000, got 35000
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:262:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:264:1
+✖ R52 R48-01: a partial move, a draw, and the later automatic election use the basis exactly once (5.3306ms)
+  AssertionError [ERR_ASSERTION]: AGI after the transfer: expected 0, got 3750
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:269:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:280:1
+✖ R52 R48-01: the RMD reserve stays in the inherited IRA; what moves carries its basis (4.2905ms)
+  AssertionError [ERR_ASSERTION]: AGI at 77: expected 0, got 3000
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:296:35)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:298:1
+✖ R52 R48-01: the validator accepts the post-death rollover and keeps every other between-owner refusal (1.6029ms)
+  AssertionError [ERR_ASSERTION]: S10: ["TRANSFER_BETWEEN_OWNERS"]
+  
+  false !== true
+  
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:303:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:336:1
+✖ R52 R50-01 (S17): a fully nontaxable conversion carries no 10% on a later draw (4.7124ms)
+  AssertionError [ERR_ASSERTION]: settled tax with the draw: expected 0, got 500
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:343:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:345:1
+✖ R52 R50-01: mixed basis -- the settled split, not the provisional one, decides the 10% (2.1904ms)
+  AssertionError [ERR_ASSERTION]: settled tax with the draw: expected 375, got 500
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:350:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:352:1
+✖ R52 R50-01: two years' conversions -- each year's record reconciled (2.4255ms)
+  AssertionError [ERR_ASSERTION]: settled tax with the draw: expected 0, got 1000
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:356:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:358:1
+✖ R52 R50-01: a scheduled-transfer conversion is reconciled too (2.5036ms)
+  AssertionError [ERR_ASSERTION]: settled tax: expected 0, got 555.5555555555555
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:366:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:368:1
+✖ R52 R50-01: a pool that grows after the conversion makes part of it taxable (2.7685ms)
+  AssertionError [ERR_ASSERTION]: settled tax with the draw: expected 138.88888888888889, got 0
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:377:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:386:1
+✖ R52 R50-01: the survivor takes the reconciled ledger (3.1686ms)
+  AssertionError [ERR_ASSERTION]: settled tax with the draw: expected 0, got 500
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:394:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r52-audit-repairs.test.js:396:1
+✖ R52 R50-01: a draw taken the same year as the conversion is re-split, and its 10% refunded (2.0858ms)
+  AssertionError [ERR_ASSERTION]: settled tax: expected 55670.235, got 56170.23499999999
+      at near (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:53:63)
+      at TestContext.<anonymous> (C:\fc-wt-r52\tests\audit-s5aa-r52-audit-repairs.test.js:402:3)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

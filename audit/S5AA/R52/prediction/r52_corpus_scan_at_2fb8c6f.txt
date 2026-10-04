@@ -1,0 +1,17 @@
+== control (36 plans; taps output-neutral on all)
+  reach: {"plans":36,"mc":3,"x4973Rows":0,"qbiRows":0,"poolMoves":0,"convRecords":0,"settledPools":0,"rothDists":486,"transferOn":8,"warn":0,"seRows":0,"seAndDeferralRows":0}
+  excess (0): none -- no corpus exposure
+  qbi (0): none -- no corpus exposure
+  pool (0): none -- no corpus exposure
+  conv (0): none -- no corpus exposure
+  validator (0): none -- no corpus exposure
+== expanded (71 plans; taps output-neutral on all)
+  reach: {"plans":71,"mc":4,"x4973Rows":0,"qbiRows":0,"poolMoves":0,"convRecords":21,"settledPools":65,"rothDists":1051,"transferOn":11,"warn":0,"seRows":0,"seAndDeferralRows":0}
+  excess (0): none -- no corpus exposure
+  qbi (0): none -- no corpus exposure
+  pool (0): none -- no corpus exposure
+  conv (3): 
+    expansion:s5aa-r6-gap-basis-conversion [tax year 2 (self, conversion from the self pool): $10,000 converted, nontaxable $3,995.31 -> $3,881.41; later early Roth IRA draws in its five years: 0; rule-based order (rothNextDollarWeight reads the ledger)]
+    expansion:s5aa-r19-ira-contribution-conversion-same-year [tax year 0 (self, conversion from the self pool): $3,750 converted, nontaxable $0 -> $3,750; later early Roth IRA draws in its five years: 0]
+    expansion:s5aa-r19-ira-conversion-and-qcd [tax year 1 (self, conversion from the self pool): $5,000 converted, nontaxable $2,000 -> $4,000; later early Roth IRA draws in its five years: 0]
+  validator (0): none -- no corpus exposure

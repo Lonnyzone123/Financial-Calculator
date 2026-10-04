@@ -1,0 +1,9 @@
+seed:6 same
+seed:18 same
+seed:19 EXECUTES
+expansion:s5aa-r6-gap-basis-conversion same
+expansion:s5aa-r6-gap-basis-one-owner-draw EXECUTES
+expansion:s5aa-r19-ira-contribution-conversion-same-year EXECUTES
+expansion:s5aa-r19-ira-conversion-and-qcd same
+expansion:s5aa-r19-ira-charity-then-rollover same
+expansion:s5aa-r19-ira-qcd-offset same

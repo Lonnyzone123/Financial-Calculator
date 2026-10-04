@@ -1,0 +1,43 @@
+S01 PASS Shared shocks survive account splitting
+
+S02 PASS Negative correlation at and below the PSD boundary
+
+S03 PASS Household reserve applies to small accounts and caps at 100%
+
+S04 PASS Senior deduction and Arizona subtraction expire together
+
+S05 PASS High-earner Roth catch-up and no-Roth plan
+
+S06 FAIL Unused IRA room must not remove two carried excesses
+  second-year carried excise: expected 300, got 150
+S07 FAIL Spouse wages cannot shelter a business-owner deferral from QBI
+  tax with business-attributable plan deduction: expected 35912.62418, got 35032.62418
+S08 PASS HSA stops at an entered Medicare date inside a row
+
+S09 PASS Medicare inflation and entered Part D premium
+
+S10 FAIL Inherited IRA rollover preserves projection-created basis
+  valid supported input: expected true, got false
+  AGI after basis distribution: expected 30000, got 37500
+  pension-only tax: expected 1767.5, got 2855
+S11 PASS Community-property basis reset reaches the survivor account
+
+S12 PASS Arizona capital-gain share prices the funding quote
+
+S13 PASS Flexibility floor and below-floor stage
+
+S14 PASS Fractional LTC onset conserves its weighted duration
+
+S15 PASS PMI midpoint, override, and forced-payoff disclosure
+
+S16 PASS Roth IRA basis then earnings with tax gross-up
+
+S17 FAIL Roth conversion clocks and final basis settlement
+  nontaxable conversion distribution has no penalty: expected 0, got 500
+S18 PASS Prior first-year income consumes the deduction and brackets
+
+S19 PASS One Medicare date prices both premiums and HSA eligibility
+
+S20 PASS Streams count as working pay net of income and payroll tax
+
+{"sourceSha":"2fb8c6fbd4f283705ad70b568f20a42dd2f8311f","simulations":20,"passed":16,"failed":4}

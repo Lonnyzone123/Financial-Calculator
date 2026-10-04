@@ -1,0 +1,5 @@
+/* S5AA R52 prediction (C6, corpus-configured-paths): which expanded plans execute advanced.penaltyException (turning it off moves rows). Usage: node r52_penalty_exception_paths.js [<tree>] */
+const path=require('path'),fs=require('fs');const ROOT=require('path').resolve(process.argv[2]||'.');
+const SHELL=fs.readFileSync(path.join(ROOT,'src','app-shell.html'),'utf8');global.RULES=JSON.parse(SHELL.match(/<script type="application\/json" id="v2b-rules-2026">([\s\S]*?)<\/script>/)[1]);
+const cap=require(path.join(ROOT,'tools','capture-baseline.js'));cap.installDebtModules();const E=require(path.join(ROOT,'src','engine.js'));
+for(const e of cap.corpusWithDiagnostics({composition:'expanded'}).entries){if(e.plan.advanced.penaltyException!==true)continue;const q=JSON.parse(JSON.stringify(e.plan));q.advanced.penaltyException=false;const r1=E.runPlan(JSON.parse(JSON.stringify(e.plan))),r2=E.runPlan(q);console.log(e.name,JSON.stringify(r1.rows)!==JSON.stringify(r2.rows)||r1.status!==r2.status?'EXECUTES':'same')}
