@@ -80,6 +80,23 @@ prediction about a control must read the control's own refusal rules first.
 Roth IRA draws before 59½ that flagged the other five, all among R50's predicted movers. The note is corrected in `ee06ea5`; no
 capture changed.
 
+**A test race repaired on R48's pull request after its tag (2026-10-04).**
+- **What failed:** R48's CI failed `capture-boundary` 5.4 twice:
+  - a manual workflow run on `56ed5fd`;
+  - PR #61's own gate, including its in-job re-run of all 411 entries.
+
+  The assertion, shown by the re-run of run 37187286021, was `changedDuringCapture ['build.js', 'src/debt-amortization.js']`.
+- **The cause:** `capture-baseline` S3-03 wrote a probe comment into the real `src/debt-amortization.js` for the length of a
+  capture. The gate runs test files in parallel, so a capture in another process that spanned that window saw the file change.
+- **The fix:** S3-03 now injects its edit inside its own process, as 5.4 does, and asserts the file on disk is never edited. It is
+  in PR #61's branch: `01cb559`, and `785b94d`, which corrects a run citation.
+- **Proof:**
+  - racing 5.4 against the old S3-03 locally reproduced the failure 2 of 3 times;
+  - racing it against the new one, 3 of 3 pass;
+  - #61's gate passed with the fix.
+- **Scope:** tests only. `s5aa-r48-source` stays at `56ed5fd`, and the fix reaches R49 to R51 through main. No other test edits a
+  tracked file in place (checked by a separate session, whose duplicate PR #65 the owner closed).
+
 ## 6. Control 4.7 after R51: a successor control
 
 - **Why:** R51 turns spending flexibility off by default. Every golden and targeted control scenario inherits the default, so
