@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /*
  * Q53 / S4 task 2b.2e -- the plan's boolean flags, held to ONE declarative
@@ -215,6 +216,7 @@ const SETUPS = {
     Object.assign(p.profile, { age: 55, retireAge: 60, endAge: 58 });
     Object.assign(p.employment, { salary: 200000, contributionStop: 60 });
     Object.assign(p.accounts[1], { contribution: 32500, priorYearFicaWages: 175000 });
+    retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
     return p;
   },
 };

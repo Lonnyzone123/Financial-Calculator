@@ -1,0 +1,1279 @@
+✖ R53: U01 (end 41, retirement 60) is refused by the engine in every method -- no rows, one ERROR naming both ages (17.9584ms)
+✖ R53: the validator reports it as an ERROR at profile.endAge (it only warned before) (3.4887ms)
+✖ R53: "Restore backup" refuses U01, names the reason, and leaves the current scenarios unchanged (1085.6354ms)
+✔ R53 (control): an end age EQUAL to the retirement age is accepted -- one year, (100,000 + 1,000) x 1.05 = 106,050 (889.1959ms)
+✔ R53 (controls): an end age before the START keeps R41's code alone; a retired household and a spouse still working are accepted (7.2722ms)
+▶ R53 F01: a job that ends at the claim protects all six benefit months -- $10,800 (R51F: $5,540)
+  ✖ F01 Social Security (1.6478ms)
+✖ R53 F01: a job that ends at the claim protects all six benefit months -- $10,800 (R51F: $5,540) (17.4976ms)
+▶ R53 F02: $1,000 a month of wages after the claim -- six $1,800 checks, the tax and the closing balance follow
+  ✖ F02 Social Security (0.2749ms)
+  ✖ F02 settled tax (0.2892ms)
+  ✖ F02 closing portfolio (0.1659ms)
+✖ R53 F02: $1,000 a month of wages after the claim -- six $1,800 checks, the tax and the closing balance follow (3.4307ms)
+▶ R53 F03: the same on the spouse's clock and wages (MFJ) -- $10,800 (R51F: $4,540)
+  ✖ F03 spouse Social Security (0.2483ms)
+✖ R53 F03: the same on the spouse's clock and wages (MFJ) -- $10,800 (R51F: $4,540) (3.3519ms)
+▶ R53 F04 (control): $2,500 a month is above the monthly amount -- every benefit month is a service month, all withheld
+  ✔ F04 Social Security (0.2557ms)
+✔ R53 F04 (control): $2,500 a month is above the monthly amount -- every benefit month is a service month, all withheld (2.7098ms)
+▶ R53 F05 (control): no stream -- six checks, as before
+  ✔ F05 Social Security (0.1331ms)
+✔ R53 F05 (control): no stream -- six checks, as before (1.9405ms)
+▶ R53: wages exactly at the monthly amount ($2,040) are a non-service month; $2,041 is not
+  ✖ at the limit (0.217ms)
+  ✔ just above (0.0776ms)
+✖ R53: wages exactly at the monthly amount ($2,040) are a non-service month; $2,041 is not (3.1422ms)
+▶ R53: with a smaller salary the same pair shows the annual test kept in service months
+  ✖ at the limit, smaller salary (0.2117ms)
+  ✔ just above, smaller salary (0.1415ms)
+✖ R53: with a smaller salary the same pair shows the annual test kept in service months (3.9749ms)
+▶ R53: retirement at 65.25, the claim at 65.5 and a job ending at 65.75 -- three service months, three spared
+  ✖ inside-year boundaries (0.1873ms)
+✖ R53: retirement at 65.25, the claim at 65.5 and a job ending at 65.75 -- three service months, three spared (2.1758ms)
+▶ R53: several streams -- their wages in a month are summed, and each start and end is a boundary
+  ✖ two streams (0.1801ms)
+  ✖ one stream follows another (0.1393ms)
+✖ R53: several streams -- their wages in a month are summed, and each start and end is a boundary (2.6251ms)
+▶ R53: both owners, each with $1,000 a month after their own claim -- $10,800 each (pre-R53: $4,540 each)
+  ✖ both owners (0.189ms)
+✖ R53: both owners, each with $1,000 a month after their own claim -- $10,800 each (pre-R53: $4,540 each) (1.4224ms)
+▶ R53: self-employment profit in a benefit month makes it a service month (cautious); profit that ended before the claim does not
+  ✔ SE in the benefit months (0.1238ms)
+  ✖ SE ended before the claim (0.1699ms)
+✖ R53: self-employment profit in a benefit month makes it a service month (cautious); profit that ended before the claim does not (2.9816ms)
+▶ R53: in the year of full retirement age the monthly amount is the higher one ($65,160 / 12 = $5,430)
+  ✖ FRA year, under the monthly amount (0.1397ms)
+  ✔ FRA year, over the monthly amount (0.1108ms)
+✖ R53: in the year of full retirement age the monthly amount is the higher one ($65,160 / 12 = $5,430) (2.5094ms)
+▶ R53: the year after the grace year keeps the annual test, whatever the monthly wages (404.435(b), Example 1)
+  ✖ grace year (0.1768ms)
+  ✔ the following year, annual test (0.0689ms)
+✖ R53: the year after the grace year keeps the annual test, whatever the monthly wages (404.435(b), Example 1) (2.0836ms)
+▶ R53: the reduction-factor credits follow the corrected withholding -- none withheld, none credited at full retirement age
+  ✖ grace year (0.1685ms)
+  ✔ the year before full retirement age (0.0487ms)
+  ✖ at full retirement age, no credited months (0.0837ms)
+✖ R53: the reduction-factor credits follow the corrected withholding -- none withheld, none credited at full retirement age (2.5379ms)
+▶ R53: the family withholding allocation is kept -- the spousal part on the worker's record is spared in the same months
+  ✖ family, non-service months (0.3093ms)
+  ✔ family, service months (0.098ms)
+✖ R53: the family withholding allocation is kept -- the spousal part on the worker's record is spared in the same months (2.9752ms)
+▶ R53 (R52-02): a transfer dated 45.75 is restored, shown and projected at 45.75 -- tax $57,038.985, net worth $113,632.25
+  ✖ the saved transfer date (1.5848ms)
+  ✖ the form shows the stored date (0.2421ms)
+  ✖ settled tax (0.3776ms)
+  ✖ net worth (0.0948ms)
+✖ R53 (R52-02): a transfer dated 45.75 is restored, shown and projected at 45.75 -- tax $57,038.985, net worth $113,632.25 (1231.6305ms)
+▶ R53: a claim at 66.75 is kept -- $1,966 a month from 66.75 (rounded to 67 it would be $2,000 from 67)
+  ✖ the saved claim age (0.4069ms)
+  ✖ the form shows the stored claim age (0.1319ms)
+  ✖ row 66-67 benefit (0.155ms)
+  ✖ row 67-68 benefit (0.142ms)
+✖ R53: a claim at 66.75 is kept -- $1,966 a month from 66.75 (rounded to 67 it would be $2,000 from 67) (804.409ms)
+▶ R53: a manual order the select does not list (roth,preTax,hsa,taxable) is kept and shown as its own option
+  ✖ the saved order (0.616ms)
+  ✖ the select shows the stored order (0.1488ms)
+  ✖ Roth after the year (0.1318ms)
+  ✔ cash after the year (0.092ms)
+✖ R53: a manual order the select does not list (roth,preTax,hsa,taxable) is kept and shown as its own option (752.7411ms)
+▶ R53: an event just inside the final year (61.75 of a plan ending at 62) still happens
+  ✖ the saved date (0.405ms)
+  ✖ Roth at 62 (0.2899ms)
+  ✖ cash at 62 (0.1103ms)
+✖ R53: an event just inside the final year (61.75 of a plan ending at 62) still happens (848.9253ms)
+▶ R53: an event at 59.25 stays before 59 1/2 -- the 10% applies (rounded, 59.5 escaped it)
+  ✖ the saved date (0.368ms)
+  ✖ settled tax (0.2588ms)
+✖ R53: an event at 59.25 stays before 59 1/2 -- the 10% applies (rounded, 59.5 escaped it) (807.3166ms)
+▶ R53 (control): a half-year date is restored as before
+  ✔ the saved date (0.3234ms)
+  ✔ the form shows the date (0.0509ms)
+  ✔ Roth at 62 (0.083ms)
+✔ R53 (control): a half-year date is restored as before (810.1426ms)
+▶ R53: every one of the eleven fields, an R45 date and both clamps keep their stored values when untouched
+  ✖ profile.age (0.5685ms)
+  ✖ profile.retireAge (0.241ms)
+  ✖ profile.endAge (0.2171ms)
+  ✖ profile.spouseAge (0.2093ms)
+  ✖ profile.spouseRetireAge (0.1958ms)
+  ✖ employment.contributionStop (0.1296ms)
+  ✖ retirement.dividendStart (0.0944ms)
+  ✖ retirement.ssClaim (0.1369ms)
+  ✖ retirement.spouseClaim (0.0822ms)
+  ✖ retirement.selfLife (0.0945ms)
+  ✖ retirement.spouseLife (0.2055ms)
+  ✖ advanced.transferAge (0.2549ms)
+  ✖ the form shows the stored age (0.2031ms)
+  ✖ the horizon (1.5736ms)
+  ✖ pension from the stored retirement age (0.1681ms)
+✖ R53: every one of the eleven fields, an R45 date and both clamps keep their stored values when untouched (755.1699ms)
+▶ R53 (control): an edited field still rounds to the half year and clamps as before; an untouched one beside it is kept
+  ✖ untouched beside an edit (0.5985ms)
+  ✖ an edited date rounds (0.4185ms)
+  ✔ the end age is raised to an edited retirement age (0.2987ms)
+  ✔ an edited retirement age is clamped to the age (1.853ms)
+✖ R53 (control): an edited field still rounds to the half year and clamps as before; an untouched one beside it is kept (3667.8864ms)
+ℹ tests 93
+ℹ suites 0
+ℹ pass 20
+ℹ fail 73
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10968.7485
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r53-end-before-retirement-refused.test.js:37:1
+✖ R53: U01 (end 41, retirement 60) is refused by the engine in every method -- no rows, one ERROR naming both ages (17.9584ms)
+  AssertionError [ERR_ASSERTION]: simple
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_END_AGE_BEFORE_RETIREMENT'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-end-before-retirement-refused.test.js:40:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_END_AGE_BEFORE_RETIREMENT',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-end-before-retirement-refused.test.js:52:1
+✖ R53: the validator reports it as an ERROR at profile.endAge (it only warned before) (3.4887ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-end-before-retirement-refused.test.js:54:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-end-before-retirement-refused.test.js:62:1
+✖ R53: "Restore backup" refuses U01, names the reason, and leaves the current scenarios unchanged (1085.6354ms)
+  AssertionError [ERR_ASSERTION]: Backup restored and upgraded to Version 2C. 1 value looked unusual and may be worth reviewing.
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-end-before-retirement-refused.test.js:73:12)
+      at runNextTicks (node:internal/process/task_queues:65:5)
+      at process.processTimers (node:internal/timers:538:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'Backup restored and upgraded to Version 2C. 1 value looked unusual and may be worth reviewing.',
+    expected: /not restored/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ F01 Social Security (1.6478ms)
+  AssertionError [ERR_ASSERTION]: F01 Social Security: 5540 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:65:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ F02 Social Security (0.2749ms)
+  AssertionError [ERR_ASSERTION]: F02 Social Security: 4540 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:76:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ F02 settled tax (0.2892ms)
+  AssertionError [ERR_ASSERTION]: F02 settled tax: 4907.58 where 5546.1 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:77:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ F02 closing portfolio (0.1659ms)
+  AssertionError [ERR_ASSERTION]: F02 closing portfolio: 113649.92 where 119271.4 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:78:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ F03 spouse Social Security (0.2483ms)
+  AssertionError [ERR_ASSERTION]: F03 spouse Social Security: 4540 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:83:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ at the limit (0.217ms)
+  AssertionError [ERR_ASSERTION]: at the limit: 0 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:100:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ at the limit, smaller salary (0.2117ms)
+  AssertionError [ERR_ASSERTION]: at the limit, smaller salary: 5800 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:108:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ inside-year boundaries (0.1873ms)
+  AssertionError [ERR_ASSERTION]: inside-year boundaries: 3290 where 5400 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:119:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ two streams (0.1801ms)
+  AssertionError [ERR_ASSERTION]: two streams: 0 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:124:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ one stream follows another (0.1393ms)
+  AssertionError [ERR_ASSERTION]: one stream follows another: 0 where 5400 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:128:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ both owners (0.189ms)
+  AssertionError [ERR_ASSERTION]: both owners: 9080 where 21600 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:136:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ SE ended before the claim (0.1699ms)
+  AssertionError [ERR_ASSERTION]: SE ended before the claim: 5922.5 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:146:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ FRA year, under the monthly amount (0.1397ms)
+  AssertionError [ERR_ASSERTION]: FRA year, under the monthly amount: 8984.666666666657 where 11598 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:155:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ grace year (0.1768ms)
+  AssertionError [ERR_ASSERTION]: grace year: 3040 where 9300 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:168:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ grace year (0.1685ms)
+  AssertionError [ERR_ASSERTION]: grace year: 4540 where 10800 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:177:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ at full retirement age, no credited months (0.0837ms)
+  AssertionError [ERR_ASSERTION]: at full retirement age, no credited months: 22128 where 21600 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:179:9)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48
+✖ family, non-service months (0.3093ms)
+  AssertionError [ERR_ASSERTION]: family, non-service months: 9790 where 16050 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:34:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-grace-year-monthly-test.test.js:187:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the saved transfer date (1.5848ms)
+  AssertionError [ERR_ASSERTION]: the saved transfer date
+  
+  46 !== 45.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:73:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 46,
+    expected: 45.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the form shows the stored date (0.2421ms)
+  AssertionError [ERR_ASSERTION]: the form shows the stored date
+  
+  '46.0' !== '45.75'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:74:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '46.0',
+    expected: '45.75',
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ settled tax (0.3776ms)
+  AssertionError [ERR_ASSERTION]: settled tax: 56663.98499999999 where 57038.985 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:76:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ net worth (0.0948ms)
+  AssertionError [ERR_ASSERTION]: net worth: 114007.25 where 113632.25 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:77:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the saved claim age (0.4069ms)
+  AssertionError [ERR_ASSERTION]: the saved claim age
+  
+  67 !== 66.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:89:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 67,
+    expected: 66.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the form shows the stored claim age (0.1319ms)
+  AssertionError [ERR_ASSERTION]: the form shows the stored claim age
+  
+  '67.0' !== '66.75'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:90:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '67.0',
+    expected: '66.75',
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ row 66-67 benefit (0.155ms)
+  AssertionError [ERR_ASSERTION]: row 66-67 benefit: 0 where 5898 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:92:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ row 67-68 benefit (0.142ms)
+  AssertionError [ERR_ASSERTION]: row 67-68 benefit: 24000 where 23592 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:93:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the saved order (0.616ms)
+  AssertionError [ERR_ASSERTION]: the saved order
+  + actual - expected
+  
+  + ''
+  - 'roth,preTax,hsa,taxable'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:106:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'roth,preTax,hsa,taxable',
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the select shows the stored order (0.1488ms)
+  AssertionError [ERR_ASSERTION]: the select shows the stored order
+  + actual - expected
+  
+  + ''
+  - 'roth,preTax,hsa,taxable'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:107:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'roth,preTax,hsa,taxable',
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ Roth after the year (0.1318ms)
+  AssertionError [ERR_ASSERTION]: Roth after the year: 50000 where 40000 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:109:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the saved date (0.405ms)
+  AssertionError [ERR_ASSERTION]: the saved date
+  
+  62 !== 61.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:122:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 62,
+    expected: 61.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ Roth at 62 (0.2899ms)
+  AssertionError [ERR_ASSERTION]: Roth at 62: 100000 where 90000 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:124:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ cash at 62 (0.1103ms)
+  AssertionError [ERR_ASSERTION]: cash at 62: 0 where 10000 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:125:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the saved date (0.368ms)
+  AssertionError [ERR_ASSERTION]: the saved date
+  
+  59.5 !== 59.25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:139:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 59.5,
+    expected: 59.25,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ settled tax (0.2588ms)
+  AssertionError [ERR_ASSERTION]: settled tax: 0 where 1000 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:140:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ profile.age (0.5685ms)
+  AssertionError [ERR_ASSERTION]: profile.age
+  
+  70.5 !== 70.25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 70.5,
+    expected: 70.25,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ profile.retireAge (0.241ms)
+  AssertionError [ERR_ASSERTION]: profile.retireAge
+  
+  70.5 !== 65
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 70.5,
+    expected: 65,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ profile.endAge (0.2171ms)
+  AssertionError [ERR_ASSERTION]: profile.endAge
+  
+  72 !== 71.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 72,
+    expected: 71.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ profile.spouseAge (0.2093ms)
+  AssertionError [ERR_ASSERTION]: profile.spouseAge
+  
+  66.5 !== 66.25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 66.5,
+    expected: 66.25,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ profile.spouseRetireAge (0.1958ms)
+  AssertionError [ERR_ASSERTION]: profile.spouseRetireAge
+  
+  67.5 !== 67.25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 67.5,
+    expected: 67.25,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ employment.contributionStop (0.1296ms)
+  AssertionError [ERR_ASSERTION]: employment.contributionStop
+  
+  65 !== 64.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 65,
+    expected: 64.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ retirement.dividendStart (0.0944ms)
+  AssertionError [ERR_ASSERTION]: retirement.dividendStart
+  
+  71 !== 70.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 71,
+    expected: 70.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ retirement.ssClaim (0.1369ms)
+  AssertionError [ERR_ASSERTION]: retirement.ssClaim
+  
+  70 !== 69.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 70,
+    expected: 69.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ retirement.spouseClaim (0.0822ms)
+  AssertionError [ERR_ASSERTION]: retirement.spouseClaim
+  
+  67.5 !== 67.25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 67.5,
+    expected: 67.25,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ retirement.selfLife (0.0945ms)
+  AssertionError [ERR_ASSERTION]: retirement.selfLife
+  
+  94.5 !== 94.25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 94.5,
+    expected: 94.25,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ retirement.spouseLife (0.2055ms)
+  AssertionError [ERR_ASSERTION]: retirement.spouseLife
+  
+  97 !== 96.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 97,
+    expected: 96.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ advanced.transferAge (0.2549ms)
+  AssertionError [ERR_ASSERTION]: advanced.transferAge
+  
+  71 !== 70.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:174:87)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 71,
+    expected: 70.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the form shows the stored age (0.2031ms)
+  AssertionError [ERR_ASSERTION]: the form shows the stored age
+  
+  '70.5' !== '70.25'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:175:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '70.5',
+    expected: '70.25',
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ the horizon (1.5736ms)
+  AssertionError [ERR_ASSERTION]: the horizon
+  + actual - expected
+  
+    [
+  +   70.5,
+  -   70.25,
+      71,
+  +   72
+  -   71.75
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:177:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 70.5, 71, 72 ],
+    expected: [ 70.25, 71, 71.75 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48
+✖ pension from the stored retirement age (0.1681ms)
+  AssertionError [ERR_ASSERTION]: pension from the stored retirement age: 5000 where 8321.7 is right
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:73)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at near (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:27:48)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:178:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ untouched beside an edit (0.5985ms)
+  AssertionError [ERR_ASSERTION]: untouched beside an edit
+  
+  46 !== 45.75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:187:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 46,
+    expected: 45.75,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46
+✖ an edited date rounds (0.4185ms)
+  AssertionError [ERR_ASSERTION]: an edited date rounds
+  
+  46 !== 45.5
+  
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:71)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at eq (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:28:46)
+      at TestContext.<anonymous> (C:\fc-wt-r53\tests\audit-s5aa-r53-restore-keeps-values.test.js:190:11)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 46,
+    expected: 45.5,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

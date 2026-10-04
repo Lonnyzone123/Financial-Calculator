@@ -98,9 +98,13 @@ test('validateScenario: retireAge before the current age is flagged, but only as
   assert.ok(result.issues.some((i) => i.code === 'INCONSISTENT_AGES' && i.path === 'profile.retireAge'));
 });
 
-test('validateScenario: endAge before retireAge is flagged as a WARNING', () => {
+// ADAPTED BY INTENT at S5AA R53 (the owner's decision 3, 2026-10-04: an end age before the retirement age is refused everywhere): this
+// case pinned the WARNING INCONSISTENT_AGES at profile.endAge; the same plan is now an ERROR, END_AGE_BEFORE_RETIREMENT, and the plan invalid.
+test('validateScenario: endAge before retireAge is refused as an ERROR (S5AA R53; it was a WARNING)', () => {
   const result = validateScenario(validPlan({ profile: { filing: 'mfj', age: 40, retireAge: 65, endAge: 60 } }));
-  assert.ok(result.issues.some((i) => i.code === 'INCONSISTENT_AGES' && i.path === 'profile.endAge'));
+  assert.equal(result.valid, false);
+  assert.ok(result.issues.some((i) => i.code === 'END_AGE_BEFORE_RETIREMENT' && i.path === 'profile.endAge' && i.severity === 'ERROR'));
+  assert.ok(!result.issues.some((i) => i.code === 'INCONSISTENT_AGES' && i.path === 'profile.endAge'));
 });
 
 test('validateScenario: an age outside [0,120] is a WARNING, not an ERROR', () => {

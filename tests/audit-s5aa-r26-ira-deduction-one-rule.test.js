@@ -19,6 +19,7 @@
  * deduction saves 2.5% x $7,000 = $175.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -55,6 +56,7 @@ function run(iraContribution) {
      itself, the dividend is figured on the balance after the tax, so the tax would feed back into the dividend.) */
   p.accounts = [acct('cash', 'taxable', 'taxable', 50000, 0, { priority: 1, cashHolding: true }),
     acct('invest', 'taxable', 'taxable', 1000000, 0, { priority: 3 }), acct('ira', 'traditionalIRA', 'preTax', 0, iraContribution, { priority: 2 })];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const v = validateScenario(JSON.parse(JSON.stringify(p)));
   assert.equal(v.valid, true, 'a valid plan: ' + JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   return engine.runPlan(p);

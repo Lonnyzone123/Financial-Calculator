@@ -25,6 +25,7 @@
  * 2.5% of Arizona AGI less the same standard deduction; the 10% additional tax (72(t)); the 6% excise (4973(a)).
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -38,6 +39,7 @@ const a = L.account;
 const b = (o = {}) => L.basePlan({ dividendOn: true, dividendYield: 0, ...o });
 const stream = (id, type, amount, owner = 'self', start = 0, end = 120) => ({ id, name: id, type, amount, owner, start, end, growth: 0, growthMode: 'fixed' });
 function runPlan(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const r = engine.runPlan(structuredClone(p));
   assert.equal(r.status, 'ok', r.calculationErrorCode);
   const bad = (r.issues || []).filter((i) => /QUOTE_SETTLEMENT_UNVERIFIED|TAX_SETTLEMENT_MISMATCH|NONFINITE_SETTLEMENT|ROW_INVARIANT|COMMITTED_CASH_MISMATCH/.test(i.code));
@@ -45,6 +47,7 @@ function runPlan(p) {
   return r;
 }
 function run(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const v = validateScenario(structuredClone(p));
   assert.equal(v.valid, true, JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   return runPlan(p);

@@ -14,6 +14,7 @@
  *
  * Every plan runs at a 0% return, so a balance is exactly what went in. Expectations are worked from the rule. */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -48,6 +49,7 @@ function run(o) {
     otherIncomes: [], ssBenefit: 0, spouseSS: 0, survivor: false, selfLife: 95, spouseLife: 95 });
   const t = acct('t', 'taxable', 'taxable', 'self', 0); t.balance = 100000; t.basisPct = 100;
   p.accounts = [t].concat(o.accounts);
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const r = engine.runPlan(p);
   assert.strictEqual(r.status, 'ok', 'the fixture must run: ' + r.status + ' / ' + r.calculationErrorCode);
   return r;

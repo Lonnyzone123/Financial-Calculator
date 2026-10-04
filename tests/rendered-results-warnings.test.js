@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /*
  * S5 exit gate E5, the Results page: the warnings a user reads after a run, rendered by the fresh build of this tree in
@@ -40,12 +41,12 @@ test('E5, task 8: the Results page\'s Arizona card states the enacted rate, the 
 });
 
 test('control, E5 task 11: the Results page shows the Roth catch-up warning for a 401(k) catch-up over the prior-year FICA threshold', async () => {
-  const cards = await resultsCards({
+  const cards = await resultsCards(retireAtEnd({ // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
     name: 'Roth catch-up', setupComplete: true,
     profile: { age: 55, retireAge: 65, endAge: 58, spouseOn: false, filing: 'single' },
     employment: { salary: 200000, spouseSalary: 0, contributionStop: 65 },
     accounts: [{ id: 'k401', name: 'Employer 401k', owner: 'self', type: 'traditional401k', taxClass: 'preTax', balance: 100000, contribution: 32000, contributionMode: 'amount', priorYearFicaWages: 200000 }],
-  });
+  }));
   assert.ok(cards.some((t) => /catch-up contributions must be designated Roth/.test(t)), 'the warning is rendered: ' + JSON.stringify(cards.map((t) => t.slice(0, 90))));
 });
 

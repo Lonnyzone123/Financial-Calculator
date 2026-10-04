@@ -1,0 +1,183 @@
+{
+  "cases": 36,
+  "checks": 161,
+  "executions": 36,
+  "passed": 29,
+  "failed": [
+    {
+      "id": "F06",
+      "name": "Compound growth with no cash flows",
+      "checks": [
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ],
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at final (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:17:27)\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:50:186\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:50:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "id": "F07",
+      "name": "Fractional final period compounds once",
+      "checks": [
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ],
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at final (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:17:27)\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:51:197\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:51:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "id": "F19",
+      "name": "Zero-volatility Monte Carlo matches closed form",
+      "checks": [
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ],
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at final (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:17:27)\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:63:305\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:63:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "id": "F20",
+      "name": "Seed reproducibility and input immutability",
+      "checks": [
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ],
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:64:577\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:64:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)\n    at node:internal/main/run_main_module:33:47"
+    },
+    {
+      "id": "F21",
+      "name": "Historical return replay arithmetic from specified data years",
+      "checks": [
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ],
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at final (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:17:27)\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:66:41\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:65:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "id": "F23",
+      "name": "Working contribution and compensation caps",
+      "checks": [
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ],
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at final (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:17:27)\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:68:260\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:68:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    },
+    {
+      "id": "F33",
+      "name": "Monte Carlo one-year distribution against a Gaussian quantile oracle",
+      "checks": [
+        {
+          "label": "validator valid",
+          "actual": false,
+          "expected": true,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "engine status",
+          "actual": "calculation_error",
+          "expected": "ok",
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ],
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at final (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:17:27)\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:78:328\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:78:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    }
+  ]
+}

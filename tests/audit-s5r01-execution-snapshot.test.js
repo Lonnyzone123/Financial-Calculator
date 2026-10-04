@@ -16,6 +16,7 @@
  * number in those lists is refused during the one serialization, SCENARIO_NONFINITE_LIST_VALUE, after the named checks.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -40,6 +41,7 @@ function working() {
   Object.assign(p.retirement, { strategy: 'fixedNominal', spending: 30000, ssBenefit: 0, spouseSS: 0, pension: 0, otherIncomes: [], stages: [], expenses: [], dividendOn: false });
   Object.assign(p.advanced, { rmdOn: false, qcd: 0, transferOn: false, conversionOn: false, healthOn: false, ltcOn: false, otherAssets: [], debts: [] });
   p.accounts = [ira()];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 const ROUTES = {

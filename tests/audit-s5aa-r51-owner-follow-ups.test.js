@@ -21,6 +21,7 @@
  * Social Security income in these plans is untaxed (provisional income under the base amount), so the IRMAA income is 0: the first tier.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -34,6 +35,7 @@ const SHELL = fs.readFileSync(path.join(__dirname, '..', 'src', 'app-shell.html'
 
 const cents = (x) => Math.round(x * 100) / 100;
 function run(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const v = validateScenario(structuredClone(p));
   assert.equal(v.valid, true, JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   const r = engine.runPlan(structuredClone(p));

@@ -21,6 +21,7 @@
  * written reason the alleged defect does not apply. Both are here.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -56,6 +57,7 @@ function fixture() {
   /* S5AA task 5.1 retired this switch; the recast is unconditional. The line is gone rather than
      left setting a key that decides nothing. */
   p.advanced.debts = [armDebt()];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

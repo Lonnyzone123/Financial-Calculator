@@ -76,14 +76,17 @@ test('R41, control: an end age EQUAL to the start is projected as before -- one 
   assert.equal(validatorIssues(p).filter((s) => s.startsWith('ERROR')).length, 0, validatorIssues(p).join(' | '));
 });
 
-test('R41, control: an end age between the start and the retirement age keeps its warning and is projected to the end age', () => {
+// ADAPTED BY INTENT at S5AA R53 (the owner's decision 3, 2026-10-04: an end age before the retirement age is refused everywhere): this
+// control pinned R41's boundary -- an end age between the start and the retirement age kept its WARNING and was projected (rows 60-63).
+// The same plan is now refused by both layers, by R53's own code; an end age before the START is still R41's (the test above).
+test('R41, control (S5AA R53): an end age between the start and the retirement age is now refused by R53, not by R41', () => {
   const p = plan({ age: 60, retireAge: 65, endAge: 63 });
   const r = engine.runPlan(p);
-  assert.equal(r.status, 'ok', r.calculationErrorCode);
-  assert.deepEqual(r.rows.map((x) => x.age), [60, 61, 62, 63]);
+  assert.equal(r.calculationErrorCode, 'SCENARIO_END_AGE_BEFORE_RETIREMENT');
+  assert.equal(r.rows, null);
   const v = validatorIssues(p);
-  assert.ok(v.includes('WARNING INCONSISTENT_AGES@profile.endAge'), v.join(' | '));
-  assert.equal(v.filter((s) => s.startsWith('ERROR')).length, 0, v.join(' | '));
+  assert.ok(v.includes('ERROR END_AGE_BEFORE_RETIREMENT@profile.endAge'), v.join(' | '));
+  assert.ok(!v.includes('ERROR END_AGE_BEFORE_START@profile.endAge'), v.join(' | '));
 });
 
 test('R41, control: a retirement age below the start (already retired) is projected; since R45 it warns only beside a salary', () => {

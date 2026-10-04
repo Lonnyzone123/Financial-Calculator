@@ -1623,6 +1623,15 @@ function endAgeBeforeStartCode(p){
   if(!profile||typeof profile!=="object"||typeof profile.age!=="number"||!Number.isFinite(profile.age)||typeof profile.endAge!=="number"||!Number.isFinite(profile.endAge))return null;
   return profile.endAge<profile.age?"END_AGE_BEFORE_START":null;
 }
+/* S5AA R53 (ChatGPT's R52-01; the owner 2026-10-04: "refused everywhere"): AN END AGE BEFORE THE RETIREMENT AGE. The validator only warned, so the
+   app's import accepted such a plan and readStatic() then lengthened it to the retirement age (U01: 20 years projected where 1 was asked). Refused here
+   by name, as R41 refuses an end age before the start, and the validator reports it as an ERROR (END_AGE_BEFORE_RETIREMENT). The primary's retirement
+   and end ages; an end age equal to the retirement age is projected, and an end age before the start is R41's refusal, checked first. */
+function endAgeBeforeRetirementCode(p){
+  var profile=p&&p.profile;
+  if(!profile||typeof profile!=="object"||typeof profile.retireAge!=="number"||!Number.isFinite(profile.retireAge)||typeof profile.endAge!=="number"||!Number.isFinite(profile.endAge))return null;
+  return profile.endAge<profile.retireAge?"END_AGE_BEFORE_RETIREMENT":null;
+}
 /* S5AA R43 (SA42F-05, SA42F-06): the first value that breaks PLAN_VALUE_CONTRACT, as {code, path}, or null. A number must be a finite JSON
    number when present (null is present); `required`, `requiredUnlessType` and `requiredWhen` make absence a breach; `min`/`max` bound it;
    an enum value must be listed. R42 typed two Social Security fields; R42F found at least 25 more that both layers coerced (a conversion of
@@ -3435,6 +3444,41 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
     .concat(survivorOn?[selfSurvivorStart,spouseSurvivorStartAtSelfAge]:[]).forEach(function(x){
     if(isFinite(x)&&x>age+1e-9&&x<rowAge-1e-9)points.push(x)
   });
+  /* S5AA R53 (ChatGPT's R51F-01; the owner 2026-10-04: "a monthly test"): THE GRACE YEAR'S NON-SERVICE MONTHS ARE MONTHS, NOT THE ROW. 20 CFR 404.435(a)(7):
+     no deduction for a non-service month in the grace year -- a month in which the beneficiary does not work in self-employment and does not perform
+     services for wages greater than the monthly exempt amount -- "even if there are no excess earnings in the year"; (b)(1), Example 1: a worker who
+     retires in April and works part time below the monthly amount is paid May-December. The monthly exempt amount is 1/12 of the annual one
+     (404.430(a)(1)): the band's amount -- the lower one before the year of full retirement age, the higher one for the months of that year before it
+     ((a)(2)(ii)). R34 switched the grace year OFF for the whole row whenever the owner had any employment or self-employment stream, so $1,000 a month
+     of part-time wages after the claim lost $6,260 of a $10,800 benefit (R51F's F02). Now, in an owner's grace year, when the earnings test can withhold
+     (their tested earnings exceed the row's exempt amount), each month is judged on that owner's own wages in it: the salary until their work ends (the
+     retirement or the death) plus their dated employment streams, against the band's amount (annual rates against the annual amount: x/12 > a/12 is x > a).
+     Any self-employment profit in a month makes it a service month: the plan has no hours input, so this is a cautious approximation (404.435(c), (d)
+     presume self-employment services until shown otherwise), disclosed. The job and salary ends become segment boundaries only in such a row; every
+     other row keeps R34's segments, flags and service months bit for bit. The annual test, the family pool (R42), the months charged and credited (R43)
+     read these flags unchanged. */
+  var ssMonthlyTest=function(owner,ownerStart,ownerEnd,retireAt){
+        if(!(earnings&&earnings.work&&retireAt>age+1e-9&&retireAt<=rowAge+1e-9))return null;
+        var band=ssEarningsTestBand(p,ownerStart,ownerEnd,owner);
+        if(!band)return null;
+        var tested=Math.max(0,Number(owner==="spouse"?earnings.spouse:earnings.self)||0)*band.testedFraction;
+        if(!(tested-band.exempt*Math.max(0,ownerEnd-ownerStart)*band.testedFraction>1e-9))return null;
+        var pay=earnings.work[owner]||{salary:0,until:age};
+        return {exempt:band.exempt,salary:Math.max(0,Number(pay.salary)||0),until:Number(pay.until),streams:(earnings.work.streams||[]).filter(function(x){return x.owner===owner})};
+      },
+      selfMonthly=ssMonthlyTest("self",age,rowAge,selfRetireAge),
+      spouseMonthly=spouseOn?ssMonthlyTest("spouse",spouseAge,spouseAge+duration,spouseRetireAtSelfAge):null,
+      ssService=function(m,s,retireAt){
+        if(!m)return s<retireAt-1e-9;
+        var wages=s<m.until-1e-9?m.salary:0,selfEmployed=false;
+        m.streams.forEach(function(x){if(s>=x.from-1e-9&&s<x.to-1e-9){if(x.se){if(x.annual>0)selfEmployed=true}else wages+=x.annual}});
+        return selfEmployed||wages>m.exempt+1e-6;
+      };
+  [selfMonthly,spouseMonthly].forEach(function(m){
+    if(!m)return;
+    var ends=[m.until];m.streams.forEach(function(x){ends.push(x.from,x.to)});
+    ends.forEach(function(x){if(isFinite(x)&&x>age+1e-9&&x<rowAge-1e-9)points.push(x)});
+  });
   points=Array.from(new Set(points.map(function(x){return Math.round(x*1e6)/1e6}))).sort(function(a,b){return a-b});
   /* R2-004 fix (R2-T03): each person's ANNUAL AMOUNT is computed once, on
      that person's own ROW clock, and hoisted out of the segment loop.
@@ -3504,6 +3548,7 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
     var segStart=points[i],segDuration=points[i+1]-segStart;
     if(segDuration<=1e-9)continue;
     var selfAliveHere=segStart<selfDeath-1e-9,
+        /* S5AA R53: each segment's service month, per owner */selfSvc=ssService(selfMonthly,segStart,selfRetireAge),spouseSvc=ssService(spouseMonthly,segStart,spouseRetireAtSelfAge),
         selfClaimedHere=segStart>=selfClaim-1e-9,
         selfAmount=selfClaimedHere?12*(spouseOn&&segStart<spouseDeathAtSelfAge-1e-9&&segStart>=selfSpousalStart-1e-9?selfPlusSpousalM:selfOwnM):0,
         spouseAliveHere=spouseOn&&segStart<spouseDeathAtSelfAge-1e-9,
@@ -3549,15 +3594,15 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
     total+=(selfPay+spousePay)*segDuration;
     ssSegs.push({s:segStart,d:segDuration,sp:selfPay,pp:spousePay,sa:selfAuxPay,pa:spouseAuxPay,sRib:selfAliveHere&&selfClaimedHere,pRib:spouseAliveHere&&spouseClaimedHere,
       sWib:survivorOn&&selfAliveHere&&!spouseAliveHere&&segStart>=selfSurvivorStart-1e-9&&selfSurvivorM>0,pWib:survivorOn&&spouseAliveHere&&!selfAliveHere&&segStart>=spouseSurvivorStartAtSelfAge-1e-9&&spouseSurvivorM>0,
-      sSvc:segStart<selfRetireAge-1e-9,pSvc:segStart<spouseRetireAtSelfAge-1e-9});
+      sSvc:selfSvc,pSvc:spouseSvc});
     selfGross+=selfPay*segDuration;spouseGross+=spousePay*segDuration;
-    if(segStart<selfRetireAge-1e-9)selfServiceGross+=selfPay*segDuration;
-    if(segStart<spouseRetireAtSelfAge-1e-9)spouseServiceGross+=spousePay*segDuration;
+    if(selfSvc)selfServiceGross+=selfPay*segDuration;
+    if(spouseSvc)spouseServiceGross+=spousePay*segDuration;
     if(selfPay>0)selfMonths+=segDuration*12;
     if(spousePay>0)spouseMonths+=segDuration*12;
     selfAuxGross+=selfAuxPay*segDuration;spouseAuxGross+=spouseAuxPay*segDuration;
-    if(segStart<selfRetireAge-1e-9)spouseAuxInSelfService+=spouseAuxPay*segDuration;
-    if(segStart<spouseRetireAtSelfAge-1e-9)selfAuxInSpouseService+=selfAuxPay*segDuration;
+    if(selfSvc)spouseAuxInSelfService+=spouseAuxPay*segDuration;
+    if(spouseSvc)selfAuxInSpouseService+=selfAuxPay*segDuration;
   }
   /* Q91 (F5): the test is applied to the ROW's totals, per person, on that person's own age clock and
      that person's own earnings. THE SUBTRACTION IS CONDITIONAL AND THAT IS DELIBERATE: `total` is
@@ -3568,8 +3613,9 @@ function householdSocialSecurityDetail(p,age,rowAge,spouseAge,startHistory,earni
      behavioural reason. */
   /* S5AA R34 (SA32F-07): the GRACE YEAR is the row an owner stops working in (with no employment-stream or self-employment income going on):
      benefits for the months after the stop are not withheld, whatever the year's earnings. */
-  var selfGrace=selfRetireAge>age+1e-9&&selfRetireAge<=rowAge+1e-9&&!(earnings&&earnings.streamSelf>0),
-      spouseGrace=spouseOn&&spouseRetireAtSelfAge>age+1e-9&&spouseRetireAtSelfAge<=rowAge+1e-9&&!(earnings&&earnings.streamSpouse>0);
+  /* S5AA R53 (R51F-01): a stream no longer switches the grace year off where the monthly test runs (above); elsewhere the flag is R34's. */
+  var selfGrace=selfRetireAge>age+1e-9&&selfRetireAge<=rowAge+1e-9&&(!!selfMonthly||!(earnings&&earnings.streamSelf>0)),
+      spouseGrace=spouseOn&&spouseRetireAtSelfAge>age+1e-9&&spouseRetireAtSelfAge<=rowAge+1e-9&&(!!spouseMonthly||!(earnings&&earnings.streamSpouse>0));
   /* S5AA R42 (ChatGPT's R41F-01; the owner 2026-09-30: "Repair all five in R42"): A WORKER'S EXCESS EARNINGS REACH THE FAMILY. POMS RS 02501.095:
      "Withhold the excess earnings of the NH from the total family benefit" (the one exception, an entitled divorced spouse, the model has no such
      person). Each person was tested against their own pay only, so a worker of 62 earning $200,000 lost their own $25,200 while the spouse's $18,000
@@ -3850,7 +3896,7 @@ function withResolvedStrategy(p,issues){
    about whether the money is interest, a gift or a settlement, so they stay OUT, and that choice is recorded
    in Handover temp/S5AA_CITATION_CHECKS_20260920.md rather than left to be inferred from silence.
    Real-estate-professional status is not modelled, so rental is treated as PASSIVE and therefore in scope. */
-function otherIncomeFor(p,periodStart,periodEnd,inflationFactor,startHistoryIndex,startFactors){var cash=0,ordinary=0,ss=0,seSelf=0,seSpouse=0,nii=0,wageSelf=0,wageSpouse=0;(p.retirement.otherIncomes||[]).forEach(function(i,incomeIndex){var spouse=i.owner==="spouse"&&p.profile.spouseOn,ownerAge=spouse?p.profile.spouseAge+(periodStart-p.profile.age):periodStart,ownerEnd=spouse?p.profile.spouseAge+(periodEnd-p.profile.age):periodEnd;/* S5AA R9 ROUND, the owner's decision Q5 (2026-09-21): a one-time income can be tax-free -- an inheritance or a gift is not
+function otherIncomeFor(p,periodStart,periodEnd,inflationFactor,startHistoryIndex,startFactors){var cash=0,ordinary=0,ss=0,seSelf=0,seSpouse=0,nii=0,wageSelf=0,wageSpouse=0,work=[];(p.retirement.otherIncomes||[]).forEach(function(i,incomeIndex){var spouse=i.owner==="spouse"&&p.profile.spouseOn,ownerAge=spouse?p.profile.spouseAge+(periodStart-p.profile.age):periodStart,ownerEnd=spouse?p.profile.spouseAge+(periodEnd-p.profile.age):periodEnd;/* S5AA R9 ROUND, the owner's decision Q5 (2026-09-21): a one-time income can be tax-free -- an inheritance or a gift is not
    gross income (IRC 102(a)). The check here read i.type!=="taxFree" inside the oneTime branch, so it could never be
    false and every lump sum was taxed. The option is its own type, "oneTimeTaxFree", paid exactly as "oneTime" is;
    "oneTime" stays taxed. */if(i.type==="oneTime"||i.type==="oneTimeTaxFree"){if(Number(i.start)>=ownerAge-.0001&&Number(i.start)<ownerEnd-.0001){cash+=Number(i.amount)||0;if(i.type==="oneTime")ordinary+=Number(i.amount)||0}return}/* S5AA THIRD AUDIT, completing Q3 (the owner, 2026-09-21: a deceased person's wages end at the death): an
@@ -3869,7 +3915,7 @@ if(ownerEnd<=i.start||ownerAge>streamEnd)return;var activeAge=Math.max(ownerAge,
    pension's declared joint-and-survivor assumption, disclosed (PENSION_STREAM_AFTER_DEATH_ASSUMED). It paid in full, silently.
    A death inside the period pays the whole amount before it and the share after, on the stream convention used above. */
    var paidDuration=activeDuration;if(i.type==="pension"&&(spouse||i.owner==="self")){var pensionLife=Number(spouse?p.retirement.spouseLife:p.retirement.selfLife),rawShare=Number(i.survivorPercent),share=i.survivorPercent===undefined||i.survivorPercent===null||!Number.isFinite(rawShare)?1:Math.min(1,Math.max(0,rawShare/100));if(Number.isFinite(pensionLife)&&activeEnd>pensionLife){var beforeDeath=Math.max(0,Math.min(activeEnd,pensionLife)-activeAge);paidDuration=beforeDeath+(activeDuration-beforeDeath)*share}}
-   var amount=(Number(i.amount)||0)*factor*paidDuration;cash+=amount;if(i.type==="socialSecurity")ss+=amount;else if(i.type!=="taxFree")ordinary+=amount;if(i.type==="rental"||i.type==="investment")nii+=amount;if(i.type==="selfEmployment"){if(spouse)seSpouse+=amount;else seSelf+=amount}/* Q98 (G4): an `employment` stream IS wages -- it bears Social Security and Medicare payroll tax like
+   var amount=(Number(i.amount)||0)*factor*paidDuration;/* S5AA R53 (R51F-01): the job's dated interval on the self's clock, its annual rate and kind, for the grace year's monthly test */if((i.type==="employment"||i.type==="selfEmployment")&&activeDuration>0)work.push({owner:spouse?"spouse":"self",from:periodStart+(activeAge-ownerAge),to:periodStart+(activeEnd-ownerAge),annual:(Number(i.amount)||0)*factor,se:i.type==="selfEmployment"});cash+=amount;if(i.type==="socialSecurity")ss+=amount;else if(i.type!=="taxFree")ordinary+=amount;if(i.type==="rental"||i.type==="investment")nii+=amount;if(i.type==="selfEmployment"){if(spouse)seSpouse+=amount;else seSelf+=amount}/* Q98 (G4): an `employment` stream IS wages -- it bears Social Security and Medicare payroll tax like
      any other wages. It is kept PER OWNER because the OASDI wage base is a per-person cap: crediting a
      spouse's job to the self pushes both onto one cap and UNDERCHARGES a two-earner household, which is
      the failure a household-total repair makes while every single-earner test still passes.
@@ -3880,7 +3926,7 @@ if(ownerEnd<=i.start||ownerAge>streamEnd)return;var activeAge=Math.max(ownerAge,
      AN OWNER OF "household" IS ATTRIBUTED TO SELF, which is a disclosure rather than a choice made here:
      seSelf/seSpouse above already resolve it the same way, because only "spouse" is tested. A household
      stream therefore takes ONE person's OASDI cap rather than being split across two. Splitting it would
-     be new modelling and would have to move both accumulators together. */if(i.type==="employment"){if(spouse)wageSpouse+=amount;else wageSelf+=amount}});return {cash:cash,ordinary:ordinary,ss:ss,seSelf:seSelf,seSpouse:seSpouse,nii:nii,wageSelf:wageSelf,wageSpouse:wageSpouse}}
+     be new modelling and would have to move both accumulators together. */if(i.type==="employment"){if(spouse)wageSpouse+=amount;else wageSelf+=amount}});return {cash:cash,ordinary:ordinary,ss:ss,seSelf:seSelf,seSpouse:seSpouse,nii:nii,wageSelf:wageSelf,wageSpouse:wageSpouse,work:work}}
 /* RA-03 (re-audit 2026-09-11): the ONE definition of "an account that can pay
    a dividend". A zero-return household cash holding cannot -- charging it a
    dividend reclassifies cash principal as taxable income, and drawing the
@@ -4575,7 +4621,9 @@ var earlyRates=null;if(p.advanced.transferOn&&p.advanced.transferAge>age+1e-9&&p
                  less the 7.65% deduction, profit x 0.9235); gross profit was tested. The stream parts are passed too, for the grace year. */
               {self:salary*selfWorkDuration+(other.wageSelf||0)+(other.seSelf||0)*0.9235,
                spouse:spouseSalary*spouseWorkDuration+(other.wageSpouse||0)+(other.seSpouse||0)*0.9235,
-               streamSelf:(other.wageSelf||0)+(other.seSelf||0),streamSpouse:(other.wageSpouse||0)+(other.seSpouse||0)},
+               streamSelf:(other.wageSelf||0)+(other.seSelf||0),streamSpouse:(other.wageSpouse||0)+(other.seSpouse||0),
+               /* S5AA R53 (R51F-01): what the grace year's monthly test reads -- each owner's salary rate until their work ends in the row (retirement or death), and the dated jobs */
+               work:{self:{salary:salary,until:age+selfWorkDuration},spouse:{salary:spouseSalary,until:age+spouseWorkDuration},streams:other.work||[]}},
               ssCreditedMonths),
             ss=ssDetail.total;
         var dividendCash=0,dividendReinvested=0,dividendDuration=Math.max(0,rowAge-Math.max(age,p.profile.retireAge,p.retirement.dividendStart));/* S5AA R9 ROUND, the owner's decision Q4, the dividends-ON half (known item 5.2): THE ENTERED YIELD IS TAXED IN EVERY
@@ -5310,7 +5358,7 @@ function scenarioInputGate(p){var serialized=[],flagPath=null,rejectedInput=null
   rejectedInput=rejectedInput||nonArrayListInputCode(p)||nonRecordListElementCode(p);
   if(!rejectedInput){flagPath=nonBooleanFlagPath(p);if(flagPath!==null)rejectedInput="NONBOOLEAN_FLAG"}
   if(!rejectedInput){flagPath=nonNumberPlanValuePath(p);if(flagPath!==null)rejectedInput="NONNUMBER_PLAN_VALUE"}
-  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||replacedPlanInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||endAgeBeforeStartCode(p)||nobodyAliveAtStartCode(p)||accountContractCode(p);
+  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||replacedPlanInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||endAgeBeforeStartCode(p)||endAgeBeforeRetirementCode(p)/* S5AA R53 */||nobodyAliveAtStartCode(p)||accountContractCode(p);
   if(!rejectedInput)rejectedInput=nonSerializableScenarioInputCode(p,serialized);
   if(!rejectedInput){
       identityPlan=serializedSnapshot(p,serialized);
@@ -5402,6 +5450,9 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"The projection method is not one the engine runs (simple, historical or monteCarlo), so the projection it names cannot be computed."
             :rejectedInput==="END_AGE_BEFORE_START"
             ?"The projection's ending age is before its starting age, so there are no years to project. Check the ending age."
+            /* S5AA R53 */
+            :rejectedInput==="END_AGE_BEFORE_RETIREMENT"
+            ?"The projection's ending age is before the retirement age. A plan must run at least to the retirement age; check the ending age and the retirement age."
             :rejectedInput==="NOBODY_ALIVE_AT_START"
             ?"Every lifespan entered ends before the plan's starting age, so nobody the plan models is alive and there is nothing to project. Check the lifespans."
             :rejectedInput==="UNREADABLE_INPUT"
@@ -5956,6 +6007,7 @@ if (typeof module !== 'undefined' && module.exports) {
     /* S5AA R50 */priorIncomeForRow,newRothLedger,rothIraTake,rothQualified,/* S5AA R51 addendum */rothNextDollarWeight,/* S5AA R52 */rothSettleConversions,
     unknownMethodCode,
     endAgeBeforeStartCode,
+    endAgeBeforeRetirementCode,
     nobodyAliveAtStartCode,
     lastDeathCutAge,
     lawfulConversionDestination,

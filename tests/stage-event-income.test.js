@@ -102,13 +102,13 @@ test('otherIncomeFor: no income streams returns all zeros', () => {
      fixtures in this file uses a rental or investment stream, so it is zero in every one of them.
      `wageSelf` and `wageSpouse` are the PER-OWNER wage share of any `employment` stream, kept apart
      because the OASDI wage base is a per-person cap; no fixture here uses an employment stream either. */
-  assert.deepEqual(engine.otherIncomeFor(p, 60, 61, 1, 0), { cash: 0, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0 });
+  assert.deepEqual(engine.otherIncomeFor(p, 60, 61, 1, 0), { cash: 0, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0, work: [] }); // S5AA R53: otherIncomeFor() also returns each dated job (`work`) for the grace year's monthly test; none here
 });
 
 test('otherIncomeFor: a oneTime income inside the period counts as both cash and ordinary income', () => {
   const p = basePlan({ otherIncomes: [{ type: 'oneTime', owner: 'self', start: 60, amount: 25000 }] });
   const result = engine.otherIncomeFor(p, 60, 61, 1, 0);
-  assert.deepEqual(result, { cash: 25000, ordinary: 25000, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0 });
+  assert.deepEqual(result, { cash: 25000, ordinary: 25000, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0, work: [] });
 });
 
 test('otherIncomeFor: a socialSecurity-type recurring income counts only as ss, never as ordinary', () => {
@@ -122,7 +122,7 @@ test('otherIncomeFor: a socialSecurity-type recurring income counts only as ss, 
 test('otherIncomeFor: a taxFree income counts only as cash, never as ordinary or ss', () => {
   const p = basePlan({ otherIncomes: [{ type: 'taxFree', owner: 'self', start: 55, end: 100, amount: 1500, growth: 0 }] });
   const result = engine.otherIncomeFor(p, 60, 61, 1, 0);
-  assert.deepEqual(result, { cash: 1500, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0 });
+  assert.deepEqual(result, { cash: 1500, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0, work: [] });
 });
 
 test('otherIncomeFor: a plain recurring income compounds by its own growth rate over elapsed years', () => {
@@ -136,7 +136,7 @@ test('otherIncomeFor: a plain recurring income compounds by its own growth rate 
 test('otherIncomeFor: an income outside its own start/end window contributes nothing', () => {
   const p = basePlan({ otherIncomes: [{ type: 'rental', owner: 'self', start: 70, end: 80, amount: 1000, growth: 0 }] });
   const result = engine.otherIncomeFor(p, 60, 61, 1, 0);
-  assert.deepEqual(result, { cash: 0, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0 });
+  assert.deepEqual(result, { cash: 0, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0, work: [] });
 });
 
 test('otherIncomeFor: a spouse-owned income is evaluated at the spouse\'s own age, not the primary profile age', () => {
@@ -145,7 +145,7 @@ test('otherIncomeFor: a spouse-owned income is evaluated at the spouse\'s own ag
   // would only be 60 when primary turns 70).
   const p = basePlan({ profile: { age: 60, spouseOn: true, spouseAge: 50 }, otherIncomes: [{ type: 'rental', owner: 'spouse', start: 55, end: 60, amount: 1000, growth: 0 }] });
   const atPrimary60 = engine.otherIncomeFor(p, 60, 61, 1, 0);
-  assert.deepEqual(atPrimary60, { cash: 0, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0 }, 'spouse is only 50 here, below the window start of 55');
+  assert.deepEqual(atPrimary60, { cash: 0, ordinary: 0, ss: 0, seSelf: 0, seSpouse: 0, nii: 0, wageSelf: 0, wageSpouse: 0, work: [] }, 'spouse is only 50 here, below the window start of 55');
 
   const atPrimary65 = engine.otherIncomeFor(p, 65, 66, 1, 0); // spouse would be 55
   assert.ok(atPrimary65.cash > 0, 'spouse is 55 here, exactly the window start -- must be active');

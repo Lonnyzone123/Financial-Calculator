@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /**
  * Tests for AUD-005 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md,
@@ -46,6 +47,7 @@ function planFor(profileOverrides, employmentOverrides, accounts) {
   Object.assign(p.profile, profileOverrides);
   Object.assign(p.employment, employmentOverrides);
   p.accounts = accounts;
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

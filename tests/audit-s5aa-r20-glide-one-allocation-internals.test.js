@@ -68,7 +68,10 @@ test('R18F-01: at its target, an 80/20 account gliding to 20% stocks has the 20/
 
 test('R18F-01: halfway along the glide, return and volatility both read the halfway allocation', () => {
   /* 80/20 at 55, target 20% at 65: five years in, stocks are 50%, and bonds scale from 20% to 50%. */
-  const p = plan({ age: 55, retireAge: 65, endAge: 56, target: 20, allocation: { stocks: 80, bonds: 20, cash: 0 } });
+  /* S5AA R53 (the owner's decision 3, 2026-10-04): an end age before the retirement age is refused, and this case reads only the glide
+     helpers at five years in (the glide runs from 55 to the retirement age, 65), never a projected row, so the end age moves to the
+     retirement age (it was 56) and the glide is unchanged. */
+  const p = plan({ age: 55, retireAge: 65, endAge: 65, target: 20, allocation: { stocks: 80, bonds: 20, cash: 0 } });
   const a = p.accounts[0], w = { stocks: 0.5, bonds: 0.5 };
   close(engine.accountExpected(a, p, 5, null), mean(w), 'expected return 7.25%');
   close(engine.accountVolatility(a, p, 5), vol(w), 'volatility');

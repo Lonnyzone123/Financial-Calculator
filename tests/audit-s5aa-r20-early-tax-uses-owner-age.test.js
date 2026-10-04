@@ -17,6 +17,7 @@
  * The same rule is read by the quote, the committed draw and the transfer (one function), so the transfer is tested too.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -50,6 +51,7 @@ function couple(selfAge, spouseAge, edit) {
     penaltyException: false, rule55: false, debts: [], otherAssets: [] });
   p.accounts = [account({ id: 'sp', type: 'traditionalIRA', taxClass: 'preTax', owner: 'spouse', balance: 100000 })];
   if (edit) edit(p);
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   assert.equal(validator.validateScenario(JSON.parse(JSON.stringify(p))).valid, true, 'a valid plan');
   return p;
 }

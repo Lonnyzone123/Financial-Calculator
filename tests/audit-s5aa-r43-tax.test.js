@@ -21,6 +21,7 @@
  * Rows are labelled by their closing age. Every expected figure is hand-derived from the rules and the inputs.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -31,6 +32,7 @@ const g = h.grid;
 
 const cents = (x) => Math.round(x * 100) / 100;
 function run(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   assert.equal(h.validateScenario(structuredClone(p)).valid, true);
   const r = h.engine.runPlan(structuredClone(p));
   assert.equal(r.status, 'ok', r.calculationErrorCode);

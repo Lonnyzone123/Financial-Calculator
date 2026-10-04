@@ -1,0 +1,20 @@
+HEAD 87bddba
+r51f exit 0
+r52 exit 1
+r4651 exit 0
+== r51f
+  "executions": 36,
+  "passed": 36,
+  "failed": []
+}
+== r52
+      "pass": true
+    }
+  }
+}
+== r4651
+
+S20 PASS Streams count as working pay net of income and payroll tax
+
+{"sourceSha":"87bddbae1baf97e61a7ed73b81c51caf88a059c9","simulations":20,"passed":20,"failed":0}
+DONE

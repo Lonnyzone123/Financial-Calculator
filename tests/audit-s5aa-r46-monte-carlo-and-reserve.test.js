@@ -25,6 +25,7 @@
  * here from the documented generator (rng, the murmur3 path seed and Box-Muller, written out below), never read from the engine.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -44,6 +45,7 @@ const firstNormals = (seed, i, count) => { const g = generator(pathSeed(seed, i,
 
 const cents = (x) => Math.round(x * 100) / 100;
 function run(p) {
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const v = validateScenario(structuredClone(p));
   assert.equal(v.valid, true, JSON.stringify(v.issues.filter((i) => i.severity === 'ERROR')));
   const r = engine.runPlan(structuredClone(p));
@@ -57,6 +59,7 @@ const errors = (p) => validateScenario(structuredClone(p)).issues.filter((i) => 
    row's closing balance is the opening balance times (1 + r): growth over a whole year with nothing deposited or drawn. */
 function oneYear(accounts, classes, o = {}) {
   const p = L.basePlan({ age: 40, retireAge: 70, endAge: 41, spending: 0, accounts });
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   Object.assign(p.assumptions, { method: 'monteCarlo', runs: o.runs ?? 1, seed: o.seed ?? 1234, volatility: o.volatility ?? 15, returnRate: o.returnRate ?? 6 });
   p.employment.contributionStop = 40;
   if (classes) Object.assign(p.advanced, { assetsOn: true, assetClasses: classes, correlation: o.rho ?? 0.25 });
@@ -202,6 +205,7 @@ function five(rho, o = {}) {
   const accts = [roth('r', 1000000, { allocation: { a: 20, b: 20, c: 20, d: 20, e: 20 } })];
   if (o.extraClass) accts.push(roth('x', 0, { allocation: { f: 100 } }));
   const p = L.basePlan({ age: 40, retireAge: 70, endAge: 45, spending: 0, accounts: accts });
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   Object.assign(p.assumptions, { method: o.method ?? 'monteCarlo', runs: 200, seed: 5, volatility: 15 });
   p.employment.contributionStop = 40;
   Object.assign(p.advanced, { assetsOn: true, correlation: rho, assetClasses: o.extraClass || o.unused ? FIVE.concat([{ id: 'f', name: 'f', returnRate: 5, volatility: 10 }]) : FIVE });

@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /**
  * SA-05 (SPRINT_EXTERNAL_AUDIT_20260909.md) -- THE UI's CONTRIBUTION
@@ -84,6 +85,7 @@ function household(overrides) {
   p.advanced.ltcOn = false;
   Object.assign(p.profile, overrides.profile || {});
   Object.assign(p.employment, overrides.employment || {});
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

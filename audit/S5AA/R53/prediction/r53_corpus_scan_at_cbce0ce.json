@@ -1,0 +1,930 @@
+{
+ "control": [
+  {
+   "name": "golden:baseline",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "golden:monte-carlo-fixed-seed",
+   "grace": null,
+   "graceRows": 500,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": true
+  },
+  {
+   "name": "golden:rmd-and-roth-conversion",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "golden:reserve-and-bond-tent",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "golden:guardrails-withdrawal-strategy",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:1",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:2",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:3",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,preTax,hsa,taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:4",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"preTax,hsa,roth,taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:5",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:6",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:7",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"taxable,preTax,hsa,roth\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:8",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:9",
+   "grace": null,
+   "graceRows": 52,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,taxable,hsa,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": true
+  },
+  {
+   "name": "seed:10",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:11",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"preTax,hsa,roth,taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:12",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:13",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"taxable,roth,hsa,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:14",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:15",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:16",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:17",
+   "grace": null,
+   "graceRows": 48,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,hsa\" -> \"\" (manual order in use)"
+   ],
+   "mc": true
+  },
+  {
+   "name": "seed:18",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:19",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:20",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-spouse-ss",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:spouse-cola-income",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-1929",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-1966",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-2000",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:arm-flag-on",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:collision-household-cash",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:explicit-cash-holding",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:funded-qcd",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 75 (clamp)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "targeted:survivor-stateful",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:collision-rmd-retained-cash",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  }
+ ],
+ "expanded": [
+  {
+   "name": "golden:baseline",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "golden:monte-carlo-fixed-seed",
+   "grace": null,
+   "graceRows": 500,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": true
+  },
+  {
+   "name": "golden:rmd-and-roth-conversion",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "golden:reserve-and-bond-tent",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "golden:guardrails-withdrawal-strategy",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:1",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:2",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:3",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,preTax,hsa,taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:4",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"preTax,hsa,roth,taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:5",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:6",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:7",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"taxable,preTax,hsa,roth\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:8",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:9",
+   "grace": null,
+   "graceRows": 52,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,taxable,hsa,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": true
+  },
+  {
+   "name": "seed:10",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:11",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"preTax,hsa,roth,taxable\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:12",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:13",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"taxable,roth,hsa,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "seed:14",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:15",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:16",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:17",
+   "grace": null,
+   "graceRows": 48,
+   "endBeforeRetire": false,
+   "restore": [
+    "retirement.manualOrder \"roth,hsa\" -> \"\" (manual order in use)"
+   ],
+   "mc": true
+  },
+  {
+   "name": "seed:18",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:19",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "seed:20",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-spouse-ss",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:spouse-cola-income",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-1929",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-1966",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:historical-2000",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:arm-flag-on",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:collision-household-cash",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:explicit-cash-holding",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:funded-qcd",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 75 (clamp)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "targeted:survivor-stateful",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "targeted:collision-rmd-retained-cash",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:other-asset-draw-growth-0",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:other-asset-draw-growth-4",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:other-asset-draw-historical",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:other-asset-two-assets-late-access",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-ordinary-amortizing-15y",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-ordinary-amortizing-5y",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-ordinary-zero-interest",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-ordinary-zero-balance",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-ordinary-payoff",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-adversarial-q54-worst",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-adversarial-interest-only",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:debt-adversarial-a-cent-below",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:monte-carlo-sensitive-band",
+   "grace": null,
+   "graceRows": 500,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": true
+  },
+  {
+   "name": "expansion:s5aa-gap-working-household",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-gap-retired-couple",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-gap-early-retiree",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-gap-widowed-before-fra",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-gap-death-while-working",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 70 (clamp)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-survivor-health-roth",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-basis-conversion",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-basis-one-owner-draw",
+   "grace": null,
+   "graceRows": 2,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-conversion-under-loss",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 75 (clamp)",
+    "retirement.manualOrder \"taxable,hsa,roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-two-iras-distinct-returns",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 78 (clamp)",
+    "retirement.manualOrder \"taxable,hsa,roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-prototype-ids",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 80 (clamp)",
+    "retirement.manualOrder \"taxable,hsa,roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r15-rmd-transfer-to-taxable",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 78 (clamp)",
+    "retirement.manualOrder \"taxable,hsa,roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-sa18-loss-under-deduction",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 70 (clamp)",
+    "retirement.manualOrder \"taxable,hsa,roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-sa18-decedent-loss",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 70 (clamp)",
+    "retirement.manualOrder \"taxable,hsa,roth,preTax\" -> \"\" (manual order in use)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-contribution-conversion-same-year",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-conversion-and-qcd",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-charity-then-rollover",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-qcd-offset",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r20-spouse-owner-early-tax",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r20-rule55-ira-ranking",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 56 (clamp)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r35-rule55-separation-at-55",
+   "grace": null,
+   "graceRows": 0,
+   "endBeforeRetire": false,
+   "restore": [
+    "profile.retireAge raised to the age 56 (clamp)"
+   ],
+   "mc": false
+  },
+  {
+   "name": "expansion:s5aa-r20-all-stock-glide",
+   "grace": null,
+   "graceRows": 1,
+   "endBeforeRetire": false,
+   "restore": [],
+   "mc": false
+  }
+ ]
+}

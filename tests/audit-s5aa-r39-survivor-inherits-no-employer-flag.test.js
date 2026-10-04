@@ -13,6 +13,7 @@
  * By hand (Uniform Lifetime Table): the death year's distribution 100,000 / 25.5 = 3,921.57; the survivor's at 75,
  * (100,000 - 100,000 / 25.5) / 24.6 = 3,905.63. The engine: 0. */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -38,6 +39,7 @@ function rmdAt76(account) {
   p.accounts = [Object.assign({ id: 'a', name: 'A', type: 'traditional401k', taxClass: 'preTax', owner: 'self', balance: 100000, contribution: 0,
     contributionMode: 'amount', annualChange: 0, annualChangeMode: 'amount', frequency: 1, changeTiming: 'year', futureChanges: [],
     allocation: {}, matchOn: false, matchRate: 0, matchCap: 0, profitShare: 0, vesting: 100, priority: 1 }, account)];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const r = engine.runPlan(p);
   assert.strictEqual(r.status, 'ok', r.status + ' / ' + r.calculationErrorCode);
   return +r.rows.find((x) => Math.abs(x.age - 76) < 1e-9).rmd.toFixed(2);

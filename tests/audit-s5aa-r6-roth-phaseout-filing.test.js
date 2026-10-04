@@ -21,6 +21,7 @@
  * opens at 53 and is the year of death, and 55 onward are single years.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -59,6 +60,7 @@ function run(over) {
       changeTiming: 'year', futureChanges: [], allocation: {}, matchOn: false, matchCap: 0, matchRate: 0,
       profitShare: 0, vesting: 100, priority: 2 },
   ];
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   const r = engine.runPlan(p);
   assert.equal(r.status, 'ok', r.status + '/' + r.calculationErrorCode);
   return r;

@@ -1,0 +1,20 @@
+HEAD 6fc75a5
+r51f exit 1
+r52 exit 1
+r4651 exit 1
+== r51f
+      "error": "TypeError: Cannot read properties of null (reading 'at')\n    at final (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:17:27)\n    at C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:78:328\n    at test (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:15:83)\n    at Object.<anonymous> (C:\\fc-wt-r53\\audit\\S5AA\\R51\\S5AA_R51F_FULL_MODEL_PROBES_20261004.js:78:1)\n    at Module._compile (node:internal/modules/cjs/loader:1854:14)\n    at Object..js (node:internal/modules/cjs/loader:1985:10)\n    at Module.load (node:internal/modules/cjs/loader:1577:32)\n    at Module._load (node:internal/modules/cjs/loader:1379:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)"
+    }
+  ]
+}
+== r52
+  diff: 'simple'
+}
+
+Node.js v24.17.0
+== r4651
+S20 FAIL Streams count as working pay net of income and payroll tax ERROR engine refused the simulation
+  valid supported input: expected true, got false
+  engine status: expected "ok", got "calculation_error"
+{"sourceSha":"6fc75a5dbc56c571e21a2868e1bf85bb615d890c","simulations":20,"passed":13,"failed":7}
+DONE

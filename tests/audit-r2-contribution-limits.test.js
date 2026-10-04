@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /**
  * R2-T04 / R2-005 -- OWNER ELIGIBILITY MUST BE APPLIED BEFORE SHARED
@@ -111,6 +112,7 @@ function household(accounts, overrides) {
   Object.assign(p.profile, overrides.profile || {});
   Object.assign(p.employment, overrides.employment || {});
   if (overrides.limitPolicy) p.limitPolicy = overrides.limitPolicy;
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 

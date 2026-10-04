@@ -1,0 +1,170 @@
+{"file":"reconciliation-invariant.test.js","fn":"simulatePlan","method":"simple","runs":1000,"grace":"at 65 (self): earnings 54823.76 > exempt 30360.00, stream 0.00, grace today true, rows 2"}
+{"file":"reconciliation-invariant.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 65 (self): earnings 54823.76 > exempt 30360.00, stream 0.00, grace today true, rows 2"}
+{"file":"scenario-validator.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":65,"endAge":60}}
+{"file":"audit-contribution-window.test.js","fn":"runPlan","endBeforeRetire":{"age":55,"retireAge":65,"endAge":56}}
+{"file":"audit-contribution-window.test.js","fn":"runPlan","endBeforeRetire":{"age":49,"retireAge":65,"endAge":51}}
+{"file":"audit-r2-contribution-limits.test.js","fn":"simulatePlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":61}}
+{"file":"audit-r2-contribution-limits.test.js","fn":"simulatePlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":61}}
+{"file":"audit-r2-contribution-limits.test.js","fn":"simulatePlan","endBeforeRetire":{"age":64,"retireAge":70,"endAge":65}}
+{"file":"audit-sa05-shared-eligibility.test.js","fn":"simulatePlan","endBeforeRetire":{"age":60,"retireAge":64,"endAge":61}}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 45877.00 > exempt 30480.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 45877.00 > exempt 30480.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 45877.00 > exempt 30480.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 45877.00 > exempt 30480.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 45877.00 > exempt 30480.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 45877.00 > exempt 30480.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 45877.00 > exempt 30480.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":25,"grace":"at 66 (self): earnings 278858.92 > exempt 65160.00, stream 0.00, grace today true, rows 25"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":42,"grace":"at 66 (self): earnings 273481.38 > exempt 140040.00, stream 0.00, grace today true, rows 42"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","runs":1000,"grace":"at 64 (self): earnings 172396.17 > exempt 33600.00, stream 0.00, grace today true, rows 1"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","runs":49,"grace":"at 60 (spouse): earnings 37269.34 > exempt 24480.00, stream 0.00, grace today true, rows 98"}
+{"file":"audit-q47-earnings-test-disclosure.test.js","fn":"runPlan","endBeforeRetire":{"age":62,"retireAge":70,"endAge":64}}
+{"file":"audit-rb-findings.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":65,"endAge":42}}
+{"file":"audit-rb-findings.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":65,"endAge":42}}
+{"file":"audit-rb-findings.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":65,"endAge":45}}
+{"file":"audit-rb-findings.test.js","fn":"runPlan","endBeforeRetire":{"age":40.5,"retireAge":65,"endAge":42}}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","endBeforeRetire":{"age":55,"retireAge":60,"endAge":58}}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"simple","runs":1000,"grace":"at 65 (self): earnings 54823.76 > exempt 30360.00, stream 0.00, grace today true, rows 2"}
+{"file":"reconciliation-invariant.test.js","fn":"simulatePlan","method":"simple","runs":1000,"grace":"at 65 (self): earnings 54823.76 > exempt 30360.00, stream 0.00, grace today true, rows 2"}
+{"file":"reconciliation-invariant.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 65 (self): earnings 54823.76 > exempt 30360.00, stream 0.00, grace today true, rows 2"}
+{"file":"public-route-r2-005.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":61}}
+{"file":"public-route-r2-005.test.js","fn":"runPlan","endBeforeRetire":{"age":64,"retireAge":70,"endAge":65}}
+{"file":"public-route-r2-005.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":61}}
+{"file":"public-route-q35.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":60,"endAge":45}}
+{"file":"public-route-rb01.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":65,"endAge":42}}
+{"file":"audit-s5r01-direct-simulate-route.test.js","fn":"simulatePlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"audit-s5r01-execution-snapshot.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"audit-s5aa-arm-scheduled-payment.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":70,"endAge":60}}
+{"file":"audit-s5aa-employment-stream-payroll.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"audit-s5aa-hsa-fica-exclusion.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"audit-s5aa-ira-deduction.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"audit-s5aa-hsa-fica-exclusion.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"public-route-q87.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"public-route-q87.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":47}}
+{"file":"audit-s5aa-ss-earnings-test.test.js","fn":"runPlan","endBeforeRetire":{"age":62,"retireAge":67,"endAge":63}}
+{"file":"audit-s5aa-ss-earnings-test.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 62 (self): earnings 24482.00 > exempt 24480.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-wages-end-at-death.test.js","fn":"runPlan","endBeforeRetire":{"age":50,"retireAge":70,"endAge":56}}
+{"file":"audit-s5aa-r6-roth-phaseout-filing.test.js","fn":"runPlan","endBeforeRetire":{"age":50,"retireAge":65,"endAge":58}}
+{"file":"audit-s5aa-r6-roth-phaseout-filing.test.js","fn":"runPlan","endBeforeRetire":{"age":50,"retireAge":65,"endAge":58}}
+{"file":"audit-s5aa-r9-dividends-taxed-every-year.test.js","fn":"runPlan","endBeforeRetire":{"age":50,"retireAge":65,"endAge":53}}
+{"file":"audit-s5aa-r20-early-tax-uses-owner-age.test.js","fn":"validateScenario","endBeforeRetire":{"age":50,"retireAge":56,"endAge":51}}
+{"file":"audit-s5aa-r20-early-tax-uses-owner-age.test.js","fn":"runPlan","endBeforeRetire":{"age":50,"retireAge":56,"endAge":51}}
+{"file":"audit-s5aa-r20-glide-one-allocation-internals.test.js","fn":"validateScenario","endBeforeRetire":{"age":55,"retireAge":65,"endAge":56}}
+{"file":"audit-s5aa-r26-ira-compensation-limit.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r26-ira-compensation-limit.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r26-ira-compensation-limit.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r26-ira-compensation-limit.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r26-ira-deduction-one-rule.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r26-ira-deduction-one-rule.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r28-ira-limit-applied-once.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r28-ira-limit-applied-once.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":55,"endAge":41}}
+{"file":"audit-s5aa-r33-deferrals-excluded-lawfully.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":46}}
+{"file":"audit-s5aa-r33-deferrals-excluded-lawfully.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":46}}
+{"file":"audit-s5aa-r33-employer-money-and-owner-clocks.test.js","fn":"runPlan","endBeforeRetire":{"age":56,"retireAge":65,"endAge":57}}
+{"file":"audit-s5aa-r33-employer-money-and-owner-clocks.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":65,"endAge":48}}
+{"file":"audit-s5aa-r33-employer-money-and-owner-clocks.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":65,"endAge":46}}
+{"file":"audit-s5aa-r33-employer-money-and-owner-clocks.test.js","fn":"runPlan","endBeforeRetire":{"age":55,"retireAge":65,"endAge":56}}
+{"file":"audit-s5aa-r33-ira-phaseout-reduces-the-limit.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":46}}
+{"file":"audit-s5aa-r33-ira-phaseout-reduces-the-limit.test.js","fn":"runPlan","endBeforeRetire":{"age":49,"retireAge":60,"endAge":50}}
+{"file":"audit-s5aa-r33-ira-phaseout-reduces-the-limit.test.js","fn":"runPlan","endBeforeRetire":{"age":45,"retireAge":60,"endAge":46}}
+{"file":"audit-s5aa-r34-earnings-test-and-streams.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 62 (self): earnings 30000.00 > exempt 24480.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r34-earnings-test-and-streams.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 62 (self): earnings 30000.00 > exempt 24480.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r39-survivor-inherits-no-employer-flag.test.js","fn":"runPlan","endBeforeRetire":{"age":74,"retireAge":85,"endAge":76}}
+{"file":"audit-s5aa-r41-end-age-before-start-refused.test.js","fn":"runPlan","endBeforeRetire":{"age":70,"retireAge":70,"endAge":69}}
+{"file":"audit-s5aa-r41-end-age-before-start-refused.test.js","fn":"validateScenario","endBeforeRetire":{"age":70,"retireAge":70,"endAge":69}}
+{"file":"audit-s5aa-r41-end-age-before-start-refused.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":63}}
+{"file":"audit-s5aa-r41-end-age-before-start-refused.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":65,"endAge":63}}
+{"file":"audit-s5aa-r42-ira-window-and-roth-proxy.test.js","fn":"runPlan","endBeforeRetire":{"age":44,"retireAge":45.5,"endAge":45}}
+{"file":"audit-s5aa-r42-ira-window-and-roth-proxy.test.js","fn":"validateScenario","endBeforeRetire":{"age":44,"retireAge":45.5,"endAge":45}}
+{"file":"audit-s5aa-r42-ira-window-and-roth-proxy.test.js","fn":"runPlan","endBeforeRetire":{"age":44,"retireAge":50,"endAge":45}}
+{"file":"audit-s5aa-r42-ira-window-and-roth-proxy.test.js","fn":"validateScenario","endBeforeRetire":{"age":44,"retireAge":50,"endAge":45}}
+{"file":"audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 66 (self): earnings 200000.00 > exempt 65160.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 66 (self): earnings 90000.00 > exempt 65160.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r42-ss-family-withholding-and-survivor-arf.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 66 (self): earnings 200000.00 > exempt 65160.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r43-contributions.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":70,"endAge":63}}
+{"file":"audit-s5aa-r43-contributions.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":70,"endAge":63}}
+{"file":"audit-s5aa-r43-contributions.test.js","fn":"validateScenario","endBeforeRetire":{"age":63,"retireAge":70,"endAge":65}}
+{"file":"audit-s5aa-r43-contributions.test.js","fn":"runPlan","endBeforeRetire":{"age":63,"retireAge":70,"endAge":65}}
+{"file":"audit-s5aa-r43-life-events.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":67,"endAge":63}}
+{"file":"audit-s5aa-r43-life-events.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":67,"endAge":63}}
+{"file":"audit-s5aa-r43-life-events.test.js","fn":"validateScenario","endBeforeRetire":{"age":55,"retireAge":65,"endAge":60}}
+{"file":"audit-s5aa-r43-life-events.test.js","fn":"runPlan","endBeforeRetire":{"age":55,"retireAge":65,"endAge":60}}
+{"file":"audit-s5aa-r43-social-security.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 62 (self): earnings 45000.00 > exempt 24480.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r43-social-security.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 62 (self): earnings 45000.00 > exempt 24480.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r43-social-security.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 62 (self): earnings 60000.00 > exempt 24480.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r43-social-security.test.js","fn":"runPlan","method":"simple","runs":1000,"grace":"at 62 (self): earnings 100000.00 > exempt 24480.00, stream 0.00, grace today true, rows 1"}
+{"file":"audit-s5aa-r43-tax.test.js","fn":"validateScenario","endBeforeRetire":{"age":25,"retireAge":65,"endAge":47}}
+{"file":"audit-s5aa-r43-tax.test.js","fn":"runPlan","endBeforeRetire":{"age":25,"retireAge":65,"endAge":47}}
+{"file":"audit-s5aa-r44-contribution-routes.test.js","fn":"validateScenario","endBeforeRetire":{"age":66,"retireAge":70,"endAge":67}}
+{"file":"audit-s5aa-r44-contribution-routes.test.js","fn":"runPlan","endBeforeRetire":{"age":66,"retireAge":70,"endAge":67}}
+{"file":"audit-s5aa-r44-contribution-routes.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":70,"endAge":61}}
+{"file":"audit-s5aa-r44-contribution-routes.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":70,"endAge":61}}
+{"file":"audit-s5aa-r44-contribution-routes.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":70,"endAge":61}}
+{"file":"audit-s5aa-r44-contribution-routes.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":70,"endAge":61}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r45-carried-test-gaps.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":65,"endAge":51}}
+{"file":"audit-s5aa-r45-carried-test-gaps.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":65,"endAge":51}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"validateScenario","endBeforeRetire":{"age":52,"retireAge":65,"endAge":58}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"runPlan","endBeforeRetire":{"age":52,"retireAge":65,"endAge":58}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r45-spouse-retirement-dates.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"validateScenario","endBeforeRetire":{"age":55,"retireAge":60,"endAge":57}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","endBeforeRetire":{"age":55,"retireAge":60,"endAge":57}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"validateScenario","endBeforeRetire":{"age":55,"retireAge":60,"endAge":56}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","endBeforeRetire":{"age":55,"retireAge":60,"endAge":56}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":45,"endAge":44}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":45,"endAge":44}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":60,"endAge":41}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":60,"endAge":41}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"validateScenario","endBeforeRetire":{"age":64,"retireAge":70,"endAge":68}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","endBeforeRetire":{"age":64,"retireAge":70,"endAge":68}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"validateScenario","endBeforeRetire":{"age":64,"retireAge":70,"endAge":68}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","endBeforeRetire":{"age":64,"retireAge":70,"endAge":68}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"validateScenario","endBeforeRetire":{"age":64,"retireAge":70,"endAge":66}}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","endBeforeRetire":{"age":64,"retireAge":70,"endAge":66}}
+{"file":"audit-s5aa-r46-monte-carlo-and-reserve.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":70,"endAge":41}}
+{"file":"audit-s5aa-r46-monte-carlo-and-reserve.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":70,"endAge":41}}
+{"file":"audit-s5aa-r46-monte-carlo-and-reserve.test.js","fn":"simulatePlan","endBeforeRetire":{"age":40,"retireAge":70,"endAge":41}}
+{"file":"audit-s5aa-r46-monte-carlo-and-reserve.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":70,"endAge":45}}
+{"file":"audit-s5aa-r46-monte-carlo-and-reserve.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":70,"endAge":45}}
+{"file":"audit-s5aa-r48-medicare-survivors-arizona.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":65,"endAge":62}}
+{"file":"audit-s5aa-r48-medicare-survivors-arizona.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":62}}
+{"file":"audit-s5aa-r51-owner-follow-ups.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r51-owner-follow-ups.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":64}}
+{"file":"audit-s5aa-r51-owner-follow-ups.test.js","fn":"validateScenario","endBeforeRetire":{"age":60,"retireAge":65,"endAge":62}}
+{"file":"audit-s5aa-r51-owner-follow-ups.test.js","fn":"runPlan","endBeforeRetire":{"age":60,"retireAge":65,"endAge":62}}
+{"file":"audit-s5aa-r52-audit-repairs.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":45,"endAge":42}}
+{"file":"audit-s5aa-r52-audit-repairs.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":45,"endAge":42}}
+{"file":"audit-s5aa-r52-audit-repairs.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":45,"endAge":42}}
+{"file":"audit-s5aa-r52-audit-repairs.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":45,"endAge":42}}
+{"file":"audit-s5aa-r52-audit-repairs.test.js","fn":"validateScenario","endBeforeRetire":{"age":40,"retireAge":60,"endAge":41}}
+{"file":"audit-s5aa-r52-audit-repairs.test.js","fn":"runPlan","endBeforeRetire":{"age":40,"retireAge":60,"endAge":41}}

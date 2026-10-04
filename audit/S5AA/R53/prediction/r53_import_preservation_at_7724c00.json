@@ -1,0 +1,514 @@
+{
+ "summary": {
+  "plans": 71,
+  "refused": 2,
+  "changedPlans": 69,
+  "byField": {
+   "retirement.ssFra": 69,
+   "assumptions.runs": 1,
+   "retirement.pensionStart": 2,
+   "retirement.pensionAge": 1
+  }
+ },
+ "perPlan": [
+  {
+   "name": "golden:baseline",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "golden:monte-carlo-fixed-seed",
+   "status": "500 simulations · seed 123456 · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "golden:rmd-and-roth-conversion",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "golden:reserve-and-bond-tent",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "golden:guardrails-withdrawal-strategy",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:1",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:2",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:3",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:4",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:5",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:6",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:7",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:8",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:9",
+   "refused": [
+    "TRANSFER_INTO_WORKPLACE_PLAN"
+   ]
+  },
+  {
+   "name": "seed:10",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:11",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:12",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:13",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:14",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:15",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:16",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:17",
+   "status": "100 simulations · seed 718221 · saved in this browser",
+   "diffs": [
+    "assumptions.runs: 24 -> 100",
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:18",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:19",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 66 -> undefined"
+   ]
+  },
+  {
+   "name": "seed:20",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:historical-spouse-ss",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:spouse-cola-income",
+   "refused": [
+    "UNRECOGNIZED_VALUE"
+   ]
+  },
+  {
+   "name": "targeted:historical-1929",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:historical-1966",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:historical-2000",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:arm-flag-on",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:collision-household-cash",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined",
+    "retirement.pensionStart: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:explicit-cash-holding",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined",
+    "retirement.pensionStart: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:funded-qcd",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:survivor-stateful",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "targeted:collision-rmd-retained-cash",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:other-asset-draw-growth-0",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:other-asset-draw-growth-4",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:other-asset-draw-historical",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:other-asset-two-assets-late-access",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-ordinary-amortizing-15y",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-ordinary-amortizing-5y",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-ordinary-zero-interest",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-ordinary-zero-balance",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-ordinary-payoff",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-adversarial-q54-worst",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-adversarial-interest-only",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:debt-adversarial-a-cent-below",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:monte-carlo-sensitive-band",
+   "status": "500 simulations · seed 123456 · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-gap-working-household",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-gap-retired-couple",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-gap-early-retiree",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-gap-widowed-before-fra",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-gap-death-while-working",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-survivor-health-roth",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-basis-conversion",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r6-gap-basis-one-owner-draw",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-conversion-under-loss",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-two-iras-distinct-returns",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r14-rmd-prototype-ids",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r15-rmd-transfer-to-taxable",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-sa18-loss-under-deduction",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined",
+    "retirement.pensionAge: 60 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-sa18-decedent-loss",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-contribution-conversion-same-year",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-conversion-and-qcd",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-charity-then-rollover",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r19-ira-qcd-offset",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r20-spouse-owner-early-tax",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r20-rule55-ira-ranking",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r35-rule55-separation-at-55",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  },
+  {
+   "name": "expansion:s5aa-r20-all-stock-glide",
+   "status": "Projection updated · saved in this browser",
+   "diffs": [
+    "retirement.ssFra: 67 -> undefined"
+   ]
+  }
+ ]
+}

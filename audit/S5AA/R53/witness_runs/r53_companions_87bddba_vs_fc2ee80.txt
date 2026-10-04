@@ -1,0 +1,131 @@
+== r51f_probes (87bddba -> fc2ee80)
+checks before 175, after 168; unchanged verdicts 143; changed 39
+  F06 #0 validator valid: true -> false
+  F06 #1 engine status: true -> false
+  F06 #2 ten-year value: true -> undefined
+  F07 #0 validator valid: true -> false
+  F07 #1 engine status: true -> false
+  F07 #2 fractional horizon: true -> undefined
+  F07 #3 2.25-year value: true -> undefined
+  F19 #0 validator valid: true -> false
+  F19 #1 engine status: true -> false
+  F19 #2 total: true -> undefined
+  F19 #3 q10: true -> undefined
+  F19 #4 q90: true -> undefined
+  F19 #5 100% success: true -> undefined
+  F20 #0 validator valid: true -> false
+  F20 #1 engine status: true -> false
+  F20 #2 validator valid: true -> false
+  F20 #3 engine status: true -> false
+  F20 #7 validator valid: true -> false
+  F20 #8 engine status: true -> false
+  F20 #9 different seed changes quantiles: true -> undefined
+  F21 #0 validator valid: true -> false
+  F21 #1 engine status: true -> false
+  F21 #2 2020/21 proxy-return compound: true -> undefined
+  F23 #0 validator valid: true -> false
+  F23 #1 engine status: true -> false
+  F23 #2 IRA limited by compensation: true -> undefined
+  F23 #3 excess redirected: true -> undefined
+  F33 #0 validator valid: true -> false
+  F33 #1 engine status: true -> false
+  F33 #2 median Gaussian target: true -> undefined
+  F33 #3 10th percentile Gaussian target: true -> undefined
+  F33 #4 90th percentile Gaussian target: true -> undefined
+  F06 (harness error): undefined -> false
+  F07 (harness error): undefined -> false
+  F19 (harness error): undefined -> false
+  F20 (harness error): undefined -> false
+  F21 (harness error): undefined -> false
+  F23 (harness error): undefined -> false
+  F33 (harness error): undefined -> false
+== r46_r51_sims (87bddba -> fc2ee80)
+checks before 176, after 121; unchanged verdicts 100; changed 83
+  S01 #0 valid supported input: true -> false
+  S01 #1 engine status: true -> false
+  S01 #2 settlement and finite-value safeguards silent: true -> undefined
+  S01 #3 valid supported input: true -> undefined
+  S01 #4 engine status: true -> undefined
+  S01 #5 settlement and finite-value safeguards silent: true -> undefined
+  S01 #6 age 41 total: true -> undefined
+  S01 #7 age 41 q10: true -> undefined
+  S01 #8 age 41 q90: true -> undefined
+  S01 #9 age 42 total: true -> undefined
+  S01 #10 age 42 q10: true -> undefined
+  S01 #11 age 42 q90: true -> undefined
+  S01 #12 age 43 total: true -> undefined
+  S01 #13 age 43 q10: true -> undefined
+  S01 #14 age 43 q90: true -> undefined
+  S01 #15 age 44 total: true -> undefined
+  S01 #16 age 44 q10: true -> undefined
+  S01 #17 age 44 q90: true -> undefined
+  S01 #18 age 45 total: true -> undefined
+  S01 #19 age 45 q10: true -> undefined
+  S01 #20 age 45 q90: true -> undefined
+  S01 #21 age 46 total: true -> undefined
+  S01 #22 age 46 q10: true -> undefined
+  S01 #23 age 46 q90: true -> undefined
+  S01 #24 age 47 total: true -> undefined
+  S01 #25 age 47 q10: true -> undefined
+  S01 #26 age 47 q90: true -> undefined
+  S01 #27 age 48 total: true -> undefined
+  S01 #28 age 48 q10: true -> undefined
+  S01 #29 age 48 q90: true -> undefined
+  S01 #30 age 49 total: true -> undefined
+  S01 #31 age 49 q10: true -> undefined
+  S01 #32 age 49 q90: true -> undefined
+  S01 #33 age 50 total: true -> undefined
+  S01 #34 age 50 q10: true -> undefined
+  S01 #35 age 50 q90: true -> undefined
+  S01 #36 success unchanged: true -> undefined
+  S02 #0 valid supported input: true -> false
+  S02 #1 engine status: true -> false
+  S02 #2 settlement and finite-value safeguards silent: true -> undefined
+  S02 #3 three-year median: true -> undefined
+  S02 #4 zero random spread: true -> undefined
+  S02 #5 validator refuses impossible correlation: true -> undefined
+  S02 #6 engine refusal code: true -> undefined
+  S05 #0 valid supported input: true -> false
+  S05 #1 engine status: true -> false
+  S05 #2 settlement and finite-value safeguards silent: true -> undefined
+  S05 #3 pre-tax amount: true -> undefined
+  S05 #4 Roth amount: true -> undefined
+  S05 #5 tax on lawful split: true -> undefined
+  S05 #6 valid supported input: true -> undefined
+  S05 #7 engine status: true -> undefined
+  S05 #8 settlement and finite-value safeguards silent: true -> undefined
+  S05 #9 no Roth contribution: true -> undefined
+  S05 #10 redirected amount: true -> undefined
+  S06 #0 valid supported input: true -> false
+  S06 #1 engine status: true -> false
+  S06 #2 settlement and finite-value safeguards silent: true -> undefined
+  S06 #3 first-year excise booked for true-up: true -> undefined
+  S06 #4 second-year carried excise: true -> undefined
+  S07 #0 valid supported input: true -> false
+  S07 #1 engine status: true -> false
+  S07 #2 settlement and finite-value safeguards silent: true -> undefined
+  S07 #3 federal AGI: true -> undefined
+  S07 #4 tax with business-attributable plan deduction: true -> undefined
+  S08 #0 valid supported input: true -> false
+  S08 #1 engine status: true -> false
+  S08 #2 settlement and finite-value safeguards silent: true -> undefined
+  S08 #3 quarter-year contribution: true -> undefined
+  S08 #4 no later HSA contribution: true -> undefined
+  S20 #0 valid supported input: true -> false
+  S20 #1 engine status: true -> false
+  S20 #2 settlement and finite-value safeguards silent: true -> undefined
+  S20 #3 working shortfall: true -> undefined
+  S20 #4 basis next-dollar weight: true -> undefined
+  S20 #5 earnings next-dollar weight: true -> undefined
+  S01 (harness error): undefined -> false
+  S02 (harness error): undefined -> false
+  S05 (harness error): undefined -> false
+  S06 (harness error): undefined -> false
+  S07 (harness error): undefined -> false
+  S08 (harness error): undefined -> false
+  S20 (harness error): undefined -> false
+== r52_boundary at fc2ee80: the companion stops with its harness exception at E01's validity assertion (END_AGE_BEFORE_RETIREMENT, endAge 42 before retireAge 45); no JSON written
+== r51f_probes (cbce0ce -> fc2ee80)
+checks before 175, after 168; unchanged verdicts 138; changed 44
+== r46_r51_sims (cbce0ce -> fc2ee80)
+checks before 176, after 121; unchanged verdicts 100; changed 83

@@ -1,0 +1,13 @@
+== r51f_probes
+checks before 175, after 175; unchanged verdicts 170; changed 5
+  F01 #2 six monthly checks, $1,800 each: false -> true
+  F02 #2 six monthly checks, $1,800 each: false -> true
+  F02 #3 settled tax: false -> true
+  F02 #4 closing portfolio after incremental tax: false -> true
+  F03 #2 spouse six monthly checks: false -> true
+== r52_boundary
+checks before 112, after 112; unchanged verdicts 110; changed 2
+  ui.horizon U01: false -> true
+  ui.transfer U02: false -> true
+== r46_r51_sims
+checks before 176, after 176; unchanged verdicts 176; changed 0

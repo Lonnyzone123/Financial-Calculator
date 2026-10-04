@@ -1,4 +1,5 @@
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 /*
  * S5 block 2r -- SA-05 through the built app.
@@ -60,6 +61,7 @@ async function observeOnce(accounts) {
     const s = app.scenarios[0];
     s.setupComplete = true;
     Object.assign(s.profile, { age: 60, spouseAge: 70, spouseOn: true, retireAge: 65, endAge: 61, filing: 'mfj' });
+    retireAtEnd(s); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
     Object.assign(s.employment, { salary: 100000, spouseSalary: 0, growth: 0, contributionStop: 65 });
     s.limitPolicy = 'prevent';
     Object.assign(s.assumptions, { method: 'simple', returnRate: 0, inflation: 0, fee: 0 });

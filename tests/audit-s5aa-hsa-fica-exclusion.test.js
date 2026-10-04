@@ -26,6 +26,7 @@
  * the exclusion is capped at the owner's own wages, because a salary reduction cannot exceed the salary.
  */
 'use strict';
+const { retireAtEnd } = require('./lib/working-horizon'); // S5AA R53 (the owner's decision 3, 2026-10-04): working-only horizons
 
 const test = require('node:test');
 const assert = require('node:assert');
@@ -79,6 +80,7 @@ function plan(opts) {
   p.accounts = [taxable];
   if (o.hsa) p.accounts.push(acct('h', 'hsa', 'hsa', o.hsaOwner || 'self', o.hsa));
   if (o.deferral) p.accounts.push(acct('w', 'traditional401k', 'preTax', o.deferralOwner || 'self', o.deferral));
+  retireAtEnd(p); // S5AA R53: an end age before the retirement age is refused; the owner retires at the end age instead (output-neutral, tests/lib/working-horizon.js)
   return p;
 }
 
