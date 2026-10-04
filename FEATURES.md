@@ -225,6 +225,17 @@ Limit enforcement is real, not cosmetic: IRA and 401(k) limits are keyed per own
     its plan five-year period; Roth IRA conversions made before the plan; a full working-years budget; itemized deductions; a
     tax-optimizing solver; surviving-spouse filing status with a child input; Social Security benefit-cut scenarios; the SSA-44
     IRMAA reduction; tax lots.
+- **S5AA R52 and R53 additions, 2026-10-04** (repairing what ChatGPT's audits of R46 to R51 found; detail in `MODEL_ASSUMPTIONS.md`
+  §28.2, §28.3, §28.5 and §28.7):
+  - **Results:** the Roth IRA disclosures "Roth IRA contribution basis" and "Roth IRA five-year period" are shown as cards.
+  - **Behaviour:** one year's IRA room is used once, traditional excess first; a deferral reduces only its owner's qualified business
+    income; a basis-carrying rollover from an inherited IRA into the survivor's own; the Roth conversion record takes the settled
+    Form 8606 split; the Social Security grace year is tested month by month ($2,040 a month, $5,430 in the full-retirement-age year);
+    a restored backup keeps every validated value, and a restored manual withdrawal order that is not one of the three listed is shown
+    as an extra option and kept; an end age before the retirement age is refused, with a message naming it.
+  - **Recorded, not repaired:** the year-end Roth aggregation (the model counts a late transfer after the year's draw); any
+    self-employment profit in a month counts as services; the restore family's other rounding and clamps (the run count, an end age
+    above 100, and keys the form does not carry).
 
 ## Features — wanted (not yet built)
 

@@ -6241,6 +6241,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Status: IMPLEMENTED 2026-10-03 (S5AA R50; merged as #63 at `731bbcc`; `2d9ede3`; source tag `s5aa-r50-source` = `5119d03`).** Modelling text: `MODEL_ASSUMPTIONS.md` §14 note, §25 and the new Roth ledger paragraph in §23.
 
+**Refined 2026-10-04 (S5AA R52; Q194).** The app now shows the engine's two Roth disclosures as cards, "Roth IRA contribution basis" (`ROTH_IRA_BASIS_NOT_ENTERED`) and "Roth IRA five-year period" (`ROTH_FIVE_YEAR_ASSUMED`), which closes the gap this entry recorded. R52 also changed the conversion ledger: each year's conversion record takes the year-end Form 8606 split, and a same-year Roth IRA draw from it is re-split and its 10% trued up in the next row (R50-01).
+
 ## 2026-10-03 — Q190. The owner's follow-up decisions on R46 to R50 (S5AA R51, the owner, 2026-10-03 and 2026-10-04)
 
 **Registered 2026-10-04 (UTC−7) by the plan owner**, from the R51 relay (`audit/S5AA/R51/S5AA_R51_RELAY_TO_EB_20261003.md`), read against `main`. R51 merged as PR #64 at `02f6cbf` (1:53 am on 2026-10-04); source tag `s5aa-r51-source` = `ee06ea5`; expanded baseline r30.
@@ -6289,3 +6291,45 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 - **Also in R52:** app cards for `ROTH_IRA_BASIS_NOT_ENTERED` and `ROTH_FIVE_YEAR_ASSUMED`, which the engine records and the app does not show (`MODEL_ASSUMPTIONS.md` §28.5; Q189 gets a refinement note when R52 lands).
 
 **Status: DECIDED 2026-10-04; assigned to S5AA R52 (`sprint/s5aa-r52`, being built); not yet built.** ChatGPT has not audited R52. S5AA is NO-GO and not closed.
+
+**Update 2026-10-04, that afternoon: IMPLEMENTED in S5AA R52** (merged as #69 at `3afbd53`; source tag `s5aa-r52-source` = `4e1bb95`; prediction `ebc6f38`, repairs `a148aa9`, cards `48f9c2e`, a citation fix `da41b53`). ChatGPT's R52 audit (PR #70, merged `cbce0ce`) closed R47-01, R47-02, R48-01 and R50-01 "as narrowly stated", verified the two Roth cards, and found the 71-entry expanded capture equal to r30 (no baseline refresh); it was nonetheless NO-GO overall (Q193, Q194). Modelling text: `MODEL_ASSUMPTIONS.md` §28.2, §28.3 and §28.5.
+
+## 2026-10-04 — Q193. ChatGPT's whole-model audit R51F: the Social Security grace-year earnings test (R51F-01, the owner, 2026-10-04)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the S5AA session's R53 relay (`audit/S5AA/R53/S5AA_R53_RELAY_TO_EB_20261004.md`), read against the R51F report on `main` (PR #68, merged `969f835` at 5:23 am; `audit/S5AA/R51/S5AA_R51F_EXTERNAL_AUDIT_AND_CLAUDE_HANDOVER_20261004.md`). The owner requested the full-model audit after the sequential R46 to R51 review; it audited main `2fb8c6f` (source `s5aa-r51-source`) and was **NO-GO** on one new P2 finding, while the four earlier findings (Q192) stayed reproducible.
+
+**The finding, R51F-01.** The grace-year rule required that neither owner's job streams earn anything across the whole row (`engine.js` R34's flag), so any positive job stream disabled the monthly test. A worker with $50,000 of salary stopping at 65.5 and a $1,000-a-month job received $4,540 of benefits where six non-service months at $1,800 are due, $10,800, because a month with wages at or below the monthly exempt amount ($2,040 in 2026) is not withheld in the grace year whatever the year's earnings (20 CFR 404.435(a)(7)). Federal AGI, settled tax and the closing portfolio were understated ($5,621.48 in the witness).
+
+**The decisions (the owner, 2026-10-04):** a **monthly test in the grace year**: each benefit month is judged on that owner's salary until their work ends plus their dated employment streams against the monthly exempt amount, and any self-employment profit in a month counts as substantial services, which is cautious and disclosed (the plan has no hours input). After the build, the owner chose the higher monthly amount for the months of the full-retirement-age year before that age: **$5,430 for 2026**, not $2,040 (20 CFR 404.430(a)(2)(ii)).
+
+**Status: IMPLEMENTED 2026-10-04 (S5AA R53; merged as #71 at `b446b1d`; `ff02378`; source tag `s5aa-r53-source` = `2a1f5ba`).** ChatGPT has not audited R53. Modelling text: `MODEL_ASSUMPTIONS.md` §28.7.
+
+## 2026-10-04 — Q194. R52: the four repairs, the Roth cards, and ChatGPT's R52 audit (S5AA R52, the owner, 2026-10-04)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R52 relay (`audit/S5AA/R52/S5AA_R52_RELAY_TO_EB_20261004.md`), read against `main` and the R52 report (PR #70, merged `cbce0ce` at 9:09 am). R52 merged as PR #69 at `3afbd53` (6:34 am); source tag `s5aa-r52-source` = `4e1bb95`; prediction `ebc6f38`, repairs `a148aa9`, cards `48f9c2e`. It completes Q192.
+
+**What R52 built** (the owner's decisions of 2026-10-04, Q192):
+- **R47-01:** a year's IRA room is used once per owner: carried traditional excess absorbs it first, and the absorbed amount counts as a contribution of the year (IRC 219(f)(6)); carried Roth excess is reduced only by what is left, within its own phaseout limit; HSA room is separate.
+- **R47-02:** pre-tax workplace deferrals reduce qualified business income only for the deferring owner, and only as far as that owner's own salary cannot fund them; a spouse's salary never shields the other owner's deferral.
+- **R48-01:** a scheduled transfer from an inherited traditional IRA into the survivor's own IRA, in a row that opens after the death, is allowed, and its Form 8606 basis moves with it in proportion to the inherited IRA's value on the date.
+- **R50-01:** each year's Roth conversion record takes the year-end Form 8606 split, and a same-year Roth IRA draw from that record is re-split, taxable part first, with its 10% trued up in the next row.
+- **Two app cards,** "Roth IRA contribution basis" and "Roth IRA five-year period" (refines Q189).
+
+**ChatGPT's R52 audit** closed all four "as narrowly stated", verified the cards, and ran 20 new simulations (20 pass); the full gate passed (3,507 tests, 3,498 passed, nine authorized todos); the expanded capture equals r30, so no baseline moved. It was **NO-GO overall** because R51F-01 (Q193) stayed open, and it found two new P2 findings that predate R52, in Restore backup, **R52-01** (a valid working-only horizon is silently extended to the retirement age) and **R52-02** (a valid transfer date is rounded to the half year and out of its year); both are built in R53 (Q195). It carried, without a number, the manual withdrawal order that an import blanked (closed by R53, Q195) and the year-end Roth aggregation the model excludes (a $730 excess in one witness; R50-01's repair is not full annual aggregation).
+
+**Builders' readings, recorded for the owner and not yet ruled on:** D1, the validator accepts only the inherited-traditional-to-own rollover, in a row that opens after the death, and other post-death transfers the engine moves are still refused; D2, a same-year nondeductible contribution is not carried by a rollover that year (its basis arises at the year's settlement); D3, the IRA room ledger is per owner: a spousal IRA can draw on the other spouse's compensation, but one spouse's deemed contribution is not subtracted from the other's room; D4, a joint workplace account's deferrals are the primary's (the validator already refuses a joint owner on a retirement or HSA account, so this is reachable only through the engine without validation); and D5, the deemed contribution of IRC 219(f)(6) that absorbs carried traditional excess earns no deduction or basis in the model, although the law lets that excess be deducted in the later year within the year's deduction limit (Publication 590-A), so the model overstates tax. Also recorded as an app-text item: the app's rules text on QBI does not mention deferrals funded from self-employment pay (true since R47).
+
+**Status: IMPLEMENTED 2026-10-04 (S5AA R52; merged as #69 at `3afbd53`; source tag `s5aa-r52-source` = `4e1bb95`); D1 to D5 await the owner.** Corpus unchanged; baseline r30 stands. Modelling text: `MODEL_ASSUMPTIONS.md` §28.2, §28.3 and §28.5.
+
+## 2026-10-04 — Q195. R53: the grace-year monthly test, Restore backup keeps validated values, and an end age before retirement is refused (S5AA R53, the owner, 2026-10-04)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R53 relay and the R53 change-audit handover (`audit/S5AA/R53/`), read against `main`. R53 merged as PR #71 at `b446b1d` (2:22 pm); source tag `s5aa-r53-source` = `2a1f5ba`; prediction `89a49f8`, items `ff02378`, `87bddba`, `fc2ee80`, the companion adapter `2a1f5ba`. It repairs R51F-01 (Q193), R52-01 and R52-02 (Q194).
+
+**The decisions (the owner, 2026-10-04):**
+- **R51F-01:** the monthly grace-year test of Q193, with $5,430 in the full-retirement-age year.
+- **R52-01 and R52-02:** a restored backup keeps every validated value, and a field is rounded to the half year or clamped only when the user edits it. An unlisted manual withdrawal order is kept and shown as an extra option labelled "(from the restored plan)", which closes the manual-order item.
+- **An end age before the primary's retirement age is refused everywhere,** by the validator (`END_AGE_BEFORE_RETIREMENT`, replacing the `INCONSISTENT_AGES` warning when the end age is not before the start), the engine (`SCENARIO_END_AGE_BEFORE_RETIREMENT`) and the import. The owner chose this over keeping such a plan with a warning. A plan that ends while still working is entered with the retirement age equal to the end age, and a spouse's own later retirement is allowed. After the build the owner was shown that the refusal also refuses 24 of ChatGPT's companion cases, **kept the refusal,** and asked for an adapter (`audit/S5AA/R53/S5AA_R53_COMPANION_ADAPTER.js`) so ChatGPT's scripts can be rerun unedited.
+
+**Status: IMPLEMENTED 2026-10-04 (S5AA R53; merged as #71 at `b446b1d`; source tag `s5aa-r53-source` = `2a1f5ba`).** ChatGPT has not audited R53. Gate at `6fc75a5`, the last source commit (the tag adds only the adapter): 3,600 tests, 3,591 passed, 0 failing, nine authorized todos; closeout 12/0/0. The corpus is unchanged (71 of 71 expanded entries identical) and baseline r30 stands. The result contract stays at version 5 (an "R53 added" subsection records the new refusal). Modelling text: `MODEL_ASSUMPTIONS.md` §26 and §28.7.
+
+**New, for the owner, not yet ruled on:** the import's shared refusal prefix ("a structural problem that would break the projection") overstates a rule the owner chose; D2, the rest of the restore family is unchanged (the Monte Carlo run count is rounded to hundreds, the form's other range clamps stay, an end age above 100 is capped, and `ssFra`, `pensionStart` and `pensionAge` are dropped); D4, any self-employment profit in a month counts as services; and, pre-existing, a plan saved with a blank manual order withdrew nothing at the base.
