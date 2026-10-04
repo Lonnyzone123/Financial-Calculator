@@ -85,3 +85,21 @@ test('R45 (R43 section 7, declared): TRANSFER_INTO_WORKPLACE_PLAN -- the validat
   assert.ok(v.issues.some((i) => i.code === 'TRANSFER_INTO_WORKPLACE_PLAN' && i.severity === 'ERROR'), JSON.stringify(v.issues.map((i) => i.code)));
   assert.equal(engine.runPlan(structuredClone(p)).status, 'ok', 'the engine runs it');
 });
+
+// Found by R45's task 6.5 browser check: the four R45 inputs, and R35's two IRMAA prior-income inputs, were read by the form but had
+// no change listener, so typing a value neither recalculated nor saved it until some other input changed (R35's inputs since R35).
+// Every input the form reads must be in the change-listener list (staticIds); the spouse switch alone is wired on its own.
+test('R45 (task 6.5): every input the form reads recalculates on change -- including the R45 and R35 IRMAA inputs', () => {
+  const fs = require('node:fs');
+  const s = fs.readFileSync(path.join(__dirname, '..', 'src', 'app-shell.html'), 'utf8');
+  const listened = new Set(JSON.parse(s.match(/staticIds=(\[[^\]]*\])/)[1]));
+  const lines = s.split('\n'), i = lines.findIndex((l) => l.includes('function readStatic('));
+  let body = lines[i];
+  for (let k = i + 1; k < lines.length && !/^ {4}function /.test(lines[k]); k++) body += lines[k];
+  const read = [...new Set([...body.matchAll(/"(v2-[a-z0-9-]+)"/g)].map((m) => m[1]))];
+  assert.ok(read.length > 80, 'the form reads ' + read.length + ' inputs');
+  assert.deepEqual(read.filter((id) => !listened.has(id) && id !== 'v2-spouse'), []);
+  for (const id of ['v2-irmaa-magi-2', 'v2-irmaa-magi-1', 'v2-spouse-retire', 'v2-spending-start', 'v2-conversion-start', 'v2-health-coverage-end']) {
+    assert.ok(listened.has(id), id);
+  }
+});
