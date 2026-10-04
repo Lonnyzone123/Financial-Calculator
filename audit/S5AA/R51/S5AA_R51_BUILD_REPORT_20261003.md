@@ -211,3 +211,24 @@ capture at `2f73b85` in a clean tree against `8732bb8`), `prediction/r51b_path_l
 - The test-exposure counts (R51's and the addendum's) are distinct plans per test process, not every call (the cache recorded a plan once).
 
 Targeted runs only; the gate is the coordinator's. Closeout: accepted 12, refused 0, errors 0 at `2f73b85`.
+
+## 11. The coordinator's integration (2026-10-03)
+
+- **The successor control** (§5, the owner's ruling), built in a separate worktree and merged in `13aa9c8`:
+  - `9e0bf0b` holds the control composition captured at `b722884`, twice in clean worktrees, byte-identical and qualified
+    (`tools/baseline-20261003-s5aa-r51-control.json`; input hash `dbbe8036…`, output hash `3c558e4d…`);
+  - the `s5aa-r51-control` record keeps `s5-control` whole as its predecessor;
+  - `reference-trees/b722884…/` holds the 15 verified inputs;
+  - the two replay tests that read the S5 capture by name now read the record's control, and the registry lists the capture.
+  - The capture replays exactly against `b722884`, from git objects and from the reference tree. The replay tests, which had stood
+    down in this repository, now run and pass.
+- **Control 4.7's declarations** (`9135fb8`): 21 differences in 11 scenarios against the successor, each predicted (§3.1's nine
+  message texts and `seed:16`; §10's golden Monte Carlo rows and disclosure). Control 4.7 passes.
+- **Gates:** `9135fb8` and `ee06ea5` each gave 3,473 tests, 3,464 pass, 0 fail, 9 todos; closeout 12 accepted, 0 refused,
+  0 errors.
+- **r30** (`ee06ea5`): the expanded composition captured at `9135fb8`, twice, byte-identical, invariants 7/7.
+  - It differs from r29 in 18 entries, each predicted, and equals the capture at `2f73b85` on all 71.
+  - r29's note was corrected (it said nine entries carry `outsideSupportedDomain`; there are four).
+- **The browser check** (task 6.5) at `ee06ea5`: A to E as before, the flexibility default, the Roth checkbox (stored and
+  recalculated) and the Medicare text. The details are in the combined handover, `S5AA_R46_R51_CHANGE_AUDIT_HANDOVER_20261003.md`,
+  §8.
