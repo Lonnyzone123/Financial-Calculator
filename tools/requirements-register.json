@@ -10,12 +10,12 @@
   "src/debt-recast.js"
  ],
  "counts": {
-  "commentBlocksWithIds": 466,
-  "requirements": 267,
-  "GUARDED_BY_TEST_NAME": 245,
+  "commentBlocksWithIds": 474,
+  "requirements": 272,
+  "GUARDED_BY_TEST_NAME": 250,
   "CITED_IN_TEST_FILE": 22,
   "UNGUARDED": 0,
-  "carriedForward": 267,
+  "carriedForward": 272,
   "needsDecision": 0,
   "superseded": 0
  },
@@ -24,7 +24,7 @@
    "id": "A4-1",
    "family": "A4",
    "sites": [
-    "src/engine.js:3954"
+    "src/engine.js:3990"
    ],
    "summary": "R7-02: THE SUCCESSION IS RECORDED HERE, from the WORKING accounts, the first time a death hands them over -- not rebuilt beforehand from the configured ones. MEASURED at 99a2e6d: a spouse's IRA moved ",
    "guard": {
@@ -44,7 +44,7 @@
    "id": "A4-4",
    "family": "A4",
    "sites": [
-    "src/engine.js:5097"
+    "src/engine.js:5136"
    ],
    "summary": "FOURTH AUDIT (A4-4): \"contribution room\" became false for the Roth limit at EA-03",
    "guard": {
@@ -66,8 +66,8 @@
    "id": "A4-6",
    "family": "A4",
    "sites": [
-    "src/engine.js:4649",
-    "src/engine.js:5119"
+    "src/engine.js:4688",
+    "src/engine.js:5158"
    ],
    "summary": "THE DEATH DISCLOSURES, FROM WHAT THE PROJECTION ACTUALLY DID (R7-02, R7-03, A4-6). Both were built in runPlan() before the simulation, from the configured accounts, and both could describe things that",
    "guard": {
@@ -80,6 +80,112 @@
      "tests/audit-s5aa-r11-disclosures-match-execution.test.js",
      "tests/audit-s5aa-r6-no-survivor.test.js",
      "tests/audit-s5aa-r7-executed-succession.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "AA1-07",
+   "family": "AA1",
+   "sites": [
+    "src/engine.js:2525",
+    "src/engine.js:3820",
+    "src/engine.js:4389"
+   ],
+   "summary": "S5AA R49 (AA1-07): what this debt cost in the working months -- its payments before the household date, and PMI then -- for the working-years check.",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-07: $72,000 of debt payments against a $60,000 salary -- the working years are not funded by pay, from 50",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-07: contributions above pay ($40,000 into a taxable account on a $30,000 salary) are not funded by pay",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-07 controls: $12,000 of payments on a $60,000 salary is funded; a retired household with debt has no working rows"
+    ],
+    "files": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js",
+     "tests/contribution-and-debt-projection.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "AA1-25",
+   "family": "AA1",
+   "sites": [
+    "src/engine.js:3595"
+   ],
+   "summary": "S5AA R49 (AA1-25 (a); the owner's AA1 decision, 2026-10-03: \"Spending flexibility never cuts below the floor\"): THE CUT STOPS AT THE FLOOR the user entered for the strategy -- guardrails, Guyton-Kling",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: floor and ceiling -- after a down year the floor holds ($30,000), the 10% cut does not take it to $27,000",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: floor and ceiling -- a cut that would cross the floor stops at it",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25 control: floor and ceiling well above the floor -- the full 10% cut, 0.9 x 4% of the opening balance",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: the remaining-life strategy -- its minimum withdrawal ($30,000) holds after a down year",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: VPW -- its 5% minimum rate holds after a down year (5% of the opening balance, not 4.5%)",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: spending already below the floor by a stage is not cut further ($15,000, not $13,500)",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25 control: a strategy with no floor keeps the full cut ($40,000 -> $36,000)",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: overlapping percentage stages warn (they multiply); stages that only touch do not",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-25: flexibility stacked on guardrails or Guyton-Klinger warns; at 0, or on another strategy, it does not"
+    ],
+    "files": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js",
+     "tests/scenario-generator.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "AA1-34",
+   "family": "AA1",
+   "sites": [
+    "src/engine.js:2521",
+    "src/engine.js:2526",
+    "src/engine.js:3928"
+   ],
+   "summary": "S5AA R49 (AA1-34; the owner's AA1 decision, 2026-10-03: \"a 'PMI ends at age' input with a legal-midpoint default\"): PMI is owed only in the months that open before its stop age as well -- the debt's p",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34: PMI ends at the entered age -- 61.5 charges $1,200, $600, then nothing",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34: a conventional loan with no end age stops at the HPA midpoint -- 30-year term, 16 left: 61 and one month",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34: a conventional loan already past its midpoint owes no PMI (30-year term, 10 left: midpoint 5 years ago)",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34: an entered end age overrides the midpoint (62.5 on the same conventional loan: $1,200, $1,200, $600)",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-34 controls: FHA, a conventional loan without its terms, and no program keep PMI while owed ($1,200 a row)"
+    ],
+    "files": [
+     "tests/audit-s5aa-r37-inert-mortgage-fields.test.js",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "no closure or open decision recorded against it"
+  },
+  {
+   "id": "AA1-37",
+   "family": "AA1",
+   "sites": [
+    "src/engine.js:3921"
+   ],
+   "summary": "S5AA R49 (AA1-37; the owner's AA1 decision, 2026-10-03: a long-term-care onset age, disclosed): advanced.ltcOnsetAge, the primary's age, is optional. Entered, the deterministic onset is that age, as e",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: an onset age of 72 charges the weighted care cost in the two rows from 72, not from 70",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: an onset age is used as entered, not rounded (72.5: half, whole, half)",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37 control: with no onset age, care starts at max(65, round(retireAge + 10)) = 70, as before",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: Monte Carlo centres the draw on the onset age -- 76 with u = 0.25 starts care at 76 - 10 + 5 = 71",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37: Monte Carlo never starts care before the plan -- 72 with u = 0 gives 62, held at the starting age 66",
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js :: R49 AA1-37 control: Monte Carlo with no onset age -- max(65, round(60 + 5 + 0.25 x 20)) = 70, as before"
+    ],
+    "files": [
+     "tests/audit-s5aa-r49-spending-debt-disclosure.test.js"
     ],
     "onlyTodo": false
    },
@@ -113,9 +219,9 @@
    "family": "AA1",
    "sites": [
     "src/engine.js:88",
-    "src/engine.js:3865",
-    "src/engine.js:4143",
-    "src/engine.js:4194"
+    "src/engine.js:3893",
+    "src/engine.js:4179",
+    "src/engine.js:4230"
    ],
    "summary": "S5AA R45: THE HOUSEHOLD DATE, on the primary's clock -- when the household's retired costs start. The owner's rules (2026-10-03): - the FIRST stop: the primary's retirement, an EARNING spouse's retire",
    "guard": {
@@ -162,10 +268,10 @@
    "sites": [
     "src/engine.js:1155",
     "src/engine.js:1179",
-    "src/engine.js:4258",
-    "src/engine.js:4415",
-    "src/engine.js:4427",
-    "src/engine.js:4565",
+    "src/engine.js:4294",
+    "src/engine.js:4454",
+    "src/engine.js:4466",
+    "src/engine.js:4604",
     "src/debt-refinance.js:2"
    ],
    "summary": "R2R-003 external requalification fix (ARCH-01): a standing, always-on check that the tax/RMD cash settlement's sources equal its uses -- `rmdCashForTax + totalGross` (cash actually raised for this per",
@@ -193,9 +299,9 @@
    "id": "ARCH-02",
    "family": "ARCH",
    "sites": [
-    "src/engine.js:4727",
-    "src/engine.js:4778",
-    "src/engine.js:5240"
+    "src/engine.js:4766",
+    "src/engine.js:4817",
+    "src/engine.js:5279"
    ],
    "summary": "R2R-002 round 2 external requalification fix (ARCH-02): the explicit invalid-result contract. Round 1 stopped publishing a numeric `successRate` for an invalid batch but still returned `failed:true` (",
    "guard": {
@@ -237,7 +343,7 @@
    "id": "AUD-002",
    "family": "AUD",
    "sites": [
-    "src/engine.js:3194"
+    "src/engine.js:3210"
    ],
    "summary": "Audit finding AUD-002 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md, task T04): the previous inline computation conflated \"this person's benefit ENTITLEMENT amount\" with \"does this person's own ",
    "guard": {
@@ -271,8 +377,8 @@
    "id": "AUD-003",
    "family": "AUD",
    "sites": [
-    "src/engine.js:2602",
-    "src/engine.js:3724"
+    "src/engine.js:2618",
+    "src/engine.js:3746"
    ],
    "summary": "Audit finding AUD-003 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md, task T05): a mandatory RMD is money that legally MUST leave the preTax account regardless of whether the household needs it f",
    "guard": {
@@ -302,7 +408,7 @@
    "id": "AUD-005",
    "family": "AUD",
    "sites": [
-    "src/engine.js:3995"
+    "src/engine.js:4031"
    ],
    "summary": "AUD-005 fix (T06): contributionDuration used to be a single value shared by every account, capped only by the shared contributionStop age -- never intersected with whether that account's OWNER was act",
    "guard": {
@@ -331,7 +437,7 @@
    "id": "AUD-006",
    "family": "AUD",
    "sites": [
-    "src/engine.js:3622"
+    "src/engine.js:3644"
    ],
    "summary": "Audit finding AUD-006 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md, task T07): the recurring-income branch used to skip the ENTIRE period whenever `ownerAge<i.start` -- i.e. whenever the income",
    "guard": {
@@ -433,8 +539,8 @@
    "sites": [
     "src/engine.js:1869",
     "src/engine.js:2297",
-    "src/engine.js:2681",
-    "src/engine.js:2815"
+    "src/engine.js:2697",
+    "src/engine.js:2831"
    ],
    "summary": "CL-01: a Set, NOT a plain object. This read `var seen={}` with `seen[a.id]=true`, and an id of \"__proto__\" defeated it -- that key is an inherited ACCESSOR on Object.prototype, so assigning to it runs",
    "guard": {
@@ -460,8 +566,8 @@
    "id": "CL-02",
    "family": "CL",
    "sites": [
-    "src/engine.js:4580",
-    "src/engine.js:4596"
+    "src/engine.js:4619",
+    "src/engine.js:4635"
    ],
    "summary": "CL-02: A RESERVATION IS NOT A DISTRIBUTION, and the difference has to be observable. RC-01 reserved the required distribution by withholding it from the balance a conversion or transfer may consume. I",
    "guard": {
@@ -489,8 +595,8 @@
     "src/engine.js:1272",
     "src/engine.js:1568",
     "src/engine.js:1847",
-    "src/engine.js:2654",
-    "src/engine.js:5369"
+    "src/engine.js:2670",
+    "src/engine.js:5408"
    ],
    "summary": "R2R-001 round 2: the PUBLIC execution boundary half of the same repair. quoteTaxFunding()'s entry guard cannot see a malformed balance that never reaches it: simulatePlan() starts with clone(), which ",
    "guard": {
@@ -508,10 +614,10 @@
    "id": "CR2-01",
    "family": "CR2",
    "sites": [
-    "src/engine.js:2532",
-    "src/engine.js:2601",
-    "src/engine.js:4061",
-    "src/engine.js:4108",
+    "src/engine.js:2548",
+    "src/engine.js:2617",
+    "src/engine.js:4097",
+    "src/engine.js:4144",
     "src/debt-refinance.js:136"
    ],
    "summary": "RP-01: ONE TRANSACTION, not a balance move with accounting bolted on beside it. CR2-01 taught the transfer path that basis travels with the dollars, and put that arithmetic in the CALLER, next to this",
@@ -569,8 +675,8 @@
    "id": "D-1",
    "family": "D",
    "sites": [
-    "src/engine.js:2690",
-    "src/engine.js:4432"
+    "src/engine.js:2706",
+    "src/engine.js:4471"
    ],
    "summary": "FM-03 / D-1: under the retain policy the destination is a dedicated household cash holding rather than whichever taxable account happens to sort first. Its growth treatment is explicit (zero, via acco",
    "guard": {
@@ -589,7 +695,7 @@
    "id": "D-2",
    "family": "D",
    "sites": [
-    "src/engine.js:3478"
+    "src/engine.js:3494"
    ],
    "summary": "FM-07 fix (FULL_MODEL_AUDIT_AND_CLAUDE_HANDOVER_20260910.md; user decision D-2 = scale to elapsed time): a spending decision must apply the inflation the previous period ACTUALLY accrued, not a full y",
    "guard": {
@@ -607,7 +713,7 @@
    "id": "EA-01",
    "family": "EA",
    "sites": [
-    "src/engine.js:3898"
+    "src/engine.js:3934"
    ],
    "summary": "S5AA R9 ROUND, the owner's decision 8 (2026-09-21): THE PROJECTION STOPS AT THE LAST DEATH. A row is projected only while someone the plan models is alive at its opening, by householdSurvivorship() --",
    "guard": {
@@ -640,7 +746,7 @@
    "id": "EA-02",
    "family": "EA",
    "sites": [
-    "src/engine.js:4196"
+    "src/engine.js:4232"
    ],
    "summary": "R6 EXTERNAL AUDIT, EA-02: WHO IS ALIVE, not how the household was configured. This read `1 + (spouseOn && spouseAge >= 65)`, so a spouse who had died went on being charged Medicare -- MEASURED at 5c98",
    "guard": {
@@ -670,7 +776,7 @@
    "sites": [
     "src/engine.js:33",
     "src/engine.js:677",
-    "src/engine.js:5097"
+    "src/engine.js:5136"
    ],
    "summary": "R6 EXTERNAL AUDIT, EA-03: THE ROW'S FILING STATUS. This read the ENTERED status, so a survivor stayed on the joint phase-out for the rest of the plan -- MEASURED at 5c985c0, a survivor earning $170,00",
    "guard": {
@@ -701,8 +807,8 @@
    "sites": [
     "src/engine.js:523",
     "src/engine.js:2394",
-    "src/engine.js:4642",
-    "src/engine.js:4642"
+    "src/engine.js:4681",
+    "src/engine.js:4681"
    ],
    "summary": "R6 EXTERNAL AUDIT, EA-04 AND EA-05: THE TAX CHARACTER OF A PRE-TAX DISTRIBUTION, in one place. EA-04: the nontaxable share of a draw was priced on the owner's pool, but the basis it recovered was summ",
    "guard": {
@@ -728,9 +834,9 @@
    "family": "EA",
    "sites": [
     "src/engine.js:523",
-    "src/engine.js:2947",
-    "src/engine.js:4108",
-    "src/engine.js:4143"
+    "src/engine.js:2963",
+    "src/engine.js:4144",
+    "src/engine.js:4179"
    ],
    "summary": "R6 EXTERNAL AUDIT, EA-04 AND EA-05: THE TAX CHARACTER OF A PRE-TAX DISTRIBUTION, in one place. EA-04: the nontaxable share of a draw was priced on the owner's pool, but the basis it recovered was summ",
    "guard": {
@@ -758,8 +864,8 @@
    "id": "EA-07",
    "family": "EA",
    "sites": [
-    "src/engine.js:3930",
-    "src/engine.js:4649"
+    "src/engine.js:3966",
+    "src/engine.js:4688"
    ],
    "summary": "S5AA follow-up, Q4 (the owner, 2026-09-21): A DECEASED SPOUSE'S ACCOUNTS PASS TO THE SURVIVOR, modelled as the surviving spouse's election to treat them as their own -- Treas. Reg. 1.408-8(c) for an I",
    "guard": {
@@ -825,13 +931,13 @@
     "src/engine.js:2008",
     "src/engine.js:2029",
     "src/engine.js:2308",
-    "src/engine.js:3930",
-    "src/engine.js:3986",
-    "src/engine.js:4196",
-    "src/engine.js:4344",
-    "src/engine.js:4370",
-    "src/engine.js:5060",
-    "src/engine.js:5123"
+    "src/engine.js:3966",
+    "src/engine.js:4022",
+    "src/engine.js:4232",
+    "src/engine.js:4380",
+    "src/engine.js:4409",
+    "src/engine.js:5099",
+    "src/engine.js:5162"
    ],
    "summary": "Q88 (F-02): WHO IS ALIVE IN THIS ROW. `p.profile.filing` was static for the whole projection -- nothing anywhere changed it -- so a couple filing mfj still filed mfj in every year after one of them di",
    "guard": {
@@ -881,7 +987,7 @@
    "id": "FLOWS-01",
    "family": "FLOWS",
    "sites": [
-    "src/engine.js:4235"
+    "src/engine.js:4271"
    ],
    "summary": "S5AA R35 (SA32F-19; R32F FLOWS-01): A WORKING SPOUSE'S PAY FUNDS RETIREMENT SPENDING. Spending starts at the primary's retirement age and a younger spouse works on to their own; the wages paid the wag",
    "guard": {
@@ -899,7 +1005,7 @@
    "id": "FLOWS-03",
    "family": "FLOWS",
    "sites": [
-    "src/engine.js:2522"
+    "src/engine.js:2538"
    ],
    "summary": "S5AA R35 (SA32F-20; R32F FLOWS-03, confirmed by R32V for \"the UI's stock-access interpretation\"): \"Accessible share\" is a share of the asset AS A STOCK. The draw re-applied it to whatever value remain",
    "guard": {
@@ -917,7 +1023,7 @@
    "id": "FLOWS-06",
    "family": "FLOWS",
    "sites": [
-    "src/engine.js:3562"
+    "src/engine.js:3578"
    ],
    "summary": "S5AA R35 (SA32F-39; R32F FLOWS-06): THE STAGE BEFORE THE SURVIVOR REDUCTION. The stage read the already-reduced amount, so a percent stage kept the reduction and a \"Set annual spending\" amount replace",
    "guard": {
@@ -935,10 +1041,10 @@
    "id": "FM-01",
    "family": "FM",
    "sites": [
-    "src/engine.js:3123",
-    "src/engine.js:3166",
-    "src/engine.js:3267",
-    "src/engine.js:3673"
+    "src/engine.js:3139",
+    "src/engine.js:3182",
+    "src/engine.js:3283",
+    "src/engine.js:3695"
    ],
    "summary": "FM-01 fix (FULL_MODEL_AUDIT_AND_CLAUDE_HANDOVER_20260910.md): indexing into COLA history needs an OWNER-SPECIFIC calendar origin. The previous form chose its history year with startHistoryIndex + floo",
    "guard": {
@@ -1007,17 +1113,17 @@
    "family": "FM",
    "sites": [
     "src/engine.js:1211",
-    "src/engine.js:2624",
-    "src/engine.js:2690",
-    "src/engine.js:3690",
-    "src/engine.js:3721",
-    "src/engine.js:3763",
-    "src/engine.js:4264",
-    "src/engine.js:4325",
-    "src/engine.js:4375",
-    "src/engine.js:4432",
-    "src/engine.js:4506",
-    "src/engine.js:4554"
+    "src/engine.js:2640",
+    "src/engine.js:2706",
+    "src/engine.js:3712",
+    "src/engine.js:3743",
+    "src/engine.js:3785",
+    "src/engine.js:4300",
+    "src/engine.js:4361",
+    "src/engine.js:4414",
+    "src/engine.js:4471",
+    "src/engine.js:4545",
+    "src/engine.js:4593"
    ],
    "summary": "FM-03: the identity now spans HOUSEHOLD cash, not portfolio sales alone. Outside income surplus is a genuine cash source that funds tax and retention without any asset being sold, so omitting it made ",
    "guard": {
@@ -1055,8 +1161,8 @@
    "id": "FM-07",
    "family": "FM",
    "sites": [
-    "src/engine.js:3478",
-    "src/engine.js:4642"
+    "src/engine.js:3494",
+    "src/engine.js:4681"
    ],
    "summary": "FM-07 fix (FULL_MODEL_AUDIT_AND_CLAUDE_HANDOVER_20260910.md; user decision D-2 = scale to elapsed time): a spending decision must apply the inflation the previous period ACTUALLY accrued, not a full y",
    "guard": {
@@ -1083,7 +1189,7 @@
    "id": "FM-09",
    "family": "FM",
    "sites": [
-    "src/engine.js:5098"
+    "src/engine.js:5137"
    ],
    "summary": "Q94 (F8): AN ADJUSTABLE LOAN RE-AMORTISES, AND THE HOUSEHOLD IS TOLD SO. Until S5AA task 5.1 this depended on a switch that occurred ONCE in the whole shipped page -- inside the default plan, with no ",
    "guard": {
@@ -1110,8 +1216,8 @@
    "id": "HR-02",
    "family": "HR",
    "sites": [
-    "src/engine.js:2690",
-    "src/engine.js:4506"
+    "src/engine.js:2706",
+    "src/engine.js:4545"
    ],
    "summary": "FM-03 / D-1: under the retain policy the destination is a dedicated household cash holding rather than whichever taxable account happens to sort first. Its growth treatment is explicit (zero, via acco",
    "guard": {
@@ -1144,7 +1250,7 @@
    "id": "L-3",
    "family": "L",
    "sites": [
-    "src/engine.js:2754"
+    "src/engine.js:2770"
    ],
    "summary": "S5AA R39 (R38-03, ChatGPT's R38 change audit; the owner 2026-09-29: \"go with your recommendations\"): THE ELECTION READS THE VESTING AT ALLOCATION. Notice 2024-2, Q&A L-3, under 402A(f)(3): a match \"ma",
    "guard": {
@@ -1183,7 +1289,7 @@
    "id": "P1",
    "family": "P",
    "sites": [
-    "src/engine.js:3166"
+    "src/engine.js:3182"
    ],
    "summary": "P1 (decision register, 2026-09-10), closing SPRINT_QUESTIONS.md Q16. A benefit CLAIMED BEFORE THE PROJECTION OPENS still has to be indexed from its claim age: ssaBenefitAtClaim() treats the entered fi",
    "guard": {
@@ -1231,7 +1337,7 @@
    "id": "P2",
    "family": "P",
    "sites": [
-    "src/engine.js:4232"
+    "src/engine.js:4268"
    ],
    "summary": "P2 (decision register, 2026-09-10): outside income ALWAYS offsets the portfolio draw. Q18 and Q26 close here. `incomeOffset:false` meant the household sold assets for its full spending AND received it",
    "guard": {
@@ -1308,7 +1414,7 @@
    "id": "PCF-01",
    "family": "PCF",
    "sites": [
-    "src/engine.js:4111"
+    "src/engine.js:4147"
    ],
    "summary": "S5AA R29 (PCF-01, ChatGPT's PCF full-model audit; the owner 2026-09-28: \"Tax it like a withdrawal\"): A TRANSFER OUT OF AN HSA IS AN HSA DISTRIBUTION. Only a pre-tax source was taxed here, so a $10,000",
    "guard": {
@@ -1337,13 +1443,13 @@
    "family": "PCF",
    "sites": [
     "src/engine.js:237",
-    "src/engine.js:2885",
-    "src/engine.js:2889",
-    "src/engine.js:2891",
-    "src/engine.js:4056",
-    "src/engine.js:4063",
-    "src/engine.js:4091",
-    "src/engine.js:4116"
+    "src/engine.js:2901",
+    "src/engine.js:2905",
+    "src/engine.js:2907",
+    "src/engine.js:4092",
+    "src/engine.js:4099",
+    "src/engine.js:4127",
+    "src/engine.js:4152"
    ],
    "summary": "S5AA R29 (PCF-02, ChatGPT's PCF full-model audit; the owner 2026-09-28: \"As a contribution\"): A ONE-TIME CONTRIBUTION -- a transfer into an IRA or an HSA from a different kind of account -- is held to",
    "guard": {
@@ -1375,7 +1481,7 @@
    "id": "PCF-03",
    "family": "PCF",
    "sites": [
-    "src/engine.js:4219"
+    "src/engine.js:4255"
    ],
    "summary": "S5AA R29 (PCF-03, the owner 2026-09-28: \"Repair\"): keyed by account id, so no prototype -- a plain object took an id of \"__proto__\" as its prototype, the own-key reads below missed it, and that accoun",
    "guard": {
@@ -1402,8 +1508,8 @@
     "src/engine.js:1417",
     "src/engine.js:1436",
     "src/engine.js:1453",
-    "src/engine.js:4893",
-    "src/engine.js:5452"
+    "src/engine.js:4932",
+    "src/engine.js:5491"
    ],
    "summary": "S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lif",
    "guard": {
@@ -1422,7 +1528,7 @@
    "id": "Q101",
    "family": "Q",
    "sites": [
-    "src/engine.js:5283"
+    "src/engine.js:5322"
    ],
    "summary": "S5AA task 1.2, Q101: EVERY path is checked, and a failed ESSENTIAL invariant invalidates the batch. Previously the issues collector went to `i===0?issues:null`, and checkRowInvariants() is gated on ha",
    "guard": {
@@ -1444,8 +1550,8 @@
    "id": "Q104",
    "family": "Q",
    "sites": [
-    "src/engine.js:4004",
-    "src/engine.js:4328"
+    "src/engine.js:4040",
+    "src/engine.js:4364"
    ],
    "summary": "Q104 (G11): an HSA contribution is tracked SEPARATELY and PER OWNER, because \"pre-tax\" is not one category. Publication 969: a contribution an employer makes using an employee's salary reduction throu",
    "guard": {
@@ -1463,7 +1569,7 @@
    "id": "Q105",
    "family": "Q",
    "sites": [
-    "src/engine.js:4318"
+    "src/engine.js:4354"
    ],
    "summary": "Q105 (G13): THE ABSENCE OF `dividendStart` HERE IS DELIBERATE and was decided rather than overlooked (the owner, decision 12.9 (b)). `dividendStart` means WHEN MODELLED DIVIDEND CASH STARTS BEING PAID",
    "guard": {
@@ -1508,7 +1614,7 @@
    "id": "Q108",
    "family": "Q",
    "sites": [
-    "src/engine.js:3545"
+    "src/engine.js:3561"
    ],
    "summary": "S5AA task 2.1, Q108: the carried base is the UNADJUSTED amount. `base` becomes next year's priorSpend, and fixedReal computes each year as priorSpend*inflationStep -- so anything folded into `base` is",
    "guard": {
@@ -1526,7 +1632,7 @@
    "id": "Q109",
    "family": "Q",
    "sites": [
-    "src/engine.js:3565"
+    "src/engine.js:3581"
    ],
    "summary": "S5AA task 2.2, Q109: the down-year cut is a LEVEL, not a ratchet. `base*=1-r.flexibility/100` used to sit beside the line below, writing the cut into what the next year starts from -- so each year's c",
    "guard": {
@@ -1550,7 +1656,7 @@
    "family": "Q",
    "sites": [
     "src/engine.js:342",
-    "src/engine.js:2971"
+    "src/engine.js:2987"
    ],
    "summary": "S5AA R37 (SA32F-44; R32V: \"Declare the convention or add timing\"): the age-65 exception (IRC 223(f)(4)(C)) is judged at the age passed in, which for a pooled draw is the age its projection year opened",
    "guard": {
@@ -1569,8 +1675,8 @@
    "id": "Q16",
    "family": "Q",
    "sites": [
-    "src/engine.js:3123",
-    "src/engine.js:3166"
+    "src/engine.js:3139",
+    "src/engine.js:3182"
    ],
    "summary": "FM-01 fix (FULL_MODEL_AUDIT_AND_CLAUDE_HANDOVER_20260910.md): indexing into COLA history needs an OWNER-SPECIFIC calendar origin. The previous form chose its history year with startHistoryIndex + floo",
    "guard": {
@@ -1596,7 +1702,7 @@
    "id": "Q18",
    "family": "Q",
    "sites": [
-    "src/engine.js:4232"
+    "src/engine.js:4268"
    ],
    "summary": "P2 (decision register, 2026-09-10): outside income ALWAYS offsets the portfolio draw. Q18 and Q26 close here. `incomeOffset:false` meant the household sold assets for its full spending AND received it",
    "guard": {
@@ -1615,10 +1721,10 @@
    "id": "Q19",
    "family": "Q",
    "sites": [
-    "src/engine.js:3705",
-    "src/engine.js:4285",
-    "src/engine.js:4450",
-    "src/engine.js:4506"
+    "src/engine.js:3727",
+    "src/engine.js:4321",
+    "src/engine.js:4489",
+    "src/engine.js:4545"
    ],
    "summary": "RA-02 (re-audit 2026-09-11): `suppressDraw` computes this period's return for an account being SYNTHESIZED mid-period, without consuming an RNG draw. A destination appended during settlement has no en",
    "guard": {
@@ -1671,7 +1777,7 @@
    "id": "Q26",
    "family": "Q",
    "sites": [
-    "src/engine.js:4232"
+    "src/engine.js:4268"
    ],
    "summary": "P2 (decision register, 2026-09-10): outside income ALWAYS offsets the portfolio draw. Q18 and Q26 close here. `incomeOffset:false` meant the household sold assets for its full spending AND received it",
    "guard": {
@@ -1690,8 +1796,8 @@
    "family": "Q",
    "sites": [
     "src/engine.js:2446",
-    "src/engine.js:2521",
-    "src/engine.js:4623"
+    "src/engine.js:2525",
+    "src/engine.js:4662"
    ],
    "summary": "P9 (decision register), closing part of SPRINT_QUESTIONS.md Q35: a row used to expose only retirement-period debt payments, so working-period payments and the interest/principal split were outside the",
    "guard": {
@@ -1718,8 +1824,8 @@
    "id": "Q38",
    "family": "Q",
    "sites": [
-    "src/engine.js:3541",
-    "src/engine.js:3580"
+    "src/engine.js:3557",
+    "src/engine.js:3602"
    ],
    "summary": "Q38: incomeFirst is dispatched EXPLICITLY, though this is identical to the else branch it used to fall through to. tests/lib/scenario-generator.js harvests the strategy enumeration by regex over this ",
    "guard": {
@@ -1751,7 +1857,7 @@
    "family": "Q",
    "sites": [
     "src/engine.js:2510",
-    "src/engine.js:4615"
+    "src/engine.js:4654"
    ],
    "summary": "Q43's decided scope is PRESERVED, deliberately. An ABSENT paymentMonthly means \"not stated\", not zero: the validator does not warn on it, and Q43 decided it is outside the flagged case. Its control te",
    "guard": {
@@ -1774,6 +1880,7 @@
     "files": [
      "tests/audit-s5aa-forced-payoff-flag.test.js",
      "tests/contribution-and-debt-projection.test.js",
+     "tests/scenario-generator.test.js",
      "tests/scenario-validator.test.js",
      "tests/schema-catalogue.test.js"
     ],
@@ -1786,7 +1893,7 @@
    "id": "Q44",
    "family": "Q",
    "sites": [
-    "src/engine.js:4564"
+    "src/engine.js:4603"
    ],
    "summary": "Q44, decided 2026-09-13 (reading b, a real scope leak): the fallback spends other assets only while the plan includes them. advanced.networthOn is the app's \"Include other assets and debts\" switch; wi",
    "guard": {
@@ -1813,8 +1920,8 @@
    "family": "Q",
    "sites": [
     "src/engine.js:1568",
-    "src/engine.js:5369",
-    "src/engine.js:5438"
+    "src/engine.js:5408",
+    "src/engine.js:5477"
    ],
    "summary": "Q48: the one input class the finiteness gate above cannot see, because it fails INSIDE clone() rather than after it. simulatePlan() opens with clone(p.accounts), clone(p.advanced.otherAssets) and clon",
    "guard": {
@@ -1882,7 +1989,7 @@
    "id": "Q51",
    "family": "Q",
    "sites": [
-    "src/engine.js:5026"
+    "src/engine.js:5065"
    ],
    "summary": "Q51, Q52 -- decided 2026-09-13 (the owner): disclose and swap. strategySpending() orders an inverted floor/ceiling or VPW rate pair itself, at each of its three user-bounded clamp() sites. This record",
    "guard": {
@@ -1910,7 +2017,7 @@
    "id": "Q52",
    "family": "Q",
    "sites": [
-    "src/engine.js:5026"
+    "src/engine.js:5065"
    ],
    "summary": "Q51, Q52 -- decided 2026-09-13 (the owner): disclose and swap. strategySpending() orders an inverted floor/ceiling or VPW rate pair itself, at each of its three user-bounded clamp() sites. This record",
    "guard": {
@@ -1936,7 +2043,7 @@
    "family": "Q",
    "sites": [
     "src/engine.js:1632",
-    "src/engine.js:5008"
+    "src/engine.js:5047"
    ],
    "summary": "Q53: the plan's boolean flags were read by truthiness, so the string \"false\" switched a feature ON. Decided 2026-09-13 (the owner): a present value that is not a boolean is refused, never coerced; a t",
    "guard": {
@@ -2017,9 +2124,9 @@
    "id": "Q58",
    "family": "Q",
    "sites": [
-    "src/engine.js:3582",
-    "src/engine.js:3596",
-    "src/engine.js:5021"
+    "src/engine.js:3604",
+    "src/engine.js:3618",
+    "src/engine.js:5060"
    ],
    "summary": "Q58: one resolution rule for a plan's withdrawal-strategy name, used by runPlan() and by the app's form. Decided 2026-09-13 (the owner): normalise case silently, and warn and then default an unrecogni",
    "guard": {
@@ -2054,6 +2161,33 @@
    "dispositionBasis": "Q58 status in SPRINT_QUESTIONS.md: other: REPAIRED 2026-09-14, per the decision below."
   },
   {
+   "id": "Q59",
+   "family": "Q",
+   "sites": [
+    "src/engine.js:3820"
+   ],
+   "summary": "S5AA R49 (AA1-07; the owner's AA1 decision, 2026-10-03: \"a warning-only working-years affordability check\"): the plan has no working-years budget (MODEL_ASSUMPTIONS.md section 7, Q59): before the hous",
+   "guard": {
+    "class": "GUARDED_BY_TEST_NAME",
+    "tests": [
+     "tests/audit-q59-budget-warnings.test.js :: Q59: contributions with no earned income behind them are warned about, and the plan stays valid",
+     "tests/audit-q59-budget-warnings.test.js :: Q59: a debt whose payments are excluded from spending is warned about, and the plan stays valid",
+     "tests/audit-q59-budget-warnings.test.js :: Q59 control: a spousal IRA funded from the other spouse\\'s pay is not reported",
+     "tests/audit-q59-budget-warnings.test.js :: Q59 control: contributions exactly equal to earned income are not reported",
+     "tests/audit-q59-budget-warnings.test.js :: Q59 control: a retired spouse\\'s account is not counted",
+     "tests/audit-q59-budget-warnings.test.js :: Q59 control: a plan past its contribution stop is not reported",
+     "tests/audit-q59-budget-warnings.test.js :: Q59 control: a debt counted in spending, or one with nothing left to pay, is not reported"
+    ],
+    "files": [
+     "tests/audit-q59-budget-warnings.test.js",
+     "tests/scenario-generator.test.js"
+    ],
+    "onlyTodo": false
+   },
+   "disposition": "carried-forward",
+   "dispositionBasis": "Q59 status in SPRINT_QUESTIONS.md: other: REPAIRED 2026-09-14, both warnings."
+  },
+  {
    "id": "Q67",
    "family": "Q",
    "sites": [
@@ -2085,7 +2219,7 @@
    "sites": [
     "src/engine.js:250",
     "src/engine.js:1480",
-    "src/engine.js:5237"
+    "src/engine.js:5276"
    ],
    "summary": "Q68: the filing-status tables are parsed JSON, so each inherits Object.prototype, and a bracket read by a prototype name returned an inherited member. For \"constructor\" that is the Object function: tr",
    "guard": {
@@ -2238,8 +2372,8 @@
    "sites": [
     "src/engine.js:1698",
     "src/engine.js:1766",
-    "src/engine.js:4869",
-    "src/engine.js:5008"
+    "src/engine.js:4908",
+    "src/engine.js:5047"
    ],
    "summary": "S5 2l.2: a truly absent engine-read flag takes its documented default. The engine already reads an absent flag as false, which is the default for all but five, so only a default that resolves to true ",
    "guard": {
@@ -2271,8 +2405,8 @@
    "id": "Q81",
    "family": "Q",
    "sites": [
-    "src/engine.js:3596",
-    "src/engine.js:5021"
+    "src/engine.js:3618",
+    "src/engine.js:5060"
    ],
    "summary": "Q58, Q81: one resolution of a plan's withdrawal-strategy name per run, on every route that runs a plan: runPlan() before its paths, and a direct simulatePlan() call -- the exported function and the he",
    "guard": {
@@ -2308,15 +2442,15 @@
     "src/engine.js:2380",
     "src/engine.js:2390",
     "src/engine.js:2390",
-    "src/engine.js:3876",
-    "src/engine.js:4010",
-    "src/engine.js:4032",
-    "src/engine.js:4294",
-    "src/engine.js:4333",
-    "src/engine.js:4344",
-    "src/engine.js:4385",
-    "src/engine.js:4642",
-    "src/engine.js:4642"
+    "src/engine.js:3904",
+    "src/engine.js:4046",
+    "src/engine.js:4068",
+    "src/engine.js:4330",
+    "src/engine.js:4369",
+    "src/engine.js:4380",
+    "src/engine.js:4424",
+    "src/engine.js:4681",
+    "src/engine.js:4681"
    ],
    "summary": "Q87 (F1, with G15): the traditional IRA deduction and its IRC 219(g) phase-out. A traditional IRA contribution was not deducted AT ALL -- an IRA is limitGroup \"ira\", and only \"workplace\" and \"hsa\" rea",
    "guard": {
@@ -2362,10 +2496,10 @@
     "src/engine.js:2008",
     "src/engine.js:2029",
     "src/engine.js:2308",
-    "src/engine.js:4196",
-    "src/engine.js:4344",
-    "src/engine.js:4370",
-    "src/engine.js:5060"
+    "src/engine.js:4232",
+    "src/engine.js:4380",
+    "src/engine.js:4409",
+    "src/engine.js:5099"
    ],
    "summary": "Q88 (F2, with G16): the REGULAR additional standard deduction for the aged, IRC 63(f)(1). It was simply absent: estimateTaxes() charged the basic standard deduction plus the temporary enhanced senior ",
    "guard": {
@@ -2397,8 +2531,8 @@
     "src/engine.js:437",
     "src/engine.js:1141",
     "src/engine.js:1905",
-    "src/engine.js:3649",
-    "src/engine.js:4386"
+    "src/engine.js:3671",
+    "src/engine.js:4425"
    ],
    "summary": "Q89 (F3, with G17): `niiOther` is net investment income that is NOT already in `capitalGains` or `qualifiedDividends` -- the non-qualified dividend remainder, and rental and investment streams. It get",
    "guard": {
@@ -2426,12 +2560,12 @@
    "sites": [
     "src/engine.js:2302",
     "src/engine.js:2380",
-    "src/engine.js:2787",
-    "src/engine.js:3011",
-    "src/engine.js:3022",
-    "src/engine.js:3115",
-    "src/engine.js:3912",
-    "src/engine.js:4294"
+    "src/engine.js:2803",
+    "src/engine.js:3027",
+    "src/engine.js:3038",
+    "src/engine.js:3131",
+    "src/engine.js:3948",
+    "src/engine.js:4330"
    ],
    "summary": "Q90 (F4, N2, G18): the start age is a BIRTH-YEAR rule, so it is per person. The second argument is that person's age at the plan's start; omitted, it is the primary profile's, which is what every exis",
    "guard": {
@@ -2461,13 +2595,13 @@
     "src/engine.js:2205",
     "src/engine.js:2228",
     "src/engine.js:2247",
-    "src/engine.js:3219",
-    "src/engine.js:3271",
-    "src/engine.js:3307",
-    "src/engine.js:3374",
-    "src/engine.js:3874",
-    "src/engine.js:4202",
-    "src/engine.js:4641"
+    "src/engine.js:3235",
+    "src/engine.js:3287",
+    "src/engine.js:3323",
+    "src/engine.js:3390",
+    "src/engine.js:3902",
+    "src/engine.js:4238",
+    "src/engine.js:4680"
    ],
    "summary": "Q91 (F5): FULL RETIREMENT AGE, stated once. ssaBenefitAtClaim() derived it inline; the earnings test needs the same number, and two derivations of one fact is the shape this sprint keeps repairing.",
    "guard": {
@@ -2498,9 +2632,9 @@
     "src/engine.js:2125",
     "src/engine.js:2150",
     "src/engine.js:2163",
-    "src/engine.js:3235",
-    "src/engine.js:3340",
-    "src/engine.js:5051"
+    "src/engine.js:3251",
+    "src/engine.js:3356",
+    "src/engine.js:5090"
    ],
    "summary": "Q92 (F6): A SURVIVOR BENEFIT IS A DIFFERENT BENEFIT WITH A DIFFERENT CLOCK. The survivor branch paid only if the recipient had reached THEIR OWN RETIREMENT claim age, so a widow of 60 whose own claim ",
    "guard": {
@@ -2541,8 +2675,8 @@
     "src/engine.js:1978",
     "src/engine.js:2045",
     "src/engine.js:2318",
-    "src/engine.js:4108",
-    "src/engine.js:4245"
+    "src/engine.js:4144",
+    "src/engine.js:4281"
    ],
    "summary": "Q93: the penalty rate can now DIFFER BETWEEN ACCOUNTS inside the preTax class, because the Rule of 55 exempts workplace money and not an IRA. When it does, preTax is split PER ACCOUNT exactly as taxab",
    "guard": {
@@ -2570,7 +2704,7 @@
    "family": "Q",
    "sites": [
     "src/engine.js:2411",
-    "src/engine.js:5098"
+    "src/engine.js:5137"
    ],
    "summary": "ARM payment shock (S2 sprint, 2026-09-10, item 8 of §8 in ROADMAP_EXTERNAL_REVIEW.md): the rate steps at nextRateResetAge, but the payment previously never did -- an adjustable debt kept its entered p",
    "guard": {
@@ -2606,7 +2740,7 @@
    "sites": [
     "src/engine.js:211",
     "src/engine.js:224",
-    "src/engine.js:4017"
+    "src/engine.js:4053"
    ],
    "summary": "S5AA task 3.3 (Q95, F9): the ONE definition of this account's share of the catch-up room, and it is now computed for EVERY workplace account rather than only inside the pre-tax Roth warning below. Two",
    "guard": {
@@ -2624,11 +2758,11 @@
    "id": "Q96",
    "family": "Q",
    "sites": [
-    "src/engine.js:2729",
-    "src/engine.js:2762",
-    "src/engine.js:4028",
-    "src/engine.js:4325",
-    "src/engine.js:4385"
+    "src/engine.js:2745",
+    "src/engine.js:2778",
+    "src/engine.js:4064",
+    "src/engine.js:4361",
+    "src/engine.js:4424"
    ],
    "summary": "Q96 (F10): THE TAX CHARACTER OF AN EMPLOYER MATCH, AND THEREFORE WHERE IT LANDS. The row used to add the match straight to the account that earned it -- `target.balance+=match` -- so a match on a Roth",
    "guard": {
@@ -2665,10 +2799,10 @@
    "id": "Q97",
    "family": "Q",
    "sites": [
-    "src/engine.js:2853",
-    "src/engine.js:2881",
-    "src/engine.js:2942",
-    "src/engine.js:4138"
+    "src/engine.js:2869",
+    "src/engine.js:2897",
+    "src/engine.js:2958",
+    "src/engine.js:4174"
    ],
    "summary": "Q97 (G1): WHICH accounts a conversion moves money BETWEEN. The row used to take accounts.find(x=>x.taxClass===\"preTax\") and accounts.find(x=>x.taxClass===\"roth\") -- the first of each IN ARRAY ORDER --",
    "guard": {
@@ -2704,9 +2838,9 @@
    "id": "Q98",
    "family": "Q",
    "sites": [
-    "src/engine.js:3678",
-    "src/engine.js:4004",
-    "src/engine.js:4350"
+    "src/engine.js:3700",
+    "src/engine.js:4040",
+    "src/engine.js:4386"
    ],
    "summary": "Q98 (G4): an `employment` stream IS wages -- it bears Social Security and Medicare payroll tax like any other wages. It is kept PER OWNER because the OASDI wage base is a per-person cap: crediting a s",
    "guard": {
@@ -2733,9 +2867,9 @@
     "src/engine.js:2309",
     "src/engine.js:2375",
     "src/engine.js:2394",
-    "src/engine.js:4307",
-    "src/engine.js:4383",
-    "src/engine.js:5051"
+    "src/engine.js:4343",
+    "src/engine.js:4422",
+    "src/engine.js:5090"
    ],
    "summary": "Q99 (G5): THE QUALIFIED-MEDICAL SHARE OF AN HSA DISTRIBUTION, stated once. Before this, an HSA draw was tax-free at every age for every purpose: withdrawFromClass() recognised gains for `taxable` and ",
    "guard": {
@@ -2775,7 +2909,7 @@
    "id": "R10-01",
    "family": "R10",
    "sites": [
-    "src/engine.js:3532"
+    "src/engine.js:3548"
    ],
    "summary": "R11 round, external audit of 02b921a (R10-01): the REMAINING MODELLED DURATION, which is the horizon less this decision's age. It was that plus one: a period from 80 to 81 is one year, not two, and a ",
    "guard": {
@@ -2806,9 +2940,9 @@
    "id": "R10-02",
    "family": "R10",
    "sites": [
-    "src/engine.js:2790",
-    "src/engine.js:2953",
-    "src/engine.js:4066"
+    "src/engine.js:2806",
+    "src/engine.js:2969",
+    "src/engine.js:4102"
    ],
    "summary": "S5AA R11 round, external audit of 02b921a (R10-02): WHAT A CONVERSION OR TRANSFER MAY SPEND, PER OBLIGATION. Required distributions are per owner and per plan (task 4.2, rmdObligations()): an owner's ",
    "guard": {
@@ -2897,7 +3031,7 @@
    "id": "R10-06",
    "family": "R10",
    "sites": [
-    "src/engine.js:2563"
+    "src/engine.js:2579"
    ],
    "summary": "S5AA R18 round, WORKSTREAM B (R10-06; design reviewed in the re-audit of 149ca0d, rulings B1 (c) and B2 adopted by the owner, 2026-09-22): A TAXABLE ACCOUNT'S BASIS IS DOLLARS. It was a percentage of ",
    "guard": {
@@ -2925,9 +3059,9 @@
    "family": "R10",
    "sites": [
     "src/engine.js:1508",
-    "src/engine.js:3898",
-    "src/engine.js:5040",
-    "src/engine.js:5183"
+    "src/engine.js:3934",
+    "src/engine.js:5079",
+    "src/engine.js:5222"
    ],
    "summary": "S5AA R11 round, external audit of 02b921a (R10-07): WHERE THE PROJECTION STOPS, as one function. Decision 8 cuts the rows at the first opening with nobody alive; the row loop computed that inline, and",
    "guard": {
@@ -2952,9 +3086,9 @@
    "id": "R11-01",
    "family": "R11",
    "sites": [
-    "src/engine.js:2815",
-    "src/engine.js:3730",
-    "src/engine.js:4102"
+    "src/engine.js:2831",
+    "src/engine.js:3752",
+    "src/engine.js:4138"
    ],
    "summary": "R12 round, external re-audit of b053dc2 (R11-01): WHAT A DRAWN OBLIGATION KEEPS OUT OF THE ROW'S RETURN. The groups above leave each obligation its own money, but as an exact nominal amount, still inv",
    "guard": {
@@ -3006,7 +3140,7 @@
    "id": "R11-03",
    "family": "R11",
    "sites": [
-    "src/engine.js:5175"
+    "src/engine.js:5214"
    ],
    "summary": "R12 round, external re-audit of b053dc2 (R11-03): from the first row in which the owner is DEAD. The year of a death is a year the person lived in (householdSurvivorship() counts them dead only once t",
    "guard": {
@@ -3031,7 +3165,7 @@
    "id": "R12-01",
    "family": "R12",
    "sites": [
-    "src/engine.js:2815"
+    "src/engine.js:2831"
    ],
    "summary": "R12 round, external re-audit of b053dc2 (R11-01): WHAT A DRAWN OBLIGATION KEEPS OUT OF THE ROW'S RETURN. The groups above leave each obligation its own money, but as an exact nominal amount, still inv",
    "guard": {
@@ -3055,8 +3189,8 @@
    "id": "R13-01",
    "family": "R13",
    "sites": [
-    "src/engine.js:2815",
-    "src/engine.js:3912"
+    "src/engine.js:2831",
+    "src/engine.js:3948"
    ],
    "summary": "R12 round, external re-audit of b053dc2 (R11-01): WHAT A DRAWN OBLIGATION KEEPS OUT OF THE ROW'S RETURN. The groups above leave each obligation its own money, but as an exact nominal amount, still inv",
    "guard": {
@@ -3083,10 +3217,10 @@
    "id": "R14-01",
    "family": "R14",
    "sites": [
-    "src/engine.js:2895",
-    "src/engine.js:4066",
+    "src/engine.js:2911",
     "src/engine.js:4102",
-    "src/engine.js:4302"
+    "src/engine.js:4138",
+    "src/engine.js:4338"
    ],
    "summary": "S5AA R30 (raised in ChatGPT's R29 change audit; the owner 2026-09-28: \"Research, then repair in R30\"): A PRE-TAX TRANSFER THAT IS A DISTRIBUTION COUNTS TOWARD THE YEAR'S REQUIRED DISTRIBUTION, WHEREVE",
    "guard": {
@@ -3117,7 +3251,7 @@
    "id": "R15-01",
    "family": "R15",
    "sites": [
-    "src/engine.js:4596"
+    "src/engine.js:4635"
    ],
    "summary": "SCOPED TO A DEFEATED RESERVATION, not to every underfunded distribution. An account that simply has less than its obligation -- a deep loss, a prior drawdown -- distributes what it has, and that is a ",
    "guard": {
@@ -3141,8 +3275,8 @@
    "id": "R16-01",
    "family": "R16",
    "sites": [
-    "src/engine.js:4302",
-    "src/engine.js:4596"
+    "src/engine.js:4338",
+    "src/engine.js:4635"
    ],
    "summary": "R17 round (Q1-B, the owner 2026-09-22; external re-audit of dcd7247, R16-01): EACH OBLIGATION IS CLASSIFIED BY ITSELF. It was promised when a conversion or transfer drew on its group and left a positi",
    "guard": {
@@ -3288,7 +3422,7 @@
    "sites": [
     "src/engine.js:268",
     "src/engine.js:848",
-    "src/engine.js:4353"
+    "src/engine.js:4392"
    ],
    "summary": "Q22 (found 2026-09-11 by adversarially inspecting the re-audit): where a retained cash holding sits in its tax class's spending order. THE DEFECT. retainExcessRmdCash() creates the holding with `prior",
    "guard": {
@@ -3313,10 +3447,10 @@
    "id": "R2-002",
    "family": "R2",
    "sites": [
-    "src/engine.js:4248",
-    "src/engine.js:4264",
-    "src/engine.js:4353",
-    "src/engine.js:4399"
+    "src/engine.js:4284",
+    "src/engine.js:4300",
+    "src/engine.js:4392",
+    "src/engine.js:4438"
    ],
    "summary": "R2-002 fix (RETIREMENT_ENGINE_ROUND2_AUDIT_CLAUDE_QUEUE_2026-09-08.md; CLAUDE_CODE_FIX_HANDOVER_TAX_FUNDING_AND_ROUND2_2026-09-08.md section 5): RMD proceeds beyond the spending need used to be deposi",
    "guard": {
@@ -3342,9 +3476,9 @@
    "id": "R2-003",
    "family": "R2",
    "sites": [
-    "src/engine.js:3296",
-    "src/engine.js:3305",
-    "src/engine.js:3326"
+    "src/engine.js:3312",
+    "src/engine.js:3321",
+    "src/engine.js:3342"
    ],
    "summary": "R2-003(b) fix (R2-T03): a benefit amount exists only if the person actually reached their claim age while still alive. Entitlement was being tested by comparing an ADVANCING segment age against a clai",
    "guard": {
@@ -3380,8 +3514,8 @@
    "id": "R2-004",
    "family": "R2",
    "sites": [
-    "src/engine.js:3251",
-    "src/engine.js:3275"
+    "src/engine.js:3267",
+    "src/engine.js:3291"
    ],
    "summary": "R2-004 fix (R2-T03): each person's ANNUAL AMOUNT is computed once, on that person's own ROW clock, and hoisted out of the segment loop. growthFromCola() floors elapsed whole years since claim, so eval",
    "guard": {
@@ -3452,10 +3586,10 @@
    "family": "R22",
    "sites": [
     "src/engine.js:2390",
-    "src/engine.js:3784",
-    "src/engine.js:4118",
-    "src/engine.js:5234",
-    "src/engine.js:5309"
+    "src/engine.js:3806",
+    "src/engine.js:4154",
+    "src/engine.js:5273",
+    "src/engine.js:5348"
    ],
    "summary": "S5AA R23 (R22-01): a Roth dollar drawn while ITS OWNER is under 59 1/2 is the fact the Roth exclusion keys on.",
    "guard": {
@@ -3486,8 +3620,8 @@
    "id": "R23-01",
    "family": "R23",
    "sites": [
-    "src/engine.js:3784",
-    "src/engine.js:4061"
+    "src/engine.js:3806",
+    "src/engine.js:4097"
    ],
    "summary": "S5AA R23 (R22-01, ChatGPT's R22 whole-model audit, P2; the owner, 2026-09-24: key the flag on actual Roth draws by the owner's age). X02: a Roth withdrawal is penalty-free and gains-free at every age ",
    "guard": {
@@ -3511,7 +3645,7 @@
    "id": "R24F-01",
    "family": "R24F",
    "sites": [
-    "src/engine.js:3467"
+    "src/engine.js:3483"
    ],
    "summary": "S5AA R25 (R24F-01, the owner 2026-09-25: prorate the stage, its end age being \"the last year covered\"): the app takes a stage's start and end ages in half-year steps, but the stage was tested at ONE a",
    "guard": {
@@ -3535,7 +3669,7 @@
    "id": "R24F-02",
    "family": "R24F",
    "sites": [
-    "src/engine.js:4095"
+    "src/engine.js:4131"
    ],
    "summary": "S5AA R28.1 (R27F-01, the owner 2026-09-26: \"Repair\"): THE DESTINATION RECEIVES THE DOLLARS ON THE DATE, as the source gives them up on it. R25 (R24F-02) booked them into the destination at the year's ",
    "guard": {
@@ -3612,8 +3746,8 @@
    "id": "R25-01",
    "family": "R25",
    "sites": [
-    "src/engine.js:4041",
-    "src/engine.js:4072"
+    "src/engine.js:4077",
+    "src/engine.js:4108"
    ],
    "summary": "S5AA R27 (R25-01, the owner 2026-09-26: \"Move what's there\"): a mid-year transfer can ask for more than its source holds on its date -- $100,000 of a -10% account at 60.5, which holds $94,868.33 then ",
    "guard": {
@@ -3685,8 +3819,8 @@
    "id": "R27-01",
    "family": "R27",
    "sites": [
-    "src/engine.js:4072",
-    "src/engine.js:4072"
+    "src/engine.js:4108",
+    "src/engine.js:4108"
    ],
    "summary": "S5AA R28 (R27-01): the source's growth from the year's opening to the transfer date, with growAccounts()'s compounding (1 in a year with no transfer strictly inside it); R28.1 (R27F-01): the destinati",
    "guard": {
@@ -3710,8 +3844,8 @@
    "id": "R27F-01",
    "family": "R27F",
    "sites": [
-    "src/engine.js:4072",
-    "src/engine.js:4095"
+    "src/engine.js:4108",
+    "src/engine.js:4131"
    ],
    "summary": "S5AA R28 (R27-01): the source's growth from the year's opening to the transfer date, with growAccounts()'s compounding (1 in a year with no transfer strictly inside it); R28.1 (R27F-01): the destinati",
    "guard": {
@@ -3734,10 +3868,10 @@
    "id": "R27F-02",
    "family": "R27F",
    "sites": [
-    "src/engine.js:2582",
-    "src/engine.js:2585",
-    "src/engine.js:4102",
-    "src/engine.js:4219"
+    "src/engine.js:2598",
+    "src/engine.js:2601",
+    "src/engine.js:4138",
+    "src/engine.js:4255"
    ],
    "summary": "S5AA R28.1 (R27F-02): `held`, when given, adds dollar-years to an account's base -- a transfer's dollars for the part of the period the account held them and its balance does not show (negative for a ",
    "guard": {
@@ -3762,10 +3896,10 @@
    "id": "R29-01",
    "family": "R29",
    "sites": [
-    "src/engine.js:4056",
-    "src/engine.js:4118",
-    "src/engine.js:4165",
-    "src/engine.js:4308"
+    "src/engine.js:4092",
+    "src/engine.js:4154",
+    "src/engine.js:4201",
+    "src/engine.js:4344"
    ],
    "summary": "S5AA R30 (R29-01, ChatGPT's R29 change audit; the owner 2026-09-28: \"Repair in R30\"): WHAT THE TRANSFER MAY MOVE, BEFORE THE SOURCE'S BALANCE IS CONSULTED -- nothing for a refused conversion, a refuse",
    "guard": {
@@ -3790,7 +3924,7 @@
    "family": "R29",
    "sites": [
     "src/engine.js:556",
-    "src/engine.js:4108"
+    "src/engine.js:4144"
    ],
    "summary": "S5AA R19, WORKSTREAM A (R10-03, R10-04, R10-05; contract reviewed in ChatGPT's R18 audit, 2026-09-24; built on the owner's decision of 2026-09-23): THE ANNUAL PER-OWNER IRA SETTLEMENT. Each distributi",
    "guard": {
@@ -3829,7 +3963,7 @@
     "src/engine.js:2039",
     "src/engine.js:2055",
     "src/engine.js:2091",
-    "src/engine.js:5005"
+    "src/engine.js:5044"
    ],
    "summary": "R2V-002 external audit fix: recomputes the obligation from a COMPLETE quoted/committed journal using the real estimateTaxes (handover section 4.5), shared by quoteTaxFunding's own \"funded\" verificatio",
    "guard": {
@@ -3865,10 +3999,10 @@
    "id": "R2R-002",
    "family": "R2R",
    "sites": [
-    "src/engine.js:4727",
-    "src/engine.js:4778",
-    "src/engine.js:4851",
-    "src/engine.js:5252"
+    "src/engine.js:4766",
+    "src/engine.js:4817",
+    "src/engine.js:4890",
+    "src/engine.js:5291"
    ],
    "summary": "R2R-002 round 2 external requalification fix (ARCH-02): the explicit invalid-result contract. Round 1 stopped publishing a numeric `successRate` for an invalid batch but still returned `failed:true` (",
    "guard": {
@@ -3896,10 +4030,10 @@
    "sites": [
     "src/engine.js:1155",
     "src/engine.js:1179",
-    "src/engine.js:4258",
-    "src/engine.js:4415",
-    "src/engine.js:4427",
-    "src/engine.js:4565"
+    "src/engine.js:4294",
+    "src/engine.js:4454",
+    "src/engine.js:4466",
+    "src/engine.js:4604"
    ],
    "summary": "R2R-003 external requalification fix (ARCH-01): a standing, always-on check that the tax/RMD cash settlement's sources equal its uses -- `rmdCashForTax + totalGross` (cash actually raised for this per",
    "guard": {
@@ -3958,7 +4092,7 @@
    "sites": [
     "src/engine.js:1113",
     "src/engine.js:1917",
-    "src/engine.js:4625"
+    "src/engine.js:4664"
    ],
    "summary": "R2V-002 external audit fix: recomputes the obligation from a COMPLETE quoted/committed journal using the real estimateTaxes (handover section 4.5), shared by quoteTaxFunding's own \"funded\" verificatio",
    "guard": {
@@ -3980,10 +4114,10 @@
    "id": "R2V-003",
    "family": "R2V",
    "sites": [
-    "src/engine.js:4406",
-    "src/engine.js:4625",
-    "src/engine.js:4778",
-    "src/engine.js:5240"
+    "src/engine.js:4445",
+    "src/engine.js:4664",
+    "src/engine.js:4817",
+    "src/engine.js:5279"
    ],
    "summary": "R2V-003 external audit fix: this must not overwrite a calcErrorCode the byClass commit loop above already set -- TAX_COMMIT_SHORTFALL is the more specific diagnosis (a specific class failed to raise w",
    "guard": {
@@ -4062,7 +4196,7 @@
    "id": "R30A-01",
    "family": "R30A",
    "sites": [
-    "src/engine.js:2919"
+    "src/engine.js:2935"
    ],
    "summary": "S5AA R32 (R30A-01 of ChatGPT's R30A account and transfer audit; the owner 2026-09-28: \"Move taxable part only\"): AN IRA ROLLS ONLY ITS TAXABLE MONEY INTO AN EMPLOYER PLAN. IRC 408(d)(3)(A)(ii): what i",
    "guard": {
@@ -4085,7 +4219,7 @@
    "id": "R30A-02",
    "family": "R30A",
    "sites": [
-    "src/engine.js:2907"
+    "src/engine.js:2923"
    ],
    "summary": "S5AA R32 (R30A-02 of ChatGPT's R30A account and transfer audit; the owner 2026-09-28: \"Refuse it\"): A ROTH IRA CANNOT ROLL INTO A 401(k). Publication 590-A: \"A rollover from a Roth IRA to an employer ",
    "guard": {
@@ -4106,7 +4240,7 @@
    "id": "R30A-03",
    "family": "R30A",
    "sites": [
-    "src/engine.js:2912"
+    "src/engine.js:2928"
    ],
    "summary": "S5AA R32 (R30A-03; the owner 2026-09-28: \"Refuse it\"): A ROLLOVER STAYS WITH ITS OWNER. IRC 408(d)(3)(A) pays an IRA rollover into an account or plan \"for the benefit of such individual\", and 223(f)(5",
    "guard": {
@@ -4128,7 +4262,7 @@
    "id": "R31-01",
    "family": "R31",
    "sites": [
-    "src/engine.js:4086"
+    "src/engine.js:4122"
    ],
    "summary": "S5AA R32 (R31-01 of ChatGPT's R31 change audit; the owner 2026-09-28: \"Repair in R32\"): EVERY IRA OF THE OWNER, ON THE DATE. The source was carried to the date above; the owner's other IRAs were read ",
    "guard": {
@@ -4152,8 +4286,8 @@
    "id": "R32V-01",
    "family": "R32V",
    "sites": [
-    "src/engine.js:4160",
-    "src/engine.js:4642"
+    "src/engine.js:4196",
+    "src/engine.js:4681"
    ],
    "summary": "S5AA R35 (R32V-01; the recommendation of record, the owner 2026-09-29): THE PRIOR-PERIOD SIGNAL IS THE PORTFOLIO'S RETURN, balance- weighted over the accounts as they are about to grow, each at the ra",
    "guard": {
@@ -4207,7 +4341,7 @@
    "id": "R35-01",
    "family": "R35",
    "sites": [
-    "src/engine.js:4033"
+    "src/engine.js:4069"
    ],
    "summary": "S5AA R35 (SA32F-13): AT THE OWNER'S SEPARATION -- their retirement age, on their own clock, inside this row -- the employer money that is not yet vested is forfeited. It is booked as a negative employ",
    "guard": {
@@ -4233,8 +4367,8 @@
    "family": "R38",
    "sites": [
     "src/engine.js:187",
-    "src/engine.js:4017",
-    "src/engine.js:4025"
+    "src/engine.js:4053",
+    "src/engine.js:4061"
    ],
    "summary": "S5AA R39 (R38-01, ChatGPT's R38 change audit, P1; the owner 2026-09-29: \"go with your recommendations\"): AN ANNUAL LIMIT HOLDS THE DOLLARS DEPOSITED, NOT A RATE CUT BY THE PART OF THE YEAR WORKED. Eac",
    "guard": {
@@ -4277,7 +4411,7 @@
    "id": "R38-03",
    "family": "R38",
    "sites": [
-    "src/engine.js:2754"
+    "src/engine.js:2770"
    ],
    "summary": "S5AA R39 (R38-03, ChatGPT's R38 change audit; the owner 2026-09-29: \"go with your recommendations\"): THE ELECTION READS THE VESTING AT ALLOCATION. Notice 2024-2, Q&A L-3, under 402A(f)(3): a match \"ma",
    "guard": {
@@ -4300,7 +4434,7 @@
    "id": "R38-04",
    "family": "R38",
    "sites": [
-    "src/engine.js:3278"
+    "src/engine.js:3294"
    ],
    "summary": "S5AA R39 (R38-04, ChatGPT's R38 change audit; the owner 2026-09-29: \"go with your recommendations\"): A CLAIM INSIDE THE ROW IS PRICED AT THE CLAIM. The entered benefit takes each COLA from the plan's ",
    "guard": {
@@ -4324,7 +4458,7 @@
    "id": "R38-05",
    "family": "R38",
    "sites": [
-    "src/engine.js:3972"
+    "src/engine.js:4008"
    ],
    "summary": "S5AA R39 (R38-05, ChatGPT's R38 change audit; the owner 2026-09-29: \"go with your recommendations\"): A WORKPLACE PLAN THAT PASSES IS NOT THE SURVIVOR'S CURRENT EMPLOYER'S. The still-working exception ",
    "guard": {
@@ -4346,7 +4480,7 @@
    "id": "R39-01",
    "family": "R39",
    "sites": [
-    "src/engine.js:3278"
+    "src/engine.js:3294"
    ],
    "summary": "S5AA R39 (R38-04, ChatGPT's R38 change audit; the owner 2026-09-29: \"go with your recommendations\"): A CLAIM INSIDE THE ROW IS PRICED AT THE CLAIM. The entered benefit takes each COLA from the plan's ",
    "guard": {
@@ -4370,8 +4504,8 @@
    "id": "R41F-01",
    "family": "R41F",
    "sites": [
-    "src/engine.js:3310",
-    "src/engine.js:3385"
+    "src/engine.js:3326",
+    "src/engine.js:3401"
    ],
    "summary": "S5AA R42 (R41F-01): the spousal part of each person's pay, which is paid on the OTHER's record, and how much of it falls in the other's service months (for the grace year).",
    "guard": {
@@ -4489,7 +4623,7 @@
    "id": "R42-01",
    "family": "R42",
    "sites": [
-    "src/engine.js:3395"
+    "src/engine.js:3411"
    ],
    "summary": "S5AA R43 (R42-01, ChatGPT's R42 change audit; SA42F-18, Claude's R42F audit; the owner 2026-09-30): THE MONTHS CHARGED ARE COUNTED IN ORDER, AND EACH BENEFIT IS CREDITED ITS OWN. Each row's withholdin",
    "guard": {
@@ -4539,7 +4673,7 @@
    "id": "R43-02",
    "family": "R43",
    "sites": [
-    "src/engine.js:4056"
+    "src/engine.js:4092"
    ],
    "summary": "S5AA R44 (ChatGPT's R43-02): the same latched today's-dollar income the planned audit reads (R43, SA42F-20); without it a $5,000 stream starting at 65 counted $5,000 here, not its $12,968.71",
    "guard": {
@@ -4560,10 +4694,10 @@
    "id": "R7-02",
    "family": "R7",
    "sites": [
-    "src/engine.js:3876",
-    "src/engine.js:3954",
-    "src/engine.js:4649",
-    "src/engine.js:5119"
+    "src/engine.js:3904",
+    "src/engine.js:3990",
+    "src/engine.js:4688",
+    "src/engine.js:5158"
    ],
    "summary": "R7-02: what actually changed hands at each death. Decision 8: the row opening at which nobody is alive, where the projection stopped.",
    "guard": {
@@ -4585,8 +4719,8 @@
    "family": "R7",
    "sites": [
     "src/engine.js:609",
-    "src/engine.js:3954",
-    "src/engine.js:4649"
+    "src/engine.js:3990",
+    "src/engine.js:4688"
    ],
    "summary": "THE R6 SUCCESSION FINDING, and the R7 re-audit's R7-03: WHAT COVERS AN ACCOUNT THAT CHANGES HANDS AT A DEATH. One class per account, read from the account as it stands when it passes. \"authority\" is t",
    "guard": {
@@ -4608,9 +4742,9 @@
    "id": "RA-01",
    "family": "RA",
    "sites": [
-    "src/engine.js:2624",
-    "src/engine.js:4285",
-    "src/engine.js:4450"
+    "src/engine.js:2640",
+    "src/engine.js:4321",
+    "src/engine.js:4489"
    ],
    "summary": "RA-01 (re-audit 2026-09-11): surplus cash is directed PER SOURCE. R4 pooled RMD cash and outside-income surplus into one scalar (`availableCash`) and then applied one policy to the combined residual -",
    "guard": {
@@ -4639,8 +4773,8 @@
    "id": "RA-02",
    "family": "RA",
    "sites": [
-    "src/engine.js:3705",
-    "src/engine.js:4506"
+    "src/engine.js:3727",
+    "src/engine.js:4545"
    ],
    "summary": "RA-02 (re-audit 2026-09-11): `suppressDraw` computes this period's return for an account being SYNTHESIZED mid-period, without consuming an RNG draw. A destination appended during settlement has no en",
    "guard": {
@@ -4670,9 +4804,9 @@
    "id": "RA-03",
    "family": "RA",
    "sites": [
-    "src/engine.js:3690",
-    "src/engine.js:4219",
-    "src/engine.js:4325"
+    "src/engine.js:3712",
+    "src/engine.js:4255",
+    "src/engine.js:4361"
    ],
    "summary": "RA-03 (re-audit 2026-09-11): the ONE definition of \"an account that can pay a dividend\". A zero-return household cash holding cannot -- charging it a dividend reclassifies cash principal as taxable in",
    "guard": {
@@ -4704,7 +4838,7 @@
    "family": "RB",
    "sites": [
     "src/engine.js:1847",
-    "src/engine.js:2674"
+    "src/engine.js:2690"
    ],
    "summary": "RB-01 + RB-02 at the PUBLIC EXECUTION BOUNDARY, the same place and for the same reason as nonFiniteScenarioInputCode() above. A validator that refuses an import does not gate a direct runPlan() call, ",
    "guard": {
@@ -4735,7 +4869,7 @@
    "family": "RB",
    "sites": [
     "src/engine.js:1847",
-    "src/engine.js:2654"
+    "src/engine.js:2670"
    ],
    "summary": "RB-01 + RB-02 at the PUBLIC EXECUTION BOUNDARY, the same place and for the same reason as nonFiniteScenarioInputCode() above. A validator that refuses an import does not gate a direct runPlan() call, ",
    "guard": {
@@ -4762,13 +4896,13 @@
    "id": "RC-01",
    "family": "RC",
    "sites": [
-    "src/engine.js:2715",
-    "src/engine.js:4066",
-    "src/engine.js:4121",
-    "src/engine.js:4230",
-    "src/engine.js:4294",
-    "src/engine.js:4580",
-    "src/engine.js:5470"
+    "src/engine.js:2731",
+    "src/engine.js:4102",
+    "src/engine.js:4157",
+    "src/engine.js:4266",
+    "src/engine.js:4330",
+    "src/engine.js:4619",
+    "src/engine.js:5509"
    ],
    "summary": "RC-01: the pretax dollars a conversion-like move may take THIS row -- the balance on hand, less what the year's required distribution is owed. Two paths can drain the pretax class before the RMD withd",
    "guard": {
@@ -4796,9 +4930,9 @@
    "id": "RC-02",
    "family": "RC",
    "sites": [
-    "src/engine.js:3496",
-    "src/engine.js:3545",
-    "src/engine.js:4641"
+    "src/engine.js:3512",
+    "src/engine.js:3561",
+    "src/engine.js:4680"
    ],
    "summary": "RC-02 (adversarial addendum): the survivor reduction is a HOUSEHOLD-SIZE adjustment applied to each year's spending, not a compounding haircut on the carried spending state. The defect: fixedReal (and",
    "guard": {
@@ -4824,7 +4958,7 @@
    "id": "RISK-001",
    "family": "RISK",
    "sites": [
-    "src/engine.js:4173"
+    "src/engine.js:4209"
    ],
    "summary": "R2-T07 decision clock (ROADMAP_EXTERNAL_REVIEW.md section 1; supersedes T09/RISK-001's earlier \"documented timing\" closure): balance-sensitive spending decisions use START-OF-PERIOD KNOWN STATE ONLY -",
    "guard": {
@@ -4852,9 +4986,9 @@
    "id": "RP-01",
    "family": "RP",
    "sites": [
-    "src/engine.js:2532",
-    "src/engine.js:4063",
-    "src/engine.js:4072"
+    "src/engine.js:2548",
+    "src/engine.js:4099",
+    "src/engine.js:4108"
    ],
    "summary": "RP-01: ONE TRANSACTION, not a balance move with accounting bolted on beside it. CR2-01 taught the transfer path that basis travels with the dollars, and put that arithmetic in the CALLER, next to this",
    "guard": {
@@ -4922,12 +5056,12 @@
    "family": "S5R",
    "sites": [
     "src/engine.js:1620",
-    "src/engine.js:4876",
-    "src/engine.js:4913",
-    "src/engine.js:4927",
-    "src/engine.js:4934",
-    "src/engine.js:5011",
-    "src/engine.js:5449"
+    "src/engine.js:4915",
+    "src/engine.js:4952",
+    "src/engine.js:4966",
+    "src/engine.js:4973",
+    "src/engine.js:5050",
+    "src/engine.js:5488"
    ],
    "summary": "S5R-01: the simulation and, since the execution snapshot, every reader see this text. JSON writes NaN and +-Infinity as null, so a non-finite number the named checks above do not cover (an account's a",
    "guard": {
@@ -4964,8 +5098,8 @@
    "id": "S5R-02",
    "family": "S5R",
    "sites": [
-    "src/engine.js:2971",
-    "src/engine.js:4230"
+    "src/engine.js:2987",
+    "src/engine.js:4266"
    ],
    "summary": "S5R-02 and S5R-03 (the 2026-09-16 external audit; decided by the owner on 2026-09-16, answers 2 (A) and 4 (A)): how much of a row's requested QCD each owner may give. S5 task 10 capped the household a",
    "guard": {
@@ -5000,9 +5134,9 @@
    "id": "S5R-03",
    "family": "S5R",
    "sites": [
-    "src/engine.js:2971",
-    "src/engine.js:4230",
-    "src/engine.js:5237"
+    "src/engine.js:2987",
+    "src/engine.js:4266",
+    "src/engine.js:5276"
    ],
    "summary": "S5R-02 and S5R-03 (the 2026-09-16 external audit; decided by the owner on 2026-09-16, answers 2 (A) and 4 (A)): how much of a row's requested QCD each owner may give. S5 task 10 capped the household a",
    "guard": {
@@ -5030,7 +5164,7 @@
    "id": "S5R-04",
    "family": "S5R",
    "sites": [
-    "src/engine.js:3622"
+    "src/engine.js:3644"
    ],
    "summary": "Audit finding AUD-006 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md, task T07): the recurring-income branch used to skip the ENTIRE period whenever `ownerAge<i.start` -- i.e. whenever the income",
    "guard": {
@@ -5087,8 +5221,8 @@
    "id": "S5RR-01",
    "family": "S5RR",
    "sites": [
-    "src/engine.js:3004",
-    "src/engine.js:4294"
+    "src/engine.js:3020",
+    "src/engine.js:4330"
    ],
    "summary": "S5RR-01 (the 2026-09-16 re-audit; decided by the owner on 2026-09-16, answer 2 (A) of the third set): a QCD is a transfer from the owner's own IRA to a charity, so each owner's part is paid first, str",
    "guard": {
@@ -5123,7 +5257,7 @@
    "id": "SA-03",
    "family": "SA",
    "sites": [
-    "src/engine.js:4144"
+    "src/engine.js:4180"
    ],
    "summary": "SA-03 fix (SPRINT_EXTERNAL_AUDIT_20260909.md): the period's POLICY RETURN SIGNAL is snapshotted here, while the rate set is still authoritative, and never re-derived from `rates` afterwards. `rates` h",
    "guard": {
@@ -5149,9 +5283,9 @@
    "id": "SA-04",
    "family": "SA",
    "sites": [
-    "src/engine.js:3478",
-    "src/engine.js:3876",
-    "src/engine.js:4642"
+    "src/engine.js:3494",
+    "src/engine.js:3904",
+    "src/engine.js:4681"
    ],
    "summary": "FM-07 fix (FULL_MODEL_AUDIT_AND_CLAUDE_HANDOVER_20260910.md; user decision D-2 = scale to elapsed time): a spending decision must apply the inflation the previous period ACTUALLY accrued, not a full y",
    "guard": {
@@ -5235,8 +5369,8 @@
    "id": "SA18-02",
    "family": "SA18",
    "sites": [
-    "src/engine.js:2593",
-    "src/engine.js:3953"
+    "src/engine.js:2609",
+    "src/engine.js:3989"
    ],
    "summary": "S5AA R18 self-audit, finding SA18-02 (the owner, 2026-09-23: per owner): A DECEDENT'S CAPITAL LOSS DIES WITH THEM. Publication 559: a decedent's capital losses, including carryovers, can be deducted o",
    "guard": {
@@ -5257,7 +5391,7 @@
    "family": "SA25",
    "sites": [
     "src/engine.js:163",
-    "src/engine.js:4345"
+    "src/engine.js:4381"
    ],
    "summary": "S5AA R26 (the owner 2026-09-26: enforce the IRA compensation limit). IRS Publication 590-A: an IRA contribution \"can't be more than ... your taxable compensation for the year\" -- W-2 box 1 wages (whic",
    "guard": {
@@ -5279,7 +5413,7 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:2268",
-    "src/engine.js:5051"
+    "src/engine.js:5090"
    ],
    "summary": "S5AA R34 (SA32F-01, SA32F-02; decision 1, \"Pay by law\"): THE SURVIVOR BENEFIT. It rests on the deceased's PIA -- the \"original benefit\" is 100% of the death PIA, or more with the delayed credits the d",
    "guard": {
@@ -5304,7 +5438,7 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:2268",
-    "src/engine.js:5051"
+    "src/engine.js:5090"
    ],
    "summary": "S5AA R34 (SA32F-01, SA32F-02; decision 1, \"Pay by law\"): THE SURVIVOR BENEFIT. It rests on the deceased's PIA -- the \"original benefit\" is 100% of the death PIA, or more with the delayed credits the d",
    "guard": {
@@ -5378,7 +5512,7 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:2171",
-    "src/engine.js:5051"
+    "src/engine.js:5090"
    ],
    "summary": "S5AA R34 (SA32F-05, SA32F-25): EACH PERSON'S FULL RETIREMENT AGE COMES FROM THEIR BIRTH YEAR -- SSA, Normal Retirement Age (ssa.gov/oact/progdata/nra.html): 65 for 1937 and before, then two months a y",
    "guard": {
@@ -5409,7 +5543,7 @@
    "id": "SA32F-06",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:4207"
+    "src/engine.js:4243"
    ],
    "summary": "S5AA R34 (SA32F-06): self-employment counts as NET EARNINGS from self-employment (20 CFR 404.429; SS Act 211(a)(12): profit less the 7.65% deduction, profit x 0.9235); gross profit was tested. The str",
    "guard": {
@@ -5430,8 +5564,8 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:2212",
-    "src/engine.js:3244",
-    "src/engine.js:3381"
+    "src/engine.js:3260",
+    "src/engine.js:3397"
    ],
    "summary": "S5AA R34 (SA32F-07): `cap`, when given, is the most that may be withheld -- in the grace year, the benefits for SERVICE months (20 CFR 404.435: no reduction \"for any month in which ... you had a non-s",
    "guard": {
@@ -5451,7 +5585,7 @@
    "id": "SA32F-08",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3080"
+    "src/engine.js:3096"
    ],
    "summary": "S5AA R35 (SA32F-08; R32V note C): THE JOINT AND LAST SURVIVOR TABLE. 1.401(a)(9)-5(c)(2): where the sole designated beneficiary is a spouse more than ten years younger, the divisor is the two lives' j",
    "guard": {
@@ -5477,8 +5611,8 @@
    "id": "SA32F-09",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:4194",
-    "src/engine.js:4196"
+    "src/engine.js:4230",
+    "src/engine.js:4232"
    ],
    "summary": "S5AA R33 (SA32F-09): the lookback year's MAGI is priced on that year's OWN filing status, as 20 CFR 418.1115 pairs them (\"your modified adjusted gross income amount together with your tax filing statu",
    "guard": {
@@ -5500,7 +5634,7 @@
    "sites": [
     "src/engine.js:649",
     "src/engine.js:666",
-    "src/engine.js:4345"
+    "src/engine.js:4381"
    ],
    "summary": "S5AA R33 (SA32F-10, SA32F-29; the owner 2026-09-29: apply the $10 rounding): A PHASE-OUT REDUCES THE LIMIT. IRC 219(g)(1): \"each of the dollar limitations ... shall be reduced\" by the share of the ran",
    "guard": {
@@ -5523,8 +5657,8 @@
    "id": "SA32F-11",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:4325",
-    "src/engine.js:4385"
+    "src/engine.js:4361",
+    "src/engine.js:4424"
    ],
    "summary": "S5AA R33 (SA32F-11): the part of the deferrals salary wages cannot absorb is excluded from the employment-stream and self-employment pay that counts as the owner's compensation (ownerCompensation()); ",
    "guard": {
@@ -5568,9 +5702,9 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:2343",
-    "src/engine.js:4028",
-    "src/engine.js:4032",
-    "src/engine.js:4033"
+    "src/engine.js:4064",
+    "src/engine.js:4068",
+    "src/engine.js:4069"
    ],
    "summary": "S5AA R35 (SA32F-13; R32V note F; the owner's decision 5b, \"vest over six years\"): THE VESTED SHARE OF AN ACCOUNT'S EMPLOYER MONEY after `elapsed` years of the plan. IRC 411(a)(2)(B): six-year graded (",
    "guard": {
@@ -5594,7 +5728,7 @@
    "id": "SA32F-14",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:4017"
+    "src/engine.js:4053"
    ],
    "summary": "S5AA R33 (SA32F-14): profit sharing is an employer contribution of its own (IRC 415(c)(2)); it was paid only with the match switched on.",
    "guard": {
@@ -5657,7 +5791,7 @@
    "id": "SA32F-17",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3966"
+    "src/engine.js:4002"
    ],
    "summary": "S5AA R35 (SA32F-17; the owner's decision 4, 2026-09-29, with \"a loss also resets\"): IRC 1014(a) gives property acquired from a decedent its fair market value as basis, up or down. The decedent's own t",
    "guard": {
@@ -5682,9 +5816,9 @@
    "id": "SA32F-18",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3671",
-    "src/engine.js:3673",
-    "src/engine.js:5148"
+    "src/engine.js:3693",
+    "src/engine.js:3695",
+    "src/engine.js:5187"
    ],
    "summary": "S5AA R34 (SA32F-18): a `socialSecurity` stream is its owner's benefit and ends at their death too (42 USC 402(a): \"ending with the month preceding the month in which he dies\"); it paid on. A pension s",
    "guard": {
@@ -5709,7 +5843,7 @@
    "id": "SA32F-19",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:4235"
+    "src/engine.js:4271"
    ],
    "summary": "S5AA R35 (SA32F-19; R32F FLOWS-01): A WORKING SPOUSE'S PAY FUNDS RETIREMENT SPENDING. Spending starts at the primary's retirement age and a younger spouse works on to their own; the wages paid the wag",
    "guard": {
@@ -5731,7 +5865,7 @@
    "id": "SA32F-20",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:2522"
+    "src/engine.js:2538"
    ],
    "summary": "S5AA R35 (SA32F-20; R32F FLOWS-03, confirmed by R32V for \"the UI's stock-access interpretation\"): \"Accessible share\" is a share of the asset AS A STOCK. The draw re-applied it to whatever value remain",
    "guard": {
@@ -5822,9 +5956,9 @@
    "id": "SA32F-24",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3876",
-    "src/engine.js:4638",
-    "src/engine.js:5051"
+    "src/engine.js:3904",
+    "src/engine.js:4677",
+    "src/engine.js:5090"
    ],
    "summary": "S5AA R35 (SA32F-24): the two tax returns before the plan, when entered, open the IRMAA lookback (20 CFR 418.1135); absent, plan years 0 and 1 assume no surcharge, as MODEL_ASSUMPTIONS 11 says",
    "guard": {
@@ -5868,7 +6002,7 @@
    "id": "SA32F-26",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3095"
+    "src/engine.js:3111"
    ],
    "summary": "S5AA R35 (SA32F-26; R32V note C): THE STILL-WORKING EXCEPTION. 401(a)(9)(C)(i)-(ii): a qualified-plan participant who is not a 5-percent owner begins at the later of the applicable age and retirement ",
    "guard": {
@@ -5890,7 +6024,7 @@
    "id": "SA32F-27",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:5237"
+    "src/engine.js:5276"
    ],
    "summary": "S5AA R37 (SA32F-27; R32V: \"asymmetric authority disclosure\"): the warning read only the primary person's birth year, so a spouse born in 1959 used the same proposed age-73 record with no warning. Each",
    "guard": {
@@ -5972,7 +6106,7 @@
    "family": "SA32F",
    "sites": [
     "src/engine.js:224",
-    "src/engine.js:4004"
+    "src/engine.js:4040"
    ],
    "summary": "S5AA R33 (SA32F-31): what the law lets this item exclude or deduct; \"warn\" keeps the requested deposit, never the exclusion (IRC 402(g)(1)(A), 219(b), 223(b)).",
    "guard": {
@@ -6063,7 +6197,7 @@
    "id": "SA32F-35",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:5237"
+    "src/engine.js:5276"
    ],
    "summary": "S5AA R37 (SA32F-35; R32V: \"do not reject all spouseOff/MFJ plans ... Improve explanation/consistency checks\"; the recommendation of record is a warning): a married couple files jointly or separately, ",
    "guard": {
@@ -6084,8 +6218,8 @@
    "id": "SA32F-36",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3524",
-    "src/engine.js:4188"
+    "src/engine.js:3540",
+    "src/engine.js:4224"
    ],
    "summary": "S5AA R35 (SA32F-36; the owner's decision 6, 2026-09-29): `retireInflationFactor` is the first retired row's inflation factor. Fixed-nominal spending is entered in today's dollars (\"Annual spending in ",
    "guard": {
@@ -6106,8 +6240,8 @@
    "id": "SA32F-37",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3528",
-    "src/engine.js:4230"
+    "src/engine.js:3544",
+    "src/engine.js:4266"
    ],
    "summary": "S5AA R35 (SA32F-37): `expectedReturn` is the portfolio's balance-weighted expected nominal return, net of the fee, which VPW paces on; a caller that passes none gets the headline field, as before.",
    "guard": {
@@ -6127,7 +6261,7 @@
    "id": "SA32F-38",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:5237"
+    "src/engine.js:5276"
    ],
    "summary": "S5AA R37 (SA32F-38; R32V: \"The accepted but ineffective input needs a clear horizon warning\"): each row charges the expenses in [its start, its end), so one at or after the end age falls in no row and",
    "guard": {
@@ -6147,7 +6281,7 @@
    "id": "SA32F-39",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:3562"
+    "src/engine.js:3578"
    ],
    "summary": "S5AA R35 (SA32F-39; R32F FLOWS-06): THE STAGE BEFORE THE SURVIVOR REDUCTION. The stage read the already-reduced amount, so a percent stage kept the reduction and a \"Set annual spending\" amount replace",
    "guard": {
@@ -6301,7 +6435,7 @@
    "id": "SA32F-55",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:5385"
+    "src/engine.js:5424"
    ],
    "summary": "S5AA R37 (SA32F-55): hash what JSON would keep -- an undefined (or function) value drops its key and becomes null in a list -- so an accepted input hashes the same before and after a JSON round trip. ",
    "guard": {
@@ -6324,8 +6458,8 @@
     "src/engine.js:805",
     "src/engine.js:824",
     "src/engine.js:1029",
-    "src/engine.js:3834",
-    "src/engine.js:4370"
+    "src/engine.js:3862",
+    "src/engine.js:4409"
    ],
    "summary": "S5AA R43 (SA42F-01, Claude's R42F audit; the owner 2026-09-30): THE 199A DEDUCTION. Self-employment profit bore SE tax and got no qualified business income deduction: an $80,000 profit paid $20,286.44",
    "guard": {
@@ -6374,7 +6508,7 @@
    "id": "SA42F-03",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3073"
+    "src/engine.js:3089"
    ],
    "summary": "S5AA R43 (SA42F-03, Claude's R42F audit; the owner 2026-09-30): A DEATH BEFORE THE REQUIRED BEGINNING DATE OWES NO RMD. An owner who dies inside the tax year that is their first distribution year dies",
    "guard": {
@@ -6420,7 +6554,7 @@
    "sites": [
     "src/engine.js:1535",
     "src/engine.js:1645",
-    "src/engine.js:4945"
+    "src/engine.js:4984"
    ],
    "summary": "S5AA R43 (SA42F-05, SA42F-06): the first value that breaks PLAN_VALUE_CONTRACT, as {code, path}, or null. A number must be a finite JSON number when present (null is present); `required`, `requiredUnl",
    "guard": {
@@ -6470,7 +6604,7 @@
    "id": "SA42F-08",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3839"
+    "src/engine.js:3867"
    ],
    "summary": "S5AA R43 (SA42F-08): ONLY A RANGE'S START IS INDEXED. 219(g)(8) and 408A(c)(3)(D) index the applicable dollar amounts; the reduction is over a fixed $10,000 ($20,000 joint) for the deduction (219(g)(2",
    "guard": {
@@ -6536,7 +6670,7 @@
    "id": "SA42F-11",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:4197"
+    "src/engine.js:4233"
    ],
    "summary": "S5AA R43 (SA42F-11, Claude's R42F audit; the owner 2026-09-30: \"Charge each person 65+\"): A SPOUSE OF 65 OR OVER WHO HAS STOPPED WORKING IS CHARGED MEDICARE IN THE PART OF THE ROW THE SELF STILL WORKS",
    "guard": {
@@ -6557,8 +6691,8 @@
    "id": "SA42F-12",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3994",
-    "src/engine.js:4025"
+    "src/engine.js:4030",
+    "src/engine.js:4061"
    ],
    "summary": "S5AA R43 (SA42F-12): the row's compensation, kept for the 415(c) test below",
    "guard": {
@@ -6583,7 +6717,7 @@
    "id": "SA42F-13",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3978"
+    "src/engine.js:4014"
    ],
    "summary": "S5AA R43 (SA42F-13): a death before separation forfeits nothing (R38 section 6), so the unvested share the survivor inherits stops being tracked: it was forfeited at the SURVIVOR's retirement, with th",
    "guard": {
@@ -6645,7 +6779,7 @@
    "family": "SA42F",
    "sites": [
     "src/engine.js:2152",
-    "src/engine.js:3395"
+    "src/engine.js:3411"
    ],
    "summary": "S5AA R43 (SA42F-18): the survivor benefit's reduction is adjusted for the months it was withheld, at the survivor's full retirement age, as the retirement benefit's is (20 CFR 404.412). Both arguments",
    "guard": {
@@ -6666,7 +6800,7 @@
    "id": "SA42F-19",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:2528"
+    "src/engine.js:2544"
    ],
    "summary": "S5AA R43 (SA42F-19): `shareFor`, when given, returns the part of the row's need an asset that becomes available inside the row can meet; it was read at the row's opening, so a home available from 65.5",
    "guard": {
@@ -6687,10 +6821,10 @@
    "id": "SA42F-20",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3475",
-    "src/engine.js:3673",
-    "src/engine.js:3919",
-    "src/engine.js:4056"
+    "src/engine.js:3491",
+    "src/engine.js:3695",
+    "src/engine.js:3955",
+    "src/engine.js:4092"
    ],
    "summary": "S5AA R43 (SA42F-20): the latched inflation to the stage's start; absent, 1",
    "guard": {
@@ -6715,8 +6849,8 @@
    "id": "SA42F-21",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3721",
-    "src/engine.js:3927"
+    "src/engine.js:3743",
+    "src/engine.js:3963"
    ],
    "summary": "S5AA R43 (SA42F-21): years of the spending the plan PROJECTS for the row, the strategy's own amount at its opening (simulatePlanRows()); it was the hidden, never-inflated spending field, so a guardrai",
    "guard": {
@@ -6736,7 +6870,7 @@
    "id": "SA42F-22",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3852"
+    "src/engine.js:3880"
    ],
    "summary": "S5AA R43 (SA42F-22): a joint return's thresholds are TWICE the single ones (42 USC 1395r(i)(3)(C)), after the single ones are rounded; the top tier keeps its own figure. Rounded on their own, 2027's f",
    "guard": {
@@ -6797,7 +6931,7 @@
    "id": "SA42F-28",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:5237"
+    "src/engine.js:5276"
    ],
    "summary": "S5AA R43 (SA42F-28): the mirror for a one-time income, on the self's clock (a spouse's is dated on the spouse's age): it was never paid and nothing said so.",
    "guard": {
@@ -6817,7 +6951,7 @@
    "id": "SA42F-29",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:3543"
+    "src/engine.js:3559"
    ],
    "summary": "S5AA R43 (SA42F-29): WHO IS ALIVE IS READ AT THE ROW'S OPENING, decision 7's year of death. `age` is the retirement date when that falls inside the row, so a death at 60.25 before a retirement at 60.5",
    "guard": {
@@ -6886,7 +7020,7 @@
    "id": "SA42F-33",
    "family": "SA42F",
    "sites": [
-    "src/engine.js:5017"
+    "src/engine.js:5056"
    ],
    "summary": "S5AA R43 (SA42F-33): an unknown method is not a mode, so a refusal reports null -- the contract checker's S-EXACT-KEYS rejected the text",
    "guard": {
@@ -6991,7 +7125,7 @@
    "id": "T04",
    "family": "T",
    "sites": [
-    "src/engine.js:3194"
+    "src/engine.js:3210"
    ],
    "summary": "Audit finding AUD-002 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md, task T04): the previous inline computation conflated \"this person's benefit ENTITLEMENT amount\" with \"does this person's own ",
    "guard": {
@@ -7017,8 +7151,8 @@
    "id": "T05",
    "family": "T",
    "sites": [
-    "src/engine.js:2602",
-    "src/engine.js:3724"
+    "src/engine.js:2618",
+    "src/engine.js:3746"
    ],
    "summary": "Audit finding AUD-003 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md, task T05): a mandatory RMD is money that legally MUST leave the preTax account regardless of whether the household needs it f",
    "guard": {
@@ -7038,7 +7172,7 @@
    "id": "T06",
    "family": "T",
    "sites": [
-    "src/engine.js:3995"
+    "src/engine.js:4031"
    ],
    "summary": "AUD-005 fix (T06): contributionDuration used to be a single value shared by every account, capped only by the shared contributionStop age -- never intersected with whether that account's OWNER was act",
    "guard": {
@@ -7068,7 +7202,7 @@
    "id": "T07",
    "family": "T",
    "sites": [
-    "src/engine.js:3622"
+    "src/engine.js:3644"
    ],
    "summary": "Audit finding AUD-006 (RETIREMENT_ENGINE_AUDIT_CLAUDE_QUEUE_2026-09-08.md, task T07): the recurring-income branch used to skip the ENTIRE period whenever `ownerAge<i.start` -- i.e. whenever the income",
    "guard": {
@@ -7124,7 +7258,7 @@
    "id": "UI-002",
    "family": "UI",
    "sites": [
-    "src/engine.js:4745"
+    "src/engine.js:4784"
    ],
    "summary": "R3-UI-002 round 3 external requalification fix: classifies ONE raw simulatePlan() result for the historical heat map. The heat map calls simulatePlan() directly, so its results never pass through runP",
    "guard": {
@@ -7146,7 +7280,7 @@
    "id": "ZERO-01",
    "family": "ZERO",
    "sites": [
-    "src/engine.js:3495"
+    "src/engine.js:3511"
    ],
    "summary": "ZERO-01/02: numeric zero is an explicit policy setting; preserve the legacy fallback for absent/malformed values.",
    "guard": {

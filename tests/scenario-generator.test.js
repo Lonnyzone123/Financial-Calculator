@@ -108,7 +108,11 @@ test('generateScenarios: generated scenarios raise no WARNING-level issues eithe
      payments outside spending -- not a range violation, which is what this test holds the generator to.
      Every other warning still counts, and the exempt codes are asserted to occur, so the exemption hides
      something real rather than nothing. */
-  const EXEMPT = ['CONTRIBUTIONS_ABOVE_EARNED_INCOME', 'DEBT_PAYMENT_OUTSIDE_SPENDING'];
+  /* S5AA R49 (the owner's AA1 decisions, 2026-10-03, on AA1-44 and AA1-25): two more warnings report what the generator draws on
+     purpose, not a range violation -- a debt payment drawn independently of its balance and rate leaves a balance at the payoff age
+     (DEBT_PAYOFF_RESIDUAL; Q43's note on the generator), and flexibility is drawn for every strategy, guardrails included
+     (FLEXIBILITY_WITH_GUARDRAILS). Exempt on the same terms: each must occur. */
+  const EXEMPT = ['CONTRIBUTIONS_ABOVE_EARNED_INCOME', 'DEBT_PAYMENT_OUTSIDE_SPENDING', 'DEBT_PAYOFF_RESIDUAL', 'FLEXIBILITY_WITH_GUARDRAILS'];
   const batch = generateScenarios(defaultPlan, { count: 120, startSeed: 1 });
   const warned = [];
   const exemptSeen = new Set();
