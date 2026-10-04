@@ -1,0 +1,14 @@
+entries 71 vs 71
+moved (5):
+  golden:monte-carlo-fixed-seed [monteCarlo]: success 100 -> 96.8; final total $304,502,978.52 -> $179,664,612.83 (-$124,838,365.69); lifetime taxes $2,242,033.60 -> $2,512,709.86 ($270,676.27); finalYearRealSpending median $60,000.00, q10 $54,000.00
+    first difference .failed: false -> true
+  seed:1 [simple]: success 100 -> 100; final total $3,342,726.78 -> $3,340,988.84 (-$1,737.95); lifetime taxes $35,905.83 -> $35,905.83 ($0.00)
+    first difference .rows[1].hsa: 285671.4788526167 -> 285590.1528576637
+  seed:9 [monteCarlo]: success 100 -> 100; final total $4,499,592.40 -> $4,420,738.07 (-$78,854.33); lifetime taxes $4,883,054.59 -> $4,966,042.69 ($82,988.10); finalYearRealSpending median $227,810.56, q10 $150,698.51
+    first difference .lifetimeTaxes: 4883054.5920998715 -> 4966042.691535067
+  seed:12 [simple]: success 0 -> 0; final total $0.00 -> $0.00 ($0.00); lifetime taxes $9,479.47 -> $9,479.47 ($0.00)
+    first difference .rows[2].hsa: 1275451.3855131604 -> 1275434.225201945
+  expansion:monte-carlo-sensitive-band [monteCarlo]: success 84.6 -> 84.2; final total $147,352,119.33 -> $116,536,399.93 (-$30,815,719.40); lifetime taxes $5,428,996.81 -> $4,115,471.87 (-$1,313,524.94); finalYearRealSpending median $102,000.00, q10 $91,800.00
+    first difference .failureAge: 80 -> 77
+figures unchanged, finalYearRealSpending added (1): seed:17
+identical (65)

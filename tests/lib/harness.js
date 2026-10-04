@@ -913,7 +913,11 @@ function artifactFor(lane) {
 // Changed again 2026-10-03 (S5AA R47: medicareStartAge() reads a plan without a retirement section as 65), so the
 // tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 940e0fabdbd05bbcaf417384cdf3fce1a12197f2fd69c3ae1e99797dd17495ab, described the previous rebuild.
-const EXPECTED_SHA256 = 'e355afa02ecf19c0808df65e3736154f486ae153e696277c0a11219fa748c7c7';
+//
+// Changed again 2026-09-29 (S5AA R47 integrated on R46), so the tracked file was rebuilt, again installed only after
+// two builds agreed. The pin before it, e355afa02ecf19c0808df65e3736154f486ae153e696277c0a11219fa748c7c7, described the
+// previous rebuild.
+const EXPECTED_SHA256 = 'f2aa2dfec2eb3b1f28a92afd36fd0b8b311e53f0de8bf8114bdbd737d73cfe51';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
