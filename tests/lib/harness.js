@@ -937,7 +937,11 @@ function artifactFor(lane) {
 // Changed again 2026-10-04 (S5AA R52: an engine comment's regulation citation corrected (1.408A-6 A-8(b))), so the
 // tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
 // 91875f0f96d95f66a40b78ac71a35b71a7ece23190fd4bcdfee7a7f536db7e1c, described the previous rebuild.
-const EXPECTED_SHA256 = '5a2093f5ac21d81167224e468e5da787a67a65bda544835a912a8d6d00c4845b';
+//
+// Changed again 2026-09-29 (engine: R53 grace-year monthly test (R51F-01)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 5a2093f5ac21d81167224e468e5da787a67a65bda544835a912a8d6d00c4845b, described the previous rebuild.
+const EXPECTED_SHA256 = 'f59311fecfc71d28b55208df2e33ba5033ae6867172f0c972c6225208777b6a2';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
