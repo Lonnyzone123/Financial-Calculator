@@ -183,7 +183,7 @@ Either needs the coordinator; option 1 also creates a new stored capture, which 
 **For the owner, new from the addendum:**
 - **D6.** "The next dollar drawn from the Roth IRA" is built as the next dollar the draw takes from the Roth class: when a Roth 401(k)
   comes first in the class's draw order the weight is 0 (it is modelled tax-free), so the class can rank ahead of an early pre-tax draw
-  (the addendum's third witness).
+  (the addendum's third witness). **Kept by the owner, 2026-10-04.**
 
 ## 10. The addendum: predicted against measured
 

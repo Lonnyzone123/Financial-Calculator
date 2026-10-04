@@ -65,7 +65,8 @@ by default). Without them, a catch-up that must be Roth is not allowed (414(v)(7
   - D2: a spouse's Medicare from 65 exactly, inside the row;
   - D4: the optimizer's 63/65 heuristics;
   - D5: no Part B late-enrollment increase, a recorded limit.
-- **Open for the owner:** D6. A Roth 401(k) first in the Roth class's draw order weighs 0.
+- **D6, kept by the owner (2026-10-04):** a Roth 401(k) first in the Roth class's draw order weighs 0, since it is modelled
+  tax-free.
 - **New, decided:** the control corpus after a `defaultPlan` change gets a successor control, never an edit or a frozen old default
   (the owner, 2026-10-03; control rules 3 and 5).
 

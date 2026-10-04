@@ -147,5 +147,5 @@ capture changed.
 The AA1 options the owner did not choose stay as recorded limits (a full working-years budget, itemized deductions, a
 tax-optimizing solver, full Roth five-year clocks for Roth 401(k)s, surviving-spouse filing status, Social Security benefit-cut
 scenarios, the SSA-44 reduction, tax lots). R51 adds one: the Part B late-enrollment increase (42 USC 1395r(b)) is not modelled.
-One reading of R51's is open to the owner: D6 (a Roth 401(k) first in the Roth class's draw order weighs 0). The builders' other
-readings are listed in each build report.
+The owner kept R51's D6 on 2026-10-04: a Roth 401(k) first in the Roth class's draw order weighs 0, since it is modelled
+tax-free. The builders' other readings are listed in each build report.
