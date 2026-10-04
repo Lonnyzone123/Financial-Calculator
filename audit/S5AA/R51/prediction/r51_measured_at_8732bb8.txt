@@ -1,0 +1,36 @@
+# R51 measured: expanded captures (each in a clean tree at its commit), compared entry by entry; headline figures from the R49 experiment script
+## 8732bb8 (R51 head) against 5119d03 (base, = r29)
+entries 71 vs 71 | differing 18 golden:monte-carlo-fixed-seed, seed:2, seed:3, seed:4, seed:10, seed:12, seed:14, seed:15, seed:16, seed:20, targeted:historical-1929, targeted:historical-1966, targeted:historical-2000, targeted:arm-flag-on, expansion:other-asset-draw-historical, expansion:monte-carlo-sensitive-band, expansion:s5aa-r14-rmd-conversion-under-loss, expansion:s5aa-r14-rmd-prototype-ids
+entries 71; corpus inputs moved 51; outputs moved 18
+  golden:monte-carlo-fixed-seed: input moved, output moved -- final total 179657969 -> 176871038, success 96.8 -> 95.8, lifetime taxes 2512710 -> 2585932
+  seed:2: input same, output moved -- final total 5347657 -> 5347657, success 100 -> 100, lifetime taxes 126814 -> 126814
+  seed:3: input same, output moved -- final total 12591340 -> 12591340, success 100 -> 100, lifetime taxes 1001734 -> 1001734
+  seed:4: input same, output moved -- final total 21391522 -> 21391522, success 100 -> 100, lifetime taxes 1524582 -> 1524582
+  seed:10: input same, output moved -- final total 24154774 -> 24154774, success 0 -> 0, lifetime taxes 53912 -> 53912
+  seed:12: input same, output moved -- final total 0 -> 0, success 0 -> 0, lifetime taxes 9479 -> 9479
+  seed:14: input same, output moved -- final total 6644029 -> 6644029, success 100 -> 100, lifetime taxes 0 -> 0
+  seed:15: input same, output moved -- final total 34607756 -> 34607756, success 100 -> 100, lifetime taxes 1646394 -> 1646394
+  seed:16: input same, output moved -- final total 9841117 -> 9841117, success 100 -> 100, lifetime taxes 756886 -> 756886
+  seed:20: input same, output moved -- final total 103486127 -> 103486127, success 100 -> 100, lifetime taxes 3193745 -> 3193745
+  targeted:historical-1929: input moved, output moved -- final total 2880062 -> 2578882, success 100 -> 100, lifetime taxes 22527 -> 23821
+  targeted:historical-1966: input moved, output moved -- final total 5165162 -> 4751113, success 100 -> 100, lifetime taxes 115184 -> 105230
+  targeted:historical-2000: input moved, output moved -- final total 3823352 -> 3553121, success 100 -> 100, lifetime taxes 65407 -> 69439
+  targeted:arm-flag-on: input moved, output moved -- final total 0 -> 0, success 0 -> 0, lifetime taxes 0 -> 0
+  expansion:other-asset-draw-historical: input moved, output moved -- final total 0 -> 0, success 0 -> 0, lifetime taxes 0 -> 0
+  expansion:monte-carlo-sensitive-band: input moved, output moved -- final total 116536400 -> 119653546, success 84.2 -> 85, lifetime taxes 4115472 -> 3924772
+  expansion:s5aa-r14-rmd-conversion-under-loss: input moved, output moved -- final total 262733 -> 251776, success 100 -> 100, lifetime taxes 23771 -> 23764
+  expansion:s5aa-r14-rmd-prototype-ids: input moved, output moved -- final total 293286 -> 274753, success 100 -> 100, lifetime taxes 3649 -> 3632
+## b722884 (decision 1 alone) against the decision-1 scratch copy of the prediction (only the band's re-pick differs)
+entries 71 vs 71 | differing 1 expansion:monte-carlo-sensitive-band
+## 8732bb8 against b722884 (decisions 2-4 alone), differing leaves
+entries 71 vs 71 | differing 10 seed:2, seed:3, seed:4, seed:10, seed:12, seed:14, seed:15, seed:16, seed:20, targeted:arm-flag-on
+seed:2: 1 leaves differ -- .issues[0].message "The working years are not funded by pay: at age 58 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 58 the year's pay, after payroll and inco...
+seed:3: 1 leaves differ -- .issues[2].message "The working years are not funded by pay: at age 58 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 58 the year's pay, after payroll and inco...
+seed:4: 1 leaves differ -- .issues[4].message "The working years are not funded by pay: at age 67 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 67 the year's pay, after payroll and inco...
+seed:10: 1 leaves differ -- .issues[1].message "The working years are not funded by pay: at age 48 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 48 the year's pay, after payroll and inco...
+seed:12: 1 leaves differ -- .issues[2].message "The working years are not funded by pay: at age 38 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 38 the year's pay, after payroll and inco...
+seed:14: 1 leaves differ -- .issues[2].message "The working years are not funded by pay: at age 45 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 45 the year's pay, after payroll and inco...
+seed:15: 1 leaves differ -- .issues[2].message "The working years are not funded by pay: at age 35 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 35 the year's pay, after payroll and inco...
+seed:16: 1 leaves differ -- .rows[15].spending 213698.61245257227 -> 213698.61245257233
+seed:20: 1 leaves differ -- .issues[0].message "The working years are not funded by pay: at age 59 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 59 the year's pay, after payroll and inco...
+targeted:arm-flag-on: 1 leaves differ -- .issues[2].message "The working years are not funded by pay: at age 60 the year's pay, after payroll and inco... -> "The working years are not funded by pay: at age 60 the year's pay, after payroll and inco...
