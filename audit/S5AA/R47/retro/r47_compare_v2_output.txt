@@ -1,0 +1,26 @@
+moved 24, named 24
+  golden:monte-carlo-fixed-seed | named (Monte Carlo: path level below), moved | measured: total -1300.24, lifetime tax 0.00, spending 0.00, shortfall 0.00
+  golden:rmd-and-roth-conversion | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -52642.45, lifetime tax 9993.85, spending 0.00, shortfall 0.00
+  seed:1 | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -2536.27, lifetime tax 2149.55, spending 0.00, shortfall 0.00
+  seed:2 | directions match: final total down, lifetime tax up, spending down, shortfall unchanged | measured: total -2360.54, lifetime tax 13836.72, spending -12399.82, shortfall 0.00
+  seed:5 | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -203.69, lifetime tax 178.23, spending 0.00, shortfall 0.00
+  seed:6 | directions match: final total down, lifetime tax up, spending unchanged, shortfall up | measured: total -338.46, lifetime tax 790.05, spending 0.00, shortfall 451.59
+  seed:10 | directions match: final total unchanged, lifetime tax up, spending unchanged, shortfall up | measured: total 0.00, lifetime tax 1141.46, spending 0.00, shortfall 1141.46
+  seed:13 | matches: only the limit note moves; rows unchanged (measured: rows equal, limitWarnings differ: true) | measured: total 0.00, lifetime tax 0.00, spending 0.00, shortfall 0.00
+  seed:16 | directions match: final total unchanged, lifetime tax up, spending down, shortfall unchanged | measured: total 0.00, lifetime tax 709.45, spending -709.45, shortfall 0.00
+  seed:20 | directions match: final total up, spending up, shortfall unchanged; lifetime tax not predicted (second order), measured 853.33 | measured: total 21351.17, lifetime tax 853.33, spending 3305.51, shortfall 0.00
+  targeted:spouse-cola-income | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -1720.39, lifetime tax 1720.39, spending 0.00, shortfall 0.00
+  targeted:historical-1929 | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -7853.07, lifetime tax 4705.87, spending 0.00, shortfall 0.00
+  targeted:historical-1966 | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -38471.57, lifetime tax 5411.22, spending 0.00, shortfall 0.00
+  targeted:historical-2000 | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -45816.24, lifetime tax 12164.04, spending 0.00, shortfall 0.00
+  targeted:collision-household-cash | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -7200.00, lifetime tax 7200.00, spending 0.00, shortfall 0.00
+  targeted:explicit-cash-holding | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -2238.34, lifetime tax 2238.34, spending 0.00, shortfall 0.00
+  targeted:funded-qcd | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -1768.95, lifetime tax 1684.21, spending 0.00, shortfall 0.00
+  targeted:collision-rmd-retained-cash | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -8576.01, lifetime tax 7062.54, spending 0.00, shortfall 0.00
+  expansion:monte-carlo-sensitive-band | named (Monte Carlo: path level below), moved | measured: total 0.00, lifetime tax 0.00, spending 0.00, shortfall 0.00
+  expansion:s5aa-gap-working-household | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -21890.46, lifetime tax 14127.32, spending 0.00, shortfall 0.00
+  expansion:s5aa-gap-death-while-working | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -11775.81, lifetime tax 9026.57, spending 0.00, shortfall 0.00
+  expansion:s5aa-r6-gap-survivor-health-roth | directions match: final total up, spending unchanged, shortfall unchanged; lifetime tax not predicted (second order), measured -0.43 | measured: total 123.19, lifetime tax -0.43, spending 0.00, shortfall 0.00
+  expansion:s5aa-r14-rmd-conversion-under-loss | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -676.80, lifetime tax 720.00, spending 0.00, shortfall 0.00
+  expansion:s5aa-r14-rmd-prototype-ids | directions match: final total down, lifetime tax up, spending unchanged, shortfall unchanged | measured: total -1605.12, lifetime tax 1653.28, spending 0.00, shortfall 0.00
+RESULT: the named set equals the moved set, and every predicted direction matches

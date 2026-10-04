@@ -1,0 +1,511 @@
+[
+ {
+  "name": "golden:baseline",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "golden:monte-carlo-fixed-seed",
+  "method": "monteCarlo",
+  "exposed": [
+   "Arizona senior subtraction by age, 32 rows (Monte Carlo: every path exposed)"
+  ],
+  "direction": "Monte Carlo: named, every path exposed; the published result may move"
+ },
+ {
+  "name": "golden:rmd-and-roth-conversion",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 23 rows, $3073.16",
+   "BASELINE (wages): Arizona falls in 1 rows, $150.00"
+  ],
+  "direction": "total DOWN from the row closing at 69 (first-order effect -$46.84)"
+ },
+ {
+  "name": "golden:reserve-and-bond-tent",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "golden:guardrails-withdrawal-strategy",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:1",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 4 rows, $410.55"
+  ],
+  "direction": "total UP from the row closing at 66 (first-order effect $150.00)"
+ },
+ {
+  "name": "seed:2",
+  "method": "historical",
+  "exposed": [
+   "return: Arizona falls in 14 rows, $1395.70"
+  ],
+  "direction": "total UP from the row closing at 68 (first-order effect $122.12)"
+ },
+ {
+  "name": "seed:3",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:4",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:5",
+  "method": "historical",
+  "exposed": [
+   "return: Arizona falls in 3 rows, $14.02"
+  ],
+  "direction": "total UP from the row closing at 78 (first-order effect $9.30)"
+ },
+ {
+  "name": "seed:6",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 3 rows, $164.59"
+  ],
+  "direction": "total UP from the row closing at 65 (first-order effect $70.51)"
+ },
+ {
+  "name": "seed:7",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:8",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:9",
+  "method": "monteCarlo",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:10",
+  "method": "historical",
+  "exposed": [
+   "return: Arizona falls in 3 rows, $237.80",
+   "Medicare 22 rows, about $203394.18 more charged"
+  ],
+  "direction": "total DOWN from the row closing at 72 (first-order effect -$4753.40)"
+ },
+ {
+  "name": "seed:11",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:12",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:13",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:14",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:15",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:16",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 7 rows, $695.23",
+   "Medicare 16 rows, about $292106.36 more charged"
+  ],
+  "direction": "spending and taxes only: every exposed row is absorbed by surplus spending"
+ },
+ {
+  "name": "seed:17",
+  "method": "monteCarlo",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:18",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:19",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "seed:20",
+  "method": "simple",
+  "exposed": [
+   "BASELINE (wages): Arizona falls in 9 rows, $1968.82"
+  ],
+  "direction": "total DOWN from the row closing at 65 (first-order effect -$135.96)"
+ },
+ {
+  "name": "targeted:historical-spouse-ss",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "targeted:spouse-cola-income",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "targeted:historical-1929",
+  "method": "historical",
+  "exposed": [
+   "return: Arizona falls in 6 rows, $900.00"
+  ],
+  "direction": "total UP from the row closing at 85 (first-order effect $150.00)"
+ },
+ {
+  "name": "targeted:historical-1966",
+  "method": "historical",
+  "exposed": [
+   "return: Arizona falls in 14 rows, $1498.30"
+  ],
+  "direction": "total UP from the row closing at 70 (first-order effect $150.00)"
+ },
+ {
+  "name": "targeted:historical-2000",
+  "method": "historical",
+  "exposed": [
+   "return: Arizona falls in 18 rows, $2554.24"
+  ],
+  "direction": "total UP from the row closing at 69 (first-order effect $6.33)"
+ },
+ {
+  "name": "targeted:arm-flag-on",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "targeted:collision-household-cash",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 13 rows, $1950.00"
+  ],
+  "direction": "total UP from the row closing at 68 (first-order effect $150.00)"
+ },
+ {
+  "name": "targeted:explicit-cash-holding",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 5 rows, $638.97"
+  ],
+  "direction": "total UP from the row closing at 68 (first-order effect $128.60)"
+ },
+ {
+  "name": "targeted:funded-qcd",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 5 rows, $750.00"
+  ],
+  "direction": "total UP from the row closing at 76 (first-order effect $150.00)"
+ },
+ {
+  "name": "targeted:survivor-stateful",
+  "method": "simple",
+  "exposed": [
+   "rollover message"
+  ],
+  "direction": "issue text only"
+ },
+ {
+  "name": "targeted:collision-rmd-retained-cash",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 10 rows, $1277.69"
+  ],
+  "direction": "total UP from the row closing at 76 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:other-asset-draw-growth-0",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:other-asset-draw-growth-4",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:other-asset-draw-historical",
+  "method": "historical",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:other-asset-two-assets-late-access",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:debt-ordinary-amortizing-15y",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 5 rows, $224.69"
+  ],
+  "direction": "total UP from the row closing at 71 (first-order effect $8.89)"
+ },
+ {
+  "name": "expansion:debt-ordinary-amortizing-5y",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 8 rows, $574.35"
+  ],
+  "direction": "total UP from the row closing at 73 (first-order effect $1.55)"
+ },
+ {
+  "name": "expansion:debt-ordinary-zero-interest",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 8 rows, $676.12"
+  ],
+  "direction": "total UP from the row closing at 73 (first-order effect $13.13)"
+ },
+ {
+  "name": "expansion:debt-ordinary-zero-balance",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 8 rows, $737.85"
+  ],
+  "direction": "total UP from the row closing at 73 (first-order effect $20.71)"
+ },
+ {
+  "name": "expansion:debt-ordinary-payoff",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 2 rows, $158.07"
+  ],
+  "direction": "total UP from the row closing at 70 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:debt-adversarial-q54-worst",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 5 rows, $223.37"
+  ],
+  "direction": "total UP from the row closing at 72 (first-order effect $3.85)"
+ },
+ {
+  "name": "expansion:debt-adversarial-interest-only",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 4 rows, $262.96"
+  ],
+  "direction": "total UP from the row closing at 72 (first-order effect $19.34)"
+ },
+ {
+  "name": "expansion:debt-adversarial-a-cent-below",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 8 rows, $371.54"
+  ],
+  "direction": "total UP from the row closing at 72 (first-order effect $9.36)"
+ },
+ {
+  "name": "expansion:monte-carlo-sensitive-band",
+  "method": "monteCarlo",
+  "exposed": [
+   "Arizona senior subtraction by age, 32 rows (Monte Carlo: every path exposed)"
+  ],
+  "direction": "Monte Carlo: named, every path exposed; the published result may move"
+ },
+ {
+  "name": "expansion:s5aa-gap-working-household",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 19 rows, $1839.17",
+   "BASELINE (wages): Arizona falls in 14 rows, $2550.00"
+  ],
+  "direction": "total UP from the row closing at 57 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:s5aa-gap-retired-couple",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-gap-early-retiree",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-gap-widowed-before-fra",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-gap-death-while-working",
+  "method": "simple",
+  "exposed": [
+   "rollover message",
+   "return: Arizona falls in 14 rows, $2270.06",
+   "BASELINE (wages): Arizona falls in 1 rows, $300.00"
+  ],
+  "direction": "total UP from the row closing at 71 (first-order effect $300.00)"
+ },
+ {
+  "name": "expansion:s5aa-r6-gap-survivor-health-roth",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 15 rows, $1745.59",
+   "BASELINE (wages): Arizona falls in 4 rows, $375.00"
+  ],
+  "direction": "total DOWN from the row closing at 64 (first-order effect -$18.37)"
+ },
+ {
+  "name": "expansion:s5aa-r6-gap-basis-conversion",
+  "method": "simple",
+  "exposed": [
+   "rollover message",
+   "return: Arizona falls in 6 rows, $900.00"
+  ],
+  "direction": "total UP from the row closing at 65 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:s5aa-r6-gap-basis-one-owner-draw",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-r14-rmd-conversion-under-loss",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 4 rows, $600.00"
+  ],
+  "direction": "total UP from the row closing at 76 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:s5aa-r14-rmd-two-iras-distinct-returns",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 1 rows, $128.19"
+  ],
+  "direction": "total UP from the row closing at 79 (first-order effect $128.19)"
+ },
+ {
+  "name": "expansion:s5aa-r14-rmd-prototype-ids",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 5 rows, $1338.48"
+  ],
+  "direction": "total UP from the row closing at 81 (first-order effect $300.00)"
+ },
+ {
+  "name": "expansion:s5aa-r15-rmd-transfer-to-taxable",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 1 rows, $150.00"
+  ],
+  "direction": "total UP from the row closing at 79 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:s5aa-sa18-loss-under-deduction",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 1 rows, $150.00"
+  ],
+  "direction": "total UP from the row closing at 72 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:s5aa-sa18-decedent-loss",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 1 rows, $150.00"
+  ],
+  "direction": "total UP from the row closing at 72 (first-order effect $150.00)"
+ },
+ {
+  "name": "expansion:s5aa-r19-ira-contribution-conversion-same-year",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-r19-ira-conversion-and-qcd",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-r19-ira-charity-then-rollover",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-r19-ira-qcd-offset",
+  "method": "simple",
+  "exposed": [
+   "return: Arizona falls in 1 rows, $150.00",
+   "BASELINE (wages): Arizona falls in 1 rows, $150.00"
+  ],
+  "direction": "spending and taxes only: every exposed row is absorbed by surplus spending"
+ },
+ {
+  "name": "expansion:s5aa-r20-spouse-owner-early-tax",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-r20-rule55-ira-ranking",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-r35-rule55-separation-at-55",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ },
+ {
+  "name": "expansion:s5aa-r20-all-stock-glide",
+  "method": "simple",
+  "exposed": [],
+  "direction": null
+ }
+]

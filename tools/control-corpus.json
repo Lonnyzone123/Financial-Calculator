@@ -1,26 +1,34 @@
 {
   "formatVersion": 1,
-  "about": "S5 2s.1's CONTROL CORPUS, the successor to S4 task 4.7's s4-control. U4 (Q73) repaired the scenario generator's stage draw corpus-wide, so eight seeded control scenarios mean different plans; control rule 3 makes that its own versioned corpus change, and rule 5 keeps the old capture beside the new one. The predecessor record is kept whole below. tests/control-corpus.test.js holds this record to the live corpus and to its evidence.",
-  "name": "s5-control",
-  "corpusInputHash": "343387a9da823a2ae8eb4105aaaba73ed5b6f932dd852bb396ddea2653c08d2c",
-  "outputHash": "994eb8cf7b4ad9d043f8b7193cbd33182a3fc15af4c04d6098742d8c71af1983",
+  "about": "S5AA R51's CONTROL CORPUS, the successor to S5 2s.1's s5-control. The owner's decision of 2026-10-03 on AA1-25(c) turns spending flexibility off by default (defaultPlan.retirement.flexibility 10 -> 0), and every golden and targeted control scenario inherits the default, so sixteen control scenarios mean different plans. Control rule 3 makes that its own versioned corpus change, in its own commit (b722884, the default and nothing else), and rule 5 keeps the old capture beside the new one. The owner chose this successor control on 2026-10-03 (the S5 precedent), over freezing the control at the old default. The predecessor record is kept whole below. tests/control-corpus.test.js holds this record to the live corpus and to its evidence.",
+  "name": "s5aa-r51-control",
+  "corpusInputHash": "dbbe8036169504b7344a795f1f4e647b0fc09f145dc7773dcd326cdc4169571f",
+  "outputHash": "3c558e4dc740d1b5b24d424d62fc3a5b35824451961e9f6bffceeb9b14e8c4a8",
   "entryCount": 36,
-  "composition": { "golden": 5, "seeds": 20, "targeted": 11 },
+  "composition": {
+    "golden": 5,
+    "seeds": 20,
+    "targeted": 11
+  },
   "evidence": [
-    { "commit": "e157733", "source": "tools/baseline-20260914-s5-control.json", "what": "the control capture itself: taken at e157733, qualified, and reproduced byte for byte by that commit's own capture tool in a clean clone" }
+    {
+      "commit": "b722884",
+      "source": "tools/baseline-20261003-s5aa-r51-control.json",
+      "what": "the control capture itself: taken at b722884, qualified, and reproduced byte for byte by that commit's own capture tool in a second clean worktree"
+    }
   ],
   "controlCapture": {
-    "file": "tools/baseline-20260914-s5-control.json",
-    "commit": "e157733",
-    "sha256": "047002c2fb8d2f2cbee3ba246e1f276fbc9627ec9fb62e68fa64639bda747f9b",
-    "takenIn": "a clean worktree checked out at e157733, a commit object on no branch whose tree is its parent's with only tests/lib/scenario-generator.js repaired, kept reachable by the local annotated tag s5-u4-successor-control. It is off the branch by design: its own tree holds the repaired generator with the old record, so it fails the live-corpus test (Q77, answer (a)).",
-    "why": "the generator repair changes exactly eight seeded scenarios (seed:1, seed:2, seed:5, seed:6, seed:12, seed:16, seed:19, seed:20), only in their spending stages' values, so the corpus-input hash moves from 673495ef to 343387a9. The other 28 entries are byte-identical to s4-control's; the eight changed entries all move, as predicted before any capture."
+    "file": "tools/baseline-20261003-s5aa-r51-control.json",
+    "commit": "b722884",
+    "sha256": "14b4677fc3a7c9e002c08259e9fabcc243dd18de4fdcc58234deb7baf4e9d87c",
+    "takenIn": "a clean worktree checked out at b722884 (node_modules a junction to the main checkout's, jsdom 30.0.1), Windows 11, Node 24.17.0; taken twice in two clean worktrees, byte-identical. b722884 is on the branch: its tree holds the new default with the old record, so its own control tests fail, as e157733's did (Q77, answer (a)); unlike e157733 it needs no tag to stay reachable.",
+    "why": "the default change makes sixteen control scenarios different plans: the five golden scenarios (golden:baseline, golden:monte-carlo-fixed-seed, golden:rmd-and-roth-conversion, golden:reserve-and-bond-tent, golden:guardrails-withdrawal-strategy) and the eleven targeted ones, each inheriting the default flexibility. The twenty generated seeds draw their own flexibility and are unchanged. The corpus-input hash moves from 343387a9 to dbbe8036. Predicted before any capture by audit/S5AA/R51/S5AA_R51_PREDICTION_RECORD_20261003.md (d663f16); the capture replays exactly against b722884 (tools/historical-replay.js, ROUND-TRIP PASS)."
   },
   "replay": {
     "decided": "Question 10 (A), the owner, 2026-09-16: control test 4.7 holds the stored control capture to the engine that captured it (historical integrity), and today's engine to a written prediction (candidate movement), as two separate checks. A passing replay approves no candidate output.",
     "tool": "tools/historical-replay.js",
     "reference": "the capture's own meta, written when it was taken: gitCommit, the sha256 of every declared input (meta.inputGraph.files) and the Node version (meta.inputGraph.runtime.node). Every declared input is verified before anything runs.",
-    "sources": "in order: a reference tree the caller names (--reference-tree, or the CORPUS_REFERENCE_TREE environment variable); this repository's git objects (the commit is kept by the local tag s5-u4-successor-control); a reference-trees directory named by the full commit at the repository root, written by the tool's materialize command; the S5 control's is committed, so a source package carries it. With none available the replay is BLOCKED, never a pass, and today's engine is never used in its place.",
+    "sources": "in order: a reference tree the caller names (--reference-tree, or the CORPUS_REFERENCE_TREE environment variable); this repository's git objects (b722884 is a commit on sprint/s5aa-r51, kept by every merge of that branch); a reference-trees directory named by the full commit at the repository root, written by the tool's materialize command; this control's is committed, so a source package carries it. With none available the replay is BLOCKED, never a pass, and today's engine is never used in its place.",
     "qualifiedEnvironment": "the capture's recorded Node version on Windows (Windows 11 with Node 24.17.0); anything else is UNQUALIFIED and nothing runs. Exact replay on a second machine or another Node version is not established, and no tolerance is applied.",
     "notReplayed": "the 11 targeted scenarios, built only inside tools/capture-baseline.js: reported as not replayed by name, and still covered by INVENTORY, ENCODING, NON-VACUOUS and SHAPE.",
     "candidatePrediction": "tools/control-candidate-prediction.json"
@@ -34,10 +42,10 @@
   ],
   "predecessor": {
     "formatVersion": 1,
-    "about": "S4 task 4.7's CONTROL CORPUS: the corpus as it stood before S4 changed anything, fixed so that every later candidate is compared against the same inputs. Tasks 1, 4 and 5 change what the corpus contains, while ground rule 9 forbids output movement and S3-01 refuses a comparison across different inputs; this record is how both hold. tests/control-corpus.test.js holds it to the live corpus and to its evidence.",
-    "name": "s4-control",
-    "corpusInputHash": "673495ef711cf09837b397ebc2ee8cfbe0550338c296d711ecf53f11f949fcd4",
-    "outputHash": "91c2eb999671422d1f93c6d99bbbbad0793b9cf993208e4878913c432395a279",
+    "about": "S5 2s.1's CONTROL CORPUS, the successor to S4 task 4.7's s4-control. U4 (Q73) repaired the scenario generator's stage draw corpus-wide, so eight seeded control scenarios mean different plans; control rule 3 makes that its own versioned corpus change, and rule 5 keeps the old capture beside the new one. The predecessor record is kept whole below. tests/control-corpus.test.js holds this record to the live corpus and to its evidence.",
+    "name": "s5-control",
+    "corpusInputHash": "343387a9da823a2ae8eb4105aaaba73ed5b6f932dd852bb396ddea2653c08d2c",
+    "outputHash": "994eb8cf7b4ad9d043f8b7193cbd33182a3fc15af4c04d6098742d8c71af1983",
     "entryCount": 36,
     "composition": {
       "golden": 5,
@@ -46,27 +54,26 @@
     },
     "evidence": [
       {
-        "commit": "3b6865c",
-        "source": "tools/baseline-20260910-after-S3R2-closure.json",
-        "what": "a stored capture carrying this corpus-input hash and this output hash"
-      },
-      {
-        "commit": "db1874a",
-        "source": "tools/baseline-20260911-after-CR2-closure.json",
-        "what": "a stored capture carrying this corpus-input hash and this output hash"
-      },
-      {
-        "commit": "47bc707",
-        "source": "corpus() re-derived in a clean clone of S4's tree before any instrument change",
-        "what": "the same corpus-input hash, so S4 started from this corpus"
+        "commit": "e157733",
+        "source": "tools/baseline-20260914-s5-control.json",
+        "what": "the control capture itself: taken at e157733, qualified, and reproduced byte for byte by that commit's own capture tool in a clean clone"
       }
     ],
     "controlCapture": {
-      "file": "tools/baseline-20260913-s4-control.json",
-      "commit": "38f1a97",
-      "sha256": "a48a86c3383e434887b0b053f6d3b136687770dcde69092d41a13dda5bbec6a5",
-      "takenIn": "a clean clone of 38f1a97, so its source hashes are the committed bytes rather than a working tree's line endings",
-      "why": "the first capture carrying meta.inputHashes (S4 task 4.7). Its entries are byte-identical to the stored after-CR2 capture (same output hash, same corpus-input hash), so it adds per-scenario input identity to the control evidence without replacing any."
+      "file": "tools/baseline-20260914-s5-control.json",
+      "commit": "e157733",
+      "sha256": "047002c2fb8d2f2cbee3ba246e1f276fbc9627ec9fb62e68fa64639bda747f9b",
+      "takenIn": "a clean worktree checked out at e157733, a commit object on no branch whose tree is its parent's with only tests/lib/scenario-generator.js repaired, kept reachable by the local annotated tag s5-u4-successor-control. It is off the branch by design: its own tree holds the repaired generator with the old record, so it fails the live-corpus test (Q77, answer (a)).",
+      "why": "the generator repair changes exactly eight seeded scenarios (seed:1, seed:2, seed:5, seed:6, seed:12, seed:16, seed:19, seed:20), only in their spending stages' values, so the corpus-input hash moves from 673495ef to 343387a9. The other 28 entries are byte-identical to s4-control's; the eight changed entries all move, as predicted before any capture."
+    },
+    "replay": {
+      "decided": "Question 10 (A), the owner, 2026-09-16: control test 4.7 holds the stored control capture to the engine that captured it (historical integrity), and today's engine to a written prediction (candidate movement), as two separate checks. A passing replay approves no candidate output.",
+      "tool": "tools/historical-replay.js",
+      "reference": "the capture's own meta, written when it was taken: gitCommit, the sha256 of every declared input (meta.inputGraph.files) and the Node version (meta.inputGraph.runtime.node). Every declared input is verified before anything runs.",
+      "sources": "in order: a reference tree the caller names (--reference-tree, or the CORPUS_REFERENCE_TREE environment variable); this repository's git objects (the commit is kept by the local tag s5-u4-successor-control); a reference-trees directory named by the full commit at the repository root, written by the tool's materialize command; the S5 control's is committed, so a source package carries it. With none available the replay is BLOCKED, never a pass, and today's engine is never used in its place.",
+      "qualifiedEnvironment": "the capture's recorded Node version on Windows (Windows 11 with Node 24.17.0); anything else is UNQUALIFIED and nothing runs. Exact replay on a second machine or another Node version is not established, and no tolerance is applied.",
+      "notReplayed": "the 11 targeted scenarios, built only inside tools/capture-baseline.js: reported as not replayed by name, and still covered by INVENTORY, ENCODING, NON-VACUOUS and SHAPE.",
+      "candidatePrediction": "tools/control-candidate-prediction.json"
     },
     "rules": [
       "The control corpus does not change. A scenario may be ADDED under a new name; a name never comes to mean a different plan, and compareInputs() reports it as INCOMPATIBLE if one does.",
@@ -74,6 +81,50 @@
       "Any input or generator edit is its own versioned change, with its old and new input hashes and a reason, in its own commit (ground rule 7). It is never folded into an instrument or engine commit.",
       "A diffSnapshots() refusal is never bypassed. compareInputs() explains a refusal; it does not lift one.",
       "Old captures remain. Neither the control capture nor any stored baseline it cites is edited."
-    ]
+    ],
+    "predecessor": {
+      "formatVersion": 1,
+      "about": "S4 task 4.7's CONTROL CORPUS: the corpus as it stood before S4 changed anything, fixed so that every later candidate is compared against the same inputs. Tasks 1, 4 and 5 change what the corpus contains, while ground rule 9 forbids output movement and S3-01 refuses a comparison across different inputs; this record is how both hold. tests/control-corpus.test.js holds it to the live corpus and to its evidence.",
+      "name": "s4-control",
+      "corpusInputHash": "673495ef711cf09837b397ebc2ee8cfbe0550338c296d711ecf53f11f949fcd4",
+      "outputHash": "91c2eb999671422d1f93c6d99bbbbad0793b9cf993208e4878913c432395a279",
+      "entryCount": 36,
+      "composition": {
+        "golden": 5,
+        "seeds": 20,
+        "targeted": 11
+      },
+      "evidence": [
+        {
+          "commit": "3b6865c",
+          "source": "tools/baseline-20260910-after-S3R2-closure.json",
+          "what": "a stored capture carrying this corpus-input hash and this output hash"
+        },
+        {
+          "commit": "db1874a",
+          "source": "tools/baseline-20260911-after-CR2-closure.json",
+          "what": "a stored capture carrying this corpus-input hash and this output hash"
+        },
+        {
+          "commit": "47bc707",
+          "source": "corpus() re-derived in a clean clone of S4's tree before any instrument change",
+          "what": "the same corpus-input hash, so S4 started from this corpus"
+        }
+      ],
+      "controlCapture": {
+        "file": "tools/baseline-20260913-s4-control.json",
+        "commit": "38f1a97",
+        "sha256": "a48a86c3383e434887b0b053f6d3b136687770dcde69092d41a13dda5bbec6a5",
+        "takenIn": "a clean clone of 38f1a97, so its source hashes are the committed bytes rather than a working tree's line endings",
+        "why": "the first capture carrying meta.inputHashes (S4 task 4.7). Its entries are byte-identical to the stored after-CR2 capture (same output hash, same corpus-input hash), so it adds per-scenario input identity to the control evidence without replacing any."
+      },
+      "rules": [
+        "The control corpus does not change. A scenario may be ADDED under a new name; a name never comes to mean a different plan, and compareInputs() reports it as INCOMPATIBLE if one does.",
+        "A candidate engine is compared with the control capture on the control inputs. Added scenarios are evaluated by BOTH the reference and the candidate engine before anything about them is compared.",
+        "Any input or generator edit is its own versioned change, with its old and new input hashes and a reason, in its own commit (ground rule 7). It is never folded into an instrument or engine commit.",
+        "A diffSnapshots() refusal is never bypassed. compareInputs() explains a refusal; it does not lift one.",
+        "Old captures remain. Neither the control capture nor any stored baseline it cites is edited."
+      ]
+    }
   }
 }

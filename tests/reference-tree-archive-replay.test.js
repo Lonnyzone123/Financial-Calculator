@@ -2,7 +2,7 @@
 
 /*
  * Question 10 (A), the archive-only path (the 2026-09-16 handover review, section 2, item 7): a source package has no git
- * objects, so control test 4.7's historical replay needs the capturing commit's inputs from somewhere verifiable. The S5
+ * objects, so control test 4.7's historical replay needs the capturing commit's inputs from somewhere verifiable. The
  * control's are committed at reference-trees/<full commit>/, each file verified against the sha256 the capture recorded
  * when it was taken. These tests run WITHOUT git: they pass in a clone and in an extracted package alike.
  */
@@ -14,7 +14,11 @@ const path = require('node:path');
 
 const ROOT = path.join(__dirname, '..');
 const { capturingEngineAbsent } = require('./lib/historical-source.js');
-const stored = () => JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'baseline-20260914-s5-control.json'), 'utf8'));
+/* S5AA R51: the control named by tools/control-corpus.json (s5aa-r51-control since the owner's successor-control decision of
+   2026-10-03), as tests/lib/historical-source.js reads it; this read the S5 capture by name, which stood down here only while
+   that capture's commit was absent. */
+const CONTROL = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'control-corpus.json'), 'utf8'));
+const stored = () => JSON.parse(fs.readFileSync(path.join(ROOT, CONTROL.controlCapture.file), 'utf8'));
 
 function filesUnder(dir) {
   const out = [];
@@ -26,7 +30,7 @@ function filesUnder(dir) {
   return out.sort();
 }
 
-test('control: the S5 control capture names its commit and records its inputs', () => {
+test('control: the control capture names its commit and records its inputs', () => {
   const meta = stored().meta;
   assert.match(meta.gitCommit, /^[0-9a-f]{40}$/);
   assert.ok(Object.keys(meta.inputGraph.files).length > 0);
