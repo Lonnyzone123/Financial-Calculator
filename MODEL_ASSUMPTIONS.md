@@ -1059,7 +1059,7 @@ session directly, as reported by it. Registered as `SPRINT_QUESTIONS.md` Q158–
   limited to the larger of that reduced benefit and 82.5% of the PIA (POMS RS 00615.320's early-claim cap, now
   applied and disclosed).
 - **The earnings test counts net earnings from self-employment** (profit × 0.9235; 20 CFR 404.429, SS Act 211(a)(12)),
-  and in the grace year withholds only from the months before the owner stops working (20 CFR 404.435).
+  and in the grace year withholds only from the months before the owner stops working (20 CFR 404.435). *Since S5AA R53 the grace year is also tested month by month: §28.7.*
 - **An other income of type Social Security ends at its owner's death**, the same as an employment stream (42 USC
   402(a)).
 - **A benefit that starts inside a projection year is priced at the claim**, with every COLA from the plan's start
@@ -1281,6 +1281,7 @@ exists. Some items below are the S5AA session's own reading, adopted by the owne
   carrying it is not restored. The form cannot produce it, since it raises the ending age to at least the retirement
   age and the retirement age to at least the starting age. An ending age equal to the starting age is projected as one
   row (`984197c`; Q173). Witness: `tests/audit-s5aa-r41-end-age-before-start-refused.test.js`.
+  **Since S5AA R53** an end age before the primary's retirement age is refused as well (§28.7).
   **Since S5AA R42 to R44** (Q174 to Q181):
   - an entered Social Security benefit (`ssBenefit`, `spouseSS`) that is present and not a number is refused: the
     validator reports `WRONG_TYPE`, and the engine refuses it with `SCENARIO_NONNUMBER_PLAN_VALUE` (R42, R41F-05);
@@ -1393,9 +1394,9 @@ wages, the required distribution after a death, the conversion's 10%, what the a
 - **IRC 4973's excise.** Under "Show warning and permit it", an IRA or HSA excess stays in the account and pays 6% each year on
   the excess carried at the year's end, per owner and kind, at most 6% of that account's value. The charge is reduced by
   distributions included in income (any Roth IRA distribution, a conversion's taxable part, an HSA distribution included in
-  income) and by later unused contribution room, and is paid with the next year's taxes. 401(k) excess deferrals are not charged it.
+  income) and by later unused contribution room, and is paid with the next year's taxes. 401(k) excess deferrals are not charged it. **Since S5AA R52 (R47-01),** under that policy each owner has one IRA room per year: the year's unused room absorbs carried traditional excess first, and the absorbed amount counts as a contribution of the year for the Roth room only (IRC 219(f)(6); it earns no deduction or basis); carried Roth excess is reduced only by the room left after it, within its own phaseout limit. The year's scheduled and one-time contributions reduce the room, distributions reduce the carry before it is absorbed, and HSA room is separate. The ledger is per owner: a spousal IRA can draw on the other spouse's compensation, but one spouse's deemed contribution is not subtracted from the other's room (a recorded reading).
 - **Self-employment.** It counts as compensation net of the deductible half of its SE tax, and pre-tax workplace deferrals funded
-  from SE pay (the part the salary cannot cover) reduce qualified business income in proportion; an HSA contribution does not.
+  from SE pay (the part the salary cannot cover) reduce qualified business income in proportion; an HSA contribution does not. **Since S5AA R52 (R47-02) this is per owner** (Treas. Reg. 1.199A-3(b)(1)(vi)): a deferral reduces qualified business income only to the extent the deferring owner's own salary cannot fund it, the rest is spread over that owner's employment and self-employment pay in proportion, and a spouse's salary never shields the other owner's deferral. A joint workplace account's deferrals are read as the primary's; the validator already refuses a joint owner on a retirement account.
 - **The Medicare start, and the HSA's stop.** A person's Medicare start is the age entered (`profile.medicareStartAge`,
   `spouseMedicareStartAge`); otherwise 65 if they claim Social Security by 65 or have no benefit entered, otherwise half a year
   before the claim (Part A is backdated up to six months), never before 65. HSA contributions stop at that date, prorated in the
@@ -1417,7 +1418,7 @@ wages, the required distribution after a death, the conversion's 10%, what the a
   where it came on or after it, it starts the year after the death and the divisor is the longer of the survivor's and the
   deceased's remaining life expectancy, less one for each year since the death. The deceased's IRA basis is kept in its own pool.
   From the first year that opens at 59½ or later, or the year after a contribution to it, the survivor treats it as their own. A
-  workplace plan passes as the survivor's own; only traditional IRAs are inherited here.
+  workplace plan passes as the survivor's own; only traditional IRAs are inherited here. **Since S5AA R52 (R48-01)** a scheduled transfer from the deceased's traditional IRA into the survivor's own, in a row that opens after the death, is allowed (the validator accepts only that transfer; a transfer inside the death's own row, and the other post-death transfers the engine would move, are still refused), and the source Form 8606 pool's basis moves with it, in proportion to that pool's value on the date. A same-year nondeductible contribution becomes basis only at the year's settlement, so it does not move with a transfer that year (a recorded reading).
 - **Community property.** With the plan's Arizona community-property switch on (`profile.communityProperty`), every taxable
   account's basis resets to its value at the first death (IRC 1014(b)(6); A.R.S. 25-211(A)): joint accounts and both spouses' own,
   excluding household-cash holdings. With it off, the decedent's resets in full and half of a joint account (§18.1).
@@ -1452,13 +1453,13 @@ wages, the required distribution after a death, the conversion's 10%, what the a
   conversions (the oldest year first, the taxable part first), then earnings. A distribution is not qualified when the owner is
   under 59½ at the year's opening (a transfer is judged at its own date) or the owner's five-year period has not run. It takes
   contributions tax-free; it bears the 10% on a conversion's taxable part within five years of that conversion and while under 59½
-  (not where the household's penalty exception is on); and it is taxed on earnings, with the 10% under 59½.
+  (not where the household's penalty exception is on); and it is taxed on earnings, with the 10% under 59½. **Since S5AA R52 (R50-01),** each year's conversion record takes the year-end Form 8606 split, a Roth IRA draw taken the same year from that record is re-split, taxable part first, and its 10% is trued up in the next row; contribution basis stays separate from conversion principal. This is not the law's year-end aggregation, which stays excluded (below).
 - **Opening basis** is the entered contribution basis (`accounts[].contributionBasis`, summed per owner). Blank means none, the
   cautious reading, and the Roth IRA input says so. The engine records `ROTH_IRA_BASIS_NOT_ENTERED` when that default prices a
-  dollar; **the app shows no card for it.**
+  dollar; ~~the app shows no card for it~~ **since S5AA R52 the app shows it as the card "Roth IRA contribution basis".**
 - **The five-year period** runs from the entered first-contribution year. With no year entered and a Roth balance or basis held, it
-  is taken as met (`ROTH_FIVE_YEAR_ASSUMED`, recorded by the engine for a draw at 59½ or later in plan years 0 to 4; **the app shows
-  no card for it**); with none held, it starts at the first tax year money arrives. A surviving spouse takes over the ledger: bases
+  is taken as met (`ROTH_FIVE_YEAR_ASSUMED`, recorded by the engine for a draw at 59½ or later in plan years 0 to 4; ~~the app shows
+  no card for it~~ **since S5AA R52 the app shows it as the card "Roth IRA five-year period"**); with none held, it starts at the first tax year money arrives. A surviving spouse takes over the ledger: bases
   and conversions combine and the earlier five-year start is kept.
 - **A Roth 401(k) or custom tax-free account** is still modelled as untaxed at every age, and is flagged when drawn before 59½
   (`UNSUPPORTED_ROTH_ORDERING`, shown as the card "Roth withdrawal before 59 1/2"; judged at the year-opening age for a pooled draw).
@@ -1489,5 +1490,32 @@ wages, the required distribution after a death, the conversion's 10%, what the a
   active plan at each calculation and at load and lists its warnings as "Plan checks", and has a card on how the tax figures are
   estimated. The optimizer is now the "Rule-based withdrawal order" with a "Tax-sensitive ordering goal (heuristic)". The 10% default
   return is relabelled "historical US stocks, nominal, before fees", not changed.
+
+### 28.7 The grace-year monthly test, Restore backup, and the horizon (R53)
+
+*Written 2026-10-04 (UTC−7) from the R53 relay, each sentence checked against the code and its test at `b446b1d` (R53 landed at
+`ff02378`, `87bddba` and `fc2ee80`, PR #71; source tag `s5aa-r53-source` = `2a1f5ba`). Decided by the owner on 2026-10-04; Q193, Q195.*
+
+- **The earnings test's grace year** (R51F-01). In the grace year, the plan year in which an owner stops working, each benefit month
+  is judged on that owner's own wages in it: salary until their work ends, plus their dated employment streams. A month with wages at
+  or below the monthly exempt amount is not withheld, whatever the year's earnings (20 CFR 404.435(a)(7), 404.430(a)). The monthly
+  amount is 1/12 of the annual one: $2,040 in 2026, or **$5,430 for the months of the full-retirement-age year before that age**
+  (the owner's ruling after the build). In later years the amounts are indexed to wages, with the monthly figure rounded to $10. Any
+  self-employment profit in a month makes it a service month, a cautious approximation because the plan has no hours input; SSA
+  would look at substantial services instead (404.435(c), 404.446). A month that a job's start or end splits is judged part by part,
+  each part at its own rate. It applies to both owners and to the family-withholding allocation. Later years use the annual test only.
+- **Restore backup** (R52-01, R52-02). A restored backup keeps every validated value: the form shows each stored value, and a field
+  is rounded to the half year or clamped only when the user edits it. This covers the eleven half-year fields and seven of the R45
+  dates, and a manual withdrawal order that the form does not list, which is kept and shown as an extra option labelled "(from the
+  restored plan)". **Not kept:** the Monte Carlo run count, which is rounded to hundreds; the form's other range clamps; an end age
+  above 100, which is capped; and the keys the form does not carry (`ssFra`, `pensionStart`, `pensionAge`), which the engine does not
+  read.
+- **The horizon.** A plan's end age must be at or after the primary's retirement age. The validator, the import and the engine refuse
+  an earlier end age (`END_AGE_BEFORE_RETIREMENT`, replacing the `INCONSISTENT_AGES` warning for this case, and
+  `SCENARIO_END_AGE_BEFORE_RETIREMENT`); R41's `END_AGE_BEFORE_START` stands alone when the end age is before the start. A plan that
+  ends while still working is entered with the retirement age equal to the end age, and a spouse's own later retirement is allowed
+  (only the primary's retirement and end ages are read). The result contract stays at version 5, with an "R53 added" subsection.
+  The import's shared refusal prefix, "a structural problem that would break the projection", overstates this rule and is for the
+  owner (Q195).
 
 *Decided 2026-10-03 and 2026-10-04 (the owner), on the AA1 assumptions audit. Registered as `SPRINT_QUESTIONS.md` Q182 to Q191.*
