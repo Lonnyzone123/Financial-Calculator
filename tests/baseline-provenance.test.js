@@ -88,7 +88,7 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
   assert.deepEqual(provenance.registryProblems(REGISTRY, { history: false }), []);
   const counts = {};
   REGISTRY.baselines.forEach((b) => { counts[b.provenance.class] = (counts[b.provenance.class] || 0) + 1; });
-  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 36, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
+  assert.deepEqual(counts, { 'unqualified-no-commit': 8, reproduced: 37, 'reproduced-output': 1, 'unqualified-wrong-commit': 1 },
     'measured 2026-09-13: eight record no commit, five reproduce byte for byte, one reproduces its output, one names the wrong commit. ' +
     'On 2026-09-14 the successor control capture joined the byte-for-byte class, replayed in a clean clone of its recorded commit, so six. ' +
     'On 2026-09-20 S5AA task 6.2 added the first EXPANDED capture, baseline-20260920-s5aa-expanded.json, replayed the same way, so seven. ' +
@@ -137,7 +137,8 @@ test('5.1: every stored baseline carries a provenance class, and each class agre
     + 'disclosure) was integrated on R48 it was re-captured at d381383, in two clean worktrees, so thirty-four. After R50 (the Roth IRA '
     + 'basis ledger and income earlier in the first tax year) was integrated on R49 it was re-captured at ab33cb7, in two clean worktrees, '
     + 'so thirty-five. When R51 turned spending flexibility off by default, the owner chose a successor control (2026-10-03): '
-    + 's5aa-r51-control, the control composition captured at b722884, in two clean worktrees, so thirty-six');
+    + 's5aa-r51-control, the control composition captured at b722884, in two clean worktrees, so thirty-six. With R51 integrated the expanded composition was re-captured at 9135fb8, in two clean '
+    + 'worktrees, so thirty-seven');
 });
 
 test('5.1: held to history -- reproduced captures match their recorded commit, and the wrong commit still does not', () => {
