@@ -1,0 +1,52 @@
+== golden:monte-carlo-fixed-seed (monteCarlo)
+  successRate 100 -> 100
+  lifetimeTaxes 2,242,033.60 -> 2,242,033.60 (0.00)
+  final total 304,502,978.52 -> 304,502,978.52 (0.00)
+  failed false -> false; firstShortfallAge null -> null
+  rows moved 24 of 68; first at 58: federalAgi, irmaaMagi, magi, niitMagi, seniorDeductionMagi, ssProvisionalIncome, taxes, withdrawals
+  issues FILING_HOUSEHOLD_MISMATCH, PROJECTION_ENDS_AT_LAST_DEATH, UNSUPPORTED_ROTH_ORDERING
+      -> FILING_HOUSEHOLD_MISMATCH, PROJECTION_ENDS_AT_LAST_DEATH
+== seed:3 (historical)
+  lifetimeTaxes 928,578.19 -> 1,001,733.57 (73,155.38)
+  final total 12,728,924.58 -> 12,591,339.67 (-137,584.91)
+  failed false -> false; firstShortfallAge null -> null
+  rows moved 17 of 18; first at 59: federalAgi, irmaaMagi, magi, networth, niitMagi, realTotal, roth, seniorDeductionMagi, ssProvisionalIncome, taxSettled, ...
+  issues FILING_HOUSEHOLD_MISMATCH, UNSUPPORTED_HISTORICAL_ALLOCATION, UNSUPPORTED_ROTH_ORDERING
+      -> FILING_HOUSEHOLD_MISMATCH, ROTH_FIVE_YEAR_ASSUMED, ROTH_IRA_BASIS_NOT_ENTERED, UNSUPPORTED_HISTORICAL_ALLOCATION
+== seed:9 (monteCarlo)
+  successRate 100 -> 100
+  lifetimeTaxes 4,883,054.59 -> 6,202,668.77 (1,319,614.17)
+  final total 4,499,592.40 -> 3,721,873.85 (-777,718.55)
+  failed false -> false; firstShortfallAge null -> null
+  rows moved 8 of 31; first at 57: federalAgi, hsa, irmaaMagi, magi, networth, niitMagi, q10, q90, realTotal, roth, ...
+  issues HSA_QUALIFIED_SHARE_ASSUMED, TRANSFER_INTO_WORKPLACE_REFUSED, UNSUPPORTED_ROTH_ORDERING
+      -> HSA_QUALIFIED_SHARE_ASSUMED, ROTH_IRA_BASIS_NOT_ENTERED, TRANSFER_INTO_WORKPLACE_REFUSED
+== seed:14 (historical)
+  lifetimeTaxes 0.00 -> 0.00 (0.00)
+  final total 6,644,028.78 -> 6,644,028.78 (0.00)
+  failed false -> false; firstShortfallAge null -> null
+  rows moved 18 of 30; first at 57: hsa, roth
+  issues FILING_HOUSEHOLD_MISMATCH, HSA_QUALIFIED_SHARE_ASSUMED, UNSUPPORTED_ROTH_ORDERING
+      -> FILING_HOUSEHOLD_MISMATCH, HSA_QUALIFIED_SHARE_ASSUMED
+== targeted:survivor-stateful (simple)
+  lifetimeTaxes 0.00 -> 0.00 (0.00)
+  final total 1,211,939.08 -> 1,211,939.08 (0.00)
+  failed false -> false; firstShortfallAge null -> null
+  no row moved
+  issues SPOUSAL_ROLLOVER_ASSUMED, SURVIVOR_BENEFIT_APPROXIMATED, SURVIVOR_FILING_STATUS_MODELLED
+      -> ROTH_FIVE_YEAR_ASSUMED, SPOUSAL_ROLLOVER_ASSUMED, SURVIVOR_BENEFIT_APPROXIMATED, SURVIVOR_FILING_STATUS_MODELLED
+== expansion:monte-carlo-sensitive-band (monteCarlo)
+  successRate 84.6 -> 84.6
+  lifetimeTaxes 5,428,996.81 -> 5,597,257.56 (168,260.75)
+  final total 147,352,119.33 -> 149,004,958.44 (1,652,839.11)
+  failed true -> true; firstShortfallAge 79 -> 79
+  rows moved 41 of 68; first at 56: taxes, withdrawals
+  issues FILING_HOUSEHOLD_MISMATCH, PROJECTION_ENDS_AT_LAST_DEATH, UNSUPPORTED_ROTH_ORDERING
+      -> FILING_HOUSEHOLD_MISMATCH, PROJECTION_ENDS_AT_LAST_DEATH, ROTH_IRA_BASIS_NOT_ENTERED
+== expansion:s5aa-r19-ira-contribution-conversion-same-year (simple)
+  lifetimeTaxes 55,670.50 -> 55,670.50 (0.00)
+  final total 3,750.50 -> 3,750.50 (0.00)
+  failed false -> false; firstShortfallAge null -> null
+  no row moved
+  issues UNSUPPORTED_ROTH_ORDERING
+      -> (none)
