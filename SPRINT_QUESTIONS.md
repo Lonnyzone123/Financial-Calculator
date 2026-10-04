@@ -912,6 +912,8 @@ in one period. The alternative — consume the draw and accept the stream shift
 — is defensible if a reviewer thinks distributional fidelity in that period
 matters more than reproducibility across the run.
 
+**Refined 2026-10-03 (the owner, on the AA1 audit; S5AA R46; Q185).** Under Monte Carlo, an account created mid-year takes that year's shared shock (one shared draw per period), so choice (b) above now reads that way. A direct generator caller keeps the suppressed-draw contract.
+
 ## 2026-09-11 — Q20. The worker function registry is hand-maintained, and this is the second time it has bitten
 
 `buildWorkerSource()` in `src/app-shell.html` builds the Web Worker from an
@@ -2698,6 +2700,8 @@ mathematically impossible input into a plausible number is not a guard.
 
 ---
 
+**Repaired 2026-10-03 (S5AA R46; Q185).** Both the validator and the engine now refuse an infeasible correlation (the validator's `INFEASIBLE_CORRELATION`, the engine's `SCENARIO_INFEASIBLE_CORRELATION`: below −1/(n−1) for the n asset classes the accounts hold, or above 1), so a negative correlation no longer produces a zero-volatility portfolio silently.
+
 ## 2026-09-12 — Q46. The senior tax deduction's documented 2028 expiration is not implemented anywhere
 
 **A discovered defect, not a judgment call**, same shape as Q43/Q44. Full
@@ -4286,6 +4290,8 @@ UI's current "Years of spending in reserve" label implies). Not routed
 through the P19 exclusion table — `accountReturnForPeriod()` is on
 `engine.js`'s always-reachable path for every account, every period.
 
+**Repaired 2026-10-03 (S5AA R46; Q185).** The reserve is the household's: every account blends in the same share (spending × years ÷ the portfolio, at most all of it) at the reserve's 3%, where before it was capped at each account's own balance. Since R45 the reserve also starts at the household date (Q183).
+
 ## 2026-09-13 — Q67. An asset-class id spelled like an `Object.prototype` property (`constructor`, `toString`, `__proto__`, …) silently replaces an account's Monte Carlo volatility with the flat assumption
 
 **A discovered defect on a live path, found by S5 task 1.7's sweep.** The
@@ -5469,6 +5475,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 *Original status, kept as history (its markup was malformed):* OPEN, CLASS S, an S5AA candidate. S5AA task 5.4: qualify ordering, basis and clocks, **or** restrict the reference to qualified withdrawals as an accepted scope decision. If restricted, the exclusion must be **detectable and enforced at the runner or corpus boundary** (task 5.5) — an unsupported notice alone is not enough if an affected result is still presented as a qualified reference value.
 
+**Narrowed 2026-10-03 (the owner, on the AA1 audit's finding 36; S5AA R50; Q189).** Roth IRAs are modelled: a basis ledger per owner, ordering, and the five-year and 59½ tests. The exclusion remains for a Roth 401(k) or custom tax-free account drawn before 59½, which the owner kept, disclosed.
+
 ## 2026-09-19 — Q112. Historical replay ignores each account's allocation (X03)
 
 **Filed by the S5AA run on 2026-09-19 (UTC−7) at the start commit `14b7095`** (task 0.4). Source: the projection-scope review's X rows (S5AA checklist section 18). **Reproduced before any repair** (task 0.3, the barrier A-03 keeps on the owner's POR-03b answer), Windows 11 / Node 24.17.0, against a `git archive` extraction of the start commit whose `src/engine.js` was verified to hash to `git show 14b7095:src/engine.js`. Evidence: `Handover temp/S5AA_FINDING_REPRODUCTIONS_20260919.md` and `Handover temp/S5AA_REPROS_20260919/repro_X_rows.js`.
@@ -5972,6 +5980,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Status: IMPLEMENTED 2026-09-29 at `cf643a8`** (S5AA R36; source tag `s5aa-r36-source` = `cf643a8`).
 
+**Refinement D8 reversed 2026-10-03 (the owner, on the AA1 audit's finding 30; S5AA R47; Q184).** The enhanced senior deduction ends after 2028, as IRC 151(d)(5)(C) says; the 2026-09-29 refinement "Keep it even after 2028" no longer holds. Implemented at `f02e26a`, tagged at `86842f6`.
+
 ## 2026-09-29 — Q166. IRA deduction rounding, spouse contribution stop age, and Arizona's age-65 exemption timing (S5AA R33, the owner, 2026-09-29)
 
 **Registered 2026-09-29 (UTC−7) by the plan owner**, from the S5AA session's R33 relay (`audit/S5AA/R33/S5AA_R33_RELAY_TO_EB_20260929.md`). The owner's answers were given to the S5AA session directly; they are as reported by that session, not confirmed in the plan owner's chat.
@@ -6058,6 +6068,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Update 2026-09-30, evening:** R41 (PR #38, merged `020c6f3`) ran task 6.5 and brought the evidence back, and repaired the one defect it found; see Q173. ChatGPT has not yet determined E15 on that evidence.
 
+**Refined 2026-10-03 (S5AA R50; Q189).** An optional `profile.priorIncomeThisYear` completes a partial first year when entered: the first row's federal and Arizona income tax is the tax on the whole year's ordinary income less the tax on the earlier income alone. Blank keeps the disclosed whole-year convention above.
+
 ## 2026-09-30 — Q173. Run task 6.5 for E15; an end age before the starting age is refused (S5AA R41, the owner, 2026-09-30)
 
 **Registered 2026-09-30 (UTC−7), that evening, by the plan owner**, from the S5AA session's R41 relay (`audit/S5AA/R41/S5AA_R41_RELAY_TO_EB_20260930.md`). The decisions were made on 2026-09-30 (Arizona); the round merged as PR #38 at `020c6f3` the same evening, 6:05 pm. The relay's claims were read against `main` before this entry was written: the repair, the validator rule, the witness test and the evidence document are in the merged commits, and the gate figures below come from the evidence document's own table.
@@ -6129,6 +6141,8 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 
 **Status: IMPLEMENTED 2026-10-01 (S5AA R43; merged #46 at `247635c`).** This changes declared text in Q59 and `MODEL_ASSUMPTIONS.md` §7 and §18.1. **A correction to the relay, checked in the code on 2026-10-02:** the R43 relay, and a comment in the engine, say long-term-care costs start at the death too. They do not: the long-term-care cost's start reads the retirement age (the later of 65 and ten years after it, `ltcStart`) and is not moved by this ruling, and the "years of spending in reserve" is still sized only from the retirement age. `MODEL_ASSUMPTIONS.md` §18.1 says so. **The owner, 2026-10-02 ("Leave both as they are", as reported by the S5AA session): long-term-care onset and the cash reserve are not part of the ruling and stay keyed to the retirement age.** The ruling covers what was built: the spending strategy, health costs and the retirement-span debt payments. An engine comment that says long-term-care costs move is wrong and is for the next source round.
 
+**Replaced in part 2026-10-03 (the owner; S5AA R45; Q183).** The salary exception is gone: a death before retiring now starts the household's costs at the death whatever the survivor earns, and the survivor's pay funds them first. Under R45 the cash reserve and the spending strategy's starting balance also use the household date; long-term-care onset stays on the primary's retirement age, as ruled on 2026-10-02 above.
+
 ## 2026-10-01 — Q179. The HSA limit in the 65th-birthday row, and the other R43 repairs (S5AA R44, the owner, 2026-10-01)
 
 **Registered 2026-10-02 (UTC−7) by the plan owner**, from the R44 relay (`audit/S5AA/R44/S5AA_R44_RELAY_TO_EB_20261001.md`), read against `main`. R44 merged as PR #48 at `9ce336a` (2:19 am on 2026-10-01).
@@ -6152,3 +6166,104 @@ The rule is added to `Resource Documents/ACCOUNT_RULES_ENGINE_REFERENCE_2026.md`
 **The decision (the owner, 2026-10-01): "Owner exception for Monte Carlo"**, recorded as amendment **A-11** in `S5AA_TASK_CHECKLIST.md` after A-10 (added by the S5AA session, as A-10 was, with nothing above it rewritten). Under A-11, a Monte Carlo plan's prediction is made at the path level: it names the plan, its exposed paths (by a necessary-condition test on every path) and a published result that "may move". After the build, both levels are compared: a named plan that does not move is not a miss, and an unnamed plan that moves, or a changed path not named, is. Every other plan keeps A-01 as written. The revised prediction checklist (`audit/S5AA/R44.1/S5AA_R44_1_PREDICTION_CHECKLIST_20261001.md`) supersedes R44's. If an amendments list is kept elsewhere: **A-11 (2026-10-01): A-01's prediction for a Monte Carlo plan is path-level; the published result may move (R44-01).**
 
 **Status: DECIDED and recorded 2026-10-01 (S5AA R44.1; merged #50 at `894e0ff`).** ChatGPT's R44.1 audit (PR #51, merged `c05208c`) ruled **R44-01 resolved under A-11 and R43-04 requalified**, made no R44.1-NN finding, found E10 met under A-11, and **determined S5AA GO for administrative close at R44.1**; see the README and `ROADMAP_EXTERNAL_REVIEW.md`. The GO is administrative, not a release or household-reference qualification. S5AA is not closed.
+
+## 2026-10-03 — Q182. The assumptions audit (AA1): what ChatGPT found, and the owner's decisions on it (the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the S5AA session's R45 and R46-to-R50 relays (`audit/S5AA/R45/S5AA_R45_RELAY_TO_EB_20261003.md`, `audit/S5AA/R50/S5AA_R46_R50_RELAY_TO_EB_20261003.md`), read against `main` at `02f6cbf`. Dated by its decisions.
+
+**The context.** After ChatGPT's R44.1 administrative GO, the owner asked for a different kind of audit: not whether the code does what the model says, but whether what the model says is right, against tax law and planning standards (the brief, PR #55 at `9327bf6`; ChatGPT's report, PR #56 at `bde158f`; `audit/S5AA/AA1/`). ChatGPT reviewed 47 rule groups: 11 consistent, 3 acceptable simplifications, 25 should change, 7 judgment calls, 1 unverified. It is not a GO or NO-GO determination. Claude's verification (PR #57 at `413f638`) checked the 36 findings not rated consistent: 19 confirmed, 17 qualified, none refuted, and the owner's decisions are at its end.
+
+**The decisions (the owner, 2026-10-03).** Every recommended option was taken except the default return (the owner chose to relabel only), and the owner added two optional larger items (the Part D premium input, and the Roth basis and earlier-this-year income inputs):
+- **Each spouse's own retirement date**, with three adjustments (AA1-38 to AA1-40): Q183.
+- **Monte Carlo and the reserve:** one set of correlated asset-class returns per year shared by every account, impossible correlations refused, success relabelled "all modeled spending funded" with real spending shown, the reserve computed once for the household (AA1-24, MC-A to MC-E): Q185.
+- **Federal tax and accounts:** the senior deduction ends after 2028 (AA1-30; reverses Q165); a high earner's catch-up as a designated-Roth portion (AA1-13); IRC 4973's 6% excise on "warn" excess (AA1-27); self-employment fixes (AA1-45, AA1-26); HSA contributions stop at Medicare entitlement (AA1-32): Q186.
+- **Medicare, survivors, Arizona:** Medicare premiums grow, with a Part D premium input and a Medicare growth rate (AA1-23); the prior-income warning shown and prompted (AA1-11); an inherited IRA for a survivor under 59½ (AA1-19); an Arizona community-property switch (AA1-20); the Arizona senior and capital-gain subtractions (AA1-16): Q187.
+- **Spending, debt, defaults, disclosure:** the default return relabelled, not changed (AA1-33); a working-years check, warning only (AA1-07); a long-term-care onset age (AA1-37); spending flexibility that never cuts below the floor and defaults to off (AA1-25); a PMI end age and the payoff residual (AA1-34, AA1-44); hidden warnings shown as cards and the validator run while editing; relabels and notes: Q188 and Q190.
+- **A Roth IRA basis ledger** (AA1-36) **and an "income received earlier this tax year" input** (AA1-31): Q189.
+
+**Not chosen, carried as recorded limits** (Q191): a full working-years budget, itemized deductions, a tax-optimizing solver, full Roth five-year clocks, surviving-spouse filing status with a child input, Social Security benefit-cut scenarios, the SSA-44 IRMAA reduction, tax lots.
+
+**Status: IMPLEMENTED 2026-10-03 to 2026-10-04 (S5AA R45 to R51; PRs #58 to #64, merged between 12:25 am and 1:53 am on 2026-10-04), except the items not chosen.** The rounds, their source tags and baselines are in Q183 to Q190. **ChatGPT has not audited R45 to R51.** The owner chose one combined ChatGPT audit over R46 to R51 (`audit/S5AA/R51/S5AA_R46_R51_CHANGE_AUDIT_HANDOVER_20261003.md`), and the R44.1 GO is reopened until it reports. S5AA is to be closed after it, on the owner's decision.
+
+## 2026-10-03 — Q183. Each spouse's own retirement date (S5AA R45, the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R45 relay, read against `main`. R45 merged as PR #58 at `df93f10` (12:25 am on 2026-10-04); source tag `s5aa-r45-source` = `9c7790e`; expanded baseline r24.
+
+**The decisions (the owner, 2026-10-03): "both spouses need their own retirement date".** `profile.spouseRetireAge` is the spouse's own retirement age on their own clock; absent, it is `retireAge` on their own clock, as before. Household costs start at the **first** stop. The owner first chose "last one retires", on Claude's recommendation; Claude then pointed out that it would delay every younger-spouse couple and drop the pay-first rule, and the owner chose the first stop. Whoever still works pays the household costs first from their net pay. Only an earner's stop counts: a spouse with no salary stops nothing by retiring or dying, and employment and self-employment streams do not make a spouse an earner for this rule. A death before retiring is a stop for the primary, with the spouse alive, whatever the spouse earns, and for an earning spouse, with the primary alive: costs start at the death even if the survivor has a salary, and the survivor's pay funds them first. This **replaces R43's salary exception** (Q178). Three adjustments, from the AA1 decisions: Roth conversions get their own "Conversions start at" age, defaulting to the primary's retirement age (AA1-40); pre-Medicare health costs get an "Employer health coverage ends at" age, defaulting to the household date (AA1-40); and an optional "Retirement spending begins at" age replaces the first stop (AA1-38, AA1-39). The retirement-age-in-the-past warning fires only beside a salary; the earned-income warning counts employment and self-employment streams. The pension, long-term-care onset, the glide path, the bond tent and dividends paid from retirement keep the primary's retirement age. The three added ages (retirement spending, conversions, employer coverage) are read on the primary's age; only the spouse retirement age is on the spouse's own. The spouse's work, wages, Social Security service months, the still-working 401(k) exception, the Rule of 55 and vesting follow their own date. The R45 round also carried the two stale engine comments and three tests the S5AA session had found missing.
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R45; merged as #58 at `df93f10`; source tag `s5aa-r45-source` = `9c7790e`).** Baseline r24 (S5b task 4 builds on r30 since R51, Q190). The owner's choices are recorded in `audit/S5AA/R45/S5AA_R45_OWNER_DECISIONS_20261003.md`. Modelling text: `MODEL_ASSUMPTIONS.md` §27 and §18.1.
+
+## 2026-10-03 — Q184. The enhanced senior deduction ends after 2028; Q165's "keep it" is reversed (AA1-30, the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R45 and R46-to-R50 relays. Q165's refinement D8, "Keep it even after 2028" (2026-09-29), is reversed on the AA1 finding that IRC 151(d)(5)(C) applies the enhanced senior deduction only to tax years beginning before 2029. In the model, plan year k is tax year 2026 + k, so there is none from plan year 3. The Arizona subtraction follows the federal deduction (Q187).
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R47; merged as #60 at `d36919f`; `f02e26a`; source tag `s5aa-r47-source` = `86842f6`).** Modelling text: `MODEL_ASSUMPTIONS.md` §25.
+
+## 2026-10-03 — Q185. Monte Carlo draws one set of shocks per year, shared by every account; the reserve is the household's (S5AA R46, AA1-24 and MC-A to MC-E, the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R46-to-R50 relay. R46 merged as PR #59 at `69808e9`; source tag `s5aa-r46-source` = `0fd83e1`; expanded baseline r25.
+
+**The decision (the owner, 2026-10-03): the full fix.** Each simulated year draws one set of shocks for the whole household, one per asset class and correlated at the plan's correlation, or one household shock when asset classes are off; every account's return is its expected return plus its allocation's share of those shocks. Splitting the same investments across more accounts, reordering them or adding an empty one changes nothing (one $1,000,000 Roth and twenty $50,000 Roths both succeed on 59.8% of 1,000 paths; before, the twenty succeeded on 99.2%). A correlation that no set of returns can have is refused, for the Monte Carlo method with asset classes on (the validator's `INFEASIBLE_CORRELATION`, the engine's `SCENARIO_INFEASIBLE_CORRELATION`). The reserve is computed once for the household, not capped at each account's balance. The headline figure is the share of paths with no modeled shortfall over one cent in any year, labelled "All modeled spending funded", and Monte Carlo shows the final year's real spending at the median and the 10th percentile beside it. The result contract stays at version 5 (`finalYearRealSpending` is optional). This repairs the carried row U6 of the S2 register (it was "to be replaced in the CPU engine rebuild"), narrows Q45, Q66 and Q19 (b), and Monte Carlo figures for plans with several accounts moved: the golden Monte Carlo plan's success fell from 100% to 96.8% at R46, and is 95.8% since R51's flexibility default.
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R46; merged as #59 at `69808e9`; source tag `s5aa-r46-source` = `0fd83e1`).** Modelling text: `MODEL_ASSUMPTIONS.md` §18.6.
+
+## 2026-10-03 — Q186. Federal tax and accounts: the designated-Roth catch-up, IRC 4973, self-employment, and the HSA stop at Medicare (S5AA R47, the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R46-to-R50 relay and the R51 relay. R47 merged as PR #60 at `d36919f`; source tag `s5aa-r47-source` = `86842f6`; expanded baseline r26.
+
+**The decisions (the owner, 2026-10-03):** the senior deduction ends after 2028 (Q184); a pre-tax workplace plan's catch-up above the IRC 414(v)(7) wage threshold is deposited as a designated Roth balance in the same plan and taxed that year (AA1-13); under "show warning and permit it", an IRA or HSA excess stays in the account and pays IRC 4973's 6% each year on the excess carried at year end (AA1-27); self-employment counts as compensation net of the deductible half of SE tax, and pre-tax plan deferrals funded from SE pay reduce qualified business income (AA1-45, AA1-26); HSA contributions stop when Medicare starts, which is 65 for someone who claims Social Security by 65 or has no benefit entered, otherwise six months before the claim, and an entered Medicare start age overrides it (AA1-32). R47 left Medicare premiums at 65; **the owner's R51 decision (Q190) made premiums start at the same Medicare date.**
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R47; merged as #60 at `d36919f`; `f02e26a`; source tag `s5aa-r47-source` = `86842f6`).** Modelling text: `MODEL_ASSUMPTIONS.md` §18.4, §23 and §25. This supersedes Q177's "stop at 65" for an owner who claims Social Security after 65.
+
+## 2026-10-03 — Q187. Medicare premium growth, survivors under 59½, Arizona (S5AA R48, the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R46-to-R50 relay. R48 merged as PR #61 at `aefd6c4`; source tag `s5aa-r48-source` = `56ed5fd`; expanded baseline r27.
+
+**The decisions (the owner, 2026-10-03):** Medicare premiums grow over the projection, from the plan's start, at the plan's Medicare growth rate, or at healthcare inflation, by the same factor as the pre-Medicare cost (AA1-23), and an entered Part D premium replaces the national base premium; a blank prior-year income is assumed below the first surcharge tier and the app says so (AA1-11); a survivor under 59½ holds the deceased's traditional IRAs as an inherited IRA, with no 10% additional tax (AA1-19; traditional IRAs only); an Arizona community-property switch resets every taxable account's basis at the first death (IRC 1014(b)(6)) (AA1-20); Arizona AGI subtracts the federal senior deduction the return takes (A.R.S. 43-1022(35)) and 25% of net long-term capital gain on assets bought after 2011, for the share of realized gains the plan enters (default 0%, confirmed by the owner) (AA1-16).
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R48; merged as #61 at `aefd6c4`; `126c7f1`; source tag `s5aa-r48-source` = `56ed5fd`).** After the tag, R48's pull request failed `capture-boundary` 5.4 twice because a test (`capture-baseline` S3-03) wrote a probe comment into the real `src/debt-amortization.js`, which another test file's capture saw change when the gate ran in parallel. The fix, tests only, is in `01cb559` and `785b94d` (the source tag stays at `56ed5fd`); a duplicate pull request, #65, was closed by the owner. Modelling text: `MODEL_ASSUMPTIONS.md` §5, §11, §18.1 and §18.4.
+
+## 2026-10-03 — Q188. Spending flexibility, long-term care, PMI, the working-years check, and shown disclosures (S5AA R49, the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R46-to-R50 relay and the R51 relay. R49 merged as PR #62 at `eea4b26`; source tag `s5aa-r49-source` = `ec6063f`; expanded baseline r28.
+
+**The decisions (the owner, 2026-10-03):** spending flexibility never cuts below the strategy's floor, stacked percentage stages warn, and (AA1-25 (c), built in R51) it defaults to off; a long-term-care onset age per person (the primary's age here), with Monte Carlo drawing the start from 10 years before to 10 years after it (AA1-37); a debt's "PMI ends at" age, a legal-midpoint default for a conventional mortgage (12 USC 4902(c)), and the residual shown beside a forced payoff date (AA1-34, AA1-44); a warning-only working-years check, `WORKING_YEARS_NOT_FUNDED_BY_PAY` (AA1-07; no figure moves); the default return relabelled and not changed (AA1-33); the engine disclosures the app did not render shown as cards, and the validator run while a plan is edited; and the relabels and notes (the optimizer is now the "Rule-based withdrawal order" with a "Tax-sensitive ordering goal (heuristic)").
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R49; merged as #62 at `eea4b26`; source tag `s5aa-r49-source` = `ec6063f`).** Modelling text: `MODEL_ASSUMPTIONS.md` §7, §9, §19 and §26. Q190 changes the flexibility default and which streams count as pay.
+
+## 2026-10-03 — Q189. A Roth IRA basis ledger, and income received earlier this tax year (S5AA R50, AA1-36 and AA1-31, the owner, 2026-10-03)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R46-to-R50 relay. R50 merged as PR #63 at `731bbcc`; source tag `s5aa-r50-source` = `5119d03`; expanded baseline r29.
+
+**The decisions (the owner, 2026-10-03):** a Roth IRA keeps a basis ledger per owner (IRC 408A(d)(4); Treas. Reg. 1.408A-6) with layers for regular contributions, each year's conversions and earnings, and a distribution that is not qualified (under 59½, or before the five-year period has run) takes contributions tax-free, bears the 10% on a conversion's taxable part within five years of it and while under 59½, and is taxed on earnings (with the 10% under 59½). This **narrows Q111**: Roth IRAs are modelled, and a Roth 401(k) or custom tax-free account drawn before 59½ is still modelled as untaxed and flagged (kept by the owner, disclosed). An optional `profile.priorIncomeThisYear` completes the first partial year (**refines Q172**): the partial first row's federal and Arizona income tax is the tax on the whole year's ordinary income less the tax on the earlier income alone; blank keeps the disclosed whole-year convention. **The owner rejected R50 §8 item 2** (the builder's exposed-share Roth ordering weight); Q190 records the replacement.
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R50; merged as #63 at `731bbcc`; `2d9ede3`; source tag `s5aa-r50-source` = `5119d03`).** Modelling text: `MODEL_ASSUMPTIONS.md` §14 note, §25 and the new Roth ledger paragraph in §23.
+
+## 2026-10-03 — Q190. The owner's follow-up decisions on R46 to R50 (S5AA R51, the owner, 2026-10-03 and 2026-10-04)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R51 relay (`audit/S5AA/R51/S5AA_R51_RELAY_TO_EB_20261003.md`), read against `main`. R51 merged as PR #64 at `02f6cbf` (1:53 am on 2026-10-04); source tag `s5aa-r51-source` = `ee06ea5`; expanded baseline r30.
+
+**The decisions:**
+- **Flexibility defaults to off** (AA1-25 (c); the owner, 2026-10-03; `b722884`): `defaultPlan.retirement.flexibility` 10 to 0.
+- **One Medicare date:** a person's Medicare premiums, any IRMAA amount and the Part B deductible start at the same Medicare start as their HSA's stop (charged inside the household's retired span, so at the later of that start and the household date; a retired spouse beside a working primary is charged from their own Medicare start).
+- **The working-years check counts employment and self-employment streams** as pay, net of the tax they add: the owner rejected the builder's payroll-only reading (D3) and required the income tax as well.
+- **A "plan offers Roth" checkbox** on a traditional 401(k): without Roth contributions, a catch-up that must be Roth is not allowed (IRC 414(v)(7)(B)).
+- **The rule-based order's Roth weight is the cost of the next dollar** it would pay (the owner rejected R50 §8 item 2's exposed-share form; `2f73b85`).
+- **Kept by the owner:** D1 (the sensitive band at its 85.0% edge), D2 (a spouse's Medicare from 65 exactly, inside the row), D4 (the optimizer's 63/65 heuristics), D5 (no Part B late-enrollment increase, a recorded limit), R50 §8 items 3 and 4 (keep `ROTH_FIVE_YEAR_ASSUMED`; the first partial row's MAGI stays the row's own), and, on 2026-10-04, **D6** (a Roth 401(k) first in the Roth class's draw order weighs 0, since it is modelled tax-free).
+- **The control corpus after a `defaultPlan` change gets a successor control, never an edit or a frozen old default** (the owner, 2026-10-03; control rules 3 and 5): the flexibility default changed sixteen control plans, so the owner chose a successor, `s5aa-r51-control`, captured at `b722884`, with `s5-control` kept as its predecessor; `tools/control-candidate-prediction.json` was restarted against it.
+
+**Status: IMPLEMENTED 2026-10-03 (S5AA R51; merged as #64 at `02f6cbf`; source tag `s5aa-r51-source` = `ee06ea5`).** Gate at the tag: 3,473 tests, 3,464 passed, 0 failing, 9 todo; closeout 12/0/0. A records error found while registering r30 is corrected without a capture change: r29's registry note said nine entries carry `outsideSupportedDomain`; it is four (`seed:3`, `seed:8`, `seed:11`, `seed:15`), because R50's Roth IRA ledger models the draws before 59½ that flagged the other five. Modelling text: `MODEL_ASSUMPTIONS.md` §7, §18.4, §23 and the Roth ledger paragraph.
+
+## 2026-10-03 — Q191. Recorded limits and builders' readings not yet ruled on (S5AA R46 to R51)
+
+**Registered 2026-10-04 (UTC−7) by the plan owner**, from the R46-to-R50 relay and AA1.
+
+**Recorded limits, not repaired:**
+- the AA1 items the owner did not choose (Q182): a full working-years budget, itemized deductions, a tax-optimizing solver, full Roth five-year clocks, surviving-spouse filing status with a child input, Social Security benefit-cut scenarios, the SSA-44 IRMAA reduction, tax lots;
+- PMI's automatic 78% termination (12 USC 4902(b)) is not modelled; the default is the midpoint, the latest the law allows (R49);
+- the Part B late-enrollment increase (42 USC 1395r(b)) is not modelled (D5, R51);
+- a Roth 401(k)'s basis recovery and its plan five-year period, and Roth IRA conversions made before the plan, are not modelled (R50).
+
+**Builders' readings, recorded in each build report for the auditor and not yet ruled on by the owner:** R46's "Decisions" 3 to 5 (what counts as an "active" asset class, the refusal's scope, the summary's definition); R47 §7 (the IRC 4973(b)(2)(A) conversion reading); R48 §7, items 2, 3, 5 and 6.
+
+**Status: recorded 2026-10-04 (S5AA R46 to R51); the builders' readings await the owner's ruling.**

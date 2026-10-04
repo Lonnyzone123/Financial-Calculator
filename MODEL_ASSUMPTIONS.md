@@ -230,6 +230,8 @@ and Roth), and a debt whose payments are excluded from spending
 (`S5_TASK_CHECKLIST.md` block 2q). The ledger's two diagnostic classes stay as
 they are.
 
+*Since S5AA R49 (Q188; §28.6) a warning, `WORKING_YEARS_NOT_FUNDED_BY_PAY`, names the first working year whose pay does not cover the contributions and debt payments the engine makes then. It changes no figure; the budget boundary above otherwise stands.*
+
 ---
 
 ## 8. Insurance will count in net worth from the first year, even for a plan that starts past `selfLife` — **built** (S5 task 2o)
@@ -326,6 +328,8 @@ engine in the same test as the three above:**
 `remainingTermYears` is not inert in the form — it sets the payoff age there — and the engine reads the payoff age;
 it is not one of the held fields.
 
+*Since S5AA R49 (Q188; §28.4), where PMI is charged, `mortgageType`, `loanTermYears` and `remainingTermYears` set the PMI default, so they are no longer inert there.*
+
 ---
 
 ## 10. A household-owned income is timed by the self member's ages
@@ -394,6 +398,8 @@ applies. **Also (S5AA R33): IRMAA reads the lookback year's own filing status**,
 418.1115); for the two years after a death, the survivor's premium reads the joint returns filed those years. The
 top tier includes $500,000 / $750,000 (CMS 2026).
 
+*Since S5AA R48 (Q187; §28.3) the app shows this assumption as the card "Medicare surcharge in the first two years" and the validator prompts for the prior-year income.*
+
 ---
 
 ## 12. RMD start age reads a whole age, not a birth date — 1949 is treated as "before July"
@@ -449,6 +455,8 @@ tax treatment, not eligibility, so a refusal would be stricter than the law.
 *Decided/repaired 2026-09-14, night (the owner), the S5 run's question 6, answer
 (A) (the run's own session-local numbering, not a `SPRINT_QUESTIONS.md`
 entry). `S5_TASK_CHECKLIST.md` task 11.*
+
+*Superseded 2026-10-03 by S5AA R47 (Q186; §28.2): above the IRC 414(v)(7) wage threshold, a pre-tax workplace plan's catch-up is deposited as a designated Roth balance in the same plan and taxed that year, and a plan marked as offering no Roth contributions allows none.*
 
 ---
 
@@ -638,14 +646,14 @@ added at R8).
   on taxable and custom accounts).
 - **Refinements, S5AA R43** (the owner, 2026-09-30; registered as Q175 and Q178; written 2026-10-02 from the R43 relay,
   each sentence checked against the code and its test at `c05208c`):
-  - **Survivor costs start at the death when the survivor has no salary** (the owner's ruling, Q178). If the self dies
+  - ~~**Survivor costs start at the death when the survivor has no salary** (the owner's ruling, Q178). If the self dies
     after the start and before the retirement age, and the spouse is alive at that death with no salary in their work
     window, the household's retired spending (with its anchor and inflation latches), health costs and retirement-span
     debt payments start at the death, not at the dead self's retirement age. Pensions, wages and contributions still
     follow the retirement age, and with a salary nothing changes. This does not depend on the "include simplified
     survivor benefit" switch. **Not moved by it:** the long-term-care cost keeps its own start (the later of 65 and ten
     years after the retirement age), and the "years of spending in reserve" is still sized only from the retirement age.
-    Before R43 these costs waited for the dead self's retirement age, within the declared Q59 and §7 boundary.
+    Before R43 these costs waited for the dead self's retirement age, within the declared Q59 and §7 boundary.~~ *Replaced 2026-10-03 by S5AA R45 (§27; Q183): a death before retiring starts the household's costs at the death whatever the survivor earns, and the cash reserve and the spending strategy's starting balance now read the household date. Long-term-care onset still keys to the primary's retirement age (the owner, 2026-10-02).*
   - **The survivor test in the row of a death.** With the survivor-spending switch on and a spouse in the plan, the
     spending strategy's survivor test reads who is alive at the row's opening, even when a retirement falls inside the
     row (SA42F-29).
@@ -660,6 +668,7 @@ added at R8).
     spouse on a working partner's group plan would pay Part B is not modelled, and is disclosed.
   - **A spouse's account with no spouse.** With no spouse in the plan, an account owned by "spouse" is read as the only
     person's account, and the validator warns `SPOUSE_ACCOUNT_WITHOUT_SPOUSE` (SA42F-04).
+  - **Succession, since S5AA R48.** A survivor under 59½ at the death holds the deceased's traditional IRAs as an inherited IRA, and the community-property switch changes the basis rule above (§28.3; Q187).
 
 ### 18.2 Cost basis and capital gains
 
@@ -773,6 +782,7 @@ Replaces any percentage-basis description of the model.
   (CMS's annual release of July 28, 2025; 42 CFR 423.286(c); the figure was re-read at CMS on 2026-09-30). It stands in
   for a plan's own premium, and the IRMAA surcharge is added on top of it. Witness:
   `tests/audit-s5aa-r40-part-d-base-premium.test.js`. Registered as `SPRINT_QUESTIONS.md` Q172.
+  *(Since S5AA R48 an entered Part D premium replaces this base premium and Medicare premiums grow; since R51 each person's costs start at their Medicare start or the household date, whichever is later: §28.3.)*
 - VPW and the RMD-style strategy divide by the years the projection models (to the last death or the projection's
   ending age, whichever comes first), and a final part-year is a fraction of a year. The VPW maximum annual rate still
   applies, so at a 100% cap a final part-year cannot draw the whole balance.
@@ -793,13 +803,13 @@ Replaces any percentage-basis description of the model.
 
 ### 18.6 Monte Carlo: each account's return is drawn independently (the owner, 2026-09-23: disclose now, change in the engine rebuild)
 
-In Monte Carlo, each account's return is drawn independently. Splitting the same investments across more accounts
+~~In Monte Carlo, each account's return is drawn independently. Splitting the same investments across more accounts
 therefore makes the portfolio look less volatile than it is: the S5AA session measured that with ten equal accounts,
 a 20% volatility behaves like about 6.3%, and that in one tested retirement example the success rate rose from 35.9%
 to 48.3% with no economic change (its figures, one example; the mechanism is confirmed in the engine, the numbers were
 not re-derived here). Monte Carlo percentiles and success rates overstate diversification for households with several
 accounts. This is to be replaced by shared market shocks in the CPU engine rebuild. It relates to Q45's correlation
-calibration and Q66's per-account reserve; it is carried as row U6 of `S2_CARRIED_WORK_REGISTER.md`.
+calibration and Q66's per-account reserve; it is carried as row U6 of `S2_CARRIED_WORK_REGISTER.md`.~~ *Superseded 2026-10-03 by S5AA R46 (§28.1; Q185): the draws are one set of correlated asset-class shocks per year, shared by every account, and row U6 is repaired in the old engine.*
 
 **Refinement, S5AA R43 (SA42F-31; written 2026-10-02):** each path's market and care generators are seeded with a 32-bit mix of
 (seed, path, stream). They were seed + 2i and seed + 2i + 1, so two seeds 2 apart shared all paths but one. Every Monte
@@ -887,7 +897,7 @@ Publication 590-A reading are the S5AA session's and were not re-derived, and IR
   −$2,565.84): `audit/S5AA/R27/S5AA_R27_KNOWN_GAP_WITNESS.js`. Registered as Q148.~~
 - **Mortgage PMI is charged only for the months the mortgage has a balance**, including after a payoff inside the
   year (the owner, 2026-09-26: "PMI while owed"; `7318d89`). Witness: `tests/audit-s5aa-r27-pmi-while-owed.test.js`. (Q113,
-  that PMI never cancels at an LTV threshold, is a separate, still open item.)
+  that PMI never cancels at an LTV threshold, is a separate, still open item. *Since S5AA R49 a conventional mortgage's PMI stops after the midpoint of its amortization by default; the automatic 78% rule is still not modelled: §28.4.*)
 
 *Decided 2026-09-26 (the owner), as reported by the S5AA session; registered as `SPRINT_QUESTIONS.md` Q144 to Q148 (and Q143's
 repair).*
@@ -1136,7 +1146,7 @@ written 2026-10-02 from the S5AA session's R42 to R44.1 relays, each sentence ch
   Publication 969), for planned and one-time contributions alike, and from 65 the limit is zero. A flow stopped by the
   age is not a limit excess and is not redirected; an amount above the prorated limit is. A one-time HSA contribution
   also gives up what the owner's planned HSA contributions already used (R43, R44; the owner, 2026-09-30 and
-  2026-10-01, "Prorate the limit, both routes").
+  2026-10-01, "Prorate the limit, both routes"). *Since S5AA R47 and R51 the stop is at the person's Medicare start, not at 65 (§28.2; Q186).*
 - **One-time contributions.** A one-time IRA contribution's compensation limit reads income streams the way planned
   contributions do, in today's dollars latched at the stream's start (R44, R43-02).
 - **Timing.** A planned contribution change dated inside a row is time-weighted across the owner's contribution window
@@ -1211,12 +1221,12 @@ salary-growth rate instead, a stand-in for the national average wage index; a pe
 year they turned 62.
 
 **Amounts the law fixes stay fixed:** the NIIT and Additional Medicare thresholds, the Social Security taxation
-bases, the $3,000 capital-loss limit, the senior deduction and its thresholds (kept after 2028 by the owner's
-decision, D8 — see `SPRINT_QUESTIONS.md` Q165), and Arizona's $2,100 exemption.
+bases, the $3,000 capital-loss limit, ~~the senior deduction and its thresholds (kept after 2028 by the owner's
+decision, D8 — see `SPRINT_QUESTIONS.md` Q165)~~ *(the enhanced senior deduction ends after 2028 since S5AA R47: Q184, §28.2)*, and Arizona's $2,100 exemption.
 
 Projection row `n` is tax year `2026 + n`. Indexing starts from the 2026 figure rather than each statute's own base
-year, so a figure can differ by one rounding step from the one the IRS eventually publishes. Medicare premiums
-themselves stay at 2026's. *(Since S5AA R40 that covers the Part D base premium as well as Part B, see §18.4.)*
+year, so a figure can differ by one rounding step from the one the IRS eventually publishes. ~~Medicare premiums
+themselves stay at 2026's.~~ *(Since S5AA R40 that covered the Part D base premium as well as Part B, see §18.4. **Since S5AA R48 Medicare premiums grow:** §28.3.)*
 
 **A disclosed limit: a partial row is taxed as a whole tax year** (S5AA R40; the owner, 2026-09-30: "Revert and
 disclose"; `b97fe0a`). A projection row shorter than a year, the first row of a plan that opens at a fractional age or
@@ -1227,6 +1237,7 @@ $3,058.75. R40 built a share-of-a-year rule (`607101a`) and reverted it, because
 a $100,000 expense in a row a tenth of a year long was taxed $56,958 against $20,221.85. The proper rule, which counts
 recurring income at its rate and one-time items once, is for the engine rebuild (`FEATURES.md`, "Features — wanted").
 Witness, pinning the disclosed behaviour and the one-time case: `tests/audit-s5aa-r40-partial-row-whole-year-convention.test.js`.
+*Refined by S5AA R50: when income received earlier in the first tax year is entered, the first row's income tax is the tax on the whole year less the tax on that earlier income alone (§28.5; Q189). Blank, the convention above stands.*
 
 **Refinements, S5AA R43** (SA42F-08, -10, -22, -23 and -01; written 2026-10-02 from the R43 relay, each checked against the code):
 - The IRA-deduction and Roth phase-out ranges keep their statutory widths: only the start of each range is indexed.
@@ -1303,3 +1314,180 @@ exists. Some items below are the S5AA session's own reading, adopted by the owne
 
 *Decided 2026-09-29 (the owner). Landed at `890ff72` and `503db3c` (R37); the filing-status and salary-base items
 also at `678c556` (R38) and `05f35fa`.*
+
+## 27. Retirement dates and the household date (S5AA R45)
+
+**Provenance.** Written 2026-10-04 (UTC−7) from the S5AA session's R45 relay (`audit/S5AA/R45/S5AA_R45_RELAY_TO_EB_20261003.md`),
+each sentence checked against the code and its test at `02f6cbf` (R45 landed at `1096145`, PR #58). Decisions are the owner's,
+2026-10-03; registered as `SPRINT_QUESTIONS.md` Q183.
+
+- **Each person retires on their own clock.** The primary retires at `retireAge`, the spouse at `spouseRetireAge`, and where
+  that is absent at `retireAge`, each on that person's own age. The spouse's work, wages, Social Security service months, the
+  still-working 401(k) exception to required distributions, the Rule of 55 and vesting follow the spouse's own date. The
+  pension, the long-term-care onset (§28.4), the glide path, the bond tent and dividends paid from retirement keep the
+  primary's retirement age.
+- **The household date is the first stop.** It is the earliest of: the primary's retirement; an earning spouse's retirement
+  (a spouse with a salary; employment and self-employment streams do not make a spouse an earner for this rule); the
+  primary's death before retiring, with the spouse alive, whatever the spouse earns; and an earning spouse's death before
+  their own retirement, with the primary alive. A spouse with no salary stops nothing by retiring or dying. An optional
+  "Retirement spending begins at" age (the primary's age) replaces the first stop.
+- **What starts at the household date:** the household's retired spending, the spending strategy's starting balance (and its
+  anchor and inflation latches), debt and housing costs, Medicare costs (§28.3) and the cash reserve. Whoever still works pays
+  these costs first from their net pay (from the earlier of the household date and the end of employer coverage when health
+  costs are on). A death before retiring therefore starts the costs at the death even if the survivor has a salary, and the
+  survivor's pay funds them first. This replaces R43's salary exception (§18.1).
+- **Two things have their own age,** both on the primary's age: pre-Medicare health costs start when employer coverage ends
+  ("Employer health coverage ends at"; absent, the household date), and Roth conversions start at "Conversions start at"
+  (absent, the primary's retirement age).
+- **Validation.** The "retirement age before the current age" warning fires only beside a salary, for either spouse; the
+  spouse's warning fires only when `spouseRetireAge` is entered. The earned-income warning
+  (`CONTRIBUTIONS_ABOVE_EARNED_INCOME`) counts employment and self-employment streams by owner, at face value in today's
+  dollars, for an eligible owner.
+
+*Decided 2026-10-03 (the owner): "both spouses need their own retirement date"; the first stop chosen over "last one retires".
+Registered as `SPRINT_QUESTIONS.md` Q183.*
+
+---
+
+## 28. The AA1 repairs: Monte Carlo, federal tax, Medicare, spending, the Roth ledger (S5AA R46 to R51)
+
+**Provenance.** Written 2026-10-04 (UTC−7) from the S5AA session's R46-to-R50 and R51 relays
+(`audit/S5AA/R50/S5AA_R46_R50_RELAY_TO_EB_20261003.md`, `audit/S5AA/R51/S5AA_R51_RELAY_TO_EB_20261003.md`), each sentence checked against
+the code and its test at `02f6cbf`. The relays' wording was corrected where the code differs (the Medicare date, prior-year
+wages, the required distribution after a death, the conversion's 10%, what the app discloses). Decisions are the owner's,
+2026-10-03 and 2026-10-04, on ChatGPT's AA1 assumptions audit; registered as `SPRINT_QUESTIONS.md` Q182 to Q191. Landed at `8d2e288` (R46),
+`f02e26a` (R47), `126c7f1` (R48), `62964a1` (R49), `2d9ede3` (R50) and `b722884`, `8732bb8`, `2f73b85` (R51).
+
+### 28.1 Monte Carlo and the reserve (R46)
+
+- **One set of shocks per year, shared by every account.** Each simulated year draws one shock per asset class, correlated at
+  the plan's correlation, or one household shock when asset classes are off. Every account's return is its expected return plus
+  its allocation's share of those shocks. Splitting the same investments across more accounts, reordering them or adding an
+  empty one changes nothing: one $1,000,000 Roth and twenty $50,000 Roths both succeed on 59.8% of 1,000 paths (7% return, 20%
+  volatility, $40,000 of fixed-real spending, ages 65 to 95, seed 42791, asset classes off); before, the twenty succeeded on 99.2%.
+  An account created mid-year takes that year's shared shock. The seeds are still the 32-bit mix of §18.6.
+- **An impossible correlation is refused,** for the Monte Carlo method with asset classes on: below −1/(n−1) for the n active
+  classes (a class some account weights above zero at the start or end of its glide; at least two), or above 1. The validator
+  reports `INFEASIBLE_CORRELATION` as an error; the engine refuses with `SCENARIO_INFEASIBLE_CORRELATION`.
+- **The reserve is the household's,** in every method and from the household date: every account blends in the same share
+  (spending × years ÷ the portfolio, at most all of it) at the reserve's 3%. Before, it was capped at each account's own balance,
+  so an account smaller than the reserve under-reserved.
+- **The result.** The headline figure is the share of paths with no modeled shortfall over one cent in any year, labelled "All
+  modeled spending funded". An adaptive strategy can reach it by cutting spending, so Monte Carlo shows the final year's spending
+  in today's dollars beside it, at the median and the 10th percentile (`finalYearRealSpending`, optional; the result contract stays
+  at version 5).
+- **What moved.** Monte Carlo figures for plans with several accounts. The golden Monte Carlo plan's success fell from 100% to
+  96.8% at R46, and is 95.8% since R51's flexibility default (its lifetime taxes moved too).
+
+### 28.2 Federal tax and accounts (R47, with R51)
+
+- **The enhanced senior deduction applies only to tax years before 2029** (IRC 151(d)(5)(C)). Plan year k is tax year 2026 + k,
+  so there is none from plan year 3. A direct caller whose rules carry no tax year keeps it.
+- **The designated Roth catch-up** (IRC 414(v)(7)). Above $150,000 of prior-year FICA wages (the 2026 figure, indexed and rounded
+  down to $5,000), a pre-tax workplace plan's catch-up is deposited to a linked designated Roth balance in the same plan and taxed
+  that year. Prior-year wages are, per owner, the owner's one entered salary times the work in that year, less the HSA salary
+  reduction, never below zero; employment streams are not counted. The entered `priorYearFicaWages` is used for the first year,
+  until a projected prior row exists. A traditional 401(k) can be marked as not offering Roth contributions (`planOffersRoth`, a
+  checkbox, offering by default): where the Roth rule applies and the plan offers none, the catch-up share is not allowed and
+  becomes a limit excess, which the limit policy then handles (414(v)(7)(B); R51).
+- **IRC 4973's excise.** Under "Show warning and permit it", an IRA or HSA excess stays in the account and pays 6% each year on
+  the excess carried at the year's end, per owner and kind, at most 6% of that account's value. The charge is reduced by
+  distributions included in income (any Roth IRA distribution, a conversion's taxable part, an HSA distribution included in
+  income) and by later unused contribution room, and is paid with the next year's taxes. 401(k) excess deferrals are not charged it.
+- **Self-employment.** It counts as compensation net of the deductible half of its SE tax, and pre-tax workplace deferrals funded
+  from SE pay (the part the salary cannot cover) reduce qualified business income in proportion; an HSA contribution does not.
+- **The Medicare start, and the HSA's stop.** A person's Medicare start is the age entered (`profile.medicareStartAge`,
+  `spouseMedicareStartAge`); otherwise 65 if they claim Social Security by 65 or have no benefit entered, otherwise half a year
+  before the claim (Part A is backdated up to six months), never before 65. HSA contributions stop at that date, prorated in the
+  row, replacing "stop at 65" (§23). Until then the person carries their share of the pre-Medicare cost.
+
+### 28.3 Medicare, survivors and Arizona (R48, with R51)
+
+- **Medicare costs** are Part B with any IRMAA amount, the Part B deductible and the Part D premium. They start at the later of
+  the person's Medicare start and the household date; a retired spouse beside a working primary is charged from their own Medicare
+  start (§18.1). A primary still working past their Medicare start pays no Medicare cost until the household date, though their
+  HSA stops at the Medicare start. The Part B late-enrollment increase (42 USC 1395r(b)) is not modelled.
+- **They grow** over the projection, from the plan's start, at the Medicare growth rate the plan enters, or at healthcare
+  inflation, by the same factor as the pre-Medicare cost; the income thresholds rise with the plan's inflation (§25). An entered
+  Part D premium (monthly, per person, today's dollars) replaces the national base premium, and any income-related Part D amount
+  is added. A blank prior-year income is assumed below the first surcharge tier (`IRMAA_PRE_PLAN_MAGI_ASSUMED`; §11).
+- **An inherited IRA for a young survivor.** A survivor under 59½ at the death holds the deceased's traditional IRAs as an
+  inherited IRA, with no 10% additional tax. Where the death came before the deceased's required beginning date, the required
+  distribution is on the survivor's single life expectancy, from the year the deceased would have reached the required age;
+  where it came on or after it, it starts the year after the death and the divisor is the longer of the survivor's and the
+  deceased's remaining life expectancy, less one for each year since the death. The deceased's IRA basis is kept in its own pool.
+  From the first year that opens at 59½ or later, or the year after a contribution to it, the survivor treats it as their own. A
+  workplace plan passes as the survivor's own; only traditional IRAs are inherited here.
+- **Community property.** With the plan's Arizona community-property switch on (`profile.communityProperty`), every taxable
+  account's basis resets to its value at the first death (IRC 1014(b)(6); A.R.S. 25-211(A)): joint accounts and both spouses' own,
+  excluding household-cash holdings. With it off, the decedent's resets in full and half of a joint account (§18.1).
+- **Arizona.** Arizona AGI subtracts the federal senior deduction the return takes (A.R.S. 43-1022(35)), so it follows the federal
+  deduction's phase-out and its end after 2028, and is zero wherever the federal deduction is not taken. It also subtracts 25% of
+  net long-term capital gain, after a carried loss, on assets bought after 2011 (43-1022(22)(c)), for the share of realized gains
+  the plan enters (none by default; the owner confirmed 0%).
+
+### 28.4 Spending flexibility, long-term care and debt (R49, with R51)
+
+- **Flexibility.** After a year whose portfolio return is negative, spending is cut by the flexibility percentage for the next
+  year only, and the cut never takes spending below the floor entered for the strategy: the floor of guardrails, Guyton-Klinger and
+  floor-and-ceiling, the remaining-life strategy's minimum withdrawal, and VPW's minimum rate. Spending already below the floor (a
+  stage, the survivor reduction) is neither cut further nor raised. **The default is 0 (off) since R51** (it was 10). Overlapping
+  percentage stages multiply; the validator warns about them (`SPENDING_STAGES_OVERLAP`, percentage stages only) and when flexibility
+  stacks on guardrails or Guyton-Klinger (`FLEXIBILITY_WITH_GUARDRAILS`).
+- **Long-term care.** Care starts at `advanced.ltcOnsetAge` when entered (the primary's age), as entered in the simple and historical
+  projections, where it is weighted by the care probability; Monte Carlo draws the start uniformly from 10 years before to 10 years
+  after it, never before the plan's start, with care happening on the probability's share of paths. Blank, care starts at the later of 65
+  and the retirement age plus ten, weighted by the probability; in Monte Carlo it starts, with that probability, at the later of 65
+  and the retirement age plus 5 + 20u. The onset keys to the primary's retirement age and is not moved by the household date (§27).
+- **PMI** stops at the debt's `pmiEndAge` when entered. Otherwise a conventional mortgage with its original and remaining terms
+  stops PMI after the midpoint of its amortization (12 USC 4902(c)), on the primary's clock, at the start of the projection month
+  after the one holding the midpoint. FHA, VA, USDA and other programs, and a conventional loan with missing or inconsistent terms,
+  keep PMI while a balance is owed. **The automatic 78% termination (4902(b)) is not modelled**; the default is the latest the law
+  allows. The validator warns (`DEBT_PAYOFF_RESIDUAL`) when the scheduled payments leave $0.50 or more at the payoff age (not when
+  an adjustable-rate reset precedes it), the plan pays it in one sum, and the debt editor shows that sum.
+
+### 28.5 The Roth IRA ledger and income received earlier in the year (R50, with R51)
+
+- **A basis ledger per owner** (IRC 408A(d)(4); Treas. Reg. 1.408A-6), with three layers: regular contributions, then each year's
+  conversions (the oldest year first, the taxable part first), then earnings. A distribution is not qualified when the owner is
+  under 59½ at the year's opening (a transfer is judged at its own date) or the owner's five-year period has not run. It takes
+  contributions tax-free; it bears the 10% on a conversion's taxable part within five years of that conversion and while under 59½
+  (not where the household's penalty exception is on); and it is taxed on earnings, with the 10% under 59½.
+- **Opening basis** is the entered contribution basis (`accounts[].contributionBasis`, summed per owner). Blank means none, the
+  cautious reading, and the Roth IRA input says so. The engine records `ROTH_IRA_BASIS_NOT_ENTERED` when that default prices a
+  dollar; **the app shows no card for it.**
+- **The five-year period** runs from the entered first-contribution year. With no year entered and a Roth balance or basis held, it
+  is taken as met (`ROTH_FIVE_YEAR_ASSUMED`, recorded by the engine for a draw at 59½ or later in plan years 0 to 4; **the app shows
+  no card for it**); with none held, it starts at the first tax year money arrives. A surviving spouse takes over the ledger: bases
+  and conversions combine and the earlier five-year start is kept.
+- **A Roth 401(k) or custom tax-free account** is still modelled as untaxed at every age, and is flagged when drawn before 59½
+  (`UNSUPPORTED_ROTH_ORDERING`, shown as the card "Roth withdrawal before 59 1/2"; judged at the year-opening age for a pooled draw).
+  The owner kept this, disclosed.
+- **Not modelled:** conversions before the plan (enter those older than five years as basis), the disability and first-home
+  exceptions, and the law's year-end aggregation (a contribution made after the year's draw counts before that draw by law; the
+  engine counts it after).
+- **The rule-based withdrawal order ranks the Roth class by the cost of the next dollar it would pay** (R51; the owner rejected the
+  exposed-share weight): nothing while the next dollar is basis, a conversion's nontaxable part, or a conversion past five years;
+  nothing when the owner is qualified, or when the next account in the class's draw order is not a Roth IRA (a Roth 401(k) or custom
+  tax-free account, modelled tax-free; the owner kept this, 2026-10-04); the 10% on a conversion's taxable part inside five years
+  before 59½ (nothing under the penalty exception); and tax and the 10% on earnings.
+- **Income received earlier in the first tax year** (`profile.priorIncomeThisYear`, an optional positive figure). For a first row
+  shorter than a year at a fractional start age, the row's federal tax (with NIIT) and Arizona tax is the tax on the whole year's
+  ordinary income less the tax on the earlier income alone, the row's gains, Social Security and dividends stacked on top. Payroll
+  tax is unchanged and the row's MAGI (IRMAA, the IRA deduction) is still the row's own. Blank, the convention of §25 stands. The last
+  row, ending at a death, is correct as it is (IRS Publication 559).
+
+### 28.6 Working years and disclosures (R49, with R51)
+
+- **The working-years check.** A warning, `WORKING_YEARS_NOT_FUNDED_BY_PAY`, once per run, names the first working year whose pay is
+  below zero. Pay is the working share of salary plus the employment and self-employment income paid while working, each net of the
+  tax it adds (the salary net of its wage-only payroll and income tax; each stream net of its marginal share of the same return with
+  it added: federal, NIIT and Arizona income tax, payroll tax and self-employment tax), less the contributions and less the debt
+  payments and PMI made in the working months. Rental and other non-pay streams are not counted. No figure moves. A full
+  working-years budget is not modelled.
+- **Disclosures.** The app shows the engine's disclosures listed in R49's build report as cards (21 codes), runs the validator on the
+  active plan at each calculation and at load and lists its warnings as "Plan checks", and has a card on how the tax figures are
+  estimated. The optimizer is now the "Rule-based withdrawal order" with a "Tax-sensitive ordering goal (heuristic)". The 10% default
+  return is relabelled "historical US stocks, nominal, before fees", not changed.
+
+*Decided 2026-10-03 and 2026-10-04 (the owner), on the AA1 assumptions audit. Registered as `SPRINT_QUESTIONS.md` Q182 to Q191.*
