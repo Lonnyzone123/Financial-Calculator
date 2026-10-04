@@ -1,0 +1,70 @@
+{
+  "sourceSha": "cbce0ce98c28b24c55c4c5421cfabfba0ec89776",
+  "summary": {
+    "simulations": 20,
+    "checks": 100,
+    "passed": 20,
+    "failed": []
+  },
+  "hunt": {
+    "classification": "disclosed year-end Roth aggregation limit, not a new finding",
+    "cases": 2,
+    "passed": 1,
+    "failed": [
+      {
+        "id": "H01",
+        "checks": [
+          {
+            "label": "settled salary-year tax",
+            "actual": 56400.23499999999,
+            "expected": 55670.235,
+            "tolerance": 0.01,
+            "pass": false
+          },
+          {
+            "label": "no Roth earnings in final AGI",
+            "actual": 201999,
+            "expected": 199999,
+            "tolerance": 0.01,
+            "pass": false
+          },
+          {
+            "label": "conversion principal after all annual draws",
+            "actual": 4480.555555555556,
+            "expected": 2480.5555555555557,
+            "tolerance": 0.01,
+            "pass": false
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "horizon": {
+      "id": "U01",
+      "finding": "R52-01",
+      "valid": true,
+      "importStatus": "Projection updated · saved in this browser",
+      "requestedEnd": 41,
+      "actualEnd": 60,
+      "expected": 106050,
+      "raw": 106050.00000000001,
+      "actual": 300049.02232247574,
+      "extendedHorizonOracle": 300049.0223224751,
+      "pass": false
+    },
+    "transfer": {
+      "id": "U02",
+      "finding": "R52-02",
+      "valid": true,
+      "importStatus": "Projection updated · saved in this browser",
+      "requestedAge": 45.75,
+      "actualAge": 46,
+      "expectedTax": 57038.985,
+      "actualTax": 56663.98499999999,
+      "expectedNetworth": 113632.25,
+      "actualNetworth": 114007.25,
+      "pass": false
+    }
+  }
+}

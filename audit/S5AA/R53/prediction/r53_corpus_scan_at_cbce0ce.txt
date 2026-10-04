@@ -1,0 +1,44 @@
+== control (36 plans; 0 omissions; taps output-neutral on all)
+  STOP CONDITION, endAge < retireAge (0): none
+  grace-year rows (any owner, before the four-part condition): 629
+  R51F-01 exposed (0): none -- no corpus exposure
+  readStatic() rewrites today (11): 
+    seed:2: retirement.manualOrder "taxable" -> "" (manual order in use)
+    seed:3: retirement.manualOrder "roth,preTax,hsa,taxable" -> "" (manual order in use)
+    seed:4: retirement.manualOrder "preTax,hsa,roth,taxable" -> "" (manual order in use)
+    seed:6: retirement.manualOrder "roth,preTax" -> "" (manual order in use)
+    seed:7: retirement.manualOrder "taxable,preTax,hsa,roth" -> "" (manual order in use)
+    seed:9: retirement.manualOrder "roth,taxable,hsa,preTax" -> "" (manual order in use)
+    seed:10: retirement.manualOrder "roth" -> "" (manual order in use)
+    seed:11: retirement.manualOrder "preTax,hsa,roth,taxable" -> "" (manual order in use)
+    seed:13: retirement.manualOrder "taxable,roth,hsa,preTax" -> "" (manual order in use)
+    seed:17: retirement.manualOrder "roth,hsa" -> "" (manual order in use)
+    targeted:funded-qcd: profile.retireAge raised to the age 75 (clamp)
+== expanded (71 plans; 0 omissions; taps output-neutral on all)
+  STOP CONDITION, endAge < retireAge (0): none
+  grace-year rows (any owner, before the four-part condition): 1144
+  R51F-01 exposed (0): none -- no corpus exposure
+  readStatic() rewrites today (20): 
+    seed:2: retirement.manualOrder "taxable" -> "" (manual order in use)
+    seed:3: retirement.manualOrder "roth,preTax,hsa,taxable" -> "" (manual order in use)
+    seed:4: retirement.manualOrder "preTax,hsa,roth,taxable" -> "" (manual order in use)
+    seed:6: retirement.manualOrder "roth,preTax" -> "" (manual order in use)
+    seed:7: retirement.manualOrder "taxable,preTax,hsa,roth" -> "" (manual order in use)
+    seed:9: retirement.manualOrder "roth,taxable,hsa,preTax" -> "" (manual order in use)
+    seed:10: retirement.manualOrder "roth" -> "" (manual order in use)
+    seed:11: retirement.manualOrder "preTax,hsa,roth,taxable" -> "" (manual order in use)
+    seed:13: retirement.manualOrder "taxable,roth,hsa,preTax" -> "" (manual order in use)
+    seed:17: retirement.manualOrder "roth,hsa" -> "" (manual order in use)
+    targeted:funded-qcd: profile.retireAge raised to the age 75 (clamp)
+    expansion:s5aa-gap-death-while-working: profile.retireAge raised to the age 70 (clamp)
+    expansion:s5aa-r14-rmd-conversion-under-loss: profile.retireAge raised to the age 75 (clamp); retirement.manualOrder "taxable,hsa,roth,preTax" -> "" (manual order in use)
+    expansion:s5aa-r14-rmd-two-iras-distinct-returns: profile.retireAge raised to the age 78 (clamp); retirement.manualOrder "taxable,hsa,roth,preTax" -> "" (manual order in use)
+    expansion:s5aa-r14-rmd-prototype-ids: profile.retireAge raised to the age 80 (clamp); retirement.manualOrder "taxable,hsa,roth,preTax" -> "" (manual order in use)
+    expansion:s5aa-r15-rmd-transfer-to-taxable: profile.retireAge raised to the age 78 (clamp); retirement.manualOrder "taxable,hsa,roth,preTax" -> "" (manual order in use)
+    expansion:s5aa-sa18-loss-under-deduction: profile.retireAge raised to the age 70 (clamp); retirement.manualOrder "taxable,hsa,roth,preTax" -> "" (manual order in use)
+    expansion:s5aa-sa18-decedent-loss: profile.retireAge raised to the age 70 (clamp); retirement.manualOrder "taxable,hsa,roth,preTax" -> "" (manual order in use)
+    expansion:s5aa-r20-rule55-ira-ranking: profile.retireAge raised to the age 56 (clamp)
+    expansion:s5aa-r35-rule55-separation-at-55: profile.retireAge raised to the age 56 (clamp)
+== generator sweep seeds 1-5000: endAge < retireAge in 0
+== defaultPlan: endAge 100, retireAge 55 -- not refused
+== tests/fixtures/*.json: endAge < retireAge at 0

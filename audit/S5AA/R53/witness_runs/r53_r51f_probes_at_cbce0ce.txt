@@ -1,0 +1,61 @@
+{
+  "cases": 36,
+  "checks": 175,
+  "executions": 36,
+  "passed": 33,
+  "failed": [
+    {
+      "id": "F01",
+      "name": "SS grace: employment stream ends before claim",
+      "checks": [
+        {
+          "label": "six monthly checks, $1,800 each",
+          "actual": 5540,
+          "expected": 10800,
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "F02",
+      "name": "SS grace: continuing $1,000 monthly wages",
+      "checks": [
+        {
+          "label": "six monthly checks, $1,800 each",
+          "actual": 4540,
+          "expected": 10800,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "settled tax",
+          "actual": 4907.58,
+          "expected": 5546.1,
+          "tolerance": 0.01,
+          "passed": false
+        },
+        {
+          "label": "closing portfolio after incremental tax",
+          "actual": 113649.92,
+          "expected": 119271.4,
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ]
+    },
+    {
+      "id": "F03",
+      "name": "SS grace: spouse wage stream",
+      "checks": [
+        {
+          "label": "spouse six monthly checks",
+          "actual": 4540,
+          "expected": 10800,
+          "tolerance": 0.01,
+          "passed": false
+        }
+      ]
+    }
+  ]
+}
