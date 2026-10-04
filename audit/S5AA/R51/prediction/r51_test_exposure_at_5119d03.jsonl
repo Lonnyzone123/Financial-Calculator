@@ -1,0 +1,440 @@
+{"file":"bench-simulation.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"debug-module.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"bench-simulation.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"debug-module.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"debug-module.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"reconciliation-invariant.test.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"reconciliation-invariant.test.js","fn":"simulatePlan","method":"historical","flags":["medicare rows 65,66"]}
+{"file":"reconciliation-invariant.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66"]}
+{"file":"golden-scenarios.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"rng-seeding.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"rng-seeding.test.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"rng-seeding.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"rng-seeding.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"rng-seeding.test.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"rng-seeding.test.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"rng-seeding.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-baseline.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-baseline.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"capture-baseline.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-ra04-baseline-integrity.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-ra04-baseline-integrity.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"audit-ra04-baseline-integrity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-ra04-baseline-integrity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-ra04-baseline-integrity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-sa03-return-signal.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"mortgage-vs-investing.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"mortgage-vs-investing.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"mortgage-vs-investing.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"mortgage-vs-investing.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"mortgage-vs-investing.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"mortgage-vs-investing.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"mortgage-vs-investing.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"monteCarlo","flags":["medicare 51 paths, rows 65,66,67,68,69"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66,67,68"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66,67,68"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66,67,68"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66,67,68"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66,67,68"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66,67,68"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66,67,68"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"near-miss-survivor-sweep.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-cl-findings.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-cl-findings.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-cl-findings.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-cl-findings.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-rb-findings.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"schema-catalogue.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"networth-reconciliation.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-q51-q52-bounds-swap.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q58-strategy-resolution.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-q67-prototype-named-asset-class.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"result-contract.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"result-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"result-contract.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"result-contract.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66","flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"control-corpus.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"control-corpus.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"control-corpus.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"control-corpus.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"control-corpus.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"boolean-flag-contract.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-composition.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"debt-ledger-mode-coverage.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"debt-ledger-mode-coverage.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-invariant.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"monte-carlo-sensitive-band.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-invariant.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"monte-carlo-sensitive-band.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-invariant.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-invariant.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"monte-carlo-sensitive-band.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-invariant.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"monte-carlo-sensitive-band.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-invariant.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-invariant.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-invariant.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-invariant.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"monte-carlo-sensitive-band.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"monte-carlo-sensitive-band.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"monte-carlo-sensitive-band.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"device-benchmark.test.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-boundary-module-walk.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-boundary-module-walk.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"capture-boundary-module-walk.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-boundary-module-walk.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-boundary-module-walk.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-boundary.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-boundary.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"capture-boundary.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-boundary.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-boundary.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"build-routes.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"capture-baseline.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"historical","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"historical","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"historical","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"historical","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"simple","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"simple","flags":["flex10"]}
+{"file":"household-ledger.test.js","fn":"simulatePlan","method":"historical","flags":["medicare rows 65,66"]}
+{"file":"reconciliation-invariant.test.js","fn":"simulatePlan","method":"historical","flags":["medicare rows 65,66"]}
+{"file":"reconciliation-invariant.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 65,66"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"worker-parity.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-fm01.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-p1-q16.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-p1-q16.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-p1-q16.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"public-route-p1-q16.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["medicare rows 65,66,67,68"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["medicare rows 66"]}
+{"file":"corpus-configured-paths.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"result-contract-v3.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5rr01-qcd-source-funding.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5rr01-qcd-source-funding.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5rr01-qcd-source-ledger.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5aa-input-gate.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-input-gate.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-input-gate.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-input-gate.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-input-gate.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-flexibility-cut.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-s5aa-flexibility-cut.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-s5aa-monte-carlo-invariants.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-monte-carlo-invariants.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"public-route-q101-q109.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"public-route-q101-q109.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r7-executed-succession.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r9-stop-at-last-death.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r9-unknown-method.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-s5aa-r9-unknown-method.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r10-strategy-horizon-at-last-death.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r10-strategy-horizon-at-last-death.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r23-roth-flag-follows-draws.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r23-roth-flag-follows-draws.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r26-ira-compensation-limit.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> -"]}
+{"file":"audit-s5aa-r26-ira-compensation-limit.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> -"]}
+{"file":"audit-s5aa-r28-ira-limit-applied-once.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> -"]}
+{"file":"audit-s5aa-r28-ira-limit-applied-once.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> 40"]}
+{"file":"audit-s5aa-r28-ira-limit-applied-once.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> 40"]}
+{"file":"audit-s5aa-r29-transfer-as-contribution.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r29-transfer-as-contribution.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r30-hsa-funding-uses-ira-basis.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r31-hsa-funding-basis-at-the-funding-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r32-ira-pool-at-the-transfer-date.test.js","fn":"runPlan","method":"simple","flags":["working 60 -> -"]}
+{"file":"audit-s5aa-r33-deferrals-excluded-lawfully.test.js","fn":"runPlan","method":"simple","flags":["working 45 -> -"]}
+{"file":"audit-s5aa-r33-deferrals-excluded-lawfully.test.js","fn":"runPlan","method":"simple","flags":["working 45 -> -"]}
+{"file":"audit-s5aa-r35-portfolio-return-signals.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5aa-r35-portfolio-return-signals.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5aa-r37-validator-gaps.test.js","fn":"runPlan","method":"historical","flags":["flex10"]}
+{"file":"audit-s5aa-r37-stale-texts.test.js","fn":"runPlan","method":"monteCarlo","flags":["flex10"]}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> 40"]}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> 40"]}
+{"file":"audit-s5aa-r47-federal-tax-and-accounts.test.js","fn":"runPlan","method":"simple","flags":["working 40 -> -"]}
+{"file":"audit-s5aa-r49-spending-debt-disclosure.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5aa-r49-spending-debt-disclosure.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5aa-r49-spending-debt-disclosure.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}
+{"file":"audit-s5aa-r49-spending-debt-disclosure.test.js","fn":"runPlan","method":"simple","flags":["flex10"]}

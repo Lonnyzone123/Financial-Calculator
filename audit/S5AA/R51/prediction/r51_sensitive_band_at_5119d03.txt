@@ -1,0 +1,16 @@
+# on the scratch copy of 5119d03 with defaultPlan flexibility 0:
+flexibility 0 golden 95.8
+step 10 86
+step 11 85.39999999999999
+step 12 85
+step 13 83.8
+step 14 83
+step 15 82.8
+step 12 spending 96000 success 85 final 119653546.22 lifetimeTaxes 3924772.11
+ volatility x0.5 99.8
+ volatility x1.5 51.6
+# on 5119d03 (flexibility 10):
+flexibility 10 golden 96.8
+step 12 85.39999999999999
+step 13 85.2
+step 14 84.2

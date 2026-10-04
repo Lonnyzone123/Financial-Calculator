@@ -1,0 +1,13 @@
+tree flex0; defaultPlan flexibility 0
+== control (36 plans; health on in 6; an employment or self-employment stream in 3)
+  medicare (1): 
+    seed:16 [4 rows (path 0) from 65 to 68; health in those rows -$801 summed (65: $13,777 -> $13,596 [pre 1->2, med 1->0]; 66: $14,795 -> $14,601 [pre 1->2, med 1->0]; 67: $16,098 -> $15,784 [pre 0->1.5, med 2->0.5]; 68: $17,287 -> $17,175 [pre 0->0.5, med 2->1.5])]
+  irmaa (0): none
+  partial (0): none
+  working (0): none
+== expanded (71 plans; health on in 7; an employment or self-employment stream in 3)
+  medicare (1): 
+    seed:16 [4 rows (path 0) from 65 to 68; health in those rows -$801 summed (65: $13,777 -> $13,596 [pre 1->2, med 1->0]; 66: $14,795 -> $14,601 [pre 1->2, med 1->0]; 67: $16,098 -> $15,784 [pre 0->1.5, med 2->0.5]; 68: $17,287 -> $17,175 [pre 0->0.5, med 2->1.5])]
+  irmaa (0): none
+  partial (0): none
+  working (0): none
