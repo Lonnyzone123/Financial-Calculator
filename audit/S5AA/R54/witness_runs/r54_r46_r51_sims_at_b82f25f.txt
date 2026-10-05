@@ -1,0 +1,47 @@
+node -r ./audit/S5AA/R53/S5AA_R53_COMPANION_ADAPTER.js audit/S5AA/R51/S5AA_R46_R51_CHATGPT_SIMULATIONS_20261004.js C:\fc-wt-r54base C:\fc-wt-r54\audit\S5AA\R54\witness_runs\r54_r46_r51_sims_at_b82f25f.json
+exit 0 (1 s)
+--- stdout
+S01 PASS Shared shocks survive account splitting
+
+S02 PASS Negative correlation at and below the PSD boundary
+
+S03 PASS Household reserve applies to small accounts and caps at 100%
+
+S04 PASS Senior deduction and Arizona subtraction expire together
+
+S05 PASS High-earner Roth catch-up and no-Roth plan
+
+S06 PASS Unused IRA room must not remove two carried excesses
+
+S07 PASS Spouse wages cannot shelter a business-owner deferral from QBI
+
+S08 PASS HSA stops at an entered Medicare date inside a row
+
+S09 PASS Medicare inflation and entered Part D premium
+
+S10 PASS Inherited IRA rollover preserves projection-created basis
+
+S11 PASS Community-property basis reset reaches the survivor account
+
+S12 PASS Arizona capital-gain share prices the funding quote
+
+S13 PASS Flexibility floor and below-floor stage
+
+S14 PASS Fractional LTC onset conserves its weighted duration
+
+S15 PASS PMI midpoint, override, and forced-payoff disclosure
+
+S16 PASS Roth IRA basis then earnings with tax gross-up
+
+S17 PASS Roth conversion clocks and final basis settlement
+
+S18 PASS Prior first-year income consumes the deduction and brackets
+
+S19 PASS One Medicare date prices both premiums and HSA eligibility
+
+S20 PASS Streams count as working pay net of income and payroll tax
+
+{"sourceSha":"b82f25fad99c100c6bc7b53d8bd9bb96d40e00ea","simulations":20,"passed":20,"failed":0}
+
+--- stderr
+[R53 companion adapter] root C:\fc-wt-r54base: 20 call(s) entered with the retirement age at the end age {"validator.validateScenario":10,"engine.runPlan":10}
