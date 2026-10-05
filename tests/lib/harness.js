@@ -961,7 +961,11 @@ function artifactFor(lane) {
 // Changed again 2026-10-04 (contract+validator+app: R54 item 3, the form's ranges refused), so the tracked file was
 // rebuilt, again installed only after two builds agreed. The pin before it,
 // 52f372aa8924a182a60cd01c6eccd167924489f33b81c3ff0a7590a39b78feae, described the previous rebuild.
-const EXPECTED_SHA256 = '43fda2ba8bd04f89204261031104212c98ff3a4055f89ac370d28f0276fbdbc7';
+//
+// Changed again 2026-10-04 (engine+contract+validator+app: R54 item 4, five ranges widened, the seed and the prior MAGI
+// refused), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 43fda2ba8bd04f89204261031104212c98ff3a4055f89ac370d28f0276fbdbc7, described the previous rebuild.
+const EXPECTED_SHA256 = 'e13e0f7443369cab222150ecc53676560c90bdf12ccc4bafd665f248f4306c06';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

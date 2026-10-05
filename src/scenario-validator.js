@@ -1305,6 +1305,8 @@ function validatePlanValueContract(c, plan) {
     if (v === null && rule.nullable) return;
     if (!isFiniteNumber(v)) { report('WRONG_TYPE', where, `expected a finite number at "${where}", got ${JSON.stringify(v)}`); return; }
     const low = rule.min !== undefined && (rule.minExclusive ? !(v > rule.min) : v < rule.min), high = rule.max !== undefined && v > rule.max;
+    // S5AA R54 item 4: `integer` -- a whole number (the seed), reported as the range is, so both layers refuse it as out of range.
+    if (rule.integer === true && !Number.isInteger(v)) { report('OUT_OF_RANGE', where, `"${where}" is ${v}, expected a whole number${rule.min !== undefined ? ' of at least ' + rule.min : ''}`); return; }
     if (low || high) report('OUT_OF_RANGE', where, `"${where}" is ${v}, expected ${rule.min !== undefined ? (rule.minExclusive ? 'more than ' : 'at least ') + rule.min : ''}${rule.min !== undefined && rule.max !== undefined ? ' and ' : ''}${rule.max !== undefined ? 'at most ' + rule.max : ''}`);
   };
   C.scalars.forEach((rule) => {

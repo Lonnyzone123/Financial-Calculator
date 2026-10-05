@@ -1627,6 +1627,16 @@ function endAgeBeforeStartCode(p){
    app's import accepted such a plan and readStatic() then lengthened it to the retirement age (U01: 20 years projected where 1 was asked). Refused here
    by name, as R41 refuses an end age before the start, and the validator reports it as an ERROR (END_AGE_BEFORE_RETIREMENT). The primary's retirement
    and end ages; an end age equal to the retirement age is projected, and an end age before the start is R41's refusal, checked first. */
+/* S5AA R54 item 4 (the owner 2026-10-04): A NEGATIVE PRIOR-YEAR MAGI. The validator refuses it (R35, OUT_OF_RANGE) and the engine ran it, reading it
+   as entered income in the IRMAA lookback. Refused here by name, so both layers refuse the same input. Null or absent means not entered and is
+   accepted (a contract entry would have to accept null, which the contract's number entries do not). */
+function negativePriorMagiCode(p){
+  var adv=p&&p.advanced;
+  if(!adv||typeof adv!=="object")return null;
+  var keys=["irmaaMagiTwoYearsBefore","irmaaMagiOneYearBefore"];
+  for(var i=0;i<keys.length;i++){var v=adv[keys[i]];if(typeof v==="number"&&isFinite(v)&&v<0)return "NEGATIVE_PRIOR_MAGI"}
+  return null;
+}
 function endAgeBeforeRetirementCode(p){
   var profile=p&&p.profile;
   if(!profile||typeof profile!=="object"||typeof profile.retireAge!=="number"||!Number.isFinite(profile.retireAge)||typeof profile.endAge!=="number"||!Number.isFinite(profile.endAge))return null;
@@ -1642,7 +1652,7 @@ function planValueContractViolation(p){
       fin=function(v){return typeof v==="number"&&isFinite(v)},
       breach=function(rule,v,where){if(v===undefined)return null;if(rule.type==="enum")return rule.values.indexOf(v)>=0?null:{code:"UNKNOWN_PLAN_VALUE",path:where};
         if(v===null&&rule.nullable)return null;if(!fin(v))return {code:"NONNUMBER_PLAN_VALUE",path:where};
-        if(rule.min!==undefined&&(rule.minExclusive?!(v>rule.min):v<rule.min))return {code:"PLAN_VALUE_OUT_OF_RANGE",path:where};
+        if(rule.integer===true&&v!==Math.floor(v))return {code:"PLAN_VALUE_OUT_OF_RANGE",path:where};/* S5AA R54 item 4: a whole number (the seed) */if(rule.min!==undefined&&(rule.minExclusive?!(v>rule.min):v<rule.min))return {code:"PLAN_VALUE_OUT_OF_RANGE",path:where};
         if(rule.max!==undefined&&v>rule.max)return {code:"PLAN_VALUE_OUT_OF_RANGE",path:where};return null};
   for(var i=0;i<C.scalars.length;i++){var rule=C.scalars[i],v=at(p,rule.path),when=rule.requiredWhen===undefined?[]:[].concat(rule.requiredWhen);
     if(v===undefined){for(var w=0;w<when.length;w++)if(at(p,when[w])===true)return {code:"NONNUMBER_PLAN_VALUE",path:rule.path};continue}
@@ -3776,7 +3786,7 @@ function strategySpending(p,age,balance,retireBalance,priorSpend,priorReturn,inf
    definition. This read its own, strict `age < life`, so the row opening at a lifespan -- the year of death, filed jointly and
    costed for two everywhere else -- was already a survivor year here (finding N3 of the R6 round). *//* S5AA R43 (SA42F-29): WHO IS ALIVE IS READ AT THE ROW'S OPENING, decision 7's year of death. `age` is the retirement date when that falls
    inside the row, so a death at 60.25 before a retirement at 60.5 made the year of death a survivor year here ($20,000 where $40,000). A
-   caller with no row opening reads `age`, as before. */if(r.survivor&&p.profile.spouseOn){var living=householdSurvivorship(p,Number.isFinite(Number(rowOpen))?Number(rowOpen):age),oneSurvivor=living.selfAlive!==living.spouseAlive;if(oneSurvivor)survivorFactor=1-clamp(Number(r.survivorSpendingReduction)||0,0,50)/100}/* S5AA task 2.1, Q108: the carried base is the UNADJUSTED amount. `base` becomes next year's priorSpend, and
+   caller with no row opening reads `age`, as before. */if(r.survivor&&p.profile.spouseOn){var living=householdSurvivorship(p,Number.isFinite(Number(rowOpen))?Number(rowOpen):age),oneSurvivor=living.selfAlive!==living.spouseAlive;if(oneSurvivor)survivorFactor=1-clamp(Number(r.survivorSpendingReduction)||0,0,75)/100/* S5AA R54 item 4: 0-75%, the form's and the contract's range (it was held to 50 here, so a valid 75 would have run as 50) */}/* S5AA task 2.1, Q108: the carried base is the UNADJUSTED amount. `base` becomes next year's priorSpend, and
    fixedReal computes each year as priorSpend*inflationStep -- so anything folded into `base` is not applied
    once, it is applied again every year afterwards, to its own output.
 
@@ -5358,7 +5368,7 @@ function scenarioInputGate(p){var serialized=[],flagPath=null,rejectedInput=null
   rejectedInput=rejectedInput||nonArrayListInputCode(p)||nonRecordListElementCode(p);
   if(!rejectedInput){flagPath=nonBooleanFlagPath(p);if(flagPath!==null)rejectedInput="NONBOOLEAN_FLAG"}
   if(!rejectedInput){flagPath=nonNumberPlanValuePath(p);if(flagPath!==null)rejectedInput="NONNUMBER_PLAN_VALUE"}
-  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||replacedPlanInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||endAgeBeforeStartCode(p)||endAgeBeforeRetirementCode(p)/* S5AA R53 */||nobodyAliveAtStartCode(p)||accountContractCode(p);
+  rejectedInput=rejectedInput||nonFiniteScenarioInputCode(p)||nonFiniteHoldingInputCode(p)||replacedPlanInputCode(p)||missingIncomeOwnerCode(p)||unrecognizedIncomeOwnerCode(p)||unknownFilingStatusCode(p)||unknownMethodCode(p)||endAgeBeforeStartCode(p)||endAgeBeforeRetirementCode(p)/* S5AA R53 */||negativePriorMagiCode(p)/* S5AA R54 item 4 */||nobodyAliveAtStartCode(p)||accountContractCode(p);
   if(!rejectedInput)rejectedInput=nonSerializableScenarioInputCode(p,serialized);
   if(!rejectedInput){
       identityPlan=serializedSnapshot(p,serialized);
@@ -5450,6 +5460,9 @@ function recordScenarioRefusal(issues,rejectedInput,flagPath){recordIssue(issues
             ?"The projection method is not one the engine runs (simple, historical or monteCarlo), so the projection it names cannot be computed."
             :rejectedInput==="END_AGE_BEFORE_START"
             ?"The projection's ending age is before its starting age, so there are no years to project. Check the ending age."
+            /* S5AA R54 item 4 */
+            :rejectedInput==="NEGATIVE_PRIOR_MAGI"
+            ?"An entered income (MAGI) for a tax return before the plan is negative, so the Medicare surcharge lookback cannot use it; enter 0 or more, or leave it blank."
             /* S5AA R53 */
             :rejectedInput==="END_AGE_BEFORE_RETIREMENT"
             ?"The projection's ending age is before the retirement age. A plan must run at least to the retirement age; check the ending age and the retirement age."
@@ -6008,6 +6021,7 @@ if (typeof module !== 'undefined' && module.exports) {
     unknownMethodCode,
     endAgeBeforeStartCode,
     endAgeBeforeRetirementCode,
+    negativePriorMagiCode,
     nobodyAliveAtStartCode,
     lastDeathCutAge,
     lawfulConversionDestination,

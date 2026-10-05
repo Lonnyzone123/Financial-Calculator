@@ -32,18 +32,19 @@ const refusal = (p) => engine.runPlan(structuredClone(p)).calculationErrorCode |
 const BOUNDS = [
   ['employment.salary', 'Math.max(0, salary)', -50000, null, 0, null],
   ['employment.spouseSalary', 'Math.max(0, spouse salary)', -1, null, 0, null],
-  ['assumptions.fee', 'clamp(fee, 0, 2)', -1, 50, 0, 2],
+  // S5AA R54 item 4 (the owner's decisions of 2026-10-04) widened five rows: fee 0-5 (was 2), withdrawal 0-25 (was 15), adjustment >= 0 (was 1), growth -50 to 20 (was -20), reduction 0-75 (was 50).
+  ['assumptions.fee', 'clamp(fee, 0, 5)', -1, 50, 0, 5],
   ['assumptions.volatility', 'Math.max(0, volatility)', -1, null, 0, null],
   ['retirement.spending', 'Math.max(0, spending)', -100, null, 0, null],
-  ['retirement.withdrawalRate', 'clamp(rate, 0, 15)', -4, 80, 0, 15],
+  ['retirement.withdrawalRate', 'clamp(rate, 0, 25)', -4, 80, 0, 25],
   ['retirement.upperGuardrail', 'Math.max(1, upper guardrail)', -20, null, 1, null],
   ['retirement.lowerGuardrail', 'Math.max(1, lower guardrail)', 0.5, null, 1, null],
-  ['retirement.adjustment', 'Math.max(1, adjustment)', 0, null, 1, null],
+  ['retirement.adjustment', 'Math.max(0, adjustment)', -1, null, 0, null],
   ['retirement.floor', 'Math.max(0, floor)', -1, null, 0, null],
   ['retirement.ceiling', 'Math.max(0, ceiling)', -1, null, 0, null],
   ['retirement.dividendYield', 'clamp(yield, 0, 20)', -0.5, 21, 0, 20],
   ['retirement.dividendQualified', 'clamp(qualified, 0, 100)', -1, 120, 0, 100],
-  ['retirement.dividendGrowth', 'clamp(growth, -20, 20)', -25, 25, -20, 20],
+  ['retirement.dividendGrowth', 'clamp(growth, -50, 20)', -55, 25, -50, 20],
   ['retirement.ssBenefit', 'Math.max(0, benefit)', -1, null, 0, null],
   ['retirement.spouseSS', 'Math.max(0, spouse benefit)', -1, null, 0, null],
   ['retirement.flexibility', 'clamp(flexibility, 0, 50)', -10, 60, 0, 50],
@@ -52,7 +53,7 @@ const BOUNDS = [
   ['retirement.rmdMultiplier', 'save(): clamp(RMD multiplier, 0, 200)', -1, 250, 0, 200],
   ['retirement.rmdFloor', 'save(): Math.max(0, RMD floor)', -1, null, 0, null],
   ['retirement.ssCola', 'save(): clamp(SS COLA, 0, 15)', -5, 20, 0, 15],
-  ['retirement.survivorSpendingReduction', 'save(): clamp(reduction, 0, 50)', -1, 75, 0, 50],
+  ['retirement.survivorSpendingReduction', 'save(): clamp(reduction, 0, 75)', -1, 80, 0, 75],
   ['advanced.correlation', 'clamp(correlation, -1, 1)', -1.5, 1.5, -1, 1],
   ['advanced.healthInflation', 'Math.max(0, health inflation); the contract keeps its maximum, 100', -2, 101, 0, 100],
   ['advanced.medicareInflation', 'clamp(Medicare inflation, -99, 100)', -99.5, 101, -99, 100],
@@ -107,11 +108,12 @@ async function importBackup(plans) {
 }
 
 test('R54 item 3: Restore backup refuses a backup carrying a value outside the form\'s range, says which, and leaves the scenarios unchanged', async (t) => {
-  // A 2.5% fee (the form's range is 0 to 2%). Before R54 item 3 the backup was restored (and R54 item 2 kept the 2.5%).
-  const p = base(); p.assumptions.fee = 2.5;
+  // A 6% fee (the form's range is 0 to 5% since S5AA R54 item 4 (the owner's decisions of 2026-10-04); it was a 2.5% fee against 0 to 2%). Before R54 item 3 the
+  // backup was restored.
+  const p = base(); p.assumptions.fee = 6;
   const s = await importBackup([p]);
   try {
-    await t.test('the status line names the value', () => assert.match(s.status, /not restored[\s\S]*"assumptions\.fee" is 2\.5, expected at least 0 and at most 2/));
+    await t.test('the status line names the value', () => assert.match(s.status, /not restored[\s\S]*"assumptions\.fee" is 6, expected at least 0 and at most 5/));
     await t.test('the stored scenarios are byte for byte unchanged', () => assert.equal(s.after(), s.before));
   } finally { s.w.close(); }
 });
