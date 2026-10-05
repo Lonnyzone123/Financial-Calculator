@@ -1,0 +1,10 @@
+Captured 71 scenarios to <scratch>/r54i4_capture_at_58cb62b.json (copied here)
+  complete   : true   ({"golden":5,"seeds":20,"targeted":11,"expansion":35} of 71, expanded composition)
+  format     : 3 (runPlan)
+  corpus hash: 2c342c6c6bdc966cd34a8c7e35561fe598e2c50abd33c03cf85560b079dc5b04   (output entry hashes)
+  input hash : ed3731e2f72425d0e17bfb26558411c22d552d559f9038db7d431769dcb839c4   (the plans themselves)
+  commit     : 58cb62b1b51bef0540dfe103db91583d4af310ff
+  boundary   : qualified -- every input is 58cb62b's committed bytes
+  modes      : {"simple":50,"monteCarlo":4,"historical":17}
+  excluded   : (none)
+exit 0
