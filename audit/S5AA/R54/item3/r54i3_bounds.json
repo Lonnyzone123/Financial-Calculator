@@ -1,0 +1,226 @@
+{
+  "about": "S5AA R54 item 3 (the owner's decision of 2026-10-04, about 7:00 pm): the form's own range for each value readStatic() or save() clamps, as it clamps an EDITED value, added to src/plan-value-contract.json. A rule here is merged into the contract's scalar entry for its path (min/max replace the entry's; minExclusive is dropped when a new min is given). 'clamp' quotes the expression in src/app-shell.html at 2aa2511 (the line is the one readStatic() or save() is on). Precision (half(), Math.round, Math.floor) and relational clamps (the retirement floor at the age, the end cap) are not ranges and are not added; the run count keeps the engine's own rule (invalidRunCountCode).",
+  "bounds": [
+    {
+      "path": "employment.salary",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-salary\",0))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "employment.spouseSalary",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-spouse-salary\",0))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "assumptions.fee",
+      "min": 0,
+      "max": 2,
+      "clamp": "clamp(num(\"v2-fee\",0),0,2)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "assumptions.volatility",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-volatility\",18.5))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.spending",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-spending\",60000))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.withdrawalRate",
+      "min": 0,
+      "max": 15,
+      "clamp": "clamp(num(\"v2-withdrawal-rate\",4),0,15)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.upperGuardrail",
+      "min": 1,
+      "clamp": "Math.max(1,num(\"v2-upper-guardrail\",20))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.lowerGuardrail",
+      "min": 1,
+      "clamp": "Math.max(1,num(\"v2-lower-guardrail\",20))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.adjustment",
+      "min": 1,
+      "clamp": "Math.max(1,num(\"v2-adjustment\",10))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.floor",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-floor\",0))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.ceiling",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-ceiling\",90000))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.dividendYield",
+      "min": 0,
+      "max": 20,
+      "clamp": "clamp(num(\"v2-dividend-yield\",3),0,20)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.dividendQualified",
+      "min": 0,
+      "max": 100,
+      "clamp": "clamp(num(\"v2-dividend-qualified\",85),0,100)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.dividendGrowth",
+      "min": -20,
+      "max": 20,
+      "clamp": "clamp(num(\"v2-dividend-growth\",0),-20,20)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.ssBenefit",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-ss-benefit\",0))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.spouseSS",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-spouse-ss\",0))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.flexibility",
+      "min": 0,
+      "max": 50,
+      "clamp": "clamp(num(\"v2-flexibility\",0),0,50)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "retirement.vpwMinRate",
+      "min": 0,
+      "max": 25,
+      "clamp": "clamp(num(\"v2-vpw-min\",0),0,25)",
+      "fn": "save"
+    },
+    {
+      "path": "retirement.vpwMaxRate",
+      "min": 0,
+      "max": 100,
+      "clamp": "clamp(num(\"v2-vpw-max\",100),0,100)",
+      "fn": "save"
+    },
+    {
+      "path": "retirement.rmdMultiplier",
+      "min": 0,
+      "max": 200,
+      "clamp": "clamp(num(\"v2-rmd-multiplier\",100),0,200)",
+      "fn": "save"
+    },
+    {
+      "path": "retirement.rmdFloor",
+      "min": 0,
+      "clamp": "Math.max(0,num(\"v2-rmd-floor\",0))",
+      "fn": "save"
+    },
+    {
+      "path": "retirement.ssCola",
+      "min": 0,
+      "max": 15,
+      "clamp": "clamp(num(\"v2-ss-cola\",2.8),0,15)",
+      "fn": "save"
+    },
+    {
+      "path": "retirement.survivorSpendingReduction",
+      "min": 0,
+      "max": 50,
+      "clamp": "clamp(num(\"v2-survivor-spending-reduction\",0),0,50)",
+      "fn": "save"
+    },
+    {
+      "path": "advanced.correlation",
+      "min": -1,
+      "max": 1,
+      "clamp": "clamp(num(\"v2-correlation\",.25),-1,1)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "advanced.healthInflation",
+      "min": 0,
+      "max": 100,
+      "clamp": "Math.max(0,num(\"v2-health-inflation\",5.5))",
+      "fn": "readStatic"
+    },
+    {
+      "path": "advanced.medicareInflation",
+      "min": -99,
+      "max": 100,
+      "clamp": "clamp(Number(v),-99,100) (the R48 text-input loop)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "advanced.partDPremium",
+      "min": 0,
+      "max": 100000,
+      "clamp": "clamp(Number(v),0,100000) (the R48 text-input loop)",
+      "fn": "readStatic"
+    },
+    {
+      "path": "profile.priorIncomeThisYear",
+      "min": 0,
+      "max": 1000000000,
+      "clamp": "clamp(Number(v),0,1e9) (the R50 text-input loop)",
+      "fn": "readStatic"
+    }
+  ],
+  "notAdded": [
+    {
+      "path": "assumptions.seed",
+      "clamp": "Math.max(1,Math.floor(num(\"v2-seed\",42791)))",
+      "why": "a seed is the random stream, not a plan value with a real-world range; 0 is the engine's own documented fallback for an absent seed (tests/rng-seeding.test.js: an absent seed runs exactly as seed 0), which a bound of 1 would refuse as an entered value. Not added; reading D-item for the owner."
+    },
+    {
+      "path": "advanced.irmaaMagiTwoYearsBefore / irmaaMagiOneYearBefore",
+      "clamp": "Math.max(0,Number(v)) (the R35 text-input loop)",
+      "why": "the validator already refuses a negative value (R35, OUT_OF_RANGE ERROR), so the import refuses it; a contract entry would need nullable:true (null means not entered), and ChatGPT's R51F F26 probe expects every contract number scalar to refuse null. Left as it is; reading D-item."
+    },
+    {
+      "path": "employment.growth, assumptions.returnRate, assumptions.inflation, retirement.pensionCola, advanced.reserveYears (upper)",
+      "clamp": "none in readStatic()/save(); only the input range on a blur",
+      "why": "the decision names readStatic()/save() clamps; input ranges are listed as a reading"
+    },
+    {
+      "path": "assumptions.runs",
+      "clamp": "round to hundreds, clamp(100,10000)",
+      "why": "the owner: keep the engine's run-count rule (invalidRunCountCode); a restored 24 is kept"
+    },
+    {
+      "path": "the 18 half() fields, the R45 dates, rothFirstContributionYear, ltcYears, seed (floor)",
+      "clamp": "half(), Math.round, Math.floor",
+      "why": "precision, not range (item 2 keeps restored precision)"
+    },
+    {
+      "path": "profile.retireAge / profile.endAge",
+      "clamp": "max(age, retire) when edited; min(100, end) when edited",
+      "why": "relational / the owner: the end age is unchanged (validator 0-120 warning and decision 3 stand)"
+    },
+    {
+      "path": "aime, pension, transfer/conversion amounts, qcd, healthCost, ltcCost, ltcInsurance, insurance, legacy, reserveYears (min), retirementStock, bondTent, ltcProbability, azPost2011GainShare, the R45 dates (0-120), Roth years (1998-2200)",
+      "clamp": "max(0) / clamp",
+      "why": "already the contract bound"
+    }
+  ]
+}

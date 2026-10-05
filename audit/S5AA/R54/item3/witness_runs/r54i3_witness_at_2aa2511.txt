@@ -1,0 +1,2281 @@
+▶ R54 item 3: a value outside the form's range is refused by the validator (OUT_OF_RANGE) and the engine (SCENARIO_PLAN_VALUE_OUT_OF_RANGE)
+  ✖ employment.salary = -50000 (Math.max(0, salary)): the validator refuses it (3.081ms)
+  ✖ employment.salary = -50000: the engine refuses it (7.3613ms)
+  ✖ employment.spouseSalary = -1 (Math.max(0, spouse salary)): the validator refuses it (0.3598ms)
+  ✖ employment.spouseSalary = -1: the engine refuses it (0.8076ms)
+  ✖ assumptions.fee = -1 (clamp(fee, 0, 2)): the validator refuses it (0.2982ms)
+  ✖ assumptions.fee = -1: the engine refuses it (0.718ms)
+  ✖ assumptions.fee = 50 (clamp(fee, 0, 2)): the validator refuses it (0.2643ms)
+  ✖ assumptions.fee = 50: the engine refuses it (0.7197ms)
+  ✖ assumptions.volatility = -1 (Math.max(0, volatility)): the validator refuses it (0.3614ms)
+  ✖ assumptions.volatility = -1: the engine refuses it (0.6992ms)
+  ✖ retirement.spending = -100 (Math.max(0, spending)): the validator refuses it (0.2872ms)
+  ✖ retirement.spending = -100: the engine refuses it (0.5944ms)
+  ✖ retirement.withdrawalRate = -4 (clamp(rate, 0, 15)): the validator refuses it (0.2268ms)
+  ✖ retirement.withdrawalRate = -4: the engine refuses it (0.5916ms)
+  ✖ retirement.withdrawalRate = 80 (clamp(rate, 0, 15)): the validator refuses it (0.2272ms)
+  ✖ retirement.withdrawalRate = 80: the engine refuses it (0.5266ms)
+  ✖ retirement.upperGuardrail = -20 (Math.max(1, upper guardrail)): the validator refuses it (0.2623ms)
+  ✖ retirement.upperGuardrail = -20: the engine refuses it (0.5738ms)
+  ✖ retirement.lowerGuardrail = 0.5 (Math.max(1, lower guardrail)): the validator refuses it (0.3031ms)
+  ✖ retirement.lowerGuardrail = 0.5: the engine refuses it (0.6115ms)
+  ✖ retirement.adjustment = 0 (Math.max(1, adjustment)): the validator refuses it (0.2407ms)
+  ✖ retirement.adjustment = 0: the engine refuses it (0.4934ms)
+  ✖ retirement.floor = -1 (Math.max(0, floor)): the validator refuses it (0.2086ms)
+  ✖ retirement.floor = -1: the engine refuses it (0.4461ms)
+  ✖ retirement.ceiling = -1 (Math.max(0, ceiling)): the validator refuses it (0.1949ms)
+  ✖ retirement.ceiling = -1: the engine refuses it (0.5305ms)
+  ✖ retirement.dividendYield = -0.5 (clamp(yield, 0, 20)): the validator refuses it (0.2537ms)
+  ✖ retirement.dividendYield = -0.5: the engine refuses it (0.4841ms)
+  ✖ retirement.dividendYield = 21 (clamp(yield, 0, 20)): the validator refuses it (0.22ms)
+  ✖ retirement.dividendYield = 21: the engine refuses it (0.4048ms)
+  ✖ retirement.dividendQualified = -1 (clamp(qualified, 0, 100)): the validator refuses it (0.2243ms)
+  ✖ retirement.dividendQualified = -1: the engine refuses it (0.4396ms)
+  ✖ retirement.dividendQualified = 120 (clamp(qualified, 0, 100)): the validator refuses it (0.2089ms)
+  ✖ retirement.dividendQualified = 120: the engine refuses it (0.4283ms)
+  ✖ retirement.dividendGrowth = -25 (clamp(growth, -20, 20)): the validator refuses it (0.1902ms)
+  ✖ retirement.dividendGrowth = -25: the engine refuses it (0.4413ms)
+  ✖ retirement.dividendGrowth = 25 (clamp(growth, -20, 20)): the validator refuses it (0.2119ms)
+  ✖ retirement.dividendGrowth = 25: the engine refuses it (0.4647ms)
+  ✖ retirement.ssBenefit = -1 (Math.max(0, benefit)): the validator refuses it (0.2047ms)
+  ✖ retirement.ssBenefit = -1: the engine refuses it (0.434ms)
+  ✖ retirement.spouseSS = -1 (Math.max(0, spouse benefit)): the validator refuses it (0.2094ms)
+  ✖ retirement.spouseSS = -1: the engine refuses it (0.3929ms)
+  ✖ retirement.flexibility = -10 (clamp(flexibility, 0, 50)): the validator refuses it (0.187ms)
+  ✖ retirement.flexibility = -10: the engine refuses it (0.3951ms)
+  ✖ retirement.flexibility = 60 (clamp(flexibility, 0, 50)): the validator refuses it (0.2053ms)
+  ✖ retirement.flexibility = 60: the engine refuses it (0.4283ms)
+  ✖ retirement.vpwMinRate = -1 (save(): clamp(VPW minimum, 0, 25)): the validator refuses it (0.1804ms)
+  ✖ retirement.vpwMinRate = -1: the engine refuses it (0.3922ms)
+  ✖ retirement.vpwMinRate = 30 (save(): clamp(VPW minimum, 0, 25)): the validator refuses it (0.1946ms)
+  ✖ retirement.vpwMinRate = 30: the engine refuses it (0.3862ms)
+  ✖ retirement.vpwMaxRate = -1 (save(): clamp(VPW maximum, 0, 100)): the validator refuses it (0.1912ms)
+  ✖ retirement.vpwMaxRate = -1: the engine refuses it (0.4101ms)
+  ✖ retirement.vpwMaxRate = 120 (save(): clamp(VPW maximum, 0, 100)): the validator refuses it (0.1844ms)
+  ✖ retirement.vpwMaxRate = 120: the engine refuses it (0.4334ms)
+  ✖ retirement.rmdMultiplier = -1 (save(): clamp(RMD multiplier, 0, 200)): the validator refuses it (0.1814ms)
+  ✖ retirement.rmdMultiplier = -1: the engine refuses it (0.4155ms)
+  ✖ retirement.rmdMultiplier = 250 (save(): clamp(RMD multiplier, 0, 200)): the validator refuses it (0.1866ms)
+  ✖ retirement.rmdMultiplier = 250: the engine refuses it (0.4233ms)
+  ✖ retirement.rmdFloor = -1 (save(): Math.max(0, RMD floor)): the validator refuses it (0.1912ms)
+  ✖ retirement.rmdFloor = -1: the engine refuses it (0.3799ms)
+  ✖ retirement.ssCola = -5 (save(): clamp(SS COLA, 0, 15)): the validator refuses it (0.1978ms)
+  ✖ retirement.ssCola = -5: the engine refuses it (2.5077ms)
+  ✖ retirement.ssCola = 20 (save(): clamp(SS COLA, 0, 15)): the validator refuses it (0.2357ms)
+  ✖ retirement.ssCola = 20: the engine refuses it (0.4323ms)
+  ✔ retirement.survivorSpendingReduction = -1 (save(): clamp(reduction, 0, 50)): the validator refuses it (0.4365ms)
+  ✔ retirement.survivorSpendingReduction = -1: the engine refuses it (0.334ms)
+  ✖ retirement.survivorSpendingReduction = 75 (save(): clamp(reduction, 0, 50)): the validator refuses it (0.1934ms)
+  ✖ retirement.survivorSpendingReduction = 75: the engine refuses it (0.3759ms)
+  ✖ advanced.correlation = -1.5 (clamp(correlation, -1, 1)): the validator refuses it (0.1842ms)
+  ✖ advanced.correlation = -1.5: the engine refuses it (0.3577ms)
+  ✖ advanced.correlation = 1.5 (clamp(correlation, -1, 1)): the validator refuses it (0.1867ms)
+  ✖ advanced.correlation = 1.5: the engine refuses it (0.3637ms)
+  ✖ advanced.healthInflation = -2 (Math.max(0, health inflation); the contract keeps its maximum, 100): the validator refuses it (0.1757ms)
+  ✖ advanced.healthInflation = -2: the engine refuses it (0.354ms)
+  ✔ advanced.healthInflation = 101 (Math.max(0, health inflation); the contract keeps its maximum, 100): the validator refuses it (0.1717ms)
+  ✔ advanced.healthInflation = 101: the engine refuses it (0.1496ms)
+  ✖ advanced.medicareInflation = -99.5 (clamp(Medicare inflation, -99, 100)): the validator refuses it (0.1914ms)
+  ✖ advanced.medicareInflation = -99.5: the engine refuses it (0.3808ms)
+  ✔ advanced.medicareInflation = 101 (clamp(Medicare inflation, -99, 100)): the validator refuses it (0.1548ms)
+  ✔ advanced.medicareInflation = 101: the engine refuses it (0.1368ms)
+  ✔ advanced.partDPremium = -1 (clamp(Part D premium, 0, 100000)): the validator refuses it (0.1435ms)
+  ✔ advanced.partDPremium = -1: the engine refuses it (0.1212ms)
+  ✖ advanced.partDPremium = 150000 (clamp(Part D premium, 0, 100000)): the validator refuses it (0.1598ms)
+  ✖ advanced.partDPremium = 150000: the engine refuses it (0.3786ms)
+  ✔ profile.priorIncomeThisYear = -1 (clamp(prior income, 0, 1e9)): the validator refuses it (0.1438ms)
+  ✔ profile.priorIncomeThisYear = -1: the engine refuses it (0.129ms)
+  ✖ profile.priorIncomeThisYear = 2000000000 (clamp(prior income, 0, 1e9)): the validator refuses it (0.1743ms)
+  ✖ profile.priorIncomeThisYear = 2000000000: the engine refuses it (0.3983ms)
+✖ R54 item 3: a value outside the form's range is refused by the validator (OUT_OF_RANGE) and the engine (SCENARIO_PLAN_VALUE_OUT_OF_RANGE) (46.3989ms)
+▶ R54 item 3 (control): each edge of the range is accepted by the validator and projected by the engine
+  ✔ employment.salary = 0: no ERROR at its path (0.1567ms)
+  ✔ employment.salary = 0: projected (0.3484ms)
+  ✔ employment.spouseSalary = 0: no ERROR at its path (0.1288ms)
+  ✔ employment.spouseSalary = 0: projected (0.3124ms)
+  ✔ assumptions.fee = 0: no ERROR at its path (0.1744ms)
+  ✔ assumptions.fee = 0: projected (0.3431ms)
+  ✔ assumptions.fee = 2: no ERROR at its path (0.1723ms)
+  ✔ assumptions.fee = 2: projected (0.3538ms)
+  ✔ assumptions.volatility = 0: no ERROR at its path (0.1555ms)
+  ✔ assumptions.volatility = 0: projected (0.357ms)
+  ✔ retirement.spending = 0: no ERROR at its path (0.2767ms)
+  ✔ retirement.spending = 0: projected (0.5071ms)
+  ✔ retirement.withdrawalRate = 0: no ERROR at its path (0.1636ms)
+  ✔ retirement.withdrawalRate = 0: projected (0.4196ms)
+  ✔ retirement.withdrawalRate = 15: no ERROR at its path (0.1444ms)
+  ✔ retirement.withdrawalRate = 15: projected (0.3917ms)
+  ✔ retirement.upperGuardrail = 1: no ERROR at its path (0.1491ms)
+  ✔ retirement.upperGuardrail = 1: projected (0.3634ms)
+  ✔ retirement.lowerGuardrail = 1: no ERROR at its path (0.1635ms)
+  ✔ retirement.lowerGuardrail = 1: projected (0.3576ms)
+  ✔ retirement.adjustment = 1: no ERROR at its path (0.1679ms)
+  ✔ retirement.adjustment = 1: projected (0.3808ms)
+  ✔ retirement.floor = 0: no ERROR at its path (0.171ms)
+  ✔ retirement.floor = 0: projected (0.3896ms)
+  ✔ retirement.ceiling = 0: no ERROR at its path (0.1591ms)
+  ✔ retirement.ceiling = 0: projected (0.3842ms)
+  ✔ retirement.dividendYield = 0: no ERROR at its path (0.1434ms)
+  ✔ retirement.dividendYield = 0: projected (0.3745ms)
+  ✔ retirement.dividendYield = 20: no ERROR at its path (0.1513ms)
+  ✔ retirement.dividendYield = 20: projected (0.3531ms)
+  ✔ retirement.dividendQualified = 0: no ERROR at its path (0.1437ms)
+  ✔ retirement.dividendQualified = 0: projected (0.3707ms)
+  ✔ retirement.dividendQualified = 100: no ERROR at its path (0.1464ms)
+  ✔ retirement.dividendQualified = 100: projected (0.3453ms)
+  ✔ retirement.dividendGrowth = -20: no ERROR at its path (0.1614ms)
+  ✔ retirement.dividendGrowth = -20: projected (0.4092ms)
+  ✔ retirement.dividendGrowth = 20: no ERROR at its path (0.1672ms)
+  ✔ retirement.dividendGrowth = 20: projected (0.3735ms)
+  ✔ retirement.ssBenefit = 0: no ERROR at its path (0.1338ms)
+  ✔ retirement.ssBenefit = 0: projected (0.389ms)
+  ✔ retirement.spouseSS = 0: no ERROR at its path (0.1373ms)
+  ✔ retirement.spouseSS = 0: projected (0.3998ms)
+  ✔ retirement.flexibility = 0: no ERROR at its path (0.1465ms)
+  ✔ retirement.flexibility = 0: projected (0.3589ms)
+  ✔ retirement.flexibility = 50: no ERROR at its path (0.1362ms)
+  ✔ retirement.flexibility = 50: projected (0.3594ms)
+  ✔ retirement.vpwMinRate = 0: no ERROR at its path (0.1465ms)
+  ✔ retirement.vpwMinRate = 0: projected (0.3855ms)
+  ✔ retirement.vpwMinRate = 25: no ERROR at its path (0.1645ms)
+  ✔ retirement.vpwMinRate = 25: projected (0.3379ms)
+  ✔ retirement.vpwMaxRate = 0: no ERROR at its path (0.1477ms)
+  ✔ retirement.vpwMaxRate = 0: projected (0.3868ms)
+  ✔ retirement.vpwMaxRate = 100: no ERROR at its path (0.1356ms)
+  ✔ retirement.vpwMaxRate = 100: projected (0.34ms)
+  ✔ retirement.rmdMultiplier = 0: no ERROR at its path (0.1621ms)
+  ✔ retirement.rmdMultiplier = 0: projected (0.5614ms)
+  ✔ retirement.rmdMultiplier = 200: no ERROR at its path (0.1698ms)
+  ✔ retirement.rmdMultiplier = 200: projected (0.3597ms)
+  ✔ retirement.rmdFloor = 0: no ERROR at its path (0.1503ms)
+  ✔ retirement.rmdFloor = 0: projected (0.4012ms)
+  ✔ retirement.ssCola = 0: no ERROR at its path (0.1446ms)
+  ✔ retirement.ssCola = 0: projected (0.3555ms)
+  ✔ retirement.ssCola = 15: no ERROR at its path (0.1383ms)
+  ✔ retirement.ssCola = 15: projected (0.3327ms)
+  ✔ retirement.survivorSpendingReduction = 0: no ERROR at its path (0.1488ms)
+  ✔ retirement.survivorSpendingReduction = 0: projected (0.3462ms)
+  ✔ retirement.survivorSpendingReduction = 50: no ERROR at its path (0.1585ms)
+  ✔ retirement.survivorSpendingReduction = 50: projected (0.3813ms)
+  ✔ advanced.correlation = -1: no ERROR at its path (0.1555ms)
+  ✔ advanced.correlation = -1: projected (0.3605ms)
+  ✔ advanced.correlation = 1: no ERROR at its path (0.1319ms)
+  ✔ advanced.correlation = 1: projected (0.3589ms)
+  ✔ advanced.healthInflation = 0: no ERROR at its path (0.1364ms)
+  ✔ advanced.healthInflation = 0: projected (0.3364ms)
+  ✔ advanced.healthInflation = 100: no ERROR at its path (0.136ms)
+  ✔ advanced.healthInflation = 100: projected (0.3691ms)
+  ✔ advanced.medicareInflation = -99: no ERROR at its path (0.1565ms)
+  ✔ advanced.medicareInflation = -99: projected (0.3601ms)
+  ✔ advanced.medicareInflation = 100: no ERROR at its path (0.179ms)
+  ✔ advanced.medicareInflation = 100: projected (0.3623ms)
+  ✔ advanced.partDPremium = 0: no ERROR at its path (0.1698ms)
+  ✔ advanced.partDPremium = 0: projected (0.3612ms)
+  ✔ advanced.partDPremium = 100000: no ERROR at its path (0.1745ms)
+  ✔ advanced.partDPremium = 100000: projected (0.3423ms)
+  ✔ profile.priorIncomeThisYear = 0: no ERROR at its path (0.1521ms)
+  ✔ profile.priorIncomeThisYear = 0: projected (0.3633ms)
+  ✔ profile.priorIncomeThisYear = 1000000000: no ERROR at its path (0.1381ms)
+  ✔ profile.priorIncomeThisYear = 1000000000: projected (0.3742ms)
+✔ R54 item 3 (control): each edge of the range is accepted by the validator and projected by the engine (27.8886ms)
+▶ R54 item 3: the validator keeps one issue per condition -- a negative spending or volatility, and a qualified share above 100, are the contract's ERROR alone
+  ✖ retirement.spending = -100 (0.1656ms)
+  ✖ assumptions.volatility = -1 (0.0995ms)
+  ✖ retirement.dividendQualified = 120 (0.083ms)
+✖ R54 item 3: the validator keeps one issue per condition -- a negative spending or volatility, and a qualified share above 100, are the contract's ERROR alone (0.9706ms)
+▶ R54 item 3: Restore backup refuses a backup carrying a value outside the form's range, says which, and leaves the scenarios unchanged
+  ✖ the status line names the value (0.5695ms)
+  ✖ the stored scenarios are byte for byte unchanged (0.28ms)
+✖ R54 item 3: Restore backup refuses a backup carrying a value outside the form's range, says which, and leaves the scenarios unchanged (728.8153ms)
+▶ R54 item 3 (control): a restored value inside the range is still kept exactly (R54 item 2)
+  ✔ restored (0.3902ms)
+  ✔ fee, rate and runs as restored (0.0742ms)
+✔ R54 item 3 (control): a restored value inside the range is still kept exactly (R54 item 2) (1164.3849ms)
+ℹ tests 188
+ℹ suites 0
+ℹ pass 102
+ℹ fail 86
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2598.3804
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ employment.salary = -50000 (Math.max(0, salary)): the validator refuses it (3.081ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ employment.salary = -50000: the engine refuses it (7.3613ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ employment.spouseSalary = -1 (Math.max(0, spouse salary)): the validator refuses it (0.3598ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ employment.spouseSalary = -1: the engine refuses it (0.8076ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ assumptions.fee = -1 (clamp(fee, 0, 2)): the validator refuses it (0.2982ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ assumptions.fee = -1: the engine refuses it (0.718ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ assumptions.fee = 50 (clamp(fee, 0, 2)): the validator refuses it (0.2643ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ assumptions.fee = 50: the engine refuses it (0.7197ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ assumptions.volatility = -1 (Math.max(0, volatility)): the validator refuses it (0.3614ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ assumptions.volatility = -1: the engine refuses it (0.6992ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.spending = -100 (Math.max(0, spending)): the validator refuses it (0.2872ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.spending = -100: the engine refuses it (0.5944ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.withdrawalRate = -4 (clamp(rate, 0, 15)): the validator refuses it (0.2268ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.withdrawalRate = -4: the engine refuses it (0.5916ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.withdrawalRate = 80 (clamp(rate, 0, 15)): the validator refuses it (0.2272ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.withdrawalRate = 80: the engine refuses it (0.5266ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.upperGuardrail = -20 (Math.max(1, upper guardrail)): the validator refuses it (0.2623ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.upperGuardrail = -20: the engine refuses it (0.5738ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.lowerGuardrail = 0.5 (Math.max(1, lower guardrail)): the validator refuses it (0.3031ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.lowerGuardrail = 0.5: the engine refuses it (0.6115ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.adjustment = 0 (Math.max(1, adjustment)): the validator refuses it (0.2407ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.adjustment = 0: the engine refuses it (0.4934ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.floor = -1 (Math.max(0, floor)): the validator refuses it (0.2086ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.floor = -1: the engine refuses it (0.4461ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.ceiling = -1 (Math.max(0, ceiling)): the validator refuses it (0.1949ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.ceiling = -1: the engine refuses it (0.5305ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.dividendYield = -0.5 (clamp(yield, 0, 20)): the validator refuses it (0.2537ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.dividendYield = -0.5: the engine refuses it (0.4841ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.dividendYield = 21 (clamp(yield, 0, 20)): the validator refuses it (0.22ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.dividendYield = 21: the engine refuses it (0.4048ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.dividendQualified = -1 (clamp(qualified, 0, 100)): the validator refuses it (0.2243ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.dividendQualified = -1: the engine refuses it (0.4396ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.dividendQualified = 120 (clamp(qualified, 0, 100)): the validator refuses it (0.2089ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.dividendQualified = 120: the engine refuses it (0.4283ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.dividendGrowth = -25 (clamp(growth, -20, 20)): the validator refuses it (0.1902ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.dividendGrowth = -25: the engine refuses it (0.4413ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.dividendGrowth = 25 (clamp(growth, -20, 20)): the validator refuses it (0.2119ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.dividendGrowth = 25: the engine refuses it (0.4647ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.ssBenefit = -1 (Math.max(0, benefit)): the validator refuses it (0.2047ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.ssBenefit = -1: the engine refuses it (0.434ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.spouseSS = -1 (Math.max(0, spouse benefit)): the validator refuses it (0.2094ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.spouseSS = -1: the engine refuses it (0.3929ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.flexibility = -10 (clamp(flexibility, 0, 50)): the validator refuses it (0.187ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.flexibility = -10: the engine refuses it (0.3951ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.flexibility = 60 (clamp(flexibility, 0, 50)): the validator refuses it (0.2053ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.flexibility = 60: the engine refuses it (0.4283ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.vpwMinRate = -1 (save(): clamp(VPW minimum, 0, 25)): the validator refuses it (0.1804ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.vpwMinRate = -1: the engine refuses it (0.3922ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.vpwMinRate = 30 (save(): clamp(VPW minimum, 0, 25)): the validator refuses it (0.1946ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.vpwMinRate = 30: the engine refuses it (0.3862ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.vpwMaxRate = -1 (save(): clamp(VPW maximum, 0, 100)): the validator refuses it (0.1912ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.vpwMaxRate = -1: the engine refuses it (0.4101ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.vpwMaxRate = 120 (save(): clamp(VPW maximum, 0, 100)): the validator refuses it (0.1844ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.vpwMaxRate = 120: the engine refuses it (0.4334ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.rmdMultiplier = -1 (save(): clamp(RMD multiplier, 0, 200)): the validator refuses it (0.1814ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.rmdMultiplier = -1: the engine refuses it (0.4155ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.rmdMultiplier = 250 (save(): clamp(RMD multiplier, 0, 200)): the validator refuses it (0.1866ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.rmdMultiplier = 250: the engine refuses it (0.4233ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.rmdFloor = -1 (save(): Math.max(0, RMD floor)): the validator refuses it (0.1912ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.rmdFloor = -1: the engine refuses it (0.3799ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.ssCola = -5 (save(): clamp(SS COLA, 0, 15)): the validator refuses it (0.1978ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.ssCola = -5: the engine refuses it (2.5077ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.ssCola = 20 (save(): clamp(SS COLA, 0, 15)): the validator refuses it (0.2357ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.ssCola = 20: the engine refuses it (0.4323ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ retirement.survivorSpendingReduction = 75 (save(): clamp(reduction, 0, 50)): the validator refuses it (0.1934ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ retirement.survivorSpendingReduction = 75: the engine refuses it (0.3759ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ advanced.correlation = -1.5 (clamp(correlation, -1, 1)): the validator refuses it (0.1842ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ advanced.correlation = -1.5: the engine refuses it (0.3577ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ advanced.correlation = 1.5 (clamp(correlation, -1, 1)): the validator refuses it (0.1867ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ advanced.correlation = 1.5: the engine refuses it (0.3637ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ advanced.healthInflation = -2 (Math.max(0, health inflation); the contract keeps its maximum, 100): the validator refuses it (0.1757ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ advanced.healthInflation = -2: the engine refuses it (0.354ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ advanced.medicareInflation = -99.5 (clamp(Medicare inflation, -99, 100)): the validator refuses it (0.1914ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ advanced.medicareInflation = -99.5: the engine refuses it (0.3808ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ advanced.partDPremium = 150000 (clamp(Part D premium, 0, 100000)): the validator refuses it (0.1598ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ advanced.partDPremium = 150000: the engine refuses it (0.3786ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15
+✖ profile.priorIncomeThisYear = 2000000000 (clamp(prior income, 0, 1e9)): the validator refuses it (0.1743ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:95)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:69:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15
+✖ profile.priorIncomeThisYear = 2000000000: the engine refuses it (0.3983ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:70:15)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:92:13
+✖ retirement.spending = -100 (0.1656ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'WARNING:NEGATIVE_SPENDING'
+  -   'ERROR:OUT_OF_RANGE'
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:92:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:92:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'WARNING:NEGATIVE_SPENDING' ],
+    expected: [ 'ERROR:OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:92:13
+✖ assumptions.volatility = -1 (0.0995ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'WARNING:NEGATIVE_VOLATILITY'
+  -   'ERROR:OUT_OF_RANGE'
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:92:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:92:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'WARNING:NEGATIVE_VOLATILITY' ],
+    expected: [ 'ERROR:OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:92:13
+✖ retirement.dividendQualified = 120 (0.083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'WARNING:DIVIDEND_QUALIFIED_OUT_OF_RANGE'
+  -   'ERROR:OUT_OF_RANGE'
+    ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:92:46)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:92:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'WARNING:DIVIDEND_QUALIFIED_OUT_OF_RANGE' ],
+    expected: [ 'ERROR:OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:114:13
+✖ the status line names the value (0.5695ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /not restored[\s\S]*"assumptions\.fee" is 2\.5, expected at least 0 and at most 2/. Input:
+  
+  'Projection updated · saved in this browser'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:114:66)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:114:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Projection updated · saved in this browser',
+    expected: /not restored[\s\S]*"assumptions\.fee" is 2\.5, expected at least 0 and at most 2/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-form-ranges-refused.test.js:115:13
+✖ the stored scenarios are byte for byte unchanged (0.28ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '{"version":2,"edition":"2C","page":"setup","complexity":"advanced","theme":"auto","compare":false,"active":0,"scenarios":[{"id":"muumifpt-zb7jajl9","scenarioSchemaVersion":1,"name":"Base plan","setupComplete":true,"profile":{"filing":"single","state":"AZ","age":60,"retireAge":60,"endAge":61,"spouseOn":false,"spouseAge":58,"rothFirstContributionYear":2000},"employment":{"salary":0,"spouseSalary":0,"growth":0,"contributionStop":60},"accounts":[{"id":"roth","name":"roth","type":"rothIRA","taxClass":"roth","owner":"self","balance":100000,"basisPct":0,"contributionMode":"amount","contribution":0,"frequency":1,"annualChangeMode":"amount","annualChange":0,"changeTiming":"year","contributionPreset":"none","futureChanges":[],"priority":2,"matchOn":false,"matchRate":0,"matchCap":0,"profitShare":0,"vesting":100,"allocation":{"flat":100},"contributionBasis":100000}],"limitPolicy":"redirect","assumptions":{"returnPreset":"standard","returnRate":0,"inflation":0,"fee":2.5,"method":"simple","runs":1000,"seed":7,"volatility":0,"historyStart":1928,"rollingHistory":false,"withdrawalTiming":"monthly"},"retirement":{"strategy":"fixedNominal","spending":0,"withdrawalRate":4,"upperGuardrail":20,"lowerGuardrail":20,"adjustment":10,"floor":40000,"ceiling":90000,"guytonSkipInflation":true,"vpwMinRate":0,"vpwMaxRate":100,"rmdMultiplier":100,"rmdFloor":0,"incomeOffset":true,"stages":[],"expenses":[],"otherIncomes":[],"dividendOn":false,"dividendYield":3,"dividendQualified":80,"dividendGrowth":0,"dividendStart":0,"withdrawalOrder":"manual","manualOrder":"taxable,preTax,roth,hsa","optimizationGoal":"balanced","flexibility":0,"irmaaGuard":true,"rmdSmoothing":true,"preserveRoth":false,"homeEquityFallback":false,"ssBenefit":0,"ssClaim":67,"ssFra":67,"ssCola":2.8,"spouseSS":0,"spouseClaim":67,"ssAdvanced":false,"aime":0,"survivor":false,"survivorSpendingReduction":0,"selfLife":120,"spouseLife":120,"pension":0,"pensionCola":0},"advanced":{"assetsOn":true,"correlation":0.25,"assetClasses":[{"id":"flat","name":"Flat","returnRate":0,"volatility":0}],"glideOn":false,"retirementStock":60,"reserveOn":false,"reserveYears":2,"bondTentOn":false,"bondTent":50,"transferOn":false,"transferAge":50,"transferFrom":"","transferTo":"","transferAmount":0,"conversionOn":false,"conversionAmount":0,"rmdOn":false,"qcd":0,"rule55":false,"penaltyException":false,"healthOn":false,"healthCost":12000,"healthInflation":5.5,"ltcOn":false,"ltcCost":100000,"ltcProbability":25,"ltcYears":3,"ltcInsurance":0,"networthOn":false,"otherAssets":[],"debts":[],"home":0,"debt":0,"homeGrowth":3,"insurance":0,"legacy":0,"armRecastOnReset":false,"surplusPolicy":"retain","surplusPolicyBySource":{"rmd":"invest"},"retainedCashOrder":"first","v210Migrated":true}}]}'
+  - '{"version":2,"edition":"2C","page":"setup","complexity":"standard","theme":"auto","compare":false,"active":0,"scenarios":[{"id":"muumifjt-qptcttek","scenarioSchemaVersion":1,"name":"Base plan","setupComplete":false,"profile":{"filing":"single","state":"AZ","age":30,"retireAge":55,"endAge":100,"spouseOn":false,"spouseAge":30},"employment":{"salary":0,"spouseSalary":0,"growth":3,"contributionStop":55},"accounts":[],"limitPolicy":"redirect","assumptions":{"returnPreset":"standard","returnRate":10,"inflation":3.5,"fee":0,"method":"simple","runs":1000,"seed":42791,"volatility":18.5,"historyStart":1928,"rollingHistory":false,"withdrawalTiming":"monthly"},"retirement":{"strategy":"incomeFirst","spending":60000,"withdrawalRate":4,"upperGuardrail":20,"lowerGuardrail":20,"adjustment":10,"floor":40000,"ceiling":90000,"guytonSkipInflation":true,"vpwMinRate":0,"vpwMaxRate":100,"rmdMultiplier":100,"rmdFloor":0,"incomeOffset":true,"stages":[],"expenses":[],"otherIncomes":[],"dividendOn":false,"dividendYield":3,"dividendQualified":85,"dividendGrowth":0,"dividendStart":55,"withdrawalOrder":"optimized","manualOrder":"taxable,preTax,roth,hsa","optimizationGoal":"balanced","flexibility":0,"irmaaGuard":true,"rmdSmoothing":true,"preserveRoth":false,"homeEquityFallback":false,"ssBenefit":3000,"ssClaim":67,"ssFra":67,"ssCola":2.8,"spouseSS":0,"spouseClaim":67,"ssAdvanced":false,"aime":0,"survivor":false,"survivorSpendingReduction":0,"selfLife":95,"spouseLife":95,"pension":0,"pensionCola":0},"advanced":{"assetsOn":false,"correlation":0.25,"assetClasses":[{"id":"stocks","name":"US stocks","returnRate":10,"volatility":18.5},{"id":"bonds","name":"Bonds","returnRate":4.5,"volatility":7},{"id":"cash","name":"Cash","returnRate":3,"volatility":1}],"glideOn":false,"retirementStock":60,"reserveOn":false,"reserveYears":2,"bondTentOn":false,"bondTent":50,"transferOn":false,"transferAge":50,"transferFrom":"","transferTo":"","transferAmount":0,"conversionOn":false,"conversionAmount":0,"rmdOn":false,"qcd":0,"rule55":false,"penaltyException":false,"healthOn":false,"healthCost":12000,"healthInflation":5.5,"ltcOn":false,"ltcCost":100000,"ltcProbability":25,"ltcYears":3,"ltcInsurance":0,"networthOn":false,"otherAssets":[],"debts":[],"home":0,"debt":0,"homeGrowth":3,"insurance":0,"legacy":0,"armRecastOnReset":false,"surplusPolicy":"retain","surplusPolicyBySource":{"rmd":"invest"},"retainedCashOrder":"first","v210Migrated":true}}]}'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:115:83)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-form-ranges-refused.test.js:115:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '{"version":2,"edition":"2C","page":"setup","complexity":"advanced","theme":"auto","compare":false,"active":0,"scenarios":[{"id":"muumifpt-zb7jajl9","scenarioSchemaVersion":1,"name":"Base plan","setupComplete":true,"profile":{"filing":"single","state":"AZ","age":60,"retireAge":60,"endAge":61,"spouseOn":false,"spouseAge":58,"rothFirstContributionYear":2000},"employment":{"salary":0,"spouseSalary":0,"growth":0,"contributionStop":60},"accounts":[{"id":"roth","name":"roth","type":"rothIRA","taxClass":"roth","owner":"self","balance":100000,"basisPct":0,"contributionMode":"amount","contribution":0,"frequency":1,"annualChangeMode":"amount","annualChange":0,"changeTiming":"year","contributionPreset":"none","futureChanges":[],"priority":2,"matchOn":false,"matchRate":0,"matchCap":0,"profitShare":0,"vesting":100,"allocation":{"flat":100},"contributionBasis":100000}],"limitPolicy":"redirect","assumptions":{"returnPreset":"standard","returnRate":0,"inflation":0,"fee":2.5,"method":"simple","runs":1000,"seed":7,"volatility":0,"historyStart":1928,"rollingHistory":false,"withdrawalTiming":"monthly"},"retirement":{"strategy":"fixedNominal","spending":0,"withdrawalRate":4,"upperGuardrail":20,"lowerGuardrail":20,"adjustment":10,"floor":40000,"ceiling":90000,"guytonSkipInflation":true,"vpwMinRate":0,"vpwMaxRate":100,"rmdMultiplier":100,"rmdFloor":0,"incomeOffset":true,"stages":[],"expenses":[],"otherIncomes":[],"dividendOn":false,"dividendYield":3,"dividendQualified":80,"dividendGrowth":0,"dividendStart":0,"withdrawalOrder":"manual","manualOrder":"taxable,preTax,roth,hsa","optimizationGoal":"balanced","flexibility":0,"irmaaGuard":true,"rmdSmoothing":true,"preserveRoth":false,"homeEquityFallback":false,"ssBenefit":0,"ssClaim":67,"ssFra":67,"ssCola":2.8,"spouseSS":0,"spouseClaim":67,"ssAdvanced":false,"aime":0,"survivor":false,"survivorSpendingReduction":0,"selfLife":120,"spouseLife":120,"pension":0,"pensionCola":0},"advanced":{"assetsOn":true,"correlation":0.25,"assetClasses":[{"id":"flat","name":"Flat","returnRate":0,"volatility":0}],"glideOn":false,"retirementStock":60,"reserveOn":false,"reserveYears":2,"bondTentOn":false,"bondTent":50,"transferOn":false,"transferAge":50,"transferFrom":"","transferTo":"","transferAmount":0,"conversionOn":false,"conversionAmount":0,"rmdOn":false,"qcd":0,"rule55":false,"penaltyException":false,"healthOn":false,"healthCost":12000,"healthInflation":5.5,"ltcOn":false,"ltcCost":100000,"ltcProbability":25,"ltcYears":3,"ltcInsurance":0,"networthOn":false,"otherAssets":[],"debts":[],"home":0,"debt":0,"homeGrowth":3,"insurance":0,"legacy":0,"armRecastOnReset":false,"surplusPolicy":"retain","surplusPolicyBySource":{"rmd":"invest"},"retainedCashOrder":"first","v210Migrated":true}}]}',
+    expected: '{"version":2,"edition":"2C","page":"setup","complexity":"standard","theme":"auto","compare":false,"active":0,"scenarios":[{"id":"muumifjt-qptcttek","scenarioSchemaVersion":1,"name":"Base plan","setupComplete":false,"profile":{"filing":"single","state":"AZ","age":30,"retireAge":55,"endAge":100,"spouseOn":false,"spouseAge":30},"employment":{"salary":0,"spouseSalary":0,"growth":3,"contributionStop":55},"accounts":[],"limitPolicy":"redirect","assumptions":{"returnPreset":"standard","returnRate":10,"inflation":3.5,"fee":0,"method":"simple","runs":1000,"seed":42791,"volatility":18.5,"historyStart":1928,"rollingHistory":false,"withdrawalTiming":"monthly"},"retirement":{"strategy":"incomeFirst","spending":60000,"withdrawalRate":4,"upperGuardrail":20,"lowerGuardrail":20,"adjustment":10,"floor":40000,"ceiling":90000,"guytonSkipInflation":true,"vpwMinRate":0,"vpwMaxRate":100,"rmdMultiplier":100,"rmdFloor":0,"incomeOffset":true,"stages":[],"expenses":[],"otherIncomes":[],"dividendOn":false,"dividendYield":3,"dividendQualified":85,"dividendGrowth":0,"dividendStart":55,"withdrawalOrder":"optimized","manualOrder":"taxable,preTax,roth,hsa","optimizationGoal":"balanced","flexibility":0,"irmaaGuard":true,"rmdSmoothing":true,"preserveRoth":false,"homeEquityFallback":false,"ssBenefit":3000,"ssClaim":67,"ssFra":67,"ssCola":2.8,"spouseSS":0,"spouseClaim":67,"ssAdvanced":false,"aime":0,"survivor":false,"survivorSpendingReduction":0,"selfLife":95,"spouseLife":95,"pension":0,"pensionCola":0},"advanced":{"assetsOn":false,"correlation":0.25,"assetClasses":[{"id":"stocks","name":"US stocks","returnRate":10,"volatility":18.5},{"id":"bonds","name":"Bonds","returnRate":4.5,"volatility":7},{"id":"cash","name":"Cash","returnRate":3,"volatility":1}],"glideOn":false,"retirementStock":60,"reserveOn":false,"reserveYears":2,"bondTentOn":false,"bondTent":50,"transferOn":false,"transferAge":50,"transferFrom":"","transferTo":"","transferAmount":0,"conversionOn":false,"conversionAmount":0,"rmdOn":false,"qcd":0,"rule55":false,"penaltyException":false,"healthOn":false,"healthCost":12000,"healthInflation":5.5,"ltcOn":false,"ltcCost":100000,"ltcProbability":25,"ltcYears":3,"ltcInsurance":0,"networthOn":false,"otherAssets":[],"debts":[],"home":0,"debt":0,"homeGrowth":3,"insurance":0,"legacy":0,"armRecastOnReset":false,"surplusPolicy":"retain","surplusPolicyBySource":{"rmd":"invest"},"retainedCashOrder":"first","v210Migrated":true}}]}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
