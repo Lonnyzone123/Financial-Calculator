@@ -1,0 +1,13 @@
+node -r ./audit/S5AA/R53/S5AA_R53_COMPANION_ADAPTER.js audit/S5AA/R51/S5AA_R51F_FULL_MODEL_PROBES_20261004.js C:\fc-wt-r54 <scratch>/i3head\r54_r51f_probes_at_33a5b59.json
+exit 0 (2 s)
+--- stdout
+{
+  "cases": 36,
+  "checks": 175,
+  "executions": 36,
+  "passed": 36,
+  "failed": []
+}
+
+--- stderr
+[R53 companion adapter] root C:\fc-wt-r54: 19 call(s) entered with the retirement age at the end age {"validator.validateScenario":9,"engine.runPlan":10}

@@ -1,0 +1,18 @@
+S5AA R54 item 3: measured at 33a5b59 against 2aa2511 (whose src equals f2ccd64)
+
+== expanded capture
+IDENTICAL — corpus hash 2c342c6c6bdc966cd34a8c7e35561fe598e2c50abd33c03cf85560b079dc5b04
+entries 71 vs 71 | differing 0 
+
+== companions, check by check (f2ccd64 vs 33a5b59)
+DIFF N18#8 stored scenarios byte unchanged 
+r54_r53_focused_at_f2ccd64.json vs r54_r53_focused_at_33a5b59.json: 543 identical, 1 different
+r54_r51f_probes_at_f2ccd64.json vs r54_r51f_probes_at_33a5b59.json: 175 identical, 0 different
+r54_r46_r51_sims_at_f2ccd64.json vs r54_r46_r51_sims_at_33a5b59.json: 176 identical, 0 different
+r54_r52_boundary_at_f2ccd64.json vs r54_r52_boundary_at_33a5b59.json: 112 identical, 0 different
+(N18#8: the random scenario id inside the stored text only; pass at both)
+R51F F26: mutations 270, failures 0
+R51F F26: mutations 320, failures 0
+
+== targeted batch: DONE files 180 tests 2139 pass 2131 fail 0 todo 8 failing batches 0
+== witnesses: ℹ tests 473 ℹ pass 473 ℹ fail 0 
