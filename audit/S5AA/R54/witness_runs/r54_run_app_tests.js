@@ -16,7 +16,7 @@ for (let i = 0; i < files.length; i += B) {
   const batch = files.slice(i, i + B);
   const r = spawnSync(process.execPath, ['--test', '--test-concurrency=2', '--test-reporter=tap', ...batch], { cwd: TREE, encoding: 'utf8', maxBuffer: 1 << 28 });
   const out = r.stdout || '';
-  const num = (k) => { const m = out.match(new RegExp('^# ' + k + ' (\d+)', 'm')); return m ? Number(m[1]) : 0; };
+  const num = (k) => { const m = out.match(new RegExp('^# ' + k + ' ([0-9]+)', 'm')); return m ? Number(m[1]) : 0; };
   tests += num('tests'); pass += num('pass'); fail += num('fail'); todo += num('todo');
   const notOk = out.split('\n').filter((l) => /^\s*not ok/.test(l));
   fs.appendFileSync(LOG, 'batch ' + (i / B) + ' exit ' + r.status + ' :: ' + batch.join(' ') + '\n   # tests ' + num('tests') + ' pass ' + num('pass') + ' fail ' + num('fail') + ' todo ' + num('todo') + '\n' + notOk.map((l) => '   ' + l.trim()).join('\n') + (notOk.length ? '\n' : ''));

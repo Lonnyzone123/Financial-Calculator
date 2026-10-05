@@ -953,7 +953,11 @@ function artifactFor(lane) {
 // Changed again 2026-10-04 (app: R54 own field only (decision 1)), so the tracked file was rebuilt, again installed
 // only after two builds agreed. The pin before it, 945e98149a0c0b56ade99335e4be831d71b183531eef2046c34eeceda74ddbac,
 // described the previous rebuild.
-const EXPECTED_SHA256 = '7d75624ff6fab4ef8d611d80c4c1c19b789fc80f379e5dba68c5e9c46a358a4a';
+//
+// Changed again 2026-10-04 (app: R54 restore keeps every validated value (D2)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 7d75624ff6fab4ef8d611d80c4c1c19b789fc80f379e5dba68c5e9c46a358a4a, described the previous rebuild.
+const EXPECTED_SHA256 = '52f372aa8924a182a60cd01c6eccd167924489f33b81c3ff0a7590a39b78feae';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');
