@@ -1,0 +1,29 @@
+S5AA R54: measured at the head f2ccd64 against the base b82f25f
+
+== expanded capture (node tools/capture-baseline.js diff)
+IDENTICAL — corpus hash 2c342c6c6bdc966cd34a8c7e35561fe598e2c50abd33c03cf85560b079dc5b04
+== against r30 (entry by entry)
+entries 71 vs 71 | differing 0 
+
+== companions, check by check (r54_verdicts.js base vs head)
+DIFF N18#8 stored scenarios byte unchanged 
+   a: ["{\"version\":2,\"edition\":\"2C\",\"page\":\"setup\",\"complexity\":\"standard\",\"theme\":\"auto\",\"compare\":false,\"active\":0,\"scenarios\":[{\"id\":\"muui4686-f256p8cz\",\"scenarioSchemaVersio ...(truncated)
+   b: ["{\"version\":2,\"edition\":\"2C\",\"page\":\"setup\",\"complexity\":\"standard\",\"theme\":\"auto\",\"compare\":false,\"active\":0,\"scenarios\":[{\"id\":\"muuinkm6-6usbwbv0\",\"scenarioSchemaVersio ...(truncated)
+DIFF H01#1 untouched stored retirement 
+   a: [70.5,65,false] 
+   b: [65,65,true]
+DIFF H01#3 pension in half-year 
+   a: [5000,8445.585690332558,false] 
+   b: [8445.585690332558,8445.585690332558,true]
+r54_r53_focused_at_b82f25f.json vs r54_r53_focused_at_f2ccd64.json: 541 identical, 3 different
+r54_r51f_probes_at_b82f25f.json vs r54_r51f_probes_at_f2ccd64.json: 175 identical, 0 different
+r54_r46_r51_sims_at_b82f25f.json vs r54_r46_r51_sims_at_f2ccd64.json: 176 identical, 0 different
+r54_r52_boundary_at_b82f25f.json vs r54_r52_boundary_at_f2ccd64.json: 112 identical, 0 different
+(N18#8 differs only in the random scenario id inside the stored text; pass at both, actual = expected at both)
+
+== import preservation (R53's probe), changed plans
+base:  "changedPlans": 69,  head:  "changedPlans": 0,
+
+== restore-family probe: transformed after the calculation / after a blur
+b82f25f: not kept after the calculation 41 of 46 imported; not kept through a blur 39; refused at import advanced.irmaaMagiTwoYearsBefore
+f2ccd64: not kept after the calculation 1 of 46 imported; not kept through a blur 1; refused at import advanced.irmaaMagiTwoYearsBefore

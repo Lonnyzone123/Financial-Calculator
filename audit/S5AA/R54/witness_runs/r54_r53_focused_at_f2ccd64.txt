@@ -1,0 +1,48 @@
+node audit/S5AA/R53/S5AA_R53_CHATGPT_FOCUSED_SIMULATIONS_20261004.js C:\fc-wt-r54base <scratch>/r54_r53_focused_at_f2ccd64.json
+exit 0 (11 s)
+--- stdout
+{
+  "summary": {
+    "cases": 20,
+    "checks": 140,
+    "passed": 20,
+    "failed": []
+  },
+  "monthlyGrid": {
+    "cases": 400,
+    "financialChecks": 800,
+    "failed": 0
+  },
+  "hunt": [
+    {
+      "label": "retirement initially preserved",
+      "actual": 65,
+      "expected": 65,
+      "tolerance": 0,
+      "pass": true
+    },
+    {
+      "label": "untouched stored retirement",
+      "actual": 65,
+      "expected": 65,
+      "tolerance": 0,
+      "pass": true
+    },
+    {
+      "label": "shown retirement",
+      "actual": 65,
+      "expected": 65,
+      "tolerance": 0,
+      "pass": true
+    },
+    {
+      "label": "pension in half-year",
+      "actual": 8445.585690332558,
+      "expected": 8445.585690332558,
+      "tolerance": 0.01,
+      "pass": true
+    }
+  ]
+}
+
+--- stderr

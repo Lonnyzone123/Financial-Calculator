@@ -1,0 +1,23 @@
+files 79
+batch 0 exit 0 :: tests/audit-zero-fields.test.js tests/regression-suite.js tests/debug-module.test.js tests/verify-test-gate.test.js tests/simulation-identity.test.js tests/build-debt-bundling.test.js tests/audit-fm04-fm08-result-contract.test.js tests/audit-q15-worker-dependencies.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 1 exit 0 :: tests/import-validation.test.js tests/audit-import.test.js tests/audit-r2-import-records.test.js tests/audit-sa02-import-work-invalidation.test.js tests/audit-r2-cash-settlement.test.js tests/audit-r4-heatmap-guard.test.js tests/worker-parity.test.js tests/debt-revolving.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 2 exit 0 :: tests/audit-st2-findings.test.js tests/audit-q49-contribution-validity.test.js tests/audit-q48-nonserializable-input.test.js tests/audit-q47-earnings-test-disclosure.test.js tests/audit-q55-list-shape-refusal.test.js tests/audit-future-change-value-type.test.js tests/audit-q58-strategy-resolution.test.js tests/audit-q58-strategy-load.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 3 exit 1 :: tests/no-duplicate-declarations.test.js tests/boolean-flag-contract.test.js tests/audit-q53-boolean-flag-boundary.test.js tests/baseline-provenance.test.js tests/capture-boundary.test.js tests/current-build-lane.test.js tests/build-routes.test.js tests/test-classification.test.js
+   # tests 0 pass 0 fail 0 todo 0
+   not ok 72 - 9.1: the committed classification is exactly a fresh one
+batch 4 exit 0 :: tests/device-benchmark.test.js tests/audit-q51-q52-app-bounds.test.js tests/public-route-sa05-app.test.js tests/audit-q80-flag-defaults-serialize-once.test.js tests/audit-q81-strategy-public-routes.test.js tests/public-route-ext03.test.js tests/audit-q72-holding-value-type.test.js tests/audit-q71-list-element-records.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 5 exit 0 :: tests/audit-q69-income-owner-refusal.test.js tests/audit-q68-filing-status-refusal.test.js tests/audit-q70-claim-age-bounds.test.js tests/audit-q74-stage-mode-switch.test.js tests/audit-q32-household-income-label.test.js tests/rendered-rule-disclosures.test.js tests/rendered-results-warnings.test.js tests/audit-s5r01-snapshot-acceptance.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 6 exit 0 :: tests/audit-s5aa-input-gate.test.js tests/audit-s5aa-forced-payoff-flag.test.js tests/audit-s5aa-r9-worker-strict-mode.test.js tests/audit-s5aa-r13-rmd-protection-follows-payment-order.test.js tests/audit-s5aa-r14-account-id-maps.test.js tests/audit-s5aa-r15-distribution-to-taxable-counts-toward-rmd.test.js tests/audit-s5aa-r16-partial-transfer-shortfall-is-ordinary.test.js tests/audit-s5aa-r17-rmd-shortfall-per-obligation.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 7 exit 0 :: tests/audit-s5aa-r17-app-shows-rmd-shortfall.test.js tests/audit-s5aa-r18-rmd-paid-is-what-satisfied.test.js tests/audit-s5aa-r18-taxable-basis-in-dollars.test.js tests/audit-s5aa-r19-app-shows-final-tax-balance.test.js tests/audit-s5aa-r21-import-rejects-unknown-allocation-key.test.js tests/audit-s5aa-r23-roth-flag-worker.test.js tests/audit-s5aa-r25-plan-number-fields-refused.test.js tests/audit-s5aa-r29-rules-page-text-not-markup.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 8 exit 0 :: tests/audit-s5aa-r37-plan-warnings.test.js tests/audit-s5aa-r37-mc-guidance.test.js tests/audit-s5aa-r37-joint-salary-base.test.js tests/audit-s5aa-r37-future-change-prefill.test.js tests/audit-s5aa-r40-later-tax-years-card-rendered.test.js tests/audit-s5aa-r40-app-states-r40-charges.test.js tests/audit-s5aa-r42-ss-benefit-typed.test.js tests/audit-s5aa-r46-monte-carlo-and-reserve.test.js
+   # tests 0 pass 0 fail 0 todo 0
+batch 9 exit 0 :: tests/audit-s5aa-r49-spending-debt-disclosure.test.js tests/audit-s5aa-r52-app-cards.test.js tests/audit-s5aa-r53-restore-keeps-values.test.js tests/audit-s5aa-r53-end-before-retirement-refused.test.js tests/audit-s5aa-r54-own-field-edits.test.js tests/audit-s5aa-r51-app-inputs.test.js tests/requirements-register.test.js
+   # tests 0 pass 0 fail 0 todo 0
+DONE files 79 tests 0 pass 0 fail 0 todo 0 failing batches 1

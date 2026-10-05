@@ -1,0 +1,7 @@
+// S5AA R54 (reading D4): the validator and the engine on end ages 100 to 200 (age 70, retired at 65). Usage: node r54_end_age_above_100.js <tree>
+const path=require('path');const R=require("path").resolve(process.argv[2]||".");
+const L=require(R+'/audit/S5AA/R40/S5AA_R40_CONSERVATION_GRID/lib.js');const E=L.h.engine;const V=require(R+'/src/scenario-validator.js').validateScenario;
+for(const end of [100,110,120,121,130,200]){const p=L.basePlan({age:70,retireAge:65,endAge:end,spending:0,accounts:[L.account('r','rothIRA',100000,{contributionBasis:100000})]});const v=V(structuredClone(p));const r=E.runPlan(structuredClone(p));console.log(end,v.valid,v.issues.filter(i=>/endAge/.test(i.path)).map(i=>i.severity+' '+i.code).join(','),r.status,r.calculationErrorCode||'',r.rows&&r.rows.length,r.rows&&r.rows[r.rows.length-1].age)}
+// The rows above stop at 121 because the plan's life expectancy (retirement.selfLife) is 120: the projection ends after the year of the
+// last death, not at an engine cap. With selfLife 125 and 140 the end age 130 runs to 126 and to 130.
+for(const life of [125,140]){const p=L.basePlan({age:70,retireAge:65,endAge:130,spending:0,accounts:[L.account('r','rothIRA',100000,{contributionBasis:100000})]});p.retirement.selfLife=life;const r=E.runPlan(structuredClone(p));console.log('end 130, selfLife '+life+':',r.status,r.rows&&r.rows.length,r.rows&&r.rows[r.rows.length-1].age)}
