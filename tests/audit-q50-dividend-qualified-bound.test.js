@@ -72,40 +72,22 @@ const run = (share, dividendOn) => engine.runPlan(clone(plan(share, dividendOn))
 const firstYearTax = (r) => Math.round(r.rows[1].taxes * 100) / 100;
 const disclosures = (r) => (r.issues || []).filter((i) => i.code === CODE);
 
-test('Q50 engine: a qualified share above 100% is taxed exactly as 100%', () => {
-  const at100 = firstYearTax(run(100));
-  assert.ok(run(100).rows[1].dividends > 0, 'premise: the first interval pays dividends');
-  assert.equal(firstYearTax(run(150)), at100,
-    'at 150% the first year\'s tax must equal 100%\'s ' + at100 + '; unbounded, the ordinary share went negative and understated it');
-  assert.equal(firstYearTax(run(500)), at100,
-    'at 500% as well; unbounded, the excess was taxed as capital gains and overstated it');
+/* S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json). The validator warned (DIVIDEND_QUALIFIED_OUT_OF_RANGE) and the engine held the share to 0-100 and disclosed it
+   (DIVIDEND_QUALIFIED_CLAMPED); the form's range is 0 to 100, and a share outside it is now refused by both layers, before the engine's own clamp
+   is reached. Before: 150% and 500% were taxed as 100%, -50% as 0%, each disclosed once, the validator warned and the plan was valid. */
+const refusalCode = (share, dividendOn) => run(share, dividendOn).calculationErrorCode || null;
+test('Q50 engine (adapted): a qualified share above 100% or below 0% is refused, not held', () => {
+  for (const share of [150, 500, -50]) assert.equal(refusalCode(share), 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE', share + '%');
 });
 
-test('Q50 engine: a qualified share below 0% is taxed exactly as 0%', () => {
-  const at0 = firstYearTax(run(0));
-  assert.equal(firstYearTax(run(-50)), at0,
-    'at -50% the first year\'s tax must equal 0%\'s ' + at0 + '; unbounded, the ordinary share exceeded the cash and overstated it');
-});
-
-test('Q50 engine: a share outside 0 to 100% is disclosed once for the run, with the share used', () => {
-  for (const [share, used] of [[150, 100], [-50, 0]]) {
-    const found = disclosures(run(share));
-    assert.equal(found.length, 1, 'at ' + share + '% the held share must be disclosed exactly once, got ' + found.length);
-    assert.equal(found[0].severity, 'WARNING');
-    assert.equal(found[0].state.used, used, 'and it must say which share was used');
-  }
-});
-
-test('Q50 validator: a share above 100% or below 0% is warned about at the field', () => {
+test('Q50 validator (adapted): a share above 100% or below 0% is an ERROR at the field, and the plan is not valid', () => {
   for (const share of [150, -50]) {
     const p = clone(corpus()[0].plan);
     p.retirement.dividendQualified = share;
     const outcome = validateScenario(p);
-    const found = outcome.issues.filter((i) => i.code === VALIDATOR_CODE);
-    assert.equal(found.length, 1, 'at ' + share + '% the validator must warn exactly once, got ' + found.length);
-    assert.equal(found[0].severity, 'WARNING');
-    assert.equal(found[0].path, 'retirement.dividendQualified');
-    assert.equal(outcome.valid, true, 'a warning, not a rejection: the engine holds the share, so the plan still runs');
+    assert.deepEqual(outcome.issues.filter((i) => i.path === 'retirement.dividendQualified').map((i) => i.severity + ':' + i.code), ['ERROR:OUT_OF_RANGE'], share + '%');
+    assert.equal(outcome.issues.filter((i) => i.code === VALIDATOR_CODE).length, 0, 'the old warning code is gone');
+    assert.equal(outcome.valid, false);
   }
 });
 
@@ -120,10 +102,13 @@ test('Q50 control: shares from 0 to 100% are unchanged, strictly ordered and not
   }
 });
 
-test('Q50 control: with dividends off the share is never read, and nothing is disclosed', () => {
-  const off150 = run(150, false), off100 = run(100, false);
-  assert.equal(firstYearTax(off150), firstYearTax(off100), 'premise: the imputed branch does not read the share');
-  assert.equal(disclosures(off150).length, 0, 'a share the calculation never reads must not be disclosed');
+test('Q50 (adapted): with dividends off, a share outside 0 to 100% is still refused; an in-range one is not read and nothing is disclosed', () => {
+  // S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json): the contract's range
+  // holds whether or not the field is read. (Before: 150% with dividends off ran as 100% did, undisclosed.)
+  assert.equal(refusalCode(150, false), 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE');
+  const off0 = run(0, false), off100 = run(100, false);
+  assert.equal(firstYearTax(off0), firstYearTax(off100), 'premise: the imputed branch does not read the share');
+  assert.equal(disclosures(off0).length, 0, 'a share the calculation never reads must not be disclosed');
 });
 
 test('Q50 validator control: 0, 85 and 100% are not warned about', () => {

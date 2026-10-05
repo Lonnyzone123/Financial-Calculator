@@ -3559,7 +3559,7 @@
      "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01: ",
      "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01: ",
      "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01: vpw at a positive real return amortizes over the years it models, at its own annuity factor",
-     "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01: with the rate cap out of the way, a final half year exhausts the portfolio",
+     "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01 (adapted): a VPW maximum of 200%, which took the rate cap out of the way, is now refused",
      "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01 control: the VPW rate bounds still cap the amount",
      "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01 control: the RMD-style multiplier and floor are unchanged",
      "tests/audit-s5aa-r11-strategy-year-count.test.js :: R10-01 control: a zero-volatility Monte Carlo run agrees with the deterministic one"

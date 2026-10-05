@@ -75,7 +75,7 @@ function historicalPlan(overrides) {
   // the inflation uplift under test.
   p.retirement.upperGuardrail = 1000;
   p.retirement.lowerGuardrail = 1000;
-  p.retirement.adjustment = 0;
+  p.retirement.adjustment = 1; // S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json): the form's minimum, 1 (was 0; the guardrails above never bind, so no figure moves)
   p.retirement.floor = 0;
   p.retirement.ceiling = 1e9;
   p.retirement.ssBenefit = 0;

@@ -502,9 +502,8 @@ function validateAssumptions(c, assumptions) {
   checkEnum(c, assumptions.method, 'assumptions.method', METHODS);
   checkType(c, assumptions.returnRate, 'assumptions.returnRate', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
   checkType(c, assumptions.volatility, 'assumptions.volatility', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
-  if (isFiniteNumber(assumptions.volatility) && assumptions.volatility < 0) {
-    c.warn('NEGATIVE_VOLATILITY', 'assumptions.volatility', `volatility is negative (${assumptions.volatility})`);
-  }
+  /* S5AA R54 item 3: a negative volatility, which only warned (NEGATIVE_VOLATILITY), is refused by the plan-value contract (OUT_OF_RANGE, the form's
+     range: 0 or more) -- one issue for one condition. */
   if (assumptions.runs !== undefined) {
     /* S5AA R37 (SA32F-51): the engine's ceiling (invalidRunCountCode()'s MAX_RUNS) is the validator's, so the two agree. */
     checkType(c, assumptions.runs, 'assumptions.runs', (v) => Number.isInteger(v) && v >= 1 && v <= MAX_RUNS, 'WRONG_TYPE', 'an integer from 1 to 10,000');
@@ -529,9 +528,7 @@ function validateAssumptions(c, assumptions) {
 function validateRetirement(c, retirement) {
   if (!retirement) return;
   checkType(c, retirement.spending, 'retirement.spending', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
-  if (isFiniteNumber(retirement.spending) && retirement.spending < 0) {
-    c.warn('NEGATIVE_SPENDING', 'retirement.spending', `spending is negative (${retirement.spending})`);
-  }
+  /* S5AA R54 item 3: a negative spending, which only warned (NEGATIVE_SPENDING), is refused by the plan-value contract (OUT_OF_RANGE). */
   checkEnum(c, retirement.withdrawalOrder, 'retirement.withdrawalOrder', WITHDRAWAL_ORDERS);
   /* S5 2k (Q58, decided 2026-09-13): an unrecognised strategy is a WARNING, not
      a refusal -- the engine reports it and runs incomeFirst -- and a wrong-case
@@ -596,9 +593,9 @@ function validateRetirement(c, retirement) {
   });
   /* Q50: retirement.dividendQualified is a percentage OF the dividend cash, and nothing here checked it. The UI
      input carries min 0 and max 100, but an imported or hand-edited plan skipped that. Above 100 the engine's
-     ordinary share of dividends went negative and understated tax; below 0 it overstated tax. A range WARNING:
-     the engine holds the share to 0-100 and discloses that it did, so the plan still runs. */
-  checkRange(c, retirement.dividendQualified, 'retirement.dividendQualified', 0, 100, 'DIVIDEND_QUALIFIED_OUT_OF_RANGE');
+     ordinary share of dividends went negative and understated tax; below 0 it overstated tax. It was a range WARNING
+     (DIVIDEND_QUALIFIED_OUT_OF_RANGE) while the engine held the share to 0-100. S5AA R54 item 3: the plan-value contract refuses it
+     (OUT_OF_RANGE), in both layers. */
   /* S5AA R9 round, DeepSeek audit finding 2f/01: checkRange() skips a value that is not a number, so a string or a boolean
      here passed with no issue and the engine failed later on a symptom code. The same was true of the three dividend
      fields beside it, which had no check at all. Present and not a finite number: WRONG_TYPE. */
@@ -875,8 +872,9 @@ function validateAdvanced(c, advanced) {
       c.error('MISSING_FIELD', 'advanced.healthInflation', 'health or care costs are on, so "advanced.healthInflation" is required');
     }
   } else if (checkType(c, advanced.healthInflation, 'advanced.healthInflation', isFiniteNumber, 'WRONG_TYPE', 'a finite number')) {
-    if (advanced.healthInflation <= -100 || advanced.healthInflation > 100) {
-      c.error('OUT_OF_RANGE', 'advanced.healthInflation', `"advanced.healthInflation" is ${advanced.healthInflation}, expected more than -100 and at most 100`);
+    /* S5AA R54 item 3: the form's own floor, 0 (Math.max(0, ...)), replaces "more than -100"; the contract holds the same range. */
+    if (advanced.healthInflation < 0 || advanced.healthInflation > 100) {
+      c.error('OUT_OF_RANGE', 'advanced.healthInflation', `"advanced.healthInflation" is ${advanced.healthInflation}, expected at least 0 and at most 100`);
     } else {
       checkRange(c, advanced.healthInflation, 'advanced.healthInflation', 0, 20, 'OUT_OF_RANGE', 'warning');
     }
@@ -888,6 +886,8 @@ function validateAdvanced(c, advanced) {
   }
   if (advanced.correlation !== undefined) {
     checkType(c, advanced.correlation, 'advanced.correlation', isFiniteNumber, 'WRONG_TYPE', 'a finite number');
+    /* S5AA R54 item 3: outside -1 to 1 this warned; the plan-value contract now refuses it, upgrading this issue in place to its OUT_OF_RANGE
+       ERROR (one issue). The call stays: tests/lib/scenario-generator.js reads the correlation's bounds from it. */
     checkRange(c, advanced.correlation, 'advanced.correlation', -1, 1);
   }
   if (advanced.assetClasses !== undefined) {

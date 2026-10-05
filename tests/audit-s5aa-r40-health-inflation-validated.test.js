@@ -34,9 +34,10 @@ test('R40: a healthcare inflation that is not a number, or breaks the growth fac
   assert.deepStrictEqual(issues((a) => { a.healthInflation = 1e40; }), ['ERROR:OUT_OF_RANGE']);
 });
 
-test('R40: outside the form\'s 0 to 20 is a warning; absent while health or care costs are on is missing', () => {
+test('R40: above the form\'s 20 (to 100) is a warning; absent while health or care costs are on is missing', () => {
   assert.deepStrictEqual(issues((a) => { a.healthInflation = 30; }), ['WARNING:OUT_OF_RANGE']);
-  assert.deepStrictEqual(issues((a) => { a.healthInflation = -2; }), ['WARNING:OUT_OF_RANGE']);
+  // S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json): below the form's floor, 0, is refused. (Before: -2 was a WARNING.)
+  assert.deepStrictEqual(issues((a) => { a.healthInflation = -2; }), ['ERROR:OUT_OF_RANGE']);
   assert.deepStrictEqual(issues((a) => { delete a.healthInflation; a.ltcOn = true; }), ['ERROR:MISSING_FIELD']);
   assert.deepStrictEqual(issues((a) => { delete a.healthInflation; a.healthOn = true; }), ['ERROR:MISSING_FIELD']);
 });

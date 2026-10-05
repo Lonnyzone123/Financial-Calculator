@@ -174,9 +174,10 @@ test('validateScenario: an unrecognized method is a WARNING', () => {
   assert.ok(result.issues.some((i) => i.code === 'INVALID_ENUM' && i.path === 'assumptions.method'));
 });
 
-test('validateScenario: a negative volatility is a WARNING', () => {
+test('validateScenario: a negative volatility is an ERROR (was a WARNING, NEGATIVE_VOLATILITY)', () => {
+  // S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json): the form's range is 0 or more.
   const result = validateScenario(validPlan({ assumptions: { method: 'simple', returnRate: 8, volatility: -15 } }));
-  assert.ok(result.issues.some((i) => i.code === 'NEGATIVE_VOLATILITY'));
+  assert.deepEqual(result.issues.filter((i) => i.path === 'assumptions.volatility').map((i) => i.severity + ':' + i.code), ['ERROR:OUT_OF_RANGE']);
 });
 
 test('validateScenario: runs must be an integer >= 1; zero, negative, and fractional are all ERRORs', () => {
@@ -191,9 +192,10 @@ test('validateScenario: runs must be an integer >= 1; zero, negative, and fracti
 // retirement
 // ---------------------------------------------------------------------------
 
-test('validateScenario: negative spending is a WARNING', () => {
+test('validateScenario: negative spending is an ERROR (was a WARNING, NEGATIVE_SPENDING)', () => {
+  // S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json): the form's range is 0 or more.
   const result = validateScenario(validPlan({ retirement: { spending: -1, withdrawalOrder: 'manual' } }));
-  assert.ok(result.issues.some((i) => i.code === 'NEGATIVE_SPENDING'));
+  assert.deepEqual(result.issues.filter((i) => i.path === 'retirement.spending').map((i) => i.severity + ':' + i.code), ['ERROR:OUT_OF_RANGE']);
 });
 
 test('validateScenario: retirement.stages/expenses/otherIncomes must be arrays when present', () => {
@@ -212,9 +214,10 @@ test('validateScenario: an ssClaim outside the [62,70] claiming window is an ERR
 // advanced
 // ---------------------------------------------------------------------------
 
-test('validateScenario: correlation outside [-1,1] is a WARNING', () => {
+test('validateScenario: correlation outside [-1,1] is an ERROR (was a WARNING)', () => {
+  // S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json).
   const result = validateScenario(validPlan({ advanced: { assetsOn: false, correlation: 1.5, assetClasses: [] } }));
-  assert.ok(result.issues.some((i) => i.code === 'OUT_OF_RANGE' && i.path === 'advanced.correlation'));
+  assert.deepEqual(result.issues.filter((i) => i.path === 'advanced.correlation').map((i) => i.severity + ':' + i.code), ['ERROR:OUT_OF_RANGE']);
 });
 
 test('validateScenario: a malformed asset class entry is reported per-field without crashing', () => {

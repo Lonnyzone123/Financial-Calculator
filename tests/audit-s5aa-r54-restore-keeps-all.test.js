@@ -79,44 +79,20 @@ const lastPosted = (s) => s.posted[s.posted.length - 1];
 
 /* Every value readStatic(), save() or normalizedPlan() transformed, each one the validator accepts (no ERROR) and the form changed
    before R54 (in brackets, what the form made of it). [path, restored value, input id] */
+/* S5AA R54 item 3 (the owner, 2026-10-04): the values outside the form's own range that this list also carried (a negative salary, a 2.5%
+   fee, a 16% withdrawal rate, ...) are now refused by the validator and the engine, so a backup cannot carry them (tests/audit-s5aa-r54-form-
+   ranges-refused.test.js); what is left is every transformation a VALID value still met: precision, an input's range on a blur, the end age
+   cap, the run count. (Before item 3 the list held 39 values.) */
 const FAMILY = [
   ['profile.endAge', 110, 'v2-end'],                          // [100: normalizedPlan() capped the end age at 100; the validator takes 0-120]
-  ['employment.salary', -1000, 'v2-salary'],                  // [0: max(0)]
-  ['employment.spouseSalary', -1000, 'v2-spouse-salary'],     // [0]
   ['employment.growth', 35, 'v2-salary-growth'],              // [30 on a blur: the input's range, -20 to 30]
   ['assumptions.returnRate', 25, 'v2-return'],                // [20 on a blur: -5 to 20]
   ['assumptions.inflation', -1, 'v2-inflation'],              // [0 on a blur: 0 to 15]
-  ['assumptions.fee', 2.5, 'v2-fee'],                         // [2: clamp 0-2]
   ['assumptions.runs', 24, 'v2-runs'],                        // [100: rounded to hundreds, at least 100]
   ['assumptions.seed', 42.7, 'v2-seed'],                      // [42: max(1, floor)]
-  ['assumptions.volatility', -1, 'v2-volatility'],            // [0: max(0); the validator warns]
   ['assumptions.historyStart', 2030, 'v2-history-start'],     // [0: the select lists only data years; read only by the historical method]
-  ['retirement.spending', -100, 'v2-spending'],               // [0; the validator warns]
-  ['retirement.withdrawalRate', 16, 'v2-withdrawal-rate'],    // [15: clamp 0-15]
-  ['retirement.upperGuardrail', 0.5, 'v2-upper-guardrail'],   // [1: max(1)]
-  ['retirement.lowerGuardrail', 0.5, 'v2-lower-guardrail'],   // [1]
-  ['retirement.adjustment', 0.5, 'v2-adjustment'],            // [1]
-  ['retirement.floor', -1, 'v2-floor'],                       // [0]
-  ['retirement.ceiling', -1, 'v2-ceiling'],                   // [0]
-  ['retirement.dividendYield', 21, 'v2-dividend-yield'],      // [20: clamp 0-20]
-  ['retirement.dividendQualified', 120, 'v2-dividend-qualified'], // [100: clamp 0-100; the validator warns, the engine holds it to 100 and says so]
-  ['retirement.dividendGrowth', 25, 'v2-dividend-growth'],    // [20: clamp -20 to 20]
-  ['retirement.ssBenefit', -1, 'v2-ss-benefit'],              // [0]
-  ['retirement.spouseSS', -1, 'v2-spouse-ss'],                // [0]
   ['retirement.pensionCola', 12, 'v2-pension-cola'],          // [10 on a blur: 0 to 10]
-  ['retirement.flexibility', 60, 'v2-flexibility'],           // [50: clamp 0-50]
-  ['retirement.vpwMinRate', 30, 'v2-vpw-min'],                // [25: save(), clamp 0-25]
-  ['retirement.vpwMaxRate', 120, 'v2-vpw-max'],               // [100: save(), clamp 0-100]
-  ['retirement.rmdMultiplier', 250, 'v2-rmd-multiplier'],     // [200: save(), clamp 0-200]
-  ['retirement.rmdFloor', -1, 'v2-rmd-floor'],                // [0: save(), max(0)]
-  ['retirement.ssCola', 20, 'v2-ss-cola'],                    // [15: save(), clamp 0-15]
-  ['retirement.survivorSpendingReduction', 75, 'v2-survivor-spending-reduction'], // [50: save(), clamp 0-50; the contract takes 0-100]
-  ['advanced.correlation', 1.5, 'v2-correlation'],            // [1: clamp -1 to 1; the validator warns (one asset class)]
   ['advanced.reserveYears', 12, 'v2-reserve-years'],          // [10 on a blur: 0 to 10]
-  ['advanced.healthInflation', -2, 'v2-health-inflation'],    // [0: max(0); the contract takes above -100, the validator warns]
-  ['advanced.medicareInflation', -99.5, 'v2-medicare-inflation'], // [-99: clamp -99 to 100; the contract takes above -100]
-  ['advanced.partDPremium', 150000, 'v2-part-d-premium'],     // [100,000: clamp; the contract has no maximum]
-  ['profile.priorIncomeThisYear', 2e9, 'v2-prior-income'],    // [1e9: clamp; the contract has no maximum]
   ['profile.rothFirstContributionYear', 2015.5, 'v2-roth-first-year'], // [2016: rounded]
   ['advanced.ltcYears', 2.5, 'v2-ltc-years'],                 // [3: max(0, round)]
 ];
@@ -221,15 +197,22 @@ test('R54 (D2): an end age of 110 is kept and projected to 110', async (t) => {
   } finally { s.w.close(); }
 });
 
-test('R54 (D2): a 2.5% fee is charged at 2.5%, not 2% -- $97,500 after a year', async (t) => {
-  // Age 60, retired, end 61; a $100,000 Roth in a 0% asset class, no spending. The fee comes off the year's return:
-  // 100,000 x (1 + 0 - 0.025) = 97,500. (Pre-R54: clamped to 2%: 98,000.)
+test('R54 (D2, adapted by item 3): a backup with a 2.5% fee is refused at Restore, with the message, and the scenarios stay unchanged', async (t) => {
+  // S5AA R54 item 3 (the owner, 2026-10-04): the form's fee range is 0 to 2%, and the plan-value contract now refuses a value outside it.
+  // (Before item 3 this case kept the 2.5% fee and projected 100,000 x (1 - 0.025) = 97,500; before R54, the form clamped it to 2%: 98,000.)
   const p = base({ age: 60, retireAge: 60, endAge: 61, accounts: roth() });
   p.assumptions.fee = 2.5;
-  const s = await restore([p]);
+  const dom = await loadCalculator();
+  const s = page(dom, installWorker(dom.window));
   try {
-    await eq(t, [s.saved().assumptions.fee, lastPosted(s).assumptions.fee], [2.5, 2.5], 'fee: saved, posted');
-    await near(t, at(s.results[s.results.length - 1], 61).roth, 97500, 'the Roth after a year');
+    const input = s.d.getElementById('v2-import-settings'), status = s.d.getElementById('v2-status'), before = s.w.localStorage.getItem(STORAGE_KEY);
+    const app = { version: 2, edition: '2C', page: 'setup', complexity: 'advanced', theme: 'auto', compare: false, active: 0, scenarios: [p] };
+    Object.defineProperty(input, 'files', { value: [new s.w.File([JSON.stringify({ format: STORAGE_KEY, version: 2, app })], 'backup.json', { type: 'application/json' })], configurable: true });
+    status.textContent = '';
+    input.dispatchEvent(new s.w.Event('change', { bubbles: true }));
+    await waitFor(() => status.textContent !== '', { window: s.w, timeoutMs: 30000 });
+    await ok(t, /not restored[\s\S]*"assumptions\.fee" is 2\.5, expected at least 0 and at most 2/.test(status.textContent), 'the status line names the fee: ' + status.textContent);
+    await eq(t, s.w.localStorage.getItem(STORAGE_KEY), before, 'the stored scenarios are unchanged');
   } finally { s.w.close(); }
 });
 
@@ -256,12 +239,15 @@ test('R54 (D2): keys the form does not carry survive a calculation and a second 
   } finally { s2.w.close(); }
 });
 
-test('R54: from browser storage, a value the validator refuses is read as the form reads it, so it never reaches the engine; a valid value beside it is kept', async (t) => {
+test('R54: from browser storage, values the validator refuses are read as the form reads them, so they never reach the engine; a valid value beside them is kept', async (t) => {
   // A plan saved in this browser (read back without the import's validation) with a prior-year MAGI of -5, which the validator refuses
   // (OUT_OF_RANGE, an ERROR) and the engine would run, beside a valid 2.5% fee. The MAGI is read through the form: max(0) = 0, as before
   // R54. The fee is kept (R54: 2.5; pre-R54: 2).
+  // S5AA R54 item 3 (adapted by intent): a 2.5% fee is now refused by the validator (the form's range, 0 to 2%), so it too is read as the
+  // form reads it, clamp(2.5, 0, 2) = 2, and never reaches the engine; a valid salary growth of 35% (an input range applied only on a
+  // blur) beside them is kept. (Before item 3: the fee 2.5 was kept.)
   const p = base({ age: 60, retireAge: 60, endAge: 61, accounts: roth() });
-  p.advanced.irmaaMagiTwoYearsBefore = -5; p.assumptions.fee = 2.5;
+  p.advanced.irmaaMagiTwoYearsBefore = -5; p.assumptions.fee = 2.5; p.employment.growth = 35;
   assert.ok(validateScenario(structuredClone(p)).issues.some((i) => i.severity === 'ERROR' && i.path === 'advanced.irmaaMagiTwoYearsBefore'), 'the validator refuses the MAGI');
   const app = { version: 2, edition: '2C', page: 'plan', complexity: 'advanced', theme: 'auto', compare: false, active: 0, scenarios: [p] };
   const dom = await loadCalculator({ localStorageSeed: { [STORAGE_KEY]: JSON.stringify(app) } });
@@ -271,6 +257,7 @@ test('R54: from browser storage, a value the validator refuses is read as the fo
     await edit(s, 'v2-name', 'Stored', (q) => q.name === 'Stored');
     await waitFor(() => s.posted.length > 0 && idle(s), { window: s.w, timeoutMs: 30000 });
     await eq(t, [s.saved().advanced.irmaaMagiTwoYearsBefore, lastPosted(s).advanced.irmaaMagiTwoYearsBefore], [0, 0], 'the refused MAGI: saved, posted');
-    await eq(t, [s.saved().assumptions.fee, lastPosted(s).assumptions.fee], [2.5, 2.5], 'the valid fee: saved, posted');
+    await eq(t, [s.saved().assumptions.fee, lastPosted(s).assumptions.fee], [2, 2], 'the refused fee, read as the form reads it: saved, posted');
+    await eq(t, [s.saved().employment.growth, lastPosted(s).employment.growth], [35, 35], 'the valid salary growth: saved, posted');
   } finally { s.w.close(); }
 });
