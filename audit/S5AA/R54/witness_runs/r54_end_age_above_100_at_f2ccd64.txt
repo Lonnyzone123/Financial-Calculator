@@ -1,0 +1,8 @@
+100 true  ok  31 100
+110 true  ok  41 110
+120 true  ok  51 120
+121 true WARNING OUT_OF_RANGE ok  52 121
+130 true WARNING OUT_OF_RANGE ok  52 121
+200 true WARNING OUT_OF_RANGE ok  52 121
+end 130, selfLife 125: ok 57 126
+end 130, selfLife 140: ok 61 130

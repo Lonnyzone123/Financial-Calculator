@@ -376,6 +376,17 @@ Until R53 the validator only warned (`INCONSISTENT_AGES` at `profile.endAge`), s
 lengthened it to the retirement age. The validator now reports it as `END_AGE_BEFORE_RETIREMENT`, an `error` at `profile.endAge`, so the
 import refuses the backup; the `INCONSISTENT_AGES` warning for a retirement age before the start (beside a salary) is unchanged.
 
+### What S5AA R54 added (2026-10-04)
+
+*The owner's decisions on R54's readings; the commits are named in `audit/S5AA/R54/`.* **`contractVersion` stays at 5,** for the same reason.
+
+| `calculationErrorCode` | refused when | introduced |
+|---|---|---|
+| `SCENARIO_NEGATIVE_PRIOR_MAGI` | `advanced.irmaaMagiTwoYearsBefore` or `advanced.irmaaMagiOneYearBefore` is a finite number below 0. Null or absent means not entered and is projected | R54 |
+
+The validator already refused it (`OUT_OF_RANGE`, R35). R54 also gave more plan values the form's own range in `src/plan-value-contract.json`, refused as
+`SCENARIO_PLAN_VALUE_OUT_OF_RANGE` (an existing code), and made an entered `assumptions.seed` a whole number of at least 1 under the same code.
+
 ---
 
 ## 7a. Failure policies — stated BEFORE any new scheduler is built (S5AA task 8.2)

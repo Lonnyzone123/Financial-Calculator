@@ -1,0 +1,7 @@
+== control (36 plans): outside a new bound in 0
+== expanded (71 plans): outside a new bound in 0
+== defaultPlan: inside every bound
+== golden definitions (5): outside in 0
+== generator seeds 1-5000 (5000 plans): none outside a bound
+== tests/fixtures/*.json: none outside a bound
+== R40 grid generator (3,000 plans, default seed): none outside a bound

@@ -949,7 +949,27 @@ function artifactFor(lane) {
 // Changed again 2026-09-29 (engine+validator+app: R53 end age before retirement refused (decision 3)), so the tracked
 // file was rebuilt, again installed only after two builds agreed. The pin before it,
 // ae99a798349d32f6c3e1a3b7a1f32e67a9cfd99e16c8ad9b091ae38e1b7ba476, described the previous rebuild.
-const EXPECTED_SHA256 = '945e98149a0c0b56ade99335e4be831d71b183531eef2046c34eeceda74ddbac';
+//
+// Changed again 2026-10-04 (app: R54 own field only (decision 1)), so the tracked file was rebuilt, again installed
+// only after two builds agreed. The pin before it, 945e98149a0c0b56ade99335e4be831d71b183531eef2046c34eeceda74ddbac,
+// described the previous rebuild.
+//
+// Changed again 2026-10-04 (app: R54 restore keeps every validated value (D2)), so the tracked file was rebuilt, again
+// installed only after two builds agreed. The pin before it,
+// 7d75624ff6fab4ef8d611d80c4c1c19b789fc80f379e5dba68c5e9c46a358a4a, described the previous rebuild.
+//
+// Changed again 2026-10-04 (contract+validator+app: R54 item 3, the form's ranges refused), so the tracked file was
+// rebuilt, again installed only after two builds agreed. The pin before it,
+// 52f372aa8924a182a60cd01c6eccd167924489f33b81c3ff0a7590a39b78feae, described the previous rebuild.
+//
+// Changed again 2026-10-04 (engine+contract+validator+app: R54 item 4, five ranges widened, the seed and the prior MAGI
+// refused), so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// 43fda2ba8bd04f89204261031104212c98ff3a4055f89ac370d28f0276fbdbc7, described the previous rebuild.
+//
+// Changed again 2026-10-04 (engine+app: R54's CodeQL repair, ids drawn from crypto.getRandomValues() instead of Math.random()),
+// so the tracked file was rebuilt, again installed only after two builds agreed. The pin before it,
+// e13e0f7443369cab222150ecc53676560c90bdf12ccc4bafd665f248f4306c06, described the previous rebuild.
+const EXPECTED_SHA256 = '659b72c3f1dc792f55b4c0ce401567af288a354bb3a84f57667872bbf6e49a5e';
 
 function verifyArtifactHash() {
   const crypto = require('node:crypto');

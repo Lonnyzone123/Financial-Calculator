@@ -1,0 +1,73 @@
+▶ R54 item 4: each widened range accepts its new edge and refuses the value just past it, in both layers
+  ✔ assumptions.fee = 5: no ERROR at its path (2.4736ms)
+  ✔ assumptions.fee = 5: projected (7.9122ms)
+  ✔ assumptions.fee = 5.01: the validator refuses it (0.509ms)
+  ✔ assumptions.fee = 5.01: the engine refuses it (0.4742ms)
+  ✔ retirement.withdrawalRate = 25: no ERROR at its path (0.2432ms)
+  ✔ retirement.withdrawalRate = 25: projected (0.8615ms)
+  ✔ retirement.withdrawalRate = 25.01: the validator refuses it (0.2448ms)
+  ✔ retirement.withdrawalRate = 25.01: the engine refuses it (0.2506ms)
+  ✔ retirement.adjustment = 0: no ERROR at its path (0.2874ms)
+  ✔ retirement.adjustment = 0: projected (0.7214ms)
+  ✔ retirement.adjustment = -0.01: the validator refuses it (0.2157ms)
+  ✔ retirement.adjustment = -0.01: the engine refuses it (0.1933ms)
+  ✔ retirement.dividendGrowth = -50: no ERROR at its path (0.1886ms)
+  ✔ retirement.dividendGrowth = -50: projected (0.634ms)
+  ✔ retirement.dividendGrowth = -50.01: the validator refuses it (0.206ms)
+  ✔ retirement.dividendGrowth = -50.01: the engine refuses it (0.166ms)
+  ✔ retirement.survivorSpendingReduction = 75: no ERROR at its path (0.2111ms)
+  ✔ retirement.survivorSpendingReduction = 75: projected (0.6375ms)
+  ✔ retirement.survivorSpendingReduction = 75.01: the validator refuses it (0.2239ms)
+  ✔ retirement.survivorSpendingReduction = 75.01: the engine refuses it (0.2222ms)
+✔ R54 item 4: each widened range accepts its new edge and refuses the value just past it, in both layers (19.1749ms)
+▶ R54 item 4: the widened values are used as entered downstream
+  ✔ a 5% fee: the Roth after a year (0.086ms)
+  ✔ a 25% withdrawal rate: the year's spending (0.048ms)
+  ✔ and the Roth left (0.0241ms)
+  ✔ a 0% adjustment: the second year's spending is not cut (0.0629ms)
+  ✔ control, a 10% adjustment: cut to 3,600 (0.0699ms)
+  ✔ the year both are alive at its opening: 40,000 (0.059ms)
+  ✔ a 75% survivor reduction: 10,000 (0.0253ms)
+✔ R54 item 4: the widened values are used as entered downstream (5.2355ms)
+▶ R54 item 4: through the form, an edited field reaches its new edge and is clamped to it past it
+  ✔ v2-fee typed 5: saved 5 (0.3875ms)
+  ✔ v2-fee typed 5.01: saved 5 (0.4282ms)
+  ✔ v2-withdrawal-rate typed 25: saved 25 (0.4017ms)
+  ✔ v2-withdrawal-rate typed 25.01: saved 25 (0.4175ms)
+  ✔ v2-adjustment typed 0: saved 0 (0.6019ms)
+  ✔ v2-adjustment typed -0.01: saved 0 (0.4147ms)
+  ✔ v2-dividend-growth typed -50: saved -50 (0.3238ms)
+  ✔ v2-dividend-growth typed -50.01: saved -50 (0.296ms)
+  ✔ v2-survivor-spending-reduction typed 75: saved 75 (0.2676ms)
+  ✔ v2-survivor-spending-reduction typed 75.01: saved 75 (0.3171ms)
+✔ R54 item 4: through the form, an edited field reaches its new edge and is clamped to it past it (9825.9944ms)
+▶ R54 item 4: an entered seed must be a whole number of at least 1; an absent seed keeps the engine's fallback
+  ✔ seed 0: the validator refuses it (0.5908ms)
+  ✔ seed 0: the engine refuses it (0.3833ms)
+  ✔ seed 1.5: the validator refuses it (0.2096ms)
+  ✔ seed 1.5: the engine refuses it (0.1848ms)
+  ✔ seed -3: the validator refuses it (0.1684ms)
+  ✔ seed -3: the engine refuses it (0.1699ms)
+  ✔ seed 1: accepted and projected (3.6758ms)
+  ✔ an absent seed: accepted and projected (the engine falls back to 0) (2.2841ms)
+✔ R54 item 4: an entered seed must be a whole number of at least 1; an absent seed keeps the engine's fallback (8.452ms)
+▶ R54 item 4: a negative prior-year MAGI is refused by the engine as by the validator; null, absent and 0 are accepted
+  ✔ irmaaMagiTwoYearsBefore = -5: the validator refuses it (0.2352ms)
+  ✔ irmaaMagiTwoYearsBefore = -5: the engine refuses it (0.1665ms)
+  ✔ irmaaMagiTwoYearsBefore = null: accepted by both (0.5672ms)
+  ✔ irmaaMagiTwoYearsBefore = undefined: accepted by both (0.5275ms)
+  ✔ irmaaMagiTwoYearsBefore = 0: accepted by both (0.55ms)
+  ✔ irmaaMagiOneYearBefore = -5: the validator refuses it (0.1935ms)
+  ✔ irmaaMagiOneYearBefore = -5: the engine refuses it (0.095ms)
+  ✔ irmaaMagiOneYearBefore = null: accepted by both (0.4407ms)
+  ✔ irmaaMagiOneYearBefore = undefined: accepted by both (0.4376ms)
+  ✔ irmaaMagiOneYearBefore = 0: accepted by both (0.4607ms)
+✔ R54 item 4: a negative prior-year MAGI is refused by the engine as by the validator; null, absent and 0 are accepted (4.5267ms)
+ℹ tests 60
+ℹ suites 0
+ℹ pass 60
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10567.8941

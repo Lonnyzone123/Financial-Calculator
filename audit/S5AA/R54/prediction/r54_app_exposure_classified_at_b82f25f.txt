@@ -1,0 +1,182 @@
+files with an app page: 71; records 304
+
+audit-fm04-fm08-result-contract.test.js: pages 7, edited leaves 0, endcap 0
+  ITEM2 x7 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-future-change-value-type.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-import.test.js: pages 4, edited leaves 0, endcap 0
+
+audit-q15-worker-dependencies.test.js: pages 3, edited leaves 0, endcap 0
+
+audit-q32-household-income-label.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-q47-earnings-test-disclosure.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q48-nonserializable-input.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q49-contribution-validity.test.js: pages 3, edited leaves 0, endcap 0
+
+audit-q51-q52-app-bounds.test.js: pages 7, edited leaves 0, endcap 0
+  ITEM2 x7 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-q53-boolean-flag-boundary.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q55-list-shape-refusal.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q58-strategy-load.test.js: pages 3, edited leaves 0, endcap 0
+  ITEM2 x3 no input | retirement.ssFra: 67 -> "(absent)"
+  ITEM2 x1 untouched v2-strategy | retirement.strategy: "Guardrails" -> "guardrails"
+
+audit-q58-strategy-resolution.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q68-filing-status-refusal.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q69-income-owner-refusal.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q70-claim-age-bounds.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q71-list-element-records.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q72-holding-value-type.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q74-stage-mode-switch.test.js: pages 3, edited leaves 0, endcap 0
+  ITEM2 x3 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-q80-flag-defaults-serialize-once.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-q81-strategy-public-routes.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-r2-cash-settlement.test.js: pages 9, edited leaves 0, endcap 0
+  ITEM2 x9 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-r2-import-records.test.js: pages 6, edited leaves 0, endcap 0
+  ITEM2 x8 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-r4-heatmap-guard.test.js: pages 5, edited leaves 0, endcap 0
+  ITEM2 x7 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-forced-payoff-flag.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-input-gate.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r13-rmd-protection-follows-payment-order.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r14-account-id-maps.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r15-distribution-to-taxable-counts-toward-rmd.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r16-partial-transfer-shortfall-is-ordinary.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r17-app-shows-rmd-shortfall.test.js: pages 3, edited leaves 3, endcap 0
+  ITEM2 x3 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r17-rmd-shortfall-per-obligation.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r18-rmd-paid-is-what-satisfied.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r18-taxable-basis-in-dollars.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r19-app-shows-final-tax-balance.test.js: pages 3, edited leaves 3, endcap 0
+  ITEM2 x3 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r21-import-rejects-unknown-allocation-key.test.js: pages 3, edited leaves 0, endcap 0
+  ITEM2 x1 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r23-roth-flag-worker.test.js: pages 2, edited leaves 0, endcap 0
+
+audit-s5aa-r25-plan-number-fields-refused.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r29-rules-page-text-not-markup.test.js: pages 4, edited leaves 0, endcap 0
+
+audit-s5aa-r37-future-change-prefill.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r37-joint-salary-base.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r37-mc-guidance.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r37-plan-warnings.test.js: pages 1, edited leaves 0, endcap 0
+  ITEM2 x1 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r40-app-states-r40-charges.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r40-later-tax-years-card-rendered.test.js: pages 1, edited leaves 0, endcap 0
+  ITEM2 x1 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r42-ss-benefit-typed.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5aa-r46-monte-carlo-and-reserve.test.js: pages 2, edited leaves 2, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r49-spending-debt-disclosure.test.js: pages 2, edited leaves 1, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+  ITEM2 x1 untouched v2-flexibility | retirement.flexibility: 10 -> 0
+
+audit-s5aa-r51-app-inputs.test.js: pages 4, edited leaves 2, endcap 0
+  ITEM2 x4 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r52-app-cards.test.js: pages 4, edited leaves 0, endcap 0
+  ITEM2 x4 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r53-end-before-retirement-refused.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x1 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-s5aa-r53-restore-keeps-values.test.js: pages 8, edited leaves 5, endcap 0
+  ITEM1 profile.endAge: 46 -> 47.5 [edited: v2-retire]
+  ITEM1 profile.endAge: 47.5 -> 46 [edited: v2-retire]
+  ITEM2 x8 no input | retirement.ssFra: 67 -> "(absent)"
+  BLUR  x1 v2-transfer-age 45.3->45.5 (kept field)
+  BLUR  x1 v2-retire 47.3->47.5 (kept field)
+  BLUR  x1 v2-retire 40->40.0 (kept field)
+
+audit-s5aa-r9-worker-strict-mode.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-s5r01-snapshot-acceptance.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-sa02-import-work-invalidation.test.js: pages 5, edited leaves 0, endcap 0
+  ITEM2 x10 no input | retirement.ssFra: 67 -> "(absent)"
+
+audit-st2-findings.test.js: pages 1, edited leaves 0, endcap 0
+
+audit-zero-fields.test.js: pages 1, edited leaves 0, endcap 0
+
+boolean-flag-contract.test.js: pages 1, edited leaves 0, endcap 0
+
+build-routes.test.js: pages 2, edited leaves 0, endcap 0
+
+current-build-lane.test.js: pages 3, edited leaves 0, endcap 0
+
+debt-revolving.test.js: pages 1, edited leaves 0, endcap 0
+
+debug-module.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x1 no input | retirement.ssFra: 67 -> "(absent)"
+
+import-validation.test.js: pages 6, edited leaves 0, endcap 0
+
+no-duplicate-declarations.test.js: pages 1, edited leaves 0, endcap 0
+
+public-route-ext03.test.js: pages 1, edited leaves 0, endcap 0
+
+public-route-sa05-app.test.js: pages 2, edited leaves 0, endcap 0
+  ITEM2 x2 no input | retirement.ssFra: 67 -> "(absent)"
+
+regression-suite.js: pages 14, edited leaves 8, endcap 0
+  ITEM2 x13 no input | retirement.ssFra: 67 -> "(absent)"
+  BLUR  x1 v2-age ->40.0 (kept field)
+  BLUR  x1 v2-end 150->100.0 (kept field)
+  BLUR  x1 v2-end 77.3->77.5 (kept field)
+
+rendered-results-warnings.test.js: pages 4, edited leaves 0, endcap 0
+  ITEM2 x4 no input | retirement.ssFra: 67 -> "(absent)"
+
+rendered-rule-disclosures.test.js: pages 1, edited leaves 0, endcap 0
+
+simulation-identity.test.js: pages 2, edited leaves 1, endcap 0
+  ITEM2 x3 no input | retirement.ssFra: 67 -> "(absent)"
+
+worker-parity.test.js: pages 2, edited leaves 0, endcap 0

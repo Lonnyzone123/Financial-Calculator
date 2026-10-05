@@ -1,0 +1,76 @@
+node -r ./audit/S5AA/R53/S5AA_R53_COMPANION_ADAPTER.js audit/S5AA/R52/S5AA_R52_CHATGPT_BOUNDARY_SIMULATIONS_20261004.js C:\fc-wt-r54base C:\fc-wt-r54\audit\S5AA\R54\witness_runs\r54_r52_boundary_at_b82f25f.json
+exit 1 (4 s)
+--- stdout
+{
+  "sourceSha": "b82f25fad99c100c6bc7b53d8bd9bb96d40e00ea",
+  "summary": {
+    "simulations": 20,
+    "checks": 100,
+    "passed": 20,
+    "failed": []
+  },
+  "hunt": {
+    "classification": "disclosed year-end Roth aggregation limit, not a new finding",
+    "cases": 2,
+    "passed": 1,
+    "failed": [
+      {
+        "id": "H01",
+        "checks": [
+          {
+            "label": "settled salary-year tax",
+            "actual": 56400.23499999999,
+            "expected": 55670.235,
+            "tolerance": 0.01,
+            "pass": false
+          },
+          {
+            "label": "no Roth earnings in final AGI",
+            "actual": 201999,
+            "expected": 199999,
+            "tolerance": 0.01,
+            "pass": false
+          },
+          {
+            "label": "conversion principal after all annual draws",
+            "actual": 4480.555555555556,
+            "expected": 2480.5555555555557,
+            "tolerance": 0.01,
+            "pass": false
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "horizon": {
+      "id": "U01",
+      "finding": "R52-01",
+      "valid": true,
+      "importStatus": "That backup was not restored because it contains a structural problem that would break the projection. Scenario 1: endAge (41) is before retireAge (60): the plan must run at least to the retirement age. Your current scenarios were left unchanged.",
+      "requestedEnd": 41,
+      "actualEnd": 100,
+      "expected": 106050,
+      "raw": 106050.00000000001,
+      "actual": 0,
+      "extendedHorizonOracle": 300049.0223224751,
+      "pass": false
+    },
+    "transfer": {
+      "id": "U02",
+      "finding": "R52-02",
+      "valid": true,
+      "importStatus": "Projection updated · saved in this browser",
+      "requestedAge": 45.75,
+      "actualAge": 45.75,
+      "expectedTax": 57038.985,
+      "actualTax": 57038.98499999999,
+      "expectedNetworth": 113632.25,
+      "actualNetworth": 113632.25,
+      "pass": true
+    }
+  }
+}
+
+--- stderr
+[R53 companion adapter] root C:\fc-wt-r54base: 32 call(s) entered with the retirement age at the end age {"validator.validateScenario":11,"engine.runPlan":11,"variant.runPlan":10}

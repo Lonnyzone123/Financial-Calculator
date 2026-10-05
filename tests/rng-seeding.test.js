@@ -85,13 +85,19 @@ test('runPlan(monteCarlo, runs:1) matches a direct simulatePlan() call seeded th
    fallback's purpose -- never collapse every path onto one rng(NaN>>>0) stream -- still guards an ABSENT seed, which the
    validator accepts: Number(undefined) is NaN. Both halves are held here. */
 test('an absent seed falls back to 0 deterministically, rather than collapsing every path onto rng(NaN)', () => {
-  const base = { assumptions: { method: 'monteCarlo', runs: 25 } };
-  const absent = samplePlan({ assumptions: { ...base.assumptions } });
+  /* S5AA R54 item 4 (the owner's decisions of 2026-10-04): an ENTERED seed must be a whole number of at least 1 (the form's Math.max(1, Math.floor(seed))), so an
+     entered 0 is refused; the fallback for an ABSENT seed is unchanged. It was held by comparing with an entered seed of 0; it is now derived:
+     path 0 of an absent-seed run is simulatePlan() seeded the documented way at seed 0, pathSeed(0, 0, 0) and pathSeed(0, 0, 1). */
+  const one = samplePlan({ assumptions: { method: 'monteCarlo', runs: 1 } });
+  delete one.assumptions.seed;
+  const viaRunPlan = engine.runPlan(one);
+  assert.equal(viaRunPlan.status, 'ok');
+  const direct = engine.simulatePlan(one, engine.rng(pathSeed(0, 0, 0)), 0, engine.rng(pathSeed(0, 0, 1)), null);
+  assert.deepEqual(viaRunPlan.rows.map((r) => r.total), direct.rows.map((r) => r.total), 'an absent seed runs as seed 0, not as an unguarded NaN>>>0 stream');
+  const absent = samplePlan({ assumptions: { method: 'monteCarlo', runs: 25 } });
   delete absent.assumptions.seed;
-  const withAbsent = engine.runPlan(absent);
-  const withZero = engine.runPlan(samplePlan({ assumptions: { ...base.assumptions, seed: 0 } }));
-  assert.equal(withAbsent.status, 'ok');
-  assert.deepEqual(withAbsent.rows, withZero.rows, 'an absent seed must behave exactly like seed 0, not like an unguarded NaN>>>0 stream');
+  assert.deepEqual(engine.runPlan(absent).rows, engine.runPlan(JSON.parse(JSON.stringify(absent))).rows, 'deterministically');
+  assert.equal(engine.runPlan(samplePlan({ assumptions: { method: 'monteCarlo', runs: 25, seed: 0 } })).calculationErrorCode, 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE', 'an entered seed of 0 is refused');
 });
 
 test('a NaN seed is refused at the input gate (S5AA R25, R24F-04), so it cannot collapse the paths either', () => {

@@ -97,10 +97,10 @@ test('R10-01: vpw at a positive real return amortizes over the years it models, 
   assert.equal(spending(r)[1], money(r.rows[1].total), 'the last year is capped at the whole balance');
 });
 
-test('R10-01: with the rate cap out of the way, a final half year exhausts the portfolio', () => {
-  const r = run({ strategy: 'vpw', endAge: 80.5, selfLife: 95, vpwMaxRate: 200 });
-  assert.deepEqual(spending(r), [100000], 'half a year of an annualized $200,000');
-  assert.equal(ending(r), 0);
+test('R10-01 (adapted): a VPW maximum of 200%, which took the rate cap out of the way, is now refused', () => {
+  // S5AA R54 item 3 (the owner's decision of 2026-10-04: a value outside the form's range is refused by every route, through src/plan-value-contract.json): the form's VPW
+  // maximum is 0 to 100%. (Before: projected, half a year of an annualized $200,000 exhausting the portfolio.)
+  assert.throws(() => run({ strategy: 'vpw', endAge: 80.5, selfLife: 95, vpwMaxRate: 200 }), /SCENARIO_PLAN_VALUE_OUT_OF_RANGE/);
 });
 
 test('R10-01 control: the VPW rate bounds still cap the amount', () => {

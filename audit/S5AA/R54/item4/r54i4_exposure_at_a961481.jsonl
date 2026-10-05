@@ -1,0 +1,27 @@
+{"file":"rng-seeding.test.js","route":"engine","fn":"runPlan","hits":["seed=0"]}
+{"file":"rng-seeding.test.js","route":"engine","fn":"runPlan","hits":["seed=NaN"]}
+{"file":"audit-s5aa-r25-plan-number-fields-refused.test.js","route":"engine","fn":"runPlan","hits":["seed=NaN"]}
+{"file":"audit-s5aa-r35-irmaa-pre-plan-and-partial-year.test.js","route":"validator","fn":"validateScenario","hits":["advanced.irmaaMagiTwoYearsBefore=-5"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"validator","fn":"validateScenario","hits":["widened assumptions.fee=3"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"engine","fn":"runPlan","hits":["widened assumptions.fee=3"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"validator","fn":"validateScenario","hits":["widened retirement.withdrawalRate=16"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"engine","fn":"runPlan","hits":["widened retirement.withdrawalRate=16"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"validator","fn":"validateScenario","hits":["widened retirement.adjustment=0"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"engine","fn":"runPlan","hits":["widened retirement.adjustment=0"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"validator","fn":"validateScenario","hits":["widened retirement.dividendGrowth=-21"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"engine","fn":"runPlan","hits":["widened retirement.dividendGrowth=-21"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"validator","fn":"validateScenario","hits":["widened retirement.survivorSpendingReduction=51"]}
+{"file":"audit-s5aa-r43-plan-value-contract.test.js","route":"engine","fn":"runPlan","hits":["widened retirement.survivorSpendingReduction=51"]}
+{"file":"audit-s5aa-r54-restore-keeps-all.test.js","route":"validator","fn":"validateScenario","hits":["seed=42.7"]}
+{"file":"audit-s5aa-r54-form-ranges-refused.test.js","route":"validator","fn":"validateScenario","hits":["widened retirement.adjustment=0"]}
+{"file":"audit-s5aa-r54-form-ranges-refused.test.js","route":"engine","fn":"runPlan","hits":["widened retirement.adjustment=0"]}
+{"file":"audit-s5aa-r54-form-ranges-refused.test.js","route":"validator","fn":"validateScenario","hits":["widened retirement.dividendGrowth=-25"]}
+{"file":"audit-s5aa-r54-form-ranges-refused.test.js","route":"engine","fn":"runPlan","hits":["widened retirement.dividendGrowth=-25"]}
+{"file":"audit-s5aa-r54-form-ranges-refused.test.js","route":"validator","fn":"validateScenario","hits":["widened retirement.survivorSpendingReduction=75"]}
+{"file":"audit-s5aa-r54-form-ranges-refused.test.js","route":"engine","fn":"runPlan","hits":["widened retirement.survivorSpendingReduction=75"]}
+{"file":"audit-s5aa-r54-restore-keeps-all.test.js","route":"app","fn":"validateScenario","hits":["seed=42.7"]}
+{"file":"audit-s5aa-r54-restore-keeps-all.test.js","route":"engine","fn":"runScenario","hits":["seed=42.7"]}
+{"file":"audit-s5aa-r54-form-ranges-refused.test.js","route":"app","fn":"validateScenario","hits":["widened assumptions.fee=2.5"]}
+{"file":"audit-s5aa-r54-restore-keeps-all.test.js","route":"app","fn":"validateScenario","hits":["widened assumptions.fee=2.5"]}
+{"file":"audit-s5aa-r54-restore-keeps-all.test.js","route":"validator","fn":"validateScenario","hits":["advanced.irmaaMagiTwoYearsBefore=-5","widened assumptions.fee=2.5"]}
+{"file":"audit-s5aa-r54-restore-keeps-all.test.js","route":"app","fn":"validateScenario","hits":["advanced.irmaaMagiTwoYearsBefore=-5","widened assumptions.fee=2.5"]}

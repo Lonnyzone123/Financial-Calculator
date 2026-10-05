@@ -1,0 +1,57 @@
+profile.endAge  110  errors=0  imported=true  saved=110  shown="110.0"  afterBlur=110  engine=ok
+employment.salary  -1000  errors=0  imported=true  saved=-1000  shown="-1000"  afterBlur=-1000  engine=ok
+employment.spouseSalary  -1000  errors=0  imported=true  saved=-1000  shown="-1000"  afterBlur=-1000  engine=ok
+employment.growth  35  errors=0  imported=true  saved=35  shown="35"  afterBlur=35  engine=ok
+assumptions.returnRate  25  errors=0  imported=true  saved=25  shown="25"  afterBlur=25  engine=ok
+assumptions.inflation  -1  errors=0  imported=true  saved=-1  shown="-1"  afterBlur=-1  engine=ok
+assumptions.fee  2.5  errors=0  imported=true  saved=2.5  shown="2.5"  afterBlur=2.5  engine=ok
+assumptions.runs  24  errors=0  imported=true  saved=24  shown="24"  afterBlur=24  engine=ok
+assumptions.seed  42.7  errors=0  imported=true  saved=42.7  shown="42.7"  afterBlur=42.7  engine=ok
+assumptions.volatility  -1  errors=0  imported=true  saved=-1  shown="-1"  afterBlur=-1  engine=ok
+retirement.spending  -100  errors=0  imported=true  saved=-100  shown="-100"  afterBlur=-100  engine=ok
+retirement.withdrawalRate  16  errors=0  imported=true  saved=16  shown="16"  afterBlur=16  engine=ok
+retirement.upperGuardrail  0.5  errors=0  imported=true  saved=0.5  shown="0.5"  afterBlur=0.5  engine=ok
+retirement.lowerGuardrail  0.5  errors=0  imported=true  saved=0.5  shown="0.5"  afterBlur=0.5  engine=ok
+retirement.adjustment  0.5  errors=0  imported=true  saved=0.5  shown="0.5"  afterBlur=0.5  engine=ok
+retirement.floor  -1  errors=0  imported=true  saved=-1  shown="-1"  afterBlur=-1  engine=ok
+retirement.ceiling  -1  errors=0  imported=true  saved=-1  shown="-1"  afterBlur=-1  engine=ok
+retirement.dividendYield  21  errors=0  imported=true  saved=21  shown="21"  afterBlur=21  engine=ok
+retirement.dividendQualified  120  errors=0  imported=true  saved=120  shown="120"  afterBlur=120  engine=ok
+retirement.dividendGrowth  25  errors=0  imported=true  saved=25  shown="25"  afterBlur=25  engine=ok
+retirement.ssBenefit  -1  errors=0  imported=true  saved=-1  shown="-1"  afterBlur=-1  engine=ok
+retirement.spouseSS  -1  errors=0  imported=true  saved=-1  shown="-1"  afterBlur=-1  engine=ok
+retirement.pensionCola  12  errors=0  imported=true  saved=12  shown="12"  afterBlur=12  engine=ok
+retirement.flexibility  60  errors=0  imported=true  saved=60  shown="60"  afterBlur=60  engine=ok
+retirement.vpwMinRate  30  errors=0  imported=true  saved=30  shown="30"  afterBlur=30  engine=ok
+retirement.vpwMaxRate  120  errors=0  imported=true  saved=120  shown="120"  afterBlur=120  engine=ok
+retirement.rmdMultiplier  250  errors=0  imported=true  saved=250  shown="250"  afterBlur=250  engine=ok
+retirement.rmdFloor  -1  errors=0  imported=true  saved=-1  shown="-1"  afterBlur=-1  engine=ok
+retirement.ssCola  20  errors=0  imported=true  saved=20  shown="20"  afterBlur=20  engine=ok
+retirement.survivorSpendingReduction  75  errors=0  imported=true  saved=75  shown="75"  afterBlur=75  engine=ok
+advanced.correlation  1.5  errors=0  imported=true  saved=1.5  shown="1.5"  afterBlur=1.5  engine=ok
+advanced.reserveYears  12  errors=0  imported=true  saved=12  shown="12.0"  afterBlur=12  engine=ok
+advanced.healthInflation  -2  errors=0  imported=true  saved=-2  shown="-2"  afterBlur=-2  engine=ok
+advanced.medicareInflation  -99.5  errors=0  imported=true  saved=-99.5  shown="-99.5"  afterBlur=-99.5  engine=ok
+advanced.partDPremium  150000  errors=0  imported=true  saved=150000  shown="150000"  afterBlur=150000  engine=ok
+profile.priorIncomeThisYear  2000000000  errors=0  imported=true  saved=2000000000  shown="2000000000"  afterBlur=2000000000  engine=ok
+profile.rothFirstContributionYear  2015.5  errors=0  imported=true  saved=2015.5  shown="2015.5"  afterBlur=2015.5  engine=ok
+advanced.ltcYears  2.5  errors=0  imported=true  saved=2.5  shown="2.5"  afterBlur=2.5  engine=ok
+name  ""  errors=0  imported=true  saved="Scenario 1"  shown=""  afterBlur="Scenario 1"  engine=ok
+retirement.ssFra  60  errors=0  imported=true  saved=60  shown=undefined  afterBlur=undefined  engine=ok
+retirement.pensionStart  67  errors=0  imported=true  saved=67  shown=undefined  afterBlur=undefined  engine=ok
+retirement.pensionAge  65  errors=0  imported=true  saved=65  shown=undefined  afterBlur=undefined  engine=ok
+profile.zzUnlisted  "x"  errors=0  imported=true  saved="x"  shown=undefined  afterBlur=undefined  engine=ok
+employment.zzUnlisted  "x"  errors=0  imported=true  saved="x"  shown=undefined  afterBlur=undefined  engine=ok
+assumptions.zzUnlisted  "x"  errors=0  imported=true  saved="x"  shown=undefined  afterBlur=undefined  engine=ok
+retirement.zzUnlisted  "x"  errors=0  imported=true  saved="x"  shown=undefined  afterBlur=undefined  engine=ok
+advanced.irmaaMagiTwoYearsBefore  -5  errors=1  imported=false  saved="(absent)"  shown=""  afterBlur=undefined  engine=undefined
+select v2-filing: {"options":3,"accepted":3,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-method: {"options":3,"accepted":3,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-withdrawal-order: {"options":2,"accepted":2,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-strategy: {"options":9,"accepted":9,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-state: {"options":1,"accepted":1,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-withdrawal-timing: {"options":3,"accepted":3,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-limit-policy: {"options":3,"accepted":3,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-optimization-goal: {"options":5,"accepted":5,"acceptedNotListed":[],"listedNotAccepted":[]}
+select v2-history-start: {"options":98,"accepted":98,"acceptedNotListed":[],"listedNotAccepted":[]}
+exit 0
