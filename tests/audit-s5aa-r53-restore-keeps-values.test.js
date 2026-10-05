@@ -188,9 +188,13 @@ test('R53 (control): an edited field still rounds to the half year and clamps as
     // The date typed as 45.3 rounds to the form's half year, 45.5.
     await edit(s, 'v2-transfer-age', '45.3', (q) => q.advanced.transferAge !== 45.75);
     await eq(t, s.saved().advanced.transferAge, 45.5, 'an edited date rounds');
-    // The retirement age typed as 47.3 rounds to 47.5, and the end age (46, untouched) is raised to it, as before.
+    // The retirement age typed as 47.3 rounds to 47.5. S5AA R54 (the owner's decision of 2026-10-04, "own field only"): the end age (46,
+    // untouched) is no longer raised to it; the plan is refused (an end age before the retirement age) and the status line says so.
+    // (Before R54: the end age was raised to 47.5.)
     await edit(s, 'v2-retire', '47.3', (q) => q.profile.retireAge === 47.5);
-    await eq(t, s.saved().profile.endAge, 47.5, 'the end age is raised to an edited retirement age');
+    await eq(t, s.saved().profile.endAge, 46, 'the end age is not raised to an edited retirement age');
+    await eq(t, engine.runPlan(structuredClone(s.saved())).calculationErrorCode, 'SCENARIO_END_AGE_BEFORE_RETIREMENT', 'the plan is refused');
+    await t.test('the status line names the refusal', () => waitFor(() => /ending age is before the retirement age/.test(s.d.getElementById('v2-status').textContent), { window: s.w, timeoutMs: 20000 }));
     // The retirement age typed below the age (45) is raised to the age.
     await edit(s, 'v2-retire', '40', (q) => q.profile.retireAge !== 47.5);
     await eq(t, s.saved().profile.retireAge, 45, 'an edited retirement age is clamped to the age');
