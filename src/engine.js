@@ -5848,7 +5848,10 @@ if(p.retirement&&p.retirement.survivor&&p.profile&&p.profile.spouseOn){recordIss
 var ENGINE_VERSION="1.0.0";
 var SCENARIO_SCHEMA_VERSION=1;
 var RESULT_SCHEMA_VERSION=1;
-function generateScenarioId(){return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10)}
+/* S5AA R54: the random part comes from crypto.getRandomValues(), not Math.random(), for the reason given at the app's uid(): the app now
+   validates its own plan, and CodeQL followed a Math.random() scenario id into the validator. A scenario id is a label, unique within one
+   browser's scenarios; where no crypto exists, a per-function counter stands in. Eight base-36 characters after the time, as before. */
+function generateScenarioId(){var g=typeof crypto!=="undefined"&&crypto&&typeof crypto.getRandomValues==="function",a=g?crypto.getRandomValues(new Uint32Array(2)):[(generateScenarioId.n=(generateScenarioId.n||0)+1),0];return Date.now().toString(36)+"-"+(("0000000"+a[0].toString(36)).slice(-7)+a[1].toString(36)).slice(0,8)}
 /* CQ-6 R6 (S5 2n.4): buildSimulationIdentity() hashes the whole plan with
    this, including values clone()'s three arrays never see. Two of them stopped
    it: a cycle recursed until the stack overflowed, and JSON.stringify() refuses

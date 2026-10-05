@@ -1211,7 +1211,7 @@
     "src/engine.js:1678",
     "src/engine.js:1957",
     "src/engine.js:2829",
-    "src/engine.js:5852"
+    "src/engine.js:5855"
    ],
    "summary": "R2R-001 round 2: the PUBLIC execution boundary half of the same repair. quoteTaxFunding()'s entry guard cannot see a malformed balance that never reaches it: simulatePlan() starts with clone(), which ",
    "guard": {
@@ -2125,7 +2125,7 @@
     "src/engine.js:1527",
     "src/engine.js:1544",
     "src/engine.js:5365",
-    "src/engine.js:5935"
+    "src/engine.js:5938"
    ],
    "summary": "S5AA 1.1, Q100: a debt rate that is not a usable number was coerced by Number(d.rate)||0 to ZERO, so a debt the validator refuses as WRONG_TYPE ran to completion charging NO INTEREST -- $50,518 of lif",
    "guard": {
@@ -2558,8 +2558,8 @@
    "family": "Q",
    "sites": [
     "src/engine.js:1678",
-    "src/engine.js:5852",
-    "src/engine.js:5921"
+    "src/engine.js:5855",
+    "src/engine.js:5924"
    ],
    "summary": "Q48: the one input class the finiteness gate above cannot see, because it fails INSIDE clone() rather than after it. simulatePlan() opens with clone(p.accounts), clone(p.advanced.otherAssets) and clon",
    "guard": {
@@ -5695,7 +5695,7 @@
     "src/engine.js:4655",
     "src/engine.js:4719",
     "src/engine.js:5030",
-    "src/engine.js:5953"
+    "src/engine.js:5956"
    ],
    "summary": "RC-01: the pretax dollars a conversion-like move may take THIS row -- the balance on hand, less what the year's required distribution is owed. Two paths can drain the pretax class before the RMD withd",
    "guard": {
@@ -5854,7 +5854,7 @@
     "src/engine.js:5399",
     "src/engine.js:5406",
     "src/engine.js:5492",
-    "src/engine.js:5932"
+    "src/engine.js:5935"
    ],
    "summary": "S5R-01: the simulation and, since the execution snapshot, every reader see this text. JSON writes NaN and +-Infinity as null, so a non-finite number the named checks above do not cover (an account's a",
    "guard": {
@@ -7228,7 +7228,7 @@
    "id": "SA32F-55",
    "family": "SA32F",
    "sites": [
-    "src/engine.js:5868"
+    "src/engine.js:5871"
    ],
    "summary": "S5AA R37 (SA32F-55): hash what JSON would keep -- an undefined (or function) value drops its key and becomes null in a list -- so an accepted input hashes the same before and after a JSON round trip. ",
    "guard": {

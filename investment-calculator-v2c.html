@@ -7562,7 +7562,10 @@ if(p.retirement&&p.retirement.survivor&&p.profile&&p.profile.spouseOn){recordIss
 var ENGINE_VERSION="1.0.0";
 var SCENARIO_SCHEMA_VERSION=1;
 var RESULT_SCHEMA_VERSION=1;
-function generateScenarioId(){return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10)}
+/* S5AA R54: the random part comes from crypto.getRandomValues(), not Math.random(), for the reason given at the app's uid(): the app now
+   validates its own plan, and CodeQL followed a Math.random() scenario id into the validator. A scenario id is a label, unique within one
+   browser's scenarios; where no crypto exists, a per-function counter stands in. Eight base-36 characters after the time, as before. */
+function generateScenarioId(){var g=typeof crypto!=="undefined"&&crypto&&typeof crypto.getRandomValues==="function",a=g?crypto.getRandomValues(new Uint32Array(2)):[(generateScenarioId.n=(generateScenarioId.n||0)+1),0];return Date.now().toString(36)+"-"+(("0000000"+a[0].toString(36)).slice(-7)+a[1].toString(36)).slice(0,8)}
 /* CQ-6 R6 (S5 2n.4): buildSimulationIdentity() hashes the whole plan with
    this, including values clone()'s three arrays never see. Two of them stopped
    it: a cycle recursed until the stack overflowed, and JSON.stringify() refuses
@@ -9352,7 +9355,10 @@ function validateRawContainers(plan) {
     var MANUAL_ORDER_NAMES={taxable:"Taxable",preTax:"Traditional",roth:"Roth",hsa:"HSA"};
     function showManualOrder(order){var sel=$("v2-manual-order");Array.from(sel.querySelectorAll("option[data-kept]")).forEach(function(o){o.remove()});if(typeof order==="string"&&order!==""&&!Array.from(sel.options).some(function(o){return o.value===order})){var o=document.createElement("option");o.value=order;o.dataset.kept="true";o.textContent=order.split(",").map(function(c){return MANUAL_ORDER_NAMES[c]||c}).join(", ")+" (from the restored plan)";sel.appendChild(o)}sel.value=order}
     function num(id,f){var e=$(id),v=Number(e.value);return e.value!==""&&Number.isFinite(v)?v:f}
-    function uid(prefix){return prefix+"_"+Math.random().toString(36).slice(2,9)}
+    /* S5AA R54: an id is drawn from crypto.getRandomValues(), not Math.random(). Since R54 the app validates its own plan, so CodeQL followed
+       these ids into the validator's account-identity checks and flagged Math.random() as insecure randomness there. Ids only need to be
+       unique within a plan; where no crypto exists (a bare vm sandbox in a test), a per-function counter stands in. Seven base-36 characters, as before. */
+    function uid(prefix){var n=typeof crypto!=="undefined"&&crypto&&typeof crypto.getRandomValues==="function"?crypto.getRandomValues(new Uint32Array(1))[0]:(uid.n=(uid.n||0)+1);return prefix+"_"+("0000000"+n.toString(36)).slice(-7)}
     function setUnit(input,unit){input.dataset.unit=unit;return input}
     function unitNode(input){var unit=input.dataset.unit;if(!unit)return input;var wrap=document.createElement("span"),token=document.createElement("span");wrap.className="v2-unit "+(unit==="$"?"v2-unit-prefix":"v2-unit-suffix");token.className="v2-unit-token";token.textContent=unit;wrap.appendChild(input);if(unit==="$")wrap.insertBefore(token,input);else wrap.appendChild(token);return wrap}
     function protectNumberInput(input){if(!input||input.type!=="number"||input.dataset.protected)return input;input.dataset.protected="true";input.dataset.last=input.value||"0";input.inputMode="decimal";input.autocomplete="off";input.enterKeyHint="done";input.addEventListener("input",function(){if(this.value!==""&&Number.isFinite(Number(this.value)))this.dataset.last=this.value});input.addEventListener("blur",function(){/* S5AA R53: focusing and leaving a field is not an edit */if(this._v2Loaded&&!this._v2Edited&&this.value===this._v2Loaded.shown)return;var before=this.value;if(before===""||!Number.isFinite(Number(before)))this.value=this.dataset.last||this.min||"0";var value=Number(this.value),minimum=this.min===""?-Infinity:Number(this.min),maximum=this.max===""?Infinity:Number(this.max);value=clamp(value,minimum,maximum);if(this.dataset.unit==="yr")value=half(value);this.value=this.dataset.unit==="yr"?value.toFixed(1):String(value);this.dataset.last=this.value;if(this.value!==before){this.dispatchEvent(new Event("input",{bubbles:true}));this.dispatchEvent(new Event("change",{bubbles:true}))}});return input}
