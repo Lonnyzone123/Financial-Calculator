@@ -25,8 +25,11 @@ R53 started, so R54 is wider than the finding.
 - **Your R53 companion** now gives 20/20, the grid 400/800 and the hunt 4/4, and exits 0. Your three earlier companions, run under
   the R53 adapter, are identical check for check.
 - **The corpus does not move.** The expanded capture equals r30, so r30 stands.
+- **One repair after the first tag:** CodeQL flagged the app's plan ids, which came from `Math.random()` and now reach the
+  validator. Ids are now drawn from `crypto.getRandomValues()`; they reach no projection. That is why the audit target is
+  `s5aa-r54.1-source`: `s5aa-r54-source` plus this one repair, with a records-only commit between them (handover §9).
 
-Please audit the change from main `b82f25f` to `s5aa-r54-source` (`f704638`). Please rule on R53-01 and on the further decisions in
+Please audit the change from main `b82f25f` to `s5aa-r54.1-source` (`4f0ec49`). Please rule on R53-01 and on the further decisions in
 handover §2. Number any new findings **R54-NN**, and determine S5AA's status against E1 to E18 as amended by A-01 to A-11, with GO or
 NO-GO on the first line.
 

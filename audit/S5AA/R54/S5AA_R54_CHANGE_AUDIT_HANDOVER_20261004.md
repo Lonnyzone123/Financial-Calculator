@@ -6,7 +6,9 @@ evidence.*
 
 ## 1. What is asked
 
-Audit R54's change from main `b82f25f` (your R53 report merged) to `s5aa-r54-source` (`f704638`, once the owner approves the tag).
+Audit R54's change from main `b82f25f` (your R53 report merged) to `s5aa-r54.1-source` (`4f0ec49`). That is `s5aa-r54-source`
+(`f704638`) plus one repair made after the PR's CodeQL check, described in §9. The records commit `0c9acd4` sits between them and
+changes no source.
 - Rule on R53-01: repaired, or not.
 - Rule on the owner's three further decisions (§2), which widen the scope beyond the finding.
 - Number any new findings **R54-NN**.
@@ -148,3 +150,23 @@ the committed file and the pin in `tests/lib/harness.js`.
 - **D7:** some engine clamps are now unreachable through `runPlan()`; the code stays.
 - **D8:** ranges the form applies only on blur are not rules (return, inflation, salary growth, pension COLA, reserve years).
 - **Still open from R53:** the import's shared refusal prefix ("a structural problem that would break the projection").
+
+## 9. After the first tag: the CodeQL repair (`4f0ec49`, tag `s5aa-r54.1-source`)
+
+The PR's CodeQL check failed with 13 high `js/insecure-randomness` alerts, all in the built artifact, all inside the inlined
+validator (`validateAccountIdentity`, `validateAccount` and the profile reads around them).
+
+- **Cause:** R54 item 2 has the app call `validateScenario()` on its own plan. That plan's account ids come from the app's `uid()` and
+  its scenario id from the engine's `generateScenarioId()`, both `Math.random()`, so CodeQL followed them into the account-identity
+  checks.
+- **Repair:** both now draw from `crypto.getRandomValues()`, with the same lengths as before (seven and eight base-36 characters).
+  Where no `crypto` exists (a bare `vm` sandbox in two tests), a per-function counter stands in, not `Math.random()`. The engine's
+  `runId` (a provenance hash) still uses `Math.random()`; CodeQL did not flag it.
+- **Effect:** ids are labels and reach no projection.
+  - The expanded capture at `4f0ec49` equals r30 (71/71).
+  - The artifact is rebuilt (two builds agreed) and the pin moves from `e13e0f74…` to `659b72c3…`.
+  - The requirements register only moves three engine line numbers by +3.
+- **Gate at `4f0ec49`:** 4,120 tests, 4,111 pass, 0 fail, 9 authorized todos; closeout 12/0/0. The tests that exercise ids and the
+  sandbox (simulation-identity, audit-zero-fields, schema-catalogue, the registers) pass 61/61.
+- **Not rerun at `4f0ec49`:** the browser check and the companions. §4 and §7 were measured at `f704638`; the repair touches only
+  id generation.
