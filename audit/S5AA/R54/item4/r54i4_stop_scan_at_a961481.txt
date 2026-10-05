@@ -1,0 +1,11 @@
+== control (36): seed/MAGI refusals 0; inside the widened range only 0
+== expanded (71): seed/MAGI refusals 0; inside the widened range only 0
+== defaultPlan: no seed/MAGI refusal (seed 42791)
+== golden definitions (5): 0
+== generator seeds 1-5000: seed/MAGI refusals 0; inside the widened range only 0; seed kinds number:int
+== tests/fixtures: 0
+== R40 grid (3,000): 0
+== companion r54_r46_r51_sims_at_33a5b59.json: 0
+== companion r54_r51f_probes_at_33a5b59.json: 0
+== companion r54_r52_boundary_at_33a5b59.json: 0
+== companion r54_r53_focused_at_33a5b59.json: 0

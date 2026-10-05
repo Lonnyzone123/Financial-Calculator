@@ -1,0 +1,758 @@
+▶ R54 item 4: each widened range accepts its new edge and refuses the value just past it, in both layers
+  ✖ assumptions.fee = 5: no ERROR at its path (8.5825ms)
+  ✖ assumptions.fee = 5: projected (4.9756ms)
+  ✔ assumptions.fee = 5.01: the validator refuses it (1.1601ms)
+  ✔ assumptions.fee = 5.01: the engine refuses it (0.8929ms)
+  ✖ retirement.withdrawalRate = 25: no ERROR at its path (0.8721ms)
+  ✖ retirement.withdrawalRate = 25: projected (1.1023ms)
+  ✔ retirement.withdrawalRate = 25.01: the validator refuses it (0.9872ms)
+  ✔ retirement.withdrawalRate = 25.01: the engine refuses it (0.9161ms)
+  ✖ retirement.adjustment = 0: no ERROR at its path (1.2363ms)
+  ✖ retirement.adjustment = 0: projected (1.0147ms)
+  ✔ retirement.adjustment = -0.01: the validator refuses it (0.6163ms)
+  ✔ retirement.adjustment = -0.01: the engine refuses it (0.5793ms)
+  ✖ retirement.dividendGrowth = -50: no ERROR at its path (0.7708ms)
+  ✖ retirement.dividendGrowth = -50: projected (0.7373ms)
+  ✔ retirement.dividendGrowth = -50.01: the validator refuses it (0.4791ms)
+  ✔ retirement.dividendGrowth = -50.01: the engine refuses it (0.5562ms)
+  ✖ retirement.survivorSpendingReduction = 75: no ERROR at its path (0.8781ms)
+  ✖ retirement.survivorSpendingReduction = 75: projected (0.8116ms)
+  ✔ retirement.survivorSpendingReduction = 75.01: the validator refuses it (0.5546ms)
+  ✔ retirement.survivorSpendingReduction = 75.01: the engine refuses it (0.5617ms)
+✖ R54 item 4: each widened range accepts its new edge and refuses the value just past it, in both layers (35.5377ms)
+✖ R54 item 4: the widened values are used as entered downstream (1.2468ms)
+▶ R54 item 4: through the form, an edited field reaches its new edge and is clamped to it past it
+  ✖ v2-fee typed 5: saved 5 (0.7579ms)
+  ✖ v2-fee typed 5.01: saved 5 (0.8786ms)
+  ✖ v2-withdrawal-rate typed 25: saved 25 (0.5527ms)
+  ✖ v2-withdrawal-rate typed 25.01: saved 25 (0.5603ms)
+  ✖ v2-adjustment typed 0: saved 0 (0.6724ms)
+  ✖ v2-adjustment typed -0.01: saved 0 (0.8439ms)
+  ✖ v2-dividend-growth typed -50: saved -50 (0.5815ms)
+  ✖ v2-dividend-growth typed -50.01: saved -50 (0.8966ms)
+  ✖ v2-survivor-spending-reduction typed 75: saved 75 (0.496ms)
+  ✖ v2-survivor-spending-reduction typed 75.01: saved 75 (0.7528ms)
+✖ R54 item 4: through the form, an edited field reaches its new edge and is clamped to it past it (10946.0697ms)
+▶ R54 item 4: an entered seed must be a whole number of at least 1; an absent seed keeps the engine's fallback
+  ✖ seed 0: the validator refuses it (1.5467ms)
+  ✖ seed 0: the engine refuses it (30.4173ms)
+  ✖ seed 1.5: the validator refuses it (0.7336ms)
+  ✖ seed 1.5: the engine refuses it (5.9647ms)
+  ✖ seed -3: the validator refuses it (0.7314ms)
+  ✖ seed -3: the engine refuses it (6.176ms)
+  ✔ seed 1: accepted and projected (5.296ms)
+  ✔ an absent seed: accepted and projected (the engine falls back to 0) (4.7181ms)
+✖ R54 item 4: an entered seed must be a whole number of at least 1; an absent seed keeps the engine's fallback (57.6434ms)
+▶ R54 item 4: a negative prior-year MAGI is refused by the engine as by the validator; null, absent and 0 are accepted
+  ✔ irmaaMagiTwoYearsBefore = -5: the validator refuses it (0.6255ms)
+  ✖ irmaaMagiTwoYearsBefore = -5: the engine refuses it (1.3526ms)
+  ✔ irmaaMagiTwoYearsBefore = null: accepted by both (1.4569ms)
+  ✔ irmaaMagiTwoYearsBefore = undefined: accepted by both (1.4295ms)
+  ✔ irmaaMagiTwoYearsBefore = 0: accepted by both (1.7792ms)
+  ✔ irmaaMagiOneYearBefore = -5: the validator refuses it (0.4672ms)
+  ✖ irmaaMagiOneYearBefore = -5: the engine refuses it (1.5804ms)
+  ✔ irmaaMagiOneYearBefore = null: accepted by both (1.2892ms)
+  ✔ irmaaMagiOneYearBefore = undefined: accepted by both (1.2378ms)
+  ✔ irmaaMagiOneYearBefore = 0: accepted by both (1.2709ms)
+✖ R54 item 4: a negative prior-year MAGI is refused by the engine as by the validator; null, absent and 0 are accepted (14.8076ms)
+ℹ tests 53
+ℹ suites 0
+ℹ pass 20
+ℹ fail 33
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12528.1594
+
+✖ failing tests:
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13
+✖ assumptions.fee = 5: no ERROR at its path (8.5825ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'OUT_OF_RANGE'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'OUT_OF_RANGE' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13
+✖ assumptions.fee = 5: projected (4.9756ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  - null
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13
+✖ retirement.withdrawalRate = 25: no ERROR at its path (0.8721ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'OUT_OF_RANGE'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'OUT_OF_RANGE' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13
+✖ retirement.withdrawalRate = 25: projected (1.1023ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  - null
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13
+✖ retirement.adjustment = 0: no ERROR at its path (1.2363ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'OUT_OF_RANGE'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'OUT_OF_RANGE' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13
+✖ retirement.adjustment = 0: projected (1.0147ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  - null
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13
+✖ retirement.dividendGrowth = -50: no ERROR at its path (0.7708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'OUT_OF_RANGE'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'OUT_OF_RANGE' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13
+✖ retirement.dividendGrowth = -50: projected (0.7373ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  - null
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13
+✖ retirement.survivorSpendingReduction = 75: no ERROR at its path (0.8781ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'OUT_OF_RANGE'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:76)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:48:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'OUT_OF_RANGE' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13
+✖ retirement.survivorSpendingReduction = 75: projected (0.8116ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  - null
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:65)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:49:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:56:1
+✖ R54 item 4: the widened values are used as entered downstream (1.2468ms)
+  AssertionError [ERR_ASSERTION]: row 61
+      at at (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:32:105)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:58:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-fee typed 5: saved 5 (0.7579ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 5
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 5,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-fee typed 5.01: saved 5 (0.8786ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 5
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 5,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-withdrawal-rate typed 25: saved 25 (0.5527ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  15 !== 25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 15,
+    expected: 25,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-withdrawal-rate typed 25.01: saved 25 (0.5603ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  15 !== 25
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 15,
+    expected: 25,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-adjustment typed 0: saved 0 (0.6724ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-adjustment typed -0.01: saved 0 (0.8439ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-dividend-growth typed -50: saved -50 (0.5815ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  -20 !== -50
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: -20,
+    expected: -50,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-dividend-growth typed -50.01: saved -50 (0.8966ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  -20 !== -50
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: -20,
+    expected: -50,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-survivor-spending-reduction typed 75: saved 75 (0.496ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  50 !== 75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 50,
+    expected: 75,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17
+✖ v2-survivor-spending-reduction typed 75.01: saved 75 (0.7528ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  50 !== 75
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:87)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:98:17)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 50,
+    expected: 75,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:13
+✖ seed 0: the validator refuses it (1.5467ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:13
+✖ seed 0: the engine refuses it (30.4173ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:75)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:13
+✖ seed 1.5: the validator refuses it (0.7336ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:13
+✖ seed 1.5: the engine refuses it (5.9647ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:75)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:13
+✖ seed -3: the validator refuses it (0.7314ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + []
+  - [
+  -   'OUT_OF_RANGE'
+  - ]
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:78)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:108:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ 'OUT_OF_RANGE' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:13
+✖ seed -3: the engine refuses it (6.176ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:75)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:109:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_PLAN_VALUE_OUT_OF_RANGE',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:122:13
+✖ irmaaMagiTwoYearsBefore = -5: the engine refuses it (1.3526ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_NEGATIVE_PRIOR_MAGI'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:122:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:122:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_NEGATIVE_PRIOR_MAGI',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:122:13
+✖ irmaaMagiOneYearBefore = -5: the engine refuses it (1.5804ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + null
+  - 'SCENARIO_NEGATIVE_PRIOR_MAGI'
+  
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:122:67)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at TestContext.test (node:internal/test_runner/test:380:20)
+      at TestContext.<anonymous> (C:\fc-wt-r54\tests\audit-s5aa-r54-widened-ranges-seed-magi.test.js:122:13)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 'SCENARIO_NEGATIVE_PRIOR_MAGI',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
